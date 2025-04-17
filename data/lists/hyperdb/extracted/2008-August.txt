@@ -1,0 +1,152 @@
+From Wouter.Westendorp at ilsemedia.nl  Tue Aug  5 15:42:40 2008
+From: Wouter.Westendorp at ilsemedia.nl (Wouter Westendorp)
+Date: Tue Aug  5 15:42:56 2008
+Subject: [HyperDB] Using mysql replication
+Message-ID: <870942C1BB2F99459DC8C5051468EEE40AC2C9CE@ILSEW2K3-MAIL.ilse.media>
+
+Hello,
+ 
+We're trying to set up master / slave replication using HyperDB where
+the reads should go to the slave and writes to the master.
+ 
+Here it fails. Since HyperDB does a SET NAMES UTF-8 query in the
+constructor, it connects to the master, which means all following
+queries are sent to the master too.
+ 
+We use the following settings in db-settings.php:
+ 
+add_db_server('global', 0, '', 0, true, '192.168.210.4:3306',
+'192.168.210.4:3306', 'xx', 'xxx', 'xxx'); // master
+add_db_server('global', 0, '', 1, false, '192.168.210.7:3306',
+'192.168.210.7:3306', 'xx', 'xxx', 'xxx'); // slave
+ 
+Does anyone have experience with this kind of set up?
+ 
+If I comment the SET NAMES query it works fine.
+ 
+Thanks in advance,
+ 
+    Wouter Westendorp
+From skeltoac at gmail.com  Wed Aug  6 16:51:48 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed Aug  6 16:51:55 2008
+Subject: [HyperDB] Using mysql replication
+In-Reply-To: <870942C1BB2F99459DC8C5051468EEE40AC2C9CE@ILSEW2K3-MAIL.ilse.media>
+References: <870942C1BB2F99459DC8C5051468EEE40AC2C9CE@ILSEW2K3-MAIL.ilse.media>
+Message-ID: <e6ec604d0808060951l26f55abt3e57ac6fa4b8b083@mail.gmail.com>
+
+On Tue, Aug 5, 2008 at 10:42 AM, Wouter Westendorp
+<Wouter.Westendorp@ilsemedia.nl> wrote:
+> Here it fails. Since HyperDB does a SET NAMES UTF-8 query in the
+> constructor, it connects to the master, which means all following
+> queries are sent to the master too.
+
+SET NAMES is now in db_connect. Update HyperDB to the latest version.
+Check the installation instructions for changes since your version was
+installed.
+
+Cheers,
+Andy
+From Wouter.Westendorp at ilsemedia.nl  Thu Aug  7 09:30:34 2008
+From: Wouter.Westendorp at ilsemedia.nl (Wouter Westendorp)
+Date: Thu Aug  7 09:30:56 2008
+Subject: [HyperDB] Using mysql replication
+In-Reply-To: <e6ec604d0808060951l26f55abt3e57ac6fa4b8b083@mail.gmail.com>
+Message-ID: <870942C1BB2F99459DC8C5051468EEE40ACC171A@ILSEW2K3-MAIL.ilse.media>
+
+Hi Andy,
+
+Thanks for your reply.
+
+We're now using the latest version of HyperDB with WordPress 2.2. That
+works fine.
+
+However, the current implementation does a mysql_select_db / Init DB for
+each query @ r. 455-456.
+
+If we strip these checks from the if statement, everything still works
+as expected.
+ 
+Is there any reason to keep this in the code?
+
+Thanks in advance,
+
+	Wouter Westendorp
+
+-----Oorspronkelijk bericht-----
+Van: hyperdb-bounces@lists.automattic.com
+[mailto:hyperdb-bounces@lists.automattic.com] Namens Andy Skelton
+Verzonden: woensdag 6 augustus 2008 18:52
+Aan: hyperdb@lists.automattic.com
+Onderwerp: Re: [HyperDB] Using mysql replication
+
+On Tue, Aug 5, 2008 at 10:42 AM, Wouter Westendorp
+<Wouter.Westendorp@ilsemedia.nl> wrote:
+> Here it fails. Since HyperDB does a SET NAMES UTF-8 query in the 
+> constructor, it connects to the master, which means all following 
+> queries are sent to the master too.
+
+SET NAMES is now in db_connect. Update HyperDB to the latest version.
+Check the installation instructions for changes since your version was
+installed.
+
+Cheers,
+Andy
+_______________________________________________
+HyperDB mailing list
+HyperDB@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/hyperdb
+From skeltoac at gmail.com  Thu Aug  7 13:41:59 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Aug  7 14:15:34 2008
+Subject: [HyperDB] Using mysql replication
+In-Reply-To: <870942C1BB2F99459DC8C5051468EEE40ACC171A@ILSEW2K3-MAIL.ilse.media>
+References: <e6ec604d0808060951l26f55abt3e57ac6fa4b8b083@mail.gmail.com>
+	<870942C1BB2F99459DC8C5051468EEE40ACC171A@ILSEW2K3-MAIL.ilse.media>
+Message-ID: <e6ec604d0808070641q589dddd2tedd12da3a36e8901@mail.gmail.com>
+
+On Thu, Aug 7, 2008 at 4:30 AM, Wouter Westendorp
+<Wouter.Westendorp@ilsemedia.nl> wrote:
+> However, the current implementation does a mysql_select_db / Init DB for
+> each query @ r. 455-456.
+>
+> If we strip these checks from the if statement, everything still works
+> as expected.
+>
+> Is there any reason to keep this in the code?
+
+That logic was added because PHP reuses connections defined by
+host+user+pass. If you have more than one database on a host, when you
+reuse the connection without selecting the database you risk using the
+wrong database (fixed in line 455). I also seem to remember times when
+the connection was available to be reused but the database had become
+unselected due to a timeout (456).
+
+I know that these are not typical cases but they caused problems on
+WordPress.com. Have you found the mysql_select_db statements to be a
+big performance hit? How big?
+
+Andy
+From ulyssesr at yahoo.com  Mon Aug 18 06:25:45 2008
+From: ulyssesr at yahoo.com (Ulysses Ronquillo)
+Date: Mon Aug 18 06:25:57 2008
+Subject: [HyperDB] Ulysses Ronquillo has invited you to join Friendster
+Message-ID: <70qaj1$173sbjf@c300a.gbxsc.friendster.com>
+
+You're invited to join Ulysses Ronquillo's network of friends. 
+
+By joining Friendster, you can reconnect with old
+friends, meet new friends, start a blog, build a custom
+profile, keep track of birthdays, and so
+much more!
+
+You can even stay in touch if you move away, switch
+email addresses, or lose your mobile phone.
+
+Click below to join Ulysses's network.
+
+http://www.friendster.com/join.php?inviteref=35115088&amp;invite=igE980T6ewbN1E75YlQGmXk19cSjRO0wdRAeBHdCLxg*&amp;lang=
+
+*****************************************************************
+If you do not wish to receive notification emails from Friendster, please click below:
+http://www.friendster.com/blockemails.php?invite=aHlwZXJkYkBsaXN0cy5hdXRvbWF0dGljLmNvbQ**

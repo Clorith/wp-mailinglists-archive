@@ -1,0 +1,350 @@
+From blackreaper.br at gmail.com  Thu Nov  3 13:29:11 2016
+From: blackreaper.br at gmail.com (Ariful Islam)
+Date: Thu, 3 Nov 2016 19:29:11 +0600
+Subject: [HyperDB] Question
+Message-ID: <CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com>
+
+I don't fine any tutorial about this plugin...
+I want to create many databases and balance the load how can i do it with
+hyperdb
+
+From hyperdb at thecodecave.com  Thu Nov  3 17:11:21 2016
+From: hyperdb at thecodecave.com (Brian Layman)
+Date: Thu, 3 Nov 2016 13:11:21 -0400
+Subject: [HyperDB] Question
+In-Reply-To: <CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com>
+References: <CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com>
+Message-ID: <aefc692c-45f5-8a19-37c1-dd53ed653a24@thecodecave.com>
+
+On 11/3/2016 9:29 AM, Ariful Islam wrote:
+> I don't fine any tutorial about this plugin...
+> I want to create many databases and balance the load how can i do it with
+> hyperdb
+Wow... I haven't seen a message come across this message board for a 
+long time. I had to re-configure my mail client so that I could reply!
+
+HyperDB will do what you want.  You must configure MySQL to handle the 
+replication, but HyperDB will allow your WordPress install to access 
+multiple databases.
+
+Here are to relatively recent tutorials to guide you through this process:
+1. 
+https://torbjornzetterlund.com/how-to-setup-a-mysql-replication-database-for-wordpress/
+2. 
+http://net-load.com/how-to-setup-mysql-database-master-and-slave-with-hyperdb-on-wordpress/
+
+Both of those articles, at a glance, seem to be fairly accurate and they 
+should do what you need.
+
+Here are some of my own tips for you:
+1. Only do this when it is proven that you need to do this. Don't 
+complicate your set up if you don't absolutely have proof that you have to.
+2. Before you switch to HyperDB, make certain that you have eliminated 
+any extra DB writes in your code. If you are writing to the database 
+when you don't need to be, eliminating that may solve all of your 
+database headaches.
+3. Make certain that once replication is configured, that all of your 
+slave database are receiving changes in a timely fashion.  One of the 
+worst things to debug is why some visitors to your site get one set of 
+data and others get another.
+4. If you also have multiple webheads, use a caching solution for page 
+caching and micro-caching that is accessible to all of your servers.  
+Allow the work on one server to be a benefit of all of your servers.
+5. Also if you have multiple webheads, beware of the use of state 
+conditions like sessions and transients that if not implemented 
+correctly could exist on one server, but not be carried over to others.
+
+That's my advice of the morning.  Hope that helps!
+Brian Layman
+eHermit
+
+From blackreaper.br at gmail.com  Mon Nov  7 06:15:45 2016
+From: blackreaper.br at gmail.com (Ariful Islam)
+Date: Mon, 7 Nov 2016 12:15:45 +0600
+Subject: [HyperDB] Question
+In-Reply-To: <aefc692c-45f5-8a19-37c1-dd53ed653a24@thecodecave.com>
+References: <CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com>
+ <aefc692c-45f5-8a19-37c1-dd53ed653a24@thecodecave.com>
+Message-ID: <CAEM3h5e=v_zrYv0NLUeSkWCOV8-kSkW9c0ttKfgZ-PDP6ay_cg@mail.gmail.com>
+
+Thank you for your replay... I don't have much knowledge about replication...
+I have to learn it then i can apply...  I am a student... I am still
+learning about wordpress... I am opening a website where we will open blog
+for my friends and classmate... we will have lot of blogs so I need to
+separate them in multiple database.. i will create the database manually..
+suppose i'll store 300 blogs for each database... my current database will
+keep getting new registration when it reach 300 blogs will move them in new
+database... when my current database get another 300 blogs ill move them
+another database... can i add one by one..? i mean when I need will add
+them and configure theme in db-config.php do you have any tutorial about it
+or any code suggestion..? can you suggest me how can i write the callback
+function that will determine which blog is in which database...!! Thanks
+
+On Thu, Nov 3, 2016 at 11:11 PM, Brian Layman <hyperdb at thecodecave.com>
+wrote:
+
+> On 11/3/2016 9:29 AM, Ariful Islam wrote:
+>
+>> I don't fine any tutorial about this plugin...
+>> I want to create many databases and balance the load how can i do it with
+>> hyperdb
+>>
+> Wow... I haven't seen a message come across this message board for a long
+> time. I had to re-configure my mail client so that I could reply!
+>
+> HyperDB will do what you want.  You must configure MySQL to handle the
+> replication, but HyperDB will allow your WordPress install to access
+> multiple databases.
+>
+> Here are to relatively recent tutorials to guide you through this process:
+> 1. https://torbjornzetterlund.com/how-to-setup-a-mysql-replicat
+> ion-database-for-wordpress/
+> 2. http://net-load.com/how-to-setup-mysql-database-master-and-
+> slave-with-hyperdb-on-wordpress/
+>
+> Both of those articles, at a glance, seem to be fairly accurate and they
+> should do what you need.
+>
+> Here are some of my own tips for you:
+> 1. Only do this when it is proven that you need to do this. Don't
+> complicate your set up if you don't absolutely have proof that you have to.
+> 2. Before you switch to HyperDB, make certain that you have eliminated any
+> extra DB writes in your code. If you are writing to the database when you
+> don't need to be, eliminating that may solve all of your database headaches.
+> 3. Make certain that once replication is configured, that all of your
+> slave database are receiving changes in a timely fashion.  One of the worst
+> things to debug is why some visitors to your site get one set of data and
+> others get another.
+> 4. If you also have multiple webheads, use a caching solution for page
+> caching and micro-caching that is accessible to all of your servers.  Allow
+> the work on one server to be a benefit of all of your servers.
+> 5. Also if you have multiple webheads, beware of the use of state
+> conditions like sessions and transients that if not implemented correctly
+> could exist on one server, but not be carried over to others.
+>
+> That's my advice of the morning.  Hope that helps!
+> Brian Layman
+> eHermit
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From lists.automattic.com at callum-macdonald.com  Mon Nov  7 10:19:24 2016
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Mon, 07 Nov 2016 11:19:24 +0100
+Subject: [HyperDB] Question
+In-Reply-To: <CAEM3h5e=v_zrYv0NLUeSkWCOV8-kSkW9c0ttKfgZ-PDP6ay_cg@mail.gmail.com>
+References: <CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com>
+ <aefc692c-45f5-8a19-37c1-dd53ed653a24@thecodecave.com>
+ <CAEM3h5e=v_zrYv0NLUeSkWCOV8-kSkW9c0ttKfgZ-PDP6ay_cg@mail.gmail.com>
+Message-ID: <1478513964.3404899.779657601.7F96A822@webmail.messagingengine.com>
+
+The number 1 rule of scalability is...
+
+don't fix problems you don't have
+
+My advice would be to run your blog system on a single database, and
+deal with separating it into multiple databases only if and when you
+actually have a performance problem. You might find that many other
+things are bigger issues along the way first.
+
+Cheers - Callum.
+
+
+On Mon, 7 Nov 2016, at 07:15 AM, Ariful Islam wrote:
+> Thank you for your replay... I don't have much knowledge about
+> replication...
+> I have to learn it then i can apply...  I am a student... I am still
+> learning about wordpress... I am opening a website where we will open
+> blog
+> for my friends and classmate... we will have lot of blogs so I need to
+> separate them in multiple database.. i will create the database
+> manually..
+> suppose i'll store 300 blogs for each database... my current database
+> will
+> keep getting new registration when it reach 300 blogs will move them in
+> new
+> database... when my current database get another 300 blogs ill move them
+> another database... can i add one by one..? i mean when I need will add
+> them and configure theme in db-config.php do you have any tutorial about
+> it
+> or any code suggestion..? can you suggest me how can i write the callback
+> function that will determine which blog is in which database...!! Thanks
+> 
+> On Thu, Nov 3, 2016 at 11:11 PM, Brian Layman <hyperdb at thecodecave.com>
+> wrote:
+> 
+> > On 11/3/2016 9:29 AM, Ariful Islam wrote:
+> >
+> >> I don't fine any tutorial about this plugin...
+> >> I want to create many databases and balance the load how can i do it with
+> >> hyperdb
+> >>
+> > Wow... I haven't seen a message come across this message board for a long
+> > time. I had to re-configure my mail client so that I could reply!
+> >
+> > HyperDB will do what you want.  You must configure MySQL to handle the
+> > replication, but HyperDB will allow your WordPress install to access
+> > multiple databases.
+> >
+> > Here are to relatively recent tutorials to guide you through this process:
+> > 1. https://torbjornzetterlund.com/how-to-setup-a-mysql-replicat
+> > ion-database-for-wordpress/
+> > 2. http://net-load.com/how-to-setup-mysql-database-master-and-
+> > slave-with-hyperdb-on-wordpress/
+> >
+> > Both of those articles, at a glance, seem to be fairly accurate and they
+> > should do what you need.
+> >
+> > Here are some of my own tips for you:
+> > 1. Only do this when it is proven that you need to do this. Don't
+> > complicate your set up if you don't absolutely have proof that you have to.
+> > 2. Before you switch to HyperDB, make certain that you have eliminated any
+> > extra DB writes in your code. If you are writing to the database when you
+> > don't need to be, eliminating that may solve all of your database headaches.
+> > 3. Make certain that once replication is configured, that all of your
+> > slave database are receiving changes in a timely fashion.  One of the worst
+> > things to debug is why some visitors to your site get one set of data and
+> > others get another.
+> > 4. If you also have multiple webheads, use a caching solution for page
+> > caching and micro-caching that is accessible to all of your servers.  Allow
+> > the work on one server to be a benefit of all of your servers.
+> > 5. Also if you have multiple webheads, beware of the use of state
+> > conditions like sessions and transients that if not implemented correctly
+> > could exist on one server, but not be carried over to others.
+> >
+> > That's my advice of the morning.  Hope that helps!
+> > Brian Layman
+> > eHermit
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> >
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From blackreaper.br at gmail.com  Tue Nov  8 10:28:31 2016
+From: blackreaper.br at gmail.com (Ariful Islam)
+Date: Tue, 8 Nov 2016 16:28:31 +0600
+Subject: [HyperDB] Question
+In-Reply-To: <1478513964.3404899.779657601.7F96A822@webmail.messagingengine.com>
+References: <CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com>
+ <aefc692c-45f5-8a19-37c1-dd53ed653a24@thecodecave.com>
+ <CAEM3h5e=v_zrYv0NLUeSkWCOV8-kSkW9c0ttKfgZ-PDP6ay_cg@mail.gmail.com>
+ <1478513964.3404899.779657601.7F96A822@webmail.messagingengine.com>
+Message-ID: <CAEM3h5c3LvaSwNyEzLtwvVzGdyVTk2v6sxeqKK1MWOiL5LuZ1Q@mail.gmail.com>
+
+Thank you :)
+
+On Mon, Nov 7, 2016 at 4:19 PM, Callum Macdonald <
+lists.automattic.com at callum-macdonald.com> wrote:
+
+> The number 1 rule of scalability is...
+>
+> don't fix problems you don't have
+>
+> My advice would be to run your blog system on a single database, and
+> deal with separating it into multiple databases only if and when you
+> actually have a performance problem. You might find that many other
+> things are bigger issues along the way first.
+>
+> Cheers - Callum.
+>
+>
+> On Mon, 7 Nov 2016, at 07:15 AM, Ariful Islam wrote:
+> > Thank you for your replay... I don't have much knowledge about
+> > replication...
+> > I have to learn it then i can apply...  I am a student... I am still
+> > learning about wordpress... I am opening a website where we will open
+> > blog
+> > for my friends and classmate... we will have lot of blogs so I need to
+> > separate them in multiple database.. i will create the database
+> > manually..
+> > suppose i'll store 300 blogs for each database... my current database
+> > will
+> > keep getting new registration when it reach 300 blogs will move them in
+> > new
+> > database... when my current database get another 300 blogs ill move them
+> > another database... can i add one by one..? i mean when I need will add
+> > them and configure theme in db-config.php do you have any tutorial about
+> > it
+> > or any code suggestion..? can you suggest me how can i write the callback
+> > function that will determine which blog is in which database...!! Thanks
+> >
+> > On Thu, Nov 3, 2016 at 11:11 PM, Brian Layman <hyperdb at thecodecave.com>
+> > wrote:
+> >
+> > > On 11/3/2016 9:29 AM, Ariful Islam wrote:
+> > >
+> > >> I don't fine any tutorial about this plugin...
+> > >> I want to create many databases and balance the load how can i do it
+> with
+> > >> hyperdb
+> > >>
+> > > Wow... I haven't seen a message come across this message board for a
+> long
+> > > time. I had to re-configure my mail client so that I could reply!
+> > >
+> > > HyperDB will do what you want.  You must configure MySQL to handle the
+> > > replication, but HyperDB will allow your WordPress install to access
+> > > multiple databases.
+> > >
+> > > Here are to relatively recent tutorials to guide you through this
+> process:
+> > > 1. https://torbjornzetterlund.com/how-to-setup-a-mysql-replicat
+> > > ion-database-for-wordpress/
+> > > 2. http://net-load.com/how-to-setup-mysql-database-master-and-
+> > > slave-with-hyperdb-on-wordpress/
+> > >
+> > > Both of those articles, at a glance, seem to be fairly accurate and
+> they
+> > > should do what you need.
+> > >
+> > > Here are some of my own tips for you:
+> > > 1. Only do this when it is proven that you need to do this. Don't
+> > > complicate your set up if you don't absolutely have proof that you
+> have to.
+> > > 2. Before you switch to HyperDB, make certain that you have eliminated
+> any
+> > > extra DB writes in your code. If you are writing to the database when
+> you
+> > > don't need to be, eliminating that may solve all of your database
+> headaches.
+> > > 3. Make certain that once replication is configured, that all of your
+> > > slave database are receiving changes in a timely fashion.  One of the
+> worst
+> > > things to debug is why some visitors to your site get one set of data
+> and
+> > > others get another.
+> > > 4. If you also have multiple webheads, use a caching solution for page
+> > > caching and micro-caching that is accessible to all of your servers.
+> Allow
+> > > the work on one server to be a benefit of all of your servers.
+> > > 5. Also if you have multiple webheads, beware of the use of state
+> > > conditions like sessions and transients that if not implemented
+> correctly
+> > > could exist on one server, but not be carried over to others.
+> > >
+> > > That's my advice of the morning.  Hope that helps!
+> > > Brian Layman
+> > > eHermit
+> > > _______________________________________________
+> > > HyperDB mailing list
+> > > HyperDB at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/hyperdb
+> > >
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+

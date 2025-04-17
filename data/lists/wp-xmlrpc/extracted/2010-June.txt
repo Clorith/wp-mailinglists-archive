@@ -1,0 +1,1361 @@
+From tim at golen.net  Tue Jun 15 15:39:45 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 15 Jun 2010 09:39:45 -0600
+Subject: [wp-xmlrpc] Help with the XML-RPC API - Managing Posts
+Message-ID: <AANLkTinEKNKpdZTos42_tig3fH72rcETmqqK6fl5FYzk@mail.gmail.com>
+
+Hello,
+
+I've got all the functions at http://codex.wordpress.org/XML-RPC_wp working
+just fine... However, I noticed there aren't any functions for
+adding/deleting/editing/retrieving actual posts. How is that supposed to be
+handled? It mentions at http://codex.wordpress.org/XML-RPC_Support that
+Wordpress supports the Blogger API (and others) and those do have functions
+for working with posts. It doesn't make sense to me that you have to use
+another systems API in order to make a post.
+
+Regardless, I tried to use the function blogger.newPost to create a post and
+it keeps telling me the username and password is incorrect. All the calls I
+make to wp.* functions work just fine with my username and password. Am I
+missing something obvious here?
+
+Thanks for the help!
+Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/2ab3e816/attachment.htm>
+
+From eric at eamann.com  Tue Jun 15 15:54:16 2010
+From: eric at eamann.com (eric at eamann.com)
+Date: Tue, 15 Jun 2010 08:54:16 -0700 (PDT)
+Subject: [wp-xmlrpc] Help with the XML-RPC API - Managing Posts
+In-Reply-To: <AANLkTinEKNKpdZTos42_tig3fH72rcETmqqK6fl5FYzk@mail.gmail.com>
+References: <AANLkTinEKNKpdZTos42_tig3fH72rcETmqqK6fl5FYzk@mail.gmail.com>
+Message-ID: <52795227.7822.1276617256531.JavaMail.open-xchange@oxusltgw05.schlund.de>
+
+A lot of the reason for using another system's API is so that we don't have to
+reinvent the wheel.? If someone else has already built an API that works, why
+invest the time required to duplicate it?
+?
+But after looking over the documentation, it looks like you'd have better luck
+using the metaWeblog API than the Blogger API (The descriptions of page-related
+functions heavily reference metaWeblog, so that's where I started).
+?
+I'd recommend trying:
+?
+metaWeblog.newPost(blogid, username, password, struct, publish)
+metaWeblog.editPost(postid, username, password, struct, publish)
+meatWeblog.getPost(postid, username, password)
+?
+
+On June 15, 2010 at 3:39 PM Tim Golen <tim at golen.net> wrote:
+
+> Hello,
+>
+> I've got all the functions at http://codex.wordpress.org/XML-RPC_wp working
+> just fine... However, I noticed there aren't any functions for
+> adding/deleting/editing/retrieving actual posts. How is that supposed to be
+> handled? It mentions at http://codex.wordpress.org/XML-RPC_Support that
+> Wordpress supports the Blogger API (and others) and those do have functions
+> for working with posts. It doesn't make sense to me that you have to use
+> another systems API in order to make a post.
+>
+> Regardless, I tried to use the function blogger.newPost to create a post and
+> it keeps telling me the username and password is incorrect. All the calls I
+> make to wp.* functions work just fine with my username and password. Am I
+> missing something obvious here?
+>
+> Thanks for the help!
+> Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/fd357436/attachment.htm>
+
+From tim at golen.net  Tue Jun 15 16:07:12 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 15 Jun 2010 10:07:12 -0600
+Subject: [wp-xmlrpc] Help with the XML-RPC API - Managing Posts
+In-Reply-To: <52795227.7822.1276617256531.JavaMail.open-xchange@oxusltgw05.schlund.de>
+References: <AANLkTinEKNKpdZTos42_tig3fH72rcETmqqK6fl5FYzk@mail.gmail.com>
+	<52795227.7822.1276617256531.JavaMail.open-xchange@oxusltgw05.schlund.de>
+Message-ID: <AANLkTin1H9AFdBwQ68gZtlFvxulU_UbMiKQEJUPVs43v@mail.gmail.com>
+
+Eric,
+
+Thanks for the response. I completely understand the "don't reinvent the
+wheel", it's just the documentation doesn't say anything about that, so I
+wasn't sure if that was the conclusion I was supposed to come to. Thanks for
+clearing it up! I'll take a look at the metaweblog API and see if I can get
+that working.
+
+Tim
+
+On Tue, Jun 15, 2010 at 9:54 AM, eric at eamann.com <eric at eamann.com> wrote:
+
+>  A lot of the reason for using another system's API is so that we don't
+> have to reinvent the wheel.  If someone else has already built an API that
+> works, why invest the time required to duplicate it?
+>
+>
+>
+> But after looking over the documentation, it looks like you'd have better
+> luck using the metaWeblog API than the Blogger API (The descriptions of
+> page-related functions heavily reference metaWeblog, so that's where I
+> started).
+>
+>
+>
+> I'd recommend trying:
+>
+>
+>
+> metaWeblog.newPost(blogid, username, password, struct, publish)
+>
+> metaWeblog.editPost(postid, username, password, struct, publish)
+>
+> meatWeblog.getPost(postid, username, password)
+>
+>
+> On June 15, 2010 at 3:39 PM Tim Golen <tim at golen.net> wrote:
+>
+> > Hello,
+> >
+> > I've got all the functions at http://codex.wordpress.org/XML-RPC_wpworking
+> > just fine... However, I noticed there aren't any functions for
+> > adding/deleting/editing/retrieving actual posts. How is that supposed to
+> be
+> > handled? It mentions at http://codex.wordpress.org/XML-RPC_Support that
+> > Wordpress supports the Blogger API (and others) and those do have
+> functions
+> > for working with posts. It doesn't make sense to me that you have to use
+> > another systems API in order to make a post.
+> >
+> > Regardless, I tried to use the function blogger.newPost to create a post
+> and
+> > it keeps telling me the username and password is incorrect. All the calls
+> I
+> > make to wp.* functions work just fine with my username and password. Am I
+> > missing something obvious here?
+> >
+> > Thanks for the help!
+> > Tim
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/ae5635e8/attachment.htm>
+
+From tim at golen.net  Tue Jun 15 17:51:41 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 15 Jun 2010 11:51:41 -0600
+Subject: [wp-xmlrpc] PHP Library
+Message-ID: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+
+Is there already an existing PHP library for the Wordpress API? I'm still
+running into problems and don't need to reinvent the wheel if it's already
+been done. The MetaWeblog API mentions a PHP library, but it comes up with a
+404 error, and the MetaWeblog site hasn't been updated since 2003.
+
+Errors like "Invalid Data: Please go back and try again." when trying to do
+something rather simple like create a comment can get really frustrating.
+
+Thanks,
+Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/756ea9b9/attachment.htm>
+
+From jalkut at red-sweater.com  Tue Jun 15 17:52:15 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue, 15 Jun 2010 13:52:15 -0400
+Subject: [wp-xmlrpc] Help with the XML-RPC API - Managing Posts
+In-Reply-To: <AANLkTin1H9AFdBwQ68gZtlFvxulU_UbMiKQEJUPVs43v@mail.gmail.com>
+References: <AANLkTinEKNKpdZTos42_tig3fH72rcETmqqK6fl5FYzk@mail.gmail.com>
+	<52795227.7822.1276617256531.JavaMail.open-xchange@oxusltgw05.schlund.de>
+	<AANLkTin1H9AFdBwQ68gZtlFvxulU_UbMiKQEJUPVs43v@mail.gmail.com>
+Message-ID: <6C01747C-A2AC-4448-B8B2-B1DA46B68894@red-sweater.com>
+
+Hi Tim - conceptually you have to understand that historically as new APIs have been added, the teams responsible for adding them have built upon a previous API, but named their new APIs to make it clear they are not part of the previous API "standard" (loosest possible sense).
+
+So every API implemented by WordPress is a rough superset of the previous API, in order from oldest to newest:
+
+Blogger -> MetaWeblog -> Movable Type -> WordPress
+
+Typically as a client you would want to use the API method that works for you, and is farthest to the right in the order above.
+
+It's definitely confusing and a mess, but it always has been and cleaning it up now might just make things worse :) 
+
+Daniel
+
+On Jun 15, 2010, at 12:07pm, Tim Golen wrote:
+
+> Thanks for the response. I completely understand the "don't reinvent the wheel", it's just the documentation doesn't say anything about that, so I wasn't sure if that was the conclusion I was supposed to come to. Thanks for clearing it up! I'll take a look at the metaweblog API and see if I can get that working.
+> 
+
+
+From eric at eamann.com  Tue Jun 15 18:26:45 2010
+From: eric at eamann.com (eric at eamann.com)
+Date: Tue, 15 Jun 2010 11:26:45 -0700 (PDT)
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+Message-ID: <2134051804.12817.1276626405835.JavaMail.open-xchange@oxusltgw05.schlund.de>
+
+I'm not sure what you mean by PHP library ... but I'm assuming you mean a
+reference of some kind?
+?
+?
+Your best bet would be a PHP Xref site that's specific to WordPress (like this
+one: http://phpxref.ftwr.co.uk/wordpress/nav.html?_functions/index.html).? Then
+you can navigate all of the functions and documentation a will.? The files I see
+you looking through the most often would be xmlrpc.php and
+wp-includes/class-IXR.php ...
+?
+But if you mean "library" in some other context, please explain ...
+?
+
+On June 15, 2010 at 5:51 PM Tim Golen <tim at golen.net> wrote:
+
+> Is there already an existing PHP library for the Wordpress API? I'm still
+> running into problems and don't need to reinvent the wheel if it's already
+> been done. The MetaWeblog API mentions a PHP library, but it comes up with a
+> 404 error, and the MetaWeblog site hasn't been updated since 2003.
+>
+> Errors like "Invalid Data: Please go back and try again." when trying to do
+> something rather simple like create a comment can get really frustrating.
+>
+> Thanks,
+> Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/30f6ec3c/attachment-0001.htm>
+
+From glenn at fullthrottledevelopment.com  Tue Jun 15 18:38:18 2010
+From: glenn at fullthrottledevelopment.com (Glenn Ansley)
+Date: Tue, 15 Jun 2010 14:38:18 -0400
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <2134051804.12817.1276626405835.JavaMail.open-xchange@oxusltgw05.schlund.de>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+	<2134051804.12817.1276626405835.JavaMail.open-xchange@oxusltgw05.schlund.de>
+Message-ID: <AANLkTim5g1RYIwLY0e1-yvVMc8Icci1iS43brhabwucA@mail.gmail.com>
+
+In my experience the "Invalid Data: Please go back and try again."
+string usually means your hitting a PHP error is your code. Anything
+from a missed semicolon to calling an undefined function.
+
+Hope that helps.
+
+Glenn Ansley
+http://fullthrottledevelopment.com
+http://twitter.com/glennansley
+
+On Tue, Jun 15, 2010 at 2:26 PM, eric at eamann.com <eric at eamann.com> wrote:
+> I'm not sure what you mean by PHP library ... but I'm assuming you mean a
+> reference of some kind?
+>
+>
+>
+>
+>
+> Your best bet would be a PHP Xref site that's specific to WordPress (like
+> this one:
+> http://phpxref.ftwr.co.uk/wordpress/nav.html?_functions/index.html).? Then
+> you can navigate all of the functions and documentation a will.? The files I
+> see you looking through the most often would be xmlrpc.php and
+> wp-includes/class-IXR.php ...
+>
+>
+>
+> But if you mean "library" in some other context, please explain ...
+>
+>
+>
+> On June 15, 2010 at 5:51 PM Tim Golen <tim at golen.net> wrote:
+>
+>> Is there already an existing PHP library for the Wordpress API? I'm still
+>> running into problems and don't need to reinvent the wheel if it's already
+>> been done. The MetaWeblog API mentions a PHP library, but it comes up with
+>> a
+>> 404 error, and the MetaWeblog site hasn't been updated since 2003.
+>>
+>> Errors like "Invalid Data: Please go back and try again." when trying to
+>> do
+>> something rather simple like create a comment can get really frustrating.
+>>
+>> Thanks,
+>> Tim
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+
+From joseph at josephscott.org  Tue Jun 15 18:37:59 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue, 15 Jun 2010 12:37:59 -0600
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+Message-ID: <AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+
+There are 2 different "levels" of libraries for the the WP XML-RPC
+APIs.  First, lower level XML-RPC only APIs.  These take care of all
+the XML-RPC work, but don't know anything about the specific methods
+that WordPress provides.  For that layer I recommend the PHP IXR
+library, which is what WordPress uses.
+
+The next level up are libraries both take care of the XML-RPC details
+and know about the various methods that WP exposes.  I've seen some
+Perl libraries that fit into this category, but I haven't seen much in
+the of PHP ones.
+
+On Tue, Jun 15, 2010 at 11:51 AM, Tim Golen <tim at golen.net> wrote:
+> Is there already an existing PHP library for the Wordpress API? I'm still
+> running into problems and don't need to reinvent the wheel if it's already
+> been done. The MetaWeblog API mentions a PHP library, but it comes up with a
+> 404 error, and the MetaWeblog site hasn't been updated since 2003.
+> Errors like "Invalid Data: Please go back and try again."?when trying to do
+> something rather simple like create a comment can get really frustrating.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From tim at golen.net  Tue Jun 15 18:51:05 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 15 Jun 2010 12:51:05 -0600
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+	<AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+Message-ID: <AANLkTimlaQ653Sij7koMU6YyfqAI3_PtgBj41Y_ip_z2@mail.gmail.com>
+
+Hi Joseph,
+
+Right on, that's exactly what I needed to know.
+
+I've been using http://devzone.zend.com/article/1307 for the XML-RPC (lower
+level) API, and then building my own PHP library on top of that (with the
+Wordpress functions). I'll go and check out the IXR library to see if that
+helps.
+
+All of the calls that I am making that pull data from Wordpress are working
+fine. It's just when trying to create data (wp.newComment, wp.newCategory,
+metaWeblog.newPost) they are all giving me similar data errors:
+
+Sorry, the new category failed.
+
+Invalid Data: Please go back and try again.
+
+Content, title, and excerpt are empty.
+
+I've been debugging the thing to death and still can't get any closer. I
+have a feeling that it has something to do with how the struct datatypes are
+being encoded in the XML-RPC portion. Here is a sample of my code:
+
+
+$this->makeRequest(
+'wp.newComment',
+array(
+new xmlrpcval($blogId),
+new xmlrpcval($this->username),
+new xmlrpcval($this->password),
+new xmlrpcval($postId),
+xmlrpc_encode(array(
+'comment_parent'=>intval(0),
+'content'=>strval($comment->content),
+'author'=>strval($comment->author),
+'author_url'=>strval($comment->author_url),
+'author_email'=>strval($comment->author_email)
+)),
+));
+
+The structure containing the comment information ends up being encoded to
+this:
+
+<params>
+<param>
+ <value>
+  <struct>
+   <member>
+    <name>comment_parent</name>
+    <value>
+     <int>0</int>
+
+    </value>
+   </member>
+   <member>
+    <name>content</name>
+    <value>
+     <string>comment</string>
+    </value>
+   </member>
+
+   <member>
+    <name>author</name>
+    <value>
+     <string>Tim</string>
+    </value>
+   </member>
+   <member>
+    <name>author_url</name>
+
+    <value>
+     <string>http://www.golen.net/blog</string>
+    </value>
+   </member>
+   <member>
+    <name>author_email</name>
+    <value>
+     <string>tim at golen.net</string>
+
+    </value>
+   </member>
+  </struct>
+ </value>
+</param>
+</params>
+
+
+And all that is encoded the way they discuss it at
+http://devzone.zend.com/article/1307. I'll take a look at the IXR library
+and see if that does any better of a job. I appreciate all of your help and
+suggestions with this! Once I get the PHP library built, I think it would be
+an invaluable resource to post on the Wordpress site somewhere.
+
+Tim
+
+On Tue, Jun 15, 2010 at 12:37 PM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> There are 2 different "levels" of libraries for the the WP XML-RPC
+> APIs.  First, lower level XML-RPC only APIs.  These take care of all
+> the XML-RPC work, but don't know anything about the specific methods
+> that WordPress provides.  For that layer I recommend the PHP IXR
+> library, which is what WordPress uses.
+>
+> The next level up are libraries both take care of the XML-RPC details
+> and know about the various methods that WP exposes.  I've seen some
+> Perl libraries that fit into this category, but I haven't seen much in
+> the of PHP ones.
+>
+> On Tue, Jun 15, 2010 at 11:51 AM, Tim Golen <tim at golen.net> wrote:
+> > Is there already an existing PHP library for the Wordpress API? I'm still
+> > running into problems and don't need to reinvent the wheel if it's
+> already
+> > been done. The MetaWeblog API mentions a PHP library, but it comes up
+> with a
+> > 404 error, and the MetaWeblog site hasn't been updated since 2003.
+> > Errors like "Invalid Data: Please go back and try again." when trying to
+> do
+> > something rather simple like create a comment can get really frustrating.
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/360b7f02/attachment.htm>
+
+From eric at eamann.com  Tue Jun 15 19:06:52 2010
+From: eric at eamann.com (eric at eamann.com)
+Date: Tue, 15 Jun 2010 12:06:52 -0700 (PDT)
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <AANLkTimlaQ653Sij7koMU6YyfqAI3_PtgBj41Y_ip_z2@mail.gmail.com>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+	<AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+	<AANLkTimlaQ653Sij7koMU6YyfqAI3_PtgBj41Y_ip_z2@mail.gmail.com>
+Message-ID: <801359590.14408.1276628812327.JavaMail.open-xchange@oxusltgw05.schlund.de>
+
+OK, now I understand what you're doing.
+?
+When I first started working with WordPress and XMLRPC, I tried building my own
+library ... it was taking a long time, and I ran into many of the issues you're
+running in to now.? Someone suggested I use the built-in IXR library instead,
+and it made all the difference.
+?
+Here's a simple example:
+?
+include_once(ABSPATH . WPINC . '/class-IXR.php');
+?
+$client = new IXR_Client('destinantion_url');
+?
+$client->query('procedure.name', 'arg1', 'arg2', 'arg3', ...);
+?
+$response = $client->getResponse();
+?
+That will load the library, create a new client pointing at whatever WP
+installation you're working with, execute your remote procedure, and store the
+response (errors, data, or whatever) in the $response variable.
+?
+?
+
+On June 15, 2010 at 6:51 PM Tim Golen <tim at golen.net> wrote:
+
+> Hi Joseph,
+>
+> Right on, that's exactly what I needed to know.
+>
+> I've been using http://devzone.zend.com/article/1307 for the XML-RPC (lower
+> level) API, and then building my own PHP library on top of that (with the
+> Wordpress functions). I'll go and check out the IXR library to see if that
+> helps.
+>
+> All of the calls that I am making that pull data from Wordpress are working
+> fine. It's just when trying to create data (wp.newComment, wp.newCategory,
+> metaWeblog.newPost) they are all giving me similar data errors:
+>
+> Sorry, the new category failed.
+>
+> Invalid Data: Please go back and try again.
+>
+> Content, title, and excerpt are empty.
+>
+> I've been debugging the thing to death and still can't get any closer. I
+> have a feeling that it has something to do with how the struct datatypes are
+> being encoded in the XML-RPC portion. Here is a sample of my code:
+>
+>
+> $this->makeRequest(
+> 'wp.newComment',
+> array(
+> new xmlrpcval($blogId),
+> new xmlrpcval($this->username),
+> new xmlrpcval($this->password),
+> new xmlrpcval($postId),
+> xmlrpc_encode(array(
+> 'comment_parent'=>intval(0),
+> 'content'=>strval($comment->content),
+> 'author'=>strval($comment->author),
+> 'author_url'=>strval($comment->author_url),
+> 'author_email'=>strval($comment->author_email)
+> )),
+> ));
+>
+> The structure containing the comment information ends up being encoded to
+> this:
+>
+> <params>
+> <param>
+>? <value>
+>? ?<struct>
+>? ? <member>
+>? ? ?<name>comment_parent</name>
+>? ? ?<value>
+>? ? ? <int>0</int>
+>
+>? ? ?</value>
+>? ? </member>
+>? ? <member>
+>? ? ?<name>content</name>
+>? ? ?<value>
+>? ? ? <string>comment</string>
+>? ? ?</value>
+>? ? </member>
+>
+>? ? <member>
+>? ? ?<name>author</name>
+>? ? ?<value>
+>? ? ? <string>Tim</string>
+>? ? ?</value>
+>? ? </member>
+>? ? <member>
+>? ? ?<name>author_url</name>
+>
+>? ? ?<value>
+>? ? ? <string>http://www.golen.net/blog</string>
+>? ? ?</value>
+>? ? </member>
+>? ? <member>
+>? ? ?<name>author_email</name>
+>? ? ?<value>
+>? ? ? <string>tim at golen.net</string>
+>
+>? ? ?</value>
+>? ? </member>
+>? ?</struct>
+>? </value>
+> </param>
+> </params>
+>
+>
+> And all that is encoded the way they discuss it at
+> http://devzone.zend.com/article/1307. I'll take a look at the IXR library
+> and see if that does any better of a job. I appreciate all of your help and
+> suggestions with this! Once I get the PHP library built, I think it would be
+> an invaluable resource to post on the Wordpress site somewhere.
+>
+> Tim
+>
+> On Tue, Jun 15, 2010 at 12:37 PM, Joseph Scott <joseph at josephscott.org>wrote:
+>
+> > There are 2 different "levels" of libraries for the the WP XML-RPC
+> > APIs.? First, lower level XML-RPC only APIs.? These take care of all
+> > the XML-RPC work, but don't know anything about the specific methods
+> > that WordPress provides.? For that layer I recommend the PHP IXR
+> > library, which is what WordPress uses.
+> >
+> > The next level up are libraries both take care of the XML-RPC details
+> > and know about the various methods that WP exposes.? I've seen some
+> > Perl libraries that fit into this category, but I haven't seen much in
+> > the of PHP ones.
+> >
+> > On Tue, Jun 15, 2010 at 11:51 AM, Tim Golen <tim at golen.net> wrote:
+> > > Is there already an existing PHP library for the Wordpress API? I'm still
+> > > running into problems and don't need to reinvent the wheel if it's
+> > already
+> > > been done. The MetaWeblog API mentions a PHP library, but it comes up
+> > with a
+> > > 404 error, and the MetaWeblog site hasn't been updated since 2003.
+> > > Errors like "Invalid Data: Please go back and try again." when trying to
+> > do
+> > > something rather simple like create a comment can get really frustrating.
+> >
+> >
+> >
+> > --
+> > Joseph Scott
+> > joseph at josephscott.org
+> > http://josephscott.org/
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/a246250a/attachment-0001.htm>
+
+From tim at golen.net  Tue Jun 15 19:20:29 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 15 Jun 2010 13:20:29 -0600
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <801359590.14408.1276628812327.JavaMail.open-xchange@oxusltgw05.schlund.de>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+	<AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+	<AANLkTimlaQ653Sij7koMU6YyfqAI3_PtgBj41Y_ip_z2@mail.gmail.com>
+	<801359590.14408.1276628812327.JavaMail.open-xchange@oxusltgw05.schlund.de>
+Message-ID: <AANLkTimQyC2vWr0bQVAm30PJNrdZjv5N8H6-0uiJns2N@mail.gmail.com>
+
+Thanks Eric! How did you handle the areguments with struct datatypes like
+for creating a new category? Do you just pass in a array with key=>val pairs
+or do you have to do special encoding?
+
+Tim
+
+On Tue, Jun 15, 2010 at 1:06 PM, eric at eamann.com <eric at eamann.com> wrote:
+
+>  OK, now I understand what you're doing.
+>
+>
+>
+> When I first started working with WordPress and XMLRPC, I tried building my
+> own library ... it was taking a long time, and I ran into many of the issues
+> you're running in to now.  Someone suggested I use the built-in IXR library
+> instead, and it made all the difference.
+>
+>
+>
+> Here's a simple example:
+>
+>
+>
+> include_once(ABSPATH . WPINC . '/class-IXR.php');
+>
+>
+>
+> $client = new IXR_Client('destinantion_url');
+>
+>
+>
+> $client->query('procedure.name', 'arg1', 'arg2', 'arg3', ...);
+>
+>
+>
+> $response = $client->getResponse();
+>
+>
+>
+> That will load the library, create a new client pointing at whatever WP
+> installation you're working with, execute your remote procedure, and store
+> the response (errors, data, or whatever) in the $response variable.
+>
+>
+>
+>
+>  On June 15, 2010 at 6:51 PM Tim Golen <tim at golen.net> wrote:
+>
+> > Hi Joseph,
+> >
+> > Right on, that's exactly what I needed to know.
+> >
+> > I've been using http://devzone.zend.com/article/1307 for the XML-RPC
+> (lower
+> > level) API, and then building my own PHP library on top of that (with the
+> > Wordpress functions). I'll go and check out the IXR library to see if
+> that
+> > helps.
+> >
+> > All of the calls that I am making that pull data from Wordpress are
+> working
+> > fine. It's just when trying to create data (wp.newComment,
+> wp.newCategory,
+> > metaWeblog.newPost) they are all giving me similar data errors:
+> >
+> > Sorry, the new category failed.
+> >
+> > Invalid Data: Please go back and try again.
+> >
+> > Content, title, and excerpt are empty.
+> >
+> > I've been debugging the thing to death and still can't get any closer. I
+> > have a feeling that it has something to do with how the struct datatypes
+> are
+> > being encoded in the XML-RPC portion. Here is a sample of my code:
+> >
+> >
+> > $this->makeRequest(
+> > 'wp.newComment',
+> > array(
+> > new xmlrpcval($blogId),
+> > new xmlrpcval($this->username),
+> > new xmlrpcval($this->password),
+> > new xmlrpcval($postId),
+> > xmlrpc_encode(array(
+> > 'comment_parent'=>intval(0),
+> > 'content'=>strval($comment->content),
+> > 'author'=>strval($comment->author),
+> > 'author_url'=>strval($comment->author_url),
+> > 'author_email'=>strval($comment->author_email)
+> > )),
+> > ));
+> >
+> > The structure containing the comment information ends up being encoded to
+> > this:
+> >
+> > <params>
+> > <param>
+> >  <value>
+> >   <struct>
+> >    <member>
+> >     <name>comment_parent</name>
+> >     <value>
+> >      <int>0</int>
+> >
+> >     </value>
+> >    </member>
+> >    <member>
+> >     <name>content</name>
+> >     <value>
+> >      <string>comment</string>
+> >     </value>
+> >    </member>
+> >
+> >    <member>
+> >     <name>author</name>
+> >     <value>
+> >      <string>Tim</string>
+> >     </value>
+> >    </member>
+> >    <member>
+> >     <name>author_url</name>
+> >
+> >     <value>
+> >      <string>http://www.golen.net/blog</string>
+> >     </value>
+> >    </member>
+> >    <member>
+> >     <name>author_email</name>
+> >     <value>
+> >      <string>tim at golen.net</string>
+> >
+> >     </value>
+> >    </member>
+> >   </struct>
+> >  </value>
+> > </param>
+> > </params>
+> >
+> >
+> > And all that is encoded the way they discuss it at
+> > http://devzone.zend.com/article/1307. I'll take a look at the IXR
+> library
+> > and see if that does any better of a job. I appreciate all of your help
+> and
+> > suggestions with this! Once I get the PHP library built, I think it would
+> be
+> > an invaluable resource to post on the Wordpress site somewhere.
+> >
+> > Tim
+> >
+> > On Tue, Jun 15, 2010 at 12:37 PM, Joseph Scott <joseph at josephscott.org
+> >wrote:
+> >
+> > > There are 2 different "levels" of libraries for the the WP XML-RPC
+> > > APIs.  First, lower level XML-RPC only APIs.  These take care of all
+> > > the XML-RPC work, but don't know anything about the specific methods
+> > > that WordPress provides.  For that layer I recommend the PHP IXR
+> > > library, which is what WordPress uses.
+> > >
+> > > The next level up are libraries both take care of the XML-RPC details
+> > > and know about the various methods that WP exposes.  I've seen some
+> > > Perl libraries that fit into this category, but I haven't seen much in
+> > > the of PHP ones.
+> > >
+> > > On Tue, Jun 15, 2010 at 11:51 AM, Tim Golen <tim at golen.net> wrote:
+> > > > Is there already an existing PHP library for the Wordpress API? I'm
+> still
+> > > > running into problems and don't need to reinvent the wheel if it's
+> > > already
+> > > > been done. The MetaWeblog API mentions a PHP library, but it comes up
+> > > with a
+> > > > 404 error, and the MetaWeblog site hasn't been updated since 2003.
+> > > > Errors like "Invalid Data: Please go back and try again." when trying
+> to
+> > > do
+> > > > something rather simple like create a comment can get really
+> frustrating.
+> > >
+> > >
+> > >
+> > > --
+> > > Joseph Scott
+> > > joseph at josephscott.org
+> > > http://josephscott.org/
+> > > _______________________________________________
+> > > wp-xmlrpc mailing list
+> > > wp-xmlrpc at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > >
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/48ff75b7/attachment.htm>
+
+From eric at eamann.com  Tue Jun 15 19:39:08 2010
+From: eric at eamann.com (eric at eamann.com)
+Date: Tue, 15 Jun 2010 12:39:08 -0700 (PDT)
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <AANLkTimQyC2vWr0bQVAm30PJNrdZjv5N8H6-0uiJns2N@mail.gmail.com>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+	<AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+	<AANLkTimlaQ653Sij7koMU6YyfqAI3_PtgBj41Y_ip_z2@mail.gmail.com>
+	<801359590.14408.1276628812327.JavaMail.open-xchange@oxusltgw05.schlund.de>
+	<AANLkTimQyC2vWr0bQVAm30PJNrdZjv5N8H6-0uiJns2N@mail.gmail.com>
+Message-ID: <345356611.15892.1276630749040.JavaMail.open-xchange@oxusltgw05.schlund.de>
+
+Tim,
+?
+I haven't worked specifically with struct datatypes (in reality, most of the
+time I just build my own procedure on the server I'm working with) ... but the
+documentation says you can use them.
+?
+Here's the full documentation for the IXR library if you want to take a crack at
+it: http://scripts.incutio.com/xmlrpc/manual.php? Just be sure to post your
+solution here so we can all learn from you :-)
+?
+~Eric
+?
+
+On June 15, 2010 at 7:20 PM Tim Golen <tim at golen.net> wrote:
+
+> Thanks Eric! How did you handle the areguments with struct datatypes like
+> for creating a new category? Do you just pass in a array with key=>val pairs
+> or do you have to do special encoding?
+>
+> Tim
+>
+> On Tue, Jun 15, 2010 at 1:06 PM, eric at eamann.com <eric at eamann.com> wrote:
+>
+> >? OK, now I understand what you're doing.
+> >
+> >
+> >
+> > When I first started working with WordPress and XMLRPC, I tried building my
+> > own library ... it was taking a long time, and I ran into many of the issues
+> > you're running in to now.? Someone suggested I use the built-in IXR library
+> > instead, and it made all the difference.
+> >
+> >
+> >
+> > Here's a simple example:
+> >
+> >
+> >
+> > include_once(ABSPATH . WPINC . '/class-IXR.php');
+> >
+> >
+> >
+> > $client = new IXR_Client('destinantion_url');
+> >
+> >
+> >
+> > $client->query('procedure.name', 'arg1', 'arg2', 'arg3', ...);
+> >
+> >
+> >
+> > $response = $client->getResponse();
+> >
+> >
+> >
+> > That will load the library, create a new client pointing at whatever WP
+> > installation you're working with, execute your remote procedure, and store
+> > the response (errors, data, or whatever) in the $response variable.
+> >
+> >
+> >
+> >
+> >? On June 15, 2010 at 6:51 PM Tim Golen <tim at golen.net> wrote:
+> >
+> > > Hi Joseph,
+> > >
+> > > Right on, that's exactly what I needed to know.
+> > >
+> > > I've been using http://devzone.zend.com/article/1307 for the XML-RPC
+> > (lower
+> > > level) API, and then building my own PHP library on top of that (with the
+> > > Wordpress functions). I'll go and check out the IXR library to see if
+> > that
+> > > helps.
+> > >
+> > > All of the calls that I am making that pull data from Wordpress are
+> > working
+> > > fine. It's just when trying to create data (wp.newComment,
+> > wp.newCategory,
+> > > metaWeblog.newPost) they are all giving me similar data errors:
+> > >
+> > > Sorry, the new category failed.
+> > >
+> > > Invalid Data: Please go back and try again.
+> > >
+> > > Content, title, and excerpt are empty.
+> > >
+> > > I've been debugging the thing to death and still can't get any closer. I
+> > > have a feeling that it has something to do with how the struct datatypes
+> > are
+> > > being encoded in the XML-RPC portion. Here is a sample of my code:
+> > >
+> > >
+> > > $this->makeRequest(
+> > > 'wp.newComment',
+> > > array(
+> > > new xmlrpcval($blogId),
+> > > new xmlrpcval($this->username),
+> > > new xmlrpcval($this->password),
+> > > new xmlrpcval($postId),
+> > > xmlrpc_encode(array(
+> > > 'comment_parent'=>intval(0),
+> > > 'content'=>strval($comment->content),
+> > > 'author'=>strval($comment->author),
+> > > 'author_url'=>strval($comment->author_url),
+> > > 'author_email'=>strval($comment->author_email)
+> > > )),
+> > > ));
+> > >
+> > > The structure containing the comment information ends up being encoded to
+> > > this:
+> > >
+> > > <params>
+> > > <param>
+> > >? <value>
+> > >? ?<struct>
+> > >? ? <member>
+> > >? ? ?<name>comment_parent</name>
+> > >? ? ?<value>
+> > >? ? ? <int>0</int>
+> > >
+> > >? ? ?</value>
+> > >? ? </member>
+> > >? ? <member>
+> > >? ? ?<name>content</name>
+> > >? ? ?<value>
+> > >? ? ? <string>comment</string>
+> > >? ? ?</value>
+> > >? ? </member>
+> > >
+> > >? ? <member>
+> > >? ? ?<name>author</name>
+> > >? ? ?<value>
+> > >? ? ? <string>Tim</string>
+> > >? ? ?</value>
+> > >? ? </member>
+> > >? ? <member>
+> > >? ? ?<name>author_url</name>
+> > >
+> > >? ? ?<value>
+> > >? ? ? <string>http://www.golen.net/blog</string>
+> > >? ? ?</value>
+> > >? ? </member>
+> > >? ? <member>
+> > >? ? ?<name>author_email</name>
+> > >? ? ?<value>
+> > >? ? ? <string>tim at golen.net</string>
+> > >
+> > >? ? ?</value>
+> > >? ? </member>
+> > >? ?</struct>
+> > >? </value>
+> > > </param>
+> > > </params>
+> > >
+> > >
+> > > And all that is encoded the way they discuss it at
+> > > http://devzone.zend.com/article/1307. I'll take a look at the IXR
+> > library
+> > > and see if that does any better of a job. I appreciate all of your help
+> > and
+> > > suggestions with this! Once I get the PHP library built, I think it would
+> > be
+> > > an invaluable resource to post on the Wordpress site somewhere.
+> > >
+> > > Tim
+> > >
+> > > On Tue, Jun 15, 2010 at 12:37 PM, Joseph Scott <joseph at josephscott.org
+> > >wrote:
+> > >
+> > > > There are 2 different "levels" of libraries for the the WP XML-RPC
+> > > > APIs.? First, lower level XML-RPC only APIs.? These take care of all
+> > > > the XML-RPC work, but don't know anything about the specific methods
+> > > > that WordPress provides.? For that layer I recommend the PHP IXR
+> > > > library, which is what WordPress uses.
+> > > >
+> > > > The next level up are libraries both take care of the XML-RPC details
+> > > > and know about the various methods that WP exposes.? I've seen some
+> > > > Perl libraries that fit into this category, but I haven't seen much in
+> > > > the of PHP ones.
+> > > >
+> > > > On Tue, Jun 15, 2010 at 11:51 AM, Tim Golen <tim at golen.net> wrote:
+> > > > > Is there already an existing PHP library for the Wordpress API? I'm
+> > still
+> > > > > running into problems and don't need to reinvent the wheel if it's
+> > > > already
+> > > > > been done. The MetaWeblog API mentions a PHP library, but it comes up
+> > > > with a
+> > > > > 404 error, and the MetaWeblog site hasn't been updated since 2003.
+> > > > > Errors like "Invalid Data: Please go back and try again." when trying
+> > to
+> > > > do
+> > > > > something rather simple like create a comment can get really
+> > frustrating.
+> > > >
+> > > >
+> > > >
+> > > > --
+> > > > Joseph Scott
+> > > > joseph at josephscott.org
+> > > > http://josephscott.org/
+> > > > _______________________________________________
+> > > > wp-xmlrpc mailing list
+> > > > wp-xmlrpc at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > > >
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> >
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/ef802f25/attachment-0001.htm>
+
+From tim at golen.net  Tue Jun 15 20:01:49 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 15 Jun 2010 14:01:49 -0600
+Subject: [wp-xmlrpc] PHP Library
+In-Reply-To: <345356611.15892.1276630749040.JavaMail.open-xchange@oxusltgw05.schlund.de>
+References: <AANLkTim8xkY12AoMJLVlCZ_FaHOJxHU0TIwAIV3YRPoj@mail.gmail.com>
+	<AANLkTinYr_Gl2VwOoP32aWH35vbxjsk5a7-anWspaNNj@mail.gmail.com>
+	<AANLkTimlaQ653Sij7koMU6YyfqAI3_PtgBj41Y_ip_z2@mail.gmail.com>
+	<801359590.14408.1276628812327.JavaMail.open-xchange@oxusltgw05.schlund.de>
+	<AANLkTimQyC2vWr0bQVAm30PJNrdZjv5N8H6-0uiJns2N@mail.gmail.com>
+	<345356611.15892.1276630749040.JavaMail.open-xchange@oxusltgw05.schlund.de>
+Message-ID: <AANLkTin8y9kSGn2NsyI8P0UdltNo7qweL6eGbyz5oEyO@mail.gmail.com>
+
+Yay! Looks like it's working finally. I at least got a category created. Now
+to move to the others. Thanks again for the help.
+
+For the record, I was right about the struct datatype, just use an array
+with key=>val pairs like this:
+
+array(
+'name'=>$category->name
+)
+
+On Tue, Jun 15, 2010 at 1:39 PM, eric at eamann.com <eric at eamann.com> wrote:
+
+>  Tim,
+>
+>
+>
+> I haven't worked specifically with struct datatypes (in reality, most of
+> the time I just build my own procedure on the server I'm working with) ...
+> but the documentation says you can use them.
+>
+>
+>
+> Here's the full documentation for the IXR library if you want to take a
+> crack at it: http://scripts.incutio.com/xmlrpc/manual.php  Just be sure to
+> post your solution here so we can all learn from you :-)
+>
+>
+>
+> ~Eric
+>
+>
+>  On June 15, 2010 at 7:20 PM Tim Golen <tim at golen.net> wrote:
+>
+> > Thanks Eric! How did you handle the areguments with struct datatypes like
+> > for creating a new category? Do you just pass in a array with key=>val
+> pairs
+> > or do you have to do special encoding?
+> >
+> > Tim
+> >
+> > On Tue, Jun 15, 2010 at 1:06 PM, eric at eamann.com <eric at eamann.com>
+> wrote:
+> >
+> > >  OK, now I understand what you're doing.
+> > >
+> > >
+> > >
+> > > When I first started working with WordPress and XMLRPC, I tried
+> building my
+> > > own library ... it was taking a long time, and I ran into many of the
+> issues
+> > > you're running in to now.  Someone suggested I use the built-in IXR
+> library
+> > > instead, and it made all the difference.
+> > >
+> > >
+> > >
+> > > Here's a simple example:
+> > >
+> > >
+> > >
+> > > include_once(ABSPATH . WPINC . '/class-IXR.php');
+> > >
+> > >
+> > >
+> > > $client = new IXR_Client('destinantion_url');
+> > >
+> > >
+> > >
+> > > $client->query('procedure.name', 'arg1', 'arg2', 'arg3', ...);
+> > >
+> > >
+> > >
+> > > $response = $client->getResponse();
+> > >
+> > >
+> > >
+> > > That will load the library, create a new client pointing at whatever WP
+> > > installation you're working with, execute your remote procedure, and
+> store
+> > > the response (errors, data, or whatever) in the $response variable.
+> > >
+> > >
+> > >
+> > >
+> > >  On June 15, 2010 at 6:51 PM Tim Golen <tim at golen.net> wrote:
+> > >
+> > > > Hi Joseph,
+> > > >
+> > > > Right on, that's exactly what I needed to know.
+> > > >
+> > > > I've been using http://devzone.zend.com/article/1307 for the XML-RPC
+> > > (lower
+> > > > level) API, and then building my own PHP library on top of that (with
+> the
+> > > > Wordpress functions). I'll go and check out the IXR library to see if
+> > > that
+> > > > helps.
+> > > >
+> > > > All of the calls that I am making that pull data from Wordpress are
+> > > working
+> > > > fine. It's just when trying to create data (wp.newComment,
+> > > wp.newCategory,
+> > > > metaWeblog.newPost) they are all giving me similar data errors:
+> > > >
+> > > > Sorry, the new category failed.
+> > > >
+> > > > Invalid Data: Please go back and try again.
+> > > >
+> > > > Content, title, and excerpt are empty.
+> > > >
+> > > > I've been debugging the thing to death and still can't get any
+> closer. I
+> > > > have a feeling that it has something to do with how the struct
+> datatypes
+> > > are
+> > > > being encoded in the XML-RPC portion. Here is a sample of my code:
+> > > >
+> > > >
+> > > > $this->makeRequest(
+> > > > 'wp.newComment',
+> > > > array(
+> > > > new xmlrpcval($blogId),
+> > > > new xmlrpcval($this->username),
+> > > > new xmlrpcval($this->password),
+> > > > new xmlrpcval($postId),
+> > > > xmlrpc_encode(array(
+> > > > 'comment_parent'=>intval(0),
+> > > > 'content'=>strval($comment->content),
+> > > > 'author'=>strval($comment->author),
+> > > > 'author_url'=>strval($comment->author_url),
+> > > > 'author_email'=>strval($comment->author_email)
+> > > > )),
+> > > > ));
+> > > >
+> > > > The structure containing the comment information ends up being
+> encoded to
+> > > > this:
+> > > >
+> > > > <params>
+> > > > <param>
+> > > >  <value>
+> > > >   <struct>
+> > > >    <member>
+> > > >     <name>comment_parent</name>
+> > > >     <value>
+> > > >      <int>0</int>
+> > > >
+> > > >     </value>
+> > > >    </member>
+> > > >    <member>
+> > > >     <name>content</name>
+> > > >     <value>
+> > > >      <string>comment</string>
+> > > >     </value>
+> > > >    </member>
+> > > >
+> > > >    <member>
+> > > >     <name>author</name>
+> > > >     <value>
+> > > >      <string>Tim</string>
+> > > >     </value>
+> > > >    </member>
+> > > >    <member>
+> > > >     <name>author_url</name>
+> > > >
+> > > >     <value>
+> > > >      <string>http://www.golen.net/blog</string>
+> > > >     </value>
+> > > >    </member>
+> > > >    <member>
+> > > >     <name>author_email</name>
+> > > >     <value>
+> > > >      <string>tim at golen.net</string>
+> > > >
+> > > >     </value>
+> > > >    </member>
+> > > >   </struct>
+> > > >  </value>
+> > > > </param>
+> > > > </params>
+> > > >
+> > > >
+> > > > And all that is encoded the way they discuss it at
+> > > > http://devzone.zend.com/article/1307. I'll take a look at the IXR
+> > > library
+> > > > and see if that does any better of a job. I appreciate all of your
+> help
+> > > and
+> > > > suggestions with this! Once I get the PHP library built, I think it
+> would
+> > > be
+> > > > an invaluable resource to post on the Wordpress site somewhere.
+> > > >
+> > > > Tim
+> > > >
+> > > > On Tue, Jun 15, 2010 at 12:37 PM, Joseph Scott <
+> joseph at josephscott.org
+> > > >wrote:
+> > > >
+> > > > > There are 2 different "levels" of libraries for the the WP XML-RPC
+> > > > > APIs.  First, lower level XML-RPC only APIs.  These take care of
+> all
+> > > > > the XML-RPC work, but don't know anything about the specific
+> methods
+> > > > > that WordPress provides.  For that layer I recommend the PHP IXR
+> > > > > library, which is what WordPress uses.
+> > > > >
+> > > > > The next level up are libraries both take care of the XML-RPC
+> details
+> > > > > and know about the various methods that WP exposes.  I've seen some
+> > > > > Perl libraries that fit into this category, but I haven't seen much
+> in
+> > > > > the of PHP ones.
+> > > > >
+> > > > > On Tue, Jun 15, 2010 at 11:51 AM, Tim Golen <tim at golen.net> wrote:
+> > > > > > Is there already an existing PHP library for the Wordpress API?
+> I'm
+> > > still
+> > > > > > running into problems and don't need to reinvent the wheel if
+> it's
+> > > > > already
+> > > > > > been done. The MetaWeblog API mentions a PHP library, but it
+> comes up
+> > > > > with a
+> > > > > > 404 error, and the MetaWeblog site hasn't been updated since
+> 2003.
+> > > > > > Errors like "Invalid Data: Please go back and try again." when
+> trying
+> > > to
+> > > > > do
+> > > > > > something rather simple like create a comment can get really
+> > > frustrating.
+> > > > >
+> > > > >
+> > > > >
+> > > > > --
+> > > > > Joseph Scott
+> > > > > joseph at josephscott.org
+> > > > > http://josephscott.org/
+> > > > > _______________________________________________
+> > > > > wp-xmlrpc mailing list
+> > > > > wp-xmlrpc at lists.automattic.com
+> > > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > > > >
+> > >
+> > > _______________________________________________
+> > > wp-xmlrpc mailing list
+> > > wp-xmlrpc at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > >
+> > >
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100615/01f26333/attachment.htm>
+

@@ -1,0 +1,171 @@
+From kylejones at thecorkboard.org  Wed Jan  4 16:13:40 2012
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Wed, 4 Jan 2012 10:13:40 -0600
+Subject: [wp-edu] MultiSite Sitewide Query for CPTs/Taxonomies
+Message-ID: <5CC08883-26FF-44F9-95C4-90D3CD1B726C@thecorkboard.org>
+
+Hello everyone-
+
+Over at UW-Madison's School of Library and Information Studies we're  
+investigating using WP custom post types and taxonomies to develop  
+ePortfolios for our students.  One of the biggest requests is the  
+ability for the instructors to easily access artifacts (the CPT) based  
+on a goals category (the custom taxonomy).
+
+ From my searches this morning it looks as if there's not a plugin or  
+real easy way to query across the entire site based on a specific CPT  
+and taxonomy.  The much-used sitewide tags plugin seems to be the  
+closest, but as we're not using "normal" posts and tags this won't do.
+
+Have you investigated anything like this at your institution?  Any  
+ideas or thoughts on how to push forward?
+
+Thanks,
+
+~Kyle M. L. Jones~
+
+School of Library and Information Studies, UW-Madison
+	-Ph.D Student
+	-Distance Ed. T.A.
+E-mail
+	-kmjones8 at wisc.edu
+	-kylejones at thecorkboard.org
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120104/3c7a9e2a/attachment.htm>
+
+From tenbargec2 at k12tn.net  Thu Jan  5 13:51:08 2012
+From: tenbargec2 at k12tn.net (Tenbarge Chris)
+Date: Thu, 5 Jan 2012 07:51:08 -0600
+Subject: [wp-edu] Sitwide Query for CPTs/Taxonomies
+In-Reply-To: <mailman.7.1325764802.8044.wp-edu@lists.automattic.com>
+References: <mailman.7.1325764802.8044.wp-edu@lists.automattic.com>
+Message-ID: <8F71AF18-F328-489C-963B-5CA9B378BE01@k12tn.net>
+
+We are a k-8 school system and we use WordPress multisite for each of our buildings. For our administrators to keep track of web usage, we created a page template that forms a loop around switch_to_blog(), which allows us to gather information about each site, which is displayed on a single page. It is a rather large page load, with many different database queries flying around, but it gets the job done.
+
+All you would need to do is to change what happens inside the loop to adjust for your CPTs and Taxonomies.  The end result would be a page long table with a cell for each site? in your case a portfolio.
+
+This would need to go inside your theme's folder, and you will need to create a page, calling this template? then adjust accordingly. - - - -  http://dl.dropbox.com/u/30128463/page-site-info.php
+
+Let me know if this helps - Chris
+
+
+On Jan 5, 2012, at 6:00 AM, wp-edu-request at lists.automattic.com wrote:
+
+> Send wp-edu mailing list submissions to
+> 	wp-edu at lists.automattic.com
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+> 	wp-edu-request at lists.automattic.com
+> 
+> You can reach the person managing the list at
+> 	wp-edu-owner at lists.automattic.com
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+> 
+> 
+> Today's Topics:
+> 
+>   1. MultiSite Sitewide Query for CPTs/Taxonomies (Kyle Jones)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Wed, 4 Jan 2012 10:13:40 -0600
+> From: Kyle Jones <kylejones at thecorkboard.org>
+> Subject: [wp-edu] MultiSite Sitewide Query for CPTs/Taxonomies
+> To: wp-edu at lists.automattic.com
+> Message-ID: <5CC08883-26FF-44F9-95C4-90D3CD1B726C at thecorkboard.org>
+> Content-Type: text/plain; charset="us-ascii"; Format="flowed";
+> 	DelSp="yes"
+> 
+> Hello everyone-
+> 
+> Over at UW-Madison's School of Library and Information Studies we're  
+> investigating using WP custom post types and taxonomies to develop  
+> ePortfolios for our students.  One of the biggest requests is the  
+> ability for the instructors to easily access artifacts (the CPT) based  
+> on a goals category (the custom taxonomy).
+> 
+> From my searches this morning it looks as if there's not a plugin or  
+> real easy way to query across the entire site based on a specific CPT  
+> and taxonomy.  The much-used sitewide tags plugin seems to be the  
+> closest, but as we're not using "normal" posts and tags this won't do.
+> 
+> Have you investigated anything like this at your institution?  Any  
+> ideas or thoughts on how to push forward?
+> 
+> Thanks,
+> 
+> ~Kyle M. L. Jones~
+> 
+> School of Library and Information Studies, UW-Madison
+> 	-Ph.D Student
+> 	-Distance Ed. T.A.
+> E-mail
+> 	-kmjones8 at wisc.edu
+> 	-kylejones at thecorkboard.org
+> 
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120104/3c7a9e2a/attachment-0001.htm>
+> 
+> ------------------------------
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> End of wp-edu Digest, Vol 31, Issue 1
+> *************************************
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120105/606d4026/attachment.htm>
+
+From kylejones at thecorkboard.org  Fri Jan  6 16:50:00 2012
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Fri, 6 Jan 2012 10:50:00 -0600
+Subject: [wp-edu] Sitwide Query for CPTs/Taxonomies (Tenbarge Chris)
+In-Reply-To: <mailman.9.1325851202.13946.wp-edu@lists.automattic.com>
+References: <mailman.9.1325851202.13946.wp-edu@lists.automattic.com>
+Message-ID: <FA822D8F-CF0A-46FE-8967-8CAF7F0E736C@thecorkboard.org>
+
+Thanks, Chris.  That is a helpful start.  I was able to get Sitewide  
+Tags to populate my custom post types and am still working through  
+that option.
+
+~k~
+
+On Jan 6, 2012, at 6:00 AM, wp-edu-request at lists.automattic.com wrote:
+
+> We are a k-8 school system and we use WordPress multisite for each  
+> of our buildings. For our administrators to keep track of web usage,  
+> we created a page template that forms a loop around  
+> switch_to_blog(), which allows us to gather information about each  
+> site, which is displayed on a single page. It is a rather large page  
+> load, with many different database queries flying around, but it  
+> gets the job done.
+>
+> All you would need to do is to change what happens inside the loop  
+> to adjust for your CPTs and Taxonomies.  The end result would be a  
+> page long table with a cell for each site? in your case a portfolio.
+>
+> This would need to go inside your theme's folder, and you will need  
+> to create a page, calling this template? then adjust accordingly. -  
+> - - -  http://dl.dropbox.com/u/30128463/page-site-info.php
+>
+> Let me know if this helps - Chris
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120106/02239bf0/attachment.htm>
+

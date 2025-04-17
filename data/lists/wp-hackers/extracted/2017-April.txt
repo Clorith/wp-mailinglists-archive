@@ -1,0 +1,160 @@
+From lukebryan at sharefaith.com  Sat Apr 29 04:48:07 2017
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Fri, 28 Apr 2017 21:48:07 -0700
+Subject: [wp-hackers] Question on Nav speed
+Message-ID: <CAFnKAk123SiUSY3oxPOk180XyOV9eb==VWJ29r+dNjYqRO-ADA@mail.gmail.com>
+
+Greetings all,
+
+I have noticed that in profiling Wordpress, wp_get_nav_menu_items() seems
+to be a slow function overall in any given page load. Looking through
+tickets, it seems others would agree...
+
+It *needs caching*:
+https://core.trac.wordpress.org/ticket/27120
+
+Saving menus apparently can be slow and we shouldn't "call
+wp_get_nav_menu_items() in wp_update_nav_menu_item() unless we need to.
+(Huge.)"
+https://core.trac.wordpress.org/ticket/22189
+
+I was wondering if there is any recommendation for optimizing the navs or
+if there's anything in-the-works that would improve performance without,
+say, adding a site cache plugin?
+
+Best regards,
+Luke
+
+From simon.vart at exigences.biz  Sat Apr 29 10:57:30 2017
+From: simon.vart at exigences.biz (Simon Vart)
+Date: Sat, 29 Apr 2017 12:57:30 +0200
+Subject: [wp-hackers] Question on Nav speed
+In-Reply-To: <CAFnKAk123SiUSY3oxPOk180XyOV9eb==VWJ29r+dNjYqRO-ADA@mail.gmail.com>
+References: <CAFnKAk123SiUSY3oxPOk180XyOV9eb==VWJ29r+dNjYqRO-ADA@mail.gmail.com>
+Message-ID: <CAL96uY_LMg=002_0pYgmnqi9D+oV6wAtnd-_yxE_CACJpS-Gwg@mail.gmail.com>
+
+Hi,
+
+Maybe use a transient to cache the menu items ?
+
+2017-04-29 6:48 GMT+02:00 Luke Bryan <lukebryan at sharefaith.com>:
+
+> Greetings all,
+>
+> I have noticed that in profiling Wordpress, wp_get_nav_menu_items() seems
+> to be a slow function overall in any given page load. Looking through
+> tickets, it seems others would agree...
+>
+> It *needs caching*:
+> https://core.trac.wordpress.org/ticket/27120
+>
+> Saving menus apparently can be slow and we shouldn't "call
+> wp_get_nav_menu_items() in wp_update_nav_menu_item() unless we need to.
+> (Huge.)"
+> https://core.trac.wordpress.org/ticket/22189
+>
+> I was wondering if there is any recommendation for optimizing the navs or
+> if there's anything in-the-works that would improve performance without,
+> say, adding a site cache plugin?
+>
+> Best regards,
+> Luke
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jdg at codesymphony.co  Sat Apr 29 11:00:22 2017
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Sat, 29 Apr 2017 07:00:22 -0400
+Subject: [wp-hackers] Question on Nav speed
+In-Reply-To: <CAFnKAk123SiUSY3oxPOk180XyOV9eb==VWJ29r+dNjYqRO-ADA@mail.gmail.com>
+References: <CAFnKAk123SiUSY3oxPOk180XyOV9eb==VWJ29r+dNjYqRO-ADA@mail.gmail.com>
+Message-ID: <A773A0F4-6334-4F63-B1B5-B2DBC5C2010D@codesymphony.co>
+
+This is a good place to use fragment caching. Since menus don't change very often, just cache the entire rendered menu in  a transient. I think there are plugins that do this out there. See for example https://github.com/Rarst/fragment-cache <https://github.com/Rarst/fragment-cache>
+
+-J.D.
+
+> On Apr 29, 2017, at 12:48 AM, Luke Bryan <lukebryan at sharefaith.com> wrote:
+> 
+> Greetings all,
+> 
+> I have noticed that in profiling Wordpress, wp_get_nav_menu_items() seems
+> to be a slow function overall in any given page load. Looking through
+> tickets, it seems others would agree...
+> 
+> It *needs caching*:
+> https://core.trac.wordpress.org/ticket/27120
+> 
+> Saving menus apparently can be slow and we shouldn't "call
+> wp_get_nav_menu_items() in wp_update_nav_menu_item() unless we need to.
+> (Huge.)"
+> https://core.trac.wordpress.org/ticket/22189
+> 
+> I was wondering if there is any recommendation for optimizing the navs or
+> if there's anything in-the-works that would improve performance without,
+> say, adding a site cache plugin?
+> 
+> Best regards,
+> Luke
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From fris at fris.net  Sat Apr 29 11:03:34 2017
+From: fris at fris.net (Chris McCoy)
+Date: Sat, 29 Apr 2017 07:03:34 -0400
+Subject: [wp-hackers] Question on Nav speed
+In-Reply-To: <CAL96uY_LMg=002_0pYgmnqi9D+oV6wAtnd-_yxE_CACJpS-Gwg@mail.gmail.com>
+References: <CAFnKAk123SiUSY3oxPOk180XyOV9eb==VWJ29r+dNjYqRO-ADA@mail.gmail.com>
+ <CAL96uY_LMg=002_0pYgmnqi9D+oV6wAtnd-_yxE_CACJpS-Gwg@mail.gmail.com>
+Message-ID: <08EA1876-C9A1-41D6-BE4A-1880E373626A@fris.net>
+
+good tutorial on that here
+
+https://generatewp.com/how-to-use-transients-to-speed-up-wordpress-menus/ <https://generatewp.com/how-to-use-transients-to-speed-up-wordpress-menus/>
+
+
+> On Apr 29, 2017, at 6:57 AM, Simon Vart <simon.vart at exigences.biz> wrote:
+> 
+> Hi,
+> 
+> Maybe use a transient to cache the menu items ?
+> 
+> 2017-04-29 6:48 GMT+02:00 Luke Bryan <lukebryan at sharefaith.com>:
+> 
+>> Greetings all,
+>> 
+>> I have noticed that in profiling Wordpress, wp_get_nav_menu_items() seems
+>> to be a slow function overall in any given page load. Looking through
+>> tickets, it seems others would agree...
+>> 
+>> It *needs caching*:
+>> https://core.trac.wordpress.org/ticket/27120
+>> 
+>> Saving menus apparently can be slow and we shouldn't "call
+>> wp_get_nav_menu_items() in wp_update_nav_menu_item() unless we need to.
+>> (Huge.)"
+>> https://core.trac.wordpress.org/ticket/22189
+>> 
+>> I was wondering if there is any recommendation for optimizing the navs or
+>> if there's anything in-the-works that would improve performance without,
+>> say, adding a site cache plugin?
+>> 
+>> Best regards,
+>> Luke
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+

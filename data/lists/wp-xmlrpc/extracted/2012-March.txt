@@ -1,0 +1,62 @@
+From joseph at josephscott.org  Fri Mar  2 22:03:32 2012
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 2 Mar 2012 15:03:32 -0700
+Subject: [wp-xmlrpc] Why "Auto Draft" row are created during XMLRPC
+ create new article?
+In-Reply-To: <CAJvdmtG_7kJpoArK5g0ZyqB54FprL=Sg41sr85C6cvuNH-bHrg@mail.gmail.com>
+References: <CAJvdmtG_7kJpoArK5g0ZyqB54FprL=Sg41sr85C6cvuNH-bHrg@mail.gmail.com>
+Message-ID: <CAE81+yYTr_PDLk16z3Yi_LnCzW2tkvGPzHx21yLrRtQdx2n-FA@mail.gmail.com>
+
+Can you provide more details on what XML-RPC calls you are doing?  I
+small script to reproduce this would be ideal.
+
+Is this on WP -trunk?  Are you seeing the same issue with the last
+release of WP?
+
+On Wed, Feb 29, 2012 at 3:04 AM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+> I found out that during XMLRPC insert post to the wordpress, some strange
+> rows, together with the real posts are created, e.g.
+>
+> INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`,
+> `post_content`, `post_title`, `post_excerpt`, `post_status`,
+> `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`,
+> `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`,
+> `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`,
+> `comment_count`) VALUES (1,1,'2012-02-29 09:26:43','0000-00-00
+> 00:00:00','','Auto
+> Draft','','auto-draft','open','open','','','','','2012-02-29
+> 09:26:43','0000-00-00
+> 00:00:00','',0,'http://www.example.net/wordpress/test1/?p=1',0,'post','',0);
+>
+>
+> Why "Auto Draft" is created automatically? Can it be skipped?
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From ryanchan404 at gmail.com  Sun Mar  4 02:48:07 2012
+From: ryanchan404 at gmail.com (Ryan Chan)
+Date: Sun, 4 Mar 2012 10:48:07 +0800
+Subject: [wp-xmlrpc] Direct programmable interface to WP
+Message-ID: <CAJvdmtF6i96REfdsJBJiutf1j7bbzNVV_e+jbovagD56H0PheA@mail.gmail.com>
+
+..might be of topic, but related :)
+
+I am using XMLRPC to import large volume of data, I am just wondering if
+any library that allow me to connect to the database and import the data
+directly, instead of going through the HTTP interface, seems there are too
+much overhead if I am writing a lot of data.
+
+Assuming I have access to the database.
+
+Anyone tried before?
+
+Thanks.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20120304/f75a24ab/attachment.htm>
+

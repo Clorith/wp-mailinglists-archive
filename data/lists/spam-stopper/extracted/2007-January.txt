@@ -1,0 +1,70 @@
+From thomas.freudenberg at gmail.com  Sat Jan  6 23:49:37 2007
+From: thomas.freudenberg at gmail.com (Thomas Freudenberg)
+Date: Sun, 7 Jan 2007 00:49:37 +0100
+Subject: [spam-stopper] invalid return from submit-ham
+Message-ID: <5c5e94900701061549x7a748124q7b01f4eebe8cb578@mail.gmail.com>
+
+Hi all,
+
+today I noticed, that when I call the submit-ham method, it returns
+"Thanks for making the web a better place." But according to the
+documention, it should return either "valid" or "invalid." Or did I
+miss something?
+
+Regards,
+Thomas
+
+
+From m at mullenweg.com  Sun Jan  7 02:32:04 2007
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat, 06 Jan 2007 18:32:04 -0800
+Subject: [spam-stopper] invalid return from submit-ham
+In-Reply-To: <5c5e94900701061549x7a748124q7b01f4eebe8cb578@mail.gmail.com>
+References: <5c5e94900701061549x7a748124q7b01f4eebe8cb578@mail.gmail.com>
+Message-ID: <45A05BA4.6030304@mullenweg.com>
+
+Thomas Freudenberg wrote:
+> today I noticed, that when I call the submit-ham method, it returns
+> "Thanks for making the web a better place." But according to the
+> documention, it should return either "valid" or "invalid." Or did I
+> miss something?
+
+submit-ham and submit-spam never say no, unless you have an invalid key. 
+They're easy.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From eaden.mckee at gmail.com  Fri Jan 12 12:09:04 2007
+From: eaden.mckee at gmail.com (Eaden McKee)
+Date: Sat, 13 Jan 2007 01:09:04 +1300
+Subject: [spam-stopper] Release: PHPBB Akismet Mod
+Message-ID: <9e771ea90701120409n6b8541f2t52cc8c6576d1e41f@mail.gmail.com>
+
+Hi,
+I run a few forums and the spammers really like messing with them and
+unfortunately the only Akismet PHPBB mod was abandoned.
+
+On my forums I use a PHPBB mod called Spam Words (
+http://www.phpbb.com/phpBB/viewtopic.php?t=354376 ) which
+blocks/queues posts based on a keyword blacklist. However the list of
+keywords can get very large and hard to maintain.
+
+I've made a mod for this mod to add akismet support. It was quite
+simple because the Spam Words mod has all the queuing/moderation code,
+so it was just a matter of hooking into the check_spam() function.
+
+If anyone is interested in implementing this onto their forum, the
+code and instructions are at
+http://www.eadz.co.nz/blog/article/phpbb-akismet.html
+
+In the future I hope to work with the Spam Words developer to get this
+added into his mod.
+
+Best Regards
+Eaden McKee
+
+

@@ -1,0 +1,59 @@
+From nikolov.tmw at gmail.com  Wed Nov 19 00:42:51 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Wed, 19 Nov 2014 02:42:51 +0200
+Subject: [wp-hackers] map_meta_cap returns empty array for edit_post
+Message-ID: <CAOwx47fErp7mmcd0XeaFt9GBjoRFNsS8hynE404MZF6118g5Tg@mail.gmail.com>
+
+Hi everyone,
+
+I'm trying to conditionally set post-related capabilities and I'm surprised
+to see that in certain situations that fails.
+
+I believe the culprit is the map_meta_cap function(since in
+WP_User::has_cap() $caps is an empty array). The post in question is in the
+trash and I'd like to forbid certain users to restore the post. The problem
+is with the following check (
+https://github.com/WordPress/WordPress/blob/4.0-branch/wp-includes/capabilities.php#L1139
+):
+
+...
+} elseif ( 'trash' == $post->post_status ) {
+if ( 'publish' == get_post_meta( $post->ID, '_wp_trash_meta_status', true )
+) {
+$caps[] = $post_type->cap->edit_published_posts;
+}
+} else {
+...
+
+If the _wp_trash_meta_status is not publish, then no actual capability is
+mapped to the requested one. Hence WP_User::has_cap() returns true and it's
+impossible to filter the capability.
+
+Is this the intended behaviour, or is this a bug that somehow managed to
+sneak-in? If it's a bug, then I'll post a ticket on Track, but if it's not
+I'd be curious to hear why it works that way.
+
+All the best,
+Nikola
+
+From lukebryan at sharefaith.com  Sat Nov 29 16:12:45 2014
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Sat, 29 Nov 2014 08:12:45 -0800
+Subject: [wp-hackers] (no subject)
+Message-ID: <CAFnKAk1+xwb5ghVkit9b85Oz-XvY8FELkkRLS0hfT7xU2V6Ctw@mail.gmail.com>
+
+Greetings all,
+
+I've been testing WP 4.1, and there's one new feature I can't quite
+understand:
+Clicking an image shows a new toolbar that adds left, right, center, and
+no-align to the edit/delete buttons. Clicking these buttons seems to do the
+same thing as clicking left, center, right align, or untoggling the current
+selected (no-align) on the normal toolbar.
+
+Is this feature redundant, or am I missing something? Are users not
+connecting the use of align with selection of image?
+
+Best regards,
+Luke
+

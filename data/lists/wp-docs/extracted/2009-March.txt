@@ -1,0 +1,527 @@
+From cclarkson at htcomp.net  Sun Mar  1 04:45:23 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Sun Mar  1 04:46:03 2009
+Subject: [wp-docs] File naming problem for the __() function
+Message-ID: <49AA12E3.9000200@htcomp.net>
+
+Hello All,
+
+I took the liberty to name the __ function page _2 since Mediawiki 
+apparently squashes multiple underscores. I doubt most people will 
+notice it, but I placed a note above the page Description heading giving 
+a brief explanation of the error.
+
+http://codex.wordpress.org/Function_Reference/_2
+
+I tried using __ and __function as well but Mediawiki didn't like those.
+
+Could someone more learned see if there is a better solution?
+
+Perhaps it might be possible to create a redirect from 
+/Function_Reference/__ to Function_Reference/_2 to get around Mediawiki.
+
+I didn't test to see if this is an Apache limitation to the file name.
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From wordpress at santosj.name  Mon Mar  2 03:21:05 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Mon Mar  2 03:21:18 2009
+Subject: [wp-docs] Special Note About the Delete Plugin and Plugin Uninstall
+Message-ID: <49AB50A1.9060705@santosj.name>
+
+There has been some confusion on Trac about the purpose and use case 
+about the Delete Plugin and plugin authors wanting to be able to keep 
+their settings.
+
+The reason the plugin uninstall is part of the plugin delete is so that 
+plugin authors can clean up their settings when the user deletes their 
+plugin. I think the confusion lies is when the person realizes that they 
+didn't want to remove their plugin and find that all of their settings 
+are now gone. This should not be the case and should be assumed that 
+when the user deletes the plugin, that they also want to remove any and 
+all settings, files, and misc stuff that would be considered garbage 
+once the plugin is no more.
+
+I'm not sure where to put this on the Codex, so I'm letting you all here 
+know in case there is an inquiry in the future or if someone knows of a 
+place it should be. I'm not sure there is actually any page other than 
+the Version 2.7 notes on the uninstall. It would be nice if there was.
+
+Jacob Santos
+From cclarkson at htcomp.net  Mon Mar  2 06:19:42 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Mon Mar  2 06:20:31 2009
+Subject: [wp-docs] Function Pages Update
+Message-ID: <49AB7A7E.4010209@htcomp.net>
+
+Hello,
+
+New Function Reference Pages
+
+I have added about 249 new function reference pages to the Codex since 
+taking on the project in mid-December. I'm really surprised I'm not 
+burned out. I completed this first goal a few moments ago.
+
+All the function links listed on the Function Reference page[1] go 
+somewhere now. The new pages are just the description from the inline 
+docs plus a few extra comments and linked terms, but it is a good start.
+
+I seriously doubt all the functions in WordPress on listed on that page, 
+but I need to take a breather before deciding the next step and I would 
+like to get the Global Variable page on the Codex before continuing.
+
+I didn't touch any of the existing function pages. Many of them are in 
+pretty bad shape, but the first goal was to get something on each page 
+for now. We still need examples. I think we will always need more examples.
+
+I didn't get to the Class descriptions (yet).
+
+
+
+Inline Docs Parser
+
+The parser I wrote to rip apart the source code is getting better. It 
+doesn't understand PHP code, but it can handle the function definition 
+and the global() statement to construct default values and to add 
+descriptive global variable names (some with links to Codex pages).
+
+There is a term parser which automatically generates external links to 
+Wikipedia (for some common terms like HTML and Nonce) and to the PHP 
+manual for PHP terms and functions. There are also many links to Codex 
+pages including a linker to other codex functions listed in the function 
+docs.
+
+I had a few requests to re-write it in PHP (it's in perl now) so WP 
+programmers could play. I thought I would try starting from the XRef 
+code base, but it is also written in perl. Go figure. :)
+
+
+[1] http://codex.wordpress.org/Function_Reference
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From gaarai at gaarai.com  Mon Mar  2 13:20:21 2009
+From: gaarai at gaarai.com (Chris Jean)
+Date: Mon Mar  2 13:20:40 2009
+Subject: [wp-docs] Function Pages Update
+In-Reply-To: <49AB7A7E.4010209@htcomp.net>
+References: <49AB7A7E.4010209@htcomp.net>
+Message-ID: <49ABDD15.6010605@gaarai.com>
+
+Fantastic work Charles! I'm very impressed.
+
+I'm sorry that I haven't been of any help with your project as I've been 
+smashed under a large project for two months now.
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+http://dnsyogi.com/
+
+
+
+Charles K. Clarkson wrote:
+> Hello,
+>
+> New Function Reference Pages
+>
+> I have added about 249 new function reference pages to the Codex since 
+> taking on the project in mid-December. I'm really surprised I'm not 
+> burned out. I completed this first goal a few moments ago.
+>
+> All the function links listed on the Function Reference page[1] go 
+> somewhere now. The new pages are just the description from the inline 
+> docs plus a few extra comments and linked terms, but it is a good start.
+>
+> I seriously doubt all the functions in WordPress on listed on that 
+> page, but I need to take a breather before deciding the next step and 
+> I would like to get the Global Variable page on the Codex before 
+> continuing.
+>
+> I didn't touch any of the existing function pages. Many of them are in 
+> pretty bad shape, but the first goal was to get something on each page 
+> for now. We still need examples. I think we will always need more 
+> examples.
+>
+> I didn't get to the Class descriptions (yet).
+>
+>
+>
+> Inline Docs Parser
+>
+> The parser I wrote to rip apart the source code is getting better. It 
+> doesn't understand PHP code, but it can handle the function definition 
+> and the global() statement to construct default values and to add 
+> descriptive global variable names (some with links to Codex pages).
+>
+> There is a term parser which automatically generates external links to 
+> Wikipedia (for some common terms like HTML and Nonce) and to the PHP 
+> manual for PHP terms and functions. There are also many links to Codex 
+> pages including a linker to other codex functions listed in the 
+> function docs.
+>
+> I had a few requests to re-write it in PHP (it's in perl now) so WP 
+> programmers could play. I thought I would try starting from the XRef 
+> code base, but it is also written in perl. Go figure. :)
+>
+>
+> [1] http://codex.wordpress.org/Function_Reference
+>
+> HTH,
+>
+> Charles Clarkson
+From lorellevan at gmail.com  Tue Mar  3 01:01:45 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Tue Mar  3 01:01:55 2009
+Subject: [wp-docs] Special Note About the Delete Plugin and Plugin 
+	Uninstall
+In-Reply-To: <49AB50A1.9060705@santosj.name>
+References: <49AB50A1.9060705@santosj.name>
+Message-ID: <fded39850903021701s1381abe3wdd111627619824a1@mail.gmail.com>
+
+Thanks, Jacob.
+
+The information about this should go in two places. First, as an advisory to
+those using WordPress Plugins as a warning to not uninstall the Plugin
+unless they really want to remove all settings and database information.
+That goes in the Managing Plugins article.
+
+The other needs to go into the Plugin development area, at first on how to
+write a WordPress Plugin, and possibly elsewhere. The functions and such
+need to be in the WordPress Functions pages as well. Part of the development
+documentation.
+
+Can you add it or do you want me to? I can add it to the Managing Plugins
+article, but your development expertise would be better for the other areas.
+
+Thank you. This is an invaluable catch.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090303/0236ca59/attachment.htm
+From bonops at gmail.com  Wed Mar 18 12:22:06 2009
+From: bonops at gmail.com (bono)
+Date: Wed Mar 18 12:22:29 2009
+Subject: [wp-docs] Linking to other languages on each page
+Message-ID: <20090318211935.1D2C.1171FDA@gmail.com>
+
+Hi,
+
+I'm a system admin of Japanese Codex. Our Codex pages have
+links to English and other languages, like Wikipedia's sidebar [1].
+(e.g. Japanese "Template Tags" page [2])
+
+Similarly, will you consider adding such sidebar links to English
+Codex using "Interlanguage Links" function of Mediawiki? [3]
+
+You need to add a new row (see below) into the interwiki table[4]
+for English Codex database.
+Who should I talk with about this? (system admin of Codex?)
+
+iw_prefix | iw_url                                             |iw_local | iw_trans
+----------+------------------------------------+---------+----------
+ja             | http://wpdocs.sourceforge.jp/$1 | 1           | 0
+
+If English Codex skin doesn't have "otherlanguages" section, like
+ones in skins/MonoBook.php file, it might also need to add this
+section.
+
+Thank you!
+
+[1]: http://en.wikipedia.org/wiki/Main_Page#p-lang
+[2]: http://wpdocs.sourceforge.jp/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%82%BF%E3%82%B0#p-lang
+[3]: http://www.mediawiki.org/wiki/Manual:Interwiki#Interwiki_links_to_other_languages
+[4]: http://www.mediawiki.org/wiki/Interwiki_table
+
+- - -
+bono
+http://codex.wordpress.org/User:Bono
+http://ja.forums.wordpress.org/profile/296108
+
+From yahgrp at poplarware.com  Wed Mar 18 16:14:52 2009
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Mar 18 16:16:06 2009
+Subject: [wp-docs] Linking to other languages on each page
+In-Reply-To: <20090318211935.1D2C.1171FDA@gmail.com>
+References: <20090318211935.1D2C.1171FDA@gmail.com>
+Message-ID: <49C11DFC.5060601@poplarware.com>
+
++1 on this idea.
+
+Isn't there an official place for other-language Codex documentation? 
+If not, maybe there should be?
+
+    --Jennifer
+
+bono wrote:
+> I'm a system admin of Japanese Codex. Our Codex pages have
+> links to English and other languages, like Wikipedia's sidebar [1].
+> (e.g. Japanese "Template Tags" page [2])
+> 
+> Similarly, will you consider adding such sidebar links to English
+> Codex using "Interlanguage Links" function of Mediawiki? [3]
+
+-- 
+Jennifer Hodgdon * Poplar ProductivityWare
+www.poplarware.com
+Drupal, WordPress, and custom Web programming
+
+From xavier at borderie.net  Thu Mar 19 11:00:18 2009
+From: xavier at borderie.net (Xavier Borderie)
+Date: Thu Mar 19 11:22:33 2009
+Subject: [wp-docs] Linking to other languages on each page
+In-Reply-To: <49C11DFC.5060601@poplarware.com>
+References: <20090318211935.1D2C.1171FDA@gmail.com>
+	<49C11DFC.5060601@poplarware.com>
+Message-ID: <9e4ae73e0903190400i59011b34m66629274928023a8@mail.gmail.com>
+
+Being a user of the french Codex, I asked the same question long ago
+(or rather, "can we have inter-language links in the manner of
+wikipedia?"), and I remember the answer being "no can do, because of
+the way the codex is currently setup".
+Hopefully this can now be done...
+
+-x.
+
+
+
+2009/3/18 Jennifer Hodgdon <yahgrp@poplarware.com>:
+> +1 on this idea.
+>
+> Isn't there an official place for other-language Codex documentation? If
+> not, maybe there should be?
+>
+> ? --Jennifer
+>
+> bono wrote:
+>>
+>> I'm a system admin of Japanese Codex. Our Codex pages have
+>> links to English and other languages, like Wikipedia's sidebar [1].
+>> (e.g. Japanese "Template Tags" page [2])
+>>
+>> Similarly, will you consider adding such sidebar links to English
+>> Codex using "Interlanguage Links" function of Mediawiki? [3]
+>
+> --
+> Jennifer Hodgdon * Poplar ProductivityWare
+> www.poplarware.com
+> Drupal, WordPress, and custom Web programming
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+Xavier Borderie
+From bonops at gmail.com  Mon Mar 23 12:02:45 2009
+From: bonops at gmail.com (bono)
+Date: Mon Mar 23 12:03:23 2009
+Subject: [wp-docs] Linking to other languages on each page
+In-Reply-To: <9e4ae73e0903190400i59011b34m66629274928023a8@mail.gmail.com>
+References: <49C11DFC.5060601@poplarware.com>
+	<9e4ae73e0903190400i59011b34m66629274928023a8@mail.gmail.com>
+Message-ID: <20090323205817.20D7.1171FDA@gmail.com>
+
+Thanks, Jennifer, Xavier!
+
+"Interlanguage Links" is the basic function of MediaWiki.
+We can use this function, simply doing below.
+
+1. Add data[1] to interwiki table of English Codex database.
+2. Add languageBox to Codex skin file, if it's not already available.
+3. Start adding links to each page.
+
+But French Codex will need to change the format of existing internal
+links, from [[fr:Page name]] to [[:fr:Page name]]. [2]
+You could add a colon to each link on wiki by hand, or export French
+pages[3], run a search & replace, then import.
+
+[1]: e.g. http://codex.wordpress.org/User:Bono/Links_to_other_languages#.E5.90.84.E8.A8.80.E8.AA.9E.E7.89.88_Codex
+[2]: http://www.mediawiki.org/wiki/Manual:Interwiki/fr#Liens_interwiki_vers_d.27autres_langues
+[3]: http://codex.wordpress.org/Special:Export
+
+--bono
+
+
+On Thu, 19 Mar 2009 12:00:18 +0100
+Xavier Borderie <xavier@borderie.net> wrote:
+> Being a user of the french Codex, I asked the same question long ago
+> (or rather, "can we have inter-language links in the manner of
+> wikipedia?"), and I remember the answer being "no can do, because of
+> the way the codex is currently setup".
+> Hopefully this can now be done...
+> 
+> -x.
+> 
+> 
+> 2009/3/18 Jennifer Hodgdon <yahgrp@poplarware.com>:
+> > +1 on this idea.
+> >
+> > Isn't there an official place for other-language Codex documentation? If
+> > not, maybe there should be?
+> >
+> >   --Jennifer
+From lorellevan at gmail.com  Tue Mar 24 15:55:04 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Tue Mar 24 15:55:15 2009
+Subject: [wp-docs] Linking to other languages on each page
+In-Reply-To: <20090323205817.20D7.1171FDA@gmail.com>
+References: <49C11DFC.5060601@poplarware.com>
+	<9e4ae73e0903190400i59011b34m66629274928023a8@mail.gmail.com>
+	<20090323205817.20D7.1171FDA@gmail.com>
+Message-ID: <fded39850903240855x5d2ef009x124ed005251f2863@mail.gmail.com>
+
+I'm totally in favor, and have been, of linking the various languages
+together, manually or otherwise. The links to the international versions are
+at the bottom of the main page, and I thought they were at the bottom of
+every page. Huh. Wonder if that got lost in the changes a couple years ago.
+I'll look into that.
+
+I would love to also have manual links to translated articles. If someone
+translates a page, they should also add a link to that translated article in
+the Codex on the page they translate, as well as to the original English (or
+whatever language) so we can build cross linking context to all the
+articles.
+
+However, I don't read Japanese, Turkish, Russian, etc., so I can't go
+through and do this. Nor would I expect anyone else not versed in the
+language to do so. We need to get the translators to do this as part of
+their responsibilities, helping everyone find the information they need in
+their language.
+
+I'll post to the polygots group to ask their help in this, too. Thanks for
+bringing it up.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090324/77b5a065/attachment.htm
+From lorellevan at gmail.com  Tue Mar 24 18:14:01 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Tue Mar 24 18:14:35 2009
+Subject: [wp-docs] Linking to other languages on each page
+In-Reply-To: <fded39850903240855x5d2ef009x124ed005251f2863@mail.gmail.com>
+References: <49C11DFC.5060601@poplarware.com>
+	<9e4ae73e0903190400i59011b34m66629274928023a8@mail.gmail.com> 
+	<20090323205817.20D7.1171FDA@gmail.com>
+	<fded39850903240855x5d2ef009x124ed005251f2863@mail.gmail.com>
+Message-ID: <fded39850903241114l12568db2n7123b0d336605640@mail.gmail.com>
+
+I've posted a note to the wp-polyglots mailing list and here is the core
+info we need to know.
+
+1. I'm contacting the PTB for WordPress to get the translation bar added to
+the footer of the Codex. This will only direct people to the front page of
+the translation version, but it's a start. No matter what page they land
+upon, they will be able to get to something in their language.
+
+2. I've added translating information to the Codex and asked the
+wp-polyglots mailing list folks to cross link between the original documents
+and the translated, and vise versa to get the connection between the
+languages. I've also set up a guideline for adding translation links:
+
+
+http://codex.wordpress.org/Codex:Creating_a_New_Page#Translating_the_WordPress_Codex
+
+I've also added the link to this in the Contributing to WordPress page. I'm
+awaiting your feedback and then I'll blog about this and hope that others
+will do the same if their audience serves this issue to help spread the
+word.
+
+Thanks for kicking us in the butt about this. We started work on something
+along this line a long time ago but it's been lost in the workload. :D
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090324/59d0f697/attachment.htm
+From bonops at gmail.com  Wed Mar 25 16:08:51 2009
+From: bonops at gmail.com (bono)
+Date: Wed Mar 25 16:09:19 2009
+Subject: [wp-docs] Linking to other languages on each page
+In-Reply-To: <fded39850903241114l12568db2n7123b0d336605640@mail.gmail.com>
+References: <fded39850903240855x5d2ef009x124ed005251f2863@mail.gmail.com>
+	<fded39850903241114l12568db2n7123b0d336605640@mail.gmail.com>
+Message-ID: <20090326005425.14A4.1171FDA@gmail.com>
+
+Xavier,
+
+On Mon, 23 Mar 2009 21:02:45 +0900
+bono <bonops@gmail.com> wrote:
+> But French Codex will need to change the format of existing internal
+> links, from [[fr:Page name]] to [[:fr:Page name]]. [2]
+> You could add a colon to each link on wiki by hand, or export French
+> pages[3], run a search & replace, then import.
+
+The easiest way to update French docs is to have the Codex admin
+replace them with SQL statements.
+
+
+Thanks Lorelle,
+
+I've always wanted to see cross links to translated articles in Codex,
+so this is a huge step forward!
+
+Let me clarify some things.
+The "Interlanguage Links" I was talking about is also a way to
+"manually" select articles that you link to.
+Once the database's interwiki table is set up, contributors can use a
+translated page's article name to link to it.
+
+For example, you'll add some code like this on an English page:
+
+[[fr:French Article Name]]
+[[ja:Japanese Articke Name]]
+[[tr:Turkish Article Name]]
+[[zh:Chinese Article Name]]
+[[zh-tw:???? Article Name]]
+
+The advantages of this over adding links within the article (with
+full path to other articles) are:
+
+- No need to write full path, just article names (similar to linking
+within the same wiki)
+- Translated article links will show up on the sidebar. A lot of
+people are used to Wikipedia's such interface, so it will be easier
+to find translation
+- If the domain is changed for a translated documentation, there is
+no need to edit each page; Codex admin just need to update the
+interwiki table in the database. I'd like to have
+ja.codex.wordpress.org domain assigned to our sorceforge hosted
+documentation if possible, so this eliminates extra work in the
+future.
+
+Like I said in my earlier post, this change requires database change
+& skin modificaiton.
+I'd really like to be in touch with whoever in charge of making such
+update so I can explain the process and maybe answer any questions.
+
+--bono
+

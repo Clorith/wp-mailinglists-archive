@@ -1,0 +1,487 @@
+From joseph at josephscott.org  Mon Aug  3 21:56:17 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 3 Aug 2009 15:56:17 -0600
+Subject: [wp-xmlrpc] Accessing APIs
+In-Reply-To: <a624d28d0907300818h4b46cc14n384df091c91a4e1c@mail.gmail.com>
+References: <a624d28d0907300818h4b46cc14n384df091c91a4e1c@mail.gmail.com>
+Message-ID: <4383CC03-8040-4FFD-A561-4C8083DCF20E@josephscott.org>
+
+
+On Jul 30, 2009, at 9:18 AM, krishna kishore aluri wrote:
+
+> I am using asp.net with c# code behind. I am trying to access the  
+> wordpress apis. I got the userblog information by using  
+> wp.getUserBlogs method by passing the parameters UserName and  
+> Password(ref:-http://www.iron-feet.cn/?p=1672 ). Now i want to  
+> insert a commnet. How to build a methodcall xml, perticularly how to  
+> build the struct. Please help me. Please send me the sample code.
+
+
+
+Is there no C# XML-RPC library?  That would probably be easier than  
+having to build of the raw XML yourself.
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20090803/47cdce17/attachment.htm>
+
+From joseph at josephscott.org  Thu Aug 13 18:13:53 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu, 13 Aug 2009 12:13:53 -0600
+Subject: [wp-xmlrpc] tickets, patches and issues push for WP 2.9
+Message-ID: <49DBD86C-7F2C-4D5E-8217-74042DFA3C14@josephscott.org>
+
+
+Seeing this ticket from Joe Cheng (from the Windows Live Writer team)  
+- http://core.trac.wordpress.org/ticket/10599 - (I think I already  
+know what the issue is there) reminded me to put a call out for  
+tickets, patches and outstanding issues that you'd like to see get  
+attention for the upcoming 2.9 release of WordPress.  We are far  
+enough out from the release right now to get changes in and have time  
+to test them.
+
+If you have an AtomPub or XML-RPC issue that doesn't have a ticket yet  
+please submit it at http://core.trac.wordpress.org/
+
+You can see the current tickets that are marked for the XML-RPC  
+component -
+
+http://core.trac.wordpress.org/query?status=accepted&status=assigned&status=new&status=reopened&status=reviewing&component=XML-RPC&order=priority&col=id&col=summary&col=status&col=type&col=priority&col=milestone&col=component
+
+and AtomPub component tickets -
+
+http://core.trac.wordpress.org/query?status=accepted&status=assigned&status=new&status=reopened&status=reviewing&component=AtomPub&order=priority&col=id&col=summary&col=component&col=status&col=type&col=priority&col=milestone
+
+Looking for a way to help?  Find a ticket that interests you and see  
+if it has a patch.  If it does try it out and make sure it solves the  
+problem and doesn't cause any new ones.  If it clears both of those  
+hurdles leave a comment on the ticket indicating that, then those with  
+commit privs will have less work to do.  If there's no patch then  
+start work on one.
+
+Questions?  This email list is a good place for XML-RPC and AtomPub  
+discussions.  There's also the #wordpress-dev IRC channel on  
+freenode.  I'm often logged in there, along with other developers, and  
+am happy to help.  I know DCJ (the MarsEdit author) is often lurking  
+in that channel as well.
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From peter.westwood at ftwr.co.uk  Fri Aug 21 17:53:42 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Fri, 21 Aug 2009 18:53:42 +0100
+Subject: [wp-xmlrpc] APP and XMLRPC Ticket questions
+Message-ID: <03026FF0-8085-43A1-804E-A920607ECC03@ftwr.co.uk>
+
+Hi All,
+
+A couple of ticket related questions that I thought I would ask the  
+experts on.
+
+Firstly: <https://core.trac.wordpress.org/ticket/7968>
+
+This is about changing the response of WP when APP disabled from the  
+current plain text response to a wp_die formatted one.
+
+This sounds like a good idea - I just want to make sure that going  
+from plain txt to html isn't going to cause any client issues.
+
+Secondly: <http://core.trac.wordpress.org/ticket/10658>
+
+This is about improving the feedback on GET requests to xmlrpc.php  
+endpoint.
+
+I like the basic idea of the ticket but I think we can go one better  
+and, using wp_die again, provide feedback on enablement status and a  
+like to documentation on the codex about XMLRPC.
+
+Feedback welcome
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From jalkut at red-sweater.com  Fri Aug 21 18:06:15 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri, 21 Aug 2009 14:06:15 -0400
+Subject: [wp-xmlrpc] APP and XMLRPC Ticket questions
+In-Reply-To: <03026FF0-8085-43A1-804E-A920607ECC03@ftwr.co.uk>
+References: <03026FF0-8085-43A1-804E-A920607ECC03@ftwr.co.uk>
+Message-ID: <F8A99468-0AC0-44BA-81AC-95673EE7CE27@red-sweater.com>
+
+Hi Peter -
+
+MarsEdit has no dependency on the text-based failure messages.
+
+Would wp_die mean an HTML formatted failure?   I think it would be  
+even better if the APP and XMLRPC endpoints could fail with XML  
+formatted failures. This would automatically allow for error  
+presentation in MarsEdit, and I suspect would do the same for other  
+clients.
+
+Daniel
+
+On Aug 21, 2009, at 1:53pm, Peter Westwood wrote:
+
+> Hi All,
+>
+> A couple of ticket related questions that I thought I would ask the  
+> experts on.
+>
+> Firstly: <https://core.trac.wordpress.org/ticket/7968>
+>
+> This is about changing the response of WP when APP disabled from the  
+> current plain text response to a wp_die formatted one.
+>
+> This sounds like a good idea - I just want to make sure that going  
+> from plain txt to html isn't going to cause any client issues.
+>
+> Secondly: <http://core.trac.wordpress.org/ticket/10658>
+>
+> This is about improving the feedback on GET requests to xmlrpc.php  
+> endpoint.
+>
+> I like the basic idea of the ticket but I think we can go one better  
+> and, using wp_die again, provide feedback on enablement status and a  
+> like to documentation on the codex about XMLRPC.
+>
+> Feedback welcome
+> -- 
+> Peter Westwood
+> http://blog.ftwr.co.uk | http://westi.wordpress.com
+> C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From joseph at josephscott.org  Fri Aug 21 18:19:24 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 21 Aug 2009 12:19:24 -0600
+Subject: [wp-xmlrpc] APP and XMLRPC Ticket questions
+In-Reply-To: <03026FF0-8085-43A1-804E-A920607ECC03@ftwr.co.uk>
+References: <03026FF0-8085-43A1-804E-A920607ECC03@ftwr.co.uk>
+Message-ID: <2D5452C3-5893-4971-8891-4E89C882FE05@josephscott.org>
+
+
+On Aug 21, 2009, at 11:53 AM, Peter Westwood wrote:
+
+> A couple of ticket related questions that I thought I would ask the  
+> experts on.
+>
+> Firstly: <https://core.trac.wordpress.org/ticket/7968>
+>
+> This is about changing the response of WP when APP disabled from the  
+> current plain text response to a wp_die formatted one.
+>
+> This sounds like a good idea - I just want to make sure that going  
+> from plain txt to html isn't going to cause any client issues.
+
+
+
+I looked at the current situation versus using wp_die.  The wp_die  
+function is really targeted at providing HTML pages to users, so I  
+don't think that it's a good fit when talking to other software. And I  
+think the other things WP does to work around browser bugs doesn't  
+help.  Here is what we current send back (tested with curl -v):
+
+---------------------------------------
+
+< HTTP/1.1 403 Forbidden
+< Date: Fri, 21 Aug 2009 18:08:30 GMT
+< Server: Apache/2.0.59 (Unix) PHP/5.2.6 DAV/2
+< X-Powered-By: PHP/5.2.6
+< Content-Length: 132
+< Content-Type: text/plain
+<
+* Connection #0 to host localhost left intact
+* Closing connection #0
+AtomPub services are disabled on this blog.  An admin user can enable  
+them at http://localhost/wp/trunk/wp-admin/options-writing.php
+
+---------------------------------------
+
+And here is the same response after applying this patch - https://core.trac.wordpress.org/attachment/ticket/7968/7968.r10258.diff
+
+
+---------------------------------------
+
+< HTTP/1.1 403 Forbidden
+< Date: Fri, 21 Aug 2009 18:09:49 GMT
+< Server: Apache/2.0.59 (Unix) PHP/5.2.6 DAV/2
+< X-Powered-By: PHP/5.2.6
+< Expires: Wed, 11 Jan 1984 05:00:00 GMT
+< Last-Modified: Fri, 21 Aug 2009 18:09:49 GMT
+< Cache-Control: no-cache, must-revalidate, max-age=0
+< Pragma: no-cache
+< Content-Length: 1256
+< Content-Type: text/html; charset=utf-8
+<
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd 
+">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+         <meta http-equiv="Content-Type" content="text/html;  
+charset=utf-8" />
+         <title>Atom Feed</title>
+         <link rel="stylesheet" href="http://localhost/wp/trunk/wp-admin/css/install.css 
+" type="text/css" />
+</head>
+<body id="error-page">
+         <p>AtomPub services are disabled on this blog.  An admin user  
+can enable them at http://localhost/wp/trunk/wp-admin/options-writing.php 
+</p></body>
+<!-- Ticket #8942, IE bug fix: always pad the error page with enough  
+characters such that it is greater than 512 bytes, even after gzip  
+compression  
+abcdefghijklmnopqrstuvwxyz1234567890aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz11223344556677889900abacbcbdcdcededfefegfgfhghgihihjijikjkjlklkmlmlnmnmononpopoqpqprqrqsrsrtstsubcbcdcdedefefgfabcadefbghicjkldmnoepqrfstugvwxhyz1i234j567k890laabmbccnddeoeffpgghqhiirjjksklltmmnunoovppqwqrrxsstytuuzvvw0wxx1yyz2z113223434455666777889890091abc2def3ghi4jkl5mno6pqr7stu8vwx9yz11aab2bcc3dd4ee5ff6gg7hh8ii9j0jk1kl2lmm3nnoo4p5pq6qrr7ss8tt9uuvv0wwx1x2yyzz13aba4cbcb5dcdc6dedfef8egf9gfh0ghg1ihi2hji3jik4jkj5lkl6kml7mln8mnm9ono 
+  -->
+</html>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+
+---------------------------------------
+
+I think the patched version is extra work with no reward.
+
+
+> Secondly: <http://core.trac.wordpress.org/ticket/10658>
+>
+> This is about improving the feedback on GET requests to xmlrpc.php  
+> endpoint.
+>
+> I like the basic idea of the ticket but I think we can go one better  
+> and, using wp_die again, provide feedback on enablement status and a  
+> like to documentation on the codex about XMLRPC.
+
+
+Agreed, in this case we are returning content to a browser for the end  
+user, so it should be HTML.  One more additional step would be return  
+a more useful message for GET requests even when XML-RPC is enabled.
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From peter.westwood at ftwr.co.uk  Fri Aug 21 21:27:34 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Fri, 21 Aug 2009 22:27:34 +0100
+Subject: [wp-xmlrpc] APP and XMLRPC Ticket questions
+In-Reply-To: <2D5452C3-5893-4971-8891-4E89C882FE05@josephscott.org>
+References: <03026FF0-8085-43A1-804E-A920607ECC03@ftwr.co.uk>
+	<2D5452C3-5893-4971-8891-4E89C882FE05@josephscott.org>
+Message-ID: <4A70CFE8-C879-45E1-AB83-B305CAA7D032@ftwr.co.uk>
+
+> On Aug 21, 2009, at 11:53 AM, Peter Westwood wrote:
+>>
+>> This is about changing the response of WP when APP disabled from  
+>> the current plain text response to a wp_die formatted one.
+>>
+
+
+On 21 Aug 2009, at 19:06, Daniel Jalkut wrote:
+
+> MarsEdit has no dependency on the text-based failure messages.
+>
+> Would wp_die mean an HTML formatted failure?   I think it would be  
+> even better if the APP and XMLRPC endpoints could fail with XML  
+> formatted failures. This would automatically allow for error  
+> presentation in MarsEdit, and I suspect would do the same for other  
+> clients.
+
+On 21 Aug 2009, at 19:19, Joseph Scott wrote:
+
+>
+> I looked at the current situation versus using wp_die.  The wp_die  
+> function is really targeted at providing HTML pages to users, so I  
+> don't think that it's a good fit when talking to other software. And  
+> I think the other things WP does to work around browser bugs doesn't  
+> help.  Here is what we current send back (tested with curl -v):
+...
+>
+> I think the patched version is extra work with no reward.
+>
+
+Yeah the HTML version for APP does have a large overhead.
+
+I like Daniels suggestion of an XML response.
+
+Reading the APP spec is doesn't seem like there is any standard for  
+this - maybe this is something we can pioneer for APP failure responses?
+
+>
+>> Secondly: <http://core.trac.wordpress.org/ticket/10658>
+>>
+>> This is about improving the feedback on GET requests to xmlrpc.php  
+>> endpoint.
+>>
+>> I like the basic idea of the ticket but I think we can go one  
+>> better and, using wp_die again, provide feedback on enablement  
+>> status and a like to documentation on the codex about XMLRPC.
+>
+>
+> Agreed, in this case we are returning content to a browser for the  
+> end user, so it should be HTML.  One more additional step would be  
+> return a more useful message for GET requests even when XML-RPC is  
+> enabled.
+>
+
+Yeah a better get when enabled as well was what I was trying to imply.
+
+Something along the lines of a short message about what the endpoint  
+is for (links to the codex?) and then a statement about if it is/isn't  
+enabled.
+
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From joseph at josephscott.org  Fri Aug 28 22:47:03 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 28 Aug 2009 16:47:03 -0600
+Subject: [wp-xmlrpc] reduced memory usage for XML-RPC requests
+Message-ID: <396C221A-4AA5-4069-8D02-A1683545DFA8@josephscott.org>
+
+
+Some of you might remember the discussion previously about reducing  
+the memory usage for large XML-RPC requests.  Demitrious Kelly has  
+done some great work on this for WordPress.com.
+
+	http://blog.apokalyptik.com/2009/08/28/some-wordpress-xmlrpc-lov
+
+I've put together a patch for WordPress.org -trunk:
+
+	Ticket - http://core.trac.wordpress.org/ticket/10698
+
+This should really help out for large XML-RPC requests with base64  
+encoded data.
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From x-wp-xml at chaj.com  Sat Aug 29 22:56:08 2009
+From: x-wp-xml at chaj.com (x-wp-xml at chaj.com)
+Date: Sat, 29 Aug 2009 18:56:08 -0400 (EDT)
+Subject: [wp-xmlrpc] multiple custom fields using metaweblog.newPost
+Message-ID: <alpine.LRH.2.00.0908291837130.23088@icf1.sverfvgrf.pbz>
+
+
+Help, I'm trying to create a new post with custom fields using the following 
+perl script, but there seems to be an issue with the custom fields, only the 
+second one "width" ever seems to get posted. Can't make multiple fields go up. 
+When I add another field, I get the "Odd number of elements in anonymous hash" 
+error. This has got to be something simple - would someone kindly sanity check 
+my syntax? Thanks.
+
+#!/usr/bin/perl -w
+use strict;
+use RPC::XML::Client;
+use Data::Dumper;
+
+my $cli=RPC::XML::Client->new('http://www.sitename.com/wp/xmlrpc.php');
+
+my $appkey="perl"; # doesn't matter
+my $blogid=1; # doesn't matter (except blogfarm)
+
+my $username="Jim";
+my $passwd='_____';
+
+my $text=<<'END';
+
+This is the post content...
+
+You can also include html tags...
+
+See you!
+END
+
+my $publish=0; # set to 1 to publish, 0 to put post in drafts
+
+my $resp=$cli->send_request('metaWeblog.newPost',
+   $blogid,
+   $username,
+   $passwd,
+   {
+     'title'       => "this is doodoo",
+     'description' => $text,
+     'custom_fields' => {
+       { "key" => "height", "value" => 500 },
+       { "key" => "width", "value" => 750 }
+     },
+   },
+   $publish);
+
+exit 0;
+
+From dougal at gunters.org  Mon Aug 31 15:59:12 2009
+From: dougal at gunters.org (Dougal Campbell)
+Date: Mon, 31 Aug 2009 11:59:12 -0400
+Subject: [wp-xmlrpc] multiple custom fields using metaweblog.newPost
+In-Reply-To: <alpine.LRH.2.00.0908291837130.23088@icf1.sverfvgrf.pbz>
+References: <alpine.LRH.2.00.0908291837130.23088@icf1.sverfvgrf.pbz>
+Message-ID: <4A9BF350.9050900@gunters.org>
+
+You're passing the list of custom fields as a hashref, but I think that 
+it needs to be an arrayref, instead. Try changing from this:
+
+     'custom_fields' => {
+       { "key" => "height", "value" => 500 },
+       { "key" => "width", "value" => 750 }
+     },
+
+To this:
+
+     'custom_fields' => [
+       { "key" => "height", "value" => 500 },
+       { "key" => "width", "value" => 750 }
+     ],
+
+
+
+On Aug 29 2009 6:56 PM, x-wp-xml at chaj.com wrote:
+>
+> Help, I'm trying to create a new post with custom fields using the 
+> following perl script, but there seems to be an issue with the custom 
+> fields, only the second one "width" ever seems to get posted. Can't 
+> make multiple fields go up. When I add another field, I get the "Odd 
+> number of elements in anonymous hash" error. This has got to be 
+> something simple - would someone kindly sanity check my syntax? Thanks.
+> [...]
+
+-- 
+Dougal Campbell <dougal at gunters.org>
+http://dougal.gunters.org/
+http://twitter.com/dougal
+http://twitual.com/
+

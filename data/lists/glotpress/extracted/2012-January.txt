@@ -1,0 +1,235 @@
+From glotpress at avirtualhome.com  Tue Jan 17 14:09:12 2012
+From: glotpress at avirtualhome.com (Peter van der Does)
+Date: Tue, 17 Jan 2012 09:09:12 -0500
+Subject: [glotpress] New to list and some questions.
+Message-ID: <20120117090912.08d89262@Indy>
+
+I know the list is kind of dead, I mean according to the archive the
+last email was send 6 months ago, but it is worth a shot to try here.
+
+My name is Peter van der Does, I have written a couple of WordPress
+plugins and thanks to some recent publicity, WordPress and Joost both
+using GlotPress, I found this project and want to use it for my own
+translations, not just for my WordPress plugins but I can use it for
+other software as well.
+
+Unfortunately it seems the project is at a stand still. Besides some
+changes to the local.php the last "program" update was nearly 2 months
+ago. There are several tickets in Trac with patches that have not been
+acted upon.
+
+So my question is, what is the status of the project?
+
+I ran into a bug myself yesterday, I wanted to update the originals
+and doing so made something like a 130 original strings obsolete,
+running another import and the obsolete went down to about 30, and if I
+kept importing it kept switching between 130 and 30 obsolete
+strings, and just so you know these obsolete strings weren't suppose
+to be obsolete as they existed in the original .po file.
+
+So I wrote a patch for this, I still need to test some but it seems to
+work. If the project is still active I will submit a ticket and attach
+the patch.
+
+If the development is at a stand still, or just dead, I might consider
+the option of willing to taking over the project and revitalize it.
+
+Regards,
+Peter
+
+-- 
+Peter van der Does
+
+GPG key: CB317D6E
+
+IRC: Ganseki on irc.freenode.net
+Twitter: @petervanderdoes
+
+WordPress Plugin Developer
+Blog: http://blog.avirtualhome.com
+Forums: http://forums.avirtualhome.com
+Twitter: @avhsoftware
+
+From jfontainhas at gmail.com  Tue Jan 17 14:15:58 2012
+From: jfontainhas at gmail.com (=?ISO-8859-1?Q?Jos=E9_Fontainhas?=)
+Date: Tue, 17 Jan 2012 15:15:58 +0100
+Subject: [glotpress] Fwd:  New to list and some questions.
+In-Reply-To: <CAKx6gRFxNa6dSwkJQ+xF5B-yRu2yVxVFMtoQy2GZkbQ0qq5c6g@mail.gmail.com>
+References: <20120117090912.08d89262@Indy>
+	<CAKx6gRFxNa6dSwkJQ+xF5B-yRu2yVxVFMtoQy2GZkbQ0qq5c6g@mail.gmail.com>
+Message-ID: <CAKx6gRF=dtyNyeMr-q-9o5O8oQnvmKyO8FEOkvHodQHoBWowqA@mail.gmail.com>
+
+Reply fail.
+
+
+---------- Forwarded message ----------
+From: Jos? Fontainhas <jfontainhas at gmail.com>
+Date: 2012/1/17
+Subject: Re: [glotpress] New to list and some questions.
+To: Peter van der Does <glotpress at avirtualhome.com>
+
+
+Hi Peter,
+
+Thanks for this. Your help is warmly welcome. We do indeed need to
+revive patching GP. Even though the discussion isn't quite dead, we've
+mostly moved it to http://blog.glotpress.org
+
+Bug fixing is obviously crucial, but the same can be said for testing
+patches, which has been severely overseen. Would you care to visit
+http://blog.glotpress.org/ and debate it there?
+
+Thanks
+Z?
+
+
+On 17 January 2012 15:09, Peter van der Does <glotpress at avirtualhome.com> wrote:
+> I know the list is kind of dead, I mean according to the archive the
+> last email was send 6 months ago, but it is worth a shot to try here.
+>
+> My name is Peter van der Does, I have written a couple of WordPress
+> plugins and thanks to some recent publicity, WordPress and Joost both
+> using GlotPress, I found this project and want to use it for my own
+> translations, not just for my WordPress plugins but I can use it for
+> other software as well.
+>
+> Unfortunately it seems the project is at a stand still. Besides some
+> changes to the local.php the last "program" update was nearly 2 months
+> ago. There are several tickets in Trac with patches that have not been
+> acted upon.
+>
+> So my question is, what is the status of the project?
+>
+> I ran into a bug myself yesterday, I wanted to update the originals
+> and doing so made something like a 130 original strings obsolete,
+> running another import and the obsolete went down to about 30, and if I
+> kept importing it kept switching between 130 and 30 obsolete
+> strings, and just so you know these obsolete strings weren't suppose
+> to be obsolete as they existed in the original .po file.
+>
+> So I wrote a patch for this, I still need to test some but it seems to
+> work. If the project is still active I will submit a ticket and attach
+> the patch.
+>
+> If the development is at a stand still, or just dead, I might consider
+> the option of willing to taking over the project and revitalize it.
+>
+> Regards,
+> Peter
+>
+> --
+> Peter van der Does
+>
+> GPG key: CB317D6E
+>
+> IRC: Ganseki on irc.freenode.net
+> Twitter: @petervanderdoes
+>
+> WordPress Plugin Developer
+> Blog: http://blog.avirtualhome.com
+> Forums: http://forums.avirtualhome.com
+> Twitter: @avhsoftware
+> _______________________________________________
+> glotpress mailing list
+> glotpress at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/glotpress
+
+From glotpress at avirtualhome.com  Tue Jan 17 14:48:07 2012
+From: glotpress at avirtualhome.com (Peter van der Does)
+Date: Tue, 17 Jan 2012 09:48:07 -0500
+Subject: [glotpress] Fwd:  New to list and some questions.
+In-Reply-To: <CAKx6gRF=dtyNyeMr-q-9o5O8oQnvmKyO8FEOkvHodQHoBWowqA@mail.gmail.com>
+References: <20120117090912.08d89262@Indy>
+	<CAKx6gRFxNa6dSwkJQ+xF5B-yRu2yVxVFMtoQy2GZkbQ0qq5c6g@mail.gmail.com>
+	<CAKx6gRF=dtyNyeMr-q-9o5O8oQnvmKyO8FEOkvHodQHoBWowqA@mail.gmail.com>
+Message-ID: <20120117094807.4cb4fb33@Indy>
+
+On Tue, 17 Jan 2012 15:15:58 +0100
+Jos? Fontainhas <jfontainhas at gmail.com> wrote:
+
+> Reply fail.
+> 
+> 
+> ---------- Forwarded message ----------
+> From: Jos? Fontainhas <jfontainhas at gmail.com>
+> Date: 2012/1/17
+> Subject: Re: [glotpress] New to list and some questions.
+> To: Peter van der Does <glotpress at avirtualhome.com>
+> 
+> 
+> Hi Peter,
+> 
+> Thanks for this. Your help is warmly welcome. We do indeed need to
+> revive patching GP. Even though the discussion isn't quite dead, we've
+> mostly moved it to http://blog.glotpress.org
+> 
+> Bug fixing is obviously crucial, but the same can be said for testing
+> patches, which has been severely overseen. Would you care to visit
+> http://blog.glotpress.org/ and debate it there?
+> 
+> Thanks
+> Z?
+
+Z?,
+
+Tanks for the quick reply. I've visited http://blog.glotpress.org/
+yesterday and for some reason the WordPress bar didn't show up, so I
+could post anything. I just checked and it seems to be working now.
+I'll do a post there.
+
+
+
+-- 
+Peter van der Does
+
+GPG key: CB317D6E
+
+IRC: Ganseki on irc.freenode.net
+Twitter: @petervanderdoes
+
+WordPress Plugin Developer
+Blog: http://blog.avirtualhome.com
+Forums: http://forums.avirtualhome.com
+Twitter: @avhsoftware
+
+From glotpress at avirtualhome.com  Thu Jan 19 02:33:57 2012
+From: glotpress at avirtualhome.com (Peter van der Does)
+Date: Wed, 18 Jan 2012 21:33:57 -0500
+Subject: [glotpress] How do developers communicate for GlotPress and some
+ other questions
+Message-ID: <20120118213357.2c0ac05b@Indy>
+
+Hi,
+
+As somebody who likes to help out with the development of GlotPress I
+have a few questions.
+
+1. Is this list the best way to communicate with other developers, if
+not what would be :)
+
+I'm going to assume this is the best way as I can't create new posts on
+the blog.
+
+2. Is there a a place to see coding standards or there is no coding
+standard (yet)?
+
+On a side note, I created a git repository on github for glotpress. It
+includes the external svn repo's as submodules. You can find it at
+https://github.com/petervanderdoes/glotpress
+
+I shall try to keep this updated with the SVN repo.
+
+
+-- 
+Peter van der Does
+
+GPG key: CB317D6E
+
+IRC: Ganseki on irc.freenode.net
+Twitter: @petervanderdoes
+
+WordPress Plugin Developer
+Blog: http://blog.avirtualhome.com
+Forums: http://forums.avirtualhome.com
+Twitter: @avhsoftware
+

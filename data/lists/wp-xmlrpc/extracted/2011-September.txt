@@ -1,0 +1,58 @@
+From oc at ocollet.com  Wed Sep  7 19:57:24 2011
+From: oc at ocollet.com (Olivier Collet)
+Date: Wed, 7 Sep 2011 15:57:24 -0400
+Subject: [wp-xmlrpc] Retrieving draft or published posts
+Message-ID: <F7F1C358-3A57-420F-B111-27BCB82C45AE@ocollet.com>
+
+Hi everyone,
+
+Is there any way to retrieve draft posts only? Or published posts only?
+
+I know I could use getRecentPostTitles for the last X posts, but I cannot assume I will get all the drafts within that X amount, and I don't want to use a large X amount (say 1000) as it's far from being a good solution.
+
+Thanks in advance,
+Olivier
+
+From eric at eam.me  Wed Sep  7 23:35:14 2011
+From: eric at eam.me (Eric Mann)
+Date: Wed, 7 Sep 2011 16:35:14 -0700
+Subject: [wp-xmlrpc] Retrieving draft or published posts
+In-Reply-To: <F7F1C358-3A57-420F-B111-27BCB82C45AE@ocollet.com>
+References: <F7F1C358-3A57-420F-B111-27BCB82C45AE@ocollet.com>
+Message-ID: <CAEi=p52btWr315anXfQhwZdGKUq3G8ioa1RuM3oyFcnh++-70g@mail.gmail.com>
+
+You can use metaWeblog.getRecentPosts to retrieve draft posts.
+
+Just specify "draft" for "post_status" and it will retrieve draft posts (or
+set "post_status" to "publish" to retrieve published posts).
+
+You can also retrieve a large number of posts by specifying "numberposts"
+... if you don't specify this, WordPress will return 10 posts by default.
+ Unfortunately, there's not a more efficient way than setting "numberposts"
+to a very large number.
+
+There are some more details about the metaWeblog API requests here:
+http://mindsharestrategy.com/2010/wp-xmlrpc-metaweblog/ ... also, check out
+the inline documentation of /wp-includes/class-wp-xmlrpc-server.php
+
+On Wed, Sep 7, 2011 at 12:57 PM, Olivier Collet <oc at ocollet.com> wrote:
+
+> Hi everyone,
+>
+> Is there any way to retrieve draft posts only? Or published posts only?
+>
+> I know I could use getRecentPostTitles for the last X posts, but I cannot
+> assume I will get all the drafts within that X amount, and I don't want to
+> use a large X amount (say 1000) as it's far from being a good solution.
+>
+> Thanks in advance,
+> Olivier
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110907/cf22ce81/attachment.htm>
+

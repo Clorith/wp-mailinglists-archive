@@ -1,0 +1,1712 @@
+From xavier at borderie.net  Fri Feb  2 13:14:52 2007
+From: xavier at borderie.net (Xavier Borderie)
+Date: Fri Feb  2 13:15:02 2007
+Subject: [wp-docs] Codex : linking to translated pages
+Message-ID: <9e4ae73e0702020514jfad3af2i74adde3aaf8a4c14@mail.gmail.com>
+
+Good evening,
+
+We in the French community are used to pointing to the EN part of the
+Codex. But there are more and more quality translations, or
+equivalents, in the FR that we are not always aware of.
+As WikiPedia allows linking to other versions of a given page, how is
+it worked out in the Codex ? Is it implemented in the default Theme ?
+
+Thanks.
+
+-- 
+Xavier Borderie
+http://xavier.borderie.net/blog/
+From carthik at gmail.com  Fri Feb  2 17:52:55 2007
+From: carthik at gmail.com (Carthik Sharma)
+Date: Fri Feb  2 17:53:05 2007
+Subject: [wp-docs] Codex : linking to translated pages
+In-Reply-To: <9e4ae73e0702020514jfad3af2i74adde3aaf8a4c14@mail.gmail.com>
+References: <9e4ae73e0702020514jfad3af2i74adde3aaf8a4c14@mail.gmail.com>
+Message-ID: <80f75db0702020952tf22f4d2u4e753c6702c01782@mail.gmail.com>
+
+On 2/2/07, Xavier Borderie <xavier@borderie.net> wrote:
+> Good evening,
+>
+> We in the French community are used to pointing to the EN part of the
+> Codex. But there are more and more quality translations, or
+> equivalents, in the FR that we are not always aware of.
+> As WikiPedia allows linking to other versions of a given page, how is
+> it worked out in the Codex ? Is it implemented in the default Theme ?
+>
+The http://codex.wordpress.org/Template:Otherlanguages page would have
+to be modified, perhaps taking a cue from wikipedia.
+
+Another option is to work on building the
+http://codex.wordpress.org/fr:Accueil page, listing all the French
+pages there so that it becomes the page of choice for francophone
+users to browse the codex.
+
+Carthik.
+> Thanks.
+>
+> --
+> Xavier Borderie
+> http://xavier.borderie.net/blog/
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+-- 
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From xavier at borderie.net  Fri Feb  2 18:11:29 2007
+From: xavier at borderie.net (Xavier Borderie)
+Date: Fri Feb  2 18:11:38 2007
+Subject: [wp-docs] Codex : linking to translated pages
+In-Reply-To: <80f75db0702020952tf22f4d2u4e753c6702c01782@mail.gmail.com>
+References: <9e4ae73e0702020514jfad3af2i74adde3aaf8a4c14@mail.gmail.com>
+	<80f75db0702020952tf22f4d2u4e753c6702c01782@mail.gmail.com>
+Message-ID: <9e4ae73e0702021011u21fdbf17g4d3dab6c80edd9db@mail.gmail.com>
+
+> Another option is to work on building the
+> http://codex.wordpress.org/fr:Accueil page, listing all the French
+> pages there so that it becomes the page of choice for francophone
+> users to browse the codex.
+
+Some of us are working on the FR Codex, and it is because their work
+is of great value to our community, but seldom linked to because the
+know-it-alls are used to refer to the EN versions, that I'd like the
+translators to be able to tag EN versions with some equivalent to
+WikiPedia's [[fr:TitreTraduit]] in order for the FR versions to get
+linked from the EN originals, and thus get more exposure.
+Is it already possible ? If not, I'm sure it can't be that hard to
+implement, could it ?
+
+-- 
+Xavier Borderie
+http://xavier.borderie.net/blog/
+From carthik at gmail.com  Fri Feb  2 18:27:04 2007
+From: carthik at gmail.com (Carthik Sharma)
+Date: Fri Feb  2 18:27:19 2007
+Subject: [wp-docs] Codex : linking to translated pages
+In-Reply-To: <9e4ae73e0702021011u21fdbf17g4d3dab6c80edd9db@mail.gmail.com>
+References: <9e4ae73e0702020514jfad3af2i74adde3aaf8a4c14@mail.gmail.com>
+	<80f75db0702020952tf22f4d2u4e753c6702c01782@mail.gmail.com>
+	<9e4ae73e0702021011u21fdbf17g4d3dab6c80edd9db@mail.gmail.com>
+Message-ID: <80f75db0702021027h37a58dacvd21e5d59ebec467e@mail.gmail.com>
+
+On 2/2/07, Xavier Borderie <xavier@borderie.net> wrote:
+> > Another option is to work on building the
+> > http://codex.wordpress.org/fr:Accueil page, listing all the French
+> > pages there so that it becomes the page of choice for francophone
+> > users to browse the codex.
+>
+> Some of us are working on the FR Codex, and it is because their work
+> is of great value to our community, but seldom linked to because the
+> know-it-alls are used to refer to the EN versions, that I'd like the
+> translators to be able to tag EN versions with some equivalent to
+> WikiPedia's [[fr:TitreTraduit]] in order for the FR versions to get
+> linked from the EN originals, and thus get more exposure.
+> Is it already possible ? If not, I'm sure it can't be that hard to
+> implement, could it ?
+
+The way wikipedia does it is they have en.wikipedia.org and then
+fr.wikipedia.org - something we cannot do.
+
+Writing and using a template tag to add a link to the page in French
+is easy. What would be perfect is to have a template tag that tries to
+find if there is a French page and adds a link only if it finds it,
+and then adding this template tag to all pages. This seems difficult
+to do. Also, the French pages have titles that are different from the
+English equivalents, so not only do we have to find if an equivalent
+page exists, but also find the title in French.
+
+Therefore, it is best to manually add links to the equivalent French
+page if it exists. I can whip up a mediawiki template that makes the
+job easier (whether a template makes it easier, really, is an open
+question :-) ).
+
+Could you volunteer to find French equivalents to pages and then add
+links to the pages? We could have a little div thingy below the title
+of a page that has links to equiv. pages in other languages. It's a
+lot of work - any other less-work-intensive suggestions are welcome.
+
+Carthik.
+>
+> --
+> Xavier Borderie
+> http://xavier.borderie.net/blog/
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+-- 
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From yahgrp at poplarware.com  Mon Feb 19 16:30:10 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Mon Feb 19 16:30:03 2007
+Subject: [wp-docs] I've been blocked...
+Message-ID: <45D9D092.8010100@poplarware.com>
+
+Hey,
+
+After several weeks of contributing to the Codex (quite a bit, if I do 
+say so myself), I tried to edit a page today and found that I had been 
+blocked. Can someone fix this? I can't add to anyone's "Talk" page 
+since I am blocked... here is the message I got. It is odd, because 
+whatismyip.com says that my IP address is  216.231.44.65 (we have a 
+static IP). So I am not sure what is going on. I do not know anything 
+about "programy".... has someone broken into my account or something?
+
+Thanks for any help you can offer...
+     Jennifer
+
+**************
+Your user name or IP address has been blocked by MichaelH.
+The reason given is this:
+Autoblocked because you share an IP address with "Programy". Reason 
+"spammer".
+
+You may contact MichaelH or one of the other administrators to discuss 
+the block. Note that you may not use the "email this user" feature 
+unless you have a valid email address registered in your user 
+preferences. Your IP address is 71.19.216.22. Please include this 
+address in any queries you make.
+
+Return to Main Page.
+***************
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From yahgrp at poplarware.com  Mon Feb 19 16:46:43 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Mon Feb 19 16:46:43 2007
+Subject: [wp-docs] I've been blocked...
+In-Reply-To: <45D9D092.8010100@poplarware.com>
+References: <45D9D092.8010100@poplarware.com>
+Message-ID: <45D9D473.3080806@poplarware.com>
+
+Forgot to mention that my user name is jHodgdon.
+
+> After several weeks of contributing to the Codex (quite a bit, if I do 
+> say so myself), I tried to edit a page today and found that I had been 
+> blocked. Can someone fix this? I can't add to anyone's "Talk" page since 
+> I am blocked... here is the message I got. It is odd, because 
+> whatismyip.com says that my IP address is  216.231.44.65 (we have a 
+> static IP). So I am not sure what is going on. I do not know anything 
+> about "programy".... has someone broken into my account or something?
+> 
+> Thanks for any help you can offer...
+>     Jennifer
+> 
+> **************
+> Your user name or IP address has been blocked by MichaelH.
+> The reason given is this:
+> Autoblocked because you share an IP address with "Programy". Reason 
+> "spammer".
+> 
+> You may contact MichaelH or one of the other administrators to discuss 
+> the block. Note that you may not use the "email this user" feature 
+> unless you have a valid email address registered in your user 
+> preferences. Your IP address is 71.19.216.22. Please include this 
+> address in any queries you make.
+> 
+> Return to Main Page.
+> ***************
+From mhancock at us.net  Mon Feb 19 17:18:06 2007
+From: mhancock at us.net (Michael E. Hancock)
+Date: Mon Feb 19 17:18:14 2007
+Subject: [wp-docs] I've been blocked...
+References: <45D9D092.8010100@poplarware.com>
+Message-ID: <054801c75449$ec237140$6402a8c0@DELL8600>
+
+
+From: "Jennifer Hodgdon" <yahgrp@poplarware.com>
+> After several weeks of contributing to the Codex (quite a bit, if I do
+> say so myself), I tried to edit a page today and found that I had been
+> blocked.
+
+Fixed.
+
+Can't explain why the Codex Mediawiki is doing that--but it has happened
+several times recently.
+
+Have to make it a point to try not to inconvenience the larger Codex
+contributors ;)
+
+Thanks for your recent contributions!
+
+
+MichaelH
+
+
+
+From lorelle at cameraontheroad.com  Tue Feb 20 03:15:16 2007
+From: lorelle at cameraontheroad.com (Lorelle VanFossen)
+Date: Tue Feb 20 03:16:38 2007
+Subject: [wp-docs] I've been blocked...
+In-Reply-To: <45D9D092.8010100@poplarware.com>
+References: <45D9D092.8010100@poplarware.com>
+Message-ID: <45DA67C4.6030909@cameraontheroad.com>
+
+I also wanted to add that we are thrilled at the work you've been doing, 
+Jennifer. You are a star! Thanks so much for all that you've done!
+
+-- 
+Lorelle VanFossen
+On the Road
+Taking Your Camera on the Road - http://www.cameraontheroad.com/
+Family History Blog - http://www.cameraontheroad.com/family
+Lorelle on WordPress - http://lorelle.wordpress.com/
+
+
+From lloydomattic at gmail.com  Tue Feb 20 05:22:37 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Tue Feb 20 05:22:47 2007
+Subject: [wp-docs] I've been blocked...
+In-Reply-To: <45DA67C4.6030909@cameraontheroad.com>
+References: <45D9D092.8010100@poplarware.com>
+	<45DA67C4.6030909@cameraontheroad.com>
+Message-ID: <70ebb7140702192122y562d515o488c6d2ea6703b0f@mail.gmail.com>
+
+On 2/19/07, Lorelle VanFossen <lorelle@cameraontheroad.com> wrote:
+> I also wanted to add that we are thrilled at the work you've been doing,
+> Jennifer. You are a star! Thanks so much for all that you've done!
+
+Jennifer your work is aweome!
+
+Not sure, why you so often write in the "royal we" Lorelle ;-)
+From lorelle at cameraontheroad.com  Tue Feb 20 22:45:48 2007
+From: lorelle at cameraontheroad.com (Lorelle VanFossen)
+Date: Tue Feb 20 22:46:04 2007
+Subject: [wp-docs] I've been blocked...
+In-Reply-To: <70ebb7140702192122y562d515o488c6d2ea6703b0f@mail.gmail.com>
+References: <45D9D092.8010100@poplarware.com>	<45DA67C4.6030909@cameraontheroad.com>
+	<70ebb7140702192122y562d515o488c6d2ea6703b0f@mail.gmail.com>
+Message-ID: <45DB7A1C.90001@cameraontheroad.com>
+
+Because I knew that you liked her work, too.
+
+Hee hee.
+
+Actually, I've heard from others who have nice things to say but they 
+are too shy. :D
+
+-- 
+Lorelle VanFossen
+On the Road
+Taking Your Camera on the Road - http://www.cameraontheroad.com/
+Family History Blog - http://www.cameraontheroad.com/family
+Lorelle on WordPress - http://lorelle.wordpress.com/
+
+From msturm10 at gmail.com  Wed Feb 21 09:19:10 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Wed Feb 21 09:19:17 2007
+Subject: [wp-docs] Structure of documentation
+Message-ID: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+
+Hi everybody,
+
+I'm new on this list, but has something I want to share with you.
+
+I'm using Wordpress for about three years now, but decided last few
+weeks to modify my weblog in various ways. I wrote some plugins and
+themes in the past, but now I had to write some more advanced plugins
+and a completely new theme. Because I wanted to do this 'the right
+way', I decided to read the documentation on these subjects carefully.
+
+I have to say that the documentation on Wordpress is very complete and
+covers almost everything, which (I think) is a very good thing.
+However, I think there is a rather big problem with the Wordpress
+documentation, and that is its structure. It is very hard to find the
+thing you're looking for. Especially when writing plugins I notice
+this problem.
+
+I have thought about this problem, and what's the cause of it. I think
+there are several problems causing this rather chaotic structure.
+1) Tutorials, howto's and reference documentation seems to be mixed
+togheter. While tutorials and howto's can be useful in some cases,
+they are distractive when you're looking for one particular function
+or method.
+2) The function reference (which is not easy to find, I only noticed
+it after a while) is not structured very well. Currently, the
+functions, options, classes are sorted by a (seemingly) random
+categorization, which is not very obvious to understand (in my
+opinion). For example, it took me some time to discover that the
+databaseclass  was actual part of the function reference (its location
+is not obvious). Another problem with the function reference is that
+it is hard to navigate. A better navigation structure (in my opinion)
+can be found at the function reference at php.net. It is easy to
+navigate, the pages for individual functions are all structured the
+same and you know where you have to look for a particular function.
+3) The plugin API is documented very badly. With this, I'm referring
+to the documentation on the action/filterhooks. This page is just a
+long list, where a large number of the hooks isn't documented at all.
+I think this is one of the most important parts of the developer
+documentation of Wordpress. Good documentation on how to write plugins
+is essential to lower the barrier for new developers.
+
+I'm aware of the fact that Wordpress is an open source project and
+that documentation is traditionally a difficult part of open source
+projects. However, I think that Wordpress is doing very good on this
+point and that the documentation is very complete. But I think that if
+the structure of the documentation is improved, it can be a lot more
+usable and make plugin and theme development easier.
+
+The most important thing is seperate how-to's and tutorials from the
+reference documentation. Additionally, a central page for plugin
+development should be created. This page should containg links to a
+clear function reference and actions/filter-hook reference. The
+current page on plugin development is good, but more a tutorial. A
+link to this page can be added as well (of course). The reference
+documentation should be structured better, function reference should
+follow a strict pattern.
+
+Of course, I'm willing to help improve the documentation of Wordpress,
+because I'm using it rather intensively and like the 'simplicity' of
+it (creating plugins and themes is very easy to do).
+
+--
+Martin Sturm
+From yahgrp at poplarware.com  Wed Feb 21 14:48:32 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Feb 21 14:48:26 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+Message-ID: <45DC5BC0.1080908@poplarware.com>
+
+Martin Sturm wrote:
+
+> I have to say that the documentation on Wordpress is very complete and
+> covers almost everything, which (I think) is a very good thing.
+> However, I think there is a rather big problem with the Wordpress
+> documentation, and that is its structure. It is very hard to find the
+> thing you're looking for. Especially when writing plugins I notice
+> this problem.
+
+Hi Martin,
+
+You have made some good points, and I have actually been working on 
+cleaning up the developer documentation along many of the same lines, 
+but there is more to do. In answer to your specific points:
+
+> 1) Tutorials, howto's and reference documentation seems to be mixed
+> togheter. While tutorials and howto's can be useful in some cases,
+> they are distractive when you're looking for one particular function
+> or method.
+
+Can you be more specific? I have been trying to make this separation 
+on pages that I have edited, but if you have specific suggestions for 
+pages that need to be broken up, that would be good.
+
+> 2) The function reference (which is not easy to find, I only noticed
+> it after a while) is not structured very well. [and most of the functions are not documented...]
+
+It is definitely true that more of the functions need to be 
+documented... but at least they are all listed now. The problem is 
+that someone still needs to write about a zillion individual function 
+pages, or at least add short descriptions to the functions. Feel free 
+to jump in and write them. There is a standard structure for function 
+documentation, so if you write a function reference page, start by 
+copying an existing function doc page and go from there.
+
+Also, can you suggest better categories? I would be happy to 
+reorganize the list, and definitely functions can be listed in more 
+than one section. For my first pass at getting all the functions at 
+least listed, I just used the categories that were there previously. 
+But there is no reason that it cannot be made better.
+
+What other navigation features do you think would be good? You 
+mentioned php.net as a good example -- what navigation features does 
+it have that we should try to emulate, given that we are working 
+within the WordPress Codex, which contains documentation for everyone 
+from casual users to hard-core developers?
+
+> 3) The plugin API is documented very badly. With this, I'm referring
+> to the documentation on the action/filterhooks. This page is just a
+> long list, where a large number of the hooks isn't documented at all.
+
+Again, someone needs to document them. Each one should have at least a 
+  short description, but someone needs to write these descriptions. 
+Please feel free to jump in...
+
+>  Additionally, a central page for plugin
+> development should be created. This page should containg links to a
+> clear function reference and actions/filter-hook reference. 
+
+The central place for plugin development exists:
+
+http://codex.wordpress.org/Developer_Documentation
+
+Thanks for your input!
+      Jennifer
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From yahgrp at poplarware.com  Wed Feb 21 15:06:58 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Feb 21 15:06:47 2007
+Subject: [wp-docs] More on banning from Wiki
+Message-ID: <45DC6012.2040906@poplarware.com>
+
+(Whoops, sent this to the wrong list this morning... must not be quite 
+awake yet)
+
+So, it seemed like the banning from the Codex Wiki that I experienced
+was pretty arbitrary -- the message on the screen referred to an IP
+address that definitely wasn't mine. What software does the Codex use,
+and should we (read "I") investigate/patch the banning logic to make
+it a bit more intelligent? If it is arbitrarily banning people, it may
+also be arbitrarily not banning spammers...
+
+     --Jennifer
+From msturm10 at gmail.com  Wed Feb 21 15:37:30 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Wed Feb 21 15:37:53 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DC5BC0.1080908@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+Message-ID: <757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+
+Thank you for your quick reply!
+
+I will try to explain some of my points:
+
+> You have made some good points, and I have actually been working on
+> cleaning up the developer documentation along many of the same lines,
+> but there is more to do. In answer to your specific points:
+
+That's good to hear. As I already mentioned in my previous post, I am
+willing to help restructure (and improve) the documentation.
+
+>
+> > 1) Tutorials, howto's and reference documentation seems to be mixed
+> > togheter. While tutorials and howto's can be useful in some cases,
+> > they are distractive when you're looking for one particular function
+> > or method.
+>
+> Can you be more specific? I have been trying to make this separation
+> on pages that I have edited, but if you have specific suggestions for
+> pages that need to be broken up, that would be good.
+
+One example I'm pointing at is the page 'Advanced Topics'. It is a
+good thing to try to cover a broad range of 'advance' topics on one
+page, but the problem with this page is that it is a mix of reference
+pages and tutorials/HowTo's. I noticed this problem on other pages as
+well. Some links on this page are to pages which aren't 'advanced' at
+all (such as the 'Wordpress Plugin' link). On the other hand, is there
+also a link to the plugin API on this page. Another link here is the
+'Managing plugins' page, but in fact that is not 'advanced' that is
+just end-user documentation.
+
+It may be better to make a seperate page with 'reference
+documentation', on which the function reference and Plugin API is
+listed (amongst other pages), and a seperate page with 'advanced
+topics' where only tutorials/howto-like pages are linked.
+
+Maybe it is not clear for which audience a particular page is written.
+For example: http://codex.wordpress.org/Writing_a_Plugin and
+http://codex.wordpress.org/Plugin_API contain a lot information which
+is on both pages. But they both seems to be mentioned for the same
+audience and try to achieve the same goal...
+
+While I'm looking more careful to the available documentation, the
+structure isn't as bad as I thought, but is more a navigational
+problem.
+
+It is not obvious where to find the documentation you're looking for.
+Until today, I didn't noticed the Developer Doc page, because I
+expected that on that page was information on how to contribute on
+Wordpress, and not the developers references (which it is).
+
+The Documentation Home Page (http://codex.wordpress.org/Main_Page) is
+another example of a really bad page (and maybe the cause of my
+problem?). As a 'new' Wordpress user who's looking for some
+information, this page is just to overwhelming. There are a zillion
+links on this page, and a lot of them seems to be duplicate or cover
+the same topic. I think, this page should be a clear starting point
+and provide guidance where to find particular documentation.
+
+For example, take a look at the first four links:
+1. Getting Started with WordPress <- ok, clear, if I'm new I have to
+start here...
+2/ New To WordPress - Where to Start <- err.. what's the difference
+with the previous link?
+3. WordPressMU and WordPress.com <- not really relevant I think.. at
+least not here
+4. Installation <- ok, if I want to install Wordpress, I have to look here ...
+5. Installation Help <- ... or here?
+
+I think it is clear that this is not very 'userfriendly'.
+
+> It is definitely true that more of the functions need to be
+> documented... but at least they are all listed now. The problem is
+> that someone still needs to write about a zillion individual function
+> pages, or at least add short descriptions to the functions. Feel free
+> to jump in and write them. There is a standard structure for function
+> documentation, so if you write a function reference page, start by
+> copying an existing function doc page and go from there.
+
+I'm not aware of the history of this page, but according to your
+reaction, I assume that in the past there was not such a reference. In
+that case, this is already a big improvement. I understand that one of
+the problems is missing description of functions, and of course that
+is not 'easy' to fix (however, if I have some time left, I will try to
+help to fix this problem).
+
+> Also, can you suggest better categories? I would be happy to
+> reorganize the list, and definitely functions can be listed in more
+> than one section. For my first pass at getting all the functions at
+> least listed, I just used the categories that were there previously.
+> But there is no reason that it cannot be made better.
+
+I have not yet thought of a better categorization of this page, but I
+will look at it and come with a suggestion if I have one. However, I
+think it is not optimal at the moment, some categories (especially the
+'Miscellanous Functions') are very long. The page would also improve
+if there is some kind of 'overview' at the beginning. The only way to
+find a category now is to scroll down the page.
+
+> What other navigation features do you think would be good? You
+> mentioned php.net as a good example -- what navigation features does
+> it have that we should try to emulate, given that we are working
+> within the WordPress Codex, which contains documentation for everyone
+> from casual users to hard-core developers?
+
+I think a good start is to clean up existing 'overview' pages and
+think of some kind of structure for the documentation. Currently, it
+feels like there is not really a structure in the pages.
+
+> The central place for plugin development exists:
+>
+> http://codex.wordpress.org/Developer_Documentation
+
+Yes, I didn't notice that page...
+
+--
+Martin Sturm
+From yahgrp at poplarware.com  Wed Feb 21 16:02:13 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Feb 21 16:02:03 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+Message-ID: <45DC6D05.7030807@poplarware.com>
+
+Hi Martin,
+
+Excellent!
+
+a) Rewriting the "Writing a Plugin" article was already at the top of 
+my To Do list. I might have time later this week. It is definitely a 
+bit disorganized, and it should reference (rather than duplicate) the 
+Plugin API article.
+
+b) I totally agree that there are a ton of pages that loop around 
+endlessly when you are trying to find documentation... believe me, the 
+situation was worse a month or two ago! But it still needs 
+improvement. I've been focusing my efforts on improving the 
+organization of the developer-related documentation, removing 
+duplicated information, making central places to look for information, 
+etc. But more does need to be done. I've made notes of your specific 
+points, but you can feel free to jump in and improve things too.
+
+c) Function Reference:
+> I'm not aware of the history of this page, but according to your
+> reaction, I assume that in the past there was not such a reference. 
+
+There was a reference page before, but it was missing about 75% of the 
+functions. Jump in and add documentation and organization at will! 
+Please! :) You also mentioned some kind of Table of Contents -- the 
+Wiki makes it easy to add links down the page, so that can be added 
+too. Good idea!
+
+d) Here are 3 places that I think need more documentation in the 
+developer reference area, if you want to help:
+
+1) Function Reference - each function should at least have a short 
+description, and better yet a documentation page. Better categories 
+might be useful too, or maybe listing functions in more categories.
+
+2) Template Tags - add the rest of the functions from the 
+*-template.php files, so that the lists are complete, and document 
+functions that are lacking documentation currently. Right now, only a 
+subset of the functions are on the page, and it seems quite arbitrary. 
+Note that some functions are on separate pages (like the Conditional 
+Tags and the Include Tags).
+
+3) Hooks list - document these hooks, perhaps organize them into 
+categories?
+
+      Jennifer
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From andrew at doun.org  Wed Feb 21 17:27:14 2007
+From: andrew at doun.org (Andrew Rivett)
+Date: Wed Feb 21 17:27:36 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DC6D05.7030807@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+Message-ID: <983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>
+
+Hello Martin and Jennifer,
+
+I have also recently started using Wordpress and developing plugins for it
+as well. I really like the features of Wordpress and how clean and smooth it
+is.  I did however have some of the same problems that Martin did in finding
+documentation.  In writing a couple of plugin's, which I hope to release
+once I clean them up enough, I had a couple of ideas which I was thinking of
+working on and contributing to the documentation.
+
+1.  A complete plugin example that is "perfect" in the eyes of Wordpress and
+if followed you will write excellent plugin's.  What I am thinking is
+perfect syntax, layout, code style,  and documentation.  The document has
+snippets of code, but not a complete example.  I typically follow example
+code when learning a new system, and didn't know what was good plugin code
+and bad plugin code in the eyes of the Wordpress development team.
+
+2.  A 10 step guide (or how ever many steps are required) to writing a
+plugin.  The writing a plugin page is a great start, but I was wanting to
+create my own table, and build a management page to manage that data.  This
+is where I had to download a couple of other plugin's as examples and hope
+they are good examples of plugin style.
+
+As an example of the steps:
+
+Step 1. Setup the meta information.  Give example how to you construct the
+author info, author URL, description etc.
+
+Step 2. Define your table definition and build the install function.
+
+Step 3. Write functions to display your data on a website.
+
+Step 4. Administration functions.  How to add, edit and delete data.
+
+Step 5. Hooks and Filters.  How to hook your plugin into the Wordpress
+engine.
+
+Step 6. Localization.  How to localize your code.
+
+Step 7. Documentation.  How best to document your plugin so other's can use
+it.
+
+I'm not sure if this is just a reorganization of existing information, or if
+it's something that should be written from scratch?  I would be glad to help
+out with this if you would like.  Having just written my first plugin's it's
+all still fresh in my mind.
+
+Thanks for all the great existing docs and spending your time working on
+them, it's very much appreciated.
+
+Thanks!
+Andrew.
+
+On 2/21/07, Jennifer Hodgdon <yahgrp@poplarware.com> wrote:
+>
+> Hi Martin,
+>
+> Excellent!
+>
+> a) Rewriting the "Writing a Plugin" article was already at the top of
+> my To Do list. I might have time later this week. It is definitely a
+> bit disorganized, and it should reference (rather than duplicate) the
+> Plugin API article.
+>
+> b) I totally agree that there are a ton of pages that loop around
+> endlessly when you are trying to find documentation... believe me, the
+> situation was worse a month or two ago! But it still needs
+> improvement. I've been focusing my efforts on improving the
+> organization of the developer-related documentation, removing
+> duplicated information, making central places to look for information,
+> etc. But more does need to be done. I've made notes of your specific
+> points, but you can feel free to jump in and improve things too.
+>
+> c) Function Reference:
+> > I'm not aware of the history of this page, but according to your
+> > reaction, I assume that in the past there was not such a reference.
+>
+> There was a reference page before, but it was missing about 75% of the
+> functions. Jump in and add documentation and organization at will!
+> Please! :) You also mentioned some kind of Table of Contents -- the
+> Wiki makes it easy to add links down the page, so that can be added
+> too. Good idea!
+>
+> d) Here are 3 places that I think need more documentation in the
+> developer reference area, if you want to help:
+>
+> 1) Function Reference - each function should at least have a short
+> description, and better yet a documentation page. Better categories
+> might be useful too, or maybe listing functions in more categories.
+>
+> 2) Template Tags - add the rest of the functions from the
+> *-template.php files, so that the lists are complete, and document
+> functions that are lacking documentation currently. Right now, only a
+> subset of the functions are on the page, and it seems quite arbitrary.
+> Note that some functions are on separate pages (like the Conditional
+> Tags and the Include Tags).
+>
+> 3) Hooks list - document these hooks, perhaps organize them into
+> categories?
+>
+>       Jennifer
+> --
+> Jennifer Hodgdon
+>
+> Poplar ProductivityWare * www.poplarware.com
+> Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+Be the change you want to see in the world -- Mahatma Gandhi
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20070221/a5726e20/attachment-0001.htm
+From yahgrp at poplarware.com  Wed Feb 21 22:13:07 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Feb 21 22:12:55 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>	<45DC6D05.7030807@poplarware.com>
+	<983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>
+Message-ID: <45DCC3F3.8020204@poplarware.com>
+
+Hi Andrew,
+
+I think the place to put a better description of the steps to writing 
+a plugin is the existing "Writing a Plugin" article, which definitely 
+needs a rewrite. I was going to do it, within a week or two, but if 
+you want to, please feel free (let me know if you plan to do this, so 
+we don't both work on it at once).
+
+There are also a couple of better (than the existing article) 
+references linked at the bottom of Writing a Plugin. I think at least 
+one of them does pretty much what you suggested -- goes through step 
+by step with complete code given.
+
+Also note that there are other plugin-related articles that go into 
+details of some of the steps you are talking about. So my suggestion 
+would be to have an overview of those steps in "Writing a Plugin", and 
+link to the articles with the details. For example, don't go into 
+detail about Filters and Actions, just mention and link to the "Plugin 
+API"  article.  You will obviously need to become familiar with the 
+articles that are out there, so you don't waste a lot of time 
+reinventing the wheel.
+
+Regarding a complete plugin example, I think there are plenty of 
+plugin examples out there, and I do not think that the article really 
+needs to have the complete plugin code in it, since there are so many 
+places to download plugins. Style is good; there is an article in the 
+Codex about WordPress programming style, so probably it's not 
+necessary to expound on that a lot in "Writing a Plugin".
+
+Let me know how you are planning to proceed....
+     Jennifer
+From msturm10 at gmail.com  Thu Feb 22 08:49:40 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Thu Feb 22 08:49:47 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DCC3F3.8020204@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>
+	<45DCC3F3.8020204@poplarware.com>
+Message-ID: <757281720702220049m64f8a5eah6e79f2d3f3d56b1a@mail.gmail.com>
+
+2007/2/21, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> Regarding a complete plugin example, I think there are plenty of
+> plugin examples out there, and I do not think that the article really
+> needs to have the complete plugin code in it, since there are so many
+> places to download plugins. Style is good; there is an article in the
+> Codex about WordPress programming style, so probably it's not
+> necessary to expound on that a lot in "Writing a Plugin".
+
+I think it can be of value to write an article based on the complete
+creation of a plugin. You simply shouldn't use a very complex plugin I
+think. The current "Writing a Plugin" article could easily transformed
+into this, by adding some sample code. Let me now when one of you has
+finished this article, maybe I can read it and provide some feedback.
+I think the writing of plugins is the most common 'development' task,
+so good documentation on this part is important.
+
+--
+Martin
+From msturm10 at gmail.com  Thu Feb 22 09:00:37 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Thu Feb 22 09:00:42 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DC6D05.7030807@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+Message-ID: <757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+
+2007/2/21, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> There was a reference page before, but it was missing about 75% of the
+> functions. Jump in and add documentation and organization at will!
+> Please! :) You also mentioned some kind of Table of Contents -- the
+> Wiki makes it easy to add links down the page, so that can be added
+> too. Good idea!
+
+Last night, I was wondering why the function reference is generated
+from the source? I saw somewhere some guidelines on in-code
+documentation, but apparently, this is not used to create
+documentation. I am also a Java developer, and have some experience
+with JavaDoc. In the past I used PHPDoc (or PHPDocumenter or
+something, I'm not sure about that) and that was similar to JavaDoc. I
+think it is possible to create JavaDoc-like documentation in the
+WordPress source, and generate (at least a large part of) the function
+reference. It has multiple benefits:
+1) Function definition and parameters doesn't have to be copy/paste
+(reducing errors)
+2) It is easier for developers to keep the documentation up-to-date,
+because it can be done at the same place where the actual change in
+code is done.
+3) The source code is documented properly (I haven't investigate this
+thoroughly, but some quick checks seems to suggest that there is not
+much documentation in the source code.
+
+I realize that creating function reference this way, takes some work,
+but one the long take, maintaining the function reference is much
+easier.
+
+--
+Martin
+From mhancock at us.net  Thu Feb 22 11:45:44 2007
+From: mhancock at us.net (Michael E. Hancock)
+Date: Thu Feb 22 11:45:49 2007
+Subject: [wp-docs] More on banning from Wiki
+References: <45DC6012.2040906@poplarware.com>
+Message-ID: <084d01c75676$fcfb8460$6402a8c0@DELL8600>
+
+From: "Jennifer Hodgdon" <yahgrp@poplarware.com>
+> So, it seemed like the banning from the Codex Wiki that I experienced
+> was pretty arbitrary -- the message on the screen referred to an IP
+> address that definitely wasn't mine. What software does the Codex use,
+> and should we (read "I") investigate/patch the banning logic to make
+> it a bit more intelligent? If it is arbitrarily banning people, it may
+> also be arbitrarily not banning spammers...
+
+JH:
+
+This will tell you the version information
+http://codex.wordpress.org/Special:Version
+
+MichaelH
+
+
+From yahgrp at poplarware.com  Thu Feb 22 13:19:58 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Thu Feb 22 13:19:51 2007
+Subject: [wp-docs] More on banning from Wiki
+In-Reply-To: <084d01c75676$fcfb8460$6402a8c0@DELL8600>
+References: <45DC6012.2040906@poplarware.com>
+	<084d01c75676$fcfb8460$6402a8c0@DELL8600>
+Message-ID: <45DD987E.4090609@poplarware.com>
+
+
+> This will tell you the version information
+> http://codex.wordpress.org/Special:Version
+
+Wow. The WordPress Codex is using version 1.4.8, but the current 
+version of MediaWiki is 1.9.3. Are there any plans to upgrade? I do 
+not think it is worth investigating the banning problem on such an old 
+version if upgrading would (possibly) fix the problem.
+
+      --Jennifer
+From yahgrp at poplarware.com  Thu Feb 22 13:29:03 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Thu Feb 22 13:29:03 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>	<45DC6D05.7030807@poplarware.com>
+	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+Message-ID: <45DD9A9F.1000401@poplarware.com>
+
+
+> Last night, I was wondering why the function reference is [not] generated
+> from the source [like Javadoc]? I saw somewhere some guidelines on in-code
+> documentation, but apparently, this is not used to create
+> documentation. 
+
+I believe this has been suggested before. The benefits you cited are 
+clear, but given the current state of affairs, I can think of a couple 
+of counter-arguments:
+
+a) Currently, very few of the functions in WordPress have any 
+documentation in the code, much less properly formatted xxDoc 
+comments, while many functions (especially the "Template Tags") have 
+Codex pages.
+
+b) Anyone can edit the Codex to contribute documentation, and it will 
+be up on the site immediately. Adding documentation to the code (or 
+fixing it) requires submitting a patch and waiting for a new version 
+of WordPress to come out, assuming the patch is accepted. Plus, the 
+special documentation comment might not be well-formed enough to 
+generate the documentation, which would then require a new patch and 
+another release cycle before it is up on the Codex.
+
+c) You do not necessarily get good documentation from developers.
+
+     --Jennifer
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From wp-docs at lambic.co.uk  Thu Feb 22 13:51:15 2007
+From: wp-docs at lambic.co.uk (Mark Styles)
+Date: Thu Feb 22 13:49:45 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DD9A9F.1000401@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+	<45DD9A9F.1000401@poplarware.com>
+Message-ID: <20070222135114.GA31426@lambic.co.uk>
+
+On Thu, Feb 22, 2007 at 05:29:03AM -0800, Jennifer Hodgdon wrote:
+> >Last night, I was wondering why the function reference is [not] generated
+> >from the source [like Javadoc]? I saw somewhere some guidelines on in-code
+> >documentation, but apparently, this is not used to create
+> >documentation. 
+ 
+> a) Currently, very few of the functions in WordPress have any 
+> documentation in the code, much less properly formatted xxDoc 
+> comments, while many functions (especially the "Template Tags") have 
+> Codex pages.
+
+Documentation can be generated from code even without the doc comments.
+It would be useful to have pages auto-generated for every function as it
+would at least give a starting point for documenters to add to.
+
+There may be functions that the developers prefer to be less visible and
+undocumented, but these can be removed after the auto-generation.
+
+I could generate a bunch of function based docs quite easily, but I have
+no idea how to wiki-ize them.
+
+> c) You do not necessarily get good documentation from developers.
+
+Very true, but you do get an accurate starting point from which the 
+"professional" documentors can embellish and refine.
+
+As an aside, why is the codex search facility so bad? And why doesn't it
+search the function reference pages?
+
+-- 
+Mark 
+http://www.lambic.co.uk
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/wp-docs/attachments/20070222/e552f014/attachment.pgp
+From xavier at borderie.net  Thu Feb 22 13:55:24 2007
+From: xavier at borderie.net (Xavier Borderie)
+Date: Thu Feb 22 13:55:30 2007
+Subject: [wp-docs] More on banning from Wiki
+In-Reply-To: <45DD987E.4090609@poplarware.com>
+References: <45DC6012.2040906@poplarware.com>
+	<084d01c75676$fcfb8460$6402a8c0@DELL8600>
+	<45DD987E.4090609@poplarware.com>
+Message-ID: <9e4ae73e0702220555l7941f22dk94620ce8f3b92835@mail.gmail.com>
+
+> Wow. The WordPress Codex is using version 1.4.8, but the current
+> version of MediaWiki is 1.9.3. Are there any plans to upgrade? I do
+> not think it is worth investigating the banning problem on such an old
+> version if upgrading would (possibly) fix the problem.
+
+This has alreadt been discussed here.
+Among other threads :
+http://comox.textdrive.com/pipermail/wp-docs/2006-December/001385.html
+Dunno if anything has changed since then...
+
+
+-- 
+Xavier Borderie
+From andrew at doun.org  Thu Feb 22 14:29:26 2007
+From: andrew at doun.org (Andrew Rivett)
+Date: Thu Feb 22 14:29:43 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702220049m64f8a5eah6e79f2d3f3d56b1a@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>
+	<45DCC3F3.8020204@poplarware.com>
+	<757281720702220049m64f8a5eah6e79f2d3f3d56b1a@mail.gmail.com>
+Message-ID: <983922800702220629l57ed3a12m4632f303ab94c51e@mail.gmail.com>
+
+In giving this more thought, I was thinking there should be three different
+documents.  1. Writting a simple plugin.  I was going to use a random quote
+plugin as an example, where the quotes are stored in the plugin file.  The
+second document would then modify that plugin to store the information in
+the database, and add administration pages.  The third document would add
+ajax support to the administration pages to make the editing process
+easier/more advanced.
+
+I've just signed up to Codex, so I'll read the documentation on how to write
+documentation and then hopefully get started in the next couple of weeks.
+I'll let you know when I have something put together.
+
+Thanks,
+Andrew.
+
+On 2/22/07, Martin Sturm <msturm10@gmail.com> wrote:
+>
+> 2007/2/21, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> > Regarding a complete plugin example, I think there are plenty of
+> > plugin examples out there, and I do not think that the article really
+> > needs to have the complete plugin code in it, since there are so many
+> > places to download plugins. Style is good; there is an article in the
+> > Codex about WordPress programming style, so probably it's not
+> > necessary to expound on that a lot in "Writing a Plugin".
+>
+> I think it can be of value to write an article based on the complete
+> creation of a plugin. You simply shouldn't use a very complex plugin I
+> think. The current "Writing a Plugin" article could easily transformed
+> into this, by adding some sample code. Let me now when one of you has
+> finished this article, maybe I can read it and provide some feedback.
+> I think the writing of plugins is the most common 'development' task,
+> so good documentation on this part is important.
+>
+> --
+> Martin
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+Be the change you want to see in the world -- Mahatma Gandhi
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20070222/02163ddf/attachment.htm
+From msturm10 at gmail.com  Thu Feb 22 14:36:52 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Thu Feb 22 14:36:59 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DD9A9F.1000401@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+	<45DD9A9F.1000401@poplarware.com>
+Message-ID: <757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+
+2007/2/22, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> I believe this has been suggested before. The benefits you cited are
+> clear, but given the current state of affairs, I can think of a couple
+> of counter-arguments:
+>
+> a) Currently, very few of the functions in WordPress have any
+> documentation in the code, much less properly formatted xxDoc
+> comments, while many functions (especially the "Template Tags") have
+> Codex pages.
+
+I'm aware of this argument (and was expecting it), and it is certainly
+true. But, it doesn't require a release to generate new documentation
+(I suppose). It may even be possible to create a seperate branch and
+add the documentation to it. I suspect that the most important API
+functions will not change very much every release (because that would
+break plugins and templates).
+
+As Mark Styles suggests, generating the documentation from the source
+doesn't mean you have a 'complete' documentation at once. Most
+implementations of document generators also work when there is no
+specific formatted comments in the source code, but generate 'document
+templates' containing the name of the function, its arguments and
+(maybe) the return value. Also is it possible (in the case of
+objects/classes) to automatically add links to parent classes.
+This generated documentation could form a starting point for most of
+the functions (there are a lot functions not documented currently, as
+you pointed out).
+
+I have to point out that it is just a new idea I had, and I haven't
+worked it out entirely, but I suspect that, if we want it, it is
+possible to realise this. I think it will improve also make it easier
+to improve the quality of code (some files of the Wordpress source
+contain pretty bad code) because maintaining the documentation
+enforced developers to think about their changes.
+
+> b) Anyone can edit the Codex to contribute documentation, and it will
+> be up on the site immediately. Adding documentation to the code (or
+> fixing it) requires submitting a patch and waiting for a new version
+> of WordPress to come out, assuming the patch is accepted. Plus, the
+> special documentation comment might not be well-formed enough to
+> generate the documentation, which would then require a new patch and
+> another release cycle before it is up on the Codex.
+
+If the documentation in the source is enforced (just like the 'coding
+style guidelines'), it will be possible to keep this up-to-date (other
+open source projects are doing it as well, why would it be impossible
+in this project?). I understand that it require some effort. I suspect
+it is possible to give someone who is coordinator of this project, can
+be given rights to commit the documentation to the source, or at least
+manage the patches in trac (and pass them to the person who can commit
+them in a 'ready' way). Again, I don't think it is only possible to
+update the documentation when a release is happening. It would be
+stupid to only update the reference documentation when there is a
+release.
+
+>
+> c) You do not necessarily get good documentation from developers.
+
+True, but some developers can write good documentation (or at least
+update it). Maybe I'm not clear at this point, but I think the initial
+source documentation should be written by a documenter. I don't expect
+the current developers creating this documentation.
+
+One think that could be a 'problem' is how we can generate
+documentation in a format which can be put on the Codex. This morning,
+I looked at PHPdocumentor (a Pear project) and I think it is possible
+to use this package to generate documentation which can be put on the
+Codex (which is just a wiki as far as I understand). The PHP
+documentation is also generated from the sourcecode documentation (as
+far as I understand).
+
+--
+Martin
+From carthik at gmail.com  Thu Feb 22 15:55:52 2007
+From: carthik at gmail.com (Carthik Sharma)
+Date: Thu Feb 22 15:56:33 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+	<45DD9A9F.1000401@poplarware.com>
+	<757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+Message-ID: <80f75db0702220755j4bb5ebe5lce15d2a8accf84b5@mail.gmail.com>
+
+On 2/22/07, Martin Sturm <msturm10@gmail.com> wrote:
+> 2007/2/22, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> > I believe this has been suggested before. The benefits you cited are
+> > clear, but given the current state of affairs, I can think of a couple
+> > of counter-arguments:
+> >
+> > a) Currently, very few of the functions in WordPress have any
+> > documentation in the code, much less properly formatted xxDoc
+> > comments, while many functions (especially the "Template Tags") have
+> > Codex pages.
+>
+> I'm aware of this argument (and was expecting it), and it is certainly
+> true. But, it doesn't require a release to generate new documentation
+> (I suppose). It may even be possible to create a seperate branch and
+> add the documentation to it. I suspect that the most important API
+> functions will not change very much every release (because that would
+> break plugins and templates).
+>
+> As Mark Styles suggests, generating the documentation from the source
+> doesn't mean you have a 'complete' documentation at once. Most
+> implementations of document generators also work when there is no
+> specific formatted comments in the source code, but generate 'document
+> templates' containing the name of the function, its arguments and
+> (maybe) the return value. Also is it possible (in the case of
+> objects/classes) to automatically add links to parent classes.
+> This generated documentation could form a starting point for most of
+> the functions (there are a lot functions not documented currently, as
+> you pointed out).
+>
+> I have to point out that it is just a new idea I had, and I haven't
+> worked it out entirely, but I suspect that, if we want it, it is
+> possible to realise this. I think it will improve also make it easier
+> to improve the quality of code (some files of the Wordpress source
+> contain pretty bad code) because maintaining the documentation
+> enforced developers to think about their changes.
+>
+> > b) Anyone can edit the Codex to contribute documentation, and it will
+> > be up on the site immediately. Adding documentation to the code (or
+> > fixing it) requires submitting a patch and waiting for a new version
+> > of WordPress to come out, assuming the patch is accepted. Plus, the
+> > special documentation comment might not be well-formed enough to
+> > generate the documentation, which would then require a new patch and
+> > another release cycle before it is up on the Codex.
+>
+> If the documentation in the source is enforced (just like the 'coding
+> style guidelines'), it will be possible to keep this up-to-date (other
+> open source projects are doing it as well, why would it be impossible
+> in this project?). I understand that it require some effort. I suspect
+> it is possible to give someone who is coordinator of this project, can
+> be given rights to commit the documentation to the source, or at least
+> manage the patches in trac (and pass them to the person who can commit
+> them in a 'ready' way). Again, I don't think it is only possible to
+> update the documentation when a release is happening. It would be
+> stupid to only update the reference documentation when there is a
+> release.
+>
+> >
+> > c) You do not necessarily get good documentation from developers.
+>
+> True, but some developers can write good documentation (or at least
+> update it). Maybe I'm not clear at this point, but I think the initial
+> source documentation should be written by a documenter. I don't expect
+> the current developers creating this documentation.
+>
+> One think that could be a 'problem' is how we can generate
+> documentation in a format which can be put on the Codex. This morning,
+> I looked at PHPdocumentor (a Pear project) and I think it is possible
+> to use this package to generate documentation which can be put on the
+> Codex (which is just a wiki as far as I understand). The PHP
+> documentation is also generated from the sourcecode documentation (as
+> far as I understand).
+>
+
+We have discussed this twice (or thrice) before, on this list and on
+the wp-hackers list. Please peruse those old threads to see why this
+idea was not implemented.
+
+Thank you for your suggestions :) Good to see action on this list again!
+
+Carthik.
+> --
+> Martin
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+-- 
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From carthik at gmail.com  Thu Feb 22 16:00:00 2007
+From: carthik at gmail.com (Carthik Sharma)
+Date: Thu Feb 22 16:00:12 2007
+Subject: [wp-docs] More on banning from Wiki
+In-Reply-To: <9e4ae73e0702220555l7941f22dk94620ce8f3b92835@mail.gmail.com>
+References: <45DC6012.2040906@poplarware.com>
+	<084d01c75676$fcfb8460$6402a8c0@DELL8600>
+	<45DD987E.4090609@poplarware.com>
+	<9e4ae73e0702220555l7941f22dk94620ce8f3b92835@mail.gmail.com>
+Message-ID: <80f75db0702220800k33d628casef1229efc0fde975@mail.gmail.com>
+
+On 2/22/07, Xavier Borderie <xavier@borderie.net> wrote:
+> > Wow. The WordPress Codex is using version 1.4.8, but the current
+> > version of MediaWiki is 1.9.3. Are there any plans to upgrade? I do
+> > not think it is worth investigating the banning problem on such an old
+> > version if upgrading would (possibly) fix the problem.
+>
+> This has alreadt been discussed here.
+> Among other threads :
+> http://comox.textdrive.com/pipermail/wp-docs/2006-December/001385.html
+> Dunno if anything has changed since then...
+
+Upgrading Mediawiki is a royal PITA from past experience. The Images
+will stop showing, the special pages will stop working, the namesapces
+will stop working.... some of it due to the problem that unlike
+http://en.wikipedia.org/wiki/MainPage we have
+http://codex.wordpress.org/MainPage/  Had we known better earlier, we
+would have put in a /wiki/ in the URL too.
+
+There have been discussions about using a different kind of wiki.
+Nothing much came of it. I blame it on inertia caused by the weight of
+so many pages and contributions.
+
+Really, upgrading to the latest and greatest is not essential, unless
+the upgrade provides some will-die-for feature. Security is a concern,
+I admit, and as long as we have that covered, we should be good for
+now.
+
+Carthik.
+>
+>
+> --
+> Xavier Borderie
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+-- 
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From yahgrp at poplarware.com  Thu Feb 22 16:11:27 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Thu Feb 22 16:11:20 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>	<45DC6D05.7030807@poplarware.com>	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>	<45DD9A9F.1000401@poplarware.com>
+	<757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+Message-ID: <45DDC0AF.8000103@poplarware.com>
+
+I want to make it clear that I am a developer, and I think the idea of 
+having the functions documented in the code is the Right Thing To Do.
+
+I also want to make it clear that I am not a decision maker in 
+WordPress, just an Interested Participant.
+
+So... I was thinking about this idea of having the WordPress PHP code 
+being the source for Codex function documentation pages from a 
+practical perspective, and I do not think it is practical right now... 
+or at least, here are the practical concerns that I would want to see 
+addressed in a reliable, workable way, before such a plan was implemented:
+
+* Figure out how to get the existing function documentation from the 
+Codex Function Reference, Template Tags, and associated pages into the 
+code.
+
+* Figure out standards for function headers that would translate to 
+good function documentation pages, and find or write code to extract 
+all the function documentation and put it into the Codex (or another 
+web site).
+
+* Figure out a way to make it easy for both developers and 
+non-developers to be able to edit the documentation and submit their 
+changes.
+
+* Figure out a way to have documentation released on a schedule that 
+is not necessarily connected to the WordPress release schedule (i.e. 
+so updates to documentation could be put onto the site immediately).
+
+     --Jennifer
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From lorelle at cameraontheroad.com  Thu Feb 22 16:10:57 2007
+From: lorelle at cameraontheroad.com (Lorelle VanFossen)
+Date: Thu Feb 22 16:11:20 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>	<45DC6D05.7030807@poplarware.com>	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>	<45DD9A9F.1000401@poplarware.com>
+	<757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+Message-ID: <45DDC091.5030709@cameraontheroad.com>
+
+Very good recommendations all around. I've been trying to get these 
+sections improved and expanded for a very long time. Thanks to all.
+
+As for the issue of showing the example of a "well-written" Plugin, this 
+is of critical importance. 
+http://guff.szub.net/2006/04/06/my-widget-example-wordpress-widget/ has 
+a brilliant example of the ideal Widget code. If we set the standard by 
+example of the proper, step-by-step outline of a Plugin, it will be 
+followed to the letter. This is what happened with the Default WordPress 
+Theme. A majority of all WordPress Themes are based upon it, buggy code 
+and all.
+
+People like shortcuts and if we give them a solid foundation shortcut, 
+they will perpetuate the good and not the bad.
+
+As for the rest of the earlier comments on Codex structure, the front 
+page is under serious reconstruction behind the scenes to make it more 
+user friendly. The WordPress Lessons section is the "tutorial" section, 
+though in the early days we were less disciplined about keeping 
+documentation out of it and tutorials out of documentation since we had 
+so few documents to work with. I'll be cleaning that up very soon, too.
+
+I'm leaving the Developer Docs and Advanced Topic section to you guys 
+for now, since I want to concentrate on structure, TOC, and tutorials. 
+I'm also going to be working on adding some great new features over the 
+next few months. Be patient. ;-)
+
+A while ago I created an outline for the structure of the Codex which 
+still holds water in many ways.
+
+http://codex.wordpress.org/User:Lorelle/Articles_Wanted
+
+Please take a look at it, especially in the documentation areas, to see 
+if there is some helpful structure and ideas there. It's dated, but may 
+help.
+
+-- 
+Lorelle VanFossen
+On the Road
+Taking Your Camera on the Road - http://www.cameraontheroad.com/
+Family History Blog - http://www.cameraontheroad.com/family
+Lorelle on WordPress - http://lorelle.wordpress.com/
+
+From yahgrp at poplarware.com  Thu Feb 22 16:17:00 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Thu Feb 22 16:16:55 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <983922800702220629l57ed3a12m4632f303ab94c51e@mail.gmail.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>	<45DC6D05.7030807@poplarware.com>	<983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>	<45DCC3F3.8020204@poplarware.com>	<757281720702220049m64f8a5eah6e79f2d3f3d56b1a@mail.gmail.com>
+	<983922800702220629l57ed3a12m4632f303ab94c51e@mail.gmail.com>
+Message-ID: <45DDC1FC.1010402@poplarware.com>
+
+Andrew Rivett wrote:
+> In giving this more thought, I was thinking there should be three different
+> documents. [...]
+> I've just signed up to Codex, so I'll read the documentation on how to 
+> write
+> documentation and then hopefully get started in the next couple of weeks.
+> I'll let you know when I have something put together.
+
+Sounds good -- I will hold off on editing the Writing a Plugin file 
+and leave it to you. :)
+
+Meantime, I am going to do another pass at making the dev 
+documentation easier to locate in general, and I am also going to add 
+a central "Plugin Resources" annotated list to the Codex, as ONE 
+central place to go for plugins.
+
+     --Jennifer
+
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From msturm10 at gmail.com  Thu Feb 22 16:46:37 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Thu Feb 22 16:46:52 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DDC0AF.8000103@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<757281720702220100p5971af23q98c831cde003b65a@mail.gmail.com>
+	<45DD9A9F.1000401@poplarware.com>
+	<757281720702220636x4a2762fdtc184df7606f15e37@mail.gmail.com>
+	<45DDC0AF.8000103@poplarware.com>
+Message-ID: <757281720702220846q2f117bd5l3751833f71bbdfc3@mail.gmail.com>
+
+2007/2/22, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> I want to make it clear that I am a developer, and I think the idea of
+> having the functions documented in the code is the Right Thing To Do.
+>
+> I also want to make it clear that I am not a decision maker in
+> WordPress, just an Interested Participant.
+>
+> So... I was thinking about this idea of having the WordPress PHP code
+> being the source for Codex function documentation pages from a
+> practical perspective, and I do not think it is practical right now...
+> or at least, here are the practical concerns that I would want to see
+> addressed in a reliable, workable way, before such a plan was implemented:
+
+I'm not sure if it is desirable to use the php source of Wordpress as
+to one and only documentation source for the reference. Maybe I didn't
+make this clear enough in my previous posts.
+Because of the nature of the Codex (a wiki, which means that everybody
+can modify it at will) it would be almost impossible (I guess) to keep
+the source code documentation and the Wiki-reference documentation in
+sync.
+
+> * Figure out standards for function headers that would translate to
+> good function documentation pages, and find or write code to extract
+> all the function documentation and put it into the Codex (or another
+> web site).
+
+I don't think it is very smart to invent such a format again. As I
+mentioned before, there is already the JavaDoc/PHPDocumenter format,
+which is widely used and considered as a standard for this.
+
+I did some experimentation this afternoon, and discovered it is pretty
+easy to generate 'templates' for the function reference using
+PHPDocumentor (http://www.phpdoc.org) which can be directly used on
+the Codex. By default PHPDoc generates HTML documentation, but with
+little effort it is possible to write a 'Convertor' for this package,
+which format the documentation in MediaWiki-tags. I have already a
+Convertor which makes a templatedocumentation for functions, including
+the functionname, parameters, default values for parameters, return
+value and so on. When there is a so-called DocBlock (i.e. comments in
+JavaDoc format) this is automatically included in the template.
+
+--
+Martin Sturm
+From yahgrp at poplarware.com  Thu Feb 22 17:26:43 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Thu Feb 22 17:52:28 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DDC1FC.1010402@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>	<45DC5BC0.1080908@poplarware.com>	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>	<45DC6D05.7030807@poplarware.com>	<983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>	<45DCC3F3.8020204@poplarware.com>	<757281720702220049m64f8a5eah6e79f2d3f3d56b1a@mail.gmail.com>	<983922800702220629l57ed3a12m4632f303ab94c51e@mail.gmail.com>
+	<45DDC1FC.1010402@poplarware.com>
+Message-ID: <45DDD253.1090900@poplarware.com>
+
+I have created a list of plugin references page, similar to 
+"Templates" in the Codex:
+
+http://codex.wordpress.org/Plugin_Resources
+
+Andrew, if you are rewriting "Writing a Plugin", you may find some 
+pages of interest there to link to in your updated article. :)
+
+Regarding the original question about documentation structure, I've 
+linked this list of plugin resources on several pages (such as 
+"Plugins"), so hopefully a potential plugin developer can now at least 
+find it. :)
+
+Suggestions/edits welcome... I'm going to see if I can clean up more 
+of the spaghetti of pages of links leading to more pages of links now 
+(leaving the Codex home page as is until Lorelle finishes her update)...
+
+      Jennifer
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From msturm10 at gmail.com  Thu Feb 22 19:11:58 2007
+From: msturm10 at gmail.com (Martin Sturm)
+Date: Thu Feb 22 19:12:14 2007
+Subject: [wp-docs] Structure of documentation
+In-Reply-To: <45DDD253.1090900@poplarware.com>
+References: <757281720702210119sf62ff8g8feeb8e47cc1e852@mail.gmail.com>
+	<45DC5BC0.1080908@poplarware.com>
+	<757281720702210737w144a37ecob31a8038f639b6f5@mail.gmail.com>
+	<45DC6D05.7030807@poplarware.com>
+	<983922800702210927s431fb7cbhfbe0777198464ac2@mail.gmail.com>
+	<45DCC3F3.8020204@poplarware.com>
+	<757281720702220049m64f8a5eah6e79f2d3f3d56b1a@mail.gmail.com>
+	<983922800702220629l57ed3a12m4632f303ab94c51e@mail.gmail.com>
+	<45DDC1FC.1010402@poplarware.com> <45DDD253.1090900@poplarware.com>
+Message-ID: <757281720702221111o4f225aeehc82c2497a3415bf4@mail.gmail.com>
+
+2007/2/22, Jennifer Hodgdon <yahgrp@poplarware.com>:
+> I have created a list of plugin references page, similar to
+> "Templates" in the Codex:
+
+I will look if I have some time the coming days to improve the
+function reference, and try to add at least a basic page for every
+function and complete the list of functions.
+
+I think it is not realistic to expect that automatic generation of
+documentation for the function reference is possible in a short amount
+of time, so I will use the current system.
+
+I think it is useful to think about a system for generating a function
+reference based on the WP source in the future, but that will require
+some input of the lead developers/documenters.
+
+--
+Martin
+From yahgrp at poplarware.com  Sun Feb 25 01:54:33 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Sun Feb 25 01:54:20 2007
+Subject: [wp-docs] Extend page - Plugins...
+Message-ID: <45E0EC59.6050301@poplarware.com>
+
+Who is in charge of the "Extend" page that you get to from the 
+WordPress top nav menu -- http://wordpress.org/extend/   I think it 
+could use some work.
+
+a) Home page -- the text is all about themes, how about something 
+about plugins as well (see c below for suggestions)
+
+b) Click on Themes, and you get "Featured Themes"
+       http://wordpress.org/extend/themes/
+(which I don't think has been updated in a while). How about instead 
+giving users a list of these links:
+    http://codex.wordpress.org/Using_Themes (intro to themes, how to 
+use and install, and how to find them)
+    http://codex.wordpress.org/Templates (comprehensive list of theme 
+resources)
+
+c) Click on Plugins and you get nothing useful. The links are out of 
+date and not the best ones to view there... how about instead writing 
+a short page that sends users to the following:
+     http://codex.wordpress.org/Managing_Plugins (how to install and 
+use plugins)
+     http://codex.wordpress.org/Plugins (how to find plugins)
+     http://codex.wordpress.org/Plugin_Resources  (comprehensive 
+resource list)
+
+Just a thought --
+     Jennifer
+From lorelle at cameraontheroad.com  Sun Feb 25 18:10:12 2007
+From: lorelle at cameraontheroad.com (Lorelle VanFossen)
+Date: Sun Feb 25 18:10:25 2007
+Subject: [wp-docs] Extend page - Plugins...
+In-Reply-To: <45E0EC59.6050301@poplarware.com>
+References: <45E0EC59.6050301@poplarware.com>
+Message-ID: <45E1D104.8050509@cameraontheroad.com>
+
+The "Extend" page on wordpress.org was to be a replacement for 
+wp-plugins.net when that was having trouble. The "rumors" I last heard 
+was to either incorporate the two or some volunteers would be in charge 
+of "cleaning" the plugins in wp-plugins.net or submitted to them so they 
+would be "officialized" and tested for WordPress users. That idea is way 
+too heavy to implement without paid staff, IMHO. WP-Plugins.net needs 
+serious work, too, but I'm working with them to get that cleaned up and 
+possibly get more volunteers working in that direction.
+
+There will be more news on that coming out soon.
+
+-- 
+Lorelle VanFossen
+On the Road
+Taking Your Camera on the Road - http://www.cameraontheroad.com/
+Family History Blog - http://www.cameraontheroad.com/family
+Lorelle on WordPress - http://lorelle.wordpress.com/
+
+From lloydomattic at gmail.com  Mon Feb 26 17:21:50 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Mon Feb 26 17:21:57 2007
+Subject: [wp-docs] Extend page - Plugins...
+In-Reply-To: <45E0EC59.6050301@poplarware.com>
+References: <45E0EC59.6050301@poplarware.com>
+Message-ID: <70ebb7140702260921u66b3ee41o55812d51971e3fe0@mail.gmail.com>
+
+On 2/24/07, Jennifer Hodgdon <yahgrp@poplarware.com> wrote:
+> Who is in charge of the "Extend" page that you get to from the
+> WordPress top nav menu -- http://wordpress.org/extend/   I think it
+> could use some work.
+
+Send me refreshed content (html) and I will review to try and see if
+it is in the same voice and work on getting it deployed. Otherwise, I
+will try and find time to do it myself, but It may be a while.
+
+One of the Codex's challenges is that the content is overly thorough
+and does not have enough pictures ;-) My guess is part of the problem
+is that the same documents are trying to serve to many audiences.
+
+"[You] have their attention for five words"
+http://vera.wordpress.com/2006/04/29/deprived-of-words-we-labor-on/
+
+I think Matt is working with someone on a decent plugin repository.
+
+Cheers,
+Lloyd

@@ -1,0 +1,3741 @@
+From whyisjake at gmail.com  Sat Nov  1 20:48:45 2008
+From: whyisjake at gmail.com (Jake Spurlock)
+Date: Sat Nov  1 20:48:54 2008
+Subject: [buddypress-dev] Image Upload Size?
+Message-ID: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+
+I have some users that are complaining when they upload their images
+for an avatar that it reports that the image is to big. What are the
+file limitations, and can they be adapted? If anything, I would just
+like to add that text into the registration screen.
+
+Thanks,
+
+Jake Spurlock
+From andypeatling at automattic.com  Sun Nov  2 11:21:04 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Sun Nov  2 11:19:28 2008
+Subject: [buddypress-dev] Image Upload Size?
+In-Reply-To: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+References: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+Message-ID: <052C2A81-8F0D-42BD-98B6-EF7057D48D44@automattic.com>
+
+You can change max file upload size in wp-admin under site admin >  
+options I think.
+
+You may have to change it in your PHP ini too.
+
+Sent from my iPhone
+
+On 1-Nov-08, at 8:48 PM, "Jake Spurlock" <whyisjake@gmail.com> wrote:
+
+> I have some users that are complaining when they upload their images
+> for an avatar that it reports that the image is to big. What are the
+> file limitations, and can they be adapted? If anything, I would just
+> like to add that text into the registration screen.
+>
+> Thanks,
+>
+> Jake Spurlock
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From phlux0r at gmail.com  Sun Nov  2 21:10:11 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Sun Nov  2 21:10:26 2008
+Subject: [buddypress-dev] Image Upload Size?
+In-Reply-To: <052C2A81-8F0D-42BD-98B6-EF7057D48D44@automattic.com>
+References: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+	<052C2A81-8F0D-42BD-98B6-EF7057D48D44@automattic.com>
+Message-ID: <490E1733.5000804@gmail.com>
+
+One of my little BP hacks was to give a more verbose description to 
+users around the Avatar upload field where it clearly states the minimum 
+required dimension for upload and the max file size it will accept. I 
+think this is one of those things that would be good if it was easily 
+customisable as different audiences require different levels of explanation.
+
+For example, Andy, you could define all the messages in a separate 
+include file as constants so then people could change all those things 
+in one place for any particular plugin. Ideally it would be cool to 
+create some kind of override system whereby buddypress developers could 
+create their constants override file and if it's present the values 
+there would override the defaults.
+
+Regards,
+Robert
+
+
+Andy Peatling wrote:
+> You can change max file upload size in wp-admin under site admin > 
+> options I think.
+>
+> You may have to change it in your PHP ini too.
+>
+> Sent from my iPhone
+>
+> On 1-Nov-08, at 8:48 PM, "Jake Spurlock" <whyisjake@gmail.com> wrote:
+>
+>> I have some users that are complaining when they upload their images
+>> for an avatar that it reports that the image is to big. What are the
+>> file limitations, and can they be adapted? If anything, I would just
+>> like to add that text into the registration screen.
+>>
+>> Thanks,
+>>
+>> Jake Spurlock
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+From iam at 1stangel.co.uk  Mon Nov  3 00:20:30 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov  3 00:20:49 2008
+Subject: [buddypress-dev] avatars still, sorry
+References: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+	<052C2A81-8F0D-42BD-98B6-EF7057D48D44@automattic.com>
+	<490E1733.5000804@gmail.com>
+Message-ID: <490E43CD.000001.02100@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/4a0f50d8/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.5/1762 - Release Date: 02/11/2008 09:51
+From whyisjake at gmail.com  Mon Nov  3 00:33:52 2008
+From: whyisjake at gmail.com (Jake Spurlock)
+Date: Mon Nov  3 00:34:29 2008
+Subject: [buddypress-dev] avatars still, sorry
+In-Reply-To: <490E43CD.000001.02100@ZSA-ZSA>
+References: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+	<052C2A81-8F0D-42BD-98B6-EF7057D48D44@automattic.com>
+	<490E1733.5000804@gmail.com> <490E43CD.000001.02100@ZSA-ZSA>
+Message-ID: <B3DFCF22-FA1B-481E-A76A-03AA431A1003@gmail.com>
+
+I have been facing a similar problem with my users. The problem is  
+seemingly limited to Internet Explorer.
+
+Any ideas?
+
+Jake
+
+Sent from my iPhone
+
+On Nov 2, 2008, at 5:20 PM, "Angel" <iam@1stangel.co.uk> wrote:
+
+>
+> <logo.gif>
+>
+>
+> Just had a lady try and join the site and she cant get on due to the  
+> avatar issue.  It keeps bouncing her saying that the avatar is the  
+> wrong size.  She has tried lower and higher avatar sizes and it  
+> still isnt working...  I did try CHMODding the last trunk number but  
+> I havent this one as it didn't work the last time...  Apart from  
+> asking her to ignore avatars at present, which I have done, is there  
+> anything else I can do to allow her avatars lol  I am wondering how  
+> many other people this has put off joining :(
+>
+> <01_b_house.gif>http://1stangel.co.uk
+> <51_b_url.gif>http://theartnetwork.co.uk
+> <51_b_url.gif>http://ourgym.co.uk
+> <51_b_url.gif>Free Blogs
+>
+>
+> ? The Art Network
+> <mime-attachment>
+>
+> No virus found in this outgoing message.
+> Checked by AVG - http://www.avg.com
+> Version: 8.0.175 / Virus Database: 270.8.5/1762 - Release Date:  
+> 02/11/2008 09:51
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/4c942a97/attachment.htm
+From iam at 1stangel.co.uk  Mon Nov  3 00:39:35 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov  3 00:39:54 2008
+Subject: [buddypress-dev] avatars still, sorry
+References: <c523cf40811011348r20df4cd4y23edbaabaf9ca3ac@mail.gmail.com>
+	<052C2A81-8F0D-42BD-98B6-EF7057D48D44@automattic.com>
+	<490E1733.5000804@gmail.com> <490E43CD.000001.02100@ZSA-ZSA>
+	<B3DFCF22-FA1B-481E-A76A-03AA431A1003@gmail.com>
+Message-ID: <490E4847.000001.03024@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/f831bc57/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.5/1762 - Release Date: 02/11/2008 09:51
+From paul at investor.co.uk  Mon Nov  3 01:17:47 2008
+From: paul at investor.co.uk (Paul Harwood)
+Date: Mon Nov  3 01:18:05 2008
+Subject: [buddypress-dev] Looking for BuddyPress developer
+Message-ID: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+
+Hi,
+
+Not sure if advertising for work is allowed here, but here goes :)
+
+I have a site in the UK that I am installing buddypress on, but I  
+need someone to do maintenance and ensure updates are adhered to and  
+most probably some customisations made. If anyone is looking, let me  
+know.
+
+You can take a look at my hacked version http:// 
+community.investor.co.uk/ as a start... I know buddypress is pre- 
+release but it ticks so many boxes I am going to go live with it soon.
+
+I really love the buddypress thing and its very timely for me. Andy,  
+I am also happy to donate, money or graphics, if thats needed? :)
+
+Kind regards
+
+Paul Harwood
+
+Investor.co.uk - The UK's premier investment resource
+---------------------------------------------------
++44 (0) 78 25 25 43 25
+
+paul@investor.co.uk
+---------------------------------------------------
+This e-mail is subject to the following disclaimer: http:// 
+investor.co.uk/email-terms/
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/7f0b9a6d/attachment.htm
+From iam at 1stangel.co.uk  Mon Nov  3 15:39:15 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov  3 15:39:24 2008
+Subject: [buddypress-dev] Page Moved
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+Message-ID: <490F1B23.000003.03456@ZSA-ZSA>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/548a4841/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.5/1764 - Release Date: 03/11/2008 07:46
+From iam at 1stangel.co.uk  Mon Nov  3 15:47:17 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov  3 15:47:32 2008
+Subject: [buddypress-dev] template error - trunk 479
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+Message-ID: <490F1D05.000007.03456@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/688c17bd/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.5/1764 - Release Date: 03/11/2008 07:46
+From eoinbara at hotmail.com  Mon Nov  3 16:04:59 2008
+From: eoinbara at hotmail.com (eoin bara)
+Date: Mon Nov  3 16:05:12 2008
+Subject: [buddypress-dev] Page Moved
+In-Reply-To: <490F1B23.000003.03456@ZSA-ZSA>
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+	<490F1B23.000003.03456@ZSA-ZSA>
+Message-ID: <COL112-W74D904B3A3A1CF95F2E7EFD21D0@phx.gbl>
+
+
+Change your .HTaccess file to accommodate it...
+easy enough
+
+
+Date: Mon, 3 Nov 2008 15:39:15 +0000
+From: iam@1stangel.co.uk
+To: buddypress-dev@lists.automattic.com
+Subject: [buddypress-dev] Page Moved
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+Hi, its really coming together now isnt it :)
+ 
+However I am being moaned at...
+ 
+The page moved message 
+------------------------------------
+
+OKThe document has moved here. (for example)
+ 
+Is really starting to get on the members nerves now.  
+ 
+Why did the page name change to a / from not having one?   Was there a good reason and if so what shall I tell them it was LOL
+ 
+I have just put on 479 and its still doing it...
+ 
+ 
+
+
+
+
+
+
+
+_________________________________________________________________
+Get 30 Free Emoticons for your Windows Live Messenger
+http://www.livemessenger-emoticons.com/funfamily/en-ie/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/ddee8cd4/attachment.htm
+From iam at 1stangel.co.uk  Mon Nov  3 16:18:11 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov  3 16:18:23 2008
+Subject: [buddypress-dev] Page Moved
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+	<490F1B23.000003.03456@ZSA-ZSA>
+	<COL112-W74D904B3A3A1CF95F2E7EFD21D0@phx.gbl>
+Message-ID: <490F2443.00000A.03456@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/9740a843/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.5/1764 - Release Date: 03/11/2008 07:46
+From andypeatling at automattic.com  Mon Nov  3 16:39:46 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon Nov  3 16:39:49 2008
+Subject: [buddypress-dev] template error - trunk 479
+In-Reply-To: <490F1D05.000007.03456@ZSA-ZSA>
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+	<490F1D05.000007.03456@ZSA-ZSA>
+Message-ID: <7EEF86BB-4BDF-42E0-ACF3-1A6617C54BBB@automattic.com>
+
+Make sure you are updating the theme files as well as the plugin  
+files. If you're making design changes, keep all your CSS updates in a  
+file called "custom-styles.css" and place that in the buddypress- 
+member/ theme directory. It will be read in automatically.
+
+Andy
+
+On 3-Nov-08, at 3:47 PM, Angel wrote:
+
+> Just went to my activity (http://theartnetwork.co.UK/wpmu/members/admin/activity/ 
+> ) and it said, at the top of the page, next to my avatar...
+>
+> Warning: Missing argument 3 for BP_activity_get_list(), called in / 
+> home/*****/public_HTML/wpmu/wp-content/themes/buddypress-member/ 
+> activity/just-me.php on line 22 and defined in /home/*****/ 
+> public_HTML/wpmu/BP-activity/BP-activity-templatetags.php on line 87
+>
+> <templateerror.jpg>
+>
+> <01_b_house.gif>http://1stangel.co.uk
+> <51_b_url.gif>http://theartnetwork.co.uk
+> <51_b_url.gif>http://ourgym.co.uk
+> <51_b_url.gif>Free Blogs
+>
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From iam at 1stangel.co.uk  Mon Nov  3 16:56:32 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov  3 16:56:42 2008
+Subject: [buddypress-dev] template error - trunk 479
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+	<490F1D05.000007.03456@ZSA-ZSA>
+	<7EEF86BB-4BDF-42E0-ACF3-1A6617C54BBB@automattic.com>
+Message-ID: <490F2D40.000001.02396@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/68a73e71/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.5/1764 - Release Date: 03/11/2008 07:46
+From deanpcmad at yahoo.co.uk  Mon Nov  3 19:42:45 2008
+From: deanpcmad at yahoo.co.uk (Dean Perry)
+Date: Mon Nov  3 19:43:22 2008
+Subject: [buddypress-dev] Looking for BuddyPress developer
+In-Reply-To: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+Message-ID: <005b01c93dec$58c547f0$0a4fd7d0$@co.uk>
+
+Hi Paul,
+
+ 
+
+I will be quite happy to do that.
+
+By 'hacked version', what do you mean? Do you mean hacked BuddyPress or
+hacked WPMU?
+
+ 
+
+Regards,
+
+Dean
+
+ 
+
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Paul
+Harwood
+Sent: 03 November 2008 01:18
+To: buddypress-dev@lists.automattic.com
+Subject: [buddypress-dev] Looking for BuddyPress developer
+
+ 
+
+Hi,
+
+ 
+
+Not sure if advertising for work is allowed here, but here goes :)
+
+ 
+
+I have a site in the UK that I am installing buddypress on, but I need
+someone to do maintenance and ensure updates are adhered to and most
+probably some customisations made. If anyone is looking, let me know.
+
+ 
+
+You can take a look at my hacked version http://community.investor.co.uk/ as
+a start... I know buddypress is pre-release but it ticks so many boxes I am
+going to go live with it soon.
+
+ 
+
+I really love the buddypress thing and its very timely for me. Andy, I am
+also happy to donate, money or graphics, if thats needed? :)
+
+ 
+
+Kind regards
+
+ 
+
+Paul Harwood 
+
+ 
+
+Investor.co.uk - The UK's premier investment resource
+
+---------------------------------------------------
+
++44 (0) 78 25 25 43 25
+
+ 
+
+paul@investor.co.uk
+
+---------------------------------------------------
+
+This e-mail is subject to the following disclaimer:
+http://investor.co.uk/email-terms/
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081103/62392887/attachment.htm
+From andypeatling at automattic.com  Mon Nov  3 19:54:15 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon Nov  3 19:54:24 2008
+Subject: [buddypress-dev] Looking for BuddyPress developer
+In-Reply-To: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+Message-ID: <4D4CF0AE-BCD4-4D54-92A4-0A840F86FAC0@automattic.com>
+
+On 3-Nov-08, at 1:17 AM, Paul Harwood wrote:
+> You can take a look at my hacked version http://community.investor.co.uk/ 
+>  as a start... I know buddypress is pre-release but it ticks so many  
+> boxes I am going to go live with it soon.
+
+Glad to hear it.
+
+> I really love the buddypress thing and its very timely for me. Andy,  
+> I am also happy to donate, money or graphics, if thats needed? :)
+
+If you'd be willing to donate back some of your customizations to the  
+community then that I'm sure would be appreciated by everyone.
+
+Cheers
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From deanpcmad at yahoo.co.uk  Mon Nov  3 20:01:38 2008
+From: deanpcmad at yahoo.co.uk (Dean Perry)
+Date: Mon Nov  3 20:01:54 2008
+Subject: [buddypress-dev] Looking for BuddyPress developer
+In-Reply-To: <4D4CF0AE-BCD4-4D54-92A4-0A840F86FAC0@automattic.com>
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+	<4D4CF0AE-BCD4-4D54-92A4-0A840F86FAC0@automattic.com>
+Message-ID: <006601c93dee$fbc23790$f346a6b0$@co.uk>
+
+Hi,
+Just a quick question... do you know when BuddyPress will be fully released
+or is that secret ;)
+Dean
+
+-----Original Message-----
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Andy
+Peatling
+Sent: 03 November 2008 19:54
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] Looking for BuddyPress developer
+
+On 3-Nov-08, at 1:17 AM, Paul Harwood wrote:
+> You can take a look at my hacked version http://community.investor.co.uk/ 
+>  as a start... I know buddypress is pre-release but it ticks so many  
+> boxes I am going to go live with it soon.
+
+Glad to hear it.
+
+> I really love the buddypress thing and its very timely for me. Andy,  
+> I am also happy to donate, money or graphics, if thats needed? :)
+
+If you'd be willing to donate back some of your customizations to the  
+community then that I'm sure would be appreciated by everyone.
+
+Cheers
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+From iam at 1stangel.co.uk  Tue Nov  4 16:40:38 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Tue Nov  4 16:40:37 2008
+Subject: [buddypress-dev] Page Moved
+Message-ID: <49107B06.000001.02688@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081104/43cc68b7/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.6/1766 - Release Date: 04/11/2008 08:26
+From andypeatling at automattic.com  Tue Nov  4 16:48:04 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue Nov  4 16:48:55 2008
+Subject: [buddypress-dev] Page Moved
+In-Reply-To: <49107B06.000001.02688@ZSA-ZSA>
+References: <49107B06.000001.02688@ZSA-ZSA>
+Message-ID: <CC157C2B-4EFF-4616-80BB-868F141C8DC1@automattic.com>
+
+Upgrade to the latest trunk - I've disabled the cause of this problem  
+until we can work out the issues.
+
+Andy
+
+On 4-Nov-08, at 4:40 PM, Angel wrote:
+
+>
+>
+> Can someone help me with an explanation of what that means and how  
+> exactly to do it please...
+>
+> <01_b_house1.gif>http://1stangel.co.uk
+> <51_b_url2.gif>http://theartnetwork.co.uk
+> <51_b_url2.gif>http://ourgym.co.uk
+> <51_b_url2.gif>Free Blogs
+>
+> -------Original Message-------
+>
+> From: eoin bara
+> Date: 03/11/2008 16:05:17
+> To: buddypress-dev@lists.automattic.com
+> Subject: RE: [buddypress-dev] Page Moved
+>
+>
+> Change your .HTaccess file to accommodate it...
+> easy enough
+>
+>
+> Date: Mon, 3 Nov 2008 15:39:15 +0000
+> From: iam@1stangel.co.uk
+> To: buddypress-dev@lists.automattic.com
+> Subject: [buddypress-dev] Page Moved
+>
+>
+> Hi, its really coming together now isnt it :)
+>
+> However I am being moaned at...
+>
+> The page moved message
+> ------------------------------------
+> OKThe document has moved here. (for example)
+>
+> Is really starting to get on the members nerves now.
+>
+> Why did the page name change to a / from not having one?   Was there  
+> a good reason and if so what shall I tell them it was LOL
+>
+> I have just put on 479 and its still doing it...
+>
+>
+>
+> Join the all-new Windows Live Messenger family Click here!
+>
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From iam at 1stangel.co.uk  Tue Nov  4 17:00:44 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Tue Nov  4 17:00:51 2008
+Subject: [buddypress-dev] Page Moved
+References: <49107B06.000001.02688@ZSA-ZSA>
+	<CC157C2B-4EFF-4616-80BB-868F141C8DC1@automattic.com>
+Message-ID: <49107FBB.000001.03560@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081104/b721c041/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.6/1766 - Release Date: 04/11/2008 08:26
+From iam at 1stangel.co.uk  Wed Nov  5 02:06:23 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Wed Nov  5 02:06:15 2008
+Subject: [buddypress-dev] themes
+References: <49107B06.000001.02688@ZSA-ZSA>
+	<CC157C2B-4EFF-4616-80BB-868F141C8DC1@automattic.com>
+Message-ID: <4910FF9F.000001.02040@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081105/a08129f3/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.6/1766 - Release Date: 04/11/2008 08:26
+From iam at 1stangel.co.uk  Wed Nov  5 02:25:20 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Wed Nov  5 02:26:55 2008
+Subject: [buddypress-dev] themes
+References: <49107B06.000001.02688@ZSA-ZSA>
+	<CC157C2B-4EFF-4616-80BB-868F141C8DC1@automattic.com>
+	<4910FF9F.000001.02040@ZSA-ZSA>
+Message-ID: <49110410.000004.02040@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081105/0e1d346e/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.6/1766 - Release Date: 04/11/2008 08:26
+From iam at 1stangel.co.uk  Wed Nov  5 14:52:15 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Wed Nov  5 14:52:02 2008
+Subject: [buddypress-dev] avatars trunk 
+References: <49107B06.000001.02688@ZSA-ZSA>
+	<CC157C2B-4EFF-4616-80BB-868F141C8DC1@automattic.com>
+	<4910FF9F.000001.02040@ZSA-ZSA> <49110410.000004.02040@ZSA-ZSA>
+Message-ID: <4911B31F.00000A.00848@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081105/e5aa5ef0/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.6/1769 - Release Date: 05/11/2008 07:17
+From phlux0r at gmail.com  Wed Nov  5 20:32:52 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Wed Nov  5 20:36:33 2008
+Subject: [buddypress-dev] Posting to large group with Notify members by email
+Message-ID: <491202F4.30406@gmail.com>
+
+Hey Andy,
+
+I just posted on the Buddypress Testers group and ticked the box to 
+notify all members and it took ages... I know it says it slows down 
+posting but I think the way to go with this is to do the notifications 
+in the background as you'd probably hit the max execution time for 
+scripts at some point for really large groups...
+
+Regards,
+Robert
+From andypeatling at automattic.com  Wed Nov  5 23:29:06 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed Nov  5 23:40:21 2008
+Subject: [buddypress-dev] Posting to large group with Notify members by
+	email
+In-Reply-To: <491202F4.30406@gmail.com>
+References: <491202F4.30406@gmail.com>
+Message-ID: <D9A820B7-CFF1-41F9-9CFB-AB0C8EBE9CD5@automattic.com>
+
+On 5-Nov-08, at 8:32 PM, phlux0r wrote:
+> I just posted on the Buddypress Testers group and ticked the box to  
+> notify all members and it took ages... I know it says it slows down  
+> posting but I think the way to go with this is to do the  
+> notifications in the background as you'd probably hit the max  
+> execution time for scripts at some point for really large groups...
+
+We've been chatting in #buddypress about this - I think the way to go  
+would be to cron the email sending for X number of seconds after the  
+wire message is posted. That way the user can continue to browse the  
+site while the notifications are being sent.
+
+Right now the emails have to all be sent before a success message is  
+returned - no good for groups bigger than 100.
+
+I've not used wp-cron before - does anyone know of good tutorials/ 
+resources?
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+From iam at 1stangel.co.uk  Thu Nov  6 03:16:36 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Thu Nov  6 03:16:14 2008
+Subject: [buddypress-dev] 497 - NO avatars still and No friends
+Message-ID: <49126191.000003.03740@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/38955544/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.8.6/1769 - Release Date: 05/11/2008 07:17
+From joildo at gmail.com  Thu Nov  6 03:42:39 2008
+From: joildo at gmail.com (Joildo Santos)
+Date: Thu Nov  6 03:42:51 2008
+Subject: [buddypress-dev] 497 - NO avatars still and No friends
+In-Reply-To: <49126191.000003.03740@ZSA-ZSA>
+References: <49126191.000003.03740@ZSA-ZSA>
+Message-ID: <e98c29e40811051942o440a6684ybc32772450ec7a5@mail.gmail.com>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/jpeg
+Size: 20856 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/f20befa2/attachment-0001.jpeg
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/gif
+Size: 319 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/f20befa2/attachment-0002.gif
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/gif
+Size: 289 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/f20befa2/attachment-0003.gif
+From iam at 1stangel.co.uk  Thu Nov  6 12:20:09 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Thu Nov  6 12:19:45 2008
+Subject: [buddypress-dev] 497 - NO avatars still and No friends
+References: <49126191.000003.03740@ZSA-ZSA>
+	<e98c29e40811051942o440a6684ybc32772450ec7a5@mail.gmail.com>
+Message-ID: <4912E0F9.000001.02908@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/2f7cb46f/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.0/1771 - Release Date: 06/11/2008 07:58
+From iam at 1stangel.co.uk  Thu Nov  6 17:25:18 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Thu Nov  6 17:24:58 2008
+Subject: [buddypress-dev] trunk 500 AVATARS
+Message-ID: <4913287E.00000E.01108@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/jpeg
+Size: 20856 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/5d529cd2/attachment-0002.jpeg
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/jpeg
+Size: 10088 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081106/5d529cd2/attachment-0003.jpeg
+-------------- next part --------------
+Skipped content of type multipart/alternative
+From graphite at joeyguerra.com  Fri Nov  7 03:00:53 2008
+From: graphite at joeyguerra.com (Joey Guerra)
+Date: Fri Nov  7 03:01:19 2008
+Subject: [buddypress-dev] trunk 500 AVATARS
+In-Reply-To: <4913287E.00000E.01108@ZSA-ZSA>
+References: <4913287E.00000E.01108@ZSA-ZSA>
+Message-ID: <9A2C4956-124B-4461-A690-3B53C2EC074B@joeyguerra.com>
+
+Is the GD image library or ImageMagik installed?
+
+On Nov 6, 2008, at 11:25 AM, Angel wrote:
+
+> Please excuse the desperation creeping into these posts, but I STILL  
+> have no avatars...
+>
+> It still does the same thing in Firefox AND IE in that it will not  
+> show anything...for anyone.
+>
+> It says it is successful and, as per the image I put ion my last  
+> post, you can see it thinks the image is there and that it is  
+> cropping something, but there is nothing there.
+>
+> It then says (if you go along for the ride and click all the crop  
+> and save buttons) that its been successful and is now up.
+>
+> It isn't up, theres nothing there!!
+>
+> I have tried CHMODding, I have tried ALL sizes, the avatars don't  
+> work...........
+>
+> If anyone wants to come over and have a go please feel free!
+>
+> If I right click and view the image, or what should be the image, I  
+> get this URL
+> http://1stangel.co.uk/blog/wp-content/blogs.dir/1/files//2008/11/me_1501-avatar1.jpg
+>
+> Notice the TWO lines between files and 2008, shouldn't there be only  
+> one?
+>
+> I don't know if it lets new people put an avatar up now but it hasnt  
+> been.
+>
+> <01_b_house.gif>http://1stangel.co.uk
+> <51_b_url.gif>http://theartnetwork.co.uk
+> <51_b_url.gif>http://ourgym.co.uk
+> <51_b_url.gif>Free Blogs
+>
+> <noavatar.jpg><noavatarsuccess.jpg>
+> No virus found in this outgoing message.
+> Checked by AVG - http://www.avg.com
+> Version: 8.0.175 / Virus Database: 270.9.0/1771 - Release Date:  
+> 06/11/2008 07:58
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081107/c02d1770/attachment.htm
+From iam at 1stangel.co.uk  Fri Nov  7 13:24:42 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Fri Nov  7 13:24:10 2008
+Subject: [buddypress-dev] trunk 500 AVATARS
+References: <4913287E.00000E.01108@ZSA-ZSA>
+	<9A2C4956-124B-4461-A690-3B53C2EC074B@joeyguerra.com>
+Message-ID: <4914419A.00000A.01944@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081107/7a1f3c8e/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.0/1773 - Release Date: 07/11/2008 09:08
+From iam at 1stangel.co.uk  Fri Nov  7 14:40:49 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Fri Nov  7 14:40:17 2008
+Subject: [buddypress-dev] trunk 500 AVATARS
+References: <4913287E.00000E.01108@ZSA-ZSA>
+	<9A2C4956-124B-4461-A690-3B53C2EC074B@joeyguerra.com>
+	<4914419A.00000A.01944@ZSA-ZSA>
+Message-ID: <49145371.000005.01940@ZSA-ZSA>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081107/d52b0ee6/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.0/1773 - Release Date: 07/11/2008 09:08
+From pcrain at gmail.com  Fri Nov  7 15:06:55 2008
+From: pcrain at gmail.com (paul crain)
+Date: Fri Nov  7 15:07:26 2008
+Subject: [buddypress-dev] trunk 500 AVATARS
+In-Reply-To: <49145371.000005.01940@ZSA-ZSA>
+References: <4913287E.00000E.01108@ZSA-ZSA>
+	<9A2C4956-124B-4461-A690-3B53C2EC074B@joeyguerra.com>
+	<4914419A.00000A.01944@ZSA-ZSA> <49145371.000005.01940@ZSA-ZSA>
+Message-ID: <3f6cb9380811070706y246e3778lf6ae8985aad1c66c@mail.gmail.com>
+
+Perhaps you should hire a developer... or wait until there is
+an official release?
+Paul
+
+
+On Fri, Nov 7, 2008 at 8:40 AM, Angel <iam@1stangel.co.uk> wrote:
+
+>    <http://theartnetwork.co.uk/wpmu>
+> Yes.
+>
+> Ok this is on another installation of BP
+>
+> settup 1
+> http://theartnetwork.co.uk/wpmu/wp-content/blogs.dir/1/files//2008/11/me_big-avatar2.jpg
+>
+> This is on the recent installation of BP
+>
+> Settup 2
+> http://1stangel.co.uk/blog/wp-content/blogs.dir/1/files//2008/11/me_1501-avatar2.jpg
+>
+> Both are the profile pictures of me.  Same image
+>
+> Settup 1 - overwrote existing MU that already had blogs on.
+> Settup 2 - brand new installation
+>
+> I have re-uploaded all files - MU and BP
+>
+> I cannot get the avatars to show on the new installation
+>
+> As I said to Andy on my test blog at BuddyPress, I really want to get it
+> sorted as to WHY it is doing this, as it may help others it is happening
+> to.  I know it isnt only me as they have contacted me.
+>
+> Beth
+>
+>
+>  *-------Original Message-------*
+>
+>  *From:* Joey Guerra <graphite@joeyguerra.com>
+> *Date:* 07/11/2008 03:01:19
+> *To:* buddypress-dev@lists.automattic.com
+> *Subject:* Re: [buddypress-dev] trunk 500 AVATARS
+>
+> Is the GD image library or ImageMagik installed?
+>
+>  On Nov 6, 2008, at 11:25 AM, Angel wrote:
+>
+>    Please excuse the desperation creeping into these posts, but I STILL
+> have no avatars...
+>
+> It still does the same thing in Firefox AND IE in that it will not show
+> anything...for anyone.
+>
+> It says it is successful and, as per the image I put ion my last post, you
+> can see it thinks the image is there and that it is cropping something, but
+> there is nothing there.
+>
+> It then says (if you go along for the ride and click all the crop and save
+> buttons) that its been successful and is now up.
+>
+> It isn't up, theres nothing there!!
+>
+> I have tried CHMODding, I have tried ALL sizes, the avatars don't
+> work...........
+>
+> If anyone wants to come over and have a go please feel free!
+>
+> If I right click and view the image, or what should be the image, I get
+> this URL
+>
+> http://1stangel.co.uk/blog/wp-content/blogs.dir/1/files//2008/11/me_1501-avatar1.jpg
+>
+> Notice the TWO lines between files and 2008, shouldn't there be only one?
+>
+> I don't know if it lets new people put an avatar up now but it hasnt been.
+>
+>  <01_b_house.gif>http://1stangel.co.uk
+> <51_b_url.gif>http://theartnetwork.co.uk
+> <51_b_url.gif>http://ourgym.co.uk
+> <51_b_url.gif>Free Blogs <http://theartnetwork.co.uk/wpmu>
+>
+>    <noavatar.jpg><noavatarsuccess.jpg>
+> No virus found in this outgoing message.
+> Checked by AVG - http://www.avg.com
+> Version: 8.0.175 / Virus Database: 270.9.0/1771 - Release Date: 06/11/2008
+> 07:58
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+>     ------------------------------
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> No virus found in this outgoing message.
+> Checked by AVG - http://www.avg.com
+> Version: 8.0.175 / Virus Database: 270.9.0/1773 - Release Date: 07/11/2008
+> 09:08
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081107/23454dd2/attachment-0001.htm
+From scarle at praizedmedia.com  Fri Nov  7 20:05:50 2008
+From: scarle at praizedmedia.com (Sylvain Carle)
+Date: Fri Nov  7 20:06:05 2008
+Subject: [buddypress-dev] friend confirmation bug
+Message-ID: <49149F9E.1090208@praizedmedia.com>
+
+Just received 37 emails from buddypress for a friend confirmation 
+action... you might want to look into that part of the codebase... Will 
+try to reproduce this and if I can reliably repeat it will open a Trac 
+ticket.
+
+--
+Sylvain Carle
+CTO Praized Media
+www.praized.com
+From andypeatling at automattic.com  Fri Nov  7 20:32:57 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Nov  7 20:33:03 2008
+Subject: [buddypress-dev] friend confirmation bug
+In-Reply-To: <49149F9E.1090208@praizedmedia.com>
+References: <49149F9E.1090208@praizedmedia.com>
+Message-ID: <A5C09B0A-D802-43BE-A1BC-45BD56343268@automattic.com>
+
+I think this is happening when the user hits the "accept" button  
+multiple times. I will add a check to stop this.
+
+Thanks for reporting.
+Andy
+
+On 7-Nov-08, at 8:05 PM, Sylvain Carle wrote:
+
+> Just received 37 emails from buddypress for a friend confirmation  
+> action... you might want to look into that part of the codebase...  
+> Will try to reproduce this and if I can reliably repeat it will open  
+> a Trac ticket.
+>
+> --
+> Sylvain Carle
+> CTO Praized Media
+> www.praized.com
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From iam at 1stangel.co.uk  Mon Nov 10 14:54:08 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov 10 14:54:26 2008
+Subject: [buddypress-dev] Warning message on MESSAGES - trunk 528
+References: <D17E39E3-8B7D-4BED-9F2D-671F21C42D91@investor.co.uk>
+	<490F1B23.000003.03456@ZSA-ZSA>
+	<COL112-W74D904B3A3A1CF95F2E7EFD21D0@phx.gbl>
+Message-ID: <49184B0F.000001.03784@ZSA-ZSA>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081110/651f886f/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.0/1779 - Release Date: 10/11/2008 07:53
+From iam at 1stangel.co.uk  Mon Nov 10 15:00:47 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Mon Nov 10 15:01:22 2008
+Subject: [buddypress-dev] Error - Profile Activity
+Message-ID: <49184C9F.000003.04044@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081110/ad37d8c0/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.0/1779 - Release Date: 10/11/2008 07:53
+From elio.franco at gmail.com  Tue Nov 11 10:55:53 2008
+From: elio.franco at gmail.com (Elio Franco)
+Date: Tue Nov 11 10:56:18 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress
+Message-ID: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+
+Hi folks!
+You can download the Italian Translation from http://buddypressitalia.com/file-lingua-italiana/
+The site is still underconstruction, but the translation is complete.
+From andrea at creativeweb.it  Tue Nov 11 11:10:00 2008
+From: andrea at creativeweb.it (Andrea Ceccarelli)
+Date: Tue Nov 11 11:10:15 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress
+In-Reply-To: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+Message-ID: <4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+
+Thanks for the italian file, I'm going to check it soon, but please remove
+the hacked homepage from http://buddypressitalia.info/
+It looks so bad ;-)
+And if possible provide information about it, hacked from wpmu or something
+related to the server configuration?
+
+
+
+2008/11/11 Elio Franco <elio.franco@gmail.com>
+
+> Hi folks!
+> You can download the Italian Translation from
+> http://buddypressitalia.com/file-lingua-italiana/
+> The site is still underconstruction, but the translation is complete.
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081111/33b8c984/attachment.htm
+From cerbero at gmail.com  Tue Nov 11 11:20:09 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Tue Nov 11 11:20:25 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress
+In-Reply-To: <4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+Message-ID: <F4CFD7BF-016D-4A04-ADB4-E72C446FF352@gmail.com>
+
+Hi,
+
+the po file for italian translation is corrupt.
+
+I've create another site for buddypress in italian and the language  
+file are avaible today...
+
+Franco se vuoi creare una collaborazione proficua e non di contrasto  
+fammi sapere.
+
+
+
+Il giorno 11/nov/08, alle ore 12:10, Andrea Ceccarelli ha scritto:
+
+> Thanks for the italian file, I'm going to check it soon, but please  
+> remove the hacked homepage from http://buddypressitalia.info/
+> It looks so bad ;-)
+> And if possible provide information about it, hacked from wpmu or  
+> something related to the server configuration?
+>
+>
+>
+> 2008/11/11 Elio Franco <elio.franco@gmail.com>
+> Hi folks!
+> You can download the Italian Translation from http://buddypressitalia.com/file-lingua-italiana/
+> The site is still underconstruction, but the translation is complete.
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081111/33165aec/attachment.htm
+From andypeatling at automattic.com  Tue Nov 11 12:01:10 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue Nov 11 12:01:04 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress
+In-Reply-To: <4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+Message-ID: <1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+
+Thanks for the italian translation. Yes - please let us know the  
+nature of that hack, if it's something BuddyPress related then it's  
+very important.
+
+Thanks
+Andy
+
+On 11-Nov-08, at 11:10 AM, Andrea Ceccarelli wrote:
+
+> Thanks for the italian file, I'm going to check it soon, but please  
+> remove the hacked homepage from http://buddypressitalia.info/
+> It looks so bad ;-)
+> And if possible provide information about it, hacked from wpmu or  
+> something related to the server configuration?
+>
+>
+>
+> 2008/11/11 Elio Franco <elio.franco@gmail.com>
+> Hi folks!
+> You can download the Italian Translation from http://buddypressitalia.com/file-lingua-italiana/
+> The site is still underconstruction, but the translation is complete.
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From nickyg at openplans.org  Tue Nov 11 18:43:33 2008
+From: nickyg at openplans.org (Nick Grossman)
+Date: Tue Nov 11 18:43:46 2008
+Subject: [buddypress-dev] Groups: invite non-site members?
+Message-ID: <621F099A-F5CD-4220-BA19-B6591BF76D0D@openplans.org>
+
+Hi,
+
+Nick Grossman here from the Open Planning Project.  We produce and  
+maintain a bunch of WP and WPMU sites, and are experimenting with  
+Buddypress for one of our projects.
+
+Question regarding group invitations:  right now, you can only invite  
+your friends to be group members.  Are there plans to extend that to  
+other site members, or people who haven't joined the site yet?
+
+Thanks,
+Nick
+P.S., really liking Buddypress so far.  Keep up the good work!
+
+--
+Nick Grossman
+The Open Planning Project -- http://theopenplanningproject.org
+nickyg@openplans.org
+(917) 825-6590
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081111/94a17c87/attachment.htm
+From marco at ethymos.com.br  Wed Nov 12 18:52:23 2008
+From: marco at ethymos.com.br (=?ISO-8859-1?Q?Marco_Ant=F4nio_Konopacki?=)
+Date: Wed Nov 12 18:52:35 2008
+Subject: [buddypress-dev] Bugs x-profile-signup
+Message-ID: <651120100811121052m3fa232cv17c3808b8da190d1@mail.gmail.com>
+
+Hi there,
+
+There is a bug in bp-xprofile/bp-xprofile-signup.php in line 56. There is a
+not closed div that causes style problems when user uses more profile
+fields.
+
+Thanks,
+
+-- 
+adm. marco ant?nio konopacki.
+s?cio-diretor
+ethymos solu??es em web
++55 41 3077-4163.
+skype: marcokonopacki
+marco@ethymos.com.br
+http://www.ethymos.com.br
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081112/e441d306/attachment.htm
+From cerbero at gmail.com  Wed Nov 12 23:58:53 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Wed Nov 12 23:59:07 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+Message-ID: <98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+
+Hi all!
+
+i'm the owner of http://www.buddypress-it.it another support site for  
+buddypress for the italian user...
+
+i've made another translation (this works), the download direct link  
+is: http://www.buddypress-it.it/download/1/
+
+The site at the moment is under construction, sorry, but it will be  
+online at most in the weekend...
+
+Ah i've a problem traslating "WIRE" in the buddypress context, so if  
+anyone have the right suggestion please contact me... Wire in the  
+previous translation by another user has been translated "Bacheca" but  
+it's wrong...
+
+Thanks
+
+Arturo.
+From alessandro.fazzi at acmos.net  Thu Nov 13 09:20:40 2008
+From: alessandro.fazzi at acmos.net (Alessandro Fazzi)
+Date: Thu Nov 13 09:20:52 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+Message-ID: <d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+
+It's very cool and it works! Thanks! But pay attention, because there
+are some translations  in spanish (I've noticed it in the bp home's
+sitewide activity).
+
+Cheers,
+Alessandro
+
+On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com> wrote:
+> Hi all!
+>
+> i'm the owner of http://www.buddypress-it.it another support site for
+> buddypress for the italian user...
+>
+> i've made another translation (this works), the download direct link is:
+> http://www.buddypress-it.it/download/1/
+>
+> The site at the moment is under construction, sorry, but it will be online
+> at most in the weekend...
+>
+> Ah i've a problem traslating "WIRE" in the buddypress context, so if anyone
+> have the right suggestion please contact me... Wire in the previous
+> translation by another user has been translated "Bacheca" but it's wrong...
+>
+> Thanks
+>
+> Arturo.
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From cerbero at gmail.com  Thu Nov 13 10:39:57 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Thu Nov 13 10:40:13 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+Message-ID: <9FBBB445-2B55-47FA-86F3-806222D46586@gmail.com>
+
+Thanks Alessandro,
+
+do you provide me a link with the test? or the exact string that isn't  
+in italian? thanks!
+
+Arturo.
+
+
+
+
+Il giorno 13/nov/08, alle ore 10:20, Alessandro Fazzi ha scritto:
+
+> It's very cool and it works! Thanks! But pay attention, because there
+> are some translations  in spanish (I've noticed it in the bp home's
+> sitewide activity).
+>
+> Cheers,
+> Alessandro
+>
+> On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com> wrote:
+>> Hi all!
+>>
+>> i'm the owner of http://www.buddypress-it.it another support site for
+>> buddypress for the italian user...
+>>
+>> i've made another translation (this works), the download direct  
+>> link is:
+>> http://www.buddypress-it.it/download/1/
+>>
+>> The site at the moment is under construction, sorry, but it will be  
+>> online
+>> at most in the weekend...
+>>
+>> Ah i've a problem traslating "WIRE" in the buddypress context, so  
+>> if anyone
+>> have the right suggestion please contact me... Wire in the previous
+>> translation by another user has been translated "Bacheca" but it's  
+>> wrong...
+>>
+>> Thanks
+>>
+>> Arturo.
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From cerbero at gmail.com  Thu Nov 13 12:51:54 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Thu Nov 13 12:52:08 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+Message-ID: <D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+
+Ok i've checked the spanish string but it isn't on the translation  
+i've used the %s that print the time for example "registered %s ago"  
+translated is "registrato %s fa" but it is "registrato 45minutos fa"  
+whit the s at the end...
+
+any suggestion to revolve this? thanks...
+
+Arturo
+
+Il giorno 13/nov/08, alle ore 10:20, Alessandro Fazzi ha scritto:
+
+> It's very cool and it works! Thanks! But pay attention, because there
+> are some translations  in spanish (I've noticed it in the bp home's
+> sitewide activity).
+>
+> Cheers,
+> Alessandro
+>
+> On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com> wrote:
+>> Hi all!
+>>
+>> i'm the owner of http://www.buddypress-it.it another support site for
+>> buddypress for the italian user...
+>>
+>> i've made another translation (this works), the download direct  
+>> link is:
+>> http://www.buddypress-it.it/download/1/
+>>
+>> The site at the moment is under construction, sorry, but it will be  
+>> online
+>> at most in the weekend...
+>>
+>> Ah i've a problem traslating "WIRE" in the buddypress context, so  
+>> if anyone
+>> have the right suggestion please contact me... Wire in the previous
+>> translation by another user has been translated "Bacheca" but it's  
+>> wrong...
+>>
+>> Thanks
+>>
+>> Arturo.
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From marco at ethymos.com.br  Thu Nov 13 20:16:43 2008
+From: marco at ethymos.com.br (=?ISO-8859-1?Q?Marco_Ant=F4nio_Konopacki?=)
+Date: Thu Nov 13 20:16:58 2008
+Subject: [buddypress-dev] SVN access
+Message-ID: <651120100811131216q46303261kc56cc4710fb0a798@mail.gmail.com>
+
+Hi there,
+
+We are developers from Curitiba, Brazil from Ethymos enterprise (
+http://ethymos.com.br). We hace many works developed using WordPress and now
+we have our first project using BuddyPress (http://soylocoporti.org.br). We
+are improving day by day many issues on BuddyPress and we'd like post it in
+SVN repository. How can we do this? What is the SVN access politics.
+
+Thanks,
+
+-- 
+adm. marco ant?nio konopacki.
+s?cio-diretor
+ethymos solu??es em web
++55 41 3077-4163.
+skype: marcokonopacki
+marco@ethymos.com.br
+http://www.ethymos.com.br
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081113/71a8b96b/attachment.htm
+From alessandro.fazzi at acmos.net  Thu Nov 13 21:06:04 2008
+From: alessandro.fazzi at acmos.net (Alessandro Fazzi)
+Date: Thu Nov 13 21:06:17 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+Message-ID: <d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+
+Yes, I've checked and it's not a translation's error. I can't see why
+a variable should print something in spanish! LoL!
+
+On Thu, Nov 13, 2008 at 1:51 PM, Cerbero <cerbero@gmail.com> wrote:
+> Ok i've checked the spanish string but it isn't on the translation i've used
+> the %s that print the time for example "registered %s ago" translated is
+> "registrato %s fa" but it is "registrato 45minutos fa" whit the s at the
+> end...
+>
+> any suggestion to revolve this? thanks...
+>
+> Arturo
+>
+> Il giorno 13/nov/08, alle ore 10:20, Alessandro Fazzi ha scritto:
+>
+>> It's very cool and it works! Thanks! But pay attention, because there
+>> are some translations  in spanish (I've noticed it in the bp home's
+>> sitewide activity).
+>>
+>> Cheers,
+>> Alessandro
+>>
+>> On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com> wrote:
+>>>
+>>> Hi all!
+>>>
+>>> i'm the owner of http://www.buddypress-it.it another support site for
+>>> buddypress for the italian user...
+>>>
+>>> i've made another translation (this works), the download direct link is:
+>>> http://www.buddypress-it.it/download/1/
+>>>
+>>> The site at the moment is under construction, sorry, but it will be
+>>> online
+>>> at most in the weekend...
+>>>
+>>> Ah i've a problem traslating "WIRE" in the buddypress context, so if
+>>> anyone
+>>> have the right suggestion please contact me... Wire in the previous
+>>> translation by another user has been translated "Bacheca" but it's
+>>> wrong...
+>>>
+>>> Thanks
+>>>
+>>> Arturo.
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From andypeatling at automattic.com  Thu Nov 13 21:37:59 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Nov 13 21:38:15 2008
+Subject: [buddypress-dev] SVN access
+In-Reply-To: <651120100811131216q46303261kc56cc4710fb0a798@mail.gmail.com>
+References: <651120100811131216q46303261kc56cc4710fb0a798@mail.gmail.com>
+Message-ID: <80DD03E3-6983-4775-9C6F-1D04AD87E98A@automattic.com>
+
+On 13-Nov-08, at 8:16 PM, Marco Ant?nio Konopacki wrote:
+
+> Hi there,
+>
+> We are developers from Curitiba, Brazil from Ethymos enterprise (http://ethymos.com.br 
+> ). We hace many works developed using WordPress and now we have our  
+> first project using BuddyPress (http://soylocoporti.org.br). We are  
+> improving day by day many issues on BuddyPress and we'd like post it  
+> in SVN repository. How can we do this? What is the SVN access  
+> politics.
+
+The easiest and quickest way is if you can open tickets for the issues  
+you've addressed, and submit patch files. That way the changes can be  
+checked, merged and committed to the code base easily.
+
+Cheers
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From andypeatling at automattic.com  Thu Nov 13 21:38:54 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Nov 13 22:10:11 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+Message-ID: <5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+
+I can change the "'s" part, as it's obviously not going to work for  
+other languages.
+
+Andy
+
+On 13-Nov-08, at 9:06 PM, Alessandro Fazzi wrote:
+
+> Yes, I've checked and it's not a translation's error. I can't see why
+> a variable should print something in spanish! LoL!
+>
+> On Thu, Nov 13, 2008 at 1:51 PM, Cerbero <cerbero@gmail.com> wrote:
+>> Ok i've checked the spanish string but it isn't on the translation  
+>> i've used
+>> the %s that print the time for example "registered %s ago"  
+>> translated is
+>> "registrato %s fa" but it is "registrato 45minutos fa" whit the s  
+>> at the
+>> end...
+>>
+>> any suggestion to revolve this? thanks...
+>>
+>> Arturo
+>>
+>> Il giorno 13/nov/08, alle ore 10:20, Alessandro Fazzi ha scritto:
+>>
+>>> It's very cool and it works! Thanks! But pay attention, because  
+>>> there
+>>> are some translations  in spanish (I've noticed it in the bp home's
+>>> sitewide activity).
+>>>
+>>> Cheers,
+>>> Alessandro
+>>>
+>>> On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com> wrote:
+>>>>
+>>>> Hi all!
+>>>>
+>>>> i'm the owner of http://www.buddypress-it.it another support site  
+>>>> for
+>>>> buddypress for the italian user...
+>>>>
+>>>> i've made another translation (this works), the download direct  
+>>>> link is:
+>>>> http://www.buddypress-it.it/download/1/
+>>>>
+>>>> The site at the moment is under construction, sorry, but it will be
+>>>> online
+>>>> at most in the weekend...
+>>>>
+>>>> Ah i've a problem traslating "WIRE" in the buddypress context, so  
+>>>> if
+>>>> anyone
+>>>> have the right suggestion please contact me... Wire in the previous
+>>>> translation by another user has been translated "Bacheca" but it's
+>>>> wrong...
+>>>>
+>>>> Thanks
+>>>>
+>>>> Arturo.
+>>>> _______________________________________________
+>>>> buddypress-dev mailing list
+>>>> buddypress-dev@lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From cerbero at gmail.com  Thu Nov 13 22:39:45 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Thu Nov 13 22:40:02 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+Message-ID: <11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+
+Thanks Andy, but there aren't the ' with the s but only the s ... for  
+example "registered 10 minutes ago" translated in italian is "  
+registrato 10 minuti fa" but after the localization it is "registrato  
+10 minutos fa" withous plural and with the s at the end... another  
+example is "registrato 2 oras, 45 minutos fa" ora = hours not plural  
+and with the s...
+
+
+
+Il giorno 13/nov/08, alle ore 22:38, Andy Peatling ha scritto:
+
+> I can change the "'s" part, as it's obviously not going to work for  
+> other languages.
+>
+> Andy
+>
+> On 13-Nov-08, at 9:06 PM, Alessandro Fazzi wrote:
+>
+>> Yes, I've checked and it's not a translation's error. I can't see why
+>> a variable should print something in spanish! LoL!
+>>
+>> On Thu, Nov 13, 2008 at 1:51 PM, Cerbero <cerbero@gmail.com> wrote:
+>>> Ok i've checked the spanish string but it isn't on the translation  
+>>> i've used
+>>> the %s that print the time for example "registered %s ago"  
+>>> translated is
+>>> "registrato %s fa" but it is "registrato 45minutos fa" whit the s  
+>>> at the
+>>> end...
+>>>
+>>> any suggestion to revolve this? thanks...
+>>>
+>>> Arturo
+>>>
+>>> Il giorno 13/nov/08, alle ore 10:20, Alessandro Fazzi ha scritto:
+>>>
+>>>> It's very cool and it works! Thanks! But pay attention, because  
+>>>> there
+>>>> are some translations  in spanish (I've noticed it in the bp home's
+>>>> sitewide activity).
+>>>>
+>>>> Cheers,
+>>>> Alessandro
+>>>>
+>>>> On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com>  
+>>>> wrote:
+>>>>>
+>>>>> Hi all!
+>>>>>
+>>>>> i'm the owner of http://www.buddypress-it.it another support  
+>>>>> site for
+>>>>> buddypress for the italian user...
+>>>>>
+>>>>> i've made another translation (this works), the download direct  
+>>>>> link is:
+>>>>> http://www.buddypress-it.it/download/1/
+>>>>>
+>>>>> The site at the moment is under construction, sorry, but it will  
+>>>>> be
+>>>>> online
+>>>>> at most in the weekend...
+>>>>>
+>>>>> Ah i've a problem traslating "WIRE" in the buddypress context,  
+>>>>> so if
+>>>>> anyone
+>>>>> have the right suggestion please contact me... Wire in the  
+>>>>> previous
+>>>>> translation by another user has been translated "Bacheca" but it's
+>>>>> wrong...
+>>>>>
+>>>>> Thanks
+>>>>>
+>>>>> Arturo.
+>>>>> _______________________________________________
+>>>>> buddypress-dev mailing list
+>>>>> buddypress-dev@lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>>>
+>>>> _______________________________________________
+>>>> buddypress-dev mailing list
+>>>> buddypress-dev@lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://apeatling.wordpress.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From alessandro.fazzi at acmos.net  Fri Nov 14 09:39:02 2008
+From: alessandro.fazzi at acmos.net (Alessandro Fazzi)
+Date: Fri Nov 14 09:39:14 2008
+Subject: [buddypress-dev] Italian Language File for BuddyPress (working)
+In-Reply-To: <11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+Message-ID: <d825ce2b0811140139g69cfd1c3k41dceca786a8de29@mail.gmail.com>
+
+That's the trick! So it isn't spanish! LoooL ^^'''
+
+On Thu, Nov 13, 2008 at 11:39 PM, Cerbero <cerbero@gmail.com> wrote:
+> Thanks Andy, but there aren't the ' with the s but only the s ... for
+> example "registered 10 minutes ago" translated in italian is " registrato 10
+> minuti fa" but after the localization it is "registrato 10 minutos fa"
+> withous plural and with the s at the end... another example is "registrato 2
+> oras, 45 minutos fa" ora = hours not plural and with the s...
+>
+>
+>
+> Il giorno 13/nov/08, alle ore 22:38, Andy Peatling ha scritto:
+>
+>> I can change the "'s" part, as it's obviously not going to work for other
+>> languages.
+>>
+>> Andy
+>>
+>> On 13-Nov-08, at 9:06 PM, Alessandro Fazzi wrote:
+>>
+>>> Yes, I've checked and it's not a translation's error. I can't see why
+>>> a variable should print something in spanish! LoL!
+>>>
+>>> On Thu, Nov 13, 2008 at 1:51 PM, Cerbero <cerbero@gmail.com> wrote:
+>>>>
+>>>> Ok i've checked the spanish string but it isn't on the translation i've
+>>>> used
+>>>> the %s that print the time for example "registered %s ago" translated is
+>>>> "registrato %s fa" but it is "registrato 45minutos fa" whit the s at the
+>>>> end...
+>>>>
+>>>> any suggestion to revolve this? thanks...
+>>>>
+>>>> Arturo
+>>>>
+>>>> Il giorno 13/nov/08, alle ore 10:20, Alessandro Fazzi ha scritto:
+>>>>
+>>>>> It's very cool and it works! Thanks! But pay attention, because there
+>>>>> are some translations  in spanish (I've noticed it in the bp home's
+>>>>> sitewide activity).
+>>>>>
+>>>>> Cheers,
+>>>>> Alessandro
+>>>>>
+>>>>> On Thu, Nov 13, 2008 at 12:58 AM, Cerbero <cerbero@gmail.com> wrote:
+>>>>>>
+>>>>>> Hi all!
+>>>>>>
+>>>>>> i'm the owner of http://www.buddypress-it.it another support site for
+>>>>>> buddypress for the italian user...
+>>>>>>
+>>>>>> i've made another translation (this works), the download direct link
+>>>>>> is:
+>>>>>> http://www.buddypress-it.it/download/1/
+>>>>>>
+>>>>>> The site at the moment is under construction, sorry, but it will be
+>>>>>> online
+>>>>>> at most in the weekend...
+>>>>>>
+>>>>>> Ah i've a problem traslating "WIRE" in the buddypress context, so if
+>>>>>> anyone
+>>>>>> have the right suggestion please contact me... Wire in the previous
+>>>>>> translation by another user has been translated "Bacheca" but it's
+>>>>>> wrong...
+>>>>>>
+>>>>>> Thanks
+>>>>>>
+>>>>>> Arturo.
+>>>>>> _______________________________________________
+>>>>>> buddypress-dev mailing list
+>>>>>> buddypress-dev@lists.automattic.com
+>>>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>>>>
+>>>>> _______________________________________________
+>>>>> buddypress-dev mailing list
+>>>>> buddypress-dev@lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>>
+>>>> _______________________________________________
+>>>> buddypress-dev mailing list
+>>>> buddypress-dev@lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>> ---------
+>> Andy Peatling | Social Engineer | Automattic
+>> http://apeatling.wordpress.com
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From cerbero at gmail.com  Fri Nov 14 15:28:52 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Fri Nov 14 15:29:03 2008
+Subject: [buddypress-dev] BuddyPress logo source (psd)
+In-Reply-To: <d825ce2b0811140139g69cfd1c3k41dceca786a8de29@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<d825ce2b0811140139g69cfd1c3k41dceca786a8de29@mail.gmail.com>
+Message-ID: <653F951A-952D-44F5-B8C5-1C192423A22C@gmail.com>
+
+HI all,
+
+it's possible have the psd of the BP's logo to make a little  
+customization (the italian color) for the site buddypress-it.it ?
+
+Andy this is possible? Thanks for the reply.
+
+Arturo.
+From peter.kuipers at dommel.be  Fri Nov 14 23:28:26 2008
+From: peter.kuipers at dommel.be (Peter Kuipers)
+Date: Fri Nov 14 23:28:37 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+Message-ID: <000e01c946b0$b2017c40$160474c0$@kuipers@dommel.be>
+
+Today I tried to install buddypress, zipped version at skriffle.com but
+everytime I end up with a error:
+
+Fatal error: Call to undefined function bp_has_posts() in
+/home/skriffle/domains/skriffle.com/public_html/wp-content/mu-plugins/bp-cor
+e/admin-mods/bp-core-homebase-dashboard.php on line 28
+
+The error occurs at: the dasjboard of a user. Under Latest Blog Posts.
+
+If needed I can provide access to ssh or ftp on that server.
+
+Somebody has a clue.
+
+Peter
+
+ 
+
+
+
+From whyisjake at gmail.com  Fri Nov 14 23:35:41 2008
+From: whyisjake at gmail.com (Jake Spurlock)
+Date: Fri Nov 14 23:35:56 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <7563157420719345754@unknownmsgid>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>
+	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<7563157420719345754@unknownmsgid>
+Message-ID: <c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+
+What version are you using? Looks a little old fashioned... Have you
+tried installing trunk via SVN?
+
+Jake
+
+On Fri, Nov 14, 2008 at 4:28 PM, Peter Kuipers <peter.kuipers@dommel.be> wrote:
+> Today I tried to install buddypress, zipped version at skriffle.com but
+> everytime I end up with a error:
+>
+> Fatal error: Call to undefined function bp_has_posts() in
+> /home/skriffle/domains/skriffle.com/public_html/wp-content/mu-plugins/bp-cor
+> e/admin-mods/bp-core-homebase-dashboard.php on line 28
+>
+> The error occurs at: the dasjboard of a user. Under Latest Blog Posts.
+>
+> If needed I can provide access to ssh or ftp on that server.
+>
+> Somebody has a clue.
+>
+> Peter
+>
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Jake Spurlock
+whyisjake@gmail.com
+801.376.6898
+http://jakespurlock.com
+http://twitter.com/whyisjake
+From peter.kuipers at dommel.be  Fri Nov 14 23:38:54 2008
+From: peter.kuipers at dommel.be (Peter Kuipers)
+Date: Fri Nov 14 23:39:07 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<4ca2a7d0811110310yed10078s77f6a10ddf208ab@mail.gmail.com>	<1B429BA3-C4B8-4DEC-9898-01B3B12A4483@automattic.com>	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>	<7563157420719345754@unknownmsgid>
+	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+Message-ID: <001201c946b2$27e4f850$77aee8f0$@kuipers@dommel.be>
+
+I used the Trac Generated Zip Files from the buddypress site.
+
+
+Peter
+
+-----Original Message-----
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Jake
+Spurlock
+Sent: zaterdag 15 november 2008 0:36
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] fatal error 
+
+
+What version are you using? Looks a little old fashioned... Have you
+tried installing trunk via SVN?
+
+Jake
+
+On Fri, Nov 14, 2008 at 4:28 PM, Peter Kuipers <peter.kuipers@dommel.be>
+wrote:
+> Today I tried to install buddypress, zipped version at skriffle.com but
+> everytime I end up with a error:
+>
+> Fatal error: Call to undefined function bp_has_posts() in
+>
+/home/skriffle/domains/skriffle.com/public_html/wp-content/mu-plugins/bp-cor
+> e/admin-mods/bp-core-homebase-dashboard.php on line 28
+>
+> The error occurs at: the dasjboard of a user. Under Latest Blog Posts.
+>
+> If needed I can provide access to ssh or ftp on that server.
+>
+> Somebody has a clue.
+>
+> Peter
+>
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Jake Spurlock
+whyisjake@gmail.com
+801.376.6898
+http://jakespurlock.com
+http://twitter.com/whyisjake
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From whyisjake at gmail.com  Fri Nov 14 23:41:35 2008
+From: whyisjake at gmail.com (Jake Spurlock)
+Date: Fri Nov 14 23:41:46 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <6864761743587969783@unknownmsgid>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<7563157420719345754@unknownmsgid>
+	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+	<6864761743587969783@unknownmsgid>
+Message-ID: <c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+
+YEah, you want want to use trunk via SVN. I may be wrong, but the zip
+files are a few revisions behind, trunk gives you the most up to date
+(semi-stable) release. Remember, this is still pre-release.
+
+Jake
+
+On Fri, Nov 14, 2008 at 4:38 PM, Peter Kuipers <peter.kuipers@dommel.be> wrote:
+> I used the Trac Generated Zip Files from the buddypress site.
+>
+>
+> Peter
+>
+> -----Original Message-----
+> From: buddypress-dev-bounces@lists.automattic.com
+> [mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Jake
+> Spurlock
+> Sent: zaterdag 15 november 2008 0:36
+> To: buddypress-dev@lists.automattic.com
+> Subject: Re: [buddypress-dev] fatal error
+>
+>
+> What version are you using? Looks a little old fashioned... Have you
+> tried installing trunk via SVN?
+>
+> Jake
+>
+> On Fri, Nov 14, 2008 at 4:28 PM, Peter Kuipers <peter.kuipers@dommel.be>
+> wrote:
+>> Today I tried to install buddypress, zipped version at skriffle.com but
+>> everytime I end up with a error:
+>>
+>> Fatal error: Call to undefined function bp_has_posts() in
+>>
+> /home/skriffle/domains/skriffle.com/public_html/wp-content/mu-plugins/bp-cor
+>> e/admin-mods/bp-core-homebase-dashboard.php on line 28
+>>
+>> The error occurs at: the dasjboard of a user. Under Latest Blog Posts.
+>>
+>> If needed I can provide access to ssh or ftp on that server.
+>>
+>> Somebody has a clue.
+>>
+>> Peter
+>>
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+>
+> --
+> Jake Spurlock
+> whyisjake@gmail.com
+> 801.376.6898
+> http://jakespurlock.com
+> http://twitter.com/whyisjake
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Jake Spurlock
+whyisjake@gmail.com
+801.376.6898
+http://jakespurlock.com
+http://twitter.com/whyisjake
+From peter.kuipers at dommel.be  Fri Nov 14 23:54:03 2008
+From: peter.kuipers at dommel.be (Peter Kuipers)
+Date: Fri Nov 14 23:54:18 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>	<7563157420719345754@unknownmsgid>	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>	<6864761743587969783@unknownmsgid>
+	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+Message-ID: <000001c946b4$46369690$d2a3c3b0$@kuipers@dommel.be>
+
+Yeah, I ma trying to set up the svn repo now, will be something for tomorrow
+I think.
+
+Thanks for the help.
+
+Peter
+
+-----Original Message-----
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Jake
+Spurlock
+Sent: zaterdag 15 november 2008 0:42
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] fatal error,
+
+YEah, you want want to use trunk via SVN. I may be wrong, but the zip
+files are a few revisions behind, trunk gives you the most up to date
+(semi-stable) release. Remember, this is still pre-release.
+
+Jake
+
+On Fri, Nov 14, 2008 at 4:38 PM, Peter Kuipers <peter.kuipers@dommel.be>
+wrote:
+> I used the Trac Generated Zip Files from the buddypress site.
+>
+>
+> Peter
+>
+> -----Original Message-----
+> From: buddypress-dev-bounces@lists.automattic.com
+> [mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Jake
+> Spurlock
+> Sent: zaterdag 15 november 2008 0:36
+> To: buddypress-dev@lists.automattic.com
+> Subject: Re: [buddypress-dev] fatal error
+>
+>
+> What version are you using? Looks a little old fashioned... Have you
+> tried installing trunk via SVN?
+>
+> Jake
+>
+> On Fri, Nov 14, 2008 at 4:28 PM, Peter Kuipers <peter.kuipers@dommel.be>
+> wrote:
+>> Today I tried to install buddypress, zipped version at skriffle.com but
+>> everytime I end up with a error:
+>>
+>> Fatal error: Call to undefined function bp_has_posts() in
+>>
+>
+/home/skriffle/domains/skriffle.com/public_html/wp-content/mu-plugins/bp-cor
+>> e/admin-mods/bp-core-homebase-dashboard.php on line 28
+>>
+>> The error occurs at: the dasjboard of a user. Under Latest Blog Posts.
+>>
+>> If needed I can provide access to ssh or ftp on that server.
+>>
+>> Somebody has a clue.
+>>
+>> Peter
+>>
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+>
+> --
+> Jake Spurlock
+> whyisjake@gmail.com
+> 801.376.6898
+> http://jakespurlock.com
+> http://twitter.com/whyisjake
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Jake Spurlock
+whyisjake@gmail.com
+801.376.6898
+http://jakespurlock.com
+http://twitter.com/whyisjake
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andrea at atypicalife.net  Sat Nov 15 00:00:16 2008
+From: andrea at atypicalife.net (Andrea)
+Date: Sat Nov 15 00:04:09 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>	<7563157420719345754@unknownmsgid>	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>	<6864761743587969783@unknownmsgid>
+	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+Message-ID: <20081115000357.135A223ECDA@smtprelay02.hostedemail.com>
+
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081115/7620f8cd/attachment-0001.htm
+From whyisjake at gmail.com  Sat Nov 15 00:09:38 2008
+From: whyisjake at gmail.com (Jake Spurlock)
+Date: Sat Nov 15 00:09:52 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <20081115000357.135A223ECDA@smtprelay02.hostedemail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<7563157420719345754@unknownmsgid>
+	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+	<6864761743587969783@unknownmsgid>
+	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+	<20081115000357.135A223ECDA@smtprelay02.hostedemail.com>
+Message-ID: <c523cf40811141609o537bb5a5va9b442b6e4dd1b02@mail.gmail.com>
+
+>  I may be wrong, but the zip files are a few revisions behind, trunk gives you the most up to date (semi-stable) release.
+
+Well, I stand corrected. :)
+
+-- 
+Jake Spurlock
+whyisjake@gmail.com
+801.376.6898
+http://jakespurlock.com
+http://twitter.com/whyisjake
+From peter.kuipers at dommel.be  Sat Nov 15 00:18:38 2008
+From: peter.kuipers at dommel.be (Peter Kuipers)
+Date: Sat Nov 15 00:18:51 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <c523cf40811141609o537bb5a5va9b442b6e4dd1b02@mail.gmail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>	<7563157420719345754@unknownmsgid>	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>	<6864761743587969783@unknownmsgid>	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>	<20081115000357.135A223ECDA@smtprelay02.hostedemail.com>
+	<c523cf40811141609o537bb5a5va9b442b6e4dd1b02@mail.gmail.com>
+Message-ID: <000501c946b7$b4c92390$1e5b6ab0$@kuipers@dommel.be>
+
+I downloaded them now out of the SVN, and they are different then the trac
+generated zip files. IT now works for all.
+
+Peter
+
+-----Original Message-----
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Jake
+Spurlock
+Sent: zaterdag 15 november 2008 1:10
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] fatal error,
+
+>  I may be wrong, but the zip files are a few revisions behind, trunk gives
+you the most up to date (semi-stable) release.
+
+Well, I stand corrected. :)
+
+-- 
+Jake Spurlock
+whyisjake@gmail.com
+801.376.6898
+http://jakespurlock.com
+http://twitter.com/whyisjake
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andrea at atypicalife.net  Sat Nov 15 00:29:53 2008
+From: andrea at atypicalife.net (Andrea)
+Date: Sat Nov 15 00:30:00 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <000501c946b7$b4c92390$1e5b6ab0$@kuipers@dommel.be>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>	<7563157420719345754@unknownmsgid>	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>	<6864761743587969783@unknownmsgid>	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>	<20081115000357.135A223ECDA@smtprelay02.hostedemail.com>	<c523cf40811141609o537bb5a5va9b442b6e4dd1b02@mail.gmail.com>
+	<000501c946b7$b4c92390$1e5b6ab0$@kuipers@dommel.be>
+Message-ID: <20081115002948.03C651742DD3@smtprelay01.hostedemail.com>
+
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081115/d95fcab0/attachment.htm
+From iam at 1stangel.co.uk  Sat Nov 15 00:31:53 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Sat Nov 15 00:31:23 2008
+Subject: [buddypress-dev] fatal error,
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<98CDF95E-DA34-4753-89E8-83519A85E549@gmail.com>
+	<d825ce2b0811130120r2f21d1dco95a4bb0a29eabad1@mail.gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<7563157420719345754@unknownmsgid>
+	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+	<6864761743587969783@unknownmsgid>
+	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+Message-ID: <491E1879.000001.02416@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081115/a6db401e/attachment-0001.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.3/1787 - Release Date: 14/11/2008 08:32
+From peter.kuipers at dommel.be  Sat Nov 15 10:18:39 2008
+From: peter.kuipers at dommel.be (Peter Kuipers)
+Date: Sat Nov 15 10:18:56 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <20081115002948.03C651742DD3@smtprelay01.hostedemail.com>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>	<7563157420719345754@unknownmsgid>	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>	<6864761743587969783@unknownmsgid>	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>	<20081115000357.135A223ECDA@smtprelay02.hostedemail.com>	<c523cf40811141609o537bb5a5va9b442b6e4dd1b02@mail.gmail.com>	<000501c946b7$b4c92390$1e5b6ab0$@kuipers@dommel.be>
+	<20081115002948.03C651742DD3@smtprelay01.hostedemail.com>
+Message-ID: <003601c9470b$87bbbd50$973337f0$@kuipers@dommel.be>
+
+Version I downloaded first was at:
+
+ 
+
+http://trac.buddypress.org/wiki/installing-buddypress which is the link at
+the download page for zip generated files.
+
+ 
+
+After I downloaded the link at the bottom of this page:
+
+ 
+
+http://trac.buddypress.org/browser/trunk
+
+ 
+
+Peter
+
+ 
+
+ 
+
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Andrea
+Sent: zaterdag 15 november 2008 1:30
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] fatal error,
+
+ 
+
+Weeeeeird... cuz they're supposed to be the same
+http://trac.buddypress.org/browser/trunk/
+
+this page? Zip link at the bottom?
+
+
+Peter Kuipers wrote: 
+
+I downloaded them now out of the SVN, and they are different then the trac
+generated zip files. IT now works for all.
+ 
+Peter
+ 
+-----Original Message-----
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Jake
+Spurlock
+Sent: zaterdag 15 november 2008 1:10
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] fatal error,
+ 
+  
+
+ I may be wrong, but the zip files are a few revisions behind, trunk gives
+    
+
+you the most up to date (semi-stable) release.
+ 
+Well, I stand corrected. :)
+ 
+  
+
+
+
+
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081115/690306b2/attachment.htm
+From alessandro.fazzi at acmos.net  Sat Nov 15 10:59:14 2008
+From: alessandro.fazzi at acmos.net (Alessandro Fazzi)
+Date: Sat Nov 15 10:59:25 2008
+Subject: [buddypress-dev] fatal error,
+In-Reply-To: <491E1879.000001.02416@ZSA-ZSA>
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<7563157420719345754@unknownmsgid>
+	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+	<6864761743587969783@unknownmsgid>
+	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+	<491E1879.000001.02416@ZSA-ZSA>
+Message-ID: <d825ce2b0811150259w2a6af558rc20dbdd5518d45e3@mail.gmail.com>
+
+On Sat, Nov 15, 2008 at 1:31 AM, Angel <iam@1stangel.co.uk> wrote:
+>
+> where is the SVN version please?
+
+
+O.o? In the bp's SVN repo... http://buddypress.org/download/ and copy
+the subversion link.
+
+Cheers,
+Alessandro
+From iam at 1stangel.co.uk  Sat Nov 15 11:31:50 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Sat Nov 15 11:31:19 2008
+Subject: [buddypress-dev] fatal error,
+References: <04EFC4FA-F18F-40B8-B79B-546F70E460A4@gmail.com>
+	<D14D8599-3E0A-400E-B676-351CB51D87E9@gmail.com>
+	<d825ce2b0811131306g6971cacarb8d9647eb4febdff@mail.gmail.com>
+	<5AC8C626-D8CB-4C50-A660-24A46AB8C3AD@automattic.com>
+	<11EEB8D6-0F5C-43A1-90C7-813FBE2438B2@gmail.com>
+	<7563157420719345754@unknownmsgid>
+	<c523cf40811141535x17ac4518n8664df3295ebb749@mail.gmail.com>
+	<6864761743587969783@unknownmsgid>
+	<c523cf40811141541n2475c41ci3b8d8e8d562d947b@mail.gmail.com>
+	<491E1879.000001.02416@ZSA-ZSA>
+	<d825ce2b0811150259w2a6af558rc20dbdd5518d45e3@mail.gmail.com>
+Message-ID: <491EB326.000001.03636@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081115/0ae71791/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.4/1789 - Release Date: 14/11/2008 19:32
+From bradflora at gmail.com  Sun Nov 16 08:26:07 2008
+From: bradflora at gmail.com (Brad Flora)
+Date: Sun Nov 16 08:26:15 2008
+Subject: [buddypress-dev] moving an existing WP blog onto a BP install
+Message-ID: <44f2b760811160026t1fc6c434s382cf960eb7fc6d1@mail.gmail.com>
+
+Hi guys,
+
+I'm incredibly excited to see Buddypress getting so near to completion.
+
+I have a question: I'm looking to launch an install in a space where there
+are already people out there blogging on the topic.  If those people wanted
+to bring their existing blogs onto the buddypress install, how would they do
+that?
+
+>From my days playing with Wordpress a few years back, I recall a way to
+export a blog as XML that could then be imported into a new location.  Would
+that be the only way to go? I guess I could offer to help people with that
+as a service to encourage those interested in porting their blogs over.
+
+Thanks for any advice.
+
+-Brad Flora
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/f47b3393/attachment.htm
+From chris at stillbreathing.co.uk  Sun Nov 16 17:17:28 2008
+From: chris at stillbreathing.co.uk (Chris Taylor - stillbreathing.co.uk)
+Date: Sun Nov 16 17:17:43 2008
+Subject: [buddypress-dev] moving an existing WP blog onto a BP install
+In-Reply-To: <44f2b760811160026t1fc6c434s382cf960eb7fc6d1@mail.gmail.com>
+References: <44f2b760811160026t1fc6c434s382cf960eb7fc6d1@mail.gmail.com>
+Message-ID: <60fe160a0811160917v492379d3p9ba31df1cb2d2f82@mail.gmail.com>
+
+Hi Brad,
+
+Yes, if you're installing Wordpress MU and BuddyPress from scratch
+(which I think is the best way to do it) then using the export/import
+route to move blogs over would be best. Wordpress has a special export
+facility that brings over comments as well, called WXR (Wordpress
+eXtended RSS).
+
+I've just used this method to move about 100 blogs to
+http://wibsite.com with few problems.
+
+Chris
+
+
+On Sun, Nov 16, 2008 at 8:26 AM, Brad Flora <bradflora@gmail.com> wrote:
+> Hi guys,
+>
+> I'm incredibly excited to see Buddypress getting so near to completion.
+>
+> I have a question: I'm looking to launch an install in a space where there
+> are already people out there blogging on the topic.  If those people wanted
+> to bring their existing blogs onto the buddypress install, how would they do
+> that?
+>
+> From my days playing with Wordpress a few years back, I recall a way to
+> export a blog as XML that could then be imported into a new location.  Would
+> that be the only way to go? I guess I could offer to help people with that
+> as a service to encourage those interested in porting their blogs over.
+>
+> Thanks for any advice.
+>
+> -Brad Flora
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+From eric at 6d6design.com  Sun Nov 16 18:24:03 2008
+From: eric at 6d6design.com (Eric Hansel)
+Date: Sun Nov 16 18:23:17 2008
+Subject: [buddypress-dev] Buddypress "zip archive" Trunk Version
+Message-ID: <D243479C-CE6F-4C31-8960-5647CFDC59F9@6d6design.com>
+
+Maybe I'm missing something here, but what happened to the "zip  
+archive" of the trunk version? It doesn't seem to be on the trunk  
+browser page anymore.
+Thanks
+Eric Hansel
+www.ejhansel.com
+
+
+
+From iam at 1stangel.co.uk  Sun Nov 16 18:45:33 2008
+From: iam at 1stangel.co.uk (Angel)
+Date: Sun Nov 16 18:44:46 2008
+Subject: [buddypress-dev] Buddypress "zip archive" Trunk Version
+References: <D243479C-CE6F-4C31-8960-5647CFDC59F9@6d6design.com>
+Message-ID: <49206A4D.000001.02292@ZSA-ZSA>
+
+Skipped content of type multipart/related-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: multipart/alternative
+Size: 0 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/40cdf310/attachment.bin
+-------------- next part --------------
+
+No virus found in this outgoing message.
+Checked by AVG - http://www.avg.com 
+Version: 8.0.175 / Virus Database: 270.9.4/1792 - Release Date: 16/11/2008 10:04
+From eoinbara at hotmail.com  Sun Nov 16 19:05:01 2008
+From: eoinbara at hotmail.com (eoin bara)
+Date: Sun Nov 16 19:05:14 2008
+Subject: [buddypress-dev] WPMU / BP hosting
+In-Reply-To: <D243479C-CE6F-4C31-8960-5647CFDC59F9@6d6design.com>
+References: <D243479C-CE6F-4C31-8960-5647CFDC59F9@6d6design.com>
+Message-ID: <COL112-W348D2EC4790F4BDEE0014AD2100@phx.gbl>
+
+
+Can anyone recommend good WPmu hosting? preferably cheap enough?
+
+_________________________________________________________________
+Get 30 Free Emoticons for your Windows Live Messenger
+http://www.livemessenger-emoticons.com/funfamily/en-ie/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/ea73088d/attachment.htm
+From stas at nerd.ro  Sun Nov 16 19:22:25 2008
+From: stas at nerd.ro (Stas SUSHKOV)
+Date: Sun Nov 16 19:22:21 2008
+Subject: [buddypress-dev] WPMU / BP hosting
+In-Reply-To: <COL112-W348D2EC4790F4BDEE0014AD2100@phx.gbl>
+References: <D243479C-CE6F-4C31-8960-5647CFDC59F9@6d6design.com>
+	<COL112-W348D2EC4790F4BDEE0014AD2100@phx.gbl>
+Message-ID: <492072F1.4010502@nerd.ro>
+
+eoin bara wrote:
+> Can anyone recommend good WPmu hosting? preferably cheap enough?
+> 
+> _________________________________________________________________
+> Get 30 Free Emoticons for your Windows Live Messenger
+> http://www.livemessenger-emoticons.com/funfamily/en-ie/
+> 
+> 
+> ------------------------------------------------------------------------
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+Search for some VPS hosting!
+Slicehost and Linode seem to be the best at this moment.
+
+-- 
+() Campania Panglicii ?n ASCII
+/\ http://stas.nerd.ro/ascii/
+From andrea at atypicalife.net  Sun Nov 16 20:21:38 2008
+From: andrea at atypicalife.net (Andrea)
+Date: Sun Nov 16 20:21:57 2008
+Subject: [buddypress-dev] WPMU / BP hosting
+In-Reply-To: <COL112-W348D2EC4790F4BDEE0014AD2100@phx.gbl>
+References: <D243479C-CE6F-4C31-8960-5647CFDC59F9@6d6design.com>
+	<COL112-W348D2EC4790F4BDEE0014AD2100@phx.gbl>
+Message-ID: <20081116202145.21F88C16CB7@smtprelay01.hostedemail.com>
+
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/0067a61d/attachment.htm
+From eric at 6d6design.com  Sun Nov 16 21:59:30 2008
+From: eric at 6d6design.com (eric@6d6design.com)
+Date: Sun Nov 16 21:59:46 2008
+Subject: [buddypress-dev] Buddypress "zip archive" Trunk Version
+Message-ID: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>
+
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/12a3a9ec/attachment-0001.htm
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: 01_b_house.gif
+Type: image/gif
+Size: 289 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/12a3a9ec/01_b_house-0001.gif
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: 51_b_url.gif
+Type: image/gif
+Size: 319 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081116/12a3a9ec/51_b_url-0001.gif
+From dan at instinct.co.nz  Mon Nov 17 01:00:30 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Mon Nov 17 01:00:46 2008
+Subject: [buddypress-dev] buddypress + getshopped
+In-Reply-To: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>
+References: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>
+Message-ID: <4920C22E.4050803@instinct.co.nz>
+
+Is anybody out there keen to install a couple of buddypress plugins on 
+getshopped.com for us. We are way too busy to do it ourselves but I want 
+to get it up and running for Christmas.
+
+If anybody is interested in doing this for some cash (normal hourly 
+rates) let me know.
+
+I will publish all the results and everything we learn here so that we 
+can all learn from the experience...
+
+Ciao,
+
+Dan
+
+--------
+www.instinct.co.nz/flash-games
+www.instinct.co.nz/e-commerce
+From eoinbara at hotmail.com  Mon Nov 17 09:32:35 2008
+From: eoinbara at hotmail.com (eoin bara)
+Date: Mon Nov 17 09:32:49 2008
+Subject: [buddypress-dev] buddypress + getshopped
+In-Reply-To: <4920C22E.4050803@instinct.co.nz>
+References: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>
+	<4920C22E.4050803@instinct.co.nz>
+Message-ID: <COL112-W4735AF0CEC3C0D379D3040D2130@phx.gbl>
+
+
+I was thinking of doing it the opposite way! trying to hack wp-ecommerce to work on buddypress!!
+Let me know what you're thinking of Dan?
+
+Eoin
+
+> Date: Mon, 17 Nov 2008 14:00:30 +1300
+> From: dan@instinct.co.nz
+> To: buddypress-dev@lists.automattic.com
+> Subject: [buddypress-dev] buddypress + getshopped
+> 
+> Is anybody out there keen to install a couple of buddypress plugins on 
+> getshopped.com for us. We are way too busy to do it ourselves but I want 
+> to get it up and running for Christmas.
+> 
+> If anybody is interested in doing this for some cash (normal hourly 
+> rates) let me know.
+> 
+> I will publish all the results and everything we learn here so that we 
+> can all learn from the experience...
+> 
+> Ciao,
+> 
+> Dan
+> 
+> --------
+> www.instinct.co.nz/flash-games
+> www.instinct.co.nz/e-commerce
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+_________________________________________________________________
+Get 30 Free Emoticons for your Windows Live Messenger
+http://www.livemessenger-emoticons.com/funfamily/en-ie/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081117/e406dcd7/attachment.htm
+From ramona at inspiredcreatives.com  Mon Nov 17 12:49:43 2008
+From: ramona at inspiredcreatives.com (ramona)
+Date: Mon Nov 17 12:50:41 2008
+Subject: [buddypress-dev] wp-ecommerce/bp integration
+Message-ID: <32597D87-184B-4CF0-89AA-5A1A1503B872@inspiredcreatives.com>
+
+Eoin,
+I'd be interested in your progress with e-commerce integration.  I'd  
+like to use it on buddypress also.
+
+Thanks,
+ramona
+From notsecurity at gmail.com  Tue Nov 18 13:53:04 2008
+From: notsecurity at gmail.com (Nicola Greco)
+Date: Tue Nov 18 13:53:17 2008
+Subject: [buddypress-dev] Problems with Profile Fields
+Message-ID: <75a6d1440811180553l643802abj624e87ceed08f33c@mail.gmail.com>
+
+Hi guys,
+i'm new in the mailing list, i'm italian and sorry for my english.
+
+I use the trunk version of buddypress, but lastly when i add a profile field
+like checkbox ad radio buttons, nothing appears and when i click on Submit,
+in the page after, appear an error message,
+
+how can i fix that?
+Can someone tell me if it's a my problem or a general problem.
+Last revision is 552 at http://svn.buddypress.org/trunk/
+
+thanks
+
+Nicola
+
+-- 
+Nicola Greco
+http://bongolinux.com | http://bongogadget.com | http://bongomac.com |
+http://bongohack.com
+
+Skype: greco.nicola
+Mail / Gtalk / Jabber: notsecurity@gmail.com
+Twitter: http://twitter.com/nicolagreco
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081118/75efb970/attachment.htm
+From alessandro.fazzi at acmos.net  Tue Nov 18 21:00:40 2008
+From: alessandro.fazzi at acmos.net (Alessandro Fazzi)
+Date: Tue Nov 18 21:00:51 2008
+Subject: [buddypress-dev] Problems with Profile Fields
+In-Reply-To: <75a6d1440811180553l643802abj624e87ceed08f33c@mail.gmail.com>
+References: <75a6d1440811180553l643802abj624e87ceed08f33c@mail.gmail.com>
+Message-ID: <d825ce2b0811181300g4c9f0a9j38eb82c36afe419e@mail.gmail.com>
+
+I'm also using trunk (but still rev 539) and I have problems with
+multiple choice forms. When I select, for exemple, "radio button" any
+more option appears and if I clock "Add" it says me that I have to add
+some options in multiple choice forms...
+
+Bye,
+Alessandro
+
+On Tue, Nov 18, 2008 at 2:53 PM, Nicola Greco <notsecurity@gmail.com> wrote:
+> Hi guys,
+> i'm new in the mailing list, i'm italian and sorry for my english.
+>
+> I use the trunk version of buddypress, but lastly when i add a profile field
+> like checkbox ad radio buttons, nothing appears and when i click on Submit,
+> in the page after, appear an error message,
+>
+> how can i fix that?
+> Can someone tell me if it's a my problem or a general problem.
+> Last revision is 552 at http://svn.buddypress.org/trunk/
+>
+> thanks
+>
+> Nicola
+>
+> --
+> Nicola Greco
+> http://bongolinux.com | http://bongogadget.com | http://bongomac.com |
+> http://bongohack.com
+>
+> Skype: greco.nicola
+> Mail / Gtalk / Jabber: notsecurity@gmail.com
+> Twitter: http://twitter.com/nicolagreco
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+From dan at instinct.co.nz  Wed Nov 19 01:02:01 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Wed Nov 19 01:02:18 2008
+Subject: [buddypress-dev] buddypress + getshopped
+In-Reply-To: <COL112-W4735AF0CEC3C0D379D3040D2130@phx.gbl>
+References: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>	<4920C22E.4050803@instinct.co.nz>
+	<COL112-W4735AF0CEC3C0D379D3040D2130@phx.gbl>
+Message-ID: <49236589.6080106@instinct.co.nz>
+
+I think it makes more sense to make buddypress plugins that are 
+compatible with WP e-Commerce.
+
+What I want to do is make getshopped.com more social and I'm struggling 
+with how to do it. Do you guys think that a good start would be to make 
+a new groups page that members can join?
+
+What are you thinking?
+
+Ciao,
+
+Dan
+
+
+eoin bara wrote:
+> I was thinking of doing it the opposite way! trying to hack 
+> wp-ecommerce to work on buddypress!!
+> Let me know what you're thinking of Dan?
+>
+> Eoin
+>
+> > Date: Mon, 17 Nov 2008 14:00:30 +1300
+> > From: dan@instinct.co.nz
+> > To: buddypress-dev@lists.automattic.com
+> > Subject: [buddypress-dev] buddypress + getshopped
+> >
+> > Is anybody out there keen to install a couple of buddypress plugins on
+> > getshopped.com for us. We are way too busy to do it ourselves but I 
+> want
+> > to get it up and running for Christmas.
+> >
+> > If anybody is interested in doing this for some cash (normal hourly
+> > rates) let me know.
+> >
+> > I will publish all the results and everything we learn here so that we
+> > can all learn from the experience...
+> >
+> > Ciao,
+> >
+> > Dan
+> >
+> > --------
+> > www.instinct.co.nz/flash-games
+> > www.instinct.co.nz/e-commerce
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> ------------------------------------------------------------------------
+> Get the next generation of Free Windows Live Services Click here! 
+> <http://get.live.com>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+From eoinbara at hotmail.com  Wed Nov 19 10:02:21 2008
+From: eoinbara at hotmail.com (eoin bara)
+Date: Wed Nov 19 10:02:37 2008
+Subject: [buddypress-dev] buddypress + getshopped
+In-Reply-To: <49236589.6080106@instinct.co.nz>
+References: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>
+	<4920C22E.4050803@instinct.co.nz>
+	<COL112-W4735AF0CEC3C0D379D3040D2130@phx.gbl> 
+	<49236589.6080106@instinct.co.nz>
+Message-ID: <COL112-W491D9FFA158A629E38A931D20D0@phx.gbl>
+
+
+Dan,
+How about recommending products in the Getshopped environment but a bit like a "Digg it"
+I always find when amazon recommends products that i may like i generally buy
+
+Eoin
+
+> Date: Wed, 19 Nov 2008 14:02:01 +1300
+> From: dan@instinct.co.nz
+> To: buddypress-dev@lists.automattic.com
+> Subject: Re: [buddypress-dev] buddypress + getshopped
+> 
+> I think it makes more sense to make buddypress plugins that are 
+> compatible with WP e-Commerce.
+> 
+> What I want to do is make getshopped.com more social and I'm struggling 
+> with how to do it. Do you guys think that a good start would be to make 
+> a new groups page that members can join?
+> 
+> What are you thinking?
+> 
+> Ciao,
+> 
+> Dan
+> 
+>
+
+_________________________________________________________________
+Get 30 Free Emoticons for your Windows Live Messenger
+http://www.livemessenger-emoticons.com/funfamily/en-ie/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081119/8cefb65c/attachment.htm
+From conceptfusion at gmail.com  Wed Nov 19 19:38:47 2008
+From: conceptfusion at gmail.com (Simon Pritchard)
+Date: Wed Nov 19 19:38:58 2008
+Subject: [buddypress-dev] Re: buddypress + getshopped
+Message-ID: <f8c50f5d0811191138m7a3e8d06oe4cf37fbfaa73cc0@mail.gmail.com>
+
+Dan
+
+How about a Developer Community section of GetShopped? Users could create
+groups for particular plugin-developments or themes, collaborate and share
+idea's with other like minded developers. You could also have a WP
+e-Commerse users community.
+
+Simon
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081119/15d71597/attachment.htm
+From dan at instinct.co.nz  Thu Nov 20 01:30:38 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Thu Nov 20 01:30:56 2008
+Subject: [buddypress-dev] buddypress + getshopped
+In-Reply-To: <COL112-W491D9FFA158A629E38A931D20D0@phx.gbl>
+References: <20081116145930.d02081911cf7ca1ab157cd7ef4051be4.4acf6d213b.wbe@email.secureserver.net>	<4920C22E.4050803@instinct.co.nz>	<COL112-W4735AF0CEC3C0D379D3040D2130@phx.gbl>
+	<49236589.6080106@instinct.co.nz>
+	<COL112-W491D9FFA158A629E38A931D20D0@phx.gbl>
+Message-ID: <4924BDBE.9030204@instinct.co.nz>
+
+Cool idea!!! So users get to recommend products that get displayed on a 
+new getshopped page called 'top products' or something?
+
+Ciao,
+
+Dan
+
+eoin bara wrote:
+> Dan,
+> How about recommending products in the Getshopped environment but a 
+> bit like a "Digg it"
+> I always find when amazon recommends products that i may like i 
+> generally buy
+>
+> Eoin
+>
+> > Date: Wed, 19 Nov 2008 14:02:01 +1300
+> > From: dan@instinct.co.nz
+> > To: buddypress-dev@lists.automattic.com
+> > Subject: Re: [buddypress-dev] buddypress + getshopped
+> >
+> > I think it makes more sense to make buddypress plugins that are
+> > compatible with WP e-Commerce.
+> >
+> > What I want to do is make getshopped.com more social and I'm struggling
+> > with how to do it. Do you guys think that a good start would be to make
+> > a new groups page that members can join?
+> >
+> > What are you thinking?
+> >
+> > Ciao,
+> >
+> > Dan
+> >
+> >
+>
+> ------------------------------------------------------------------------
+> Join the all-new Windows Live Messenger family Click here! 
+> <http://get.live.com>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+From dan at instinct.co.nz  Thu Nov 20 02:57:41 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Thu Nov 20 02:57:57 2008
+Subject: [buddypress-dev] Re: buddypress + getshopped
+In-Reply-To: <f8c50f5d0811191138m7a3e8d06oe4cf37fbfaa73cc0@mail.gmail.com>
+References: <f8c50f5d0811191138m7a3e8d06oe4cf37fbfaa73cc0@mail.gmail.com>
+Message-ID: <4924D225.2010105@instinct.co.nz>
+
+This would be awesome too.
+
+I'm scared of how much design work we're going to need to do on the 
+front page of the site to make this cool :P
+
+Ciao,
+
+Dan
+
+Simon Pritchard wrote:
+> Dan
+>
+> How about a Developer Community section of GetShopped? Users could 
+> create groups for particular plugin-developments or themes, 
+> collaborate and share idea's with other like minded developers. You 
+> could also have a WP e-Commerse users community.
+>
+> Simon
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+From info at trcwest.com  Thu Nov 20 12:24:57 2008
+From: info at trcwest.com (Timothy West)
+Date: Thu Nov 20 12:25:14 2008
+Subject: [buddypress-dev] (no subject)
+Message-ID: <71D34428-4408-4899-BB73-B53527FA2F57@trcwest.com>
+
+ust simple couple of questions? i have a shared host really cheap one  
+with lunar pages?
+I installed wpmu and realised that the subdomain function would work  
+as i didn?t have access the Apache server and this means i cant ad the  
+wildcard dns thingy.. so subdomains we out?
+so i reinstaled using the sub directory? this worked fine..
+i then tried to instal budypress with teh zip files.. as said in the  
+readme?
+with the blogs one it just gave a a parse syntax php ( or one of those  
+php eror lines on a white page just saying something was wring on a  
+line around 300 i forget exactely..) error that would not let me do
+anything? so i deleted the blogs one and then it worked and i could ad  
+a profile on the admin contol pannel but not on the splash page from  
+register.. it first asked to creat a new blog then the profile so that  
+didnt seem right..
+questions.. does budy press work on sub directories and why was the  
+blogs plugin not working..
+i am trying to create a social site for spots or locations in kenya?
+cheers..
+
+i just tried again with a perfectly new instalation at bp.spotskenya.com
+
+i get this error. in my browser window
+
+Parse error: syntax error, unexpected '=', expecting ')' in /home/ 
+rfmaf0/public_html/bp/wp-content/mu-plugins/bp-blogs/bp-blogs- 
+templatetags.php on line 344
+
+when i delete the blogs plugin it fixex this..
+
+what am i doing wrong??
+
+Kind regards,
+
+Timothy West
+
+w: www.trcwest.com
+p: www.timwest.info
+e: info@trcwest.com
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081120/ad57f898/attachment.htm
+From andypeatling at automattic.com  Thu Nov 20 14:26:47 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Nov 20 14:27:03 2008
+Subject: [buddypress-dev] (no subject)
+In-Reply-To: <71D34428-4408-4899-BB73-B53527FA2F57@trcwest.com>
+References: <71D34428-4408-4899-BB73-B53527FA2F57@trcwest.com>
+Message-ID: <A1DE77A5-3EAD-4BE6-B1BB-0C17A2C93F5C@automattic.com>
+
+Use the trunk version.
+
+On 20-Nov-08, at 4:24 AM, Timothy West wrote:
+
+> ust simple couple of questions? i have a shared host really cheap  
+> one with lunar pages?
+> I installed wpmu and realised that the subdomain function would work  
+> as i didn?t have access the Apache server and this means i cant ad  
+> the wildcard dns thingy.. so subdomains we out?
+> so i reinstaled using the sub directory? this worked fine..
+> i then tried to instal budypress with teh zip files.. as said in the  
+> readme?
+> with the blogs one it just gave a a parse syntax php ( or one of  
+> those php eror lines on a white page just saying something was wring  
+> on a line around 300 i forget exactely..) error that would not let  
+> me do
+> anything? so i deleted the blogs one and then it worked and i could  
+> ad a profile on the admin contol pannel but not on the splash page  
+> from register.. it first asked to creat a new blog then the profile  
+> so that didnt seem right..
+> questions.. does budy press work on sub directories and why was the  
+> blogs plugin not working..
+> i am trying to create a social site for spots or locations in kenya?
+> cheers..
+>
+> i just tried again with a perfectly new instalation at  
+> bp.spotskenya.com
+>
+> i get this error. in my browser window
+>
+> Parse error: syntax error, unexpected '=', expecting ')' in /home/ 
+> rfmaf0/public_html/bp/wp-content/mu-plugins/bp-blogs/bp-blogs- 
+> templatetags.php on line 344
+>
+> when i delete the blogs plugin it fixex this..
+>
+> what am i doing wrong??
+>
+> Kind regards,
+>
+> Timothy West
+>
+> w: www.trcwest.com
+> p: www.timwest.info
+> e: info@trcwest.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From buzz_lightyear at buzzdev.net  Thu Nov 20 14:40:54 2008
+From: buzz_lightyear at buzzdev.net (Buzz Lightyear)
+Date: Thu Nov 20 14:41:16 2008
+Subject: [buddypress-dev] default avatar
+References: <71D34428-4408-4899-BB73-B53527FA2F57@trcwest.com>
+	<A1DE77A5-3EAD-4BE6-B1BB-0C17A2C93F5C@automattic.com>
+Message-ID: <013701c94b1d$fe225f10$9a3e19ac@atwork.local>
+
+Hi Andy,
+Is there any way not to use those ugly looking avatars & monsterIDs, but 
+just use specific one like "Mystery Man", as default?
+thanx 
+
+From eoinbara at hotmail.com  Thu Nov 20 14:44:37 2008
+From: eoinbara at hotmail.com (eoin bara)
+Date: Thu Nov 20 14:44:50 2008
+Subject: [buddypress-dev] default avatar
+In-Reply-To: <013701c94b1d$fe225f10$9a3e19ac@atwork.local>
+References: <71D34428-4408-4899-BB73-B53527FA2F57@trcwest.com>
+	<A1DE77A5-3EAD-4BE6-B1BB-0C17A2C93F5C@automattic.com> 
+	<013701c94b1d$fe225f10$9a3e19ac@atwork.local>
+Message-ID: <BAY0-DP1-281D89BA679B4C813FE8E8D20C0@phx.gbl>
+
+
+Easiest was would be to just replace the image in the image folder with the same name
+
+> From: buzz_lightyear@buzzdev.net
+> To: buddypress-dev@lists.automattic.com
+> Date: Thu, 20 Nov 2008 15:40:54 +0100
+> Subject: [buddypress-dev] default avatar
+> 
+> Hi Andy,
+> Is there any way not to use those ugly looking avatars & monsterIDs, but 
+> just use specific one like "Mystery Man", as default?
+> thanx 
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+_________________________________________________________________
+Get the next generation of Free Windows Live Services
+http://get.live.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081120/77156248/attachment.htm
+From notsecurity at gmail.com  Thu Nov 20 18:38:01 2008
+From: notsecurity at gmail.com (Nicola Greco)
+Date: Thu Nov 20 18:39:18 2008
+Subject: [buddypress-dev] Problem with avatar with same name
+Message-ID: <75a6d1440811201038x2235ea7cndd5c4d78a17a333c@mail.gmail.com>
+
+Hi guy,
+today, i tried to upload an avatar, but i cropped badly the image,
+also, i tried to reupload that image, and after, it didn't work..
+
+Fix this problem, giving a random name when the image is uploading,
+thanks,
+bye
+Nicola
+
+-- 
+Nicola Greco
+http://bongolinux.com | http://bongogadget.com | http://bongomac.com |
+http://bongohack.com
+
+Skype: greco.nicola
+Mail / Gtalk / Jabber: notsecurity@gmail.com
+Twitter: http://twitter.com/nicolagreco
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081120/c37eb7ed/attachment.htm
+From buzz_lightyear at buzzdev.net  Fri Nov 21 08:01:26 2008
+From: buzz_lightyear at buzzdev.net (Buzz Lightyear)
+Date: Fri Nov 21 08:01:41 2008
+Subject: [buddypress-dev] default avatar
+Message-ID: <20081121080126.F261D2000AF@kenny.oneemedia.com>
+
+Well yes, but I mean, some option would be nice to have. Same as it is on normal wp/wpmu.
+Btw. I understand, that BP is extending WPMU with ability to upload locally own avatar, but it seems to me, that it duplicates gravatar functions as well, which I don't think is really necessary. But maybe i'm wrong on this.. ;)
+Andy, please explain...
+
+thanx
+
+-----Original Message-----
+From: eoin bara <eoinbara@hotmail.com>
+Sent: 20. novembra 2008 15:44
+To: buddypress-dev@lists.automattic.com
+Subject: RE: [buddypress-dev] default avatar
+
+Easiest was would be to just replace the image in the image folder with the same name
+
+> From: buzz_lightyear@buzzdev.net
+> To: buddypress-dev@lists.automattic.com
+> Date: Thu, 20 Nov 2008 15:40:54 +0100
+> Subject: [buddypress-dev] default avatar
+> 
+> Hi Andy,
+> Is there any way not to use those ugly looking avatars & monsterIDs, but 
+> just use specific one like "Mystery Man", as default?
+> thanx 
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+Join the all-new Windows Live Messenger family Click here!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20081121/9ea23798/attachment-0001.htm
+From c_daniel2002 at yahoo.com  Sun Nov 23 17:47:08 2008
+From: c_daniel2002 at yahoo.com (C Daniel)
+Date: Sun Nov 23 17:47:17 2008
+Subject: [buddypress-dev] upgrade bp to 571 - sit_url() fatal error?
+Message-ID: <162539.71852.qm@web32503.mail.mud.yahoo.com>
+
+I just tried upgrading my BP and get an error when connecting 
+PHP Fatal error: Call to undefined function: site_url() in /var/www/vhosts/httpdocs/wp-content/mu-plugins/bp-core/bp-core-avatars.php on line 19
+
+any ideas?
+ 
+
+Thanks
+
+
+      
+From chris at stillbreathing.co.uk  Mon Nov 24 20:40:37 2008
+From: chris at stillbreathing.co.uk (Chris Taylor - stillbreathing.co.uk)
+Date: Mon Nov 24 20:40:48 2008
+Subject: [buddypress-dev] Re: buddypress + getshopped
+In-Reply-To: <4924D225.2010105@instinct.co.nz>
+References: <f8c50f5d0811191138m7a3e8d06oe4cf37fbfaa73cc0@mail.gmail.com>
+	<4924D225.2010105@instinct.co.nz>
+Message-ID: <60fe160a0811241240o760a2f15pfdf3152bc556e5a8@mail.gmail.com>
+
+Hi,
+
+On Thu, Nov 20, 2008 at 2:57 AM, Dan Milward <dan@instinct.co.nz> wrote:
+> I'm scared of how much design work we're going to need to do on the front
+> page of the site to make this cool :P
+
+Yep, but this would put you streets ahead of many other similar sites.
+
+One thing I'd like to see - especially on technology-related
+e-commerce sites - is some kind of "Dream Machine" feature where
+people can think up their perfect product configuration for a
+particular scenario. That would probably be most useful for a PC
+components site, but might work for other things as well.
+
+You can also copy, I mean be influenced by, Amazon and have wishlists.
+But you could make those more social by creating lists for other
+people - and even keeping them secret. For example you could make a
+list for your brother containing all the things he wants which people
+could buy him for his birthday. If he doesn't know about the list,
+it's a big surprise.
+
+Lots of ideas for this.
+
+Chris
+From cerbero at gmail.com  Fri Nov 28 15:03:45 2008
+From: cerbero at gmail.com (Cerbero)
+Date: Fri Nov 28 15:04:01 2008
+Subject: [buddypress-dev] Italian Localization Update
+Message-ID: <6134EC65-5FA3-4656-875D-158EE95FF775@gmail.com>
+
+Hi all,
+
+for all italian user, the updated version of the language files are  
+available at http://www.buddypress-it.it or the direct link is http://www.buddypress-it.it/download/1/
+
+thanks all!
+
+Arturo
+
+-
+BuddyPress Italy Support site: http://www.buddypress-it.it
+Forum: http://forum.buddypress-it.it
+From slaffik at list.ru  Sat Nov 29 12:18:17 2008
+From: slaffik at list.ru (=?windows-1251?B?wv/35fHr4OIgwOHg6vPs7uI=?=)
+Date: Sat Nov 29 12:20:01 2008
+Subject: [buddypress-dev] Up-to-date Russian localization
+In-Reply-To: <20081129120003.6D7237081@comox.textdrive.com>
+References: <20081129120003.6D7237081@comox.textdrive.com>
+Message-ID: <000001c9521c$91097d90$b31c78b0$@ru>
+
+Hello,
+
+For all Russians and/or Ukrainians. I translate BP every time new version is
+released. So if you want to have the latest valid appropriate translation
+it's available on http://cosydale.com/category/buddypress.
+Today I have translated BuddyPress r597 into Russian. You can also see it in
+work on site http://www.cosydale.com
+
+Best wishes,
+Slava
+
+From sruthikrishna at yahoo.com  Sat Nov 29 17:27:23 2008
+From: sruthikrishna at yahoo.com (Ramakrishna Dommaraju)
+Date: Sat Nov 29 17:27:41 2008
+Subject: [buddypress-dev] help
+In-Reply-To: <20080811120031.714E96717@comox.textdrive.com>
+Message-ID: <566458.35764.qm@web94904.mail.in2.yahoo.com>
+
+
+
+
+--- On Mon, 11/8/08, buddypress-dev-request@lists.automattic.com <buddypress-dev-request@lists.automattic.com> wrote:
+
+> From: buddypress-dev-request@lists.automattic.com <buddypress-dev-request@lists.automattic.com>
+> Subject: buddypress-dev Digest, Vol 5, Issue 6
+> To: buddypress-dev@lists.automattic.com
+> Date: Monday, 11 August, 2008, 5:30 PM
+> Send buddypress-dev mailing list submissions to
+> 	buddypress-dev@lists.automattic.com
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> or, via email, send a message with subject or body
+> 'help' to
+> 	buddypress-dev-request@lists.automattic.com
+> 
+> You can reach the person managing the list at
+> 	buddypress-dev-owner@lists.automattic.com
+> 
+> When replying, please edit your Subject line so it is more
+> specific
+> than "Re: Contents of buddypress-dev digest..."
+> 
+> 
+> Today's Topics:
+> 
+>    1. changing your user password via BuddyPress (David J.
+> Bisset)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Sun, 10 Aug 2008 16:08:00 -0400
+> From: "David J. Bisset"
+> <dbisset@dimensionmedia.com>
+> Subject: [buddypress-dev] changing your user password via
+> BuddyPress
+> To: buddypress-dev@lists.automattic.com
+> Message-ID:
+> <20080810160800.j7hohjsio0ssw8sk@www.dimensionmedia.com>
+> Content-Type:
+> text/plain;	charset=ISO-8859-1;	DelSp="Yes";
+> 	format="flowed"
+> 
+> Hey all,
+> 
+> I was looking for a way to change your user login password
+> WITHOUT  
+> going into wp-admin backend in the spirit of the BuddyPress
+> template.
+> 
+> This is a ROUGH way of doing it (editing the core) but it
+> seems to  
+> work. If anyone has suggestions for how to make this work
+> without  
+> editting the core i'm all ears. Or maybe this can be a
+> future addition.
+> 
+> What i did was simply create a profile group
+> "advanced" with a textbox  
+> "desired password". Then I edited bp-xprofile.php
+> around line 300  
+> after the IF statement (if($post_field_string != null)).
+> 
+> if ($group->id == 2 and $group->fields[$j]->id ==
+> 24) { // this is the  
+> password-update box, located in the advanced(2) group
+> 									$ID = (int) $userdata->ID;
+> 
+> 									// First, get all of the original fields
+> 									$user = get_userdata($ID);
+> 
+> 									// Escape data pulled from DB.
+> 									$user = add_magic_quotes(get_object_vars($user));
+> 
+> 									// If password is changing, hash it now.
+> 									if ( ! empty($profile_data->value) ) {
+> 										$plaintext_pass = $profile_data->value;
+> 										$userdata->user_pass =
+> wp_hash_password($profile_data->value);
+> 									}
+> 
+> 									// Merge old and new fields with new fields
+> overwriting old ones.
+> 									$userdata = array_merge($user, $userdata);
+> 									$user_id = wp_insert_user($userdata);
+> 							}
+> 
+> The reason why i'm not using wp's own function
+> (wp_update_user) to  
+> change the data (which is where this code is actually being
+> pulled) is  
+> because the wp_update_user attempts to clear/reset cookies
+> and that  
+> causes header redirect errors because this is being doing
+> in the  
+> middle of rendering the BuddyPress template page.
+> 
+> Like I said, this is rough but so far works. There are
+> better ways and  
+> i'm open to hearing them.
+> 
+> -- 
+> David Bisset
+> Director of Web Development
+> Dimension Media, Inc.
+> www.dimensionmedia.com
+> http://www.linkedin.com/in/davidbisset
+> 
+> 
+> 
+> ------------------------------
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> 
+> 
+> End of buddypress-dev Digest, Vol 5, Issue 6
+> ********************************************
+
+
+      Add more friends to your messenger and enjoy! Go to http://messenger.yahoo.com/invite/
+

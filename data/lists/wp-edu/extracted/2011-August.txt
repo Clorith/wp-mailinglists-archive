@@ -1,0 +1,1030 @@
+From lfathauer at ehe.osu.edu  Mon Aug  8 13:05:13 2011
+From: lfathauer at ehe.osu.edu (Laura Fathauer)
+Date: Mon, 8 Aug 2011 09:05:13 -0400
+Subject: [wp-edu] New Users Signup Workflow - Shibboleth
+In-Reply-To: <AE8BE2E24729AE45A3B4448BAEA699001524BBB8@ITS-MSXMBS3F.ad.unc.edu>
+References: <AE8BE2E24729AE45A3B4448BAEA699001524BBB8@ITS-MSXMBS3F.ad.unc.edu>
+Message-ID: <31048A19E6293F448B88F2EFCFF4604B09A42E86@helios.hec.ohio-state.edu>
+
+We work with shibboleth as well; I know we had to drop the "." from our
+usernames. I'll contact you off list.
+
+ 
+
+We work on a faculty sign-up basis; when a faculty member requests a
+site for a class or program, we pre-create the userID's in WP which
+match what gets converted from shibboleth; then the student/faculty
+member is able to log in. Those without corresponding UIDs in WP get
+directed to a special "you don't have access to this resource" page
+after they log in through shibboleth. 
+
+ 
+
+ 
+
+ 
+
+ 
+
+--------------------
+Laura Fathauer
+
+College of Education and Human Ecology
+The Ohio State University
+Ramseyer Hall
+Columbus, OH 43210-1297
+(614) 247-8877 x112
+FAX- (614).688.4613
+
+ 
+
+From: wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of VanDrimmelen,
+Jeff
+Sent: Wednesday, July 20, 2011 10:17 AM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] New Users Signup Workflow - Shibboleth
+
+ 
+
+Hey All,  
+
+ 
+
+I am hoping to garner some ideas from what other Universities are doing
+for the sign-up process for new users on their wordpress instances.  
+
+ 
+
+In the past we have been using the Shibboleth plugin to authenticate new
+users: http://wordpress.org/extend/plugins/shibboleth/
+
+ 
+
+Signups are disabled on the site.  All users have to use the campus ID
+to log in the first time.  Since they use shibboleth there is no need
+for a signup.  After they log in the first time then can go to the
+signup page (new sites are allowed for existing users). 
+
+ 
+
+Well, for us apparently 3.2 has broken the plugin, at least on our
+instance.  I have contacted the developers but not sure if/when they are
+going to update.  
+
+ 
+
+When they authenticate and go back to the site it just goes blank.  I
+have tried troubleshooting.  Current users can still log in.  But new
+users go to a blank screen.  Debugging gives this error: Catchable fatal
+error: Object of class WP_Error could not be converted to string in
+/home/html/web-dev.unc.edu/html/wp-includes/formatting.php on line 2829
+
+ 
+
+I have googled and tried lots of solutions, but nothing is working so
+far, so I am looking to see if anyone out there has any ideas on a fix
+(or an updated shibboleth plugin they are using) or other workflow
+ideas?  I am also just curious what others are using for signing up new
+users on their campus. 
+
+ 
+
+Thanks for any advice, tips you can offer. 
+
+ 
+
+~Jeff VanDrimmelen
+
+UNC-CH
+
+http://web.unc.edu Admin
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110808/e9fd5844/attachment.htm>
+
+From michael_denny at wrdsb.on.ca  Mon Aug  8 13:20:45 2011
+From: michael_denny at wrdsb.on.ca (Michael Denny)
+Date: Mon, 08 Aug 2011 09:20:45 -0400
+Subject: [wp-edu] Hey, regarding: Re:  New Users Signup Workflow - Shibboleth
+Message-ID: <fc.0021946808df967a3b9aca00e29f10c7.8df967d@wrdsb.on.ca>
+
+I am out of the office from Aug 4 - Aug 19. If you have any immediate question or concerns please contact james_schumann at wrdsb.on.ca.
+
+Thanks!
+
+
+From David.Grogan at tufts.edu  Wed Aug 10 14:44:54 2011
+From: David.Grogan at tufts.edu (Grogan, David)
+Date: Wed, 10 Aug 2011 14:44:54 +0000
+Subject: [wp-edu] Paragraph level commenting?
+Message-ID: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+
+Hello all,
+
+I see a number of plugins that supposedly give users the ability to provide paragraph level commenting on post/page content. Has anyone here installed a feature like this? If so, which plugin, pros/cons.
+
+Thanks,
+
+David
+
+--------------------------------------------------------------
+David Grogan
+Senior Solutions Specialist
+Educational & Scholarly Technology Services (ESTS)
+University Information Technology (UIT) Tufts University
+108 Bromfield Rd 
+Somerville, MA  02144
+
+Phone: 617.627.2859
+Fax: 617.627.3082
+
+http://uit.tufts.edu/at/
+http://sites.tufts.edu/davidgrogan
+
+
+
+
+From michael_denny at wrdsb.on.ca  Wed Aug 10 14:44:00 2011
+From: michael_denny at wrdsb.on.ca (Michael Denny)
+Date: Wed, 10 Aug 2011 10:44:00 -0400
+Subject: [wp-edu] Hey, regarding:  Paragraph level commenting?
+Message-ID: <fc.0021946808e104a73b9aca008e4c73a5.8e104a9@wrdsb.on.ca>
+
+I am out of the office from Aug 4 - Aug 19. If you have any immediate question or concerns please contact james_schumann at wrdsb.on.ca.
+
+Thanks!
+
+
+From jimgroom at gmail.com  Wed Aug 10 14:50:31 2011
+From: jimgroom at gmail.com (Jim Groom)
+Date: Thu, 11 Aug 2011 00:20:31 +0930
+Subject: [wp-edu] Paragraph level commenting?
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <CAAKBU9uLJ8uMR8hNb9Se0o1p8J8erqvp-XX35-MNcepdNTq=PQ@mail.gmail.com>
+
+Hey David,
+
+I would say that digress.it is the way to go on this:
+http://digress.it/
+
+Jim
+
+On Thu, Aug 11, 2011 at 12:14 AM, Grogan, David <David.Grogan at tufts.edu>wrote:
+
+> Hello all,
+>
+> I see a number of plugins that supposedly give users the ability to provide
+> paragraph level commenting on post/page content. Has anyone here installed a
+> feature like this? If so, which plugin, pros/cons.
+>
+> Thanks,
+>
+> David
+>
+> --------------------------------------------------------------
+> David Grogan
+> Senior Solutions Specialist
+> Educational & Scholarly Technology Services (ESTS)
+> University Information Technology (UIT) Tufts University
+> 108 Bromfield Rd
+> Somerville, MA  02144
+>
+> Phone: 617.627.2859
+> Fax: 617.627.3082
+>
+> http://uit.tufts.edu/at/
+> http://sites.tufts.edu/davidgrogan
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110811/44554659/attachment.htm>
+
+From alex at halavais.net  Wed Aug 10 14:54:26 2011
+From: alex at halavais.net (Alex Halavais)
+Date: Wed, 10 Aug 2011 10:54:26 -0400
+Subject: [wp-edu] Paragraph level commenting?
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <CAKxz=uBzprL8D8ZdwEQSxnF45xHtwxnyicVq2d+SdCEb9Y9sqg@mail.gmail.com>
+
+I've used both digress.it and CommentPress in courses. I'm
+experimenting with another structure (though it is in Drupal).
+
+digress.it was a mess, I'm afraid. I tried it once and it was a mess
+on the UI. On the second go-round it just slowed to a crawl as the
+total number of comments increased. It was fine on testing, it was
+only under the load of a course that it died. It may have done away
+with this issue, twice bitten is enough for me.
+
+I've used CommentPress for several semesters now, and convinced
+several others to do the same. Students love it, it's a great way to
+teach. I use threaded comments.
+
+The single biggest problem with CommentPress is that it's difficult
+for students to know when people have replied to them on a document,
+at least for the longish documents I use. You can set up email
+notifications (and I have) but this only tells  you that someone has
+commented on your page--not on what paragraph. That's not targeted
+enough. I haven't gotten around to writing a plugin that does
+"CommentPress notifications," but as I said, I'll probably go to a
+Drupal-based system (using a javascript annotation frameword:
+https://github.com/nickstenning/annotator) instead.
+
+The second issue is it's a pain to theme. But this doesn't
+particularly bother me.
+
+Best,
+
+Alex
+
+
+On Wed, Aug 10, 2011 at 10:44 AM, Grogan, David <David.Grogan at tufts.edu> wrote:
+> Hello all,
+>
+> I see a number of plugins that supposedly give users the ability to provide paragraph level commenting on post/page content. Has anyone here installed a feature like this? If so, which plugin, pros/cons.
+>
+> Thanks,
+>
+> David
+>
+> --------------------------------------------------------------
+> David Grogan
+> Senior Solutions Specialist
+> Educational & Scholarly Technology Services (ESTS)
+> University Information Technology (UIT) Tufts University
+> 108 Bromfield Rd
+> Somerville, MA ?02144
+>
+> Phone: 617.627.2859
+> Fax: 617.627.3082
+>
+> http://uit.tufts.edu/at/
+> http://sites.tufts.edu/davidgrogan
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+
+
+-- 
+//
+// This email is
+// [x] assumed public and may be blogged / forwarded.
+// [ ] assumed to be private, please ask before redistributing.
+//
+// Alexander C. Halavais, ciberfl?neur
+// http://alex.halavais.net
+//
+
+From eddie.tejeda at gmail.com  Wed Aug 10 16:26:00 2011
+From: eddie.tejeda at gmail.com (Eddie A Tejeda)
+Date: Wed, 10 Aug 2011 09:26:00 -0700
+Subject: [wp-edu] Paragraph level commenting?
+In-Reply-To: <CAKxz=uBzprL8D8ZdwEQSxnF45xHtwxnyicVq2d+SdCEb9Y9sqg@mail.gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAKxz=uBzprL8D8ZdwEQSxnF45xHtwxnyicVq2d+SdCEb9Y9sqg@mail.gmail.com>
+Message-ID: <CAMjYo5r7n5aojiCjCoMLsgFUZ9_6ZB_NFmT1RDKKQG_Pi_8SRw@mail.gmail.com>
+
+Hi Alex,
+
+It'd give Digress.it another shot. It's improved considerable in the last
+few releases. I am also working on a new version that comes with a variety
+of themes and a lot more customizable.
+
+--
+Eddie A Tejeda
+Creator of Digress.it
+
+On Wed, Aug 10, 2011 at 7:54 AM, Alex Halavais <alex at halavais.net> wrote:
+
+> I've used both digress.it and CommentPress in courses. I'm
+> experimenting with another structure (though it is in Drupal).
+>
+> digress.it was a mess, I'm afraid. I tried it once and it was a mess
+> on the UI. On the second go-round it just slowed to a crawl as the
+> total number of comments increased. It was fine on testing, it was
+> only under the load of a course that it died. It may have done away
+> with this issue, twice bitten is enough for me.
+>
+> I've used CommentPress for several semesters now, and convinced
+> several others to do the same. Students love it, it's a great way to
+> teach. I use threaded comments.
+>
+> The single biggest problem with CommentPress is that it's difficult
+> for students to know when people have replied to them on a document,
+> at least for the longish documents I use. You can set up email
+> notifications (and I have) but this only tells  you that someone has
+> commented on your page--not on what paragraph. That's not targeted
+> enough. I haven't gotten around to writing a plugin that does
+> "CommentPress notifications," but as I said, I'll probably go to a
+> Drupal-based system (using a javascript annotation frameword:
+> https://github.com/nickstenning/annotator) instead.
+>
+> The second issue is it's a pain to theme. But this doesn't
+> particularly bother me.
+>
+> Best,
+>
+> Alex
+>
+>
+> On Wed, Aug 10, 2011 at 10:44 AM, Grogan, David <David.Grogan at tufts.edu>
+> wrote:
+> > Hello all,
+> >
+> > I see a number of plugins that supposedly give users the ability to
+> provide paragraph level commenting on post/page content. Has anyone here
+> installed a feature like this? If so, which plugin, pros/cons.
+> >
+> > Thanks,
+> >
+> > David
+> >
+> > --------------------------------------------------------------
+> > David Grogan
+> > Senior Solutions Specialist
+> > Educational & Scholarly Technology Services (ESTS)
+> > University Information Technology (UIT) Tufts University
+> > 108 Bromfield Rd
+> > Somerville, MA  02144
+> >
+> > Phone: 617.627.2859
+> > Fax: 617.627.3082
+> >
+> > http://uit.tufts.edu/at/
+> > http://sites.tufts.edu/davidgrogan
+> >
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+>
+>
+>
+> --
+> //
+> // This email is
+> // [x] assumed public and may be blogged / forwarded.
+> // [ ] assumed to be private, please ask before redistributing.
+> //
+> // Alexander C. Halavais, ciberfl?neur
+> // http://alex.halavais.net
+> //
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110810/35bd4288/attachment.htm>
+
+From needle at haystack.co.uk  Thu Aug 11 14:08:18 2011
+From: needle at haystack.co.uk (Christian Wach)
+Date: Thu, 11 Aug 2011 15:08:18 +0100
+Subject: [wp-edu] Paragraph level commenting?
+In-Reply-To: <CAKxz=uBzprL8D8ZdwEQSxnF45xHtwxnyicVq2d+SdCEb9Y9sqg@mail.gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C086D61AB@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAKxz=uBzprL8D8ZdwEQSxnF45xHtwxnyicVq2d+SdCEb9Y9sqg@mail.gmail.com>
+Message-ID: <8A52B685-B54E-4139-9AC8-F84975FC755E@haystack.co.uk>
+
+Hi Alex,
+
+On 10 Aug 2011, at 15:54, Alex Halavais wrote:
+
+> The single biggest problem with CommentPress is that it's difficult  
+> for students to know when people have replied to them on a document,  
+> at least for the longish documents I use. You can set up email  
+> notifications (and I have) but this only tells  you that someone has  
+> commented on your page--not on what paragraph. That's not targeted  
+> enough.
+
+Interesting. I'd never thought of that. I'll see if there's something  
+that can be quickly implemented.
+
+> The second issue is it's a pain to theme. But this doesn't  
+> particularly bother me.
+
+The latest version on Github is properly child-theme aware.
+
+https://github.com/IFBook
+
+Hope that helps.
+
+Cheers,
+
+Christian
+
+
+From michael_denny at wrdsb.on.ca  Thu Aug 11 14:07:17 2011
+From: michael_denny at wrdsb.on.ca (Michael Denny)
+Date: Thu, 11 Aug 2011 10:07:17 -0400
+Subject: [wp-edu] Hey, regarding: Re:  Paragraph level commenting?
+Message-ID: <fc.0021946808e1a83e3b9aca008e4c73a5.8e1a840@wrdsb.on.ca>
+
+I am out of the office from Aug 4 - Aug 19. If you have any immediate question or concerns please contact james_schumann at wrdsb.on.ca.
+
+Thanks!
+
+
+From enkerli at gmail.com  Sun Aug 28 17:17:55 2011
+From: enkerli at gmail.com (Alexandre Enkerli)
+Date: Sun, 28 Aug 2011 13:17:55 -0400
+Subject: [wp-edu] Student Usernames and Privacy
+Message-ID: <CAJzCqShomKj82OWyryvFUA1xnFqvOVH+ryV6bMQgnDsSKJp+=Q@mail.gmail.com>
+
+Summary: If you were to create accounts for students, what would you
+use as a username?
+
+The academic year is about to start (or may have already started, for
+some of you) so we?re probably all hard at work with preparations.
+
+As a teacher, my preparation has more to do with the material than
+with logistical issues. But I?d like to use WordPress to supplement
+Moodle, as a kind of pilot project.
+For multiple reasons, privacy is a major concern, at my university. So
+I need to ensure that student information is as hidden as possible.
+
+Over a year ago, I tried getting students to register on a BuddyPress
+site I created. Didn?t really work, as very few students ever signed
+up and many found the registration process confusing. This year,
+solving these ?onboarding? issues is a priority.
+
+I?ll be teaching four courses and should have a total of 300 students.
+Some changes in enrolment occur during the first two weeks of a
+semester, but it?s rather manageable.
+
+Since I?m ?just? a teacher, I don?t have a way to authenticate
+students using their university credentials. But I do get CSV rosters
+with some info about students:
+* Student ID
+* Last Name
+* First Name
+* Phone Number
+* Email
+* University username (?netname?)
+* Major
+* Registration Date
+
+What I was thinking of doing is create a WordPress account for each
+student using the ?Import Users from CSV? plugin and invite each of
+them to courseware groups using the ?Invite Anyone? plugin. Doing some
+tests, it seems to work as a way to bypass the registration process.
+
+An issue, though, is what username to use. Since they?re used for
+slugs and ?@mentions?, BuddyPress usernames are rather public, even
+with plugins to hide them. The info I?m given is supposed to remain
+private. Since usernames can?t be changed (easily) and since I?m
+assigning them myself, I?m not really sure how to go at it.
+
+* One thing I could do is get all students to send me a choice of
+usernames. A bit convoluted, and it delays the whole process until I
+get to meet with students and explain the whole thing. I can do this
+through Moodle, but it still might require that I discuss things with
+students.
+* Using arbitrary numbers would solve most of these issues. But it?d
+make the whole thing quite impersonal and I?m wary of assigning
+numbers to students. It kind of defeats the purpose of having a
+?social? site for my courses. (Since I teach sociology, these things
+are important.)
+* Creating usernames using their first and last name could make sense.
+It?s common enough a practice. But it?s a bit like the arbitrary
+number case in that it makes thing more impersonal. Also, I might need
+to give a way for some students to change their username, as full
+names are considered a potential privacy concern. Although, with the
+WPVN Username Changer plugin, that?s not much of an issue.
+
+Thoughts?
+
+?
+Alex Enkerli, teacher
+http://ethnography.ca/
+
+From stas at nerd.ro  Sun Aug 28 18:33:06 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 28 Aug 2011 21:33:06 +0300
+Subject: [wp-edu] Student Usernames and Privacy
+In-Reply-To: <CAJzCqShomKj82OWyryvFUA1xnFqvOVH+ryV6bMQgnDsSKJp+=Q@mail.gmail.com>
+References: <CAJzCqShomKj82OWyryvFUA1xnFqvOVH+ryV6bMQgnDsSKJp+=Q@mail.gmail.com>
+Message-ID: <1314556386.5706.10.camel@rivalry>
+
+?n data de Du, 28-08-2011 la 13:17 -0400, Alexandre Enkerli a scris:
+> Summary: If you were to create accounts for students, what would you
+> use as a username?
+> 
+> The academic year is about to start (or may have already started, for
+> some of you) so we?re probably all hard at work with preparations.
+> 
+> As a teacher, my preparation has more to do with the material than
+> with logistical issues. But I?d like to use WordPress to supplement
+> Moodle, as a kind of pilot project.
+> For multiple reasons, privacy is a major concern, at my university. So
+> I need to ensure that student information is as hidden as possible.
+> 
+> Over a year ago, I tried getting students to register on a BuddyPress
+> site I created. Didn?t really work, as very few students ever signed
+> up and many found the registration process confusing. This year,
+> solving these ?onboarding? issues is a priority.
+> 
+> I?ll be teaching four courses and should have a total of 300 students.
+> Some changes in enrolment occur during the first two weeks of a
+> semester, but it?s rather manageable.
+> 
+> Since I?m ?just? a teacher, I don?t have a way to authenticate
+> students using their university credentials. But I do get CSV rosters
+> with some info about students:
+> * Student ID
+> * Last Name
+> * First Name
+> * Phone Number
+> * Email
+> * University username (?netname?)
+> * Major
+> * Registration Date
+> 
+> What I was thinking of doing is create a WordPress account for each
+> student using the ?Import Users from CSV? plugin and invite each of
+> them to courseware groups using the ?Invite Anyone? plugin. Doing some
+> tests, it seems to work as a way to bypass the registration process.
+> 
+> An issue, though, is what username to use. Since they?re used for
+> slugs and ?@mentions?, BuddyPress usernames are rather public, even
+> with plugins to hide them. The info I?m given is supposed to remain
+> private. Since usernames can?t be changed (easily) and since I?m
+> assigning them myself, I?m not really sure how to go at it.
+> 
+> * One thing I could do is get all students to send me a choice of
+> usernames. A bit convoluted, and it delays the whole process until I
+> get to meet with students and explain the whole thing. I can do this
+> through Moodle, but it still might require that I discuss things with
+> students.
+> * Using arbitrary numbers would solve most of these issues. But it?d
+> make the whole thing quite impersonal and I?m wary of assigning
+> numbers to students. It kind of defeats the purpose of having a
+> ?social? site for my courses. (Since I teach sociology, these things
+> are important.)
+> * Creating usernames using their first and last name could make sense.
+> It?s common enough a practice. But it?s a bit like the arbitrary
+> number case in that it makes thing more impersonal. Also, I might need
+> to give a way for some students to change their username, as full
+> names are considered a potential privacy concern. Although, with the
+> WPVN Username Changer plugin, that?s not much of an issue.
+> 
+> Thoughts?
+
+Hey Alex,
+that's an interesting question.
+
+
+From bogus@does.not.exist.com  Wed Aug 17 18:42:36 2011
+From: bogus@does.not.exist.com ()
+Date: Wed, 17 Aug 2011 18:42:36 -0000
+Subject: No subject
+Message-ID: <mailman.1.1314556392.1428.wp-edu@lists.automattic.com>
+
+username (be that Y! or Gmail, or even better if it's the University
+mail server).
+
+What about the set-up you are looking for, maybe you will give another
+try to BuddyPress + Courseware. This summer I added a bunch of features
+that should solve a lot of usability issues, like:
+* Handbook/Tree organised lectures
+* A bookmarking tool
+* Breadcrumbs
+* Icons, progress indicator, simplified UI
+* Quizzes/Tests with auto-grading for assignments component
+* Better editing integration: zen-mode and all that jazz
+* Improved security for uploads and responses
+* A bunch of other stuff...
+
+Hope this helps.
+
+
+From wp at andrewnacin.com  Sun Aug 28 21:15:08 2011
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sun, 28 Aug 2011 17:15:08 -0400
+Subject: [wp-edu] Student Usernames and Privacy
+In-Reply-To: <1314556386.5706.10.camel@rivalry>
+References: <CAJzCqShomKj82OWyryvFUA1xnFqvOVH+ryV6bMQgnDsSKJp+=Q@mail.gmail.com>
+	<1314556386.5706.10.camel@rivalry>
+Message-ID: <CAP29PvjejZJZR0K_bT11mRp1R-CKiZ7699kaOAkiuoA4qQiU4w@mail.gmail.com>
+
+On Sun, Aug 28, 2011 at 2:33 PM, Stas Su?cov <stas at nerd.ro> wrote:
+
+> ?n data de Du, 28-08-2011 la 13:17 -0400, Alexandre Enkerli a scris:
+> > Summary: If you were to create accounts for students, what would you
+> > use as a username?
+>
+
+To me, it seems obvious to use their netname. At my alma mater, the netname
+was also the local part of the University email address. It was public,
+unique, and couldn't be changed unless a request went through to the IT
+department for cases of marriage, etc. It was set by the student upon
+enrollment, but I know a number of schools that use a name or initials +
+some X-digit randomness (or graduation year, etc.).
+
+Changing a username after the fact, FWIW, is not particularly difficult --
+assuming you don't care about mentions etc., you just need to change the DB
+row. If you're using an object cache backend (which I would hope you are),
+you'll also want to ensure you flush the various user cache groups for the
+corresponding user.
+
+Another side note: Unfortunately, BuddyPress often uses user_login (the
+actual login) instead of user_nicename (the slug that would appear in
+mentions or URLs). I know BP 1.3 does include some fixes here, but I'm not
+sure if it's entirely addressed, or if there are any misuses in core. But,
+hypothetically, it's probably possible to hide the user_login by having a
+separate user_nicename.
+
+Cheers,
+Nacin
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110828/cb62eaf3/attachment.htm>
+
+From bogus@does.not.exist.com  Wed Aug 17 18:42:36 2011
+From: bogus@does.not.exist.com ()
+Date: Wed, 17 Aug 2011 18:42:36 -0000
+Subject: No subject
+Message-ID: <mailman.26.1329236551.1428.wp-edu@lists.automattic.com>
+
+On Tue, Feb 14, 2012 at 11:14 AM, Joseph Ugoretz <
+joseph.ugoretz at mhc.cuny.edu> wrote:
+
+> We had some bad results with Role Scoper.  It's been a while, so might be
+> better now, but when we were using it back in March of 2011 we found that
+> it was not ideal for a large multi-site install.  The roles were applied
+> across the whole system, not just for an individual site, and when
+> assigning roles it had to access the whole user list, so very very slow.
+>
+> We have had better luck with capability manager and have been using it
+> pretty extensively.
+>
+> http://wordpress.org/extend/plugins/capsman
+>
+> Haven't tried the other two!
+>
+> Joe
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean of Teaching, Learning and Technology
+> Macaulay Honors College - CUNY
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+>
+> On Feb 13, 2012, at 12:56 PM, VanDrimmelen, Jeff wrote:
+>
+> > Hey Everyone,
+> >
+> > We are growing quick here at UNC and are looking to put some larger
+> sites on our wordpress installation.  With this comes the need to specify
+> more rights on the site and create groups that have rights to certain
+> folders, etc.  We are looking at permissions plugins and have three in mind.
+> >
+> > - Permit Press (http://presspermit.com/press-permit-overview/) - made
+> by the same guy that made Role Scoper
+> > - Role Scoper (http://wordpress.org/extend/plugins/role-scoper/)
+> > - User Access Manager (
+> http://wordpress.org/extend/plugins/user-access-manager/)
+> >
+> > I was interested to hear what others are using to control rights to
+> certain pages, and custom user groups.  Has anyone had experience with
+> these three?  Are there others out there we should look at in our
+> evaluation?  Any other tips, suggestions, etc?
+> >
+> > Thanks,
+> >
+> > ~Jeff
+> > University of North Carolina at Chapel Hill
+> > http://web.unc.edu - Over 2000 sites and growing. :)
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+--00504502cda8489b3104b8ef0023
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div>From what I am told by others, the best permissions plugin out there i=
+s Members.=A0<a href=3D"http://wordpress.org/extend/plugins/members/" targe=
+t=3D"_blank">http://wordpress.org/extend/plugins/members/</a></div><div><br=
+></div>
+
+On Tue, Feb 14, 2012 at 11:14 AM, Joseph Ugoretz <span dir=3D"ltr">&lt;<a h=
+ref=3D"mailto:joseph.ugoretz at mhc.cuny.edu" target=3D"_blank">joseph.ugoretz=
+@mhc.cuny.edu</a>&gt;</span> wrote:<br>
+<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">We had some bad r=
+esults with Role Scoper. =A0It&#39;s been a while, so might be better now, =
+but when we were using it back in March of 2011 we found that it was not id=
+eal for a large multi-site install. =A0The roles were applied across the wh=
+ole system, not just for an individual site, and when assigning roles it ha=
+d to access the whole user list, so very very slow.<br>
+
+
+
+<br>
+We have had better luck with capability manager and have been using it pret=
+ty extensively.<br>
+<br>
+<a href=3D"http://wordpress.org/extend/plugins/capsman" target=3D"_blank">h=
+ttp://wordpress.org/extend/plugins/capsman</a><br>
+<br>
+Haven&#39;t tried the other two!<br>
+<br>
+Joe<br>
+<span><font color=3D"#888888">--<br>
+Joseph Ugoretz, PhD<br>
+Associate Dean of Teaching, Learning and Technology<br>
+Macaulay Honors College - CUNY<br>
+35 West 67th St.<br>
+New York, NY 10023<br>
+<a href=3D"tel:212.729.2920" value=3D"+12127292920" target=3D"_blank">212.7=
+29.2920</a><br>
+<a href=3D"http://macaulay.cuny.edu" target=3D"_blank">http://macaulay.cuny=
+.edu</a><br>
+</font></span><div><div><br>
+On Feb 13, 2012, at 12:56 PM, VanDrimmelen, Jeff wrote:<br>
+<br>
+&gt; Hey Everyone,<br>
+&gt;<br>
+&gt; We are growing quick here at UNC and are looking to put some larger si=
+tes on our wordpress installation. =A0With this comes the need to specify m=
+ore rights on the site and create groups that have rights to certain folder=
+s, etc. =A0We are looking at permissions plugins and have three in mind.<br=
+>
+
+
+
+&gt;<br>
+&gt; - Permit Press (<a href=3D"http://presspermit.com/press-permit-overvie=
+w/" target=3D"_blank">http://presspermit.com/press-permit-overview/</a>) - =
+made by the same guy that made Role Scoper<br>
+&gt; - Role Scoper (<a href=3D"http://wordpress.org/extend/plugins/role-sco=
+per/" target=3D"_blank">http://wordpress.org/extend/plugins/role-scoper/</a=
+>)<br>
+&gt; - User Access Manager (<a href=3D"http://wordpress.org/extend/plugins/=
+user-access-manager/" target=3D"_blank">http://wordpress.org/extend/plugins=
+/user-access-manager/</a>)<br>
+&gt;<br>
+&gt; I was interested to hear what others are using to control rights to ce=
+rtain pages, and custom user groups. =A0Has anyone had experience with thes=
+e three? =A0Are there others out there we should look at in our evaluation?=
+ =A0Any other tips, suggestions, etc?<br>
+
+
+
+&gt;<br>
+&gt; Thanks,<br>
+&gt;<br>
+&gt; ~Jeff<br>
+&gt; University of North Carolina at Chapel Hill<br>
+&gt; <a href=3D"http://web.unc.edu" target=3D"_blank">http://web.unc.edu</a=
+> - Over 2000 sites and growing. :)<br>
+&gt; _______________________________________________<br>
+&gt; wp-edu mailing list<br>
+&gt; <a href=3D"mailto:wp-edu at lists.automattic.com" target=3D"_blank">wp-ed=
+u at lists.automattic.com</a><br>
+&gt; <a href=3D"http://lists.automattic.com/mailman/listinfo/wp-edu" target=
+=3D"_blank">http://lists.automattic.com/mailman/listinfo/wp-edu</a><br>
+<br>
+_______________________________________________<br>
+wp-edu mailing list<br>
+<a href=3D"mailto:wp-edu at lists.automattic.com" target=3D"_blank">wp-edu at lis=
+ts.automattic.com</a><br>
+<a href=3D"http://lists.automattic.com/mailman/listinfo/wp-edu" target=3D"_=
+blank">http://lists.automattic.com/mailman/listinfo/wp-edu</a><br>
+</div></div></blockquote></div><br>
+
+--00504502cda8489b3104b8ef0023--
+
+From bogus@does.not.exist.com  Wed Aug 17 18:42:36 2011
+From: bogus@does.not.exist.com ()
+Date: Wed, 17 Aug 2011 18:42:36 -0000
+Subject: No subject
+Message-ID: <mailman.27.1329255995.1428.wp-edu@lists.automattic.com>
+
+On Tue, Feb 14, 2012 at 11:14 AM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.e=
+du<mailto:joseph.ugoretz at mhc.cuny.edu>> wrote:
+We had some bad results with Role Scoper.  It's been a while, so might be b=
+etter now, but when we were using it back in March of 2011 we found that it=
+ was not ideal for a large multi-site install.  The roles were applied acro=
+ss the whole system, not just for an individual site, and when assigning ro=
+les it had to access the whole user list, so very very slow.
+
+We have had better luck with capability manager and have been using it pret=
+ty extensively.
+
+http://wordpress.org/extend/plugins/capsman
+
+Haven't tried the other two!
+
+Joe
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920<tel:212.729.2920>
+http://macaulay.cuny.edu<http://macaulay.cuny.edu/>
+
+On Feb 13, 2012, at 12:56 PM, VanDrimmelen, Jeff wrote:
+
+> Hey Everyone,
+>
+> We are growing quick here at UNC and are looking to put some larger sites=
+ on our wordpress installation.  With this comes the need to specify more r=
+ights on the site and create groups that have rights to certain folders, et=
+c.  We are looking at permissions plugins and have three in mind.
+>
+> - Permit Press (http://presspermit.com/press-permit-overview/) - made by =
+the same guy that made Role Scoper
+> - Role Scoper (http://wordpress.org/extend/plugins/role-scoper/)
+> - User Access Manager (http://wordpress.org/extend/plugins/user-access-ma=
+nager/)
+>
+> I was interested to hear what others are using to control rights to certa=
+in pages, and custom user groups.  Has anyone had experience with these thr=
+ee?  Are there others out there we should look at in our evaluation?  Any o=
+ther tips, suggestions, etc?
+>
+> Thanks,
+>
+> ~Jeff
+> University of North Carolina at Chapel Hill
+> http://web.unc.edu<http://web.unc.edu/> - Over 2000 sites and growing. :)
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+--_000_BAFA60D7AB0F4A4EAA410FF6999425B1uncedu_
+Content-Type: text/html; charset="iso-8859-1"
+Content-ID: <DF43F26C9D90604EB82E05CEF537D13F at ad.unc.edu>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-lin=
+e-break: after-white-space; ">
+Thank you all. &nbsp;These are great suggestions we have added to our evalu=
+ation. &nbsp;
+<div><br>
+</div>
+<div>Best,&nbsp;</div>
+<div><br>
+</div>
+<div>~Jeff</div>
+<div><br>
+<div>
+<div>On Feb 14, 2012, at 10:21 AM &nbsp; Tuesday, &nbsp;February14, Andrew =
+Nacin wrote:</div>
+<br class=3D"Apple-interchange-newline">
+<blockquote type=3D"cite">
+<div>From what I am told by others, the best permissions plugin out there i=
+s Members.&nbsp;<a href=3D"http://wordpress.org/extend/plugins/members/" ta=
+rget=3D"_blank">http://wordpress.org/extend/plugins/members/</a></div>
+<div><br>
+</div>
+On Tue, Feb 14, 2012 at 11:14 AM, Joseph Ugoretz <span dir=3D"ltr">&lt;<a h=
+ref=3D"mailto:joseph.ugoretz at mhc.cuny.edu" target=3D"_blank">joseph.ugoretz=
+@mhc.cuny.edu</a>&gt;</span> wrote:<br>
+<div class=3D"gmail_quote">
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+We had some bad results with Role Scoper. &nbsp;It's been a while, so might=
+ be better now, but when we were using it back in March of 2011 we found th=
+at it was not ideal for a large multi-site install. &nbsp;The roles were ap=
+plied across the whole system, not just for
+ an individual site, and when assigning roles it had to access the whole us=
+er list, so very very slow.<br>
+<br>
+We have had better luck with capability manager and have been using it pret=
+ty extensively.<br>
+<br>
+<a href=3D"http://wordpress.org/extend/plugins/capsman" target=3D"_blank">h=
+ttp://wordpress.org/extend/plugins/capsman</a><br>
+<br>
+Haven't tried the other two!<br>
+<br>
+Joe<br>
+<span><font color=3D"#888888">--<br>
+Joseph Ugoretz, PhD<br>
+Associate Dean of Teaching, Learning and Technology<br>
+Macaulay Honors College - CUNY<br>
+35 West 67th St.<br>
+New York, NY 10023<br>
+<a href=3D"tel:212.729.2920" value=3D"&#43;12127292920" target=3D"_blank">2=
+12.729.2920</a><br>
+<a href=3D"http://macaulay.cuny.edu/" target=3D"_blank">http://macaulay.cun=
+y.edu</a><br>
+</font></span>
+<div>
+<div><br>
+On Feb 13, 2012, at 12:56 PM, VanDrimmelen, Jeff wrote:<br>
+<br>
+&gt; Hey Everyone,<br>
+&gt;<br>
+&gt; We are growing quick here at UNC and are looking to put some larger si=
+tes on our wordpress installation. &nbsp;With this comes the need to specif=
+y more rights on the site and create groups that have rights to certain fol=
+ders, etc. &nbsp;We are looking at permissions
+ plugins and have three in mind.<br>
+&gt;<br>
+&gt; - Permit Press (<a href=3D"http://presspermit.com/press-permit-overvie=
+w/" target=3D"_blank">http://presspermit.com/press-permit-overview/</a>) - =
+made by the same guy that made Role Scoper<br>
+&gt; - Role Scoper (<a href=3D"http://wordpress.org/extend/plugins/role-sco=
+per/" target=3D"_blank">http://wordpress.org/extend/plugins/role-scoper/</a=
+>)<br>
+&gt; - User Access Manager (<a href=3D"http://wordpress.org/extend/plugins/=
+user-access-manager/" target=3D"_blank">http://wordpress.org/extend/plugins=
+/user-access-manager/</a>)<br>
+&gt;<br>
+&gt; I was interested to hear what others are using to control rights to ce=
+rtain pages, and custom user groups. &nbsp;Has anyone had experience with t=
+hese three? &nbsp;Are there others out there we should look at in our evalu=
+ation? &nbsp;Any other tips, suggestions, etc?<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt;<br>
+&gt; ~Jeff<br>
+&gt; University of North Carolina at Chapel Hill<br>
+&gt; <a href=3D"http://web.unc.edu/" target=3D"_blank">http://web.unc.edu</=
+a> - Over 2000 sites and growing. :)<br>
+&gt; _______________________________________________<br>
+&gt; wp-edu mailing list<br>
+&gt; <a href=3D"mailto:wp-edu at lists.automattic.com" target=3D"_blank">wp-ed=
+u at lists.automattic.com</a><br>
+&gt; <a href=3D"http://lists.automattic.com/mailman/listinfo/wp-edu" target=
+=3D"_blank">http://lists.automattic.com/mailman/listinfo/wp-edu</a><br>
+<br>
+_______________________________________________<br>
+wp-edu mailing list<br>
+<a href=3D"mailto:wp-edu at lists.automattic.com" target=3D"_blank">wp-edu at lis=
+ts.automattic.com</a><br>
+<a href=3D"http://lists.automattic.com/mailman/listinfo/wp-edu" target=3D"_=
+blank">http://lists.automattic.com/mailman/listinfo/wp-edu</a><br>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+_______________________________________________<br>
+wp-edu mailing list<br>
+<a href=3D"mailto:wp-edu at lists.automattic.com">wp-edu at lists.automattic.com<=
+/a><br>
+http://lists.automattic.com/mailman/listinfo/wp-edu<br>
+</blockquote>
+</div>
+<br>
+</div>
+</body>
+</html>
+
+--_000_BAFA60D7AB0F4A4EAA410FF6999425B1uncedu_--
+

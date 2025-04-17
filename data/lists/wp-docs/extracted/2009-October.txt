@@ -1,0 +1,1270 @@
+From phpWalter at torres.ws  Sat Oct  3 05:40:43 2009
+From: phpWalter at torres.ws (phpWalter)
+Date: Fri, 02 Oct 2009 23:40:43 -0600
+Subject: [wp-docs] bookmark-template.php
+Message-ID: <27903c8ce867f3cb7037dea03736b790@torresgroup.us>
+
+I'm trying to to do an analysis on the various "wp_list_*" functions in the
+various template files.
+
+Bookmarks is my first run at this.
+
+I have a question on the documentation on this function...
+
+title_li
+(string) Text for the heading of the links list. Defaults to
+'__('Bookmarks')', which displays "Bookmarks" (the __('') is used for
+localization purposes). Only used with categorize set to 0 (else the
+category names will be used instead). If passed a null (0) value, no
+heading is displayed, and the list will not be wrapped with <ul>, </ul>
+tags (be sure to pass the categorize option to 0 to this option takes
+effect).
+
+....
+
+'categorize' is defaulted to '1', meaning TRUE (that's another discussion).
+
+If TRUE, than the categories are displayed and not the word "Bookmarks"; as
+the dox state.
+
+If set to FALSE, the word "Bookmark" is shown and not the individual
+categories; as the dox state.
+
+But...  "If passed a null (0) value, no heading is displayed"
+
+This is not the case. If a NULL is passed, the conditional check does a
+backhand Boolean check and "Bookmark" is displayed.
+
+Is the dox incorrect, or is the function incorrect?
+
+Thanks
+
+Walter
+
+From skichu at gmail.com  Sat Oct  3 08:31:25 2009
+From: skichu at gmail.com (S K)
+Date: Sat, 3 Oct 2009 14:01:25 +0530
+Subject: [wp-docs] bookmark-template.php
+In-Reply-To: <27903c8ce867f3cb7037dea03736b790@torresgroup.us>
+References: <27903c8ce867f3cb7037dea03736b790@torresgroup.us>
+Message-ID: <a9c6d9300910030131s7e0be9d6v70147eddfd74d6b7@mail.gmail.com>
+
+On Sat, Oct 3, 2009 at 11:10 AM, phpWalter <phpWalter at torres.ws> wrote:
+>
+> But... ?"If passed a null (0) value, no heading is displayed"
+> This is not the case. If a NULL is passed, the conditional check does a
+> backhand Boolean check and "Bookmark" is displayed.
+>=====================
+
+"If passed a null (0) value, no heading is displayed" - this statement
+is correct. I checked it.
+
+The "null value" here refers to the null value of the parameter
+"title_li". If the value of this param is set ot "null" by inserting
+"title_li=&categorize=0" etc, the title "Bookmarks" or whatever is not
+displayed and the list is not wrapped by <ul></ul> tags as mentioned
+in the Codex.
+
+The misconstruing is perhaps caused by mixing of the explanation
+regarding the categorize and title_li args in one paragraph.
+
+I think the developers felt that this condition will be used by
+someone who wants to use his own selection of titles with h3, h2 (or
+even h1 if he doesn't bother himself with SEO :)), <ul> etc with class
+options.
+
+But what I feel after poring over the whole thing is that a little
+more explanation about these various options will help the users as to
+under what condtions these arguments will be useful.
+
+But thinking laterally, are these tags any longer relevant, or rather
+would anyone use them now that everyone is on to the ubiquitous widget
+thing to populate the sidebars, top bars, bottom bars and in between
+bars....!!
+
+S.K
+
+-- 
+Learn to fight. It is for you to frame the rules if you have the
+rightful indignation.
+---
+S.K
+http://www.cyberbrahma.com/ - My main web site
+http://www.cyberbrahma.com/blog/ - My English Blog
+http://kichu.cyberbrahma.com/ - My Tamil Blog
+
+From lorellevan at gmail.com  Sat Oct  3 16:13:48 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Sat, 3 Oct 2009 09:13:48 -0700
+Subject: [wp-docs] bookmark-template.php
+In-Reply-To: <a9c6d9300910030131s7e0be9d6v70147eddfd74d6b7@mail.gmail.com>
+References: <27903c8ce867f3cb7037dea03736b790@torresgroup.us> 
+	<a9c6d9300910030131s7e0be9d6v70147eddfd74d6b7@mail.gmail.com>
+Message-ID: <fded39850910030913i21adbdaclb69c876b80218a51@mail.gmail.com>
+
+Thanks for going through all this. If the tags are no longer relevant, aka
+deprecated, please mark them accordingly and link to the appropriate
+documentation that replaces them. This will not just help Codex users, but
+also help those working on the handbook.
+
+Thanks!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20091003/5e54cdc2/attachment.htm>
+
+From me at unknowndomain.co.uk  Mon Oct 12 21:10:46 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Mon, 12 Oct 2009 22:10:46 +0100
+Subject: [wp-docs] Hello!
+Message-ID: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>
+
+Hello
+
+My name is Tom and I just wanted to introduce my self..
+
+I was frustrated with the lack of documentation in the WPMU Functions  
+section so I decided to work on the section so far I have done a fair  
+bit and I am continuing to work through all the functions.
+
+I was just wondering if anyone would like to review my changes so far  
+to ensure I am doing things right and give me a bit of feedback about  
+what I have been doing.
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+++++++++++++++++++++++++
+
+
+From carreg at carregs-blog.co.uk  Mon Oct 12 22:43:37 2009
+From: carreg at carregs-blog.co.uk (Carreg)
+Date: Mon, 12 Oct 2009 23:43:37 +0100
+Subject: [wp-docs] WPMU Functions (was:  Hello!)
+In-Reply-To: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>
+Message-ID: <4AD3B119.6080909@carregs-blog.co.uk>
+
+The WPMU functions pages generally have pretty slow development (you've 
+probably noticed!), I guess because it's a bit of a specialised area, so 
+it's great to have another keen, young contributor on the scene!  There 
+was a flurry of activity a couple of months ago which I think has died 
+down a little.  Perhaps your enthusiasm will rub off (I'm meaning on me, 
+as well as anyone else who's feeling guilty about not contributing very 
+recently, here).  And I don't even mean any of that as patronisingly as 
+it sounds.  I guess you're Ctsttom.
+
+I'm a little concerned that the 'Family' section you've added to some of 
+the functions (I presume the plan is to add it to all the function 
+documentation given it's in the template you've made) is going to be 
+difficult to manage and could get pretty unwieldy while not being the 
+most helpful thing in the world.  I know quite a few of the main 
+functions, and some of the MU functions, include a related functions 
+section.  What's the advantage of splitting related functions up into 
+these specific family sections rather than the less specific related 
+functions way?
+
+I notice also you created the WPMU Functions category which is basically 
+just the same as the WPMU Functions page.  While I appreciate it's 
+helpful to have them all in one place, I'm not keen on the near exact 
+replication of the two (and, to be honest, in my opinion there aren't 
+enough MU pages to make the main category so mind-bogglingly complex 
+that the new category is strictly required).  Looking at the main WP 
+function reference /page/ the added value of that page (over the 
+Functions /category/) is that it groups the functions further and adds 
+more narrative.  Did you have plans along those lines for the WPMU 
+Functions page?  I'd be interested to hear other people's opinions on 
+that -- perhaps I'm just too used to the way things are now to see the 
+benefit here :)
+
+Apologies I've rattled on for so long.  As I say: it's great to have 
+another MU contributor and I just got excited.  My estimation is that 
+we'll get to the end of documenting the WPMU functionality just in time 
+for the WP3 launch party ;)
+
+C.
+
+Tom Lynch wrote:
+> Hello
+>
+> My name is Tom and I just wanted to introduce my self..
+>
+> I was frustrated with the lack of documentation in the WPMU Functions 
+> section so I decided to work on the section so far I have done a fair 
+> bit and I am continuing to work through all the functions.
+>
+> I was just wondering if anyone would like to review my changes so far 
+> to ensure I am doing things right and give me a bit of feedback about 
+> what I have been doing.
+>
+>
+> Kind Regards
+>
+>
+> Tom Lynch
+>
+> ++++++++++++++++++++++++
+>
+> T: +44 (0)7786 540 167
+> E: me at unknowndomain.co.uk
+>
+> ++++++++++++++++++++++++
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+From me at unknowndomain.co.uk  Mon Oct 12 22:53:40 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Mon, 12 Oct 2009 23:53:40 +0100
+Subject: [wp-docs] WPMU Functions (was:  Hello!)
+In-Reply-To: <4AD3B119.6080909@carregs-blog.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>
+	<4AD3B119.6080909@carregs-blog.co.uk>
+Message-ID: <CF6D4220-D285-49C5-9161-A2301BE2C810@unknowndomain.co.uk>
+
+> The WPMU functions pages generally have pretty slow development  
+> (you've probably noticed!), I guess because it's a bit of a  
+> specialised area, so it's great to have another keen, young  
+> contributor on the scene!  There was a flurry of activity a couple  
+> of months ago which I think has died down a little.  Perhaps your  
+> enthusiasm will rub off (I'm meaning on me, as well as anyone else  
+> who's feeling guilty about not contributing very recently, here).   
+> And I don't even mean any of that as patronisingly as it sounds.  I  
+> guess you're Ctsttom.
+
+Yes thats me. My plan is to finish updating the WPMU Functions section  
+my self if no one else gets stuck in.
+
+> I'm a little concerned that the 'Family' section you've added to  
+> some of the functions (I presume the plan is to add it to all the  
+> function documentation given it's in the template you've made) is  
+> going to be difficult to manage and could get pretty unwieldy while  
+> not being the most helpful thing in the world.  I know quite a few  
+> of the main functions, and some of the MU functions, include a  
+> related functions section.  What's the advantage of splitting  
+> related functions up into these specific family sections rather than  
+> the less specific related functions way?
+
+It wasn't intended to be used everywhere more to highlight that in  
+that particular part there are a pairs of functions which have  
+siblings which do similar things, I think I got a bit carried away  
+with the parent, child thing but I found that it helped to explain  
+where the function sits in relation to the others, its possible we  
+could use the Taxonomy feature of mediawiki but I don't know about  
+this and was kind of just test driving it for that bit where it made  
+sense. It probably shouldn't be in the template though?
+
+> I notice also you created the WPMU Functions category which is  
+> basically just the same as the WPMU Functions page.  While I  
+> appreciate it's helpful to have them all in one place, I'm not keen  
+> on the near exact replication of the two (and, to be honest, in my  
+> opinion there aren't enough MU pages to make the main category so  
+> mind-bogglingly complex that the new category is strictly  
+> required).  Looking at the main WP function reference /page/ the  
+> added value of that page (over the Functions /category/) is that it  
+> groups the functions further and adds more narrative.  Did you have  
+> plans along those lines for the WPMU Functions page?  I'd be  
+> interested to hear other people's opinions on that -- perhaps I'm  
+> just too used to the way things are now to see the benefit here :)
+
+I implemented this because the /Functions for WP has this same  
+duplication and I wanted to see if it was useful to others. If not  
+feel free to delete or what ever as I am not keen on it after sleeping  
+on it over night.
+
+
+> Apologies I've rattled on for so long.  As I say: it's great to have  
+> another MU contributor and I just got excited.  My estimation is  
+> that we'll get to the end of documenting the WPMU functionality just  
+> in time for the WP3 launch party ;)
+
+Thats no problem, its great to hear I am kind of on the road. What  
+other documentation are you referring to or is the WP3 launch party  
+really soon?
+
+> C.
+>
+> Tom Lynch wrote:
+>> Hello
+>>
+>> My name is Tom and I just wanted to introduce my self..
+>>
+>> I was frustrated with the lack of documentation in the WPMU  
+>> Functions section so I decided to work on the section so far I have  
+>> done a fair bit and I am continuing to work through all the  
+>> functions.
+>>
+>> I was just wondering if anyone would like to review my changes so  
+>> far to ensure I am doing things right and give me a bit of feedback  
+>> about what I have been doing.
+>>
+>>
+>> Kind Regards
+>>
+>>
+>> Tom Lynch
+>>
+>> ++++++++++++++++++++++++
+>>
+>> T: +44 (0)7786 540 167
+>> E: me at unknowndomain.co.uk
+>>
+>> ++++++++++++++++++++++++
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+++++++++++++++++++++++++
+
+
+From andrea at ronandandrea.com  Mon Oct 12 22:55:00 2009
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Mon, 12 Oct 2009 19:55:00 -0300
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <4AD3B119.6080909@carregs-blog.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>
+	<4AD3B119.6080909@carregs-blog.co.uk>
+Message-ID: <4AD3B3C4.4060808@ronandandrea.com>
+
+
+
+Carreg wrote:
+>  Perhaps your enthusiasm will rub off (I'm meaning on me, 
+> as well as anyone else who's feeling guilty about not contributing very 
+> recently, here). 
+
+Heh, hands up, guilty as charged. :D
+
+>  My estimation is that 
+> we'll get to the end of documenting the WPMU functionality just in time 
+> for the WP3 launch party ;)
+
+Yep, probably and if we aim for that, it would actually be perfect.
+
+Andrea
+
+http://wpmututorials.com
+
+From me at unknowndomain.co.uk  Sat Oct 17 17:45:32 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Sat, 17 Oct 2009 18:45:32 +0100
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <4AD3B3C4.4060808@ronandandrea.com>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>
+	<4AD3B119.6080909@carregs-blog.co.uk>
+	<4AD3B3C4.4060808@ronandandrea.com>
+Message-ID: <A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>
+
+Hey all!
+
+Just finished documenting and revising the WPMU Functions section.
+
+I haven't checked to see if there are any missing functions but I have  
+now been through and created basic documentation for every function on  
+the list and also improved those which has very poor or minimal  
+definition. I have also been through and modified those which were  
+already very good and modified the format of them to make them all  
+consistent.
+
+Would anyone mind reviewing them now that I have finished?
+
+
+On 12 Oct 2009, at 23:55, Andrea Rennick wrote:
+
+>
+>
+> Carreg wrote:
+>> Perhaps your enthusiasm will rub off (I'm meaning on me, as well as  
+>> anyone else who's feeling guilty about not contributing very  
+>> recently, here).
+>
+> Heh, hands up, guilty as charged. :D
+>
+>> My estimation is that we'll get to the end of documenting the WPMU  
+>> functionality just in time for the WP3 launch party ;)
+>
+> Yep, probably and if we aim for that, it would actually be perfect.
+>
+> Andrea
+>
+> http://wpmututorials.com
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+++++++++++++++++++++++++
+
+
+From andrea at ronandandrea.com  Sat Oct 17 18:02:12 2009
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Sat, 17 Oct 2009 15:02:12 -0300
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>
+	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>
+Message-ID: <4ADA06A4.9000402@ronandandrea.com>
+
+So far, lookin' good. I just skimmed, and did notice a self-referential 
+link. Not sure if it needs to be there.
+
+And I want to go double-check on exactly how many extra functions there 
+are and make sure you get them all. :D
+
+A.
+
+Tom Lynch wrote:
+> Hey all!
+> 
+> Just finished documenting and revising the WPMU Functions section.
+> 
+> I haven't checked to see if there are any missing functions but I have 
+> now been through and created basic documentation for every function on 
+> the list and also improved those which has very poor or minimal 
+> definition. I have also been through and modified those which were 
+> already very good and modified the format of them to make them all 
+> consistent.
+> 
+> Would anyone mind reviewing them now that I have finished?
+> 
+> 
+> On 12 Oct 2009, at 23:55, Andrea Rennick wrote:
+> 
+>>
+>>
+>> Carreg wrote:
+>>> Perhaps your enthusiasm will rub off (I'm meaning on me, as well as 
+>>> anyone else who's feeling guilty about not contributing very 
+>>> recently, here).
+>>
+>> Heh, hands up, guilty as charged. :D
+>>
+>>> My estimation is that we'll get to the end of documenting the WPMU 
+>>> functionality just in time for the WP3 launch party ;)
+>>
+>> Yep, probably and if we aim for that, it would actually be perfect.
+>>
+>> Andrea
+>>
+>> http://wpmututorials.com
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+> 
+> 
+> Kind Regards
+> 
+> 
+> Tom Lynch
+> 
+> ++++++++++++++++++++++++
+> 
+> T: +44 (0)7786 540 167
+> E: me at unknowndomain.co.uk
+> 
+> ++++++++++++++++++++++++
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+
+From me at unknowndomain.co.uk  Sat Oct 17 18:05:14 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Sat, 17 Oct 2009 19:05:14 +0100
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <4ADA06A4.9000402@ronandandrea.com>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>
+	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>
+	<4ADA06A4.9000402@ronandandrea.com>
+Message-ID: <26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>
+
+Not seen that link where is it?
+
+Sure.
+
+On 17 Oct 2009, at 19:02, Andrea Rennick wrote:
+
+> So far, lookin' good. I just skimmed, and did notice a self- 
+> referential link. Not sure if it needs to be there.
+>
+> And I want to go double-check on exactly how many extra functions  
+> there are and make sure you get them all. :D
+>
+> A.
+>
+> Tom Lynch wrote:
+>> Hey all!
+>> Just finished documenting and revising the WPMU Functions section.
+>> I haven't checked to see if there are any missing functions but I  
+>> have now been through and created basic documentation for every  
+>> function on the list and also improved those which has very poor or  
+>> minimal definition. I have also been through and modified those  
+>> which were already very good and modified the format of them to  
+>> make them all consistent.
+>> Would anyone mind reviewing them now that I have finished?
+>> On 12 Oct 2009, at 23:55, Andrea Rennick wrote:
+>>>
+>>>
+>>> Carreg wrote:
+>>>> Perhaps your enthusiasm will rub off (I'm meaning on me, as well  
+>>>> as anyone else who's feeling guilty about not contributing very  
+>>>> recently, here).
+>>>
+>>> Heh, hands up, guilty as charged. :D
+>>>
+>>>> My estimation is that we'll get to the end of documenting the  
+>>>> WPMU functionality just in time for the WP3 launch party ;)
+>>>
+>>> Yep, probably and if we aim for that, it would actually be perfect.
+>>>
+>>> Andrea
+>>>
+>>> http://wpmututorials.com
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>> Kind Regards
+>> Tom Lynch
+>> ++++++++++++++++++++++++
+>> T: +44 (0)7786 540 167
+>> E: me at unknowndomain.co.uk
+>> ++++++++++++++++++++++++
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+++++++++++++++++++++++++
+
+
+From andrea at ronandandrea.com  Sat Oct 17 18:21:23 2009
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Sat, 17 Oct 2009 15:21:23 -0300
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>	<4ADA06A4.9000402@ronandandrea.com>
+	<26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>
+Message-ID: <4ADA0B23.3020405@ronandandrea.com>
+
+I was ging to say this part:
+
+"You can find a full list of all the WPMU Functions (documented or not) 
+here WPMU_Functions. "
+
+but then I noticed that the WPMU_functions was linking to a separate 
+page, not Category:WPMU_Functions (which is the page I looked at)
+
+But if I find it confusing, maybe others will too?
+
+A.
+
+Tom Lynch wrote:
+> Not seen that link where is it?
+> 
+> Sure.
+> 
+> On 17 Oct 2009, at 19:02, Andrea Rennick wrote:
+> 
+>> So far, lookin' good. I just skimmed, and did notice a 
+>> self-referential link. Not sure if it needs to be there.
+>>
+>> And I want to go double-check on exactly how many extra functions 
+>> there are and make sure you get them all. :D
+>>
+>> A.
+>>
+>> Tom Lynch wrote:
+>>> Hey all!
+>>> Just finished documenting and revising the WPMU Functions section.
+>>> I haven't checked to see if there are any missing functions but I 
+>>> have now been through and created basic documentation for every 
+>>> function on the list and also improved those which has very poor or 
+>>> minimal definition. I have also been through and modified those which 
+>>> were already very good and modified the format of them to make them 
+>>> all consistent.
+>>> Would anyone mind reviewing them now that I have finished?
+>>> On 12 Oct 2009, at 23:55, Andrea Rennick wrote:
+>>>>
+>>>>
+>>>> Carreg wrote:
+>>>>> Perhaps your enthusiasm will rub off (I'm meaning on me, as well as 
+>>>>> anyone else who's feeling guilty about not contributing very 
+>>>>> recently, here).
+>>>>
+>>>> Heh, hands up, guilty as charged. :D
+>>>>
+>>>>> My estimation is that we'll get to the end of documenting the WPMU 
+>>>>> functionality just in time for the WP3 launch party ;)
+>>>>
+>>>> Yep, probably and if we aim for that, it would actually be perfect.
+>>>>
+>>>> Andrea
+
+From me at unknowndomain.co.uk  Sat Oct 17 18:35:11 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Sat, 17 Oct 2009 19:35:11 +0100
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <4ADA0B23.3020405@ronandandrea.com>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>	<4ADA06A4.9000402@ronandandrea.com>
+	<26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>
+	<4ADA0B23.3020405@ronandandrea.com>
+Message-ID: <7C32A91B-164E-4BF5-8548-7443A0CE52B6@unknowndomain.co.uk>
+
+I don't know about what they will be confused by because I don't  
+understand what your saying its like your only saying half the  
+sentence I don't understand what you mean?
+
+On 17 Oct 2009, at 19:21, Andrea Rennick wrote:
+
+> I was ging to say this part:
+>
+> "You can find a full list of all the WPMU Functions (documented or  
+> not) here WPMU_Functions. "
+>
+> but then I noticed that the WPMU_functions was linking to a separate  
+> page, not Category:WPMU_Functions (which is the page I looked at)
+>
+> But if I find it confusing, maybe others will too?
+>
+> A.
+>
+> Tom Lynch wrote:
+>> Not seen that link where is it?
+>> Sure.
+>> On 17 Oct 2009, at 19:02, Andrea Rennick wrote:
+>>> So far, lookin' good. I just skimmed, and did notice a self- 
+>>> referential link. Not sure if it needs to be there.
+>>>
+>>> And I want to go double-check on exactly how many extra functions  
+>>> there are and make sure you get them all. :D
+>>>
+>>> A.
+>>>
+>>> Tom Lynch wrote:
+>>>> Hey all!
+>>>> Just finished documenting and revising the WPMU Functions section.
+>>>> I haven't checked to see if there are any missing functions but I  
+>>>> have now been through and created basic documentation for every  
+>>>> function on the list and also improved those which has very poor  
+>>>> or minimal definition. I have also been through and modified  
+>>>> those which were already very good and modified the format of  
+>>>> them to make them all consistent.
+>>>> Would anyone mind reviewing them now that I have finished?
+>>>> On 12 Oct 2009, at 23:55, Andrea Rennick wrote:
+>>>>>
+>>>>>
+>>>>> Carreg wrote:
+>>>>>> Perhaps your enthusiasm will rub off (I'm meaning on me, as  
+>>>>>> well as anyone else who's feeling guilty about not contributing  
+>>>>>> very recently, here).
+>>>>>
+>>>>> Heh, hands up, guilty as charged. :D
+>>>>>
+>>>>>> My estimation is that we'll get to the end of documenting the  
+>>>>>> WPMU functionality just in time for the WP3 launch party ;)
+>>>>>
+>>>>> Yep, probably and if we aim for that, it would actually be  
+>>>>> perfect.
+>>>>>
+>>>>> Andrea
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+++++++++++++++++++++++++
+
+
+From andrea at ronandandrea.com  Sat Oct 17 18:44:57 2009
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Sat, 17 Oct 2009 15:44:57 -0300
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <7C32A91B-164E-4BF5-8548-7443A0CE52B6@unknowndomain.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>	<4ADA06A4.9000402@ronandandrea.com>	<26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>	<4ADA0B23.3020405@ronandandrea.com>
+	<7C32A91B-164E-4BF5-8548-7443A0CE52B6@unknowndomain.co.uk>
+Message-ID: <4ADA10A9.3000307@ronandandrea.com>
+
+Tom Lynch wrote:
+> I don't know about what they will be confused by because I don't 
+> understand what your saying its like your only saying half the sentence 
+> I don't understand what you mean?
+
+:D
+
+On this page: http://codex.wordpress.org/Category:WPMU_Functions
+
+read the 4th paragraph. Also, this ties in to the following, from a 
+previous series of emails:
+
+ >> I notice also you created the WPMU Functions category which is
+ >> basically just the same as the WPMU Functions page.  While I
+ >> appreciate it's helpful to have them all in one place, I'm not keen on
+ >> the near exact replication of the two (and, to be honest, in my
+ >> opinion there aren't enough MU pages to make the main category so
+ >> mind-bogglingly complex that the new category is strictly required).
+ >> Looking at the main WP function reference /page/ the added value of
+ >> that page (over the Functions /category/) is that it groups the
+ >> functions further and adds more narrative.  Did you have plans along
+ >> those lines for the WPMU Functions page?  I'd be interested to hear
+ >> other people's opinions on that -- perhaps I'm just too used to the
+ >> way things are now to see the benefit here :)
+ >
+ > I implemented this because the /Functions for WP has this same
+ > duplication and I wanted to see if it was useful to others. If not feel
+ > free to delete or what ever as I am not keen on it after sleeping on it
+ > over night.
+ >
+
+make more sense now?
+
+A.
+
+From me at unknowndomain.co.uk  Sat Oct 17 21:33:04 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Sat, 17 Oct 2009 22:33:04 +0100
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <4ADA10A9.3000307@ronandandrea.com>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>	<4ADA06A4.9000402@ronandandrea.com>	<26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>	<4ADA0B23.3020405@ronandandrea.com>
+	<7C32A91B-164E-4BF5-8548-7443A0CE52B6@unknowndomain.co.uk>
+	<4ADA10A9.3000307@ronandandrea.com>
+Message-ID: <95D24CAC-D8CC-4F5B-9C9A-9A4779290B9B@unknowndomain.co.uk>
+
+Well what would you like to do? we could delete it?!
+
+
+On 17 Oct 2009, at 19:44, Andrea Rennick wrote:
+
+> Tom Lynch wrote:
+>> I don't know about what they will be confused by because I don't  
+>> understand what your saying its like your only saying half the  
+>> sentence I don't understand what you mean?
+>
+> :D
+>
+> On this page: http://codex.wordpress.org/Category:WPMU_Functions
+>
+> read the 4th paragraph. Also, this ties in to the following, from a  
+> previous series of emails:
+>
+> >> I notice also you created the WPMU Functions category which is
+> >> basically just the same as the WPMU Functions page.  While I
+> >> appreciate it's helpful to have them all in one place, I'm not  
+> keen on
+> >> the near exact replication of the two (and, to be honest, in my
+> >> opinion there aren't enough MU pages to make the main category so
+> >> mind-bogglingly complex that the new category is strictly  
+> required).
+> >> Looking at the main WP function reference /page/ the added value of
+> >> that page (over the Functions /category/) is that it groups the
+> >> functions further and adds more narrative.  Did you have plans  
+> along
+> >> those lines for the WPMU Functions page?  I'd be interested to hear
+> >> other people's opinions on that -- perhaps I'm just too used to the
+> >> way things are now to see the benefit here :)
+> >
+> > I implemented this because the /Functions for WP has this same
+> > duplication and I wanted to see if it was useful to others. If not  
+> feel
+> > free to delete or what ever as I am not keen on it after sleeping  
+> on it
+> > over night.
+> >
+>
+> make more sense now?
+>
+> A.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+++++++++++++++++++++++++
+
+
+From carreg at carregs-blog.co.uk  Sun Oct 18 00:55:37 2009
+From: carreg at carregs-blog.co.uk (Carreg)
+Date: Sun, 18 Oct 2009 01:55:37 +0100
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <95D24CAC-D8CC-4F5B-9C9A-9A4779290B9B@unknowndomain.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>	<4ADA06A4.9000402@ronandandrea.com>	<26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>	<4ADA0B23.3020405@ronandandrea.com>	<7C32A91B-164E-4BF5-8548-7443A0CE52B6@unknowndomain.co.uk>	<4ADA10A9.3000307@ronandandrea.com>
+	<95D24CAC-D8CC-4F5B-9C9A-9A4779290B9B@unknowndomain.co.uk>
+Message-ID: <4ADA6789.4070506@carregs-blog.co.uk>
+
+Tom Lynch wrote:
+> Well what would you like to do? we could delete it?!
+Do you mean the page, the category or the link?
+
+Cards on the table: I don't like the category much.  I think it's 
+superfluous to requirements given we have the page.  However if we do 
+keep it then we do need to link from one to the other.  Perhaps in that 
+case it would help to change the paragraphs at the top of one or other 
+to at least prevent the confusion of it looking like it's the same page.
+
+Perhaps we should rename the "WPMU Functions" to "WPMU Function 
+Reference" and give it an overhaul to be more like the main function 
+reference with a wider scope.  It could then also include links to 
+documentation on MU's additional classes as well as the functions.
+
+Other than that I agree with Andrea -- it's looking good!  I notice 
+there are a few functions missing from the list still (such as the 
+excellent is_user_spammy), so now most of the stuff that was there is 
+now documented it's probably worth going through and adding all the 
+missing functions and documenting those.  It doesn't seem like the 
+function list has been updated for a good while and with that in mind it 
+also strikes me that it might be worth adding some version information 
+to each function so people aren't looking for things which don't exist 
+for their particular install.
+
+C.
+
+From me at unknowndomain.co.uk  Sun Oct 18 06:30:06 2009
+From: me at unknowndomain.co.uk (Tom Lynch)
+Date: Sun, 18 Oct 2009 07:30:06 +0100
+Subject: [wp-docs] WPMU Functions
+In-Reply-To: <4ADA6789.4070506@carregs-blog.co.uk>
+References: <FADF7C1E-1CCE-4DD9-8F51-0785C6284CAD@unknowndomain.co.uk>	
+	<4AD3B119.6080909@carregs-blog.co.uk>	<4AD3B3C4.4060808@ronandandrea.com>	
+	<A71818B9-CA49-4B00-A9E3-17E4BDF6007A@unknowndomain.co.uk>	
+	<4ADA06A4.9000402@ronandandrea.com>	<26CB2BE6-0F2A-422E-875A-247344929BD2@unknowndomain.co.uk>	
+	<4ADA0B23.3020405@ronandandrea.com>	<7C32A91B-164E-4BF5-8548-7443A0CE52B6@unknowndomain.co.uk>	
+	<4ADA10A9.3000307@ronandandrea.com>
+	<95D24CAC-D8CC-4F5B-9C9A-9A4779290B9B@unknowndomain.co.uk> 
+	<4ADA6789.4070506@carregs-blog.co.uk>
+Message-ID: <5212870515513791442@unknownmsgid>
+
+This sounds reasonable. I think deleting the page may be easiest.
+
+
+
+Kind Regards
+
+
+Tom Lynch
+
+++++++++++++++++++++++++
+
+T: +44 (0)7786 540 167
+E: me at unknowndomain.co.uk
+
+tomlynch.co.uk
+
+++++++++++++++++++++++++
+
+On 18 Oct 2009, at 01:56, Carreg <carreg at carregs-blog.co.uk> wrote:
+
+> Tom Lynch wrote:
+>> Well what would you like to do? we could delete it?!
+> Do you mean the page, the category or the link?
+>
+> Cards on the table: I don't like the category much.  I think it's
+> superfluous to requirements given we have the page.  However if we
+> do keep it then we do need to link from one to the other.  Perhaps
+> in that case it would help to change the paragraphs at the top of
+> one or other to at least prevent the confusion of it looking like
+> it's the same page.
+>
+> Perhaps we should rename the "WPMU Functions" to "WPMU Function
+> Reference" and give it an overhaul to be more like the main function
+> reference with a wider scope.  It could then also include links to
+> documentation on MU's additional classes as well as the functions.
+>
+> Other than that I agree with Andrea -- it's looking good!  I notice
+> there are a few functions missing from the list still (such as the
+> excellent is_user_spammy), so now most of the stuff that was there
+> is now documented it's probably worth going through and adding all
+> the missing functions and documenting those.  It doesn't seem like
+> the function list has been updated for a good while and with that in
+> mind it also strikes me that it might be worth adding some version
+> information to each function so people aren't looking for things
+> which don't exist for their particular install.
+>
+> C.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+From frederick.ding at live.ca  Sun Oct 18 15:46:51 2009
+From: frederick.ding at live.ca (Frederick Ding)
+Date: Sun, 18 Oct 2009 11:46:51 -0400
+Subject: [wp-docs] Undocumented oEmbed in WP 2.9
+Message-ID: <BLU106-DS4854BBE40A2DC401A247689C20@phx.gbl>
+
+Hello documenters,
+
+I was recently elated to discover WordPress 2.9's new oEmbed functionality, which was announced (http://www.viper007bond.com/2009/10/13/easy-embeds-for-wordpress-2-point-9/) by Viper007Bond on his blog. Although his blog post does a wonderful job of explaining the new capabilities, the WordPress Codex is devoid of any documentation ? see http://codex.wordpress.org/oEmbed .
+
+I think we should take some action to document this new feature, since it IS a really big improvement over the previous media features in the core. (I understand that WordPress 2.9 hasn't even reached the beta phase yet, but I believe we've already reached the feature-freeze date and this is likely to stay in for the stable release.) If there are others out there who are running 2.9-rare from trunk like I am, I think it would be great if we could comb through the information and put some of it on the Codex.
+
+Just putting the idea out there.
+
+Regards,
+Frederick Ding (http://www.frederickding.com/)
+
+
+From jane at automattic.com  Sun Oct 18 16:52:44 2009
+From: jane at automattic.com (Jane Wells)
+Date: Sun, 18 Oct 2009 12:52:44 -0400
+Subject: [wp-docs] Undocumented oEmbed in WP 2.9
+In-Reply-To: <BLU106-DS4854BBE40A2DC401A247689C20@phx.gbl>
+References: <BLU106-DS4854BBE40A2DC401A247689C20@phx.gbl>
+Message-ID: <F54C34FC-EC6A-471E-8811-A007E06BDB58@automattic.com>
+
+We are not officially in feature freeze yet, but yes, the oembed stuff  
+will be part of 2.9 and should be documented, based on Viper007Bond's  
+blog post.
+jane
+
+On Oct 18, 2009, at 11:46 AM, Frederick Ding wrote:
+
+> Hello documenters,
+>
+> I was recently elated to discover WordPress 2.9's new oEmbed  
+> functionality, which was announced (http://www.viper007bond.com/2009/10/13/easy-embeds-for-wordpress-2-point-9/ 
+> ) by Viper007Bond on his blog. Although his blog post does a  
+> wonderful job of explaining the new capabilities, the WordPress  
+> Codex is devoid of any documentation ? see http://codex.wordpress.org/oEmbed 
+>  .
+>
+> I think we should take some action to document this new feature,  
+> since it IS a really big improvement over the previous media  
+> features in the core. (I understand that WordPress 2.9 hasn't even  
+> reached the beta phase yet, but I believe we've already reached the  
+> feature-freeze date and this is likely to stay in for the stable  
+> release.) If there are others out there who are running 2.9-rare  
+> from trunk like I am, I think it would be great if we could comb  
+> through the information and put some of it on the Codex.
+>
+> Just putting the idea out there.
+>
+> Regards,
+> Frederick Ding (http://www.frederickding.com/)
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+From engine at stargard.mm.pl  Mon Oct 19 12:04:30 2009
+From: engine at stargard.mm.pl (Miko³aj Roszak)
+Date: Mon, 19 Oct 2009 14:04:30 +0200
+Subject: Zgoda. Miko³aj Roszak Partner w firmie Sarbanes-Oxley S.A.
+References: <mailman.9.1255953601.2248.wp-docs@lists.automattic.com>
+Message-ID: <011f01ca50b4$533443f0$4b61e559@apartament12>
+
+Zgoda. Miko?aj Roszak Partner w firmie Sarbanes-Oxley S.A.
+
+Miko?aj Roszak
+engine at stargard.mm.pl
++4804339153 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20091019/6eb9e6ed/attachment.htm>
+
+From bart at cs.mcgill.ca  Mon Oct 19 16:06:10 2009
+From: bart at cs.mcgill.ca (Barthelemy Dagenais)
+Date: Mon, 19 Oct 2009 12:06:10 -0400
+Subject: [wp-docs] Study on Framework Documentation
+Message-ID: <4ADC8E72.5080304@cs.mcgill.ca>
+
+Dear WordPress contributors,
+
+We are interviewing open source developers who have worked on the 
+documentation of their project to get a better understanding of the 
+effort it takes to create and maintain documentation. This work is part 
+of my Ph.D. in Computer Science at McGill University.
+
+*We would like one of the WordPress contributors to be part of this 
+study*. We are especially interested in people who contributed to the 
+documentation of WordPress plugin development.
+
+The involvement of the participant would consist of a single 45-minute 
+phone interview in which we would ask open-ended questions about the 
+documentation process in WordPress and the problems encountered when 
+creating and maintaining documentation.
+
+In recognition for your valuable participation, we will send you the 
+report summarizing our results before it gets published.
+
+If someone is interested in participating to this survey, please contact 
+me at bart at cs.mcgill.ca with suggestions of dates and times (with your 
+timezone) that would best suit you.
+
+Your insights would be invaluable in helping advance our knowledge of 
+documentation processes, and we hope one of you will be able to participate.
+
+Best regards,
+Barth?l?my Dagenais
+
+
+
+*About this study*
+If you have any question about this study, do not hesitate to contact me 
+at bart at cs.mcgill.ca or my supervisor, Prof. Martin Robillard, at 
+martin at cs.mcgill.ca.
+
+Matt Mullenweg kindly suggested to send this invitation to this mailing 
+list.
+
+From listswpdocs at mist.org.uk  Mon Oct 19 21:05:41 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Mon, 19 Oct 2009 22:05:41 +0100
+Subject: [wp-docs] Thoughts on User:Matt WordPress_as_CMS
+Message-ID: <D+OKtADlSN3KFw5n@dsl-217-155-35-239.zen.co.uk>
+
+Your collective thoughts on
+
+http://codex.wordpress.org/User:Matt/WordPress_as_CMS
+
+?
+
+I can see the concept behind the page "list your kick ass CMS examples", 
+but it really just seems to be yet another SEO link fest.  I cry a 
+little inside when I see it.
+-- 
+mrmist
+
+From lorellevan at gmail.com  Mon Oct 19 23:37:54 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Mon, 19 Oct 2009 16:37:54 -0700
+Subject: [wp-docs] Thoughts on User:Matt WordPress_as_CMS
+In-Reply-To: <D+OKtADlSN3KFw5n@dsl-217-155-35-239.zen.co.uk>
+References: <D+OKtADlSN3KFw5n@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <fded39850910191637p55af81d4t6025444a484a7cb8@mail.gmail.com>
+
+Matt follows this mailing list, so let's first give him a chance to clean
+out the "spammy" links. Or he'll ask me or someone else to do so.
+
+While this was started a long time ago, it might be opening up a door we'd
+like closed for now since User Pages are personal - or should be. I've been
+wanting them to get out of the eyes of search engines for years, especially
+as many of use them to write up drafts that may have errors or
+misinformation.
+
+Thanks.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20091019/e1ece73d/attachment.htm>
+
+From lorellevan at gmail.com  Tue Oct 20 02:20:35 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Mon, 19 Oct 2009 19:20:35 -0700
+Subject: [wp-docs] Study on Framework Documentation
+In-Reply-To: <4ADC8E72.5080304@cs.mcgill.ca>
+References: <4ADC8E72.5080304@cs.mcgill.ca>
+Message-ID: <fded39850910191920u6a3ecdecie739f5a57a7218c5@mail.gmail.com>
+
+Has anyone jumped on this yet? Just don't want to flood them, but also want
+to direct the right people in their direction if you feel this is
+appropriate for us to respond. I'll email them directly for more information
+if people want to know more before deciding.
+
+Thanks!
+
+Lorelle
+
+
+On Mon, Oct 19, 2009 at 9:06 AM, Barthelemy Dagenais <bart at cs.mcgill.ca>wrote:
+
+> Dear WordPress contributors,
+>
+> We are interviewing open source developers who have worked on the
+> documentation of their project to get a better understanding of the effort
+> it takes to create and maintain documentation. This work is part of my Ph.D.
+> in Computer Science at McGill University.
+>
+> *We would like one of the WordPress contributors to be part of this study*.
+> We are especially interested in people who contributed to the documentation
+> of WordPress plugin development.
+>
+> The involvement of the participant would consist of a single 45-minute
+> phone interview in which we would ask open-ended questions about the
+> documentation process in WordPress and the problems encountered when
+> creating and maintaining documentation.
+>
+> In recognition for your valuable participation, we will send you the report
+> summarizing our results before it gets published.
+>
+> If someone is interested in participating to this survey, please contact me
+> at bart at cs.mcgill.ca with suggestions of dates and times (with your
+> timezone) that would best suit you.
+>
+> Your insights would be invaluable in helping advance our knowledge of
+> documentation processes, and we hope one of you will be able to participate.
+>
+> Best regards,
+> Barth?l?my Dagenais
+>
+>
+>
+> *About this study*
+> If you have any question about this study, do not hesitate to contact me at
+> bart at cs.mcgill.ca or my supervisor, Prof. Martin Robillard, at
+> martin at cs.mcgill.ca.
+>
+> Matt Mullenweg kindly suggested to send this invitation to this mailing
+> list.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20091019/94887182/attachment.htm>
+
+From malaiac at gmail.com  Tue Oct 20 08:58:49 2009
+From: malaiac at gmail.com (Malaiac)
+Date: Tue, 20 Oct 2009 10:58:49 +0200
+Subject: [wp-docs] Thoughts on User:Matt WordPress_as_CMS
+In-Reply-To: <D+OKtADlSN3KFw5n@dsl-217-155-35-239.zen.co.uk>
+References: <D+OKtADlSN3KFw5n@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <59e7f3130910200158t7438f9d4r6e2a115ed3dfc1c3@mail.gmail.com>
+
+For the french webmasters who manage a CMS based on WP, I have my own
+directory here http://www.malaiac.net/annuaire-wordpress , which is
+based on manual validation
+
+Pour les webmasters francais qui g?rent un site CMS / industriel /
+prestigieux bas? sur WordPress, vous pouvez proposer vos sites sur cet
+annuaire http://www.malaiac.net/annuaire-wordpress
+
+Malaiac
+
+2009/10/19 mrmist <listswpdocs at mist.org.uk>:
+> Your collective thoughts on
+>
+> http://codex.wordpress.org/User:Matt/WordPress_as_CMS
+>
+> ?
+>
+> I can see the concept behind the page "list your kick ass CMS examples", but
+> it really just seems to be yet another SEO link fest. ?I cry a little inside
+> when I see it.
+> --
+> mrmist
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+From doug at automattic.com  Tue Oct 20 19:00:58 2009
+From: doug at automattic.com (Douglas Hanna)
+Date: Tue, 20 Oct 2009 15:00:58 -0400
+Subject: [wp-docs] Thoughts on User:Matt WordPress_as_CMS
+In-Reply-To: <59e7f3130910200158t7438f9d4r6e2a115ed3dfc1c3@mail.gmail.com>
+References: <D+OKtADlSN3KFw5n@dsl-217-155-35-239.zen.co.uk>
+	<59e7f3130910200158t7438f9d4r6e2a115ed3dfc1c3@mail.gmail.com>
+Message-ID: <ba044dc70910201200x547c04efwb87ab14f66db7f4e@mail.gmail.com>
+
+Also keep in mind the WordPress Showcase has a tag for uses of
+WordPress as a CMS. You can see the sites here:
+
+http://wordpress.org/showcase/tag/cms/
+
+Many of the more notable/interesting sites on Matt's list have been
+migrated over to the Showcase (I did this in May or so). If you come
+across a site that is on a list somewhere and is Showcase-worthy,
+please do submit it for the Showcase:
+
+http://wordpress.org/showcase/submit-a-wordpress-site/
+
+Showcase submissions are manually reviewed and whether or not a site
+is added is based on the criteria listed on the submit a site page
+linked to above.
+
+--
+Douglas Hanna
+Automattic | WordPress.com
+Blog: http://www.serviceuntitled.com
+

@@ -1,0 +1,307 @@
+From skeltoac at gmail.com  Mon Aug 16 21:53:45 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Mon, 16 Aug 2010 16:53:45 -0500
+Subject: [HyperDB] is_write_query too strict
+In-Reply-To: <AANLkTi=DWgzSMdKsfXMFU0ds1c6_5yGGVfDpFAACMVVj@mail.gmail.com>
+References: <AANLkTi=DWgzSMdKsfXMFU0ds1c6_5yGGVfDpFAACMVVj@mail.gmail.com>
+Message-ID: <AANLkTimgWTFEs1D63B7z+N8BTcW2P_PR8JDXP==g0bQ_@mail.gmail.com>
+
+This is now in trunk. Thanks!
+
+http://plugins.trac.wordpress.org/changeset/276948/
+
+Andy
+
+On Fri, Jul 30, 2010 at 12:14 PM, Gabriel Koen <gkoen at corp.mail.com> wrote:
+> Came across an issue where only the first query (autoload options) was being
+> sent to the read slave(s). Turns out a couple plugins had the syntax 'SHOW
+> TABLES LIKE...' which HyperDB thought was a read query, since it didn't
+> match 'SELECT' as the first word. Made a quick fix for what I think are some
+> common read statements to db.php:
+>
+> function is_write_query( $q ) {
+> ? ? ? ? ? ? ? ?$pattern = '/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)\s+/i';
+> ? ? ? ? ? ? ? ?return (preg_match($pattern, $q)) ? false : true;
+> ? ? ? ?}
+>
+> As you can see my regex-fu is weak, I spent a good 40 minutes trying to
+> negatively match those words. Gave up, instead positively match them and
+> then return true if there's *not* a match.
+>
+>
+> Gabriel
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From gabriel.koen at gmail.com  Fri Aug 20 00:39:34 2010
+From: gabriel.koen at gmail.com (Gabriel Koen)
+Date: Thu, 19 Aug 2010 17:39:34 -0700
+Subject: [HyperDB] init_charset() bug for < 3.0
+Message-ID: <AANLkTi=cerTbLxrKLiG-8MN0XQP1HAWPt9ouP5JYMRKP@mail.gmail.com>
+
+Grabbed the latest version of HyperDB, plopped it into a dev install of
+2.9.2 and promptly got an error. :)  Here's the fix:
+
+/**
+ * Sets $this->charset and $this->collate
+ */
+function init_charset() {
+if ( *function_exists('is_multisite') &&* is_multisite() ) {
+$this->charset = 'utf8';
+if ( defined( 'DB_COLLATE' ) && DB_COLLATE )
+$this->collate = DB_COLLATE;
+else
+$this->collate = 'utf8_general_ci';
+} elseif ( defined( 'DB_COLLATE' ) ) {
+$this->collate = DB_COLLATE;
+}
+
+if ( defined( 'DB_CHARSET' ) )
+$this->charset = DB_CHARSET;
+}
+
+Hope that helps!
+
+Gabriel
+
+From skeltoac at gmail.com  Fri Aug 20 14:36:08 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Fri, 20 Aug 2010 09:36:08 -0500
+Subject: [HyperDB] init_charset() bug for < 3.0
+In-Reply-To: <AANLkTi=cerTbLxrKLiG-8MN0XQP1HAWPt9ouP5JYMRKP@mail.gmail.com>
+References: <AANLkTi=cerTbLxrKLiG-8MN0XQP1HAWPt9ouP5JYMRKP@mail.gmail.com>
+Message-ID: <AANLkTin+rm-rDTW6D_-+KCzXuHx0AeXtWjh32U4kVGtr@mail.gmail.com>
+
+> if ( *function_exists('is_multisite') &&* is_multisite() ) {
+
+Thanks, Gabriel.
+
+Andy
+
+From jim at jimmcq.com  Thu Aug 26 18:56:53 2010
+From: jim at jimmcq.com (Jim McQuillan)
+Date: Thu, 26 Aug 2010 11:56:53 -0700
+Subject: [HyperDB] Any advantage to partitioning on a single database server?
+Message-ID: <AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com>
+
+I've been doing more research into scaling a WordPress multi-site
+installation, and I've been under the assumption that partitioning the
+tables into multiple databases would be beneficial for a large installation
+(hypothetically 50,000 blogs).
+
+But then I came across this quote from the HyperDB
+FAQ<http://wordpress.org/extend/plugins/hyperdb/faq/>
+:
+Is there any advantage to using HyperDB with just one database server?
+None that has been measured.
+
+
+Does that still apply even if partitioning is used?
+
+I know that using multiple database server would definitely bring a
+performance enhancement, but we're starting with one... so is it even worth
+it to implement partitioning at all right now?
+
+Thanks!
+-Jim
+
+From skeltoac at gmail.com  Thu Aug 26 19:53:09 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu, 26 Aug 2010 14:53:09 -0500
+Subject: [HyperDB] Any advantage to partitioning on a single database
+	server?
+In-Reply-To: <AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com>
+References: <AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com>
+Message-ID: <AANLkTimhwt6Gb=cdPsKyU05ogg8Sr8T4RpgjeXHUY9rD@mail.gmail.com>
+
+Jim McQuillan wrote:
+> I've been doing more research into scaling a WordPress multi-site
+> installation, and I've been under the assumption that partitioning the
+> tables into multiple databases would be beneficial for a large installation
+> (hypothetically 50,000 blogs).
+
+At some point we decided to have multiple databases on a single
+machine. Maybe it had something to do with the number of files in a
+directory, or the number of hard drives in the machine; I never quite
+understood it. Maybe Barry or Donncha can explain.
+
+> I know that using multiple database server would definitely bring a
+> performance enhancement, but we're starting with one... so is it even worth
+> it to implement partitioning at all right now?
+
+There is some measurable overhead to partitioning. So if you had two
+blogs and you put them in separate partitions I assume there would be
+a tiny downside and no measurable upside.
+
+At some point (hopefully) you'll need to use partitioning due to
+hardware limitations. When that time comes, you may or may not benefit
+from any partitioning you did on the one first server. Your scheme
+might have to be thrown out or it might actually make it easier to
+migrate to a scaled-up system. The only guaranteed benefit is having
+the experience of working with the more complex configuration.
+
+Without further information I'd say proceed without partitioning.
+Don't try to do all your scaling in advance; it doesn't work. Run some
+experiments once you have real-world data and traffic.
+
+Andy
+
+From jim at jimmcq.com  Thu Aug 26 20:26:30 2010
+From: jim at jimmcq.com (Jim McQuillan)
+Date: Thu, 26 Aug 2010 13:26:30 -0700
+Subject: [HyperDB] Any advantage to partitioning on a single database
+	server?
+In-Reply-To: <AANLkTimhwt6Gb=cdPsKyU05ogg8Sr8T4RpgjeXHUY9rD@mail.gmail.com>
+References: <AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com>
+	<AANLkTimhwt6Gb=cdPsKyU05ogg8Sr8T4RpgjeXHUY9rD@mail.gmail.com>
+Message-ID: <AANLkTimdpXPKM7-a_TrLWYQGqWh90-xTsnB_JHPirhW1@mail.gmail.com>
+
+The number of files in a directory is exactly the reason I was thinking that
+partitioning would be needed.  We're using MyISAM so that would be 3 files
+per table, and if there are 50,000 blogs with 9 tables per blog that would
+be 1,350,000 files in a single directory.
+
+I'm no database or filesystem expert, but wouldn't that large number of
+files be an issue?  Unfortunately it isn't easy way to "test" different
+configurations before actually growing to that size, but we're looking to
+set things up ahead of time to be prepared.
+
+Thanks!
+-Jim
+
+
+On Thu, Aug 26, 2010 at 12:53 PM, Andy Skelton <skeltoac at gmail.com> wrote:
+
+> Jim McQuillan wrote:
+> > I've been doing more research into scaling a WordPress multi-site
+> > installation, and I've been under the assumption that partitioning the
+> > tables into multiple databases would be beneficial for a large
+> installation
+> > (hypothetically 50,000 blogs).
+>
+> At some point we decided to have multiple databases on a single
+> machine. Maybe it had something to do with the number of files in a
+> directory, or the number of hard drives in the machine; I never quite
+> understood it. Maybe Barry or Donncha can explain.
+>
+> > I know that using multiple database server would definitely bring a
+> > performance enhancement, but we're starting with one... so is it even
+> worth
+> > it to implement partitioning at all right now?
+>
+> There is some measurable overhead to partitioning. So if you had two
+> blogs and you put them in separate partitions I assume there would be
+> a tiny downside and no measurable upside.
+>
+> At some point (hopefully) you'll need to use partitioning due to
+> hardware limitations. When that time comes, you may or may not benefit
+> from any partitioning you did on the one first server. Your scheme
+> might have to be thrown out or it might actually make it easier to
+> migrate to a scaled-up system. The only guaranteed benefit is having
+> the experience of working with the more complex configuration.
+>
+> Without further information I'd say proceed without partitioning.
+> Don't try to do all your scaling in advance; it doesn't work. Run some
+> experiments once you have real-world data and traffic.
+>
+> Andy
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From lists.automattic.com at callum-macdonald.com  Fri Aug 27 17:30:20 2010
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Fri, 27 Aug 2010 11:30:20 -0600
+Subject: [HyperDB] Any advantage to partitioning on a single database
+ server?
+In-Reply-To: <AANLkTimdpXPKM7-a_TrLWYQGqWh90-xTsnB_JHPirhW1@mail.gmail.com>
+References: <AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com>
+	<AANLkTimhwt6Gb=cdPsKyU05ogg8Sr8T4RpgjeXHUY9rD@mail.gmail.com>
+	<AANLkTimdpXPKM7-a_TrLWYQGqWh90-xTsnB_JHPirhW1@mail.gmail.com>
+Message-ID: <1282930220.2674.4382.camel@lupo>
+
+Hola Jim,
+
+Yes, I believe it is beneficial to partition into multiple databases on
+a single server. I had a little experience with MultiDB from Incsub and
+that was the primary reason behind partitioning on a single server. I
+believe that edublogs.org uses 4096 databases on a single server, in
+production. They might have changed their configuration in the last year
+or two, but that was how it went a while back.
+
+I don't remember if it was because of the number of files per directory
+or the number of simultaneously open files, but I know we partitioned
+the data (for about 300k blogs at that point) across multiple databases
+on a single database server.
+
+Best of luck with your project.
+
+Love and joy - Callum.
+
+On Thu, 2010-08-26 at 13:26 -0700, Jim McQuillan wrote:
+> The number of files in a directory is exactly the reason I was thinking that
+> partitioning would be needed.  We're using MyISAM so that would be 3 files
+> per table, and if there are 50,000 blogs with 9 tables per blog that would
+> be 1,350,000 files in a single directory.
+> 
+> I'm no database or filesystem expert, but wouldn't that large number of
+> files be an issue?  Unfortunately it isn't easy way to "test" different
+> configurations before actually growing to that size, but we're looking to
+> set things up ahead of time to be prepared.
+> 
+> Thanks!
+> -Jim
+> 
+> 
+> On Thu, Aug 26, 2010 at 12:53 PM, Andy Skelton <skeltoac at gmail.com> wrote:
+> 
+> > Jim McQuillan wrote:
+> > > I've been doing more research into scaling a WordPress multi-site
+> > > installation, and I've been under the assumption that partitioning the
+> > > tables into multiple databases would be beneficial for a large
+> > installation
+> > > (hypothetically 50,000 blogs).
+> >
+> > At some point we decided to have multiple databases on a single
+> > machine. Maybe it had something to do with the number of files in a
+> > directory, or the number of hard drives in the machine; I never quite
+> > understood it. Maybe Barry or Donncha can explain.
+> >
+> > > I know that using multiple database server would definitely bring a
+> > > performance enhancement, but we're starting with one... so is it even
+> > worth
+> > > it to implement partitioning at all right now?
+> >
+> > There is some measurable overhead to partitioning. So if you had two
+> > blogs and you put them in separate partitions I assume there would be
+> > a tiny downside and no measurable upside.
+> >
+> > At some point (hopefully) you'll need to use partitioning due to
+> > hardware limitations. When that time comes, you may or may not benefit
+> > from any partitioning you did on the one first server. Your scheme
+> > might have to be thrown out or it might actually make it easier to
+> > migrate to a scaled-up system. The only guaranteed benefit is having
+> > the experience of working with the more complex configuration.
+> >
+> > Without further information I'd say proceed without partitioning.
+> > Don't try to do all your scaling in advance; it doesn't work. Run some
+> > experiments once you have real-world data and traffic.
+> >
+> > Andy
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> >
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+
+

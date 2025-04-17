@@ -1,0 +1,247 @@
+From dougal at gunters.org  Mon Oct  1 15:33:31 2007
+From: dougal at gunters.org (Dougal Campbell)
+Date: Mon Oct  1 15:33:49 2007
+Subject: [wp-xmlrpc] Dropping in
+In-Reply-To: <652A2A25-42B3-45F2-8597-637A21E4C77A@randomnetworks.com>
+References: <46FD753A.20506@gunters.org>
+	<652A2A25-42B3-45F2-8597-637A21E4C77A@randomnetworks.com>
+Message-ID: <4701134B.1040700@gunters.org>
+
+Joseph Scott wrote:
+>
+> On Sep 28, 2007, at 3:42 PM, Dougal Campbell wrote:
+>
+>> I thought I'd drop in and see if I could stick my fingers back into WP
+>> development for a bit.
+>
+> Having your input would be terrific!  Some of the historical "whys"
+> have been bit difficult to figure out.
+>
+
+Most of the time, the answer is probably, "because that's what worked." ;)
+
+>> I don't often have a lot of free time, and consequently, I can sometimes
+>> be slow to move on things. But I'd like to try to contribute in whatever
+>> ways I can.
+>
+>
+> I've been trying to direct people who are developing clients that work
+> with WordPress XML-RPC to this list, with specific patches usually run
+> through Trac.  What ever time and input you have would truly be welcomed.
+
+Speaking of clients, are there *any* decent blog clients for Linux?
+Darned if I can find one.
+
+I need to make another go at installing Ecto under Wine. I had problems
+before, but since then I discovered that I have better success
+installing apps from the the emulated DOS shell than trying to do it
+directly from linux with something like "wine fooinstaller.exe".
+
+When I was doing the initial development, I used to use Scott Andrew
+LePera's online XML-RPC test server for debugging:
+
+  http://www.scottandrew.com/xml-rpc/test-mirror.php
+
+(parent page here: http://www.scottandrew.com/xml-rpc/ )
+
+-- 
+Dougal Campbell <dougal@gunters.org <mailto:dougal@gunters.org>>
+http://dougal.gunters.org/ <http://dougal.gunters.org>
+From joseph at randomnetworks.com  Mon Oct  1 15:43:03 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Oct  1 15:44:59 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] Looking for more XML-RPC developers
+In-Reply-To: <3DFB5C3F-CB90-43BE-B7CA-75976880EB59@pixline.net>
+References: <6A4EB172-FEAB-4273-9CE2-232752B2D5CA@randomnetworks.com>
+	<3DFB5C3F-CB90-43BE-B7CA-75976880EB59@pixline.net>
+Message-ID: <E3FB3013-EC65-4E29-8256-C914A2D104A3@randomnetworks.com>
+
+
+On Sep 29, 2007, at 8:30 AM, Pixline wrote:
+
+> Hi all,
+>
+> I'm Paolo, almost 29r, the only one surviving founder of Pixline  
+> Coding Collective (http://pixline.net), web tweaker since 1998 and  
+> actually just a php coder.
+>
+> I just signed myself into the list, even if I'm not really an  
+> experienced xml-rpc developer, but I'm willing to know more and  
+> maybe be helpful, as I'm just beginning to work on xml-rpc by  
+> myself and I'm quite pleased of its power.
+>
+> More, I'm going to work hard on xml-rpc in my next working project  
+> (in the radio automation and scheduling area, and somehow  related/ 
+> linked with WordPress), so I hope to have at least something to say  
+> or to contribute in the next future.
+>
+> Please excuse me if I'll need some time to fit better and be  
+> concrete in this list, I'll try to be more than a lurker.
+> I've just installed my first xmlrpc blogging client, just to know  
+> better what I'm going to play with :-)
+
+
+Welcome Paolo.  One of the goals of this list is to provide open  
+communication to those developing software that talks to WordPress  
+via XML-RPC, so we appreciate feedback, bug reports and patches :-)
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Tue Oct  2 16:05:50 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Oct  2 16:07:35 2007
+Subject: [wp-xmlrpc] Dropping in
+In-Reply-To: <4701134B.1040700@gunters.org>
+References: <46FD753A.20506@gunters.org>
+	<652A2A25-42B3-45F2-8597-637A21E4C77A@randomnetworks.com>
+	<4701134B.1040700@gunters.org>
+Message-ID: <9CE15F6D-DF4E-41A3-8B3E-B21BE736C7D9@randomnetworks.com>
+
+
+On Oct 1, 2007, at 9:33 AM, Dougal Campbell wrote:
+
+>> Having your input would be terrific!  Some of the historical "whys"
+>> have been bit difficult to figure out.
+>>
+>
+> Most of the time, the answer is probably, "because that's what  
+> worked." ;)
+
+
+Hehe.  I've discovered that at this point many WordPress clients have  
+worked around some of the oddities in the API.
+
+
+>> I've been trying to direct people who are developing clients that  
+>> work
+>> with WordPress XML-RPC to this list, with specific patches usually  
+>> run
+>> through Trac.  What ever time and input you have would truly be  
+>> welcomed.
+>
+> Speaking of clients, are there *any* decent blog clients for Linux?
+> Darned if I can find one.
+
+
+I know there are some out there, or at least there have been in the  
+past.  One of these days I'll get Ubuntu or something in a virtual  
+machine and try them out.
+
+
+> I need to make another go at installing Ecto under Wine. I had  
+> problems
+> before, but since then I discovered that I have better success
+> installing apps from the the emulated DOS shell than trying to do it
+> directly from linux with something like "wine fooinstaller.exe".
+>
+> When I was doing the initial development, I used to use Scott Andrew
+> LePera's online XML-RPC test server for debugging:
+>
+>   http://www.scottandrew.com/xml-rpc/test-mirror.php
+>
+> (parent page here: http://www.scottandrew.com/xml-rpc/ )
+
+
+Interesting, I've used a Mac app called XML-RPC Client that has  
+similar functionality (http://www.ditchnet.org/xmlrpc/).  Matt  
+suggested something like the AtomPub APE (http://www.tbray.org/ape/),  
+which I think is a good way to go.  We would implement specific  
+methods in the test, like metaWeblog.newPost, editPost, deletePost,  
+getPost and make sure that the results look correct.  In general this  
+could be generic enough that any system that implemented those  
+methods would be able to use it, but we've extended some of those  
+methods and created new ones that are specific to WordPress.
+
+I haven't started writing this tool, but it is on my list because I  
+think it will be a great thing to have going forward.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From lloydomattic at gmail.com  Tue Oct  2 16:13:42 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Tue Oct  2 16:13:47 2007
+Subject: [wp-xmlrpc] Dropping in
+In-Reply-To: <4701134B.1040700@gunters.org>
+References: <46FD753A.20506@gunters.org>
+	<652A2A25-42B3-45F2-8597-637A21E4C77A@randomnetworks.com>
+	<4701134B.1040700@gunters.org>
+Message-ID: <70ebb7140710020913l2519d92ak4d1d85f4a83acc29@mail.gmail.com>
+
+On 10/1/07, Dougal Campbell <dougal@gunters.org> wrote:
+>
+> >
+> > I've been trying to direct people who are developing clients that work
+> > with WordPress XML-RPC to this list, with specific patches usually run
+> > through Trac.  What ever time and input you have would truly be
+> welcomed.
+>
+> Speaking of clients, are there *any* decent blog clients for Linux?
+> Darned if I can find one.
+
+
+Well which ones have you eliminated from being good?
+http://codex.wordpress.org/Weblog_Client
+
+Cheers,
+-- 
+Lloyd Budd | Digital Entomologist | | Skype:foolswisdom
+WordPress.com | WordPress.org | Automattic.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20071002/c81c4fcc/attachment.htm
+From dougal at gunters.org  Tue Oct  2 18:11:22 2007
+From: dougal at gunters.org (Dougal Campbell)
+Date: Tue Oct  2 18:11:33 2007
+Subject: [wp-xmlrpc] Dropping in
+In-Reply-To: <9CE15F6D-DF4E-41A3-8B3E-B21BE736C7D9@randomnetworks.com>
+References: <46FD753A.20506@gunters.org>	<652A2A25-42B3-45F2-8597-637A21E4C77A@randomnetworks.com>	<4701134B.1040700@gunters.org>
+	<9CE15F6D-DF4E-41A3-8B3E-B21BE736C7D9@randomnetworks.com>
+Message-ID: <470289CA.6080100@gunters.org>
+
+Joseph Scott wrote:
+>
+> On Oct 1, 2007, at 9:33 AM, Dougal Campbell wrote:
+>
+>>> Having your input would be terrific!  Some of the historical "whys"
+>>> have been bit difficult to figure out.
+>>>
+>>
+>> Most of the time, the answer is probably, "because that's what
+>> worked." ;)
+>
+>
+> Hehe.  I've discovered that at this point many WordPress clients have
+> worked around some of the oddities in the API.
+
+I don't remember any specifics off the top of my head, but I do recall
+some early testing with Ecto caused me to make some changes. Basically,
+Ecto was making some API calls that seemed redundant to me. When I asked
+the author about it, he said that he had to do it that way due to the
+way that Moveable Type servers actually handled things.
+
+Again, I don't remember the specifics, but you'd probably scratch your
+head like I did if you watched the traffic generated by Ecto. I think it
+went something like "save the post with publish=false; set categories;
+publish post". Whereas, I normally considered this to be a one step
+process that could all be handled with just metaWeblog.newPost(),
+because that struct can carry category info.
+
+Here's a post on that topic, from the MT point of view:
+
+  http://www.jayallen.org/journey/2003/10/tip_xmlrpc_and_movable_type
+
+I don't recall if this actually caused any problems on the WP end of
+things in the early code, but I do know that I thought that the Ecto
+author had lost his mind, until he explained that this was how it had to
+be done for MT :)
+
+-- 
+Dougal Campbell <dougal@gunters.org>
+http://dougal.gunters.org/
+

@@ -1,0 +1,846 @@
+From pasquale.puzio at gmail.com  Mon Jun 27 07:17:23 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Mon, 27 Jun 2011 09:17:23 +0200
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has never
+	logged in
+Message-ID: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+
+Hi friends,
+
+I'm developing a particular social network where the users are
+pre-registered and only after that they receive an invitation to join
+the social network. If they accept they can log in and become members.
+In order to do so, I need to display only the users that have logged
+in at least one time and hide the others.
+
+My question is very simple: how can I detect if a registered user
+never logged in? It would be very useful to insert this filter in the
+members loop.
+
+Thanks
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From pasquale.puzio at gmail.com  Mon Jun 27 07:12:50 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Mon, 27 Jun 2011 09:12:50 +0200
+Subject: [buddypress-dev] [BuddyPress] How to programmatically add an user
+	to a group
+Message-ID: <BANLkTin8q8EQP8v5qp=nYBPL2sQScT-bfg@mail.gmail.com>
+
+Hi friends,
+
+I would know if in BuddyPress there is some function or some plugin
+that allow me to automatically add an user to a group. I need that
+because it's an important function of my work-flow.
+
+If there aren't, could someone post here a sample code to do that?
+
+Thanks
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From ehitter at gmail.com  Mon Jun 27 10:16:26 2011
+From: ehitter at gmail.com (Erick Hitter)
+Date: Mon, 27 Jun 2011 06:16:26 -0400
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+Message-ID: <BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+
+If a user has logged in at least once, there will be a *last_activity* key
+in the wp_usermeta table for that user. At one point, users without that key
+didn't appear in the members loop, though that may have changed.
+
+Erick
+
+On Mon, Jun 27, 2011 at 03:17, Pasquale Puzio <pasquale.puzio at gmail.com>wrote:
+
+> Hi friends,
+>
+> I'm developing a particular social network where the users are
+> pre-registered and only after that they receive an invitation to join
+> the social network. If they accept they can log in and become members.
+> In order to do so, I need to display only the users that have logged
+> in at least one time and hide the others.
+>
+> My question is very simple: how can I detect if a registered user
+> never logged in? It would be very useful to insert this filter in the
+> members loop.
+>
+> Thanks
+>
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110627/fd044331/attachment.htm>
+
+From ehitter at gmail.com  Mon Jun 27 10:19:55 2011
+From: ehitter at gmail.com (Erick Hitter)
+Date: Mon, 27 Jun 2011 06:19:55 -0400
+Subject: [buddypress-dev] [BuddyPress] How to programmatically add an
+ user to a group
+In-Reply-To: <BANLkTin8q8EQP8v5qp=nYBPL2sQScT-bfg@mail.gmail.com>
+References: <BANLkTin8q8EQP8v5qp=nYBPL2sQScT-bfg@mail.gmail.com>
+Message-ID: <BANLkTim6ru3Hs=sAgNdTuRQV_mE6jKQSrw@mail.gmail.com>
+
+I've got sample code that does just that at
+http://www.ethitter.com/tips-tricks/2010/11/automatically-add-new-users-to-a-buddypress-group/.
+In this example, the user is added automatically after activating his/her
+new account, but hooking the sample code to a different action that provides
+a user ID (such as a login action) will produce the desired result.
+
+Erick
+
+On Mon, Jun 27, 2011 at 03:12, Pasquale Puzio <pasquale.puzio at gmail.com>wrote:
+
+> Hi friends,
+>
+> I would know if in BuddyPress there is some function or some plugin
+> that allow me to automatically add an user to a group. I need that
+> because it's an important function of my work-flow.
+>
+> If there aren't, could someone post here a sample code to do that?
+>
+> Thanks
+>
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110627/23b8a963/attachment.htm>
+
+From stas at nerd.ro  Mon Jun 27 10:50:28 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Mon, 27 Jun 2011 13:50:28 +0300
+Subject: [buddypress-dev] [BuddyPress] How to programmatically add an
+ user to a group
+In-Reply-To: <BANLkTin8q8EQP8v5qp=nYBPL2sQScT-bfg@mail.gmail.com>
+References: <BANLkTin8q8EQP8v5qp=nYBPL2sQScT-bfg@mail.gmail.com>
+Message-ID: <1309171828.10644.4.camel@rivalry>
+
+?n data de Lu, 27-06-2011 la 09:12 +0200, Pasquale Puzio a scris:
+> Hi friends,
+> 
+> I would know if in BuddyPress there is some function or some plugin
+> that allow me to automatically add an user to a group. I need that
+> because it's an important function of my work-flow.
+> 
+> If there aren't, could someone post here a sample code to do that?
+> 
+> Thanks
+
+Hey,
+you should take a look at `groups_join_group()` and
+`groups_leave_group()`
+
+Here's a snippet that should help you:
+http://chopapp.com/#yqf6vusa
+
+
+
+From stas at nerd.ro  Mon Jun 27 11:03:29 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Mon, 27 Jun 2011 14:03:29 +0300
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+Message-ID: <1309172609.10644.8.camel@rivalry>
+
+?n data de Lu, 27-06-2011 la 09:17 +0200, Pasquale Puzio a scris:
+> Hi friends,
+> 
+> I'm developing a particular social network where the users are
+> pre-registered and only after that they receive an invitation to join
+> the social network. If they accept they can log in and become members.
+> In order to do so, I need to display only the users that have logged
+> in at least one time and hide the others.
+> 
+> My question is very simple: how can I detect if a registered user
+> never logged in? It would be very useful to insert this filter in the
+> members loop.
+> 
+> Thanks
+> 
+
+When a user logs in, his BuddyPress profile is generated. Once a user
+profile was generated, it's entry will be listed in
+`bp_core_get_users()` results. So basically, querying
+`bp_core_get_users()` you will get all the BuddyPress users.
+
+If you want to make it even better, you can also check the User object
+attributes `user_registered` and `last_activity`.
+http://chopapp.com/#c8jvi473
+
+
+From djpaul at gmail.com  Mon Jun 27 12:17:08 2011
+From: djpaul at gmail.com (Paul Gibbs)
+Date: Mon, 27 Jun 2011 13:17:08 +0100
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+	never logged in
+In-Reply-To: <BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+Message-ID: <787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+
+Hi
+
+Checking for last_activity is the most reliable way to go, but only in BP v1.3. In 1.2, that key is made when the user activates their account.
+
+I tweaked the behaviour for 1.3 so that it only creates it, for the first time, when the user logs in. 
+
+Regards
+Paul Gibbs
+
+On 27 Jun 2011, at 11:16, Erick Hitter <ehitter at gmail.com> wrote:
+
+> If a user has logged in at least once, there will be a last_activity key in the wp_usermeta table for that user. At one point, users without that key didn't appear in the members loop, though that may have changed.
+> 
+> Erick
+> 
+> On Mon, Jun 27, 2011 at 03:17, Pasquale Puzio <pasquale.puzio at gmail.com> wrote:
+> Hi friends,
+> 
+> I'm developing a particular social network where the users are
+> pre-registered and only after that they receive an invitation to join
+> the social network. If they accept they can log in and become members.
+> In order to do so, I need to display only the users that have logged
+> in at least one time and hide the others.
+> 
+> My question is very simple: how can I detect if a registered user
+> never logged in? It would be very useful to insert this filter in the
+> members loop.
+> 
+> Thanks
+> 
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110627/94ef0447/attachment.htm>
+
+From pasquale.puzio at gmail.com  Mon Jun 27 14:49:22 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Mon, 27 Jun 2011 16:49:22 +0200
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+	<787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+Message-ID: <BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+
+Taking a look at this URL
+http://www.ethitter.com/tips-tricks/2010/11/automatically-add-new-users-to-a-buddypress-group/
+I've noticed that there is an interesting action called
+"bp_core_activated_user".
+
+I think it could be the action executed when the buddypress profile of
+an user is created for the first time, in my case the first time an
+user logs in.
+
+What do you think about?
+
+Thanks
+
+2011/6/27 Paul Gibbs <djpaul at gmail.com>:
+> Hi
+> Checking for last_activity is the most reliable way to go, but only in BP
+> v1.3. In 1.2, that key is made when the user activates their account.
+> I tweaked the behaviour for 1.3 so that it only creates it, for the first
+> time, when the user logs in.
+>
+> Regards
+> Paul Gibbs
+> On 27 Jun 2011, at 11:16, Erick Hitter <ehitter at gmail.com> wrote:
+>
+> If a user has logged in at least once, there will be a?last_activity?key in
+> the wp_usermeta table for that user. At one point, users without that key
+> didn't appear in the members loop, though that may have changed.
+> Erick
+>
+> On Mon, Jun 27, 2011 at 03:17, Pasquale Puzio <pasquale.puzio at gmail.com>
+> wrote:
+>>
+>> Hi friends,
+>>
+>> I'm developing a particular social network where the users are
+>> pre-registered and only after that they receive an invitation to join
+>> the social network. If they accept they can log in and become members.
+>> In order to do so, I need to display only the users that have logged
+>> in at least one time and hide the others.
+>>
+>> My question is very simple: how can I detect if a registered user
+>> never logged in? It would be very useful to insert this filter in the
+>> members loop.
+>>
+>> Thanks
+>>
+>> --
+>> Dott. Pasquale Puzio
+>> http://www.pasqualepuzio.it
+>> info at pasqualepuzio.it
+>> 340 5026359
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From pasquale.puzio at gmail.com  Mon Jun 27 15:34:41 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Mon, 27 Jun 2011 17:34:41 +0200
+Subject: [buddypress-dev] [BuddyPress] How to programmatically add an
+ user to a group
+In-Reply-To: <1309171828.10644.4.camel@rivalry>
+References: <BANLkTin8q8EQP8v5qp=nYBPL2sQScT-bfg@mail.gmail.com>
+	<1309171828.10644.4.camel@rivalry>
+Message-ID: <BANLkTim6DFd=BFwM54av6BDZD6_VTS2qAg@mail.gmail.com>
+
+Thank you very much Stas, using your snippet I've solved the problem! :-)
+
+2011/6/27 Stas Su?cov <stas at nerd.ro>:
+> ?n data de Lu, 27-06-2011 la 09:12 +0200, Pasquale Puzio a scris:
+>> Hi friends,
+>>
+>> I would know if in BuddyPress there is some function or some plugin
+>> that allow me to automatically add an user to a group. I need that
+>> because it's an important function of my work-flow.
+>>
+>> If there aren't, could someone post here a sample code to do that?
+>>
+>> Thanks
+>
+> Hey,
+> you should take a look at `groups_join_group()` and
+> `groups_leave_group()`
+>
+> Here's a snippet that should help you:
+> http://chopapp.com/#yqf6vusa
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From ehitter at gmail.com  Mon Jun 27 17:56:28 2011
+From: ehitter at gmail.com (Erick Hitter)
+Date: Mon, 27 Jun 2011 13:56:28 -0400
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+	<787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+	<BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+Message-ID: <BANLkTi=yi_qbH1w-oz6z_wnQbe84rVXq9w@mail.gmail.com>
+
+That action is called when a new user activates his/her account via
+BuddyPress' activation mechanism. It won't execute again for a given user
+after that user activates his/her account.
+
+You can find that action in the *bp_core_activate_signup* function of
+BuddyPress' *bp-core/bp-core-signup.php* file.
+
+Erick
+
+On Mon, Jun 27, 2011 at 10:49, Pasquale Puzio <pasquale.puzio at gmail.com>wrote:
+
+> Taking a look at this URL
+>
+> http://www.ethitter.com/tips-tricks/2010/11/automatically-add-new-users-to-a-buddypress-group/
+> I've noticed that there is an interesting action called
+> "bp_core_activated_user".
+>
+> I think it could be the action executed when the buddypress profile of
+> an user is created for the first time, in my case the first time an
+> user logs in.
+>
+> What do you think about?
+>
+> Thanks
+>
+> 2011/6/27 Paul Gibbs <djpaul at gmail.com>:
+> > Hi
+> > Checking for last_activity is the most reliable way to go, but only in BP
+> > v1.3. In 1.2, that key is made when the user activates their account.
+> > I tweaked the behaviour for 1.3 so that it only creates it, for the first
+> > time, when the user logs in.
+> >
+> > Regards
+> > Paul Gibbs
+> > On 27 Jun 2011, at 11:16, Erick Hitter <ehitter at gmail.com> wrote:
+> >
+> > If a user has logged in at least once, there will be a last_activity key
+> in
+> > the wp_usermeta table for that user. At one point, users without that key
+> > didn't appear in the members loop, though that may have changed.
+> > Erick
+> >
+> > On Mon, Jun 27, 2011 at 03:17, Pasquale Puzio <pasquale.puzio at gmail.com>
+> > wrote:
+> >>
+> >> Hi friends,
+> >>
+> >> I'm developing a particular social network where the users are
+> >> pre-registered and only after that they receive an invitation to join
+> >> the social network. If they accept they can log in and become members.
+> >> In order to do so, I need to display only the users that have logged
+> >> in at least one time and hide the others.
+> >>
+> >> My question is very simple: how can I detect if a registered user
+> >> never logged in? It would be very useful to insert this filter in the
+> >> members loop.
+> >>
+> >> Thanks
+> >>
+> >> --
+> >> Dott. Pasquale Puzio
+> >> http://www.pasqualepuzio.it
+> >> info at pasqualepuzio.it
+> >> 340 5026359
+> >> _______________________________________________
+> >> buddypress-dev mailing list
+> >> buddypress-dev at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+> >
+>
+>
+>
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110627/96b7e43d/attachment.htm>
+
+From pasquale.puzio at gmail.com  Mon Jun 27 22:17:48 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Tue, 28 Jun 2011 00:17:48 +0200
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <BANLkTi=yi_qbH1w-oz6z_wnQbe84rVXq9w@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+	<787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+	<BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+	<BANLkTi=yi_qbH1w-oz6z_wnQbe84rVXq9w@mail.gmail.com>
+Message-ID: <BANLkTikrsLi95Tyy+hdRVC1+ZSUJpuGw3Q@mail.gmail.com>
+
+The main problem is that when the admin creates an user from admin
+area he's automatically considered an active user.
+So my question is: "How can I detect if an user never logged in?" Is
+there an option in the database containing this information?
+
+Thanks
+
+2011/6/27 Erick Hitter <ehitter at gmail.com>:
+> That action is called when a new user activates his/her account via
+> BuddyPress' activation mechanism. It won't execute again for a given user
+> after that user activates his/her account.
+> You can find that action in the?bp_core_activate_signup?function of
+> BuddyPress' bp-core/bp-core-signup.php file.
+>
+> Erick
+>
+> On Mon, Jun 27, 2011 at 10:49, Pasquale Puzio <pasquale.puzio at gmail.com>
+> wrote:
+>>
+>> Taking a look at this URL
+>>
+>> http://www.ethitter.com/tips-tricks/2010/11/automatically-add-new-users-to-a-buddypress-group/
+>> I've noticed that there is an interesting action called
+>> "bp_core_activated_user".
+>>
+>> I think it could be the action executed when the buddypress profile of
+>> an user is created for the first time, in my case the first time an
+>> user logs in.
+>>
+>> What do you think about?
+>>
+>> Thanks
+>>
+>> 2011/6/27 Paul Gibbs <djpaul at gmail.com>:
+>> > Hi
+>> > Checking for last_activity is the most reliable way to go, but only in
+>> > BP
+>> > v1.3. In 1.2, that key is made when the user activates their account.
+>> > I tweaked the behaviour for 1.3 so that it only creates it, for the
+>> > first
+>> > time, when the user logs in.
+>> >
+>> > Regards
+>> > Paul Gibbs
+>> > On 27 Jun 2011, at 11:16, Erick Hitter <ehitter at gmail.com> wrote:
+>> >
+>> > If a user has logged in at least once, there will be a?last_activity?key
+>> > in
+>> > the wp_usermeta table for that user. At one point, users without that
+>> > key
+>> > didn't appear in the members loop, though that may have changed.
+>> > Erick
+>> >
+>> > On Mon, Jun 27, 2011 at 03:17, Pasquale Puzio <pasquale.puzio at gmail.com>
+>> > wrote:
+>> >>
+>> >> Hi friends,
+>> >>
+>> >> I'm developing a particular social network where the users are
+>> >> pre-registered and only after that they receive an invitation to join
+>> >> the social network. If they accept they can log in and become members.
+>> >> In order to do so, I need to display only the users that have logged
+>> >> in at least one time and hide the others.
+>> >>
+>> >> My question is very simple: how can I detect if a registered user
+>> >> never logged in? It would be very useful to insert this filter in the
+>> >> members loop.
+>> >>
+>> >> Thanks
+>> >>
+>> >> --
+>> >> Dott. Pasquale Puzio
+>> >> http://www.pasqualepuzio.it
+>> >> info at pasqualepuzio.it
+>> >> 340 5026359
+>> >> _______________________________________________
+>> >> buddypress-dev mailing list
+>> >> buddypress-dev at lists.automattic.com
+>> >> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>> >
+>> > _______________________________________________
+>> > buddypress-dev mailing list
+>> > buddypress-dev at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>> >
+>> > _______________________________________________
+>> > buddypress-dev mailing list
+>> > buddypress-dev at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>> >
+>> >
+>>
+>>
+>>
+>> --
+>> Dott. Pasquale Puzio
+>> http://www.pasqualepuzio.it
+>> info at pasqualepuzio.it
+>> 340 5026359
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From pasquale.puzio at gmail.com  Mon Jun 27 22:20:14 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Tue, 28 Jun 2011 00:20:14 +0200
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <BANLkTikrsLi95Tyy+hdRVC1+ZSUJpuGw3Q@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+	<787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+	<BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+	<BANLkTi=yi_qbH1w-oz6z_wnQbe84rVXq9w@mail.gmail.com>
+	<BANLkTikrsLi95Tyy+hdRVC1+ZSUJpuGw3Q@mail.gmail.com>
+Message-ID: <BANLkTim=89=5JgqgnvYnR6Ed0c6-agL_=w@mail.gmail.com>
+
+Obviously a snippet of code would be very useful :-)
+
+2011/6/28 Pasquale Puzio <pasquale.puzio at gmail.com>:
+> The main problem is that when the admin creates an user from admin
+> area he's automatically considered an active user.
+> So my question is: "How can I detect if an user never logged in?" Is
+> there an option in the database containing this information?
+>
+> Thanks
+>
+> 2011/6/27 Erick Hitter <ehitter at gmail.com>:
+>> That action is called when a new user activates his/her account via
+>> BuddyPress' activation mechanism. It won't execute again for a given user
+>> after that user activates his/her account.
+>> You can find that action in the?bp_core_activate_signup?function of
+>> BuddyPress' bp-core/bp-core-signup.php file.
+>>
+>> Erick
+>>
+>> On Mon, Jun 27, 2011 at 10:49, Pasquale Puzio <pasquale.puzio at gmail.com>
+>> wrote:
+>>>
+>>> Taking a look at this URL
+>>>
+>>> http://www.ethitter.com/tips-tricks/2010/11/automatically-add-new-users-to-a-buddypress-group/
+>>> I've noticed that there is an interesting action called
+>>> "bp_core_activated_user".
+>>>
+>>> I think it could be the action executed when the buddypress profile of
+>>> an user is created for the first time, in my case the first time an
+>>> user logs in.
+>>>
+>>> What do you think about?
+>>>
+>>> Thanks
+>>>
+>>> 2011/6/27 Paul Gibbs <djpaul at gmail.com>:
+>>> > Hi
+>>> > Checking for last_activity is the most reliable way to go, but only in
+>>> > BP
+>>> > v1.3. In 1.2, that key is made when the user activates their account.
+>>> > I tweaked the behaviour for 1.3 so that it only creates it, for the
+>>> > first
+>>> > time, when the user logs in.
+>>> >
+>>> > Regards
+>>> > Paul Gibbs
+>>> > On 27 Jun 2011, at 11:16, Erick Hitter <ehitter at gmail.com> wrote:
+>>> >
+>>> > If a user has logged in at least once, there will be a?last_activity?key
+>>> > in
+>>> > the wp_usermeta table for that user. At one point, users without that
+>>> > key
+>>> > didn't appear in the members loop, though that may have changed.
+>>> > Erick
+>>> >
+>>> > On Mon, Jun 27, 2011 at 03:17, Pasquale Puzio <pasquale.puzio at gmail.com>
+>>> > wrote:
+>>> >>
+>>> >> Hi friends,
+>>> >>
+>>> >> I'm developing a particular social network where the users are
+>>> >> pre-registered and only after that they receive an invitation to join
+>>> >> the social network. If they accept they can log in and become members.
+>>> >> In order to do so, I need to display only the users that have logged
+>>> >> in at least one time and hide the others.
+>>> >>
+>>> >> My question is very simple: how can I detect if a registered user
+>>> >> never logged in? It would be very useful to insert this filter in the
+>>> >> members loop.
+>>> >>
+>>> >> Thanks
+>>> >>
+>>> >> --
+>>> >> Dott. Pasquale Puzio
+>>> >> http://www.pasqualepuzio.it
+>>> >> info at pasqualepuzio.it
+>>> >> 340 5026359
+>>> >> _______________________________________________
+>>> >> buddypress-dev mailing list
+>>> >> buddypress-dev at lists.automattic.com
+>>> >> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>> >
+>>> > _______________________________________________
+>>> > buddypress-dev mailing list
+>>> > buddypress-dev at lists.automattic.com
+>>> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>> >
+>>> > _______________________________________________
+>>> > buddypress-dev mailing list
+>>> > buddypress-dev at lists.automattic.com
+>>> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>> >
+>>> >
+>>>
+>>>
+>>>
+>>> --
+>>> Dott. Pasquale Puzio
+>>> http://www.pasqualepuzio.it
+>>> info at pasqualepuzio.it
+>>> 340 5026359
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>
+>
+>
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From stas at nerd.ro  Tue Jun 28 12:25:59 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Tue, 28 Jun 2011 15:25:59 +0300
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <BANLkTim=89=5JgqgnvYnR6Ed0c6-agL_=w@mail.gmail.com>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+	<787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+	<BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+	<BANLkTi=yi_qbH1w-oz6z_wnQbe84rVXq9w@mail.gmail.com>
+	<BANLkTikrsLi95Tyy+hdRVC1+ZSUJpuGw3Q@mail.gmail.com>
+	<BANLkTim=89=5JgqgnvYnR6Ed0c6-agL_=w@mail.gmail.com>
+Message-ID: <1309263959.30038.2.camel@rivalry>
+
+?n data de Ma, 28-06-2011 la 00:20 +0200, Pasquale Puzio a scris:
+> Obviously a snippet of code would be very useful :-)
+
+http://chopapp.com/#zppl9c3t
+
+Checking the `bp_core_get_users()` the only difference is
+`last_activity` meta key value.
+
+
+From pasquale.puzio at gmail.com  Tue Jun 28 15:12:33 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Tue, 28 Jun 2011 17:12:33 +0200
+Subject: [buddypress-dev] [BuddyPress] How to detect if an user has
+ never logged in
+In-Reply-To: <1309263959.30038.2.camel@rivalry>
+References: <BANLkTin7S1zRgoMK4ZjCuV5Mg=wscmEnnA@mail.gmail.com>
+	<BANLkTikUt+GzgQermdcRRGtpW1zE8M_eXA@mail.gmail.com>
+	<787EAF27-CE61-47CA-8D36-7AA6D5C4F52D@gmail.com>
+	<BANLkTi=BpcozCsBmQdM_NzRb0XSm0TDkfA@mail.gmail.com>
+	<BANLkTi=yi_qbH1w-oz6z_wnQbe84rVXq9w@mail.gmail.com>
+	<BANLkTikrsLi95Tyy+hdRVC1+ZSUJpuGw3Q@mail.gmail.com>
+	<BANLkTim=89=5JgqgnvYnR6Ed0c6-agL_=w@mail.gmail.com>
+	<1309263959.30038.2.camel@rivalry>
+Message-ID: <BANLkTikO1PkdmYtdkcn53bdsJ4PvP47Pog@mail.gmail.com>
+
+Thank you very much!!!
+
+2011/6/28 Stas Su?cov <stas at nerd.ro>:
+> ?n data de Ma, 28-06-2011 la 00:20 +0200, Pasquale Puzio a scris:
+>> Obviously a snippet of code would be very useful :-)
+>
+> http://chopapp.com/#zppl9c3t
+>
+> Checking the `bp_core_get_users()` the only difference is
+> `last_activity` meta key value.
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+

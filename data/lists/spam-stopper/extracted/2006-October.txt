@@ -1,0 +1,1235 @@
+From m at mullenweg.com  Sun Oct  8 11:26:26 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 08 Oct 2006 04:26:26 -0700
+Subject: [spam-stopper] New plugin version
+Message-ID: <4528E062.5080905@mullenweg.com>
+
+Don't blog or talk about this yet, but there's a new version of the 
+plugin available for download. Big changes?
+
+* Paging on the caught spam page
+* A 'recheck queue' button on the moderation page
+
+I'm curious to know what you guys think of these, if there are any other 
+big needs you see in the WP plugin, and if you run into any bugs.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From nuclearmoose at gmail.com  Sun Oct  8 14:08:50 2006
+From: nuclearmoose at gmail.com (Craig)
+Date: Sun, 8 Oct 2006 07:08:50 -0700
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4528E062.5080905@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+Message-ID: <5aa3aa0610080708i8f1d8fdk8465916de921eab1@mail.gmail.com>
+
+Would this be Revision 6666 via SVN?
+
+Craig.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061008/29e1384f/attachment.htm>
+
+From aaron at munge.net  Mon Oct  9 15:04:23 2006
+From: aaron at munge.net (Aaron Malone)
+Date: Mon, 09 Oct 2006 10:04:23 -0500
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4528E062.5080905@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+Message-ID: <452A64F7.4030206@munge.net>
+
+Matt Mullenweg wrote, On 10/08/06 06:26:
+> I'm curious to know what you guys think of these, if there are any other
+> big needs you see in the WP plugin, and if you run into any bugs.
+
+How about making the 'worst offenders' modification part of the official
+plugin?  It makes dealing with large quantities of spam practically
+bearable.
+
+http://boakes.org/akismet-worst-offenders
+
+-- 
+Aaron Malone
+aaron at munge.net
+
+
+From mark.wordpress at txfx.net  Tue Oct 10 03:52:56 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Mon, 9 Oct 2006 23:52:56 -0400
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4528E062.5080905@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+Message-ID: <6B1D5C8F-13C0-4E4A-BB3E-4B2989A803C1@txfx.net>
+
+On Oct 8, 2006, at 7:26 AM, Matt Mullenweg wrote:
+
+> * Paging on the caught spam page
+> * A 'recheck queue' button on the moderation page
+>
+> I'm curious to know what you guys think of these
+
+Paging is definitely good.
+
+The recheck queue function should probably limit the number of spams  
+it processes at once.  It's selecting all of them.
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From m at mullenweg.com  Tue Oct 10 08:20:39 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 10 Oct 2006 01:20:39 -0700
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <6B1D5C8F-13C0-4E4A-BB3E-4B2989A803C1@txfx.net>
+References: <4528E062.5080905@mullenweg.com>
+	<6B1D5C8F-13C0-4E4A-BB3E-4B2989A803C1@txfx.net>
+Message-ID: <452B57D7.6070401@mullenweg.com>
+
+Mark Jaquith wrote:
+> The recheck queue function should probably limit the number of spams it 
+> processes at once.  It's selecting all of them.
+
+Yes, it's supposed to re-submit everything in the moderation queue.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From mark.wordpress at txfx.net  Tue Oct 10 09:41:25 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Tue, 10 Oct 2006 05:41:25 -0400
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <452B57D7.6070401@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+	<6B1D5C8F-13C0-4E4A-BB3E-4B2989A803C1@txfx.net>
+	<452B57D7.6070401@mullenweg.com>
+Message-ID: <946B9C97-7F12-4C50-89D4-64DABE8103A9@txfx.net>
+
+On Oct 10, 2006, at 4:20 AM, Matt Mullenweg wrote:
+
+> Yes, it's supposed to re-submit everything in the moderation queue.
+
+All at once?  I was trying it for a client who needed to be  
+despammed, and it didn't seem to be going through, even when I  
+limited it to 100 at a time.  Of course, it was Dreamhost (CPU/memory  
+stingy), and it could be that Akismet (the service) was balking at  
+taking that many from one IP all at once.
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From m at mullenweg.com  Wed Oct 11 09:47:46 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 11 Oct 2006 02:47:46 -0700
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <946B9C97-7F12-4C50-89D4-64DABE8103A9@txfx.net>
+References: <4528E062.5080905@mullenweg.com>	<6B1D5C8F-13C0-4E4A-BB3E-4B2989A803C1@txfx.net>	<452B57D7.6070401@mullenweg.com>
+	<946B9C97-7F12-4C50-89D4-64DABE8103A9@txfx.net>
+Message-ID: <452CBDC2.4090004@mullenweg.com>
+
+Mark Jaquith wrote:
+> All at once?  I was trying it for a client who needed to be despammed, 
+> and it didn't seem to be going through, even when I limited it to 100 at 
+> a time.  Of course, it was Dreamhost (CPU/memory stingy), and it could 
+> be that Akismet (the service) was balking at taking that many from one 
+> IP all at once.
+
+It was probably a client thing.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From newsletter at scytheman.net  Mon Oct 16 16:17:27 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Mon, 16 Oct 2006 18:17:27 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4528E062.5080905@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+Message-ID: <4533B097.6020207@scytheman.net>
+
+Matt Mullenweg wrote:
+> Don't blog or talk about this yet, but there's a new version of the 
+> plugin available for download. Big changes?
+>
+> * Paging on the caught spam page
+> * A 'recheck queue' button on the moderation page
+>
+> I'm curious to know what you guys think of these, if there are any 
+> other big needs you see in the WP plugin, and if you run into any bugs.
+>
+Sorry for replying this late ;-)
+
+I am using Akismet together with Spam Karma (via sk-plugin). While I 
+think the combination of both is near perfect for fighting spam, but 
+there are still many (most) people out there using only Akismet. Don't 
+get me wrong ... Akismet alone works pretty well, but sometimes it flags 
+comments as spam which are cleary ham and the way around.
+
+It can become a real problem if the amount of spam on your blog is very 
+very high ... I never look at the list of caught spam, because I would 
+have to oversee hundreds of comments each time. Thus real comments 
+incorrectly flagged as spam might never see the light :-(
+
+An relatively easy way to further enhance Akismet (if in the use without 
+Spam Karma) would be to never ever flag (or even check) a comment as 
+spam if it was written by a registered user! Another good thing would to 
+check the new comment against old comments. How often does the "new" 
+user/mail/url combination exist in either collected spam (moderation 
+queue) or ham (all comments) and how recent are these appearances? This 
+could be uses to "weight" the comment. I do not want to see a single 
+comment of a regular commenter flagged as spam, no matter what he/she 
+writes or links to!
+
+That's all for now ;-)
+
+
+
+
+From mark.wordpress at txfx.net  Tue Oct 17 00:45:51 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Mon, 16 Oct 2006 20:45:51 -0400
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4528E062.5080905@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+Message-ID: <609D0A67-BA78-4C24-912E-358B2002930C@txfx.net>
+
+On Oct 8, 2006, at 7:26 AM, Matt Mullenweg wrote:
+
+> Paging on the caught spam page
+
+I've had a few people complain that while the plugin pages, clicking  
+the button to clear out the spam clears it ALL out, not just that  
+page of spam.
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From webmaster at mxchange.org  Tue Oct 17 11:07:01 2006
+From: webmaster at mxchange.org (Roland Haeder)
+Date: Tue, 17 Oct 2006 13:07:01 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4533B097.6020207@scytheman.net>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+Message-ID: <200610171307.02435.webmaster@mxchange.org>
+
+Hello,
+
+On Monday, 16. October 2006 18:17, Sebastian Herp wrote:
+> Matt Mullenweg wrote:
+> > Don't blog or talk about this yet, but there's a new version of the
+> > plugin available for download. Big changes?
+> >
+> > * Paging on the caught spam page
+Sounds good. :-) But as Mark wrote: "Delete All" shall be renamed to "Delete 
+All In This Page" or something like this. ;-)
+
+> > * A 'recheck queue' button on the moderation page
+Again, sounds good. Sometimes the software "a" is better than "b" because "a" 
+has lots more detailed options.
+
+> >
+> > I'm curious to know what you guys think of these, if there are any
+> > other big needs you see in the WP plugin, and if you run into any bugs.
+Which plugin btw and where can I download and test it for you?
+
+>
+> Sorry for replying this late ;-)
+I'm also a little late... ;-)
+
+>
+> I am using Akismet together with Spam Karma (via sk-plugin). While I
+> think the combination of both is near perfect for fighting spam, but
+> there are still many (most) people out there using only Akismet. Don't
+> get me wrong ... Akismet alone works pretty well, but sometimes it flags
+> comments as spam which are cleary ham and the way around.
+Akismet is a content filter, not a all-in-one filter. Spam attacks can be 
+stopped in many ways:
+
+- Content filtering and analysing (Akismet, SK2-F)
+- IP/hostname filtering against live blacklist services
+- "Heuristic filtering": The spammers are not perfect in hiding so there is a 
+chance to fully discover them (only one POST request to wp-comments-post.php 
+w/o any other requests: gray-/blacklisting may help here)
+- Request filtering with authorization code inside the script's name. See my 
+blog for details about my CPR plugin (Comments Post Rewriter)
+
+> It can become a real problem if the amount of spam on your blog is very
+> very high ... I never look at the list of caught spam, because I would
+> have to oversee hundreds of comments each time. Thus real comments
+> incorrectly flagged as spam might never see the light :-(
+I have also a commenter here who got always blacklisted by SK2. Well, for my 
+blog I don't have so much spams. :-) But I already saw a blog with tons of 
+spams. :-(
+
+>
+> An relatively easy way to further enhance Akismet (if in the use without
+> Spam Karma) would be to never ever flag (or even check) a comment as
+> spam if it was written by a registered user! Another good thing would to
+> check the new comment against old comments. How often does the "new"
+> user/mail/url combination exist in either collected spam (moderation
+> queue) or ham (all comments) and how recent are these appearances? This
+> could be uses to "weight" the comment. I do not want to see a single
+> comment of a regular commenter flagged as spam, no matter what he/she
+> writes or links to!
+Hmmm, you may give your regular posters unlimited posting capabilities but 
+what about a splog owner who registers with your blog? It might be an idea to 
+implement a way of automatic gray/white-listing here:
+
+1. When the user registers he/she is graylisted and his comments are filtered 
+by all (!) anti-spam plugins.
+
+2.) When e.g. he/she has posted too much spam (by the blog owner has marked 
+too much as spam) he/she got blacklisted and the admin bans him/her.
+
+3.) In other way - he/she is posting fine comments - the account becomes 
+automatically whitelisted (but only when there was no plugin or admin who has 
+marked even a single comment as spam).
+
+This might be a nice approach to a trust-model like PGP is already using.
+
+Person A knows that person B is a non-spammer. Person C trusts person A and 
+when person B is posting a comment on person C's blog his comment will be 
+listed as "trusted".
+
+This surely requires a "per-user-trust-center" (but still with de-centralized 
+servers) where all our identities are stored.
+
+Or what about integrating PGP into WordPress?
+
+Just mny thoughts I want to share with you. :-)
+
+Greets,
+Roland
+
+-- 
+(GNU) PGP ID: 0x8C8859B9
+
+Weblog:
+http://blog.mxchange.org
+
+
+From newsletter at scytheman.net  Tue Oct 17 13:52:39 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Tue, 17 Oct 2006 15:52:39 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <200610171307.02435.webmaster@mxchange.org>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+	<200610171307.02435.webmaster@mxchange.org>
+Message-ID: <4534E027.10602@scytheman.net>
+
+Roland Haeder wrote:
+>> I am using Akismet together with Spam Karma (via sk-plugin). While I
+>> think the combination of both is near perfect for fighting spam, but
+>> there are still many (most) people out there using only Akismet. Don't
+>> get me wrong ... Akismet alone works pretty well, but sometimes it flags
+>> comments as spam which are cleary ham and the way around.
+>>     
+> Akismet is a content filter, not a all-in-one filter. Spam attacks can be 
+> stopped in many ways:
+>
+> - ...
+Can there be more than one anti-spam plugin in Wordpress? In my 
+understanding the plugin that processes a comment last always wins 
+(meaning decides if it is spam or not) ... so if I'm going to use only 
+Akismet I want Akismet to do some sanity checking before it flags 
+something as spam that is most likely not spam. Registered users are not 
+spamers!!!
+
+> I have also a commenter here who got always blacklisted by SK2. Well, for my 
+> blog I don't have so much spams. :-) But I already saw a blog with tons of 
+> spams. :-(
+>   
+Akismet reports on it's website that 92% of all comments are spam ... 
+that's also the case on my blog.
+
+> Hmmm, you may give your regular posters unlimited posting capabilities but 
+> what about a splog owner who registers with your blog? It might be an idea to 
+> implement a way of automatic gray/white-listing here:
+> ...
+>   
+Registration is deactivated on my blog ... but I can see the problem 
+here ... well, what I am talking about is blocking my own comments or 
+comments of co-bloggers ... it should not be neccessary to even check 
+those comments against spamlists, right? Maybe Wordpress can have an 
+option "do not moderate/flag as spam comments from registered users" in 
+it's option panel (if Akismet does not implement this simple check)?
+
+OR (big big OR):
+
+Wordpress implements a system like Spam Karma 2 is using ... let 
+different plugins give their opinion about a comment and than decide if 
+it is spam or not.
+
+
+From webmaster at mxchange.org  Tue Oct 17 14:18:01 2006
+From: webmaster at mxchange.org (Roland Haeder)
+Date: Tue, 17 Oct 2006 16:18:01 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4534E027.10602@scytheman.net>
+References: <4528E062.5080905@mullenweg.com>
+	<200610171307.02435.webmaster@mxchange.org>
+	<4534E027.10602@scytheman.net>
+Message-ID: <200610171618.02647.webmaster@mxchange.org>
+
+On Tuesday, 17. October 2006 15:52, Sebastian Herp wrote:
+> Can there be more than one anti-spam plugin in Wordpress? In my
+> understanding the plugin that processes a comment last always wins
+> (meaning decides if it is spam or not) ... so if I'm going to use only
+> Akismet I want Akismet to do some sanity checking before it flags
+> something as spam that is most likely not spam. Registered users are not
+> spamers!!!
+You may want to change the priority of that plugin. To do so so open 
+akismet/akismet.php and search for:
+
+add_action('preprocess_comment', 'ksd_auto_check_comment', 1);
+
+That little 1 at the end means "highest" priority. Now you can alter it to 
+your needs. :-) Btw: I use 5 here, so Akismet comes first, than me, than some 
+others (like SK2 on prio. 10 and so on).
+
+> Akismet reports on it's website that 92% of all comments are spam ...
+> that's also the case on my blog.
+And it's true... :-( I got a lot "Car Insurance" here and ringing-tones.
+
+> Wordpress implements a system like Spam Karma 2 is using ... let
+> different plugins give their opinion about a comment and than decide if
+> it is spam or not.
+Fully agreed!
+
+Greets,
+Roland
+
+-- 
+(GNU) PGP ID: 0x8C8859B9
+
+Weblog:
+http://blog.mxchange.org
+
+
+From finnstones at gmail.com  Tue Oct 17 14:34:35 2006
+From: finnstones at gmail.com (Rob Finn)
+Date: Tue, 17 Oct 2006 10:34:35 -0400
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <200610171618.02647.webmaster@mxchange.org>
+References: <4528E062.5080905@mullenweg.com>
+	<200610171307.02435.webmaster@mxchange.org>
+	<4534E027.10602@scytheman.net>
+	<200610171618.02647.webmaster@mxchange.org>
+Message-ID: <e17d50e20610170734v18f49839q563eaf4cbb1104c3@mail.gmail.com>
+
+UNSUBSCRIBE
+
+On 10/17/06, Roland Haeder <webmaster at mxchange.org> wrote:
+>
+> On Tuesday, 17. October 2006 15:52, Sebastian Herp wrote:
+> > Can there be more than one anti-spam plugin in Wordpress? In my
+> > understanding the plugin that processes a comment last always wins
+> > (meaning decides if it is spam or not) ... so if I'm going to use only
+> > Akismet I want Akismet to do some sanity checking before it flags
+> > something as spam that is most likely not spam. Registered users are not
+> > spamers!!!
+> You may want to change the priority of that plugin. To do so so open
+> akismet/akismet.php and search for:
+>
+> add_action('preprocess_comment', 'ksd_auto_check_comment', 1);
+>
+> That little 1 at the end means "highest" priority. Now you can alter it to
+> your needs. :-) Btw: I use 5 here, so Akismet comes first, than me, than
+> some
+> others (like SK2 on prio. 10 and so on).
+>
+> > Akismet reports on it's website that 92% of all comments are spam ...
+> > that's also the case on my blog.
+> And it's true... :-( I got a lot "Car Insurance" here and ringing-tones.
+>
+> > Wordpress implements a system like Spam Karma 2 is using ... let
+> > different plugins give their opinion about a comment and than decide if
+> > it is spam or not.
+> Fully agreed!
+>
+> Greets,
+> Roland
+>
+> --
+> (GNU) PGP ID: 0x8C8859B9
+>
+> Weblog:
+> http://blog.mxchange.org
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061017/9ca25e21/attachment.htm>
+
+From newsletter at scytheman.net  Tue Oct 17 14:36:46 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Tue, 17 Oct 2006 16:36:46 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <200610171618.02647.webmaster@mxchange.org>
+References: <4528E062.5080905@mullenweg.com>	<200610171307.02435.webmaster@mxchange.org>	<4534E027.10602@scytheman.net>
+	<200610171618.02647.webmaster@mxchange.org>
+Message-ID: <4534EA7E.1040504@scytheman.net>
+
+Roland Haeder wrote:
+> On Tuesday, 17. October 2006 15:52, Sebastian Herp wrote:
+>   
+>> Can there be more than one anti-spam plugin in Wordpress? In my
+>> understanding the plugin that processes a comment last always wins
+>> (meaning decides if it is spam or not) ... so if I'm going to use only
+>> Akismet I want Akismet to do some sanity checking before it flags
+>> something as spam that is most likely not spam. Registered users are not
+>> spamers!!!
+>>     
+> You may want to change the priority of that plugin. To do so so open 
+> akismet/akismet.php and search for:
+>
+> add_action('preprocess_comment', 'ksd_auto_check_comment', 1);
+>
+> That little 1 at the end means "highest" priority. Now you can alter it to 
+> your needs. :-) Btw: I use 5 here, so Akismet comes first, than me, than some 
+> others (like SK2 on prio. 10 and so on).
+Won't work.
+
+If Akismet comes first and some other plugin next, than the other plugin 
+will do whatever it does with the comment and most likely ignore what 
+Akismet said ...
+
+If Akismet comes last it will overrule all decisions of other anti-spam 
+plugins that classified the comment as ham.
+
+Multiple anti-spam plugins simply do not work in the current Wordpress 
+... that's why Spam Karmas concept is the way to go ... let wordpress 
+collect multiple opinions from different plugins, weight them and then 
+decide if it's spam or not ...
+
+But this definitely belongs to the wp-hackers list now ;-)
+
+
+From andre.neubauer at googlemail.com  Wed Oct 18 19:07:59 2006
+From: andre.neubauer at googlemail.com (=?ISO-8859-1?Q?Andr=E9_Neubauer?=)
+Date: Wed, 18 Oct 2006 21:07:59 +0200
+Subject: [spam-stopper] (no subject)
+Message-ID: <c040439a0610181207v4c7559c2pa80a8917408ede6a@mail.gmail.com>
+
+I wan't to receive the spam-stopper mailing list
+
+-- 
+Diplom-Informatiker
+Andr? Neubauer
+
+http://www.digitalesdenken.de
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061018/f020a69f/attachment.htm>
+
+From m at mullenweg.com  Thu Oct 19 08:15:25 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 19 Oct 2006 01:15:25 -0700
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4533B097.6020207@scytheman.net>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+Message-ID: <4537341D.7070808@mullenweg.com>
+
+Sebastian Herp wrote:
+> An relatively easy way to further enhance Akismet (if in the use without 
+> Spam Karma) would be to never ever flag (or even check) a comment as 
+> spam if it was written by a registered user!
+
+We used to do this a few months ago on the server-side. Spammers figured 
+it out, and it was badly exploited, and I'll leave it at that. Do you 
+really want your blog's registration system to become a bot target?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From newsletter at scytheman.net  Thu Oct 19 10:07:16 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Thu, 19 Oct 2006 12:07:16 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4537341D.7070808@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+	<4537341D.7070808@mullenweg.com>
+Message-ID: <45374E54.4030601@scytheman.net>
+
+Matt Mullenweg wrote:
+> Sebastian Herp wrote:
+>> An relatively easy way to further enhance Akismet (if in the use 
+>> without Spam Karma) would be to never ever flag (or even check) a 
+>> comment as spam if it was written by a registered user!
+>
+> We used to do this a few months ago on the server-side. Spammers 
+> figured it out, and it was badly exploited, and I'll leave it at that. 
+> Do you really want your blog's registration system to become a bot 
+> target?
+>
+Hi Matt,
+
+does server-side mean "on Akismets server-side" or "on the blogs 
+server-side"? If done by the plugin or the wordpress installation itself 
+(e.g. "if registered_user() then don't check against Akismet"), how 
+could that be abused?
+
+It's just that I have seen it twice that Akismet flagged one of my own 
+comments as spam ... I am the author of my blog, so that should never 
+happen, should it?
+
+
+From mark.wordpress at txfx.net  Thu Oct 19 10:20:54 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Thu, 19 Oct 2006 06:20:54 -0400
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <45374E54.4030601@scytheman.net>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+	<4537341D.7070808@mullenweg.com> <45374E54.4030601@scytheman.net>
+Message-ID: <54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+
+On Oct 19, 2006, at 6:07 AM, Sebastian Herp wrote:
+
+> If done by the plugin or the wordpress installation itself (e.g.  
+> "if registered_user() then don't check against Akismet"), how could  
+> that be abused?
+
+Bots can sign up for accounts on your WordPress install if you're  
+just doing a simple registration check.
+
+> It's just that I have seen it twice that Akismet flagged one of my  
+> own comments as spam ... I am the author of my blog, so that should  
+> never happen, should it?
+
+Good call... the plugin should skip the Akismet check if you have the  
+ability to post entries.
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From webmaster at mxchange.org  Thu Oct 19 10:36:32 2006
+From: webmaster at mxchange.org (Roland Haeder)
+Date: Thu, 19 Oct 2006 12:36:32 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4537341D.7070808@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+	<4537341D.7070808@mullenweg.com>
+Message-ID: <200610191236.33967.webmaster@mxchange.org>
+
+On Thursday, 19. October 2006 10:15, Matt Mullenweg wrote:
+> Sebastian Herp wrote:
+> > An relatively easy way to further enhance Akismet (if in the use without
+> > Spam Karma) would be to never ever flag (or even check) a comment as
+> > spam if it was written by a registered user!
+>
+> We used to do this a few months ago on the server-side. Spammers figured
+> it out, and it was badly exploited, and I'll leave it at that. Do you
+> really want your blog's registration system to become a bot target?
+Yupp, that will be the next logical step the spammers are doing. :-( :-( :-(
+
+Then we have the same problem as with the comments: Captchas, time-outing 
+confirmation of a unique link in the email and so on. Sploggers will benefit 
+from this anyway.
+
+Roland
+
+
+From newsletter at scytheman.net  Thu Oct 19 11:26:28 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Thu, 19 Oct 2006 13:26:28 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+References: <4528E062.5080905@mullenweg.com>
+	<4533B097.6020207@scytheman.net>	<4537341D.7070808@mullenweg.com>
+	<45374E54.4030601@scytheman.net>
+	<54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+Message-ID: <453760E4.6020101@scytheman.net>
+
+Mark Jaquith wrote:
+> On Oct 19, 2006, at 6:07 AM, Sebastian Herp wrote:
+>
+>> If done by the plugin or the wordpress installation itself (e.g. "if 
+>> registered_user() then don't check against Akismet"), how could that 
+>> be abused?
+>
+> Bots can sign up for accounts on your WordPress install if you're just 
+> doing a simple registration check.
+>
+Ok, then it should be optional if you have an open registration or ...
+
+>> It's just that I have seen it twice that Akismet flagged one of my 
+>> own comments as spam ... I am the author of my blog, so that should 
+>> never happen, should it?
+>
+> Good call... the plugin should skip the Akismet check if you have the 
+> ability to post entries.
+>
+>
+
+... only level X (or equivalent rights) and above are allowed to post 
+comments without being checked for spam. Maybe this should be a thing 
+wordpress does by itself and not Akismet (or other anti-spam plugins). 
+Akismet should then honor such a setting (like everything to moderation 
+queue or everyone into moderation if it's the first comment) ...
+
+Does that sound logical?
+
+
+From andre.neubauer at googlemail.com  Thu Oct 19 19:26:54 2006
+From: andre.neubauer at googlemail.com (=?ISO-8859-1?Q?Andr=E9_Neubauer?=)
+Date: Thu, 19 Oct 2006 21:26:54 +0200
+Subject: [spam-stopper] a new job for Akismet
+Message-ID: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+
+Hi,
+
+sorry for my mail yesterday. I've misunderstood the instructions at the
+website.
+At first I would like to introduce myself. My name is andr? and I'm a 25
+years old software-developer from Berlin / Germany. English is no my native
+language so please be gracious with me ;)
+
+last time when I would like to reengineer my weblog (based on Wordpress
+2.0.4) I was looking for a "mail form"-plugin. I've found so many solutions
+but no-one is safe from spam.
+
+So, I thought about a new secure plugin.  What about a "mail-form" using
+Akisment to validate the address, subject and content.
+
+What do you think about my idea? Is there already a solution? It will take
+me few time to develop a prototype if someone could explain the  interface
+to me. Is there a API?
+
+Thank you and greetings from Germany
+
+-- 
+Diplom-Informatiker
+Andr? Neubauer
+
+http://www.digitalesdenken.de (not in use)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061019/1a3f7cd2/attachment.htm>
+
+From m at mullenweg.com  Thu Oct 19 19:35:22 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 19 Oct 2006 12:35:22 -0700
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+References: <4528E062.5080905@mullenweg.com>
+	<4533B097.6020207@scytheman.net>	<4537341D.7070808@mullenweg.com>
+	<45374E54.4030601@scytheman.net>
+	<54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+Message-ID: <4537D37A.3040005@mullenweg.com>
+
+Mark Jaquith wrote:
+> Good call... the plugin should skip the Akismet check if you have the 
+> ability to post entries.
+
+That's the wrong solution, a band-aid on a gaping cut. :)
+
+If Akismet caught two of your own comments, you probably noticed 
+immediately and unspammed them and the system learned from that. (As I 
+assume it doesn't catch your comments today.)
+
+That's the point!
+
+There is no perfect spam system. However, one that learns can (I think) 
+stay highly effective over the long term where more static systems might 
+fail.
+
+Think of it like training a dog. If you don't say "bad dog" when it 
+makes a mistake, if you just cover your eyes and pretend the mistake 
+didn't happen, it won't get any better and you'll reinforce bad habits.
+
+Help make Akismet a good dog.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From m at mullenweg.com  Thu Oct 19 19:36:10 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 19 Oct 2006 12:36:10 -0700
+Subject: [spam-stopper] a new job for Akismet
+In-Reply-To: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+Message-ID: <4537D3AA.2070502@mullenweg.com>
+
+Andr? Neubauer wrote:
+> So, I thought about a new secure plugin.  What about a "mail-form" using 
+> Akisment to validate the address, subject and content.
+> 
+> What do you think about my idea? Is there already a solution? It will 
+> take me few time to develop a prototype if someone could explain the  
+> interface  to me. Is there a API?
+
+I think that's a very good idea. Maybe contribute it as a patch to one 
+of the existing and popular contact form plugins?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From newsletter at scytheman.net  Thu Oct 19 22:18:31 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Fri, 20 Oct 2006 00:18:31 +0200
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4537D37A.3040005@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>	<4533B097.6020207@scytheman.net>	<4537341D.7070808@mullenweg.com>	<45374E54.4030601@scytheman.net>	<54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+	<4537D37A.3040005@mullenweg.com>
+Message-ID: <4537F9B7.9000102@scytheman.net>
+
+Matt Mullenweg wrote:
+> Help make Akismet a good dog.
+>
+
+The dog could be auto-punished if it says my comments are spam ... there 
+should be no need to get my own hands dirty ;-) And I know it's free ... 
+but if I would have to pay for that dog, it better came pre-trained.
+
+
+From mark.wordpress at txfx.net  Thu Oct 19 22:43:25 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Thu, 19 Oct 2006 18:43:25 -0400
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4537D37A.3040005@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com>
+	<4533B097.6020207@scytheman.net>	<4537341D.7070808@mullenweg.com>
+	<45374E54.4030601@scytheman.net>
+	<54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+	<4537D37A.3040005@mullenweg.com>
+Message-ID: <36AB0DBD-7A77-4FA4-A042-4B78CC6D4860@txfx.net>
+
+On Oct 19, 2006, at 3:35 PM, Matt Mullenweg wrote:
+
+> Think of it like training a dog. If you don't say "bad dog" when it  
+> makes a mistake, if you just cover your eyes and pretend the  
+> mistake didn't happen, it won't get any better and you'll reinforce  
+> bad habits.
+>
+> Help make Akismet a good dog.
+
+I'm all in favor of making Akismet a good dog! (see: http:// 
+trac.wordpress.org/changeset/3529)
+
+But with high-level users, it seems to me that we could  
+automattically (I swear I can't spell that word correctly anymore  
+because of you) train it based on a locally pre-determined ham/spam  
+decision.  For users with posting capabilities, you just watch for  
+Akismet's response, and then silently mark as ham if Akismet returns  
+spam.  It's like one of those dog collars that zaps the dog if it  
+barks too much, without owner intervention.  That'd certainly forward  
+Akismet's goal of "just works."
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From mark.wordpress at txfx.net  Thu Oct 19 22:48:06 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Thu, 19 Oct 2006 18:48:06 -0400
+Subject: [spam-stopper] a new job for Akismet
+In-Reply-To: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+Message-ID: <CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>
+
+On Oct 19, 2006, at 3:26 PM, Andr? Neubauer wrote:
+
+> What do you think about my idea? Is there already a solution? It  
+> will take me few time to develop a prototype if someone could  
+> explain the  interface  to me. Is there a API?
+
+Definitely a good idea.
+
+API:  http://akismet.com/development/api/
+Popular WordPress e-mail form plugin:  http://ryanduff.net/projects/ 
+wp-contactform/
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From webmacster87 at gmail.com  Thu Oct 19 23:36:46 2006
+From: webmacster87 at gmail.com (Douglas Bell)
+Date: Thu, 19 Oct 2006 16:36:46 -0700
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <4537D37A.3040005@mullenweg.com>
+References: <4528E062.5080905@mullenweg.com> <4533B097.6020207@scytheman.net>
+	<4537341D.7070808@mullenweg.com> <45374E54.4030601@scytheman.net>
+	<54472F87-D7B9-4CDC-9971-3062CF119F4B@txfx.net>
+	<4537D37A.3040005@mullenweg.com>
+Message-ID: <2efb57790610191636u7e67c453wb6bf8520448b7915@mail.gmail.com>
+
+Akismet hasn't been much of a good dog to me. I've been unspamming my own
+comments on my blog a few dozen times, and I still get marked as spam. I've
+sent e-mails to this list, I sent a support request of which I've gotten to
+response, and I'm sick of being constantly marked as spam not only on my
+blog, but on everyone else's blog.
+--Douglas Bell
+
+On 10/19/06, Matt Mullenweg <m at mullenweg.com> wrote:
+>
+> Mark Jaquith wrote:
+> > Good call... the plugin should skip the Akismet check if you have the
+> > ability to post entries.
+>
+> That's the wrong solution, a band-aid on a gaping cut. :)
+>
+> If Akismet caught two of your own comments, you probably noticed
+> immediately and unspammed them and the system learned from that. (As I
+> assume it doesn't catch your comments today.)
+>
+> That's the point!
+>
+> There is no perfect spam system. However, one that learns can (I think)
+> stay highly effective over the long term where more static systems might
+> fail.
+>
+> Think of it like training a dog. If you don't say "bad dog" when it
+> makes a mistake, if you just cover your eyes and pretend the mistake
+> didn't happen, it won't get any better and you'll reinforce bad habits.
+>
+> Help make Akismet a good dog.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://automattic.com | http://akismet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061019/3b66cea9/attachment.htm>
+
+From gott at uberbin.net  Thu Oct 19 23:55:02 2006
+From: gott at uberbin.net (mariano - uberbin.net)
+Date: Thu, 19 Oct 2006 20:55:02 -0300
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <2efb57790610191636u7e67c453wb6bf8520448b7915@mail.gmail.com>
+Message-ID: <005801c6f3da$0016eb80$411010be@nn>
+
+Well... Akismet has been one of the best 3 dogs i had in my life... "Akismet
+has caught 194,923 spam for you since you installed it." 
+However they marked 2 of my comments as spam ;)
+
+  _____  
+
+From: spam-stopper-bounces at lists.automattic.com
+[mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Douglas Bell
+Sent: Jueves, 19 de Octubre de 2006 08:37 p.m.
+To: spam-stopper at lists.automattic.com
+Subject: Re: [spam-stopper] New plugin version
+
+
+Akismet hasn't been much of a good dog to me. I've been unspamming my own
+comments on my blog a few dozen times, and I still get marked as spam. I've
+sent e-mails to this list, I sent a support request of which I've gotten to
+response, and I'm sick of being constantly marked as spam not only on my
+blog, but on everyone else's blog. 
+--Douglas Bell
+
+
+On 10/19/06, Matt Mullenweg <m at mullenweg.com> wrote: 
+
+Mark Jaquith wrote:
+> Good call... the plugin should skip the Akismet check if you have the
+> ability to post entries.
+
+That's the wrong solution, a band-aid on a gaping cut. :)
+
+If Akismet caught two of your own comments, you probably noticed 
+immediately and unspammed them and the system learned from that. (As I
+assume it doesn't catch your comments today.)
+
+That's the point!
+
+There is no perfect spam system. However, one that learns can (I think) 
+stay highly effective over the long term where more static systems might
+fail.
+
+Think of it like training a dog. If you don't say "bad dog" when it
+makes a mistake, if you just cover your eyes and pretend the mistake 
+didn't happen, it won't get any better and you'll reinforce bad habits.
+
+Help make Akismet a good dog.
+
+--
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+_______________________________________________
+spam-stopper mailing list
+spam-stopper at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/spam-stopper 
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061019/d909b1f0/attachment.htm>
+
+From wp-lowtraffic at schestowitz.com  Sun Oct 22 13:13:14 2006
+From: wp-lowtraffic at schestowitz.com (Roy Schestowitz)
+Date: Sun, 22 Oct 2006 14:13:14 +0100
+Subject: [spam-stopper] a new job for Akismet
+In-Reply-To: <4537D3AA.2070502@mullenweg.com>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+	<4537D3AA.2070502@mullenweg.com>
+Message-ID: <20061022141314.urye7qt5odggg4ss@banana.catalyst2.com>
+
+___/ On Thu 19 Oct 2006 20:36:10 BST, [ Matt Mullenweg ] wrote : \___
+
+> Andr? Neubauer wrote:
+>> So, I thought about a new secure plugin.  What about a "mail-form"   
+>> using Akisment to validate the address, subject and content.
+>>
+>> What do you think about my idea? Is there already a solution? It   
+>> will take me few time to develop a prototype if someone could   
+>> explain the  interface  to me. Is there a API?
+>
+> I think that's a very good idea. Maybe contribute it as a patch to one
+> of the existing and popular contact form plugins?
+
+...Could   maybe  become  a  pluggable  bit   for   existing
+plug-in/s?   As  opposed  to  an  option?  Somewhat  of   an
+abstraction layer/service? When I come to think about it the
+second  time, this would be so lightweight and redundant, so
+I  agree that making it a patch would be the right route.  I
+guess  that forking would be a bad idea, though I'm not sure
+if Mark's URL's point in that direction.
+
+Who knows where it all goes...? Forum spam  eliminated  with
+Akismet?  Subscription/profile spam?  Windows zombie spewage
+(AKA E-mail spam)?
+
+Best wishes,
+
+Roy
+
+
+
+
+From oldguy at oldguy.us  Tue Oct 24 03:14:27 2006
+From: oldguy at oldguy.us (Richard Williamson)
+Date: Mon, 23 Oct 2006 20:14:27 -0700
+Subject: [spam-stopper] PHP4 class
+Message-ID: <7.0.1.0.2.20061023200122.0198f130@verizon.net>
+
+Matt wrote the Akismet plugin. Alex Potsides used the code to create 
+a php5 class. Bret Kuhns converted that to a php4 class. Then I came 
+along and, being a finicky kind of person, just couldn't leave well 
+enough alone. :-)
+
+Some time ago I made some changes to the php4 class. I (and others) 
+have been using it in my application for a number of months. Summary 
+of the changes:
+
+* Replaced trigger_error() on fsockopen failure with a return status 
+code. This allows your script to handle the error instead of having 
+execution halt and your visitor seeing an ugly PHP error message. 
+Disabled PHP error display before the fsockopen to prevent the PHP 
+error message and re-enabled error display after the error is trapped.
+* Added 'no connect' as a possible isCommentSpam() and Akismet() return status.
+* Added isKeyValid() to check the status following the initial Akismet() call.
+* Revised and extended comments/documentation to provide more information
+
+See the documentation and download it at:
+
+http://www.scripts.oldguy.us/akismet-class-doc.php
+
+Regards,
+
+Richard
+
+
+
+From mdale at dalegroup.net  Tue Oct 24 03:26:10 2006
+From: mdale at dalegroup.net (Michael Dale)
+Date: Tue, 24 Oct 2006 13:26:10 +1000
+Subject: [spam-stopper] PHP4 class
+In-Reply-To: 7.0.1.0.2.20061023200122.0198f130@verizon.net
+Message-ID: <20061024032610.785615f4@mail.dalegroup.net>
+
+> * Replaced trigger_error() on fsockopen failure with a return status 
+> code. This allows your script to handle the error instead of having 
+> execution halt and your visitor seeing an ugly PHP error message. 
+
+I use set_error_handler('error_report'); to handle the trigger_errors. I have an event log on my blog system, any errors thrown are inserted into the database.
+
+Have a look at the code if you like. My program can be downloaded here:
+http://download.bluetrait.com/latest.zip
+
+Thanks,
+Michael.
+
+
+From mdale at dalegroup.net  Sun Oct 29 22:40:42 2006
+From: mdale at dalegroup.net (Michael Dale)
+Date: Mon, 30 Oct 2006 09:40:42 +1100
+Subject: [spam-stopper] Akismet Key Values
+Message-ID: <20061029224042.3582a837@mail.dalegroup.net>
+
+Hi Guys,
+
+I'm just adding some extra error checking to my akismet function. Is there an official range that the akismet key can be? ie. a-z0-9.
+
+Thanks.
+Michael.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061030/0d4b6e9d/attachment.htm>
+
+From mark.wordpress at txfx.net  Mon Oct 30 06:52:22 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Mon, 30 Oct 2006 01:52:22 -0500
+Subject: [spam-stopper] Akismet Key Values
+In-Reply-To: <20061029224042.3582a837@mail.dalegroup.net>
+References: <20061029224042.3582a837@mail.dalegroup.net>
+Message-ID: <B4564806-46ED-408E-AD18-3200188C1C60@txfx.net>
+
+On Oct 29, 2006, at 5:40 PM, Michael Dale wrote:
+
+> I'm just adding some extra error checking to my akismet function.  
+> Is there an official range that the akismet key can be? ie. a-z0-9.
+
+I've only see it be 12 hexadecimal chars, so /^[a-f0-9]{12}$/ ... but  
+I don't think that's documented anywhere, so it might not be set in  
+stone.
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From mdale at dalegroup.net  Tue Oct 31 03:08:35 2006
+From: mdale at dalegroup.net (Michael Dale)
+Date: Tue, 31 Oct 2006 14:08:35 +1100
+Subject: [spam-stopper] Akismet failing
+Message-ID: <4546BE33.8070501@dalegroup.net>
+
+In the last week or so Akismet has been timing out and rejecting my API 
+key (e.g. http://www.bluetrait.com/images/akismet_timeout.png).
+
+Has anyone else had any problems?
+
+Is it possible that my site is getting too much spam and I'm just 
+getting rate limited or something? (i.e would buying a pro-blogger API 
+key work?)
+
+Thanks,
+Michael.
+
+
+
+From m at mullenweg.com  Tue Oct 31 19:19:26 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 31 Oct 2006 11:19:26 -0800
+Subject: [spam-stopper] Akismet failing
+In-Reply-To: <4546BE33.8070501@dalegroup.net>
+References: <4546BE33.8070501@dalegroup.net>
+Message-ID: <4547A1BE.6050604@mullenweg.com>
+
+Michael Dale wrote:
+> In the last week or so Akismet has been timing out and rejecting my API 
+> key (e.g. http://www.bluetrait.com/images/akismet_timeout.png).
+> 
+> Has anyone else had any problems?
+
+I haven't seen anything like this reported lately, my guess is that 
+there is some type of network problem.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From rainchx at gmail.com  Tue Oct 31 20:05:11 2006
+From: rainchx at gmail.com (Sarah King)
+Date: Wed, 1 Nov 2006 09:05:11 +1300
+Subject: [spam-stopper] Akismet failing
+In-Reply-To: <4547A1BE.6050604@mullenweg.com>
+References: <4546BE33.8070501@dalegroup.net> <4547A1BE.6050604@mullenweg.com>
+Message-ID: <2d764fd00610311205s76d5d620p308c66c5b3cb63e6@mail.gmail.com>
+
+I don't know about time outs but for the first time ever I'm getting alot in
+my moderation queue or slipping through altogether. Nothing like the number
+being caught though and no biggie to remove but I wonder what's changed? The
+spam doesn't appear to be more sophisticated or subtle.
+
+Sarah
+
+On 11/1/06, Matt Mullenweg <m at mullenweg.com> wrote:
+>
+> Michael Dale wrote:
+> > In the last week or so Akismet has been timing out and rejecting my API
+> > key (e.g. http://www.bluetrait.com/images/akismet_timeout.png).
+> >
+> > Has anyone else had any problems?
+>
+> I haven't seen anything like this reported lately, my guess is that
+> there is some type of network problem.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://automattic.com | http://akismet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20061101/05412f63/attachment.htm>
+

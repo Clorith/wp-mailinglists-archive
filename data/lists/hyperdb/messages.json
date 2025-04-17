@@ -1,0 +1,1458 @@
+[
+  {
+    "sender_name": "Anthony Dobbs",
+    "sender_email": "irockst4r at yahoo.com",
+    "subject": "[HyperDB] Questions regarding HyperDB",
+    "body": "I have not taken a good look at HyperDB yet, so I have just a few quick questions regarding it. \n1) Would it be very difficult to implement HyperDB in a non-wordpress PHP application. Is it too tightly integrated into wordpress for a port?\n2) What advantages does HyperDB have over a custom solution that divides the database into 4096 smaller databases?\n3) Where can I find documentation regarding HyperDB?\nThanks guys.",
+    "date": "2008-06-11T15:10:06Z",
+    "message_id": "982743.78270.qm@web45815.mail.sp1.yahoo.com"
+  },
+  {
+    "sender_name": "Jamie Holly",
+    "sender_email": "hovercrafter at earthlink.net",
+    "subject": "[HyperDB] Anyone using it yet?",
+    "body": "(I really need to get this list in a rule so messages stop disappearing)\n \nMatt - this is already a prize. I went live with it today on the 2 sites I\nwanted to use it on and it is running great. Both sites are hosted on the\nsame server. We have had about 400,000 combined page views today (somewhat\nslow day) and not a problem 1 (knock on wood). \n \nJamie Holly\nhttp://www.intoxination.net",
+    "date": "2007-06-19T02:54:14Z",
+    "message_id": "01f401c7b21d$08115da0$183418e0$@net"
+  },
+  {
+    "sender_name": "Andy Skelton",
+    "sender_email": "skeltoac at gmail.com",
+    "subject": "[HyperDB] Big update in SVN",
+    "body": "I just committed a major update. HyperDB now works with WP trunk by\ndefault, and it works with WPMU trunk with only a minor config change.\nThe installation directions have been updated.\nThe common stuff is abstracted into a class named \"db\". The \"wpdb\"\nclass extends the \"db\" class, adding the appropriate methods for WP or\nWPMU. This was done because of differences in the way WPMU prefixes\ntable names.\nThere are still problems with the get_ds_part_from_table method using\nprefixes. If you use that feature, tread carefully.\nMy tests were run on fresh trunk checkouts with a single database\nserver. Advances features haven't been tested. As always, test this on\na development platform before deploying to a production site. No\nwarranty, remember? :-)\nAndy",
+    "date": "2008-06-26T18:19:53Z",
+    "message_id": "e6ec604d0806261056h28673b77m116875e303d4ff58@mail.gmail.com"
+  },
+  {
+    "sender_name": "Chris Morrell",
+    "sender_email": "chris at cmorrell.com",
+    "subject": "[HyperDB] dbDeltas with HyperDB",
+    "body": "Hey everyone,\nI'm having an issue with HyperDB and the dbDelta function.  dbDelta runs the\nfollowing code:\n$tables = $wpdb-\u003eget_col('SHOW TABLES;')\nAnd then loops through the results.  Well, this can be a real issue with\nsharding, where each table can be located on a different database server.\n It seems to me that the only way to solve this problem would be to patch\nWordpress core (have dbDelta check each table's existence individually) and\nalso patch HyperDB to properly parse the table name from the individual SHOW\nTABLES query.  There's an existing core\nticket\u003chttp://core.trac.wordpress.org/ticket/17998\u003ethat begins to\naddress a similar issue, but it won't work with HyperDB.\nRight now I'm just trying to figure out how to approach the issue.  It seems\nlike it would affect just about any plugin that uses dbDelta to upgrade\ntheir database tables.  Has anyone else run into this problem?  Any good\nsolutions?\nThanks!\n  \u003chttp://cmorrell.com/\u003e *Chris Morrell*  Web: http://cmorrell.com  Twitter:\n@inxilpro \u003chttp://twitter.com/inxilpro\u003e",
+    "date": "2011-10-19T13:23:35-04:00",
+    "message_id": "CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] dbDeltas with HyperDB",
+        "body": "Why does dbDelta bother with SHOW TABLES at all? Why not just loop\nover the table names and do DESCRIBE TABLE on each one?\nforeach ( $cqueries as $table =\u003e $qry ) {\n    $tablefields = $wpdb-\u003eget_results( \"DESCRIBE $table\" );\n    if ( $tablefields ) {\n        // Generate ALTER TABLE statements\n    } else {\n        // Use CREATE TABLE statement\n    }\n}\nAndy\nOn Wed, Oct 19, 2011 at 12:23 PM, Chris Morrell \u003cchris at cmorrell.com\u003e wrote:\n\u003e Hey everyone,\n\u003e\n\u003e I'm having an issue with HyperDB and the dbDelta function. ?dbDelta runs the\n\u003e following code:\n\u003e\n\u003e $tables = $wpdb-\u003eget_col('SHOW TABLES;')\n\u003e\n\u003e And then loops through the results. ?Well, this can be a real issue with\n\u003e sharding, where each table can be located on a different database server.\n\u003e ?It seems to me that the only way to solve this problem would be to patch\n\u003e Wordpress core (have dbDelta check each table's existence individually) and\n\u003e also patch HyperDB to properly parse the table name from the individual SHOW\n\u003e TABLES query. ?There's an existing core\n\u003e ticket\u003chttp://core.trac.wordpress.org/ticket/17998\u003ethat begins to\n\u003e address a similar issue, but it won't work with HyperDB.\n\u003e\n\u003e Right now I'm just trying to figure out how to approach the issue. ?It seems\n\u003e like it would affect just about any plugin that uses dbDelta to upgrade\n\u003e their database tables. ?Has anyone else run into this problem? ?Any good\n\u003e solutions?\n\u003e\n\u003e Thanks!\n\u003e ?\u003chttp://cmorrell.com/\u003e *Chris Morrell* ?Web: http://cmorrell.com ?Twitter:\n\u003e @inxilpro \u003chttp://twitter.com/inxilpro\u003e\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2011-10-19T12:43:44-05:00",
+        "message_id": "CABVyDWWqDg3pPHv7wtYtXVa_6d65KxNduYu3CwXWxzxe8ZZ=pg@mail.gmail.com",
+        "in_reply_to": "CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com",
+        "references": [
+          "\u003cCAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Colin Ogilvie",
+    "sender_email": "cogilvie at plus.net",
+    "subject": "[HyperDB] HyperDB and strange characters",
+    "body": "Hi All\nI've just been looking at using HyperDB on our Wordpress powered website \n(http://community.plus.net/) and have run in to an interesting issue in \nour testing environment.\nIf I define WP_USE_MULTIPLE_DB as true, then I appear to get some \nstrange characters appearing in the Blog posts, but if i leave it set to \nfalse, then these characters disappear. They appear (in Firefox) to be \nwhite question marks in black diamonds.\nAny ideas as to why this would appear with HyperDB and not appear \nwithout HyperDB?\nThanks\nColin\n-- \n| Colin Ogilvie                                 Broadband Solutions for\n| Web Developer                                     Home and Business @\n| PlusNet PLC                                              www.plus.net\n| Registered Office: Internet House, 2 Tenter Street, Sheffield, S1 4BY\n| Registered in England no: 3279013\n+ ------------ PlusNet - The smarter way to broadband ----------------+",
+    "date": "2008-06-25T12:20:59Z",
+    "message_id": "486237AA.1090901@plus.net",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] HyperDB and strange characters",
+        "body": "On Wed, Jun 25, 2008 at 7:18 AM, Colin Ogilvie \u003ccogilvie@plus.net\u003e wrote:\n\u003e If I define WP_USE_MULTIPLE_DB as true, then I appear to get some strange\n\u003e characters appearing in the Blog posts, but if i leave it set to false, then\n\u003e these characters disappear. They appear (in Firefox) to be white question\n\u003e marks in black diamonds.\n\u003e\n\u003e Any ideas as to why this would appear with HyperDB and not appear without\n\u003e HyperDB?\nYes, my idea is that HyperDB isn't doing SET NAMES in multiple-db\nmode. I'm working on an update that includes a fix for this.\nAndy",
+        "date": "2008-06-25T12:39:46Z",
+        "message_id": "e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com",
+        "in_reply_to": "486237AA.1090901@plus.net",
+        "references": [
+          "\u003c486237AA.1090901@plus.net\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Matt Mullenweg",
+    "sender_email": "m at mullenweg.com",
+    "subject": "[HyperDB] SVN Download",
+    "body": "Version 1.0 of the code is up in the SVN repository:\nhttp://svn.wp-plugins.org/hyperdb/trunk/\nTo activate you need to include db-settings.php in your wp-config.php \nfile, and drop db.php in wp-content. Then the sky will fall.\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+    "date": "2007-05-28T22:53:23Z",
+    "message_id": "465B5D4E.1040904@mullenweg.com"
+  },
+  {
+    "sender_name": "Brian Layman",
+    "sender_email": "Brian at b5media.com",
+    "subject": "[HyperDB] Test",
+    "body": "Stuart wrote:\n?  Is the hyperdb relevant to Wordpress MU too? Most of the features you\n?  mentioned would definitely be cool to have in WPMU.\n \nGood question!  I?m curious",
+    "date": "2007-05-28T18:53:59Z",
+    "message_id": "00d501c7a159$830b0fd0$89212f70$@com"
+  },
+  {
+    "sender_name": "irfan irfan",
+    "sender_email": "irfan_area47 at yahoo.co.id",
+    "subject": "[HyperDB] hyperdb add new database",
+    "body": "Any one can help me, how to add new database to hyperdb. Now i have 3 database is configure to db-setting.php. How to add 4th database to db-setting.php.\nThanks",
+    "date": "2010-04-28T15:16:02+08:00",
+    "message_id": "597600.61225.qm@web76501.mail.sg1.yahoo.com",
+    "replies": [
+      {
+        "sender_name": "Beck, Joe",
+        "sender_email": "Joe_Beck at Comcast.com",
+        "subject": "[HyperDB] hyperdb add new database",
+        "body": "grep ^add_db db-settings.php\nand send the output to the list\nOn 4/28/10 3:16 AM, \"irfan irfan\" \u003cirfan_area47 at yahoo.co.id\u003e wrote:\n\u003e Any one can help me, how to add new database to hyperdb. Now i have 3 database\n\u003e is configure to db-setting.php. How to add 4th database to db-setting.php.\n\u003e Thanks\n\u003e \n\u003e \n\u003e \n\u003e      \n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2010-04-28T09:05:57-04:00",
+        "message_id": "C7FDAAF5.16475%Joe_Beck@Comcast.com",
+        "in_reply_to": "597600.61225.qm@web76501.mail.sg1.yahoo.com"
+      }
+    ]
+  },
+  {
+    "sender_name": "Beck, Joe",
+    "sender_email": "Joe_Beck at Comcast.com",
+    "subject": "[HyperDB] setup question",
+    "body": "I?m new to hyperdb \u0026 need some help getting a dev env configured for a POC.\nwe have mysql in a master-slave config and would like to leverage hyperdb\nfor 2 things--\u003e split reads/writes and support multiple data center.\nFor now, the focus is on splitting the reads \u0026 writes.\nafter going thru the install steps it seemed like a pretty simple process,\nbut I?m getting hung up on the add_db_server line in db-settings.php\noriginally I had:\nadd_db_server('global', 0, '', 0,\n0,'172.18.0.52:3306','172.18.0.52:3306','blogs_sprint','blogs_sprint','blogs\n_sprint');  //wp1 as read svr\nadd_db_server('global', 0, '', 1,\n0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs\n_sprint');  //wp2 as write svr\nbut was getting the following error:\nUnable to connect to : while querying table 'wp_1_options' (global_w)\nthen I was questioning the horizontal partitioning part of this.\nso I commented out the first add_db_server line but still getting the same.\nthen, I started going thru the code \u0026 tried changing my add_db_server line\nto\nadd_db_server('global_w', 0, '', 1,\n0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs\n_sprint');  //wp2\nI stopped getting the orig error but got the std can?t find your blog msg:\nNo WPMU site defined on this host. If you are the owner of this site, please\ncheck \u003ca href='http://codex.wordpress.org/Debugging_WPMU'\u003eDebugging WPMU\u003c/a\u003e\nfor further assistance.\nAny suggestions or guidance on this is greatly appreciated.\nwe?re using wpmu 2.8.6 \u0026 I downloaded the latest hyperdb, don?t see a\nversion on this.\nthanks,\nJoe",
+    "date": "2010-03-01T00:51:19-05:00",
+    "message_id": "C7B0C007.11D14%Joe_Beck@Comcast.com"
+  },
+  {
+    "sender_name": "Gavin Jaynes NOUS",
+    "sender_email": "gavin at nous.com.au",
+    "subject": "[HyperDB] HELP - is it possible to split a table across 2 databases",
+    "body": "Hi all, \nI need to separate my wp_posts table into two databases based on post type.\nSo that post_type 'products' are in one DB and the rest reside in another\nDB. \nIs this possible? Any suggestions or advice is very much appreciated.\nThanks\nGavin",
+    "date": "2013-05-17T11:11:26+10:00",
+    "message_id": "CDBBC0DE.64D6%gavin@nous.com.au",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] HELP - is it possible to split a table across 2",
+        "body": "databases\nOn Thu, May 16, 2013 at 9:11 PM, Gavin Jaynes NOUS \u003cgavin at nous.com.au\u003e wrote:\n\u003e I need to separate my wp_posts table into two databases based on post type.\n\u003e So that post_type 'products' are in one DB and the rest reside in another\n\u003e DB.\nHyperDB can not help you with that. The core-supported pattern for\nmultiple posts tables is multisite.\nGood luck,\nAndy",
+        "date": "2013-05-17T09:23:16-04:00",
+        "message_id": "CABVyDWWCj4+5+yvujHHh3XBPOS+a-uHS78yzpO6jPKRrj76PnQ@mail.gmail.com",
+        "in_reply_to": "CDBBC0DE.64D6%gavin@nous.com.au",
+        "references": [
+          "\u003cCDBBC0DE.64D6%gavin@nous.com.au\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Quentin Gouedard",
+    "sender_email": "quenting at gmail.com",
+    "subject": "[HyperDB] Introductions",
+    "body": "Hi,\nYour name:\nQuentin Gouedard\n20 word background:\nI run the company operating http://unblog.fr , a large (120000 reg.\nusers) french WPMU-based blog hosting platform.\nHow you'd like to use HyperDB:\nMostly compare it to our homegrown solution and steal the good ideas\n:-p. With 7 prod servers and 12000 online users at peak, scalability\nis a word i like to read about.\nCheers !",
+    "date": "2007-06-07T00:32:25Z",
+    "message_id": "58a8266c0706061732j53bc3e0egcf73dee6e0292278@mail.gmail.com"
+  },
+  {
+    "sender_name": "Dan Gaul",
+    "sender_email": "dan at digitaltrends.com",
+    "subject": "[HyperDB] Hyperdb and w3 total cache",
+    "body": "Has anyone successfully integrated hyperdb and w3 total cache?\nIf you are not familiar with w3 total cache, it requires a db.php file in\nthe wp-content folder as well.  To get both to work, you would have to do\nsome integration work with W3 Total Cache.\n-dan\n-- \nDan Gaul\nCTO\nDigital Trends\n111 SW 5th Ave, Suite 1000\nPortland, OR 97204\nPhone: 503.342.2890 Ext. 83\nwww.digitaltrends.com \u003chttp://www.digitaltrends.com/\u003e\n \nBecome a fan of Digital Trends on Facebook\n\u003chttp://www.facebook.com/pages/Digital-Trends/8522591132\u003e !\nCONFIDENTIALITY\nThe information transmitted herein is intended only for the addressee and\nmay contain confidential, proprietary and/or privileged material. Any\nunauthorized review, distribution or other use of or the taking of any\naction in reliance upon this information is prohibited. If you receive this\nemail in error, please contact the sender and delete or destroy this message\nand all copies.",
+    "date": "2010-03-01T11:02:06-08:00",
+    "message_id": "C7B14F2E.7A0DF%dan@digitaltrends.com"
+  },
+  {
+    "sender_name": "Matt Mullenweg",
+    "sender_email": "m at mullenweg.com",
+    "subject": "[HyperDB] Test",
+    "body": "Is this thing on?\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+    "date": "2007-05-28T05:14:14Z",
+    "message_id": "465A6516.4010106@mullenweg.com",
+    "replies": [
+      {
+        "sender_name": "Barry Abrahamson",
+        "sender_email": "barry at automattic.com",
+        "subject": "[HyperDB] Test",
+        "body": "It is, it is.\nMatt Mullenweg wrote:\n\u003e Is this thing on?\n\u003e",
+        "date": "2007-05-28T05:38:47Z",
+        "message_id": "465A6AE0.7060205@automattic.com",
+        "in_reply_to": "465A6516.4010106@mullenweg.com",
+        "references": [
+          "\u003c465A6516.4010106@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Marcos Sader | marcosmedia",
+        "sender_email": "m at marcosmedia.com",
+        "subject": "[HyperDB] Test",
+        "body": "Yup!\nOn 5/28/07, Matt Mullenweg \u003cm@mullenweg.com\u003e wrote:\n\u003e Is this thing on?\n\u003e\n\u003e --\n\u003e Matt Mullenweg\n\u003e   http://photomatt.net | http://wordpress.org\n\u003e http://automattic.com | http://akismet.com\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e\n-- \nMarcos Sader\nm@marcosmedia.com",
+        "date": "2007-05-28T05:45:00Z",
+        "message_id": "8ff7155b0705272244r181ec3ek5b5e2075ff50ee6d@mail.gmail.com",
+        "in_reply_to": "465A6516.4010106@mullenweg.com",
+        "references": [
+          "\u003c465A6516.4010106@mullenweg.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "=?ISO-8859-2?Q?Martin_Zvar=EDk?=",
+    "sender_email": "mzvarik at gmail.com",
+    "subject": "[HyperDB] Multiple database connections?",
+    "body": "Hi,\nI have not inspected the HyperDB code nor used it, but if I am just \nlogically thinking...\nIf I have articles in database #1 and comments in database #2 --- isn't \nit slower to have it in several servers and databases (using HyperDB) in \ncomparison to one DB, one server? (this question is a result from \nexperiencing that connection to database server takes time)\nIf you find this question irrelevant please reply anyway, I'd like to \ncatch on on this.\nThank you,\nMartin",
+    "date": "2008-09-22T22:00:44Z",
+    "message_id": "48D81595.8090302@gmail.com",
+    "replies": [
+      {
+        "sender_name": "",
+        "sender_email": "hyperdb-bounces@lists.automattic.com",
+        "subject": "[HyperDB] Multiple database connections?",
+        "body": "If you figure that each database server can only process a certain number of\ncommands at any one time and that it can only send out a certain amount of\ninformation at once, you can see that increased traffic can eventually\noverrun your resources.  When you get to that point, obviously you'll\nimprove your performance when you double, triple or quadruple the processing\npower and bandwidth by adding more servers/datacenters. Additionally, if a\nserver or \ndatacenter goes down, having all requests seamlessly route another database\nserver/center allows your site to stay up.\nHyperDB provides ability leverage multiple database servers and/or\ndatacenters to address these kinds of perfomance issues.\nHope that helps.\nBrian Layman\nb5media, Inc.\n-----Original Message-----\n[mailto:hyperdb-bounces@lists.automattic.com] On Behalf Of Martin Zvar?k\nSent: Monday, September 22, 2008 6:01 PM\nTo: hyperdb@lists.automattic.com\nHi,\nI have not inspected the HyperDB code nor used it, but if I am just \nlogically thinking...\nIf I have articles in database #1 and comments in database #2 --- isn't \nit slower to have it in several servers and databases (using HyperDB) in \ncomparison to one DB, one server? (this question is a result from \nexperiencing that connection to database server takes time)\nIf you find this question irrelevant please reply anyway, I'd like to \ncatch on on this.\nThank you,\nMartin\n_______________________________________________\nHyperDB mailing list\nHyperDB@lists.automattic.com\nhttp://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2008-09-22T23:01:31Z",
+        "message_id": "012201c91d07$170aa540$451fefc0$@com",
+        "in_reply_to": "48D81595.8090302@gmail.com",
+        "references": [
+          "\u003c48D81595.8090302@gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Jim McQuillan",
+    "sender_email": "jim at jimmcq.com",
+    "subject": "[HyperDB] advice on HyperDB partitioning?",
+    "body": "We are looking to migrate an existing proprietary system of about 25,000\nblogs to Wordpress... either Wordpress MU or more likely Wordpress 3.0\nonce it is released.\nMy research into performance and scalability has led me to HyperDB.  I\nwanted to see if I could get some advice on the database partitioning. \nTo start with we were thinking of splitting the blogs into 256 different\ndatabases on a single db server.  Any thoughts or advice on that?  Is\nthat too many databases? not enough?",
+    "date": "2010-04-09T09:21:03-07:00",
+    "message_id": "4BBF53EF.20803@jimmcq.com"
+  },
+  {
+    "sender_name": "Pablo Fabregat",
+    "sender_email": "pablo.fabregat at gmail.com",
+    "subject": "[HyperDB] Select in multiple partitions",
+    "body": "Hi all, i'm using hyperDB with WP MU and i'm trying to do a select in all\nthe partitions...\nthat is,\ni want to make a \"SELECT fields FROM table WHERE etc...\" but i need the\nresults from all the partitions, is this possible ?\nI set up the servers with add_db_server.\nThanks in advance",
+    "date": "2010-03-03T13:46:42-03:00",
+    "message_id": "ff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Select in multiple partitions",
+        "body": "Sorry, hyperdb does not help you select across partitions. You must query\neach partition yourself and then collate the results.\nYou might also be interested in the MySQL Federated storage engine.\nAndy\nOn Mar 3, 2010 10:47 AM, \"Pablo Fabregat\" \u003cpablo.fabregat at gmail.com\u003e wrote:\nHi all, i'm using hyperDB with WP MU and i'm trying to do a select in all\nthe partitions...\nthat is,\ni want to make a \"SELECT fields FROM table WHERE etc...\" but i need the\nresults from all the partitions, is this possible ?\nI set up the servers with add_db_server.\nThanks in advance\n_______________________________________________\nHyperDB mailing list\nHyperDB at lists.automattic.com\nhttp://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2010-03-03T13:45:44-06:00",
+        "message_id": "e6ec604d1003031145qe64885fp27fe19afa02ba22c@mail.gmail.com",
+        "in_reply_to": "ff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com",
+        "references": [
+          "\u003cff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Brian Layman",
+    "sender_email": "hyperdb at thecodecave.com",
+    "subject": "[HyperDB] Sharding scheme",
+    "body": "I have an install that will likely grow to 10,000 sites by year's end.  \nThere's potential in this market space for that number to be \nsignificantly higher.  In the last week, it has doubled in size to 2200 \nsites. The database now has over 20,000 tables.  Obviously, there is a \nneed for sharding here. There were extenuating circumstances that \nprevented sharding on the initial launch but I would like to activate it \nnow.\nI was wondering what you thought would be a good breakdown of the \nsites...  I was thinking 100 sites per dataset would be a fair number. \nThat puts each databases at 1500-ish tables per dataset.  It would \nresult in my having 100 databases in the end, it has a nice even ring to \nit and is easily comprehended at a glance. My worry is that I am \ncreating too many database connections and will a bottle neck of another \nkind.  Is this a concern? I don't want to create a problem where one \ndoesn't currently exist. The hardware is keeping up just fine at the \nmoment and I am getting sub 3 or 2 second load times.\nSo I was thinking of functions like this in db-config.php:\nfor ( $counter = 0; $counter \u003c= 30; $counter++) { // Allow for 3000 \nsites for now\n     // Add the connection to the Master\n     $wpdb-\u003eadd_database(array(\n         'host' =\u003e DB_HOST,\n         'user' =\u003e DB_USER,\n         'password' =\u003e DB_PASSWORD,\n         'name' =\u003e DB_NAME . '_' . $counter,\n         'write' =\u003e 1,\n         'read' =\u003e 1,\n         'dataset' =\u003e DB_NAME . '_' . $counter,\n         'timeout' =\u003e 0.2, ));\n     // Add the connection to the Slave(s)\n     $wpdb-\u003eadd_database(array(\n         'host' =\u003e DB_HOST2,\n         'user' =\u003e DB_USER,\n         'password' =\u003e DB_PASSWORD,\n         'name' =\u003e DB_NAME . '_' . $counter,\n         'write' =\u003e 0,\n         'read' =\u003e 1,\n         'dataset' =\u003e DB_NAME . '_' . $counter,\n         'timeout' =\u003e 0.2,\n     ));\n}\n$wpdb-\u003eadd_callback('ehi_dbname');\nfunction ehi_dbname($query, $wpdb) {\n     if ( preg_match(\"/^{$wpdb-\u003ebase_prefix}\\d+_/i\", $wpdb-\u003etable) ) {\n         $dbid = intval($wpdb-\u003eblogid/100);\n         $NEW_DB_NAME = DB_NAME . \"_\" . $dbid;\n         error_log ($wpdb-\u003etable . \" would use :\" . $NEW_DB_NAME);\n     } else {\n         $NEW_DB_NAME = DB_NAME . \"_common\";\n         error_log ($wpdb-\u003etable . \" would use :\" . $NEW_DB_NAME);\n     }\n     return $NEW_DB_NAME;\n}\nOther than the fact that I wouldn't create all 100 database connections \nimmediately, does that make sense? I'll probably make a foreach loop to \nmake adding read servers an easy task. But I think I've got the basic \nconcepts all there.  Does this seem to be a reasonable configuration \nwith 1 read and 1 read/write server. These are currently running on hand \nbuilt Amazon m1.large ec2 servers - though I am considering switching \nthem over to RDS during this process.\nOne more thought...  Moving forward, as the need arises to create more \nread servers, does it make sense to have all of the datasets active on \nall of the read servers in order to keep reads evenly distributed? Or \nwould it be better to assign odd datasets to odd numbered read servers \nand even to even numbered read servers and thus divide the connections \nneeded  and evenly reduce the databases being accessed on each machines. \nWould this perhaps improve caching?\nI'd love to gain from the expertise of people who have been down this \nroad before.\nThanks!\n-Brian Layman\nThe eHermit\neHermitsInc.com",
+    "date": "2011-01-25T13:03:41-05:00",
+    "message_id": "4D3F107D.3010904@thecodecave.com",
+    "replies": [
+      {
+        "sender_name": "Brian Layman",
+        "sender_email": "bulk at thecodecave.com",
+        "subject": "[HyperDB] Sharding scheme",
+        "body": "On 1/25/2011 1:03 PM, Brian Layman wrote:\n\u003e I have an install that will likely grow to 10,000 sites by year's \n\u003e end.  There's potential in this market space for that number to be \n\u003e significantly higher.  In the last week, it has doubled in size to \n\u003e 2200 sites. The database now has over 20,000 tables.  Obviously, there \n\u003e is a need for sharding here. There were extenuating circumstances that \n\u003e prevented sharding on the initial launch but I would like to activate \n\u003e it now.\n\u003e\n\u003e I was wondering what you thought would be a good breakdown of the \n\u003e sites...  I was thinking 100 sites per dataset would be a fair number. \n\u003e That puts each databases at 1500-ish tables per dataset.  It would \n\u003e result in my having 100 databases in the end, it has a nice even ring \n\u003e to it and is easily comprehended at a glance. My worry is that I am \n\u003e creating too many database connections and will a bottle neck of \n\u003e another kind.  Is this a concern? I don't want to create a problem \n\u003e where one doesn't currently exist. The hardware is keeping up just \n\u003e fine at the moment and I am getting sub 3 or 2 second load times.\n\u003e\n\u003e So I was thinking of functions like this in db-config.php:\n\u003e\n\u003e for ( $counter = 0; $counter \u003c= 30; $counter++) { // Allow for 3000 \n\u003e sites for now\n\u003e     // Add the connection to the Master\n\u003e     $wpdb-\u003eadd_database(array(\n\u003e         'host' =\u003e DB_HOST,\n\u003e         'user' =\u003e DB_USER,\n\u003e         'password' =\u003e DB_PASSWORD,\n\u003e         'name' =\u003e DB_NAME . '_' . $counter,\n\u003e         'write' =\u003e 1,\n\u003e         'read' =\u003e 1,\n\u003e         'dataset' =\u003e DB_NAME . '_' . $counter,\n\u003e         'timeout' =\u003e 0.2, ));\n\u003e\n\u003e     // Add the connection to the Slave(s)\n\u003e     $wpdb-\u003eadd_database(array(\n\u003e         'host' =\u003e DB_HOST2,\n\u003e         'user' =\u003e DB_USER,\n\u003e         'password' =\u003e DB_PASSWORD,\n\u003e         'name' =\u003e DB_NAME . '_' . $counter,\n\u003e         'write' =\u003e 0,\n\u003e         'read' =\u003e 1,\n\u003e         'dataset' =\u003e DB_NAME . '_' . $counter,\n\u003e         'timeout' =\u003e 0.2,\n\u003e     ));\n\u003e }\n\u003e\n\u003e $wpdb-\u003eadd_callback('ehi_dbname');\n\u003e\n\u003e function ehi_dbname($query, $wpdb) {\n\u003e     if ( preg_match(\"/^{$wpdb-\u003ebase_prefix}\\d+_/i\", $wpdb-\u003etable) ) {\n\u003e         $dbid = intval($wpdb-\u003eblogid/100);\n\u003e         $NEW_DB_NAME = DB_NAME . \"_\" . $dbid;\n\u003e         error_log ($wpdb-\u003etable . \" would use :\" . $NEW_DB_NAME);\n\u003e     } else {\n\u003e         $NEW_DB_NAME = DB_NAME . \"_common\";\n\u003e         error_log ($wpdb-\u003etable . \" would use :\" . $NEW_DB_NAME);\n\u003e     }\n\u003e\n\u003e     return $NEW_DB_NAME;\n\u003e\n\u003e }\n\u003e\n\u003e\n\u003e Other than the fact that I wouldn't create all 100 database \n\u003e connections immediately, does that make sense? I'll probably make a \n\u003e foreach loop to make adding read servers an easy task. But I think \n\u003e I've got the basic concepts all there.  Does this seem to be a \n\u003e reasonable configuration with 1 read and 1 read/write server. These \n\u003e are currently running on hand built Amazon m1.large ec2 servers - \n\u003e though I am considering switching them over to RDS during this process.\n\u003e\n\u003e One more thought...  Moving forward, as the need arises to create more \n\u003e read servers, does it make sense to have all of the datasets active on \n\u003e all of the read servers in order to keep reads evenly distributed? Or \n\u003e would it be better to assign odd datasets to odd numbered read servers \n\u003e and even to even numbered read servers and thus divide the connections \n\u003e needed  and evenly reduce the databases being accessed on each \n\u003e machines. Would this perhaps improve caching?\n\u003e\n\u003e I'd love to gain from the expertise of people who have been down this \n\u003e road before.\n\u003e\n\u003e Thanks!\n\u003e\nNobody has replied to this, but in the meantime I went and read the \nentirety of this mailing list's archive.  In August of last year\nAndy had said:\n\"Without further information I'd say proceed without partitioning.\nDon't try to do all your scaling in advance; it doesn't work.\"\nexperiments once you have real-world data and traffic.\nwhen talking about a potentially 50K site database.\nLater Callum mentioned:\n\"we partitioned the data (for about 300k blogs at that point) across multiple databases\non a single database server.\"\nSoooooo, since I am having no noticeable slow downs (With the exception of phpmyadmin which calls \"show tables\") with our database of 22K tables - a mere 2426 sites, I'm thinking I should not even consider sharding.  Is that correct?",
+        "date": "2011-01-30T20:47:34-05:00",
+        "message_id": "4D4614B6.2010402@thecodecave.com",
+        "in_reply_to": "4D3F107D.3010904@thecodecave.com",
+        "references": [
+          "\u003c4D3F107D.3010904@thecodecave.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "David Ulevitch",
+    "sender_email": "davidu at everydns.net",
+    "subject": "[HyperDB] Re: Introduction",
+    "body": "Hi!\nName:  David Ulevitch.\n20Words:  I usually play on large networks at high speeds.  I believe in \nthe measure-twice-cut-once philosophy.  That's 20.\nUses: Always interested to see/learn how folks deal with the \ninadequacies of a mostly-awesome database server.\nThanks++\n-davidu",
+    "date": "2007-05-29T03:51:42Z",
+    "message_id": "465BA34A.1070807@everydns.net",
+    "replies": [
+      {
+        "sender_name": "Jeremy Visser",
+        "sender_email": "jeremy.visser at gmail.com",
+        "subject": "[HyperDB] Re: Introduction",
+        "body": "On 5/29/07, David Ulevitch \u003cdavidu@everydns.net\u003e wrote:\n\u003e Name:  David Ulevitch.\n...the man who powers my DNS! :)",
+        "date": "2007-05-29T03:54:15Z",
+        "message_id": "43253ec50705282054wfcefb94ye722cf6c2c26d6a0@mail.gmail.com",
+        "in_reply_to": "465BA34A.1070807@everydns.net",
+        "references": [
+          "\u003c465BA34A.1070807@everydns.net\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Ulysses Ronquillo",
+    "sender_email": "ulyssesr at yahoo.com",
+    "subject": "[HyperDB] Ulysses Ronquillo has invited you to join Friendster",
+    "body": "You're invited to join Ulysses Ronquillo's network of friends. \nBy joining Friendster, you can reconnect with old\nfriends, meet new friends, start a blog, build a custom\nprofile, keep track of birthdays, and so\nmuch more!\nYou can even stay in touch if you move away, switch\nemail addresses, or lose your mobile phone.\nClick below to join Ulysses's network.\nhttp://www.friendster.com/join.php?inviteref=35115088\u0026amp;invite=igE980T6ewbN1E75YlQGmXk19cSjRO0wdRAeBHdCLxg*\u0026amp;lang=\n*****************************************************************\nIf you do not wish to receive notification emails from Friendster, please click below:\nhttp://www.friendster.com/blockemails.php?invite=aHlwZXJkYkBsaXN0cy5hdXRvbWF0dGljLmNvbQ**",
+    "date": "2008-08-18T06:25:57Z",
+    "message_id": "70qaj1$173sbjf@c300a.gbxsc.friendster.com"
+  },
+  {
+    "sender_name": "Mustafa Suphi Yilmaz",
+    "sender_email": "arrariv at gmail.com",
+    "subject": "[HyperDB] Replication and Failover",
+    "body": "Dear Masters,\nWe are planning to setup two servers acting both as master and slave. To do\nso, we were planning to manually configure both servers but we had a lot of\nworries like auto-increment values, failover and so on. Then, we found out\nabout HyperDB, you might imagine that we got really excited. But the\ninstallation guide is quite poor, so, I want to share my concerns and await\nfor your help on this matter.\nOur plan is the following :\n1)  2 IP addresses in DNS, one for each server.  When DNS is set up with\nmore than 1 IP address, they are given out by the DNS servers in round robin\norder.  This will spread the load randomly over both servers.\n2)  Both servers set up as a MySQL master and as a slave to the other one.\nAs I mentioned earlier, the problem with this is only auto-increment\ncolumns. Each server will check the other once per minute and obtain any\nupdates (only new MySQL writes).\n3)  There needs to be some mechanism to synchronize file system writes and\nuploads.  There are many ways to do this.  The most sophisticated way would\nbe to set up server to server mirroring of one partition, where the Word\nPress files are.  I would use the same software already in use for disk\nmirroring, ggated.  However, I have never worked with this and there may be\npitfalls. rsync might be a better idea.  One minor disadvantage of all the\nsynchronization software I know about is that a master - slave relationship\nis always assumed.\nWhen I looked up on the db_settings.php of HyperDB, add_server() values\ndon't include any options about failover, and when I look into the code of\ndb.php, I don't see how HyberDB handles auto-increment. Should the following\nconfiguration works for this kinda setup? What do you think?\nadd_db_server( 'global', 0, 'nyc1',  0, 1,  'global.db.example.com:3722',\n   'global.db.example.lan:3722',      'global-db1',  'global-db1-user',\npassword');\nadd_db_server( 'slave',  0, 'nyc1,  1, 1,  'global.db.example.com:3722',\n   'global.db.example.lan:3722',      'slave-db1',  'slave-db1-user',\n'password');\nadd_db_server( 'global', 0, 'nyc2', 0, 1,  'slave.db.example.com:3509',\n'slave.db.example.lan:3509',       'global-db2', 'global-db2-user',\n'password');\nadd_db_server( 'slave',  0, 'nyc2', 1, 1,  'slave.db.example.com:3509',\n'slave.db.example.lan:3509',       'slave-db2',   'slave-db2-user',\n'password');\nI also want to add a way of disabling writes to the databases when one of\nthe servers is down. Any ideas?\nBest Wishes,\nMustafa Suphi Yilmaz\nhttp://paulocoelhoblog.com",
+    "date": "2008-10-23T12:04:55Z",
+    "message_id": "54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Replication and Failover",
+        "body": "On Thu, Oct 23, 2008 at 7:02 AM, Mustafa Suphi Yilmaz \u003carrariv@gmail.com\u003e wrote:\n\u003e 2)  Both servers set up as a MySQL master and as a slave to the other one.\nAFAIK we don't do this anywhere on WordPress.com. If a master fails,\nsomebody has to switch the masters and reconfigure hyperdb.\nI've heard of master-master replication in which auto-increment is\nelegantly done but I don't think that's what you have set up.\nUnfortunately I can't advise you because I don't know about it.\nMaybe Barry can be more helpful.\nAndy",
+        "date": "2008-10-23T16:06:53Z",
+        "message_id": "e6ec604d0810230906p2620378ak54470498f62acdef@mail.gmail.com",
+        "in_reply_to": "54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com",
+        "references": [
+          "\u003c54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Callum Macdonald",
+        "sender_email": "lists.automattic.com at callum-macdonald.com",
+        "subject": "[HyperDB] Replication and Failover",
+        "body": "G'day,\nAre you perhaps over complicating things?\nIs your aim to provide high availability or high performance? The system\nyou've described doesn't seem to achieve either as far as I can see. Is\nyour primary aim fault tolerance (one server fails, whole system stays\nonline) or high performance (spread the load between as many servers as\npossible)?\nAre you suggesting to run two separate instances of MySQL on each\nserver? One as a master and one as a slave for the other server?\nIf you're looking for a high performance system, I'd suggest\npartitioning your data between the servers using HyperDB. No need to\nover complicate things with multiple mysql instances or replication.\nIf you want to create a highly available, fault tolerant system, would\nsimple master-master replication work for you?\nI'm not sure about round robin DNS as a method of spreading load. If you\nonly have a small number of web nodes, then you may end up with a very\nuneven load spread. Also, if DNS fails, your whole db system goes down,\nthereby negating the advantages of being highly available.\nHow will you take an entry out of the dns list if a server goes down?\nIn terms of spreading filesystem writes between two machines, there are\na few options. Are you running the web nodes on separate servers from\nthe database? Or all on the same machines?\nWe have a cluster of 3 web nodes which all serve files from an NFS share\nwhich is hosted by a SAN. It works relatively well in production.\nI'm not an expert in these matters by any means, but if you outline your\noverall aim I'll be happy to share my thoughts. :)\nCheers - Callum.\nOn Thu, 2008-10-23 at 14:02 +0200, Mustafa Suphi Yilmaz wrote:\n\u003e Dear Masters,\n\u003e We are planning to setup two servers acting both as master and slave. To do\n\u003e so, we were planning to manually configure both servers but we had a lot of\n\u003e worries like auto-increment values, failover and so on. Then, we found out\n\u003e about HyperDB, you might imagine that we got really excited. But the\n\u003e installation guide is quite poor, so, I want to share my concerns and await\n\u003e for your help on this matter.\n\u003e \n\u003e Our plan is the following :\n\u003e \n\u003e 1)  2 IP addresses in DNS, one for each server.  When DNS is set up with\n\u003e more than 1 IP address, they are given out by the DNS servers in round robin\n\u003e order.  This will spread the load randomly over both servers.\n\u003e \n\u003e 2)  Both servers set up as a MySQL master and as a slave to the other one.\n\u003e As I mentioned earlier, the problem with this is only auto-increment\n\u003e columns. Each server will check the other once per minute and obtain any\n\u003e updates (only new MySQL writes).\n\u003e \n\u003e 3)  There needs to be some mechanism to synchronize file system writes and\n\u003e uploads.  There are many ways to do this.  The most sophisticated way would\n\u003e be to set up server to server mirroring of one partition, where the Word\n\u003e Press files are.  I would use the same software already in use for disk\n\u003e mirroring, ggated.  However, I have never worked with this and there may be\n\u003e pitfalls. rsync might be a better idea.  One minor disadvantage of all the\n\u003e synchronization software I know about is that a master - slave relationship\n\u003e is always assumed.\n\u003e \n\u003e When I looked up on the db_settings.php of HyperDB, add_server() values\n\u003e don't include any options about failover, and when I look into the code of\n\u003e db.php, I don't see how HyberDB handles auto-increment. Should the following\n\u003e configuration works for this kinda setup? What do you think?\n\u003e \n\u003e add_db_server( 'global', 0, 'nyc1',  0, 1,  'global.db.example.com:3722',\n\u003e    'global.db.example.lan:3722',      'global-db1',  'global-db1-user',\n\u003e password');\n\u003e add_db_server( 'slave',  0, 'nyc1,  1, 1,  'global.db.example.com:3722',\n\u003e    'global.db.example.lan:3722',      'slave-db1',  'slave-db1-user',\n\u003e 'password');\n\u003e add_db_server( 'global', 0, 'nyc2', 0, 1,  'slave.db.example.com:3509',\n\u003e 'slave.db.example.lan:3509',       'global-db2', 'global-db2-user',\n\u003e 'password');\n\u003e add_db_server( 'slave',  0, 'nyc2', 1, 1,  'slave.db.example.com:3509',\n\u003e 'slave.db.example.lan:3509',       'slave-db2',   'slave-db2-user',\n\u003e 'password');\n\u003e \n\u003e I also want to add a way of disabling writes to the databases when one of\n\u003e the servers is down. Any ideas?\n\u003e \n\u003e Best Wishes,\n\u003e Mustafa Suphi Yilmaz\n\u003e http://paulocoelhoblog.com\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2008-10-24T05:24:56Z",
+        "message_id": "1224825881.8136.43.camel@lap1",
+        "in_reply_to": "54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com",
+        "references": [
+          "\u003c54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Matt Mullenweg",
+    "sender_email": "m at mullenweg.com",
+    "subject": "[HyperDB] MySQL Replication",
+    "body": "The failover/replication stuff in HyperDB isn't as useful if you don't \nhave anything to failover to, so your homework for tonight is to set up \n2 MySQL slave instances. (One for use, one for backups.) :)\nBarry says this is a good tutorial for getting that set up:\nhttp://howtoforge.org/mysql_database_replication\nIf you're just playing around at home, remember you can set up multiple \nMySQL instances on the same box on different ports.\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+    "date": "2007-05-29T05:00:48Z",
+    "message_id": "465BB36B.3000309@mullenweg.com"
+  },
+  {
+    "sender_name": "Trent Adams",
+    "sender_email": "trent.adams at gmail.com",
+    "subject": "[HyperDB] HyperDB Latest WPMU Trunk",
+    "body": "Hey everyone!   I am happy to finally have signed up for this list and\nreport back on what I have found out.    With the recent update from\nAndy in the SVN (thanks for that), I have HyperDB working with\nmultiple datacenters and multiple server replication on the latest\nversion of TRAC for WPMU (rev 1353).    I know Andy mentioned he\nhadn't tested out the advanced features, but everything is working\nalright for me.    I thank everyone for their work on this and\nextremely happy to hear that you will be updating it against the WP\ntrunk now as most people here are early adapters and testers anyways\n:)   I tested it quickly on the latest 2.6 beta 3 code and it worked\nas well, but I am sure that doesn't surprise people :)\nThanks,\nTrent",
+    "date": "2008-07-05T23:46:18Z",
+    "message_id": "1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "kingler",
+        "sender_email": "kingler at 72pines.com",
+        "subject": "[HyperDB] HyperDB Latest WPMU Trunk",
+        "body": "Does it make sense now to start tagging the hyperdb for different\nversions of WP and WPMU?\nThis way, people can find the right HyperDB version for their WP\ninstallation easily, while developers use the trunk for the latest\ntrac version.\n-Liang\nOn Sat, Jul 5, 2008 at 4:46 PM, Trent Adams \u003ctrent.adams@gmail.com\u003e wrote:\n\u003e Hey everyone!   I am happy to finally have signed up for this list and\n\u003e report back on what I have found out.    With the recent update from\n\u003e Andy in the SVN (thanks for that), I have HyperDB working with\n\u003e multiple datacenters and multiple server replication on the latest\n\u003e version of TRAC for WPMU (rev 1353).    I know Andy mentioned he\n\u003e hadn't tested out the advanced features, but everything is working\n\u003e alright for me.    I thank everyone for their work on this and\n\u003e extremely happy to hear that you will be updating it against the WP\n\u003e trunk now as most people here are early adapters and testers anyways\n\u003e :)   I tested it quickly on the latest 2.6 beta 3 code and it worked\n\u003e as well, but I am sure that doesn't surprise people :)\n\u003e\n\u003e Thanks,\n\u003e\n\u003e Trent\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2008-07-06T08:15:28Z",
+        "message_id": "67c2d6930807060114u3698e35as11def7858d8cdc10@mail.gmail.com",
+        "in_reply_to": "1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com",
+        "references": [
+          "\u003c1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Felix Gushansky",
+    "sender_email": "felix.gushansky at internetbrands.com",
+    "subject": "[HyperDB] Partitioning wpmu data",
+    "body": "Hello, folks. We have just inherited the site that uses wordpress MU (ver\n2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is\nhuge. Not size wise necessarily (it is slightly over a gig), but table wise.\nThat db contains over 11,000 tables with the total of over 40,000 files in\nthe same directory. That hugely affects performance AND maintenance ? to the\npoint in fact that we can not backup the db using mysqldump. We had to write\na script dumping a table at a time.\nSo, we need to scale somehow. That?s why he have looked at HyperDB, which\nseems to have been built just for that. However, the problem we are seeing\nis that in our case the tables in the blog db are created and named\ndynamically. For each new user wpmu creates multiple tables (8?) in the\ndatabase and names them like wp_\u003cnnnn\u003e_comments, wp_\u003cnnnn\u003e_links,\nwp_\u003cnnnn\u003e_options, wp_\u003cnnnn\u003e_postmeta, wp_\u003cnnnn\u003e_posts, etc, where \u003cnnnn\u003e is\na four digit integer. Can we take advantage of HyperDB in this case? And if\nnot what are our options?\nThanks very much folks. Your help is very much appreciated.\n-- Felix",
+    "date": "2009-04-23T17:33:07Z",
+    "message_id": "C615F455.83C0%felix.gushansky@internetbrands.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Partitioning wpmu data",
+        "body": "\u003e So, we need to scale somehow. That?s why he have looked at HyperDB, which\n\u003e seems to have been built just for that.\nExactly right. WordPress.com, a WordPress MU installation with\nmillions of blogs, uses HyperDB. Rather, HyperDB is based on the\nWordPress.com database class. We have additional logic to map blogs\nonto database partitions.\nInspect get_dataset_from_table. You can add your own logic there or in\ndb_connect, or just take advantage of the pattern matching.\nI am reluctant to write documentation for HyperDB because I wouldn't\nadvise its use to anyone who wasn't thoroughly familiar with how it\nworks. The code isn't the prettiest, but it can be understood.\nHow you organize your tables is entirely up to you. WordPress.com blog\ntables were originally mapped to a set of 4096 databases (wpmu_000 -\nwpmu_fff) by taking the first three hex digits of the md5 of the\nblog_id. A million blogs later, we added a column to wp_blogs to store\nthe partition that held the blog's tables so that we could move them\naround without losing them.\nThat's about all the help I can provide you. Anyone else who is\nfamiliar with HyperDB may chime in. My usual advice applies: study the\ncode.\nCheers,\nAndy",
+        "date": "2009-04-23T17:49:50Z",
+        "message_id": "e6ec604d0904231049h365a05a1pff3436e6aa70df98@mail.gmail.com",
+        "in_reply_to": "C615F455.83C0%felix.gushansky@internetbrands.com",
+        "references": [
+          "\u003cC615F455.83C0%felix.gushansky@internetbrands.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Callum Macdonald",
+        "sender_email": "lists.automattic.com at callum-macdonald.com",
+        "subject": "[HyperDB] Partitioning wpmu data",
+        "body": "As Andy said, HyperDB is about on the money for what you want.\nThe biggest challenge you'll face will be moving the data. You have 11k\ntables in one database right now, you need to move those to new\ndatabases. The MultiDB class uses the same method as HyperDB did\noriginally, 4096 databases, first 3 digits of the md5 of the blog_id\n(the NNN number).\nI think your best bet will be to use HyperDB and create your own system\nfor managing which blog is in which database (maybe a lookup table like\nAndy mentioned). That way you'll be able to migrate the data over time.\nOther options that occur to me:\nMigrate all the data at once. Take the whole system down for a few hours\nand move all the tables as you need to. Pray nothing goes wrong. :-)\nYou could add some logic that checks if the table is found in the new\ntarget database, and if not, fall back on the global database. That\nwould allow you to move blogs one at a time, without changing any code.\nIf the blog tables are in the new database, the queries go there, if\nnot, the queries go to the master table.\nIf you're looking for help, you could speak to the guys at Incsub. I'm a\n(present and about to be) retired staffer there, so I'm biased. :-)\nBest of luck with the project.\nCheers - Callum.\nOn Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:\n\u003e Hello, folks. We have just inherited the site that uses wordpress MU (ver\n\u003e 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is\n\u003e huge. Not size wise necessarily (it is slightly over a gig), but table wise.\n\u003e That db contains over 11,000 tables with the total of over 40,000 files in\n\u003e the same directory. That hugely affects performance AND maintenance ? to the\n\u003e point in fact that we can not backup the db using mysqldump. We had to write\n\u003e a script dumping a table at a time.\n\u003e \n\u003e So, we need to scale somehow. That?s why he have looked at HyperDB, which\n\u003e seems to have been built just for that. However, the problem we are seeing\n\u003e is that in our case the tables in the blog db are created and named\n\u003e dynamically. For each new user wpmu creates multiple tables (8?) in the\n\u003e database and names them like wp_\u003cnnnn\u003e_comments, wp_\u003cnnnn\u003e_links,\n\u003e wp_\u003cnnnn\u003e_options, wp_\u003cnnnn\u003e_postmeta, wp_\u003cnnnn\u003e_posts, etc, where \u003cnnnn\u003e is\n\u003e a four digit integer. Can we take advantage of HyperDB in this case? And if\n\u003e not what are our options?\n\u003e \n\u003e Thanks very much folks. Your help is very much appreciated.\n\u003e \n\u003e -- Felix\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2009-04-23T18:58:09Z",
+        "message_id": "1240513049.4570.138.camel@clara",
+        "in_reply_to": "C615F455.83C0%felix.gushansky@internetbrands.com",
+        "references": [
+          "\u003cC615F455.83C0%felix.gushansky@internetbrands.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Drew Weaver",
+    "sender_email": "drew.weaver at thenap.com",
+    "subject": "[HyperDB] Final question",
+    "body": "Has anyone hacked W3 Total Cache so that the database caching can work with Hyperdb?\nthanks,\n-Drew",
+    "date": "2011-03-16T08:37:43-04:00",
+    "message_id": "F3318834F1F89D46857972DD4B411D7001C20F91FE@exchange"
+  },
+  {
+    "sender_name": "Matt Mullenweg",
+    "sender_email": "m at mullenweg.com",
+    "subject": "[HyperDB] Anyone using it yet?",
+    "body": "Just curious. :)\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+    "date": "2007-06-07T15:59:59Z",
+    "message_id": "46682B76.8080204@mullenweg.com",
+    "replies": [
+      {
+        "sender_name": "Luke Poland",
+        "sender_email": "luke at thunderlounge.com",
+        "subject": "[HyperDB] Anyone using it yet?",
+        "body": "I haven't had a chance to play with it yet,\nas bad as I want to dig into it.    :-[  \n--\nBest Regards,\nLuke Poland\nThunder Lounge\nluke@thunderlounge.com\nwww.thunderlounge.com\nMatt Mullenweg wrote:\n\u003e Just curious. :)\n\u003e",
+        "date": "2007-06-07T17:48:13Z",
+        "message_id": "466844C6.30407@thunderlounge.com",
+        "in_reply_to": "46682B76.8080204@mullenweg.com",
+        "references": [
+          "\u003c46682B76.8080204@mullenweg.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Liang Jin",
+    "sender_email": "mywebadmin at gmail.com",
+    "subject": "[HyperDB] Introductions",
+    "body": "Your name:\nLiang Jin (or nickname: kingler)\n20 word background:\nA full-time physics researcher/engineer, and part-time administrator\nfor a Chinese blog site.\nHow you'd like to use HyperDB:\nOur site is based on WPMU with localizations and add-ons.\nUnfortunately WordPress.com is blocked in China, so we are struggling\nto help introduce WP to more Chinese users. The scalability of HyperDB\nwould be perfect for our future growth.\n-Liang\nfrom 72pines\nMatt Mullenweg wrote:\n\u003e Your name:\n\u003e 20 word background:",
+    "date": "2007-05-29T22:26:37Z",
+    "message_id": "120437580705291526k1599939etc9c456b17f468160@mail.gmail.com"
+  },
+  {
+    "sender_name": "Dan Trenz",
+    "sender_email": "dantre at allmusic.com",
+    "subject": "[HyperDB] documentation?",
+    "body": "Hello,\n \nI'm new to the HyperDB list, and HyperDB in general.  I'm having the hardest time finding documentation on HyperDB.  Does any exist?  If so, could someone PLEASE point me at it?  Thank you -dan",
+    "date": "2007-10-05T15:04:16Z",
+    "message_id": "004a01c80761$46dd9cd0$eb011b0c@dantre",
+    "replies": [
+      {
+        "sender_name": "Matt Mullenweg",
+        "sender_email": "m at mullenweg.com",
+        "subject": "[HyperDB] documentation?",
+        "body": "Dan Trenz wrote:\n\u003e I'm new to the HyperDB list, and HyperDB in general.  I'm having the hardest time finding documentation on HyperDB.  Does any exist?  If so, could someone PLEASE point me at it?  Thank you -dan\nThe only thing you change in HyperDB is its config file, and there is a \ndocumented example included with the download.\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+        "date": "2007-10-06T22:23:17Z",
+        "message_id": "4707B217.1090501@mullenweg.com",
+        "in_reply_to": "004a01c80761$46dd9cd0$eb011b0c@dantre",
+        "references": [
+          "\u003c004a01c80761$46dd9cd0$eb011b0c@dantre\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Callum Macdonald",
+    "sender_email": "lists.automattic.com at callum-macdonald.com",
+    "subject": "[HyperDB] New HyperDB page on WordPress Codex",
+    "body": "G'day,\nI added a page on the codex covering HyperDB linking to SVN and this list.\nhttp://codex.wordpress.org/HyperDB\nIt's a pretty sparse introduction taken primarily from Barry / Matt's \npresentation[1][2]. If anyone on the list would like to add any info, \nplease do so.\nAlso, in the spirit of list introductions (which I missed having not \njoined back in May!), here's me:\nName: Callum Macdonald\n20 Words: Fairly long standing WordPress user, recently plugin coder and \nwordpress server admin\nInterest in HyperDB: Working on a couple of high traffic sites and \nlooking at ways to scale them cost effectively. Also generally \ninterested in application scaling.\nCheers - Callum.\n[1] \nhttp://onemansblog.com/2007/08/16/wordcamp-2007-hyperdb-and-high-performance-wordpress/\n[2] http://barry.wordpress.com/2007/07/22/high-performance-wordpress/",
+    "date": "2007-09-04T22:49:11Z",
+    "message_id": "46DDE0DE.6030308@callum-macdonald.com"
+  },
+  {
+    "sender_name": "Drew Weaver",
+    "sender_email": "drew.weaver at thenap.com",
+    "subject": "[HyperDB] Mailing list for high load wordpress?",
+    "body": "Is there a general mailing list for high performance/high load wordpress?\nthanks,\n-Drew",
+    "date": "2011-03-15T14:47:21-04:00",
+    "message_id": "F3318834F1F89D46857972DD4B411D7001BC53F94E@exchange",
+    "replies": [
+      {
+        "sender_name": "Dan Gaul",
+        "sender_email": "dan at digitaltrends.com",
+        "subject": "[HyperDB] Mailing list for high load wordpress?",
+        "body": "Would be nice if there was.\n-- \nDan Gaul\nCTO\nDigital Trends\n111 SW 5th Ave, Suite 1000\nPortland, OR 97204\nPhone: 503.342.2890 Ext. 83\nwww.digitaltrends.com \u003chttp://www.digitaltrends.com/\u003e\n \nBecome a fan of Digital Trends on Facebook\n\u003chttp://www.facebook.com/pages/Digital-Trends/8522591132\u003e !\nCONFIDENTIALITY\nThe information transmitted herein is intended only for the addressee and\nmay contain confidential, proprietary and/or privileged material. Any\nunauthorized review, distribution or other use of or the taking of any\naction in reliance upon this information is prohibited. If you receive this\nemail in error, please contact the sender and delete or destroy this message\nand all copies.\n\u003e From: Drew Weaver \u003cdrew.weaver at thenap.com\u003e\n\u003e Reply-To: \u003chyperdb at lists.automattic.com\u003e\n\u003e Date: Tue, 15 Mar 2011 14:47:21 -0400\n\u003e To: \"'hyperdb at lists.automattic.com'\" \u003chyperdb at lists.automattic.com\u003e\n\u003e Subject: [HyperDB] Mailing list for high load wordpress?\n\u003e \n\u003e Is there a general mailing list for high performance/high load wordpress?\n\u003e \n\u003e thanks,\n\u003e -Drew\n\u003e \n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2011-03-15T11:48:51-07:00",
+        "message_id": "C9A502A3.8A93E%dan@digitaltrends.com",
+        "in_reply_to": "F3318834F1F89D46857972DD4B411D7001BC53F94E@exchange"
+      }
+    ]
+  },
+  {
+    "sender_name": "Andrew Garrett",
+    "sender_email": "malach at gmail.com",
+    "subject": "[HyperDB] Intro",
+    "body": "Howdy folks.\nI'm Andrew\nI'm a longish term WP user, doing a bit of work doing contract\nimplementations for folk lately (among other things).  Sysadmin by\ntrade, been 'blogging in various forms for around 8 years or so.\nSeriously considering a WPMU installation for my clients, and wanting\nto give something back to the WP community if I can in some way.  This\nmight be a good way to do so.\n-- \nhttp://redemption.co.nz/\nhttp://malach.jaiku.com/",
+    "date": "2007-05-29T00:44:05Z",
+    "message_id": "f047809f0705281744k2a75506u43e9054ae650de3f@mail.gmail.com"
+  },
+  {
+    "sender_name": "Wesam Al-Yazjeen",
+    "sender_email": "wesamcis at gmail.com",
+    "subject": "[HyperDB] hyperdb + WPMU",
+    "body": "i need install hyperdb plugin with word press mu 1.5.1 and i need to\nconfigure hyperdb plugin to work with 10 partitioned database and 1 global\ndatabse.\nand am add this in db-settings.php file\nadd_db_server('partitioned', 0, '', 1, 1, 'IP-Adress', 'IP-Adress', 'DB1',\n'uname', 'upass!');\nadd_db_server('partitioned', 0, '', 1, 1, 'IP-Adress', 'IP-Adress', 'DB2',\n'uname', 'upass!');\nadd_db_server('global'       , 0, '', 1, 1, 'IP-Adress', 'IP-Adress', 'DB3',\n'uname', 'upass!');\nand try to create new blogs, more than 10 blogs. but all blugs created in\nglobal databse (DB3).\ni need to partition blogs into 2 databses DB1 and DB2 and use DB3 for\ngeneral  tables\nhow i can do that, any one can help me and let me what's wrong.\n-- \nWesam Al-Yazjeen...",
+    "date": "2008-07-09T08:42:16Z",
+    "message_id": "bf68cbcd0807090142y4d9d1fado1867ffeebc1c361f@mail.gmail.com"
+  },
+  {
+    "sender_name": "Shabin D",
+    "sender_email": "d.shabin at gmail.com",
+    "subject": "[HyperDB] hyperdb setup",
+    "body": "hi,i'm going to install hyperdb in WPMU 2.8.6.\nis it possible?\ni'm new to HYPERDB.\ncan you help me step-by-step??",
+    "date": "2009-12-07T21:33:39+04:00",
+    "message_id": "dbb641560912070933j1ab05deau7c1fcab5a86907f9@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Callum Macdonald",
+        "sender_email": "lists.automattic.com at callum-macdonald.com",
+        "subject": "[HyperDB] hyperdb setup",
+        "body": "Hola,\nPlease read the code as a first step. The installation / setup\ninstructions are all there.\nIf you have any specific issues or problems, please post back here being\nas specific as you can.\nWarmly - Callum.\nOn Mon, 2009-12-07 at 21:33 +0400, Shabin D wrote:\n\u003e hi,i'm going to install hyperdb in WPMU 2.8.6.\n\u003e is it possible?\n\u003e i'm new to HYPERDB.\n\u003e can you help me step-by-step??\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2009-12-07T16:21:01-06:00",
+        "message_id": "1260224461.4441.4.camel@buna",
+        "in_reply_to": "dbb641560912070933j1ab05deau7c1fcab5a86907f9@mail.gmail.com",
+        "references": [
+          "\u003cdbb641560912070933j1ab05deau7c1fcab5a86907f9@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "J M",
+    "sender_email": "jerome.m at gmail.com",
+    "subject": "[HyperDB] Splitting READs and WRITEs",
+    "body": "i have this configuration:\nadd_db_server('global',0,'slave1',1,0,'192.168.136.141:3306','\n192.168.136.141:3306',wordpress,user,user);\n// Slave DB\nadd_db_server('global',0,'master1',2,1,'192.168.136.70:3306','\n192.168.136.70:3306',wordpress,user,user);\n// Master DB\n-- enabled logging in mysql but some reason not select's are being thrown to\nthe \"slave1\" node.. all SQL are being executed on \"master\"\nany ideas why? did i miss something?",
+    "date": "2010-03-02T15:05:46-05:00",
+    "message_id": "662701801003021205q74fb390by4f7fbad9b6bef595@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Barry Abrahamson",
+        "sender_email": "barry at automattic.com",
+        "subject": "[HyperDB] Splitting READs and WRITEs",
+        "body": "On Mar 2, 2010, at 12:05 PM, J M wrote:\n\u003e i have this configuration:\n\u003e \n\u003e add_db_server('global',0,'slave1',1,0,'192.168.136.141:3306','\n\u003e 192.168.136.141:3306',wordpress,user,user);\n\u003e // Slave DB\n\u003e \n\u003e add_db_server('global',0,'master1',2,1,'192.168.136.70:3306','\n\u003e 192.168.136.70:3306',wordpress,user,user);\n\u003e // Master DB\n\u003e \n\u003e \n\u003e \n\u003e -- enabled logging in mysql but some reason not select's are being thrown to\n\u003e the \"slave1\" node.. all SQL are being executed on \"master\"\n\u003e \n\u003e any ideas why? did i miss something?\nThis shouldn't happen unless:\n1) The slave is not available (are you sure you are able to connect?)\n2) There is a write query on the same page load as the read queries - if there is a write, HyperDB will send all subsequent reads on that page load to the master to try and alleviate possible data inconsistency caused by replication lag.\nAny errors in your logs?\n--\nBarry Abrahamson | Systems Wrangler | Automattic\nBlog: http://barry.wordpress.com",
+        "date": "2010-03-02T15:55:57-08:00",
+        "message_id": "7845E99B-5376-457D-B2E3-B0660225A679@automattic.com",
+        "in_reply_to": "662701801003021205q74fb390by4f7fbad9b6bef595@mail.gmail.com",
+        "references": [
+          "\u003c662701801003021205q74fb390by4f7fbad9b6bef595@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Chris Poteet",
+    "sender_email": "cpoteet at siolon.com",
+    "subject": "[HyperDB] MySQL Profiler",
+    "body": "I want to run this on one of my high-bandwidth client's sites, but I want to\nfirst know if anyone knows of a good MySQL profiler that I can compare\nbefore/after performance metrics?\nChris",
+    "date": "2007-06-12T03:59:31Z",
+    "message_id": "001801c7aca6$119d7970$34d86c50$@com",
+    "replies": [
+      {
+        "sender_name": "Matt Mullenweg",
+        "sender_email": "m at mullenweg.com",
+        "subject": "[HyperDB] MySQL Profiler",
+        "body": "Chris Poteet wrote:\n\u003e I want to run this on one of my high-bandwidth client's sites, but I want to\n\u003e first know if anyone knows of a good MySQL profiler that I can compare\n\u003e before/after performance metrics?\nI'm not sure why profiling MySQL would help. HyperDB doesn't make \nexisting queries faster by itself, it just allows you to distribute them \nacross many hosts.\nA better thing to benchmark would be front-end performance, which is \nfairly easy with something like siege or ab. Crank it at your front page \nand watch the loads on your web and db box, see which maxes out first, \nand then you know where to expand.\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+        "date": "2007-06-15T05:51:17Z",
+        "message_id": "467228C8.3010506@mullenweg.com",
+        "in_reply_to": "001801c7aca6$119d7970$34d86c50$@com",
+        "references": [
+          "\u003c001801c7aca6$119d7970$34d86c50$@com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Ulysses Ronquillo",
+    "sender_email": "UlyssesR at yahoo.com",
+    "subject": "[HyperDB] Introductions",
+    "body": "Your name:\nUlysses Ronquillo\n20 word background:\nJack of all trades. Master of none. I run a personal blog at ulyssesonline.com.\nHow you'd like to use HyperDB:\nJust a hyperactive interest in PHP, MySQL, DB replication and failover.\n      ___________________________________________________________________________________\nYou snooze, you lose. Get messages ASAP with AutoCheck\nin the all-new Yahoo! Mail Beta.\nhttp://advision.webevents.yahoo.com/mailbeta/newmail_html.html",
+    "date": "2007-05-31T08:19:47Z",
+    "message_id": "312005.3101.qm@web50107.mail.re2.yahoo.com",
+    "replies": [
+      {
+        "sender_name": "Dan Milward",
+        "sender_email": "dan at instinct.co.nz",
+        "subject": "[HyperDB] Introductions",
+        "body": "Your name:\nDan Milward\n20 word background:\nInternet visionary, co owner of www.instinct.co.nz, user of WordPress \nsince b2.\nWe made the first e-commerce \"plugin\" for WordPress.\nHow you'd like to use HyperDB:\nI want to roll out industrial strength solutions for my clients (and my \npersonal projects of course). These are exactly the kind of improvements \nthat make WordPress then the rest..\n-- \nInstinct Entertainment Limited\nLevel 3, Education House, 178 Willis Street\nPO Box 12-519, Wellington, New Zealand\nPh. 64-4-385 8082\nMobile. 021-449 901\ndan@instinct.co.nz\nhttp://www.instinct.co.nz",
+        "date": "2007-05-31T21:30:31Z",
+        "message_id": "465F3E2D.5040907@instinct.co.nz",
+        "in_reply_to": "312005.3101.qm@web50107.mail.re2.yahoo.com",
+        "references": [
+          "\u003c312005.3101.qm@web50107.mail.re2.yahoo.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "=?EUC-KR?B?wLG8ur/u?=",
+    "sender_email": "ynebula at wikisoft.co.kr",
+    "subject": "[HyperDB] I don't know how to install HyperDb",
+    "body": "hello~~!\nbefore send mail my english is very fool\nplease understand that.\nI download HyperDb.\nAnd I read readme.txt.\n1. *WordPress MU only:* add this line near the top of `wp-config.php`:\n`define('WPMU', true);`\n2. Upload `db.php` to the `/wp-content/` directory. At this point, HyperDB\nis active.\n  It will use the database connection constants until you complete the final\nsteps.\n3. Upload `db-settings.php` in the directory that holds `wp-config.php`\n4. Edit the db settings according to the directions in that file.\n5. Add this line near the top of `wp-config.php`:\n`require('db-settings.php');`\nBut I don't know number 4( 4. Edit the db settings according to the\ndirections in that file.)\npleaze let me explain\nthank you",
+    "date": "2008-11-04T08:30:58Z",
+    "message_id": "bc35075d0811040030v48431ec6t73e51ca408a4a34b@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Jeremy Visser",
+        "sender_email": "jeremy.visser at gmail.com",
+        "subject": "[HyperDB] I don't know how to install HyperDb",
+        "body": "On Tue, 2008-11-04 at 17:30 +0900, ??? wrote:\n\u003e But I don't know number 4( 4. Edit the db settings according to the\n\u003e directions in that file.)\nWhat specific things don't you understand?\nHave you got WordPress working _without_ HyperDB before, or are you\ncompletely new to setting up WordPress?\n-- \nJeremy Visser                                 http://jeremy.visser.name/\nNo Internet Censorship for Australia             http://nocleanfeed.com/",
+        "date": "2008-11-04T09:19:49Z",
+        "message_id": "1225790381.19135.5.camel@rillian.narnia.sunriseroad.net",
+        "in_reply_to": "bc35075d0811040030v48431ec6t73e51ca408a4a34b@mail.gmail.com",
+        "references": [
+          "\u003cbc35075d0811040030v48431ec6t73e51ca408a4a34b@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Mustafa Suphi Yilmaz",
+    "sender_email": "arrariv at gmail.com",
+    "subject": "[HyperDB] Replication and Failover - v.2",
+    "body": "Dear Masters,\nI talked with my hosting-master and he gave me one of his long replies. =)\nI understand what he tries to accomplish but I have doubts to protect the\nsystem in case of a failover. What I want mostly is to create a two-server\nsystem to resist most of the major problems ( an ddos attack, a cross-script\nattack, or any kinda intrusion ).  I know that nothing can resist to a\nlong/complex ddos attack or all the open systems can be exploited in some\nway - there is always bugs - but I want to have maximum performance from a\ntwo-server setup with Wordpress. If you can read my hosting-master's plan\nand share your knowledge over this matter, I'll be more than glad.\n\" It's actually fairly simple.  More simple than the explanation you gave\nthem.\nI don't see a problem with achieving both high availability and high\nperformance.  I'm just a bit concerned about the auto-increment problem.  It\nmay be simpler to use HyperDB than get into it.\nHyperdb may not be needed and might be counter-productive if the\nauto-increment problem can be solved gracefully.  Of course proponents will\nprobably hotly disagree.\nFirst of all, we will be using CARP, pfsync and ifstated.  Each server will\nhave it's both IP addresses and traffic will randomly go to either server as\na\nfunction of DNS.  What CARP, pfsync and ifstated accomplish are:\n1) CARP and pfsync allow both servers to have both IP addresses.  When both\nare available only one will answer on each IP.  pfsync monitors load and\nbalances it by redirecting traffic to the IP on which fewer connection\nstates\nexist.  In other words, the load can't help but be nearly perfectly balanced\nbetween the the servers when both are available because either of them can\nanswer on either IP address.\n2) ifstated is for fail-over and monitors availability of services on ports.\nFor example, if MySQL or Apache goes down on server 1, it will notify CARP\nand\npfsync and the result will be that server 2 is now handling all traffic.\n The\nswitch will take less than 1 second and will be transparent to users.\nThe servers each have 2 1 GB network interfaces.  One to the Internet and\nthe\nother only to each other, as a back-end.  pfsync uses the back-end NICs to\nexchange state information.  The back-end NICs will also be used by the\nMySQL\nMaster-Slave process.\nIf each server is a slave and a master to the other one (having solved the\nauto-increment problem) then MySQL traffic stays on a server except for\nreplication.  Only writes will need to cross an Interface.  In this case,\nHyperDB is not needed.\nThe potential advantage of HyperDB is that it simplifies things.  The setup\ncan be such that MySQL on one server is entirely a master and the other\nentirely a slave.  No auto-increment problem exists.  The potential cost is\nthat MySQL may consistently have more load on the master server.  HyperDB\nprobably has the potential to mitigate this.  That's the question. \"\nBest Wishes,\nMustafa Suphi Yilmaz\nhttp://paulocoelhoblog.com\nP.S. Thank you Andy and Callum for your responses!",
+    "date": "2008-10-24T16:45:51Z",
+    "message_id": "54e76e300810240945p70b03897r7f8d267a270a993e@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Callum Macdonald",
+        "sender_email": "lists.automattic.com at callum-macdonald.com",
+        "subject": "[HyperDB] Replication and Failover - v.2",
+        "body": "G'day,\nI think this is getting slightly off the topic of HyperDB, perhaps we\ncould move the discussion to a more relevant forum. I'm not sure what\nthat might be though.\nI would suggest looking again at the aims of your setup. If you can be\nclear on your priorities, the rest can be figured out. But with muddy\npriorities, you will most likely have a muddy system.\nIf you want to be attack resistant, I'm not sure that two fully\nreplicated systems achieves that aim.\nIf your primary aim is fault tolerance, then two fully replicated\nservers adds some value. But remember any software bugs or issues will\nbe replicated. So really what are you protected from?\nIf you want to maximise performance, I would suggest two fully\nreplicated systems will greatly over-complicate the system and the\ncomplication will outweigh any performance gain.\nI recently watched Robert Scoble's interview on avoiding the fail\nwhale[1]. The speakers all seemed to agree on one point. Build a system,\nthen modify or improve based on performance. Track everything, figure\nout where your issues lie, and then solve them. You cannot design a\nperfect system on paper, without real life testing.\nSo my advice would be to start with a simpler system. Split your\ndatabase / web server and see how you go. Measure performance\nobsessively. Then make improvements based on real world data, rather\nthan theoretical postulation.\nBest of luck with your setup.\nCheers - Callum.\n[1] http://www.fastcompany.com/scalability\nOn Fri, 2008-10-24 at 18:45 +0200, Mustafa Suphi Yilmaz wrote:\n\u003e Dear Masters,\n\u003e I talked with my hosting-master and he gave me one of his long replies. =)\n\u003e I understand what he tries to accomplish but I have doubts to protect the\n\u003e system in case of a failover. What I want mostly is to create a two-server\n\u003e system to resist most of the major problems ( an ddos attack, a cross-script\n\u003e attack, or any kinda intrusion ).  I know that nothing can resist to a\n\u003e long/complex ddos attack or all the open systems can be exploited in some\n\u003e way - there is always bugs - but I want to have maximum performance from a\n\u003e two-server setup with Wordpress. If you can read my hosting-master's plan\n\u003e and share your knowledge over this matter, I'll be more than glad.\n\u003e \n\u003e \" It's actually fairly simple.  More simple than the explanation you gave\n\u003e them.\n\u003e I don't see a problem with achieving both high availability and high\n\u003e performance.  I'm just a bit concerned about the auto-increment problem.  It\n\u003e may be simpler to use HyperDB than get into it.\n\u003e \n\u003e Hyperdb may not be needed and might be counter-productive if the\n\u003e auto-increment problem can be solved gracefully.  Of course proponents will\n\u003e probably hotly disagree.\n\u003e \n\u003e First of all, we will be using CARP, pfsync and ifstated.  Each server will\n\u003e have it's both IP addresses and traffic will randomly go to either server as\n\u003e a\n\u003e function of DNS.  What CARP, pfsync and ifstated accomplish are:\n\u003e \n\u003e 1) CARP and pfsync allow both servers to have both IP addresses.  When both\n\u003e are available only one will answer on each IP.  pfsync monitors load and\n\u003e balances it by redirecting traffic to the IP on which fewer connection\n\u003e states\n\u003e exist.  In other words, the load can't help but be nearly perfectly balanced\n\u003e between the the servers when both are available because either of them can\n\u003e answer on either IP address.\n\u003e \n\u003e 2) ifstated is for fail-over and monitors availability of services on ports.\n\u003e For example, if MySQL or Apache goes down on server 1, it will notify CARP\n\u003e and\n\u003e pfsync and the result will be that server 2 is now handling all traffic.\n\u003e  The\n\u003e switch will take less than 1 second and will be transparent to users.\n\u003e \n\u003e The servers each have 2 1 GB network interfaces.  One to the Internet and\n\u003e the\n\u003e other only to each other, as a back-end.  pfsync uses the back-end NICs to\n\u003e exchange state information.  The back-end NICs will also be used by the\n\u003e MySQL\n\u003e Master-Slave process.\n\u003e \n\u003e If each server is a slave and a master to the other one (having solved the\n\u003e auto-increment problem) then MySQL traffic stays on a server except for\n\u003e replication.  Only writes will need to cross an Interface.  In this case,\n\u003e HyperDB is not needed.\n\u003e \n\u003e The potential advantage of HyperDB is that it simplifies things.  The setup\n\u003e can be such that MySQL on one server is entirely a master and the other\n\u003e entirely a slave.  No auto-increment problem exists.  The potential cost is\n\u003e that MySQL may consistently have more load on the master server.  HyperDB\n\u003e probably has the potential to mitigate this.  That's the question. \"\n\u003e \n\u003e Best Wishes,\n\u003e Mustafa Suphi Yilmaz\n\u003e http://paulocoelhoblog.com\n\u003e \n\u003e P.S. Thank you Andy and Callum for your responses!\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2008-10-27T01:40:28Z",
+        "message_id": "1225071606.27671.39.camel@lap1",
+        "in_reply_to": "54e76e300810240945p70b03897r7f8d267a270a993e@mail.gmail.com",
+        "references": [
+          "\u003c54e76e300810240945p70b03897r7f8d267a270a993e@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Aris Blevins",
+    "sender_email": "aris at goteama.com",
+    "subject": "[HyperDB] Multiple Database Setup and Read",
+    "body": "Hi there,\nI have some clients that have a main Wordpress install and now are  \nhoping to add two mini-sites that draw specific posts from the main  \nsite. My hope was to set up two separate Wordpress installs and use  \nHyperDB to allow me to pull from the main database as needed.\nI have add the databases as follows:\n\u003ccode\u003e\n$wpdb-\u003eadd_database(array(\n\t'host'     =\u003e 'mysql.german.site',     // If port is other than 3306,  \nuse host:port.\n\t'user'     =\u003e 'username',\n\t'password' =\u003e 'password',\n\t'name'     =\u003e 'german_db',\n\t'dataset'  =\u003e 'global'\n));\n$wpdb-\u003eadd_database(array(\n\t'host'     =\u003e 'mysql.site',     // If port is other than 3306, use  \nhost:port.\n\t'user'     =\u003e 'username',\n\t'password' =\u003e 'password',\n\t'name'     =\u003e 'main_db',\n\t'write'    =\u003e 0,\n\t'read'     =\u003e 1,\n\t'dataset'  =\u003e 'main'\n));\n\u003c/code\u003e\nThe first database is for the site that will highlight german content  \nfrom the main site.\nThe second is the main database - I want to be able to only read from  \nthis site.\nThe two databases have different table prefixes (ge_ for german and  \nwp_ for the main site)\nI had hoped that this would work (as a test):\n\u003ccode\u003e\nglobal $wpdb;\n$wpdb-\u003eset_prefix(?wp_?);\n$fivesdrafts = $wpdb-\u003eget_results(\"SELECT post_title FROM $wpdb-\u003eposts  \nWHERE post_status = 'published'\");\nforeach ($fivesdrafts as $fivesdraft) {\n\techo $fivesdraft-\u003epost_title;\n}\n\u003c/code\u003e\nBut I get nothing on the page here. Any ideas? The final goal here is  \nto pull in all published posts from a specific category and list them  \non this page.\nAny help would be appreciated, let me know if I need to post more  \ninformation.\nThanks,\nAris",
+    "date": "2011-03-12T15:39:14-08:00",
+    "message_id": "AB6C69C6-2FB6-4B65-A51E-F5A424F6D331@goteama.com",
+    "replies": [
+      {
+        "sender_name": "Callum Macdonald",
+        "sender_email": "lists.automattic.com at callum-macdonald.com",
+        "subject": "[HyperDB] Multiple Database Setup and Read",
+        "body": "Hola Aris,\nI don't think HyperDB is the tool for the job you've described.\nI think you'd be much simpler to put all the data into one database,\nusing 2 table prefixes as you suggest, and then pull data through some\nkind of plugin.\nHyperDB is designed to allow WordPress to scale. Unless you're hosting\nthousands of blogs, seeing massive traffic or have some other reason to\nsplit databases over multiple servers, I don't think you need HyperDB.\nI suggest you try the support forums for assistance on doing this\nthrough a plugin.\nLove \u0026 joy - Callum.\nOn Sat, 2011-03-12 at 15:39 -0800, Aris Blevins wrote:\n\u003e Hi there,\n\u003e \n\u003e I have some clients that have a main Wordpress install and now are  \n\u003e hoping to add two mini-sites that draw specific posts from the main  \n\u003e site. My hope was to set up two separate Wordpress installs and use  \n\u003e HyperDB to allow me to pull from the main database as needed.\n\u003e \n\u003e I have add the databases as follows:\n\u003e \n\u003e \u003ccode\u003e\n\u003e $wpdb-\u003eadd_database(array(\n\u003e \t'host'     =\u003e 'mysql.german.site',     // If port is other than 3306,  \n\u003e use host:port.\n\u003e \t'user'     =\u003e 'username',\n\u003e \t'password' =\u003e 'password',\n\u003e \t'name'     =\u003e 'german_db',\n\u003e \t'dataset'  =\u003e 'global'\n\u003e ));\n\u003e \n\u003e $wpdb-\u003eadd_database(array(\n\u003e \t'host'     =\u003e 'mysql.site',     // If port is other than 3306, use  \n\u003e host:port.\n\u003e \t'user'     =\u003e 'username',\n\u003e \t'password' =\u003e 'password',\n\u003e \t'name'     =\u003e 'main_db',\n\u003e \t'write'    =\u003e 0,\n\u003e \t'read'     =\u003e 1,\n\u003e \t'dataset'  =\u003e 'main'\n\u003e ));\n\u003e \u003c/code\u003e\n\u003e \n\u003e The first database is for the site that will highlight german content  \n\u003e from the main site.\n\u003e \n\u003e The second is the main database - I want to be able to only read from  \n\u003e this site.\n\u003e \n\u003e The two databases have different table prefixes (ge_ for german and  \n\u003e wp_ for the main site)\n\u003e \n\u003e I had hoped that this would work (as a test):\n\u003e \n\u003e \u003ccode\u003e\n\u003e global $wpdb;\n\u003e $wpdb-\u003eset_prefix(?wp_?);\n\u003e \n\u003e $fivesdrafts = $wpdb-\u003eget_results(\"SELECT post_title FROM $wpdb-\u003eposts  \n\u003e WHERE post_status = 'published'\");\n\u003e \n\u003e foreach ($fivesdrafts as $fivesdraft) {\n\u003e \techo $fivesdraft-\u003epost_title;\n\u003e }\n\u003e \u003c/code\u003e\n\u003e \n\u003e But I get nothing on the page here. Any ideas? The final goal here is  \n\u003e to pull in all published posts from a specific category and list them  \n\u003e on this page.\n\u003e \n\u003e Any help would be appreciated, let me know if I need to post more  \n\u003e information.\n\u003e \n\u003e Thanks,\n\u003e Aris\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2011-03-14T10:51:23Z",
+        "message_id": "1300099883.18640.2.camel@lupo",
+        "in_reply_to": "AB6C69C6-2FB6-4B65-A51E-F5A424F6D331@goteama.com",
+        "references": [
+          "\u003cAB6C69C6-2FB6-4B65-A51E-F5A424F6D331@goteama.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Mark L Middleton",
+    "sender_email": "marklmiddleton at gmail.com",
+    "subject": "[HyperDB] Remapping table names?",
+    "body": "Hello,\nI'm trying to use a separate database for the wp_users table, and have \nthat table be called 'users' instead of 'wp_users'.\nUsing the separate database is working fine, I'm just adding the table \nto the dataset defined for the second database. But is it possible to \nremap table names or set different table prefixes for different \ndatabases using hyperdb?\nThank you for any help you can provide,\nMark Middleton",
+    "date": "2011-09-07T09:10:27-07:00",
+    "message_id": "4E679773.5000609@gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Remapping table names?",
+        "body": "Hi, Mark,\nThe table prefix logic is inherited from wpdb. You can hack or extend\nhyperdb to change that logic for your needs.\nCheers,\nAndy\nOn Wed, Sep 7, 2011 at 11:10 AM, Mark L Middleton\n\u003cmarklmiddleton at gmail.com\u003e wrote:\n\u003e Hello,\n\u003e\n\u003e I'm trying to use a separate database for the wp_users table, and have that\n\u003e table be called 'users' instead of 'wp_users'.\n\u003e\n\u003e Using the separate database is working fine, I'm just adding the table to\n\u003e the dataset defined for the second database. But is it possible to remap\n\u003e table names or set different table prefixes for different databases using\n\u003e hyperdb?\n\u003e\n\u003e Thank you for any help you can provide,\n\u003e Mark Middleton\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2011-09-07T11:38:17-05:00",
+        "message_id": "CABVyDWVD6aTbG2S4ALyEn+ez9qHeog_+Mwg7VxnX8vMNcQ_oBg@mail.gmail.com",
+        "in_reply_to": "4E679773.5000609@gmail.com",
+        "references": [
+          "\u003c4E679773.5000609@gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Jeremy Visser",
+    "sender_email": "jeremy.visser at gmail.com",
+    "subject": "[HyperDB] Introductions",
+    "body": "\u003e Your name:\nJeremy Visser, http://jeremy.sunriseroad.net/\n\u003e 20 word background:\n16 year old bassoonist. My technological interests lie in both open\nsource software and web development; thus I love WordPress.\n(Blimey, by coincidence, the above is exactly 20 words)\n\u003e How you'd like to use HyperDB:\nI'm not planning on using it in my \"home datacenter\" (comprising two\nUbuntu boxes), however, I may play with it in a virtual cluster\nenvironment with VMware just for experimenting. I just think\nclustering and all that jazz is really cool, so that's why I'm\ninterested in HyperDB.",
+    "date": "2007-05-29T04:19:54Z",
+    "message_id": "43253ec50705282119v5dac9205jad56396e690400f2@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Brian Layman",
+        "sender_email": "Brian at b5media.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "\u003e 16 year old bassoonist. \n\u003e My technological interests lie in both open\n\u003e    source software and web development; \n\u003e thus I love WordPress.\n\u003e\n\u003e\n\u003e (Blimey, by coincidence, the above is exactly 20 words)\nI think it's non-traditional Haiku as well.\nWith HyperDB\nTable, database, server\nIn serenity",
+        "date": "2007-05-29T05:50:19Z",
+        "message_id": "009b01c7a1b5$339984c0$9acc8e40$@com",
+        "in_reply_to": "43253ec50705282119v5dac9205jad56396e690400f2@mail.gmail.com",
+        "references": [
+          "\u003c43253ec50705282119v5dac9205jad56396e690400f2@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Lee Newton",
+    "sender_email": "lee at b5media.com",
+    "subject": "[HyperDB] started playing",
+    "body": "So I've started playing with the hyperdb class, but it looks at first pass\nlike the code available via svn is aimed at a db structure predating the\n2.3.3 (soon to be 2.5) I'm currently working with. Is there updated code\navailable or will it be up to the user to integrate the class to a specific\nversion of wp?\nCheers,\n-- \nLee Newton\nSystem Administrator, b5media\nskype: akkarajo\nphone: 416-508-4544",
+    "date": "2008-05-29T18:15:49Z",
+    "message_id": "f2b95fa50805291115s3c2a1d2y6d70e6830154b59f@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Elliot Murphy",
+        "sender_email": "elliot.murphy at gmail.com",
+        "subject": "[HyperDB] started playing",
+        "body": "Hi Lee,\nOn Thu, May 29, 2008 at 2:15 PM, Lee Newton \u003clee@b5media.com\u003e wrote:\n\u003e So I've started playing with the hyperdb class, but it looks at first pass\n\u003e like the code available via svn is aimed at a db structure predating the\n\u003e 2.3.3 (soon to be 2.5) I'm currently working with. Is there updated code\n\u003e available or will it be up to the user to integrate the class to a specific\n\u003e version of wp?\n\u003e\nI started hacking on adding consistent hashing to hyperdb and noticed\nthe same thing. Hyperdb is working with wordpress-mu though.\n-- \nElliot Murphy",
+        "date": "2008-05-29T18:35:35Z",
+        "message_id": "595970ad0805291135s231e3988vaf5c2a45a9da361c@mail.gmail.com",
+        "in_reply_to": "f2b95fa50805291115s3c2a1d2y6d70e6830154b59f@mail.gmail.com",
+        "references": [
+          "\u003cf2b95fa50805291115s3c2a1d2y6d70e6830154b59f@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Beau Lebens",
+    "sender_email": "beau at dentedreality.com.au",
+    "subject": "[HyperDB] Introductions",
+    "body": "Your Name:\nBeau Lebens\n20 word background:\nDirector of Technology at Click Group, Inc, about to leave to be the  \nFounder/CTO of Feedville.com (FeedBlendr.com) and also involved as  \nmain developer on a WPMU-based community site (stealth).\n(way over 20 words - bah!)\nHow you'd like to use HyperDB:\nMainly I see it as a powerful way to handle multiple DBs on the WPMU  \nsite. I'm specifically interested in figuring out if it can help me  \nmake a DB environment a little more stable/easy-to-swallow on Amazon  \nEC2 (which I've got some experience with on the web end, not yet on DB).\n-- \nBeau Lebens\nDented Reality\ndentedreality.com.au\nbeau@dentedreality.com.au",
+    "date": "2007-05-29T18:14:59Z",
+    "message_id": "46E896DC-559B-4804-BE70-CF6ED431A65E@dentedreality.com.au"
+  },
+  {
+    "sender_name": "Matt Mullenweg",
+    "sender_email": "m at mullenweg.com",
+    "subject": "[HyperDB] Introductions",
+    "body": "Howdy everybody. We've got 40 people on the list already, so it seems \nlike as good a time as any to kick of introductions. How about this?\nYour name:\n20 word background:\nHow you'd like to use HyperDB:\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+    "date": "2007-05-28T22:49:58Z",
+    "message_id": "465B5C83.5020902@mullenweg.com",
+    "replies": [
+      {
+        "sender_name": "Matt Mullenweg",
+        "sender_email": "m at mullenweg.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "Matt Mullenweg wrote:\n\u003e Your name:\nMatt Mullenweg.\n\u003e 20 word background:\nA dork who replies to his own emails, and can't think of enough words.\n\u003e How you'd like to use HyperDB:\nCurrently using it on WordPress.com, but I'm hopeful the code and \nlessons we learned there will be helpful to other high-volume or \nenterprise WP installs.\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+        "date": "2007-05-28T22:51:44Z",
+        "message_id": "465B5CEC.1090402@mullenweg.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "\u003e Your name:\nAndy Skelton\n\u003e 20 word background:\nDoes various things for Automattic, including work on the newly,\nfabulously named HyperDB class, does not like to count words.\n\u003e How you'd like to use HyperDB:\nFor opening jam jar lids. ;-)\nAndy",
+        "date": "2007-05-28T23:05:47Z",
+        "message_id": "e6ec604d0705281605qf843a72jf045b9640246e2bb@mail.gmail.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Brian Layman",
+        "sender_email": "Brian at b5media.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "\u003e Your name:\nBrian Layman\n\u003e 20 word background:\nCode Ninja at b5media.com a blogging network with just over 200 blogs.  I've\nbeen using WordPress since late 2004. \n\u003e How you'd like to use HyperDB:\nI've been optimizing our network using memcached in key places to reduce CPU\nload by eliminating redundant calls. Now I'm looking for other ways to\nimprove our WordPress implementation and allow our network to more\ngracefully handle simultaneous diggs.",
+        "date": "2007-05-28T23:13:04Z",
+        "message_id": "01cb01c7a17d$b69bdb80$23d39280$@com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Hippensteel Thomas",
+        "sender_email": "hippensteel at mac.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "\u003e Your name:\nTom Hippensteel\n\u003e 20 word background:\nDirector @ LiquidConcrete, Inc., a company who's corporate site is  \ngetting redesigned to run on WP. orderedlist.com is doing the redesign.\n\u003e How you'd like to use HyperDB:\nI'm probably not qualified to be on this lis, but I'm a big fan of WP  \nand play around with (read: mangle) a few different installs. We have  \nsome ideas brewing here at our corporate HQ that might be candidates  \nfor HyperDB. We're exploring some ways to interact and contribute to  \ncommunication in our industry, which is industrial coatings. Not  \nexactly a web savvy group of folks. You'll generally find a concrete  \ntrowel in our hands instead of a keyboard. Also, I read Matt's blog  \nand have been known to sign onto lists I'm not qualified to  \ncontribute to.\n--\nTom Hippensteel\nDirector, Sales and Marketing | LiquidConcrete, Inc.\nP 800.201.9300 ext. 717 | F 702.975.0549\ntomh@liquidconcrete.com",
+        "date": "2007-05-29T00:36:18Z",
+        "message_id": "87A3F7F6-CC6C-4718-9D78-EBB3CD095E5D@mac.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "David",
+        "sender_email": "david at bloggynetwork.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "Your name:  David Peralty\n20 word background:  WordPress guy at Bloggy Network, as well as a \nblogger myself. I have been using WordPress since 0.72.\nHow you'd like to use HyperDB: We run a number of blogs, and are looking \nat expanding. This might help make my life easier, and really if Aaron \nBrazell is interested in it, I better be too...",
+        "date": "2007-05-29T03:31:59Z",
+        "message_id": "465B9E83.4040704@bloggynetwork.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Mark Jaquith",
+        "sender_email": "mark.wordpress at txfx.net",
+        "subject": "[HyperDB] Introductions",
+        "body": "On May 28, 2007, at 6:49 PM, Matt Mullenweg wrote:\n\u003e Your name:\nMark Jaquith\n\u003e 20 word background:\nI was bored in college, so I started playing with PHP.  I found  \nWordPress in 2004.  The rest is history.\n\u003e How you'd like to use HyperDB:\nSee Brian and Aaron's responses. :-)  Plus, potentially for use on  \nhigh profile WordPress blogs that might be close to outgrowing a  \nsingle server.\n--\nMark Jaquith\nhttp://markjaquith.com/\nCovered Web Services\nhttp://coveredwebservices.com/",
+        "date": "2007-05-29T03:46:43Z",
+        "message_id": "3EC71274-FB27-4D51-86CF-905BC9B7C490@txfx.net",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Justin Royce",
+        "sender_email": "justin at whichwaydoigo.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "Your name: Justin Royce\n20 word background: Web \u0026 DB Developer\nHow you'd like to use HyperDB: I'm currently getting back into the swing \nof OSS programming and decided to dive face-first into it. Mainly, I'll \nadmit that I'm getting in early on to help others later.\nOh, and I'm stuck in Germany so it's just now morning -gag.\nMatt Mullenweg wrote:\n\u003e Howdy everybody. We've got 40 people on the list already, so it seems \n\u003e like as good a time as any to kick of introductions. How about this?\n\u003e\n\u003e Your name:\n\u003e 20 word background:\n\u003e How you'd like to use HyperDB:\n\u003e",
+        "date": "2007-05-29T04:11:09Z",
+        "message_id": "465BA7D2.5010605@whichwaydoigo.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Elad Salomons",
+        "sender_email": "elad.salomons at gmail.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "Hello all,\nYour name: Elad Salomons\n20 word background: Water engineer running wordpress since 2004. Lately a\npartner in a Hebrew wpmu site.\nHow you'd like to use HyperDB: Mainly as an option for wpmu scaling\nsolution.\nOn 5/29/07, Matt Mullenweg \u003cm@mullenweg.com\u003e wrote:\n\u003e\n\u003e Howdy everybody. We've got 40 people on the list already, so it seems\n\u003e like as good a time as any to kick of introductions. How about this?\n\u003e\n\u003e Your name:\n\u003e 20 word background:\n\u003e How you'd like to use HyperDB:\n\u003e\n\u003e --\n\u003e Matt Mullenweg\n\u003e http://photomatt.net | http://wordpress.org\n\u003e http://automattic.com | http://akismet.com\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2007-05-29T04:33:37Z",
+        "message_id": "b9df980d0705282133x4102e0eaw3794a5529303f585@mail.gmail.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Cori Schlegel",
+        "sender_email": "kinrowan at gmail.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "Your name:\nCori Schlegel\n20 word background:\nMostly Windows (.Net) programmer by day, Freelance WP/MU, PHP, MySQL,\nSysadmin dev by night/weekends.  Using WP since 2004-ish.\nHow you'd like to use HyperDB:\nI'm interested in implications for MU; I don't work on any WP installs\nthat would be stressed enough to need this kind of power.  Honestly I'm\nmostly here to learn, though I'd be overjoyed if I have anything to offer.",
+        "date": "2007-05-29T05:20:06Z",
+        "message_id": "465BB7BD.8020106@gmail.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Marcos Sader | marcosmedia",
+        "sender_email": "m at marcosmedia.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "On 5/28/07, Matt Mullenweg \u003cm@mullenweg.com\u003e wrote:\n\u003e\n\u003e Howdy everybody. We've got 40 people on the list already, so it seems\n\u003e like as good a time as any to kick of introductions. How about this?\n\u003e\n\u003e Your name:\nMarcos Sader\n20 word background:\nA mix between Information Architect and Web Developer, Argentina.\nHow you'd like to use HyperDB:\nI've been using WordPress as a framework for a long time now and I'm very\ninterested in the possibles way to scale the application.\n--\n\u003e Matt Mullenweg\n\u003e   http://photomatt.net | http://wordpress.org\n\u003e http://automattic.com | http://akismet.com\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e\n-- \nMarcos Sader\nm@marcosmedia.com\nhttp://defmay.com | http://marcosmedia.com",
+        "date": "2007-05-29T12:44:58Z",
+        "message_id": "8ff7155b0705290544m3abdf25j35c62994ebcd6da3@mail.gmail.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Boris Anthony",
+        "sender_email": "lists.permutype at gmail.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "\u003e Your name:\nBoris Anthony\n\u003e 20 word background:\nLead architect and designer for globalvoicesonline.org, consultant on  \nmany other projects, including WPMU installs at Harvard and HKU.\n\u003e How you'd like to use HyperDB:\nthere's a big farm in my future... :)\nthnx for doing this!!\nB.",
+        "date": "2007-05-29T13:54:03Z",
+        "message_id": "C28E7A96-BBB3-46AC-AEA0-6B4953ABAA9C@gmail.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Joseph Scott",
+        "sender_email": "joseph at randomnetworks.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "\u003e Your name:\nJoseph Scott\n\u003e 20 word background:\nA new guy at Automattic, curious to see what HyperDB develops into.\n\u003e How you'd like to use HyperDB:\nTo bring about world peace.\n--\nJoseph Scott\nhttp://joseph.randomnetworks.com/",
+        "date": "2007-05-29T16:00:51Z",
+        "message_id": "863D2CD5-A07F-433A-9755-1863DEAB15A4@randomnetworks.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      },
+      {
+        "sender_name": "Paul Menard",
+        "sender_email": "paul at CodeHooligans.com",
+        "subject": "[HyperDB] Introductions",
+        "body": "Your Name:\nPaul Menard\n20 word background:\nEngineer at Mindshare Interactive (until I find better work, hint).  \nWorking with WP wince 1.5. Love it. Have implemented 4 very high  \ntraffic sites for clients.\nHow you'd like to use HyperDB:\nGood question. joined this list to find out more. Mostly interested  \nin enabling scaling of WP sites without all the server black magic  \nand time this has taken in the past.\nP-\nOn May 28, 2007, at 5:49 PM, Matt Mullenweg wrote:\n\u003e Howdy everybody. We've got 40 people on the list already, so it  \n\u003e seems like as good a time as any to kick of introductions. How  \n\u003e about this?\n\u003e\n\u003e Your name:\n\u003e 20 word background:\n\u003e How you'd like to use HyperDB:\n\u003e\n\u003e -- \n\u003e Matt Mullenweg\n\u003e  http://photomatt.net | http://wordpress.org\n\u003e http://automattic.com | http://akismet.com\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2007-05-29T20:15:16Z",
+        "message_id": "FFE46886-3F0A-4B54-80B6-317D839E1387@CodeHooligans.com",
+        "in_reply_to": "465B5C83.5020902@mullenweg.com",
+        "references": [
+          "\u003c465B5C83.5020902@mullenweg.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Pkale Robinson",
+    "sender_email": "pkale.robinson at gmail.com",
+    "subject": "[HyperDB] testing hyperdb",
+    "body": "I have set up a WP site with one master and two slave dbs. The master is set\nto write, while the slaves are to read. Is there a method for testing,, or\ndebuging this set up ?\nBest Regards",
+    "date": "2011-07-09T21:27:16-04:00",
+    "message_id": "CAH1Ts7xKV_eb0YTCxMgSxT52M4kYjTuG21PbXNN61PYuPG8hPw@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] testing hyperdb",
+        "body": "On Sat, Jul 9, 2011 at 8:27 PM, Pkale Robinson \u003cpkale.robinson at gmail.com\u003e wrote:\n\u003e I have set up a WP site with one master and two slave dbs. The master is set\n\u003e to write, while the slaves are to read. Is there a method for testing,, or\n\u003e debuging this set up ?\nYou can install a callback that receives $query, $elapsed, $backtrace,\nand \u0026$wpdb after every query. On WordPress.com we do this:\n$wpdb-\u003esave_queries = true;\n$wpdb-\u003esave_query_callback = 'wpcom_save_query_callback';\nfunction wpcom_save_query_callback($query, $elapsed, $backtrace, \u0026$wpdb) {\n    // Here you can log stuff like:\n    //   $query\n    //   $wpdb-\u003edbhname\n    //   $wpdb-\u003edataset\n    //   $wpdb-\u003elast_connection\n}\nAndy",
+        "date": "2011-07-09T22:09:08-05:00",
+        "message_id": "CABVyDWXfGsaECQKRs0ENAENMLa8=Sg3noWMt0Upcx59OtYW34g@mail.gmail.com",
+        "in_reply_to": "CAH1Ts7xKV_eb0YTCxMgSxT52M4kYjTuG21PbXNN61PYuPG8hPw@mail.gmail.com",
+        "references": [
+          "\u003cCAH1Ts7xKV_eb0YTCxMgSxT52M4kYjTuG21PbXNN61PYuPG8hPw@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Emiliano Compean",
+    "sender_email": "e.bardomiano at gmail.com",
+    "subject": "[HyperDB] separating reads and writes",
+    "body": "We have a cluster of wordpress front-end servers and want to separate reads\nand writes between mysql master and slave servers.\nIn my db-settings.php file I have something like:\n//read db server\nadd_db_server('global', 0, 'lan', 1, 0,'192.168.0.83:3306','\n192.168.0.83:3306','xxxx','xxxx','xxxx');\n//write db server\nadd_db_server('global', 0, 'lan', 0, 1,'192.168.0.40:3306','\n192.168.0.40:3306','xxxx','xxxx','xxxx');\nSo basically, I want all reads to go to one server and writes to another.\nIs this correct?\nIn my testing, I'm using MONyog (www.webyog.com) to compare usage stats\nbetween the servers.  In this config, the charts show  reads\nstill going to my master server. This is why I would like to confirm that my\nconfiguration or expectations are correct.\nthanks!!!",
+    "date": "2009-04-06T17:27:23Z",
+    "message_id": "a6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] separating reads and writes",
+        "body": "On Mon, Apr 6, 2009 at 12:27 PM, Emiliano Compean\n\u003ce.bardomiano@gmail.com\u003e wrote:\n\u003e So basically, I want all reads to go to one server and writes to another.\n\u003e Is this correct?\nThis is generally correct but your write-only server will still be\nsent read queries sometimes. Due to inevitable lags in replication, we\ndesigned HyperDB to read from the write database after any writes.\nThis prevents the application reading a previous version of row\nwritten during the same page load.\nThe current implementation keeps track of which datasets have received\nwrites. It then bypasses the slaves for all subsequent reads on those\ndatasets.\nCheers,\nAndy",
+        "date": "2009-04-06T17:42:02Z",
+        "message_id": "e6ec604d0904061041k1fa81e22h764aae1e5aa5adbf@mail.gmail.com",
+        "in_reply_to": "a6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com",
+        "references": [
+          "\u003ca6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "",
+    "sender_email": "Matt Mullenweg \u003cm@mullenweg.com\u003e",
+    "subject": "[HyperDB] Anyone using it yet?",
+    "body": "Well, I got the database replication working, but the plugin is another story.\nAny detailed instructions? A little lost.\n----- Original Message ----\nTo: hyperdb@lists.automattic.com\nSent: Thursday, June 7, 2007 8:59:50 AM\nJust curious. :)\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com\n_______________________________________________\nHyperDB mailing list\nHyperDB@lists.automattic.com\nhttp://lists.automattic.com/mailman/listinfo/hyperdb\n       \n____________________________________________________________________________________Ready for the edge of your seat? \nCheck out tonight's top picks on Yahoo! TV. \nhttp://tv.yahoo.com/",
+    "date": "2007-06-14T22:46:40Z",
+    "message_id": "983362.42710.qm@web50101.mail.re2.yahoo.com",
+    "replies": [
+      {
+        "sender_name": "Jamie Holly",
+        "sender_email": "hovercrafter at earthlink.net",
+        "subject": "[HyperDB] Anyone using it yet?",
+        "body": "Edit your db-settings.php file, towards the end. What I did (no thrills -\njust for replication):\n  add_db_server('global', 0, 'lax', 1, 1,  '{master database address:port}',\n'{master database address:port}', '{master database name}', '{master\ndatabase user}','{master database password}');\n  add_db_server('global', 0, 'lax', 1, 0,  '{slave database address:port}',\n'{slave database address:port}', '{slave database name}', '{slave database\nuser}','{slave database password}');\nPut the db.php file in /wp-content\ndb-settings.php goes in the root folder.\nIn your wp-config.php file, after:\ndefine('ABSPATH', dirname(__FILE__).'/');\nadd:\nrequire_once(ABSPATH.'db-settings.php');\nIf you want to see which database was connected to, you can do what I did on\nmy test servers. Add this line to the footer of your template:\n\u003c? echo $wpdb-\u003ecurrent_host ?\u003e\nHope that helps!\nJamie Holly\nhttp://www.intoxination.net\n\u003e -----Original Message-----\n\u003e From: hyperdb-bounces@lists.automattic.com [mailto:hyperdb-\n\u003e bounces@lists.automattic.com] On Behalf Of Ulysses Ronquillo\n\u003e Sent: Thursday, June 14, 2007 6:47 PM\n\u003e To: hyperdb@lists.automattic.com\n\u003e Subject: Re: [HyperDB] Anyone using it yet?\n\u003e \n\u003e Well, I got the database replication working, but the plugin is another\n\u003e story.\n\u003e \n\u003e Any detailed instructions? A little lost.\n\u003e \n\u003e \n\u003e \n\u003e ----- Original Message ----\n\u003e From: Matt Mullenweg \u003cm@mullenweg.com\u003e\n\u003e To: hyperdb@lists.automattic.com\n\u003e Sent: Thursday, June 7, 2007 8:59:50 AM\n\u003e Subject: [HyperDB] Anyone using it yet?\n\u003e \n\u003e Just curious. :)\n\u003e \n\u003e --\n\u003e Matt Mullenweg\n\u003e   http://photomatt.net | http://wordpress.org\n\u003e http://automattic.com | http://akismet.com\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e \n\u003e \n\u003e \n\u003e \n\u003e \n\u003e \n\u003e \n\u003e \n\u003e _______________________________________________________________________\n\u003e _____________Ready for the edge of your seat?\n\u003e Check out tonight's top picks on Yahoo! TV.\n\u003e http://tv.yahoo.com/\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2007-06-15T00:12:44Z",
+        "message_id": "02df01c7aee1$d171cfc0$74556f40$@net",
+        "in_reply_to": "983362.42710.qm@web50101.mail.re2.yahoo.com",
+        "references": [
+          "\u003c983362.42710.qm@web50101.mail.re2.yahoo.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "=?EUC-KR?B?wLG8ur/u?=",
+    "sender_email": "ynebula at wikisoft.co.kr",
+    "subject": "[HyperDB] Requst that Install the HyperDb",
+    "body": "Hello Man\nAbove all Nice to meet you\nYour Email receive well\n========Email=======\n\u003e But I don't know number 4( 4. Edit the db settings according to the\n\u003e directions in that file.)\nWhat specific things don't you understand?\nHave you got WordPress working _without_ HyperDB before, or are you\ncompletely new to setting up WordPress?\n========Email=======\nI have WordPress working without HyperDb\nAnd I Upload the db-sttings.php in the directory that holds `wp-config.php`\nAnd upload `db.php` to the `/wp-content/` directory.\nBut I don't know Edit the db settings.(Number4)\n==============db-stting.php===============\ndefine( 'DATACENTER', 'global' );\nif ( !defined('SAVEQUERIES') )\n define('SAVEQUERIES', false);\nfunction localize_hostname($hostname) {\n return str_replace('.com', '.lan', $hostname);\n}\nfunction localize_hostnames($array) {\n return array_map('localize_hostname', $array);\n}\nfunction add_db_server($ds, $part, $dc, $read, $write, $host, $lhost, $name,\n$user, $password) {\n global $db_servers;\n if ( empty( $lhost ) )\n  $lhost = $host;\n $server = compact('ds', 'part', 'dc', 'read', 'write', 'host', 'lhost',\n'name', 'user', 'password');\n $db_servers[$ds][$part][] = $server;\n}\nfunction add_db_table($ds, $table) {\n global $db_tables;\n $db_tables[$table] = $ds;\n}\n==============db-stting.php===============\nI wonder what I update that\nI wait your email Thank you",
+    "date": "2008-11-05T01:02:13Z",
+    "message_id": "bc35075d0811041702o6d993964j5a31994c034e6e87@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Jeremy Visser",
+        "sender_email": "jeremy.visser at gmail.com",
+        "subject": "[HyperDB] Requst that Install the HyperDb",
+        "body": "On Wed, 2008-11-05 at 10:02 +0900, ??? wrote:\n\u003e I wonder what I update that\nI found this further in the file:\n        // Database servers grouped by dataset. (Totally tabular, dude!)\n        // R can be 0 (no reads) or a positive integer indicating the order\n        // in which to attempt communication (all locals, then all remotes)\n        \n        //dataset, partition, datacenter, R, W,             internet host:port,     internal network host:port,   database,        user,        password\n        \n        // Next line populates 'global' dataset from wp-config.php for instant compatibility. Remove it when you put your settings here.\n        add_db_server('global', 0,    '', 1, 1,                        DB_HOST,                        DB_HOST,    DB_NAME,     DB_USER,     DB_PASSWORD);\n        \n        /*\n        add_db_server(  'misc', 0, 'lax', 1, 1,     'misc.db.example.com:3722',     'misc.db.example.lan:3722',  'wp-misc',  'miscuser',  'miscpassword');\n        add_db_server('global', 0, 'nyc', 1, 1,'global.mysql.example.com:3509','global.mysql.example.lan:3509','global-db','globaluser','globalpassword');\n        */\nSo it looks like you have to add some add_db_server() lines of your own.\nThese lines should reflect your MySQL server details, which you should\nalready know if you are setting up HyperDB.\nIf this is still too complicated, I do not recommend running HyperDB at\nall. You have already said that you have got WordPress working without\nHyperDB. Unless you have more than, say, 100 pageviews per second, I see\nno reason for you to use HyperDB, especially if WordPress is already\nworking well for you.\n-- \nJeremy Visser                                 http://jeremy.visser.name/\nNo Internet Censorship for Australia             http://nocleanfeed.com/",
+        "date": "2008-11-05T08:54:24Z",
+        "message_id": "1225875254.3250.9.camel@rillian.narnia.sunriseroad.net",
+        "in_reply_to": "bc35075d0811041702o6d993964j5a31994c034e6e87@mail.gmail.com",
+        "references": [
+          "\u003cbc35075d0811041702o6d993964j5a31994c034e6e87@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Liz Wendland",
+    "sender_email": "liz at duke.edu",
+    "subject": "[HyperDB] tcp_responsiveness - what's it all about?",
+    "body": "Hi,\nWe have a WordPress installation using a semi-complicated MySQL database \nsetup facilitated by HyperDB.  It mostly works great, but we have \nperiodic failures where one of the databases starts to refuse \nconnections from one of the web front-ends.  It was in the pursuit of \ndebugging this issue that we noticed we were collecting a huge number of \n'aborted connections' in our databases.\nWe have tracked this down to the 'check_tcp_responsiveness' function in \ndb.php.  Apparently this function will open a socket connection to the \ndatabase at the mysql port and as soon as it responds, it disconnects.  \nMySQL doesn't really like this teasing approach to ping and counts that \nas an aborted connection.\nWe aren't sure if the number of aborted connections is causing our \nproblem, but it seems like a strange way to check database \nresponsiveness.  I am hoping someone can help shed some light on the \nfollowing:\n1) Is the tcp_responsiveness code left over debug?  The variable names \nin db-config.php and db.php do not match:\ndb-config.php has\n$wpdb-\u003etcp_responsiveness_check = true;\ndb.php has\nvar $check_tcp_responsiveness = true;\n2) There is a clause in db.php (function check_tcp_responsiveness) that \nseems like it will always evaluate to false...\n     if ( 1 == 2 \u0026\u0026 function_exists('apc_store') ) {\n3) The code says something about this function being necessary because \n\"This was added because PHP's mysql functions do not provide a variable \ntimeout setting\"  Couldn't the mysql.connect_timeout value in php.ini \nprovide this?\nWe currently have fixed db-config.php so it has:\n$wpdb-\u003echeck_tcp_responsiveness = false;\nand we are no longer seeing the aborted connections increasing.  Only \ntime will tell if this fixes the random database lockouts.\nThanks for any additional information,\nLiz",
+    "date": "2011-01-24T12:05:07-05:00",
+    "message_id": "4D3DB143.4020605@duke.edu"
+  },
+  {
+    "sender_name": "Ariful Islam",
+    "sender_email": "blackreaper.br at gmail.com",
+    "subject": "[HyperDB] Question",
+    "body": "I don't fine any tutorial about this plugin...\nI want to create many databases and balance the load how can i do it with\nhyperdb",
+    "date": "2016-11-03T19:29:11+06:00",
+    "message_id": "CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Brian Layman",
+        "sender_email": "hyperdb at thecodecave.com",
+        "subject": "[HyperDB] Question",
+        "body": "On 11/3/2016 9:29 AM, Ariful Islam wrote:\n\u003e I don't fine any tutorial about this plugin...\n\u003e I want to create many databases and balance the load how can i do it with\n\u003e hyperdb\nWow... I haven't seen a message come across this message board for a \nlong time. I had to re-configure my mail client so that I could reply!\nHyperDB will do what you want.  You must configure MySQL to handle the \nreplication, but HyperDB will allow your WordPress install to access \nmultiple databases.\nHere are to relatively recent tutorials to guide you through this process:\n1. \nhttps://torbjornzetterlund.com/how-to-setup-a-mysql-replication-database-for-wordpress/\n2. \nhttp://net-load.com/how-to-setup-mysql-database-master-and-slave-with-hyperdb-on-wordpress/\nBoth of those articles, at a glance, seem to be fairly accurate and they \nshould do what you need.\nHere are some of my own tips for you:\n1. Only do this when it is proven that you need to do this. Don't \ncomplicate your set up if you don't absolutely have proof that you have to.\n2. Before you switch to HyperDB, make certain that you have eliminated \nany extra DB writes in your code. If you are writing to the database \nwhen you don't need to be, eliminating that may solve all of your \ndatabase headaches.\n3. Make certain that once replication is configured, that all of your \nslave database are receiving changes in a timely fashion.  One of the \nworst things to debug is why some visitors to your site get one set of \ndata and others get another.\n4. If you also have multiple webheads, use a caching solution for page \ncaching and micro-caching that is accessible to all of your servers.  \nAllow the work on one server to be a benefit of all of your servers.\n5. Also if you have multiple webheads, beware of the use of state \nconditions like sessions and transients that if not implemented \ncorrectly could exist on one server, but not be carried over to others.\nThat's my advice of the morning.  Hope that helps!\nBrian Layman\neHermit",
+        "date": "2016-11-03T13:11:21-04:00",
+        "message_id": "aefc692c-45f5-8a19-37c1-dd53ed653a24@thecodecave.com",
+        "in_reply_to": "CAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com",
+        "references": [
+          "\u003cCAEM3h5f-rWNeUGEDKRCfrRGamc52yQp0noE36Gy6aE_NqNv0pA@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Jason Ashdown",
+    "sender_email": "Jason.Ashdown at futurenet.com",
+    "subject": "[HyperDB] Active Master and Passive Master with binary replication",
+    "body": "Hi,\nWe've been testing out HyperDB for a few weeks now trying to get it work in a particular way.\nWe wish to have an Active Master (db1) which handles Reads + Writes. We have a Passive Master (db2) that does Read only and keeps up-to-date with binary replication from the Active Master (db1).\nAs soon as we disable the Active Master (db1) HyperDB spits out errors like \"No databases available with wp_4_options (global)\".\nWe've spilt an existing MU database and migrated it to another MU server while using HyperDB for failover.\nWe are using the latest version of HyperDB.\nOur current config, db-config.php (values replaced for security):\n// MASTER DATABASE\n$wpdb-\u003eadd_database(array(\n            'host'     =\u003e 'db1.mysql-server.com',     // If port is other than 3306, use host:port.\n            'user'     =\u003e 'user',\n            'password' =\u003e 'password',\n            'name'     =\u003e 'database',\n            'write'    =\u003e 1,\n            'read'     =\u003e 1,\n            'dataset'  =\u003e 'global',\n            'timeout'  =\u003e 0.2,\n    'charset'  =\u003e 'utf8',\n    'collate'  =\u003e '',\n));\n// SLAVE DATABASE\n$wpdb-\u003eadd_database(array(\n            'host'     =\u003e 'db2.mysql-server.com',     // If port is other than 3306, use host:port.\n            'user'     =\u003e 'user',\n            'password' =\u003e 'password',\n            'name'     =\u003e 'database',\n            'write'    =\u003e 0,\n            'read'     =\u003e 1,\n            'dataset'  =\u003e 'global',\n            'timeout'  =\u003e 0.2,\n    'charset'  =\u003e 'utf8',\n    'collate'  =\u003e '',\n));\nIs there any advice/help that you can give us?\nMany thanks,\nJason Ashdown\n-- \nFuture Publishing Limited (registered company number 2008885) and Future Publishing (Overseas) Limited (registered company number 06202940) are wholly owned subsidiaries of Future plc (registered company number 3757874). Future Publishing Limited, Future Publishing (Overseas) Limited and Future plc are all incorporated in England and Wales and share the same registered address at Beauford Court, 30 Monmouth Street, Bath BA1 2BW.\nThis email and any files transmitted with it are confidential. If you have received this email in error please notify the sender and then delete it immediately. Please note that any views or opinions presented in this email are solely those of the author and do not necessarily represent those of Future.\nThe recipient should check this email and any attachments for the presence of viruses. Future accepts no liability for any damage caused by any virus transmitted by this email.\nFuture may regularly and randomly monitor outgoing and incoming emails (including the content of them) and other telecommunications on its email and telecommunications systems. By replying to this email you give your consent to such monitoring.\n*****\nSave resources: think before you print.",
+    "date": "2010-09-28T11:19:28+01:00",
+    "message_id": "2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Active Master and Passive Master with binary",
+        "body": "replication\nHi, Jason,\nJason Ashdown \u003cJason.Ashdown at futurenet.com\u003e wrote:\n\u003e As soon as we disable the Active Master (db1) HyperDB spits out errors like \"No databases available with wp_4_options (global)\".\nThis is the code that spits out that error:\nif ( empty($this-\u003ehyper_servers[$dataset][$operation]) )\n  return $this-\u003ebail(\"No databases available with $this-\u003etable ($dataset)\");\n$operation is either \"read\" or \"write\". If you disable db1 in your\nconfig (I'm guessing this is what you did), you are left with db2\nwhich is configured for read only, not for write. If db2 is supposed\nto receive reads when db1 is disabled, your config must reflect that.\nYou might try configuring db2 with 'write' =\u003e 2. In case your\nconfiguration needs to change dynamically when the db status changes,\nyou can make your configuration dynamic. One way is to have multiple\nconfigurations in conditional blocks.\nI have not tested HyperDB with DRBD or any other multi-master setup.\nHowever, I did intend for HyperDB to provide the same sort of failover\nfor writes that it does for reads. I'll be curious to see how you make\nit work.\nCheers,\nAndy",
+        "date": "2010-09-28T09:15:34-05:00",
+        "message_id": "AANLkTimBPtOs_QVqY8mLN2eNW_UKTE4X9BW-ojZZHpXN@mail.gmail.com",
+        "in_reply_to": "2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com",
+        "references": [
+          "\u003c2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Matthew Barr",
+    "sender_email": "mbarr at interactiveone.com",
+    "subject": "[HyperDB] WP 2.7 testing?",
+    "body": "I just wanted to see if anyone had any problems with the the HyperDB  \nplugin on 2.7?  I saw the change that was committed in Nov, but anyone  \nhave any luck with it in production?\nMatthew\n------------------\nMatthew Barr\nInteractiveOne  - Senior System Engineer\ne:mbarr@interactiveone.com\nc:646.765.6878\naim: matthewbarr1",
+    "date": "2009-02-03T18:34:32Z",
+    "message_id": "B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com",
+    "replies": [
+      {
+        "sender_name": "Barry Abrahamson",
+        "sender_email": "barry at automattic.com",
+        "subject": "[HyperDB] WP 2.7 testing?",
+        "body": "On Feb 3, 2009, at 1:34 PM, Matthew Barr wrote:\n\u003e I just wanted to see if anyone had any problems with the the HyperDB  \n\u003e plugin on 2.7?  I saw the change that was committed in Nov, but  \n\u003e anyone have any luck with it in production?\nWe are using HyperDB with WP 2.7 and WPMU 2.7 in production without  \nany issues.\n--\nBarry Abrahamson | Systems Wrangler | Automattic\nBlog: http://barry.wordpress.com",
+        "date": "2009-02-03T18:46:49Z",
+        "message_id": "A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com",
+        "in_reply_to": "B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com",
+        "references": [
+          "\u003cB859061E-D280-4345-BDA4-D69359A48372@interactiveone.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Joe Jacobs",
+    "sender_email": "joe at hazardcell.com",
+    "subject": "[HyperDB] WP 2.7",
+    "body": "Any plans to port HyperDB to WP 2.7? Or can the current release be used for\n2.7?\nCheers,\nJoe Jacobs\nhttp://joejacobs.org/",
+    "date": "2008-11-27T18:16:04Z",
+    "message_id": "cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] WP 2.7",
+        "body": "On Thu, Nov 27, 2008 at 12:15 PM, Joe Jacobs \u003cjoe@hazardcell.com\u003e wrote:\n\u003e Any plans to port HyperDB to WP 2.7? Or can the current release be used for\n\u003e 2.7?\nI've only seen a few small updates to wpdb in 2.7. They will be merged\ninto hyperdb but it should still work pretty well as-is. Please let us\nknow if you find problems.\nAndy",
+        "date": "2008-11-27T18:32:20Z",
+        "message_id": "e6ec604d0811271032x6b8dd083j2de099035948090e@mail.gmail.com",
+        "in_reply_to": "cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com",
+        "references": [
+          "\u003ccf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Wouter Westendorp",
+    "sender_email": "Wouter.Westendorp at ilsemedia.nl",
+    "subject": "[HyperDB] Using mysql replication",
+    "body": "Hello,\n \nWe're trying to set up master / slave replication using HyperDB where\nthe reads should go to the slave and writes to the master.\n \nHere it fails. Since HyperDB does a SET NAMES UTF-8 query in the\nconstructor, it connects to the master, which means all following\nqueries are sent to the master too.\n \nWe use the following settings in db-settings.php:\n \nadd_db_server('global', 0, '', 0, true, '192.168.210.4:3306',\n'192.168.210.4:3306', 'xx', 'xxx', 'xxx'); // master\nadd_db_server('global', 0, '', 1, false, '192.168.210.7:3306',\n'192.168.210.7:3306', 'xx', 'xxx', 'xxx'); // slave\n \nDoes anyone have experience with this kind of set up?\n \nIf I comment the SET NAMES query it works fine.\n \nThanks in advance,\n \n    Wouter Westendorp",
+    "date": "2008-08-05T15:42:56Z",
+    "message_id": "870942C1BB2F99459DC8C5051468EEE40AC2C9CE@ILSEW2K3-MAIL.ilse.media",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Using mysql replication",
+        "body": "On Tue, Aug 5, 2008 at 10:42 AM, Wouter Westendorp\n\u003cWouter.Westendorp@ilsemedia.nl\u003e wrote:\n\u003e Here it fails. Since HyperDB does a SET NAMES UTF-8 query in the\n\u003e constructor, it connects to the master, which means all following\n\u003e queries are sent to the master too.\nSET NAMES is now in db_connect. Update HyperDB to the latest version.\nCheck the installation instructions for changes since your version was\ninstalled.\nCheers,\nAndy",
+        "date": "2008-08-06T16:51:55Z",
+        "message_id": "e6ec604d0808060951l26f55abt3e57ac6fa4b8b083@mail.gmail.com",
+        "in_reply_to": "870942C1BB2F99459DC8C5051468EEE40AC2C9CE@ILSEW2K3-MAIL.ilse.media",
+        "references": [
+          "\u003c870942C1BB2F99459DC8C5051468EEE40AC2C9CE@ILSEW2K3-MAIL.ilse.media\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "J M",
+    "sender_email": "jerome.m at gmail.com",
+    "subject": "[HyperDB] wp-config.php and db-config.php",
+    "body": "hi,\n  DB_HOST entry in wp-config, is it still a requirement?  I tried to put a\nbogus IP then browsed the site and everything looks fine..  I can go to\nwp_admin/ without an issue.. traverse on the site without an issue..\n(db-config.php master and slave properly configured)\n  Just recently, I was thinking of enabling logging and I found a bunch of\nerrors saying cant connect to the bogus IP I placed in wp-config.php.\n  Do I need to configure something? Do I need to leave the DB_HOST to point\nto the master DB in wp-config.php?\ntia,",
+    "date": "2012-02-01T13:24:48-05:00",
+    "message_id": "CA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] wp-config.php and db-config.php",
+        "body": "In db-config.php you should have removed or commented out Sample\nConfiguration 1.\nAndy\nOn Wed, Feb 1, 2012 at 12:24 PM, J M \u003cjerome.m at gmail.com\u003e wrote:\n\u003e hi,\n\u003e\n\u003e ?DB_HOST entry in wp-config, is it still a requirement? ?I tried to put a\n\u003e bogus IP then browsed the site and everything looks fine.. ?I can go to\n\u003e wp_admin/ without an issue.. traverse on the site without an issue..\n\u003e (db-config.php master and slave properly configured)\n\u003e\n\u003e ?Just recently, I was thinking of enabling logging and I found a bunch of\n\u003e errors saying cant connect to the bogus IP I placed in wp-config.php.\n\u003e\n\u003e ?Do I need to configure something? Do I need to leave the DB_HOST to point\n\u003e to the master DB in wp-config.php?\n\u003e\n\u003e tia,\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2012-02-01T13:14:13-06:00",
+        "message_id": "CABVyDWU1VVUMzFTZbLneOLX891NAGDxnm0bbSN7=A1Z_UTVBAg@mail.gmail.com",
+        "in_reply_to": "CA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com",
+        "references": [
+          "\u003cCA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Beck, Joe",
+    "sender_email": "Joe_Beck at Comcast.com",
+    "subject": "[HyperDB] multi-datacenter configuration",
+    "body": "We?re looking to migrate to a multi-datacenter configuration \u0026 the 2 most\nobvious challenges with wordpress are DB and wp-contents contents.\nThis post is focused on DB:\nCan anyone speak to architecture options here.\nI?ve read that wordpress.com has 3 data centers but I believe its only using\nmaster ? slave replication.\nif this is the case, are you just using mysql replication to keep all dbs\nacross data centers in sync?\nAnd more specifically, how do you direct any writes (article posts or\ncomments submitted) to the master db to do the write?\nthis goes back to orig question on whether you only have a single master\nthat resides in 1 of your data centers.\nI realize that hyperDB has some capabilities to support multi-DC but I\nneeded to get the above question answered before even looking closer at\nthat, at least I think I do.\nThanks for any feedback,\nJoe",
+    "date": "2010-06-02T13:33:34-04:00",
+    "message_id": "C82C0E2E.19E00%Joe_Beck@Comcast.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] multi-datacenter configuration",
+        "body": "\u003e I?ve read that wordpress.com has 3 data centers but I believe its only using\n\u003e master ? slave replication.\n\u003e if this is the case, are you just using mysql replication to keep all dbs\n\u003e across data centers in sync?\nThat's right.\n\u003e And more specifically, how do you direct any writes (article posts or\n\u003e comments submitted) to the master db to do the write?\nIn the HyperDB config you specify the masters by setting their \"write\"\nflag. See db-settings.php for details.\nAndy",
+        "date": "2010-06-02T14:15:59-05:00",
+        "message_id": "AANLkTimCYIizl2O9aBadBE0eq932j_arZwQd2FtUkhTX@mail.gmail.com",
+        "in_reply_to": "C82C0E2E.19E00%Joe_Beck@Comcast.com",
+        "references": [
+          "\u003cC82C0E2E.19E00%Joe_Beck@Comcast.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Ari Newman",
+    "sender_email": "ari at filtrbox.com",
+    "subject": "[HyperDB] setup help",
+    "body": "Has there been any documentation written on how to setup HyperDB or  \ntroubleshoot issues? I'm trying to get it going but am not a php dev  \nreally.\nI added the contents of db-settings.php to my wp-config.php and  \nreplaced wp-db.php in ~/wp-includes/ with the HyperDB db.php.\ngetting this:\nWarning: array_key_exists() [function.array-key-exists]: The second  \nargument should be either an array or an object in /usr/local/filtrbox/ \napache2/htdocs/www/blog/wp-includes/wp-db.php on line 266\nWarning: mysql_affected_rows(): supplied argument is not a valid MySQL- \nLink resource in /usr/local/filtrbox/apache2/htdocs/www/blog/wp- \nincludes/wp-db.php on line 429\nFatal error: Call to undefined method wpdb::set_prefix() in /usr/local/ \nfiltrbox/apache2/htdocs/www/blog/wp-settings.php on line 211\nAll I'm trying to do is use HyperDB to get WP to work in a master- \nslave environment (both DB servers are local). I don't have multiple  \nlocations. My assumption is that the problem is with the database  \ndefinition since we aren't not supposed to need to touch the db.php  \nfile? Here's my string. (I have replaced my real username and passwords)\nadd_db_server('global', 0, 'iad', 1, 0,  '10.101.242.23:3306',   \n'10.101.242.23:3306', 'fbox_blog', 'dbusername',        'dbpassword');\nany help would be great - this is time sensitive...\n-Ari",
+    "date": "2008-06-10T22:38:18Z",
+    "message_id": "CEFDC945-6D33-40F4-8CE1-B4929BE4FC46@filtrbox.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] setup help",
+        "body": "\u003e Fatal error: Call to undefined method wpdb::set_prefix() in\n\u003e /usr/local/filtrbox/apache2/htdocs/www/blog/wp-settings.php on line 211\nHyperDB is not compatible with your version of WordPress.\nI haven't tried it, but you might be able to make it work by copying\nthe new vars and methods from WPDB into HyperDB.\nAndy",
+        "date": "2008-06-11T04:02:40Z",
+        "message_id": "e6ec604d0806102102m75698940y582cb54f5553a760@mail.gmail.com",
+        "in_reply_to": "CEFDC945-6D33-40F4-8CE1-B4929BE4FC46@filtrbox.com",
+        "references": [
+          "\u003cCEFDC945-6D33-40F4-8CE1-B4929BE4FC46@filtrbox.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Gabriel Koen",
+    "sender_email": "gabriel.koen at gmail.com",
+    "subject": "[HyperDB] init_charset() bug for \u003c 3.0",
+    "body": "Grabbed the latest version of HyperDB, plopped it into a dev install of\n2.9.2 and promptly got an error. :)  Here's the fix:\n/**\n * Sets $this-\u003echarset and $this-\u003ecollate\n */\nfunction init_charset() {\nif ( *function_exists('is_multisite') \u0026\u0026* is_multisite() ) {\n$this-\u003echarset = 'utf8';\nif ( defined( 'DB_COLLATE' ) \u0026\u0026 DB_COLLATE )\n$this-\u003ecollate = DB_COLLATE;\nelse\n$this-\u003ecollate = 'utf8_general_ci';\n} elseif ( defined( 'DB_COLLATE' ) ) {\n$this-\u003ecollate = DB_COLLATE;\n}\nif ( defined( 'DB_CHARSET' ) )\n$this-\u003echarset = DB_CHARSET;\n}\nHope that helps!\nGabriel",
+    "date": "2010-08-19T17:39:34-07:00",
+    "message_id": "AANLkTi=cerTbLxrKLiG-8MN0XQP1HAWPt9ouP5JYMRKP@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] init_charset() bug for \u003c 3.0",
+        "body": "\u003e if ( *function_exists('is_multisite') \u0026\u0026* is_multisite() ) {\nThanks, Gabriel.\nAndy",
+        "date": "2010-08-20T09:36:08-05:00",
+        "message_id": "AANLkTin+rm-rDTW6D_-+KCzXuHx0AeXtWjh32U4kVGtr@mail.gmail.com",
+        "in_reply_to": "AANLkTi=cerTbLxrKLiG-8MN0XQP1HAWPt9ouP5JYMRKP@mail.gmail.com",
+        "references": [
+          "\u003cAANLkTi=cerTbLxrKLiG-8MN0XQP1HAWPt9ouP5JYMRKP@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Jamie Holly",
+    "sender_email": "hovercrafter at earthlink.net",
+    "subject": "[HyperDB] Anyone using it yet? ",
+    "body": "Finally got a chance to set it up today. Running the master on my test\nserver (Ubuntu 7.04, Apache 2.2.3, PHP 5.2.1, MySql 5.0.18). Slave is\nrunning on my XP system (XAMPP, PHP 5.2.1, MySQL 5.0.17). So far everything\nis running good. Took about 10 minutes to set-up.\n \nJamie Holly\nhttp://www.intoxination.net",
+    "date": "2007-06-13T01:54:03Z",
+    "message_id": "042401c7ad5d$9e29ece0$da7dc6a0$@net",
+    "replies": [
+      {
+        "sender_name": "Matt Mullenweg",
+        "sender_email": "m at mullenweg.com",
+        "subject": "[HyperDB] Anyone using it yet?",
+        "body": "Jamie Holly wrote:\n\u003e Finally got a chance to set it up today. Running the master on my test\n\u003e server (Ubuntu 7.04, Apache 2.2.3, PHP 5.2.1, MySql 5.0.18). Slave is\n\u003e running on my XP system (XAMPP, PHP 5.2.1, MySQL 5.0.17). So far everything\n\u003e is running good. Took about 10 minutes to set-up.\nYou get the prize!\n-- \nMatt Mullenweg\n  http://photomatt.net | http://wordpress.org\nhttp://automattic.com | http://akismet.com",
+        "date": "2007-06-16T06:25:49Z",
+        "message_id": "467382B4.2090404@mullenweg.com",
+        "in_reply_to": "042401c7ad5d$9e29ece0$da7dc6a0$@net",
+        "references": [
+          "\u003c042401c7ad5d$9e29ece0$da7dc6a0$@net\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Gabriel Koen",
+    "sender_email": "gkoen at corp.mail.com",
+    "subject": "[HyperDB] is_write_query too strict",
+    "body": "Came across an issue where only the first query (autoload options) was being\nsent to the read slave(s). Turns out a couple plugins had the syntax 'SHOW\nTABLES LIKE...' which HyperDB thought was a read query, since it didn't\nmatch 'SELECT' as the first word. Made a quick fix for what I think are some\ncommon read statements to db.php:\nfunction is_write_query( $q ) {\n\t\t$pattern = '/^\\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)\\s+/i';\n\t\treturn (preg_match($pattern, $q)) ? false : true;\n\t}\nAs you can see my regex-fu is weak, I spent a good 40 minutes trying to\nnegatively match those words. Gave up, instead positively match them and\nthen return true if there's *not* a match.\nGabriel",
+    "date": "2010-07-30T10:14:28-07:00",
+    "message_id": "AANLkTi=DWgzSMdKsfXMFU0ds1c6_5yGGVfDpFAACMVVj@mail.gmail.com"
+  },
+  {
+    "sender_name": "Barry Abrahamson",
+    "sender_email": "barry at automattic.com",
+    "subject": "[HyperDB] Replication Lag Detection",
+    "body": "Replication lag detection is now in HyperDB trunk:\nhttp://barry.wordpress.com/2011/07/20/hyperdb-lag-detection/\nEnjoy!\n--\nBarry Abrahamson | Systems Wrangler | Automattic\nBlog: http://barry.wordpress.com",
+    "date": "2011-07-20T10:53:54-05:00",
+    "message_id": "103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com",
+    "replies": [
+      {
+        "sender_name": "Brian Layman",
+        "sender_email": "bulk at thecodecave.com",
+        "subject": "[HyperDB] Replication Lag Detection",
+        "body": "On 7/20/2011 11:53 AM, Barry Abrahamson wrote:\n\u003e Replication lag detection is now in HyperDB trunk:\n\u003e\n\u003e http://barry.wordpress.com/2011/07/20/hyperdb-lag-detection/\n\u003e\n\u003e Enjoy!\n\u003e --\n\u003e Barry Abrahamson | Systems Wrangler | Automattic\n\u003e Blog: http://barry.wordpress.com\n\u003e\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\nooo Very nice Barry!\nIt also sounds like object caching of sorts is now built into hyperdb \nnow.  What's the time out for that data? And am I correct in saying that \nthat cache only used when all slaves are lagging?\nHow are you feeling on the stability and a point release with these changes?\nThis sounds like a great change!\n-- \n*Brian Layman *\nFounder and Developer\nbrian at ehermitsInc.com \u003cmailto:brian at ehermitsInc.com\u003e\ntwitter: @brianlayman\n*eHermits Inc.*\nhttp://eHermitsInc.com \u003chttp://ehermitsinc.com/\u003e\n\t\nCell: 330-887-2283",
+        "date": "2011-07-20T12:02:54-04:00",
+        "message_id": "4E26FC2E.4030808@thecodecave.com",
+        "in_reply_to": "103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com",
+        "references": [
+          "\u003c103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Ari Newman",
+    "sender_email": "ari at filtrbox.com",
+    "subject": "[HyperDB] Re: setup help",
+    "body": "Thanks Andy,\nI had just upgraded that blog to 2.5.1. I can downgrade to 2.3.3 if  \nyou think that would work (that's what we still have in production).\nBest,\nAri\n--\nAri Newman\nFounder and President\nari@filtrbox.com\n303-945-3852 : phone\narinewman : aim/skype",
+    "date": "2008-06-11T20:11:29Z",
+    "message_id": "F153F381-0596-45F6-8C94-B9CD4A893328@filtrbox.com",
+    "replies": [
+      {
+        "sender_name": "Jeremy Visser",
+        "sender_email": "jeremy.visser at gmail.com",
+        "subject": "[HyperDB] Re: setup help",
+        "body": "On Wed, 2008-06-11 at 14:11 -0600, Ari Newman wrote:\n\u003e I had just upgraded that blog to 2.5.1. I can downgrade to 2.3.3 if  \n\u003e you think that would work (that's what we still have in production).\nWhat? HyperDB is not compatible with 2.5.1? How the heck does\nWordPress.com run on it?\nI guess it's not as open source as we thought it was.\n-- \nJeremy Visser                                 http://jeremy.visser.name/\n()                           ascii ribbon campaign ? against HTML e-mail\n/\\                                               http://asciiribbon.org/",
+        "date": "2008-06-11T21:27:48Z",
+        "message_id": "1213219706.6849.1.camel@rillian",
+        "in_reply_to": "F153F381-0596-45F6-8C94-B9CD4A893328@filtrbox.com",
+        "references": [
+          "\u003cF153F381-0596-45F6-8C94-B9CD4A893328@filtrbox.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Dan MacTough",
+    "sender_email": "danmactough at yahoo.com",
+    "subject": "[HyperDB] Introduction",
+    "body": "Your name:\nDan MacTough\n20 word background:\nFull-time lawyer. Hacking at Linux, PHP, MySQL, and WP on nights and \nweekends long enough to be a danger to myself.\nHow you'd like to use HyperDB:\nI'm working on updating a site I built on WP that has intense traffic \nwhen we pay attention to it. So, I want to evaluate whether I can use \nHyperDB without having rewrite too much of my own code.\nThanks for releasing this, Matt.",
+    "date": "2007-05-29T14:33:07Z",
+    "message_id": "465C3996.8040502@yahoo.com"
+  },
+  {
+    "sender_name": "Harry Sufehmi",
+    "sender_email": "sufehmi at gmail.com",
+    "subject": "[HyperDB] HyperDB instead of HSCALE",
+    "body": "Hi,\nA client of mine (we offer managed dedicated server) managed to\noverload his server when his website became too successful.  We then\noptimized his server and the load went down - but after a while it\nstarted to climb up again.\nTurned out that with faster performance, came even more traffic.\nNeedless to say, he's very happy, but also concerned. So he asked us\nabout a multiple server setup.\nI researched the topic and found out about HSCALE. I was interested to\nutilize it to implement horizontal partitioning. I like its\nloose-coupling approach, compared to MySQL's own solutions : (1)\nclustering: requires you to shutdown the whole stuff to set up a new\nnode, (2) replication: doesn't seem to scale too well (3) vertical\npartitioning : definitely doesn't scale well.\nUnfortunately, there are several minor problems with HSCALE, but a\nshowstopper for his case.\nSo I looked around again, and found HyperDB.\nMy plan is :\n(1) duplicate his database to another server\n(2) setup HyperDB so :\n# writes (new posts/comments/pages/etc) would be done to both database servers\n# reads would be split 50:50 between DBs\nAfter reading the docs, I assume that this is possible.\nCould someone please do a quick confirmation to this assumption?\nMany thanks in advance.\nThanks,\nHarry",
+    "date": "2009-02-20T01:55:42Z",
+    "message_id": "34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] HyperDB instead of HSCALE",
+        "body": "On Thu, Feb 19, 2009 at 7:55 PM, Harry Sufehmi \u003csufehmi@gmail.com\u003e wrote:\n\u003e (2) setup HyperDB so :\n\u003e # writes (new posts/comments/pages/etc) would be done to both database servers\n\u003e # reads would be split 50:50 between DBs\n\u003e\n\u003e After reading the docs, I assume that this is possible.\nHyperDB does not do replication for you. You must set up MySQL\nreplication and only send writes to a master.\nAll writes for a database go to a single server (master), but reads\ncan be spread out across master and slaves.\nCheers,\nAndy",
+        "date": "2009-02-20T04:12:21Z",
+        "message_id": "e6ec604d0902192012m76480e26waed9a7033e2f60aa@mail.gmail.com",
+        "in_reply_to": "34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com",
+        "references": [
+          "\u003c34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "astina at landofshadow.net",
+    "sender_email": "astina at landofshadow.net",
+    "subject": "[HyperDB] Two Database Configuration",
+    "body": "I seem to have gotten things connected to allow the site to 'work'.   \nHowever, I'm trying to use the HyperDB functionality to connect to a  \nsecond database on the same server with the intent of pulling data for  \na plug-in from it.\n$wpdb-\u003eadd_database(array(\n         'host'     =\u003e 'localhost',\n         'user'     =\u003e 'username',\n         'password' =\u003e 'password',\n         'name'     =\u003e 'wp_database',\n));\n$wpdb-\u003eadd_database(array(\n         'host'     =\u003e 'localhost',\n         'user'     =\u003e 'username',\n         'password' =\u003e 'password',\n         'name'     =\u003e 'plugin_database',\n         'dataset'  =\u003e 'plugin_dataset',\n));\nWhenever I try to do:\n$myrows = $wpdb-\u003eget_results( \"SELECT * FROM account\" );\nAccount is a table in the plugin_database.  I get the following error:\nFatal error: Call to a member function get_results() on a non-object  \nin  \n/srv/web/www.landofshadow.net/public_html/wp-content/plugins/eden/eden.php on  \nline 15\nAny tips as to how I actually configure or utilize this correctly?   \nAssistance with this would be \"greatly\" appreciated.\nAstina\nastina at landofshadow.net",
+    "date": "2010-07-24T20:26:07-05:00",
+    "message_id": "20100724202607.12566u9e691nepc8@www.landofshadow.net",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Two Database Configuration",
+        "body": "\u003e Fatal error: Call to a member function get_results() on a non-object in\n\u003e /srv/web/www.landofshadow.net/public_html/wp-content/plugins/eden/eden.php\n\u003e on line 15\nMy guess: you forgot \"global $wpdb;\".\nCheers,\nAndy",
+        "date": "2010-07-24T23:09:14-05:00",
+        "message_id": "AANLkTimsnzQCUi7HFkN9Vm--g_4_azT4WpbYH+J9btE2@mail.gmail.com",
+        "in_reply_to": "20100724202607.12566u9e691nepc8@www.landofshadow.net",
+        "references": [
+          "\u003c20100724202607.12566u9e691nepc8@www.landofshadow.net\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "PJ Brunet",
+    "sender_email": "pj at pjbrunet.com",
+    "subject": "[HyperDB] I hit \"reply\" that didn't work.",
+    "body": "I'm a member of the meetup thing, but my headers probably betrayed me.  Sadly, I bounced.  Thank God for cut and paste.  No I'm not using my host's crappy CPanel-influenced webmail, or my email address might have validated with whatever gay concoction these paranoid Meetup freaks came up with to promote their local Wiccan club.  Ever rebellious contrarian that I am, I pay Norada the big bucks to manage my email, Solve360.com to be exact.  Fuck Gmail!  Go Canada!  \nHow's that for an intro?  \nWell, I have no need for this spiffy database stuff right now, because if it ain't broke, don't fix it, as they say here in Texas, and elsewhere I'm sure.  However, I'm at around 10k visits/day and just getting started, haven't even quit my day-job yet.  Not sure if I'll ever need \"HyperDB\" but I'm pretty sure I need to know if I won't need it, in case I find myself in such a desperate situation, as I'm sure you have and can testify to, Wordpress wonders that you are, having devised such an elegant solution.  At least I hope so?\n--Pete\nKnowingart.com\nFerodynamics.com\nPJBrunet.com\nAustinPsychologist.com",
+    "date": "2007-07-31T21:26:34Z",
+    "message_id": "0afc01c7d3b9$72ae8940$c921cdd1@norada.com"
+  },
+  {
+    "sender_name": "Ben Partch",
+    "sender_email": "me at benpartch.com",
+    "subject": "[HyperDB] Hey I joined up",
+    "body": "Hello to all the members of this mailing list.\nMy name is Ben, I am a WP user and probably have no business joining. such a\nlist as this. My knowledge level is probably not up to par but hey, maybe I\ncan learn something by reading what everyone has to say for awhile. :)\nThanks,\nBen\n-- \nBen Partch\nhttp://benpartch.com/\nhttp://metalpedia.com/\nhttp://cssbasics.com/",
+    "date": "2007-05-29T00:31:26Z",
+    "message_id": "85ae56140705281731w47975cc6x7df99c706875f2d3@mail.gmail.com"
+  },
+  {
+    "sender_name": "Harry Sufehmi",
+    "sender_email": "sufehmi at gmail.com",
+    "subject": "[HyperDB] HyperDB instead of HSCALE",
+    "body": "Hi,\nA client of mine (we offer managed dedicated server) managed to\noverload his server when his website became too successful.  We then\noptimized his server and the load went down - but after a while it\nstarted to climb up again.\nTurned out that with faster performance, came even more traffic.\nNeedless to say, he's very happy, but also concerned. So he asked us\nabout a multiple server setup.\nI researched the topic and found out about HSCALE. I was interested to\nutilize it to implement horizontal partitioning. I like its\nloose-coupling approach, compared to MySQL's own solutions : (1)\nclustering: requires you to shutdown the whole stuff to set up a new\nnode, (2) replication: doesn't seem to scale too well (3) vertical\npartitioning : definitely doesn't scale well.\nUnfortunately, there are several minor problems with HSCALE, but a\nshowstopper for his case.\nSo I looked around again, and found HyperDB.\nMy plan is :\n(1) duplicate his database to another server\n(2) setup HyperDB so :\n# writes (new posts/comments/pages/etc) would be done to both database servers\n# reads would be split 50:50 between DBs\nAfter reading the docs and this list's archive, I assume that this is possible.\nCould someone please do a quick confirmation to this assumption?\nMany thanks in advance.\nThanks,\nHarry",
+    "date": "2009-02-20T01:55:56Z",
+    "message_id": "34c80ff40902191755x7f6c5f61ne92de584f8f65ac5@mail.gmail.com"
+  },
+  {
+    "sender_name": "Jim McQuillan",
+    "sender_email": "jim at jimmcq.com",
+    "subject": "[HyperDB] Any advantage to partitioning on a single database server?",
+    "body": "I've been doing more research into scaling a WordPress multi-site\ninstallation, and I've been under the assumption that partitioning the\ntables into multiple databases would be beneficial for a large installation\n(hypothetically 50,000 blogs).\nBut then I came across this quote from the HyperDB\nFAQ\u003chttp://wordpress.org/extend/plugins/hyperdb/faq/\u003e\n:\nIs there any advantage to using HyperDB with just one database server?\nNone that has been measured.\nDoes that still apply even if partitioning is used?\nI know that using multiple database server would definitely bring a\nperformance enhancement, but we're starting with one... so is it even worth\nit to implement partitioning at all right now?\nThanks!\n-Jim",
+    "date": "2010-08-26T11:56:53-07:00",
+    "message_id": "AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] Any advantage to partitioning on a single database",
+        "body": "server?\nJim McQuillan wrote:\n\u003e I've been doing more research into scaling a WordPress multi-site\n\u003e installation, and I've been under the assumption that partitioning the\n\u003e tables into multiple databases would be beneficial for a large installation\n\u003e (hypothetically 50,000 blogs).\nAt some point we decided to have multiple databases on a single\nmachine. Maybe it had something to do with the number of files in a\ndirectory, or the number of hard drives in the machine; I never quite\nunderstood it. Maybe Barry or Donncha can explain.\n\u003e I know that using multiple database server would definitely bring a\n\u003e performance enhancement, but we're starting with one... so is it even worth\n\u003e it to implement partitioning at all right now?\nThere is some measurable overhead to partitioning. So if you had two\nblogs and you put them in separate partitions I assume there would be\na tiny downside and no measurable upside.\nAt some point (hopefully) you'll need to use partitioning due to\nhardware limitations. When that time comes, you may or may not benefit\nfrom any partitioning you did on the one first server. Your scheme\nmight have to be thrown out or it might actually make it easier to\nmigrate to a scaled-up system. The only guaranteed benefit is having\nthe experience of working with the more complex configuration.\nWithout further information I'd say proceed without partitioning.\nDon't try to do all your scaling in advance; it doesn't work. Run some\nexperiments once you have real-world data and traffic.\nAndy",
+        "date": "2010-08-26T14:53:09-05:00",
+        "message_id": "AANLkTimhwt6Gb=cdPsKyU05ogg8Sr8T4RpgjeXHUY9rD@mail.gmail.com",
+        "in_reply_to": "AANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com",
+        "references": [
+          "\u003cAANLkTimwAO3iOPAZXZ_EghuGw_w7h2rREfoTR8Y9AOM0@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Andy Skelton",
+    "sender_email": "skeltoac at gmail.com",
+    "subject": "[HyperDB] 1.0 soon",
+    "body": "I have tagged current trunk as 0.1. Trunk will be changing very\nrapidly beginning now. These are the goals:\n* Remove BackPress support\n* Remove WPMU support in favor of WP 3.0\n* Remove globals like $db_servers, $db_tables\n* Remove $single_db (just use wpdb if no multiple DBs)\n* class hyperdb extends wpdb (much easier to maintain)\n* Move config function logic to hyperdb class\n  - leave back-compat wrappers in config file for lazy upgrade\n  - you can modify the wrappers\n* Instantiate with DB constants before loading config\n  - you can query that DB to determine how to configure hyperdb!\n  - it's okay if you don't have those constants or they are empty\n  - if you don't query, it won't connect. no performance hit.\n* Remove get_ds_part_from_table\n* Remove $hash\n* Replace the two above with a plug-in system\n  - you can define and register your own function in your config\n  - function arg will be the query. it can use get_table_from_query.\n  - function will return compact('dataset', 'partition', 'database')\n  - db_connect will extract (overwrite) so it's quite powerful\n  - no function registered, no performance hit\n* Merge some custom wordpress.com db features into hyperdb 1.0\n* Simplify installation procedure, make it atomic (safer)\n  - Deploying only db.php has no effect (it falls back on wpdb)\n  - Deploying db-config.php turns on hyperdb\nThe next few changesets will break WPMU and fix 3.0.\nIf you are using WPMU and not planning on migrating to WP 3.0 you will\nbe maintaining your own branch of hyperdb.\nWhen you upgrade to 1.0 you will be REQUIRED to update your\nconfiguration. The upgrade will most likely be copy/paste and\nsearch/replace, two minutes with a text editor. I'm changing the\nconfig file name to force you to take action.\nUsing a new config file name also makes the upgrade safer. You can\ndeploy the new config then deploy the new db.php for an atomic\nupgrade. Naturally you should test before deploying to a production\nsite.\nIf you are using any of the things I plan to remove please reply. I\nwill try to make it easy for everyone to upgrade.\nTo discuss any planned new features or requests please start a new subject.\nCheers,\nAndy",
+    "date": "2010-06-03T12:56:49-05:00",
+    "message_id": "AANLkTimjasZPDlx7HJvytU0RLcCXuW5aGrRE2Ltad7Em@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Jim McQuillan",
+        "sender_email": "jim at jimmcq.com",
+        "subject": "[HyperDB] 1.0 soon",
+        "body": "Does anyone know if the SharDB plugin works with the new HyperDB 1.0\nrelease, or does it need also need an update?\nhttp://wordpress.org/extend/plugins/shardb/\nThanks!\n-Jim\nOn 6/3/2010 10:56 AM, Andy Skelton wrote:\n\u003e I have tagged current trunk as 0.1. Trunk will be changing very\n\u003e rapidly beginning now. These are the goals:\n\u003e * Remove BackPress support\n\u003e * Remove WPMU support in favor of WP 3.0\n\u003e * Remove globals like $db_servers, $db_tables\n\u003e * Remove $single_db (just use wpdb if no multiple DBs)\n\u003e * class hyperdb extends wpdb (much easier to maintain)\n\u003e * Move config function logic to hyperdb class\n\u003e   - leave back-compat wrappers in config file for lazy upgrade\n\u003e   - you can modify the wrappers\n\u003e * Instantiate with DB constants before loading config\n\u003e   - you can query that DB to determine how to configure hyperdb!\n\u003e   - it's okay if you don't have those constants or they are empty\n\u003e   - if you don't query, it won't connect. no performance hit.\n\u003e * Remove get_ds_part_from_table\n\u003e * Remove $hash\n\u003e * Replace the two above with a plug-in system\n\u003e   - you can define and register your own function in your config\n\u003e   - function arg will be the query. it can use get_table_from_query.\n\u003e   - function will return compact('dataset', 'partition', 'database')\n\u003e   - db_connect will extract (overwrite) so it's quite powerful\n\u003e   - no function registered, no performance hit\n\u003e * Merge some custom wordpress.com db features into hyperdb 1.0\n\u003e * Simplify installation procedure, make it atomic (safer)\n\u003e   - Deploying only db.php has no effect (it falls back on wpdb)\n\u003e   - Deploying db-config.php turns on hyperdb\n\u003e\n\u003e The next few changesets will break WPMU and fix 3.0.\n\u003e\n\u003e If you are using WPMU and not planning on migrating to WP 3.0 you will\n\u003e be maintaining your own branch of hyperdb.\n\u003e\n\u003e When you upgrade to 1.0 you will be REQUIRED to update your\n\u003e configuration. The upgrade will most likely be copy/paste and\n\u003e search/replace, two minutes with a text editor. I'm changing the\n\u003e config file name to force you to take action.\n\u003e\n\u003e Using a new config file name also makes the upgrade safer. You can\n\u003e deploy the new config then deploy the new db.php for an atomic\n\u003e upgrade. Naturally you should test before deploying to a production\n\u003e site.\n\u003e\n\u003e If you are using any of the things I plan to remove please reply. I\n\u003e will try to make it easy for everyone to upgrade.\n\u003e\n\u003e To discuss any planned new features or requests please start a new subject.\n\u003e\n\u003e Cheers,\n\u003e Andy\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e\n\u003e",
+        "date": "2010-06-29T22:58:07-07:00",
+        "message_id": "4C2ADCEF.4030600@jimmcq.com",
+        "in_reply_to": "AANLkTimjasZPDlx7HJvytU0RLcCXuW5aGrRE2Ltad7Em@mail.gmail.com",
+        "references": [
+          "\u003cAANLkTimjasZPDlx7HJvytU0RLcCXuW5aGrRE2Ltad7Em@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "irfan irfan",
+    "sender_email": "irfan_area47 at yahoo.co.id",
+    "subject": "[HyperDB] separate user database",
+    "body": "Anyone can help me, how to separate database for user, example user A use database on DB_A, user B user database on DB_B\nThank before",
+    "date": "2010-03-25T21:34:03+08:00",
+    "message_id": "409263.39279.qm@web76515.mail.sg1.yahoo.com"
+  },
+  {
+    "sender_name": "Drew Weaver",
+    "sender_email": "drew.weaver at thenap.com",
+    "subject": "[HyperDB] Is hyperdb depreciated?",
+    "body": "Hi,\nI am trying to find out if hyperdb is depreciated or if it is just not being maintained.\nWhen I use hyperdb in my implementation there are a ton of warnings/errors being posted to my apache log.\nBelow are some examples:\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined index:  global__r in /content/wp-content/db.php on line 388, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined property:  hyperdb::$write in /content/wp-content/db.php on line 432, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined offset:  1 in /content/wp-content/db.php on line 467, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: charset in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: collate in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\nThese seem to appear pretty much constantly.\nthanks,\n-Drew",
+    "date": "2011-03-11T09:23:38-05:00",
+    "message_id": "F3318834F1F89D46857972DD4B411D7001A1358847@exchange",
+    "replies": [
+      {
+        "sender_name": "Barry Abrahamson",
+        "sender_email": "barry at automattic.com",
+        "subject": "[HyperDB] Is hyperdb depreciated?",
+        "body": "On Mar 11, 2011, at 8:23 AM, Drew Weaver wrote:\n\u003e Hi,\n\u003e \n\u003e I am trying to find out if hyperdb is depreciated or if it is just not being maintained.\n\u003e \n\u003e When I use hyperdb in my implementation there are a ton of warnings/errors being posted to my apache log.\n\u003e \n\u003e Below are some examples:\n\u003e \n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined index:  global__r in /content/wp-content/db.php on line 388, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined property:  hyperdb::$write in /content/wp-content/db.php on line 432, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined offset:  1 in /content/wp-content/db.php on line 467, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: charset in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: collate in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text\n\u003e \n\u003e These seem to appear pretty much constantly.\nHowdy,\nThanks for the note.  This is on our list to fix.  Expect to see those fixes and some other, cool updates for HyperDB coming soon.\n--\nBarry Abrahamson | Systems Wrangler | Automattic\nBlog: http://barry.wordpress.com",
+        "date": "2011-03-11T10:00:09-06:00",
+        "message_id": "FAE9118D-4F7A-4225-BC34-9752D005C76A@automattic.com",
+        "in_reply_to": "F3318834F1F89D46857972DD4B411D7001A1358847@exchange",
+        "references": [
+          "\u003cF3318834F1F89D46857972DD4B411D7001A1358847@exchange\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Andy Skelton",
+    "sender_email": "skeltoac at gmail.com",
+    "subject": "[HyperDB] HyperDB compatibility",
+    "body": "I just updated HyperDB for compatibility with WordPress trunk at\nrevision 8094. No other compatibility is implied.\nhttp://svn.wp-plugins.org/hyperdb/trunk/\ndb.php:\nPut it in wp-content. It will function the same as core WPDB, using\nthe DB definitions in wp-config.php until you set up db-config.php.\ndb-settings.php:\nPut it wherever wp-config.php lives and require it in wp-config.php\nafter the prefix is assigned. Follow the directions to replace the\ndefault with your multi-db configuration.\nCheers,\nAndy",
+    "date": "2008-06-16T17:45:24Z",
+    "message_id": "e6ec604d0806161045va2d5a78y395efb6da7849bdb@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "",
+        "sender_email": "hyperdb-bounces@lists.automattic.com",
+        "subject": "[HyperDB] HyperDB compatibility",
+        "body": "SWEET! Thanks Andy!\n______________________________________________\nBrian Layman\nb5media Inc.\nwww.b5Media.com?/ www.TheCodeCave.com / www.rhettandlink.com/live\nSkype: BrianLayman\nTwitter: http://www.twitter.com/brianlayman\n-----Original Message-----\n[mailto:hyperdb-bounces@lists.automattic.com] On Behalf Of Andy Skelton\nSent: Monday, June 16, 2008 1:45 PM\nTo: hyperdb@lists.automattic.com\nI just updated HyperDB for compatibility with WordPress trunk at\nrevision 8094. No other compatibility is implied.\nhttp://svn.wp-plugins.org/hyperdb/trunk/\ndb.php:\nPut it in wp-content. It will function the same as core WPDB, using\nthe DB definitions in wp-config.php until you set up db-config.php.\ndb-settings.php:\nPut it wherever wp-config.php lives and require it in wp-config.php\nafter the prefix is assigned. Follow the directions to replace the\ndefault with your multi-db configuration.\nCheers,\nAndy\n_______________________________________________\nHyperDB mailing list\nHyperDB@lists.automattic.com\nhttp://lists.automattic.com/mailman/listinfo/hyperdb",
+        "date": "2008-06-16T17:50:07Z",
+        "message_id": "000301c8cfd9$5ec74670$1c55d350$@com",
+        "in_reply_to": "e6ec604d0806161045va2d5a78y395efb6da7849bdb@mail.gmail.com",
+        "references": [
+          "\u003ce6ec604d0806161045va2d5a78y395efb6da7849bdb@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Dan Milward",
+    "sender_email": "dan at instinct.co.nz",
+    "subject": "[HyperDB] [Fwd: Hyper DB fix]",
+    "body": "Hi Guys,\nI'm just forwarding this on. We've been working on HyperDB and came \nacross a lil bug... and here is the fixed file. Our comments are \nthere... you can't miss it :)\nCiao,\nDan\nI added \". '|ALTER TABLE(?:\\s+ADD)?'  \" to the Big pattern in \nget_table_from_query to make sure it can get the table name out of SQL \nqueries like the following:\nALTER TABLE `wp_22_purchase_logs` ADD `find_us` varchar(255) NOT NULL",
+    "date": "2008-11-02T22:08:35Z",
+    "message_id": "490E24AC.30905@instinct.co.nz",
+    "replies": [
+      {
+        "sender_name": "Dan Milward",
+        "sender_email": "dan at instinct.co.nz",
+        "subject": "[HyperDB] [Fwd: Hyper DB fix]",
+        "body": "Actually it looks like the patched file may not have attached itself \ncorrectly. Just incase you can download the patched file from here:\nhttp://s3.amazonaws.com/s3.getshopped.com/images/db.php.zip\nCiao,\nDan\nDan Milward wrote:\n\u003e Hi Guys,\n\u003e\n\u003e I'm just forwarding this on. We've been working on HyperDB and came \n\u003e across a lil bug... and here is the fixed file. Our comments are \n\u003e there... you can't miss it :)\n\u003e\n\u003e Ciao,\n\u003e\n\u003e Dan\n\u003e\n\u003e I added \". '|ALTER TABLE(?:\\s+ADD)?'  \" to the Big pattern in \n\u003e get_table_from_query to make sure it can get the table name out of SQL \n\u003e queries like the following:\n\u003e\n\u003e ALTER TABLE `wp_22_purchase_logs` ADD `find_us` varchar(255) NOT NULL\n\u003e\n\u003e\n\u003e\n\u003e ------------------------------------------------------------------------\n\u003e\n\u003e _______________________________________________\n\u003e HyperDB mailing list\n\u003e HyperDB@lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/hyperdb\n\u003e",
+        "date": "2008-11-02T22:36:18Z",
+        "message_id": "490E2B53.9000103@instinct.co.nz",
+        "in_reply_to": "490E24AC.30905@instinct.co.nz",
+        "references": [
+          "\u003c490E24AC.30905@instinct.co.nz\u003e"
+        ]
+      },
+      {
+        "sender_name": "Andy Skelton",
+        "sender_email": "skeltoac at gmail.com",
+        "subject": "[HyperDB] [Fwd: Hyper DB fix]",
+        "body": "On Sun, Nov 2, 2008 at 4:07 PM, Dan Milward \u003cdan@instinct.co.nz\u003e wrote:\n\u003e I added \". '|ALTER TABLE(?:\\s+ADD)?'  \" to the Big pattern in\n\u003e get_table_from_query to make sure it can get the table name out of SQL\n\u003e queries like the following:\n\u003e\n\u003e ALTER TABLE `wp_22_purchase_logs` ADD `find_us` varchar(255) NOT NULL\nHi Dan,\nThat's definitely a bug, but not the best patch. Here is the MySQL\nmanual on ALTER TABLE syntax:\nhttp://dev.mysql.com/doc/refman/4.1/en/alter-table.html\nThe keyword \"ADD\" only appears after the table name, so it's not\nneeded. However, \"IGNORE\" is legal between ALTER and TABLE. I applied\nthe following patch to fix the \"ALTER\" pattern:\nhttp://plugins.trac.wordpress.org/changeset/71913\nPlease pass that on and let me know if it's not a good fix.\nCheers,\nAndy",
+        "date": "2008-11-03T15:08:47Z",
+        "message_id": "e6ec604d0811030659p1d19a0d5t726fdd684a251acb@mail.gmail.com",
+        "in_reply_to": "490E24AC.30905@instinct.co.nz",
+        "references": [
+          "\u003c490E24AC.30905@instinct.co.nz\u003e"
+        ]
+      }
+    ]
+  }
+]

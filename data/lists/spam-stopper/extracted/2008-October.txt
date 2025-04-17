@@ -1,0 +1,156 @@
+From mark.cunningham at gmail.com  Thu Oct 16 15:12:46 2008
+From: mark.cunningham at gmail.com (Mark Cunningham)
+Date: Thu, 16 Oct 2008 16:12:46 +0100
+Subject: [spam-stopper] What to tell users who have been mistakenly flagged
+	as spam by Akismet?
+Message-ID: <ee3949160810160812g48d1eec7x77e6630f0eb932af@mail.gmail.com>
+
+I've integrated Akismet into my Wordpress plugin tdo-mini-forms[1] and
+I've found it works an absolute treat, thank you. Many of my users
+have reported the same. However a small number of users have found
+their submissions being flagged as spam [2][3]. Where can I point
+them, to possible resolve the issue?
+
+Thanks in advance
+Mark
+
+[1] http://wordpress.org/extend/plugins/tdo-mini-forms/
+[2] http://thedeadone.net/forum/?p=1193
+[3] http://thedeadone.net/forum/?p=1220
+-- 
+http://thedeadone.net
+http://irishgamingwiki.com
+
+
+From davidnicol at gmail.com  Thu Oct 16 15:45:29 2008
+From: davidnicol at gmail.com (David Nicol)
+Date: Thu, 16 Oct 2008 10:45:29 -0500
+Subject: [spam-stopper] What to tell users who have been mistakenly
+	flagged as spam by Akismet?
+In-Reply-To: <ee3949160810160812g48d1eec7x77e6630f0eb932af@mail.gmail.com>
+References: <ee3949160810160812g48d1eec7x77e6630f0eb932af@mail.gmail.com>
+Message-ID: <934f64a20810160845n3b39dc48ocec8b82f8ceae777@mail.gmail.com>
+
+Akismet has a ham submission protocol; you could offer them a way to
+submit something for reconsideration; do not fully automate ham
+submission though, that would be bad.  Ideally, the plugin could
+maintain some kind of moderation queue that would route possible ham
+by the owner of the akismet key for a live
+approve-and-report-ham/disapprove-and-don't-report-ham decision.
+
+On Thu, Oct 16, 2008 at 10:12 AM, Mark Cunningham
+<mark.cunningham at gmail.com> wrote:
+> I've integrated Akismet into my Wordpress plugin tdo-mini-forms[1] and
+> I've found it works an absolute treat, thank you. Many of my users
+> have reported the same. However a small number of users have found
+> their submissions being flagged as spam [2][3]. Where can I point
+> them, to possible resolve the issue?
+>
+> Thanks in advance
+> Mark
+
+-- 
+"Every man a god, that is if you can qualify.  You can't be the god of
+anything unless you can do it" -- William S. Burroughs
+
+
+From mark.cunningham at gmail.com  Fri Oct 17 12:37:46 2008
+From: mark.cunningham at gmail.com (Mark Cunningham)
+Date: Fri, 17 Oct 2008 13:37:46 +0100
+Subject: [spam-stopper] What to tell users who have been mistakenly
+	flagged as spam by Akismet?
+In-Reply-To: <934f64a20810160845n3b39dc48ocec8b82f8ceae777@mail.gmail.com>
+References: <ee3949160810160812g48d1eec7x77e6630f0eb932af@mail.gmail.com>
+	<934f64a20810160845n3b39dc48ocec8b82f8ceae777@mail.gmail.com>
+Message-ID: <ee3949160810170537p4f207936p83e00358369cf0e8@mail.gmail.com>
+
+2008/10/16 David Nicol <davidnicol at gmail.com>:
+> Akismet has a ham submission protocol; you could offer them a way to
+> submit something for reconsideration; do not fully automate ham
+> submission though, that would be bad.  Ideally, the plugin could
+> maintain some kind of moderation queue that would route possible ham
+> by the owner of the akismet key for a live
+> approve-and-report-ham/disapprove-and-don't-report-ham decision.
+
+My plugin does have a moderation queue of submissions flagged as spam,
+but I'm not sure about offering a "reconsideration" option - it'll
+just be another avenue for spammers.
+
+I think more the issue is, what do I tell someone who comes looking
+for support from my plugin if their submissions are getting flagged as
+spam? Do I just tell them to chill out and the system will correct
+itself - that I've already flagged their submission to me as not spam?
+
+-- 
+http://thedeadone.net
+http://irishgamingwiki.com
+
+
+From davidnicol at gmail.com  Fri Oct 17 16:23:33 2008
+From: davidnicol at gmail.com (David Nicol)
+Date: Fri, 17 Oct 2008 11:23:33 -0500
+Subject: [spam-stopper] What to tell users who have been mistakenly
+	flagged as spam by Akismet?
+In-Reply-To: <ee3949160810170537p4f207936p83e00358369cf0e8@mail.gmail.com>
+References: <ee3949160810160812g48d1eec7x77e6630f0eb932af@mail.gmail.com>
+	<934f64a20810160845n3b39dc48ocec8b82f8ceae777@mail.gmail.com>
+	<ee3949160810170537p4f207936p83e00358369cf0e8@mail.gmail.com>
+Message-ID: <934f64a20810170923g647f5d3em473007a4bac7ec60@mail.gmail.com>
+
+the system doesn't take care of itself; it required corrective nudging
+in the form of the ham submission. (which I trust works. I haven't had
+anyone pass a ham to me for submission since I added akismet to the
+tipar generic form handler, so I don't know from personal experience
+if it really works, but I trust the documentation)
+
+On Fri, Oct 17, 2008 at 7:37 AM, Mark Cunningham
+<mark.cunningham at gmail.com> wrote:
+> 2008/10/16 David Nicol <davidnicol at gmail.com>:
+>> Akismet has a ham submission protocol
+
+> My plugin does have a moderation queue of submissions flagged as spam,
+> but I'm not sure about offering a "reconsideration" option - it'll
+> just be another avenue for spammers.
+
+as long as it takes extra clicks, it will be an avenue for spammers to
+annoy the site operator only.  You could captcha-protect the
+"reconsider" option, or charge "tipjarium captcha points" to request a
+reconsideration; contact me off-list to integrate my partial captcha
+value disbursement system into your plug-in if you like.
+
+(shameless plug: I'm developing a system for accounting captcha
+completions, so if you have recently done one you don't have to do
+another until you run out.  I expect this to revolutionize commerce.
+I desperately need collaborators and testers.)
+
+> I think more the issue is, what do I tell someone who comes looking
+> for support from my plugin if their submissions are getting flagged as
+> spam? Do I just tell them to chill out and the system will correct
+> itself - that I've already flagged their submission to me as not spam?
+
+I imagine an ideal flow chart would go something like this:
+
+     commentor submits comment
+
+     akismet check
+
+     akismet check indicates spam and jump to ACIS
+
+     queue in moderation queue or post
+
+     done
+
+     ACIS:
+
+    offer commentor non-free (requires captcha or equivalent) option
+to request akismet override
+
+    commentor accepts option including jumping through required hoop
+
+   queue comment in "other" moderation queue
+
+-- 
+"Every man a god, that is if you can qualify.  You can't be the god of
+anything unless you can do it" -- William S. Burroughs
+
+

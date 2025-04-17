@@ -1,0 +1,262 @@
+From marcelobarrosalmeida at gmail.com  Sat May  2 15:04:01 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Sat May  2 15:04:12 2009
+Subject: [wp-xmlrpc] An request for comments API: getRecentComments()
+Message-ID: <ca18f54e0905020804tb3523fbuc44db35640614521@mail.gmail.com>
+
+Hi !
+
+I would like to suggest a new method for comments API, something like:
+
+wp.getRecentComments(blog_id, username, password, offset)
+
+The idea is to retrieve recent comments, but ignoring post
+information, all recent comments for a given blog could be retrieved
+with this paged method (see offset at the end).
+
+Excuse me if this can be performed with other method. My understanding
+is that getComments() has a different purpose.
+
+Anyway, thanks for this great code that allowed me to create Wordmobi.
+
+Marcelo Barros
+http://code.google.com/p/wordmobi
+From peter.westwood at ftwr.co.uk  Mon May  4 09:21:19 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Mon May  4 09:21:35 2009
+Subject: [wp-xmlrpc] An request for comments API: getRecentComments()
+In-Reply-To: <ca18f54e0905020804tb3523fbuc44db35640614521@mail.gmail.com>
+References: <ca18f54e0905020804tb3523fbuc44db35640614521@mail.gmail.com>
+Message-ID: <475D376F-316C-4858-A409-3B95EEB6C7E7@ftwr.co.uk>
+
+
+On 2 May 2009, at 16:04, Marcelo Jedi wrote:
+
+> Hi !
+>
+> I would like to suggest a new method for comments API, something like:
+>
+> wp.getRecentComments(blog_id, username, password, offset)
+>
+> The idea is to retrieve recent comments, but ignoring post
+> information, all recent comments for a given blog could be retrieved
+> with this paged method (see offset at the end).
+>
+> Excuse me if this can be performed with other method. My understanding
+> is that getComments() has a different purpose.
+
+I believe this can already be achieved with a call getComments().
+
+If you don't specify post_id or set it 0 you should get the most  
+recent comments I believe.
+
+I guess this hi-lights that the methods in xmlrpc.php could do with  
+some more phpdoc.
+
+westi
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+From marcelobarrosalmeida at gmail.com  Mon May  4 12:48:57 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Mon May  4 12:49:24 2009
+Subject: [wp-xmlrpc] An request for comments API: getRecentComments()
+In-Reply-To: <475D376F-316C-4858-A409-3B95EEB6C7E7@ftwr.co.uk>
+References: <ca18f54e0905020804tb3523fbuc44db35640614521@mail.gmail.com>
+	<475D376F-316C-4858-A409-3B95EEB6C7E7@ftwr.co.uk>
+Message-ID: <ca18f54e0905040548v7f647095t985c325b24902a26@mail.gmail.com>
+
+HI Peter,
+
+I will test it. Since documentation talked about "for a given post", I
+didn't think it was possible. But code is showing that I can use
+post_id = '' (http://core.trac.wordpress.org/browser/tags/2.7/xmlrpc.php#L1100)
+
+Thanks a lot !
+
+Marcelo
+
+2009/5/4 Peter Westwood <peter.westwood@ftwr.co.uk>:
+>
+> On 2 May 2009, at 16:04, Marcelo Jedi wrote:
+>
+>> Hi !
+>>
+>> I would like to suggest a new method for comments API, something like:
+>>
+>> wp.getRecentComments(blog_id, username, password, offset)
+>>
+>> The idea is to retrieve recent comments, but ignoring post
+>> information, all recent comments for a given blog could be retrieved
+>> with this paged method (see offset at the end).
+>>
+>> Excuse me if this can be performed with other method. My understanding
+>> is that getComments() has a different purpose.
+>
+> I believe this can already be achieved with a call getComments().
+>
+> If you don't specify post_id or set it 0 you should get the most recent
+> comments I believe.
+>
+> I guess this hi-lights that the methods in xmlrpc.php could do with some
+> more phpdoc.
+>
+> westi
+> --
+> Peter Westwood
+> http://blog.ftwr.co.uk | http://westi.wordpress.com
+> C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+
+
+-- 
+-----------------------------------------------
+..:: I see boring people ::..
+From joseph at josephscott.org  Mon May  4 14:59:31 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon May  4 14:59:52 2009
+Subject: [wp-xmlrpc] An request for comments API: getRecentComments()
+In-Reply-To: <ca18f54e0905040548v7f647095t985c325b24902a26@mail.gmail.com>
+References: <ca18f54e0905020804tb3523fbuc44db35640614521@mail.gmail.com>
+	<475D376F-316C-4858-A409-3B95EEB6C7E7@ftwr.co.uk>
+	<ca18f54e0905040548v7f647095t985c325b24902a26@mail.gmail.com>
+Message-ID: <48F50270-B3FE-4890-8319-B6F23927E40D@josephscott.org>
+
+
+On May 4, 2009, at 6:48 AM, Marcelo Jedi wrote:
+
+> I will test it. Since documentation talked about "for a given post", I
+> didn't think it was possible. But code is showing that I can use
+> post_id = '' (http://core.trac.wordpress.org/browser/tags/2.7/xmlrpc.php#L1100 
+> )
+
+
+
+Correct, but no providing a post_id you'll get the most recent  
+comments across all posts.  The wp.getComments method is very flexible.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From marcelobarrosalmeida at gmail.com  Thu May 28 14:11:19 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Thu May 28 14:11:32 2009
+Subject: [wp-xmlrpc] Is possible to access blog statistics ?
+Message-ID: <ca18f54e0905280711l13d8a6f2ib89dc2e273143070@mail.gmail.com>
+
+Hi !
+
+Is there any call to access that kind of information that we can see
+at  wp-admin/index.php?page=stats ?
+I mean, number of views per day/posts ?
+
+Thanks
+
+Marcelo Barros
+http://code.google.com/p/wordmobi
+From lloydomattic at gmail.com  Thu May 28 20:12:21 2009
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Thu May 28 20:12:55 2009
+Subject: [wp-xmlrpc] Is possible to access blog statistics ?
+In-Reply-To: <ca18f54e0905280711l13d8a6f2ib89dc2e273143070@mail.gmail.com>
+References: <ca18f54e0905280711l13d8a6f2ib89dc2e273143070@mail.gmail.com>
+Message-ID: <70ebb7140905281312g392ed0b2l33acede1c1bef058@mail.gmail.com>
+
+On Thu, May 28, 2009 at 7:11 AM, Marcelo Jedi
+<marcelobarrosalmeida@gmail.com> wrote:
+>
+> Is there any call to access that kind of information that we can see
+> at ?wp-admin/index.php?page=stats ?
+> I mean, number of views per day/posts ?
+
+Hi Marcelo,
+
+This is an interesting question, but may be off topic for this list. I
+think that is specific to the WordPress.com Stats system.
+
+There is http://stats.wordpress.com/csv.php
+and looks like http://wordpress.org/extend/plugins/wordpresscom-stats-helper/
+may provide some interesting related code.
+
+
+
+Hope that helps,
+-- 
+Lloyd Budd | Digital Entomologist | WordPress.com VIP Services Lead
+WordPress.com | WordPress.org | Automattic.com | | Skype:foolswisdom
+From joseph at josephscott.org  Thu May 28 22:19:24 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu May 28 22:19:45 2009
+Subject: [wp-xmlrpc] Is possible to access blog statistics ?
+In-Reply-To: <70ebb7140905281312g392ed0b2l33acede1c1bef058@mail.gmail.com>
+References: <ca18f54e0905280711l13d8a6f2ib89dc2e273143070@mail.gmail.com>
+	<70ebb7140905281312g392ed0b2l33acede1c1bef058@mail.gmail.com>
+Message-ID: <B2E39A0B-6F72-41CC-8350-B6E6077FFF29@josephscott.org>
+
+
+On May 28, 2009, at 2:12 PM, Lloyd Budd wrote:
+
+>> Is there any call to access that kind of information that we can see
+>> at  wp-admin/index.php?page=stats ?
+>> I mean, number of views per day/posts ?
+
+
+Lloyd is correct, the stats plugin is a WordPress.com service, there's  
+currently no way to collect stats information from a WordPress.org  
+blogs via XML-RPC.
+
+
+>
+> This is an interesting question, but may be off topic for this list. I
+> think that is specific to the WordPress.com Stats system.
+>
+> There is http://stats.wordpress.com/csv.php
+> and looks like http://wordpress.org/extend/plugins/wordpresscom-stats-helper/
+> may provide some interesting related code.
+
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From marcelobarrosalmeida at gmail.com  Fri May 29 11:38:25 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Fri May 29 11:38:37 2009
+Subject: [wp-xmlrpc] Is possible to access blog statistics ?
+In-Reply-To: <B2E39A0B-6F72-41CC-8350-B6E6077FFF29@josephscott.org>
+References: <ca18f54e0905280711l13d8a6f2ib89dc2e273143070@mail.gmail.com>
+	<70ebb7140905281312g392ed0b2l33acede1c1bef058@mail.gmail.com>
+	<B2E39A0B-6F72-41CC-8350-B6E6077FFF29@josephscott.org>
+Message-ID: <ca18f54e0905290438y38319035t9482d698a03b262b@mail.gmail.com>
+
+Hi Scott/Lloyd
+
+>> This is an interesting question, but may be off topic for this list. I
+>> think that is specific to the WordPress.com Stats system.
+
+Thanks a lot and excuse-me for this off-topic post. As just an XMLRPC
+API user I thought that this kind of information was available at
+wordpress.org database. It would be very nice if we could draw some
+nice statistic graphics for our users.
+
+Again, sorry.
+
+Marcelo Barros
+http://code.google.com/p/wordmobi

@@ -1,0 +1,1691 @@
+From sbishop at trinitybiblecollege.edu  Mon May  1 19:36:12 2006
+From: sbishop at trinitybiblecollege.edu (Shane Bishop)
+Date: Mon, 01 May 2006 14:36:12 -0500
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>
+	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>
+Message-ID: <4456632C.3030105@trinitybiblecollege.edu>
+
+I've verified that akismet works fine in lyceum. However, for my 
+purposes, I want akismet to be a system-wide plugin. Due to interface 
+differences, the 'update api key' page does not work in lyceum. Is there 
+a way to manually input this, so I can at least test that it will work 
+as a system-wide plugin?
+
+Shane
+
+Matt Weyant wrote:
+> That's a central server rule.  The test verifies that the comment was
+> submitted to Akismet and returned as spam.  If you disconnect from the
+> internet, the plug-in breaks and even this test won't work.
+> 
+> Matt
+> 
+> On 4/27/06, Shane Bishop <sbishop at trinitybiblecollege.edu> wrote:
+>> So...is that just a dealy written in to the script, or is that a
+>> central-server rule? What I'm trying to get at is this:
+>> Does that test verify that the comment was submitted to the akismet
+>> servers, and returned as spam, or just verify that the akismet plugin
+>> script is installed and semi-functioning?
+>>
+>> Shane
+>>
+>> Andrew Ferguson wrote:
+>>> use "viagra-test-123" as the name an Akismet will always return it as spam.
+>>>
+>>> Andrew Ferguson
+>>>
+>>> andrew at fergcorp.com
+>>> http://www.AndrewFerguson.net
+>>> 206-948-1701
+>>>
+>>>
+>>>
+>>> Shane Bishop wrote:
+>>>> We're looking at deploying lyceum (a multi-user derivative of
+>>>> wordpress), and we need a good spam plugin. I've installed it, and it
+>>>> appears to be active, but my question is this: How do I know it is
+>>>> working properly?
+>>>> I tried leaving a comment that I thought would be 'spammy' enough, but
+>>>> it went through anyway. I can move comments to the 'spam' section, so
+>>>> obviously, some of the plugin is functioning correctly, but so far,
+>>>> nothing is getting caught, so I don't know for sure.
+>>>>
+>>>> Is there a good way to monitor this, or do I just have to 'wait and
+>>>> see'? JJB (from lyceum) has already agreed to help me out with getting
+>>>> it working (if it doesn't), but I currently have no idea of how to
+>>>> test this out. Help, please!
+>>>> Shane
+>>>> _______________________________________________
+>>>> spam-stopper mailing list
+>>>> spam-stopper at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>>> _______________________________________________
+>>> spam-stopper mailing list
+>>> spam-stopper at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>>
+> 
+> 
+> --
+> -------------------------------------------------------
+> "Any sufficiently advanced technology is indistinguishable from
+> magic." - Arthur C. Clark
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From m at mullenweg.com  Tue May  2 07:03:43 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 02 May 2006 00:03:43 -0700
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <4456632C.3030105@trinitybiblecollege.edu>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>
+	<4456632C.3030105@trinitybiblecollege.edu>
+Message-ID: <4457044F.1090301@mullenweg.com>
+
+Shane Bishop wrote:
+> I've verified that akismet works fine in lyceum. However, for my 
+> purposes, I want akismet to be a system-wide plugin. Due to interface 
+> differences, the 'update api key' page does not work in lyceum. Is there 
+> a way to manually input this, so I can at least test that it will work 
+> as a system-wide plugin?
+
+Are you trying to run the whole system on one key? Do you just want 
+people to be able to enter their own key?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From sbishop at trinitybiblecollege.edu  Tue May  2 13:18:52 2006
+From: sbishop at trinitybiblecollege.edu (Shane Bishop)
+Date: Tue, 02 May 2006 08:18:52 -0500
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <4457044F.1090301@mullenweg.com>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>	<4456632C.3030105@trinitybiblecollege.edu>
+	<4457044F.1090301@mullenweg.com>
+Message-ID: <44575C3C.8070300@trinitybiblecollege.edu>
+
+I'd like to be able to run the whole system on one key (it's for a 
+non-profit), so that users don't even have to worry about setting up 
+anti-spam capability on their own.
+Shane
+
+Matt Mullenweg wrote:
+> Shane Bishop wrote:
+>> I've verified that akismet works fine in lyceum. However, for my 
+>> purposes, I want akismet to be a system-wide plugin. Due to interface 
+>> differences, the 'update api key' page does not work in lyceum. Is 
+>> there a way to manually input this, so I can at least test that it 
+>> will work as a system-wide plugin?
+> 
+> Are you trying to run the whole system on one key? Do you just want 
+> people to be able to enter their own key?
+> 
+
+
+From m at mullenweg.com  Tue May  2 15:38:30 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 02 May 2006 08:38:30 -0700
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <44575C3C.8070300@trinitybiblecollege.edu>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>	<4456632C.3030105@trinitybiblecollege.edu>	<4457044F.1090301@mullenweg.com>
+	<44575C3C.8070300@trinitybiblecollege.edu>
+Message-ID: <44577CF6.8000705@mullenweg.com>
+
+Shane Bishop wrote:
+> I'd like to be able to run the whole system on one key (it's for a 
+> non-profit), so that users don't even have to worry about setting up 
+> anti-spam capability on their own.
+
+Just hardcode the API host in and remove the configuration screen.
+
+Even if you're a non-profit, send something to the contact form before 
+doing this though, as putting too many blogs on a single key without 
+pinging us will get you blocked.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From sbishop at trinitybiblecollege.edu  Tue May  2 20:53:12 2006
+From: sbishop at trinitybiblecollege.edu (Shane Bishop)
+Date: Tue, 02 May 2006 15:53:12 -0500
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <44577CF6.8000705@mullenweg.com>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>	<4456632C.3030105@trinitybiblecollege.edu>	<4457044F.1090301@mullenweg.com>	<44575C3C.8070300@trinitybiblecollege.edu>
+	<44577CF6.8000705@mullenweg.com>
+Message-ID: <4457C6B8.5020508@trinitybiblecollege.edu>
+
+I hate to be such a pest, but I was actually hoping for a bit more 
+instruction. I realize that I'll probably have to hardcode the API key 
+in (at least for the near future), but after looking through 
+akismet.php, and several attempts at doing just that, I'm a bit lost as 
+to how exactly it can be done.
+
+Shane
+
+Matt Mullenweg wrote:
+> Shane Bishop wrote:
+>> I'd like to be able to run the whole system on one key (it's for a 
+>> non-profit), so that users don't even have to worry about setting up 
+>> anti-spam capability on their own.
+> 
+> Just hardcode the API host in and remove the configuration screen.
+> 
+> Even if you're a non-profit, send something to the contact form before 
+> doing this though, as putting too many blogs on a single key without 
+> pinging us will get you blocked.
+> 
+
+
+From andrew at fergcorp.com  Tue May  2 21:16:13 2006
+From: andrew at fergcorp.com (Andrew Ferguson)
+Date: Tue, 02 May 2006 15:16:13 -0600
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <4457C6B8.5020508@trinitybiblecollege.edu>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>	<4456632C.3030105@trinitybiblecollege.edu>	<4457044F.1090301@mullenweg.com>	<44575C3C.8070300@trinitybiblecollege.edu>	<44577CF6.8000705@mullenweg.com>
+	<4457C6B8.5020508@trinitybiblecollege.edu>
+Message-ID: <4457CC1D.7000000@fergcorp.com>
+
+The API key is used for almost all requests made to the Akismet server 
+except for the API Key Validity check. Since you won't be checking any 
+keys if you key is hard coded, your can ignore that scenario.
+
+In short, you hard code the API key by changing the host because the API 
+key is sent as a sub-domain of the host (fourth level domain name, 
+actually). So, all requests should be sent to the host
+aoeu1aoue.rest.akismet.com, where "aoeu1aoue" is your API key.
+
+Hopefully that makes sense.
+
+Andrew Ferguson
+
+andrew at fergcorp.com
+http://www.AndrewFerguson.net
+206-948-1701
+
+
+
+Shane Bishop wrote:
+> I hate to be such a pest, but I was actually hoping for a bit more 
+> instruction. I realize that I'll probably have to hardcode the API key 
+> in (at least for the near future), but after looking through 
+> akismet.php, and several attempts at doing just that, I'm a bit lost 
+> as to how exactly it can be done.
+>
+> Shane
+>
+> Matt Mullenweg wrote:
+>> Shane Bishop wrote:
+>>> I'd like to be able to run the whole system on one key (it's for a 
+>>> non-profit), so that users don't even have to worry about setting up 
+>>> anti-spam capability on their own.
+>>
+>> Just hardcode the API host in and remove the configuration screen.
+>>
+>> Even if you're a non-profit, send something to the contact form 
+>> before doing this though, as putting too many blogs on a single key 
+>> without pinging us will get you blocked.
+>>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From m at mullenweg.com  Tue May  2 22:36:59 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 02 May 2006 15:36:59 -0700
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <4457CC1D.7000000@fergcorp.com>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>	<4456632C.3030105@trinitybiblecollege.edu>	<4457044F.1090301@mullenweg.com>	<44575C3C.8070300@trinitybiblecollege.edu>	<44577CF6.8000705@mullenweg.com>	<4457C6B8.5020508@trinitybiblecollege.edu>
+	<4457CC1D.7000000@fergcorp.com>
+Message-ID: <4457DF0B.4080807@mullenweg.com>
+
+Andrew Ferguson wrote:
+> aoeu1aoue.rest.akismet.com, where "aoeu1aoue" is your API key.
+
+Oh my! Another Dvorak typist?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From andrew at fergcorp.com  Tue May  2 23:55:07 2006
+From: andrew at fergcorp.com (Andrew Ferguson)
+Date: Tue, 02 May 2006 17:55:07 -0600
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <4457DF0B.4080807@mullenweg.com>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>	<4450276E.2050003@fergcorp.com>	<4450C79B.5040209@trinitybiblecollege.edu>	<1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>	<4456632C.3030105@trinitybiblecollege.edu>	<4457044F.1090301@mullenweg.com>	<44575C3C.8070300@trinitybiblecollege.edu>	<44577CF6.8000705@mullenweg.com>	<4457C6B8.5020508@trinitybiblecollege.edu>	<4457CC1D.7000000@fergcorp.com>
+	<4457DF0B.4080807@mullenweg.com>
+Message-ID: <4457F15B.3040203@fergcorp.com>
+
+I wish. That's just the example used on the Akismet site, so I stick to 
+it for the sake of simplicity and even some sanity.
+
+Andrew Ferguson
+
+andrew at fergcorp.com
+http://www.AndrewFerguson.net
+206-948-1701
+
+
+
+Matt Mullenweg wrote:
+> Andrew Ferguson wrote:
+>> aoeu1aoue.rest.akismet.com, where "aoeu1aoue" is your API key.
+>
+> Oh my! Another Dvorak typist?
+>
+
+
+From alex at achingbrain.net  Wed May  3 12:34:11 2006
+From: alex at achingbrain.net (Alex Potsides)
+Date: Wed, 03 May 2006 13:34:11 +0100
+Subject: [spam-stopper] another lyceum ?
+In-Reply-To: <20060503120004.5319261DA@comox.textdrive.com>
+References: <20060503120004.5319261DA@comox.textdrive.com>
+Message-ID: <4458A343.8000205@achingbrain.net>
+
+Wow, is that what it is?  I'd always thought it was a vague reference to the Batman craziness on ytmnd.com
+
+http://ualuealuealeuale.ytmnd.com/
+
+You learn a new thing every day...
+
+a.
+
+
+
+
+Matt Mullenweg wrote:
+> Andrew Ferguson wrote:
+>> aoeu1aoue.rest.akismet.com, where "aoeu1aoue" is your API key.
+>
+> Oh my! Another Dvorak typist?
+>
+
+
+
+
+
+From himself at arnebrachhold.de  Sun May  7 20:57:11 2006
+From: himself at arnebrachhold.de (Arne Brachhold)
+Date: Sun, 7 May 2006 22:57:11 +0200
+Subject: [spam-stopper] Akismet for the .Net Framework (1.1)
+Message-ID: <003901c67219$909bb430$630e0c0a@soulnet.local>
+
+Hi,
+
+if you're interested in a C# implementation of the 
+Akismet Client Library, have a look at my blog at
+http://www.arnebrachhold.de/2006/04/18/akismet-anti-spam-library-for-the-dotnet-framework
+
+It's build with .Net 1.1, but should work in 2.0 
+without problems. Available as source or .dll.
+
+Best regards,
+
+  Arne Brachhold
+
+
+
+
+From jjb at ibiblio.org  Wed May 10 17:55:55 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Wed, 10 May 2006 13:55:55 -0400 (EDT)
+Subject: [spam-stopper] identifying false negatives
+Message-ID: <Pine.LNX.4.61.0605101353100.29913@tribal.metalab.unc.edu>
+
+Greetings. Quick question- if a false negative's status is changed to 
+'spam', does this actually report the false negative to Akismet?
+
+If so, then maybe there should be an easier way to report false negatives, 
+because I think most users are likely to just go into mass edit mode and 
+clear out the false negatives (i get batches of spam trackbacks every 
+couple days) than to click edit, change the status, and save, for each 
+one.
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+From jjb at ibiblio.org  Thu May 11 06:23:06 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Thu, 11 May 2006 02:23:06 -0400 (EDT)
+Subject: [spam-stopper] Akismet and Lyceum
+Message-ID: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+
+Hello all. I just joined this mailing list. I took a look at the archives 
+and noticed there was discussion earlier this month about how to use 
+Akismet with Lyceum.
+
+Andrew Ferguson wrote:
+> In short, you hard code the API key by changing the host because the API 
+> key is sent as a sub-domain of the host (fourth level domain name, 
+> actually). So, all requests should be sent to the host 
+> aoeu1aoue.rest.akismet.com, where "aoeu1aoue" is your API key.
+
+What do you mean by 'host'? I'm probably missing something obvious here...
+
+I /think/ what Shane was looking for was that he should make an entry in 
+the options table with option_name 'wordpress_api_key' and option_value 
+whatever his key is.
+
+BUT hopefully this won't be necessary in the near future, as I hope to 
+make the interface and functionality for all system-wide plugin settings 
+much nicer.
+
+
+Matt Mullenweg said:
+> Even if you're a non-profit, send something to the contact form before 
+> doing this though, as putting too many blogs on a single key without 
+> pinging us will get you blocked.
+
+What do the Akismet folks see as the most ideal practice for multi-blog 
+installations in the long term? My impression is that the Akismet 
+heuristics depend on there being one key per 'person', to determine if 
+someone is trying to game the system. Would it be impossible to install 
+one key for a multi-blog system the 'right way'? For example on 
+deployments with open registration, there may be a few users trying to 
+game the system amongst the many legitimate users. Are there other options 
+for differenciating these things, such as url / domain name?
+
+It seems like making the heuristics compatible with single-key multiblog 
+applications would be desirable eventually. For commercial installs you 
+guys could charge per head. <kool-aid guy voice>Oh Yeah!</>
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+From mark.wordpress at txfx.net  Thu May 11 08:19:14 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Thu, 11 May 2006 04:19:14 -0400
+Subject: [spam-stopper] identifying false negatives
+In-Reply-To: <Pine.LNX.4.61.0605101353100.29913@tribal.metalab.unc.edu>
+References: <Pine.LNX.4.61.0605101353100.29913@tribal.metalab.unc.edu>
+Message-ID: <DEC2C38F-DB50-4BC4-9946-F29013079FC7@txfx.net>
+
+On May 10, 2006, at 1:55 PM, John Joseph Bachir wrote:
+
+> Greetings. Quick question- if a false negative's status is changed  
+> to 'spam', does this actually report the false negative to Akismet?
+>
+> If so, then maybe there should be an easier way to report false  
+> negatives, because I think most users are likely to just go into  
+> mass edit mode and clear out the false negatives (i get batches of  
+> spam trackbacks every couple days) than to click edit, change the  
+> status, and save, for each one.
+
+I thought the same thing, and wrote a patch that adds "Delete as  
+spam" at several points in the WP interface, including the  
+notification e-mail, and the mass edit mode.  It was since integrated  
+into the work-in-progress WP 2.1
+
+http://trac.wordpress.org/ticket/1048
+
+You can see it in action if you use wordpress.com
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From jjb at ibiblio.org  Thu May 11 08:34:11 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Thu, 11 May 2006 04:34:11 -0400 (EDT)
+Subject: [spam-stopper] identifying false negatives
+In-Reply-To: <DEC2C38F-DB50-4BC4-9946-F29013079FC7@txfx.net>
+References: <Pine.LNX.4.61.0605101353100.29913@tribal.metalab.unc.edu>
+	<DEC2C38F-DB50-4BC4-9946-F29013079FC7@txfx.net>
+Message-ID: <Pine.LNX.4.61.0605110432400.14192@tribal.metalab.unc.edu>
+
+
+On Thu, 11 May 2006, Mark Jaquith wrote:
+
+> I thought the same thing, and wrote a patch that adds "Delete as spam" 
+> at several points in the WP interface, including the notification 
+> e-mail, and the mass edit mode.  It was since integrated into the 
+> work-in-progress WP 2.1
+
+Great stuff. So this does indeed report the false negative to Akismet, or 
+does Akismet not have that concept? (i could look in the code or check the 
+API, but then i would deprive us of this stimulating discussion :)
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+
+From mark.wordpress at txfx.net  Thu May 11 09:01:39 2006
+From: mark.wordpress at txfx.net (Mark Jaquith)
+Date: Thu, 11 May 2006 05:01:39 -0400
+Subject: [spam-stopper] identifying false negatives
+In-Reply-To: <Pine.LNX.4.61.0605110432400.14192@tribal.metalab.unc.edu>
+References: <Pine.LNX.4.61.0605101353100.29913@tribal.metalab.unc.edu>
+	<DEC2C38F-DB50-4BC4-9946-F29013079FC7@txfx.net>
+	<Pine.LNX.4.61.0605110432400.14192@tribal.metalab.unc.edu>
+Message-ID: <E3A92E8E-4414-4A7D-991C-582AA3B20F89@txfx.net>
+
+On May 11, 2006, at 4:34 AM, John Joseph Bachir wrote:
+
+> So this does indeed report the false negative to Akismet, or does  
+> Akismet not have that concept? (i could look in the code or check  
+> the API, but then i would deprive us of this stimulating discussion :)
+
+Indeed it does.
+
+> add_action('wp_set_comment_status', 'ksd_submit_spam_comment');
+
+I'm hoping that this will encourage people to mark spam comments as  
+spam, instead of just deleting them.  Yeah, it might add some bulk to  
+the number that Matt gets to report as Akismet's "miss rate," but in  
+the long run, it should make Akismet better.
+
+We should get some American WWII propaganda style posters made up:  
+"Unreported spam sinks blogs."
+
+--
+Mark Jaquith
+http://txfx.net/
+
+
+
+
+From sbishop at trinitybiblecollege.edu  Fri May 12 20:36:51 2006
+From: sbishop at trinitybiblecollege.edu (Shane Bishop)
+Date: Fri, 12 May 2006 15:36:51 -0500
+Subject: [spam-stopper] Akismet and Lyceum
+In-Reply-To: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+References: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+Message-ID: <4464F1E3.2060908@trinitybiblecollege.edu>
+
+Being the one who instigated this discussion, I should probably give an 
+update, and a bit of clarification for John's sake. I was able to 
+hardcode the API key. It actually got sent to the server, and the test 
+comment was flagged as spam.
+However, when I login and go to manage my blog, there is no Akismet 
+section under the comment management, so I can't actually see anything 
+that gets flagged as spam. I can flag stuff as spam from the normal 
+section, but it is then only accessible by going into the mysql database 
+(which is how i verified it was getting tagged in the first place).
+
+For whatever reason, the 'Akismet is not active' warning always shows up 
+  on a user's profile page, even after I have set the API Key in that 
+account. If I could simply get akismet to use a globally set option, 
+that would be the best route I think. Then John could figure out a way 
+to set that from the system-plugins interface and we'd be good to roll 
+(or bounce, or hop, or whatever we wanted to do). I know, optimally, 
+that John wanted to just be able to drop the wordpress plugin into 
+either the 'plugins' or the 'systemplugins' and have it work both ways, 
+but I'm not sure if that's realistic to expect without any modifications 
+to the akismet code.
+
+
+John Joseph Bachir wrote:
+> Hello all. I just joined this mailing list. I took a look at the 
+> archives and noticed there was discussion earlier this month about how 
+> to use Akismet with Lyceum.
+> 
+> Andrew Ferguson wrote:
+>> In short, you hard code the API key by changing the host because the 
+>> API key is sent as a sub-domain of the host (fourth level domain name, 
+>> actually). So, all requests should be sent to the host 
+>> aoeu1aoue.rest.akismet.com, where "aoeu1aoue" is your API key.
+> 
+> What do you mean by 'host'? I'm probably missing something obvious here...
+> 
+> I /think/ what Shane was looking for was that he should make an entry in 
+> the options table with option_name 'wordpress_api_key' and option_value 
+> whatever his key is.
+> 
+> BUT hopefully this won't be necessary in the near future, as I hope to 
+> make the interface and functionality for all system-wide plugin settings 
+> much nicer.
+> 
+> 
+> Matt Mullenweg said:
+>> Even if you're a non-profit, send something to the contact form before 
+>> doing this though, as putting too many blogs on a single key without 
+>> pinging us will get you blocked.
+> 
+> What do the Akismet folks see as the most ideal practice for multi-blog 
+> installations in the long term? My impression is that the Akismet 
+> heuristics depend on there being one key per 'person', to determine if 
+> someone is trying to game the system. Would it be impossible to install 
+> one key for a multi-blog system the 'right way'? For example on 
+> deployments with open registration, there may be a few users trying to 
+> game the system amongst the many legitimate users. Are there other 
+> options for differenciating these things, such as url / domain name?
+> 
+> It seems like making the heuristics compatible with single-key multiblog 
+> applications would be desirable eventually. For commercial installs you 
+> guys could charge per head. <kool-aid guy voice>Oh Yeah!</>
+> 
+> John
+> ----
+> aim/yim/msn/jabber.org: johnjosephbachir
+> 713.494.2704
+> irc://irc.freenode.net/lyceum
+> http://lyceum.ibiblio.org/
+> http://blog.johnjosephbachir.org/
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+-- 
+Shane Bishop
+System Administrator
+Trinity Bible College
+
+
+From jjb at ibiblio.org  Fri May 12 20:58:35 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Fri, 12 May 2006 16:58:35 -0400 (EDT)
+Subject: [spam-stopper] Akismet and Lyceum
+In-Reply-To: <4464F1E3.2060908@trinitybiblecollege.edu>
+References: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+	<4464F1E3.2060908@trinitybiblecollege.edu>
+Message-ID: <Pine.LNX.4.61.0605121656160.5380@tribal.metalab.unc.edu>
+
+
+On Fri, 12 May 2006, Shane Bishop wrote:
+
+> I know, optimally, that John wanted to just be able to drop the 
+> wordpress plugin into either the 'plugins' or the 'systemplugins' and 
+> have it work both ways, but I'm not sure if that's realistic to expect 
+> without any modifications to the akismet code.
+
+It is :)
+
+This is a Lyceum issue only and will be addressed in 0.32
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+From jjb at ibiblio.org  Fri May 19 01:36:43 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Thu, 18 May 2006 21:36:43 -0400 (EDT)
+Subject: [spam-stopper] Akismet and Lyceum
+In-Reply-To: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+References: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+Message-ID: <Pine.LNX.4.61.0605182135150.12968@tribal.metalab.unc.edu>
+
+
+On Thu, 11 May 2006, John Joseph Bachir wrote:
+
+> Matt Mullenweg said:
+>> Even if you're a non-profit, send something to the contact form before 
+>> doing this though, as putting too many blogs on a single key without 
+>> pinging us will get you blocked.
+>
+> What do the Akismet folks see as the most ideal practice for multi-blog 
+> installations in the long term? My impression is that the Akismet 
+> heuristics depend on there being one key per 'person', to determine if 
+> someone is trying to game the system. Would it be impossible to install 
+> one key for a multi-blog system the 'right way'? For example on 
+> deployments with open registration, there may be a few users trying to 
+> game the system amongst the many legitimate users. Are there other 
+> options for differenciating these things, such as url / domain name?
+>
+> It seems like making the heuristics compatible with single-key multiblog 
+> applications would be desirable eventually. For commercial installs you 
+> guys could charge per head. <kool-aid guy voice>Oh Yeah!</>
+
+Anyone have any thoughts on this?
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+
+From rainchx at gmail.com  Sun May 21 23:23:23 2006
+From: rainchx at gmail.com (Sarah King)
+Date: Mon, 22 May 2006 11:23:23 +1200
+Subject: [spam-stopper] Re: [Simple SEO] Please moderate: "PHP PDF
+	Generation"
+In-Reply-To: <20060521224025.03F503CD0301@www01.maxnet.net.nz>
+References: <20060521224025.03F503CD0301@www01.maxnet.net.nz>
+Message-ID: <2d764fd00605211623h63910985q74e7c825306df192@mail.gmail.com>
+
+Hi Matt & Co
+
+I don't know what's going on but in the last 12 hours these guys have been
+getting through Akismet with tons of spam.
+
+I'm marking them manually, but still more get through. Something may be
+amiss?
+
+If nothing else it reminds you how much you appreciate it when Akismet does
+work perfectly.
+
+Sarah
+
+On 5/22/06, rainchx at gmail.com <rainchx at gmail.com> wrote:
+>
+>
+> A new comment on the post #14 "PHP PDF Generation" is waiting for your
+> approval
+> http://sarahk.pcpropertymanager.com/blog/php-pdf-generation/14/
+>
+> Author : london hotel (IP: 211.137.137.149 , 211.137.137.149)
+> E-mail :
+> URI    : http://london-hotel.hotels-4all.com/
+> Whois  : http://ws.arin.net/cgi-bin/whois.pl?queryinput=211.137.137.149
+> Comment:
+> <strong>london hotel</strong>
+>
+> prison columnizes cheapened rasher championship cheap hotels
+> http://www.hotels-fun.com/ toasts vagary,hotel rooms
+> http://www.secured-hotels.com/
+>
+> To approve this comment, visit:
+> http://sarahk.pcpropertymanager.com/blog/wp-admin/post.php?action=mailapprovecomment&p=14&comment=7666
+> To delete this comment, visit:
+> http://sarahk.pcpropertymanager.com/blog/wp-admin/post.php?action=confirmdeletecomment&p=14&comment=7666
+> Currently 3 comments are waiting for approval. Please visit the moderation
+> panel:
+> http://sarahk.pcpropertymanager.com/blog/wp-admin/moderation.php
+>
+>
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060522/761bb784/attachment.htm>
+
+From eric at meyerweb.com  Mon May 22 16:35:37 2006
+From: eric at meyerweb.com (Eric A. Meyer)
+Date: Mon, 22 May 2006 12:35:37 -0400
+Subject: [spam-stopper] Re: [Simple SEO] Please moderate: "PHP PDF Generation"
+In-Reply-To: <2d764fd00605211623h63910985q74e7c825306df192@mail.gmail.com>
+References: <20060521224025.03F503CD0301@www01.maxnet.net.nz>
+	<2d764fd00605211623h63910985q74e7c825306df192@mail.gmail.com>
+Message-ID: <a05210600c09798393381@[192.168.1.102]>
+
+>I don't know what's going on but in the last 12 hours these guys
+>have been getting through Akismet with tons of spam.
+>
+>I'm marking them manually, but still more get through. Something may be amiss?
+
+    If it helps at all, I've been seeing the same thing with the same 
+kinds of messages.  I've manually marked about 100 over the past few 
+days (which has left me seriously wishing for a way to mass-edit 
+messages as spam).  This, paired with the astronomical increase in 
+actual e-mail spam that's been getting past SpamAssassin-- about 45% 
+of my incoming mail is spam, and it would be more like 95% if not for 
+all the mailing lists I'm on-- has me contemplating a career change. 
+I hear truck drivers make decent money.
+
+-- 
+Eric A. Meyer  (eric at meyerweb.com)
+Principal, Complex Spiral Consulting   http://complexspiral.com/
+"CSS: The Definitive Guide," "CSS2.0 Programmer's Reference,"
+"Eric Meyer on CSS," and more    http://meyerweb.com/eric/books/
+
+
+From ttech5593 at gmail.com  Mon May 22 22:01:45 2006
+From: ttech5593 at gmail.com (ttech5593)
+Date: Mon, 22 May 2006 15:01:45 -0700
+Subject: [spam-stopper] Re: [Simple SEO] Please moderate: "PHP PDF
+	Generation"
+In-Reply-To: <a05210600c09798393381@[192.168.1.102]>
+Message-ID: <000a01c67deb$5461cd00$6500a8c0@joeys>
+
+This is the first time replying to the spam-stopper mailing list. Did I do
+everything correctly? Thanks..
+
+  >  If it helps at all, I've been seeing the same thing with the same kinds
+of messages.  I've manually marked about 100 >over the past few days (which
+has left me seriously wishing for a way to mass-edit messages as spam).
+This, paired with >the astronomical increase in actual e-mail spam that's
+been getting past SpamAssassin-- about 45% of my incoming mail is >spam, and
+it would be more like 95% if not for all the mailing lists I'm on-- has me
+contemplating a career change. 
+>I hear truck drivers make decent money.
+
+One other tool you can do is use another tool like Bad Behavior too. Hope
+that helps...
+
+
+
+From rainchx at gmail.com  Mon May 22 22:05:18 2006
+From: rainchx at gmail.com (Sarah King)
+Date: Tue, 23 May 2006 10:05:18 +1200
+Subject: [spam-stopper] Re: [Simple SEO] Please moderate: "PHP PDF
+	Generation"
+In-Reply-To: <000a01c67deb$5461cd00$6500a8c0@joeys>
+References: <a05210600c09798393381@192.168.1.102>
+	<000a01c67deb$5461cd00$6500a8c0@joeys>
+Message-ID: <2d764fd00605221505s6f0ff17bj42f63bb99b912999@mail.gmail.com>
+
+Worked just fine ;)
+
+I'm happy to keep it simple, especially since Akismet is now in the core of
+wordpress.
+
+My comment was just incase the spammers had found a hole in Akismet that
+needs to be plugged...
+
+Sarah
+
+On 5/23/06, ttech5593 <ttech5593 at gmail.com> wrote:
+>
+> This is the first time replying to the spam-stopper mailing list. Did I do
+> everything correctly? Thanks..
+>
+>   >  If it helps at all, I've been seeing the same thing with the same
+> kinds
+> of messages.  I've manually marked about 100 >over the past few days
+> (which
+> has left me seriously wishing for a way to mass-edit messages as spam).
+> This, paired with >the astronomical increase in actual e-mail spam that's
+> been getting past SpamAssassin-- about 45% of my incoming mail is >spam,
+> and
+> it would be more like 95% if not for all the mailing lists I'm on-- has me
+> contemplating a career change.
+> >I hear truck drivers make decent money.
+>
+> One other tool you can do is use another tool like Bad Behavior too. Hope
+> that helps...
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060523/acf8b15e/attachment.htm>
+
+From mike at zed1.com  Tue May 23 12:50:09 2006
+From: mike at zed1.com (Mike Little)
+Date: Tue, 23 May 2006 13:50:09 +0100
+Subject: [spam-stopper] Re: [Simple SEO] Please moderate: "PHP PDF
+	Generation"
+In-Reply-To: <a05210600c09798393381@192.168.1.102>
+References: <20060521224025.03F503CD0301@www01.maxnet.net.nz>
+	<2d764fd00605211623h63910985q74e7c825306df192@mail.gmail.com>
+	<a05210600c09798393381@192.168.1.102>
+Message-ID: <7235ce780605230550p678136b8k939941d37ed2b56f@mail.gmail.com>
+
+On 5/22/06, Eric A. Meyer <eric at meyerweb.com> wrote:
+> >I don't know what's going on but in the last 12 hours these guys
+> >have been getting through Akismet with tons of spam.
+> >
+> >I'm marking them manually, but still more get through. Something may be amiss?
+>
+>     If it helps at all, I've been seeing the same thing with the same
+> kinds of messages.  I've manually marked about 100 over the past few
+> days (which has left me seriously wishing for a way to mass-edit
+> messages as spam).
+
+Eric,
+Try this plugin http://www.coldforged.org/paged-comment-editing-plugin/
+I've been using it for a few months now and it's been great for
+handling comments en masse. A nice feature is that you can specify how
+many to display on the page.
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+
+
+From r at schestowitz.com  Tue May 23 20:57:34 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Tue, 23 May 2006 21:57:34 +0100
+Subject: [spam-stopper] Re: [Simple SEO] Please moderate: "PHP PDF
+	Generation"
+In-Reply-To: <a05210600c09798393381@[192.168.1.102]>
+References: <20060521224025.03F503CD0301@www01.maxnet.net.nz>
+	<2d764fd00605211623h63910985q74e7c825306df192@mail.gmail.com>
+	<a05210600c09798393381@[192.168.1.102]>
+Message-ID: <20060523215734.rocxlcvdnfnoksow@banana.catalyst2.com>
+
+___/ On Mon 22 May 2006 17:35:37 BST, [ Eric A. Meyer ] wrote : \___
+
+>> I don't know what's going on but in the last 12 hours these guys
+>> have been getting through Akismet with tons of spam.
+>>
+>> I'm marking them manually, but still more get through. Something may 
+>> be amiss?
+>
+>    If it helps at all, I've been seeing the same thing with the same 
+> kinds of messages.  I've manually marked about 100 over the past few 
+> days (which has left me seriously wishing for a way to mass-edit 
+> messages as spam).
+
+
+Mike  has already alluded to this point, but change of a single figure  in
+the appropriate SQL query enables you to have as many messages as you wish
+per   page.   Make  use  of  the  "invert  selection  facility".  Make   a
+link/shortcut  to  your  "Mass  edit" page. Lastly, purge  spam  at  fixed
+intervals,  e.g. once a day. I have been doing this for a long time and  I
+receive  about  150  spam  per  day on my main blog,  which  I  can  still
+tolerate.
+
+
+> This, paired with the astronomical increase in actual e-mail spam 
+> that's been getting past SpamAssassin-- about 45% of my incoming mail 
+> is spam, and it would be more like 95% if not for all the mailing 
+> lists I'm on-- has me contemplating a career change. I hear truck 
+> drivers make decent money.
+
+
+I'm  on  the  same boat, but SA continues to intercept almost all  of  the
+spam.  No false positives since it all began a year ago with the threshold
+se  at  8.  Pair  this with BoxTrapper or other C/R  filter  if  you  feel
+courageous  (but  be  selective account-wise). Put SpamAssassin on  to  to
+reduce disruption to innocent addressees.
+
+To  make  purging  of SA-marked spam, make use  of  colour-based  filters.
+Colour  your spam based on a number of criteria, e.g. target address (make
+use of multiple addresses, not just boxes/folders). You can then just scan
+the  spam  with  your  eyes.  Takes me about  2  minutes  for  500  E-mail
+messages...
+
+Best wishes,
+
+Roy
+
+-- 
+Roy S. Schestowitz, Ph.D. Candidate (Medical Biophysics)
+http://Schestowitz.com  |  Open Prospects   ?     PGP-Key: 0x74572E8E
+  9:40pm  up 26 days  4:19,  11 users,  load average: 0.73, 0.92, 0.93
+      http://iuron.com - knowledge engine, not a search engine
+
+
+
+From r at schestowitz.com  Tue May 23 21:13:37 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Tue, 23 May 2006 22:13:37 +0100
+Subject: [spam-stopper] Akismet and Lyceum
+In-Reply-To: <Pine.LNX.4.61.0605182135150.12968@tribal.metalab.unc.edu>
+References: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+	<Pine.LNX.4.61.0605182135150.12968@tribal.metalab.unc.edu>
+Message-ID: <20060523221337.r43c9bcw4o8o8ogw@banana.catalyst2.com>
+
+___/ On Fri 19 May 2006 02:36:43 BST, [ John Joseph Bachir ] wrote : \___
+
+> On Thu, 11 May 2006, John Joseph Bachir wrote:
+>
+>> Matt Mullenweg said:
+>>> Even if you're a non-profit, send something to the contact form 
+>>> before doing this though, as putting too many blogs on a single key 
+>>> without pinging us will get you blocked.
+
+
+Hey,  John.  Seen your project mentioned in a Linux site a couple of  days
+ago, so congrats.
+
+
+>> What do the Akismet folks see as the most ideal practice for 
+>> multi-blog installations in the long term? My impression is that the 
+>> Akismet heuristics depend on there being one key per 'person', to 
+>> determine if someone is trying to game the system. Would it be 
+>> impossible to install one key for a multi-blog system the 'right 
+>> way'?
+
+
+The  same  problems  (potentially) exist in WordPress, namely  /em  masse/
+registrations  and installations of blogs. With enough E-mail accounts, it
+is  also  possible to game the system with wp.com accounts. Clearly,  this
+may  be  more  difficult  than mass  instantiation  of  Blogspot  accounts
+(reasonable  example  due  to  their notoriety, attributed to  SEO  and  a
+plethora of abuses) where everything is rather lenient.
+
+Is  it  possible to become just a client of Akismet  without  contributing
+back?  I  don't  see much harm in that. The sample set is very  large  and
+diverse  already.  Then  again, I am not familiar with the  system,  so  I
+should probably make no such remarks.
+
+
+>> For example on deployments with open registration, there may be a 
+>> few users trying to game the system amongst the many legitimate 
+>> users. Are there other options for differenciating these things, 
+>> such as url / domain name?
+
+
+Why  not distributing a different key to each user? I believe this can  be
+trivially implemented, even if databases are shared.
+
+
+>> It seems like making the heuristics compatible with single-key 
+>> multiblog applications would be desirable eventually. For commercial 
+>> installs you guys could charge per head. <kool-aid guy voice>Oh 
+>> Yeah!</>
+>
+> Anyone have any thoughts on this?
+
+
+To  make  a good statistical discriminant, you probably don't need  /that/
+much  input. To a user who relied on Spamcop or SpamAssassin, for example,
+all  that  is  needed is a clean system that is regularly fed  by  trusted
+sources  until  it matures. As long as it gets regular input,  it  remains
+actual.
+
+Best wishes,
+
+Roy
+
+-- 
+Roy S. Schestowitz      |    Useless fact: ~70% of organisms are bacteria
+http://Schestowitz.com  |  SuSE GNU/Linux   ?     PGP-Key: 0x74572E8E
+10:00pm  up 26 days  4:39,  11 users,  load average: 1.20, 1.11, 0.91
+      http://iuron.com - help build a non-profit search engine
+
+
+
+From jjb at ibiblio.org  Wed May 24 01:22:20 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Tue, 23 May 2006 21:22:20 -0400 (EDT)
+Subject: [spam-stopper] Akismet and Lyceum
+In-Reply-To: <20060523221337.r43c9bcw4o8o8ogw@banana.catalyst2.com>
+References: <Pine.LNX.4.61.0605110201240.12883@tribal.metalab.unc.edu>
+	<Pine.LNX.4.61.0605182135150.12968@tribal.metalab.unc.edu>
+	<20060523221337.r43c9bcw4o8o8ogw@banana.catalyst2.com>
+Message-ID: <Pine.LNX.4.64.0605232120320.23342@tribal.metalab.unc.edu>
+
+
+On Tue, 23 May 2006, Roy Schestowitz wrote:
+
+>>> For example on deployments with open registration, there may be a
+>>> few users trying to game the system amongst the many legitimate
+>>> users. Are there other options for differenciating these things,
+>>> such as url / domain name?
+>
+>
+> Why  not distributing a different key to each user? I believe this can  be
+> trivially implemented, even if databases are shared.
+
+Well, it would be nice if for deployments with thousands of blogs, each 
+blog admin didn't have to worry about setting up Akismet. Of course, if 
+the system won't be as effective that way, then I certainly think that's a 
+small sacrifice for great spam filtering.
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+
+From gott at uberbin.net  Wed May 24 02:47:10 2006
+From: gott at uberbin.net (Mariano Amartino - uberbin.net)
+Date: Tue, 23 May 2006 23:47:10 -0300
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <a05210600c09798393381@[192.168.1.102]>
+Message-ID: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+
+Hi there... I was wondering if im the only one being hit by a massive spam that skips
+"akismet"
+More than 1000 in a day (besides the ones that are being stopped by Akismet) and with
+keywords that are really "aggressive" I mean, credit, loan, etc.
+Regards
+mariano
+
+
+
+
+From rainchx at gmail.com  Wed May 24 02:49:44 2006
+From: rainchx at gmail.com (Sarah King)
+Date: Wed, 24 May 2006 14:49:44 +1200
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+References: <a05210600c09798393381@192.168.1.102>
+	<005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+Message-ID: <2d764fd00605231949g4bcc8ddcg65a86517330b8859@mail.gmail.com>
+
+I'm not seeing anything like that level of "attention" but certainly getting
+plenty of posts and trackbacks slipping through.
+
+sarah
+
+On 5/24/06, Mariano Amartino - uberbin.net <gott at uberbin.net> wrote:
+>
+> Hi there... I was wondering if im the only one being hit by a massive spam
+> that skips
+> "akismet"
+> More than 1000 in a day (besides the ones that are being stopped by
+> Akismet) and with
+> keywords that are really "aggressive" I mean, credit, loan, etc.
+> Regards
+> mariano
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060524/1445b8e7/attachment.htm>
+
+From ttech5593 at gmail.com  Wed May 24 22:01:25 2006
+From: ttech5593 at gmail.com (ttech5593)
+Date: Wed, 24 May 2006 15:01:25 -0700
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <2d764fd00605231949g4bcc8ddcg65a86517330b8859@mail.gmail.com>
+Message-ID: <001901c67f7d$9bf879f0$6500a8c0@joeys>
+
+ 
+
+  _____  
+
+From: spam-stopper-bounces at lists.automattic.com
+[mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Sarah King
+Sent: Tuesday, May 23, 2006 7:50 PM
+To: spam-stopper at lists.automattic.com
+Subject: Re: [spam-stopper] Heavy attack
+
+
+I'm not seeing anything like that level of "attention" but certainly getting
+plenty of posts and trackbacks slipping through.
+
+sarah
+
+
+On 5/24/06, Mariano Amartino - uberbin.net <gott at uberbin.net> wrote: 
+
+Hi there... I was wondering if im the only one being hit by a massive spam
+that skips
+"akismet"
+More than 1000 in a day (besides the ones that are being stopped by Akismet)
+and with
+keywords that are really "aggressive" I mean, credit, loan, etc. 
+Regards
+mariano
+
+
+_______________________________________________
+spam-stopper mailing list
+spam-stopper at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060524/2319db90/attachment.htm>
+
+From eric at meyerweb.com  Thu May 25 17:14:44 2006
+From: eric at meyerweb.com (Eric A. Meyer)
+Date: Thu, 25 May 2006 13:14:44 -0400
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+References: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+Message-ID: <a05210601c09b93881b4b@[192.168.1.102]>
+
+At 11:47 PM -0300 5/23/06, Mariano Amartino - uberbin.net wrote:
+
+>Hi there... I was wondering if im the only one being hit by a 
+>massive spam that skips "akismet"
+>More than 1000 in a day (besides the ones that are being stopped by 
+>Akismet) and with
+>keywords that are really "aggressive" I mean, credit, loan, etc.
+
+    Nope, you aren't the only one.  I've been getting the same thing, 
+albeit at only about 100 a day getting past Akismet, not 1000. 
+Akismet still seemed to be stopping a few hundred a day.  The ones 
+that made it onto meyerweb were similarly "aggressive", with all 
+kinds of really obvious spammish words like credit and phentermine, 
+and many with a whole bunch of links, despite my having long ago set 
+a "hold any comment with more than 5 links" option.  I also noticed 
+that in every case, the missed spam had nothing for the posters' 
+email address, despite my having enabled the "must provide name and 
+email" option in WordPress.  So it seemed that somehow the spammer 
+was able to slip past those WP options.
+   I also discovered after editing my comments template to remove the 
+textarea and submit button that I still got a few hundred pieces of 
+spam, both in the Akismet bucket and in my moderation queue.  So 
+someone was hitting the post script directly, and not bothering to 
+load actual pages on my site to get the submission form.  This makes 
+sense, although it's interesting since my WP installation directory 
+is very unusual, so any script that relied on '/wordpress' as the WP 
+directory would have silently failed.
+    Anyway, I hacked in some rudimentary steps to deny 
+direct-submission spam, and the amount of comment spam stopped by 
+Akismet and and showing up in my moderation queue fell off 
+dramatically.  I haven't had any escape both yet, but then I haven't 
+had the new measures in place very long.
+    I don't know if the email-less spam that dodged Akismet was 
+direct-submission or not, but it makes a certain amount of sense.
+    Oh, and I'm using WP 1.5, just recently upgraded to 1.5.2.  Don't 
+know if that should make any difference given what we're discussing, 
+but it seemed worth mentioning.
+
+-- 
+Eric A. Meyer  (eric at meyerweb.com)
+Principal, Complex Spiral Consulting   http://complexspiral.com/
+"CSS: The Definitive Guide," "CSS2.0 Programmer's Reference,"
+"Eric Meyer on CSS," and more    http://meyerweb.com/eric/books/
+
+
+From rainchx at gmail.com  Thu May 25 21:37:41 2006
+From: rainchx at gmail.com (Sarah King)
+Date: Fri, 26 May 2006 09:37:41 +1200
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <a05210601c09b93881b4b@192.168.1.102>
+References: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+	<a05210601c09b93881b4b@192.168.1.102>
+Message-ID: <2d764fd00605251437u1bb05290r2c8b888dbd57b3a9@mail.gmail.com>
+
+That's an interesting point Eric, that the bots may not be visiting the page
+but hitting the script directly and what are we doing about it.
+
+There are occassionally times when the referrer doesn't stick so that's not
+reliable but an internal, randomly generated "key" which puts it's md5()
+value onto the submit form and can then be tested by the post would work.
+Change it daily and you've solved part of the problem.
+
+I'm guessing that wouldn't take much but it would be better to have as core
+wordpress than as a plugin. After all the average WP user isn't techie and
+would benefit from the protection.
+
+Sarah
+
+On 5/26/06, Eric A. Meyer <eric at meyerweb.com> wrote:
+>
+> At 11:47 PM -0300 5/23/06, Mariano Amartino - uberbin.net wrote:
+>
+> >Hi there... I was wondering if im the only one being hit by a
+> >massive spam that skips "akismet"
+> >More than 1000 in a day (besides the ones that are being stopped by
+> >Akismet) and with
+> >keywords that are really "aggressive" I mean, credit, loan, etc.
+>
+>     Nope, you aren't the only one.  I've been getting the same thing,
+> albeit at only about 100 a day getting past Akismet, not 1000.
+> Akismet still seemed to be stopping a few hundred a day.  The ones
+> that made it onto meyerweb were similarly "aggressive", with all
+> kinds of really obvious spammish words like credit and phentermine,
+> and many with a whole bunch of links, despite my having long ago set
+> a "hold any comment with more than 5 links" option.  I also noticed
+> that in every case, the missed spam had nothing for the posters'
+> email address, despite my having enabled the "must provide name and
+> email" option in WordPress.  So it seemed that somehow the spammer
+> was able to slip past those WP options.
+>    I also discovered after editing my comments template to remove the
+> textarea and submit button that I still got a few hundred pieces of
+> spam, both in the Akismet bucket and in my moderation queue.  So
+> someone was hitting the post script directly, and not bothering to
+> load actual pages on my site to get the submission form.  This makes
+> sense, although it's interesting since my WP installation directory
+> is very unusual, so any script that relied on '/wordpress' as the WP
+> directory would have silently failed.
+>     Anyway, I hacked in some rudimentary steps to deny
+> direct-submission spam, and the amount of comment spam stopped by
+> Akismet and and showing up in my moderation queue fell off
+> dramatically.  I haven't had any escape both yet, but then I haven't
+> had the new measures in place very long.
+>     I don't know if the email-less spam that dodged Akismet was
+> direct-submission or not, but it makes a certain amount of sense.
+>     Oh, and I'm using WP 1.5, just recently upgraded to 1.5.2.  Don't
+> know if that should make any difference given what we're discussing,
+> but it seemed worth mentioning.
+>
+> --
+> Eric A. Meyer  (eric at meyerweb.com)
+> Principal, Complex Spiral Consulting   http://complexspiral.com/
+> "CSS: The Definitive Guide," "CSS2.0 Programmer's Reference,"
+> "Eric Meyer on CSS," and more    http://meyerweb.com/eric/books/
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060526/c4431bfb/attachment.htm>
+
+From fuzzyman at voidspace.org.uk  Thu May 25 21:49:37 2006
+From: fuzzyman at voidspace.org.uk (Michael Foord)
+Date: Thu, 25 May 2006 22:49:37 +0100
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <2d764fd00605251437u1bb05290r2c8b888dbd57b3a9@mail.gmail.com>
+References: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>	<a05210601c09b93881b4b@192.168.1.102>
+	<2d764fd00605251437u1bb05290r2c8b888dbd57b3a9@mail.gmail.com>
+Message-ID: <44762671.3020206@voidspace.org.uk>
+
+Sarah King wrote:
+> That's an interesting point Eric, that the bots may not be visiting 
+> the page but hitting the script directly and what are we doing about it.
+>
+> There are occassionally times when the referrer doesn't stick so 
+> that's not reliable but an internal, randomly generated "key" which 
+> puts it's md5() value onto the submit form and can then be tested by 
+> the post would work. Change it daily and you've solved part of the 
+> problem.
+>
+> I'm guessing that wouldn't take much but it would be better to have as 
+> core wordpress than as a plugin. After all the average WP user isn't 
+> techie and would benefit from the protection.
+>
+My guestbook script has a few checks in place.
+
+    The post must come from the same ip address as the get.
+    The same ip can't post more than once consecutively.
+    Each form has a unique id in it. Once a post has been made with that 
+id, no more posts can be made using that id. (And every post must have a 
+valid id.)
+    The post must be made more than five seconds after the get, and not 
+more than forty-five minutes after. (Something like that anyway.)
+
+This means that a form must be fetched for every entry posted. And no ip 
+address can make more than one entry in a row. No single form can ever 
+be used for more than one submission.
+
+Despite this, I still get a fair bit of (what must be manually posted) 
+spam. A lot less than I used to though.
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+> Sarah
+>
+> On 5/26/06, *Eric A. Meyer* <eric at meyerweb.com 
+> <mailto:eric at meyerweb.com>> wrote:
+>
+>     At 11:47 PM -0300 5/23/06, Mariano Amartino - uberbin.net
+>     <http://uberbin.net> wrote:
+>
+>     >Hi there... I was wondering if im the only one being hit by a
+>     >massive spam that skips "akismet"
+>     >More than 1000 in a day (besides the ones that are being stopped by
+>     >Akismet) and with
+>     >keywords that are really "aggressive" I mean, credit, loan, etc.
+>
+>         Nope, you aren't the only one.  I've been getting the same thing,
+>     albeit at only about 100 a day getting past Akismet, not 1000.
+>     Akismet still seemed to be stopping a few hundred a day.  The ones
+>     that made it onto meyerweb were similarly "aggressive", with all
+>     kinds of really obvious spammish words like credit and phentermine,
+>     and many with a whole bunch of links, despite my having long ago set
+>     a "hold any comment with more than 5 links" option.  I also noticed
+>     that in every case, the missed spam had nothing for the posters'
+>     email address, despite my having enabled the "must provide name and
+>     email" option in WordPress.  So it seemed that somehow the spammer
+>     was able to slip past those WP options.
+>        I also discovered after editing my comments template to remove the
+>     textarea and submit button that I still got a few hundred pieces of
+>     spam, both in the Akismet bucket and in my moderation queue.  So
+>     someone was hitting the post script directly, and not bothering to
+>     load actual pages on my site to get the submission form.  This makes
+>     sense, although it's interesting since my WP installation directory
+>     is very unusual, so any script that relied on '/wordpress' as the WP
+>     directory would have silently failed.
+>         Anyway, I hacked in some rudimentary steps to deny
+>     direct-submission spam, and the amount of comment spam stopped by
+>     Akismet and and showing up in my moderation queue fell off
+>     dramatically.  I haven't had any escape both yet, but then I haven't
+>     had the new measures in place very long.
+>         I don't know if the email-less spam that dodged Akismet was
+>     direct-submission or not, but it makes a certain amount of sense.
+>         Oh, and I'm using WP 1.5, just recently upgraded to 1.5.2.  Don't
+>     know if that should make any difference given what we're discussing,
+>     but it seemed worth mentioning.
+>
+>     --
+>     Eric A. Meyer  (eric at meyerweb.com <mailto:eric at meyerweb.com>)
+>     Principal, Complex Spiral Consulting   http://complexspiral.com/
+>     <http://complexspiral.com/>
+>     "CSS: The Definitive Guide," "CSS2.0 Programmer's Reference,"
+>     "Eric Meyer on CSS," and more    http://meyerweb.com/eric/books/
+>     _______________________________________________
+>     spam-stopper mailing list
+>     spam-stopper at lists.automattic.com
+>     <mailto:spam-stopper at lists.automattic.com>
+>     http://lists.automattic.com/mailman/listinfo/spam-stopper
+>     <http://lists.automattic.com/mailman/listinfo/spam-stopper>
+>
+>
+>
+>
+> -- 
+> Sarah King
+> Estatement Ltd
+> p: 09 815 8642
+> m: 025 277 5898
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>   
+
+
+
+From eric at meyerweb.com  Fri May 26 02:02:30 2006
+From: eric at meyerweb.com (Eric A. Meyer)
+Date: Thu, 25 May 2006 22:02:30 -0400
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <2d764fd00605251437u1bb05290r2c8b888dbd57b3a9@mail.gmail.com>
+References: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>
+	<a05210601c09b93881b4b@192.168.1.102>
+	<2d764fd00605251437u1bb05290r2c8b888dbd57b3a9@mail.gmail.com>
+Message-ID: <a0521060fc09c0e75eb01@[192.168.1.102]>
+
+At 9:37 AM +1200 5/26/06, Sarah King wrote:
+
+>That's an interesting point Eric, that the bots may not be visiting
+>the page but hitting the script directly and what are we doing about
+>it.
+
+    From what I can tell, they typically aren't.  I went from getting 
+a few hundred bits of spam (including those caught by Akismet and 
+those that landed in my moderation queue as well as those who made it 
+onto the public site) per day to somewhere around 50 per day, all of 
+them caught by Akismet so far.
+
+>There are occassionally times when the referrer doesn't stick so
+>that's not reliable but an internal, randomly generated "key" which
+>puts it's md5() value onto the submit form and can then be tested by
+>the post would work. Change it daily and you've solved part of the
+>problem.
+
+    That's exactly what I've started doing!  My first step was hacking 
+that kind of protection into my comments form and the 
+wp-comments-post.php script, and I'm going to move the part I hacked 
+into the script to a plugin.  I might also move the comment-form part 
+into the plugin-- we'll see.  Basically, I concatenate a few bits of 
+data together and md5-hash the result, just as you propose.
+    The daily change is easy: I use the current date as part of the 
+stuff that's md5-hashed.  There is currently the danger in that if a 
+poster gets the comment form at 11:59pm and submits the comment at 
+12:01am, the md5 hashes won't match and so the comment will be 
+rejected.  I'm going to fix that tonight with a one-day-back check. 
+If someone gets the form two days before he submits the comment, 
+well, then too bad for him.
+    As I say, this has so far been incredibly effective at blocking 
+direct-submission spam, and by blocking I mean it never even makes it 
+into the comments table in the WP DB.  What I'm doing won't catch 
+spambots (or human spammers) that actually load up a post page and 
+use the comment submission form, but my early results indicate those 
+are rare.  And, of course, there are other lines of defense (like 
+Akismet) one can use to deal with those malefactors.
+    I'm still wondering if the direct-submission spambots haven't come 
+up with a way to submit spam in such a way that Akismet somehow gets 
+skipped.  No, I have no idea how, but the stuff Akismet is catching 
+now looks a lot like the stuff it wasn't catching-- the things you, 
+Sarah, and Mariano and I have seen get posted.  In fact, some of the 
+things currently in my Akismet queue look less spammy than the stuff 
+that got posted to the site before.  Combine that with the fact that 
+the stuff that was getting through also lacked e-mail addresses, 
+which my WP install was configured to require before accepting any 
+comment, and it sure feels like they figured out a way to bypass the 
+spam checking.
+    But I can't say for certain, being neither a PHP guru nor a 
+WordPress code expert, and it's entirely possible they came up with 
+some other devious approach to slip past those safeguards.  Either 
+way, it would be interesting to find out how.
+
+-- 
+Eric A. Meyer  (eric at meyerweb.com)
+Principal, Complex Spiral Consulting   http://complexspiral.com/
+"CSS: The Definitive Guide," "CSS2.0 Programmer's Reference,"
+"Eric Meyer on CSS," and more    http://meyerweb.com/eric/books/
+
+
+From m at mullenweg.com  Fri May 26 09:25:36 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 26 May 2006 02:25:36 -0700
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <a0521060fc09c0e75eb01@[192.168.1.102]>
+References: <005a01c67edc$5c68e140$6401a8c0@nbkmariano>	<a05210601c09b93881b4b@192.168.1.102>	<2d764fd00605251437u1bb05290r2c8b888dbd57b3a9@mail.gmail.com>
+	<a0521060fc09c0e75eb01@[192.168.1.102]>
+Message-ID: <4476C990.5060308@mullenweg.com>
+
+Eric A. Meyer wrote:
+>> There are occassionally times when the referrer doesn't stick so
+>> that's not reliable but an internal, randomly generated "key" which
+>> puts it's md5() value onto the submit form and can then be tested by
+>> the post would work. Change it daily and you've solved part of the
+>> problem.
+> 
+>    That's exactly what I've started doing!  My first step was hacking 
+> that kind of protection into my comments form and the 
+> wp-comments-post.php script, and I'm going to move the part I hacked 
+> into the script to a plugin.  I might also move the comment-form part 
+> into the plugin-- we'll see.  Basically, I concatenate a few bits of 
+> data together and md5-hash the result, just as you propose.
+
+The first spam plugin I wrote back in 04 did something similar, some of 
+the code may be useful:
+
+http://dev.wp-plugins.org/file/spam-stopgap/spam-stopgap.php
+
+It's used a per-post unique name and value. This worked for a few weeks, 
+but then spambots adapted after more than a handful of people started 
+doing it.
+
+A similar thing was done in '02 by Shelley Powers:
+
+http://weblog.burningbird.net/archives/2002/10/29/comment-spam-quick-fix/
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From mdale at dalegroup.net  Fri May 26 13:46:23 2006
+From: mdale at dalegroup.net (Michael Dale)
+Date: Fri, 26 May 2006 23:46:23 +1000
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <4476C990.5060308@mullenweg.com>
+Message-ID: <20060526134623.24f4d96d@mail.dalegroup.net>
+
+> 
+> http://dev.wp-plugins.org/file/spam-stopgap/spam-stopgap.php
+> 
+
+I currently use something similar on my site. I randomly generate a string, place it in a hidden form text box and also insert it into a session. The two values are checked when the user submits the post.
+
+The string is completely random and different for every page load.
+
+This seems to work pretty well. It means that the bot needs to support both cookies and download the page that contains the hidden field, most don't.
+
+Michael.
+
+
+From m at mullenweg.com  Sat May 27 02:29:12 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 26 May 2006 19:29:12 -0700
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <20060526134623.24f4d96d@mail.dalegroup.net>
+References: <20060526134623.24f4d96d@mail.dalegroup.net>
+Message-ID: <4477B978.2020605@mullenweg.com>
+
+Michael Dale wrote:
+> This seems to work pretty well. It means that the bot needs to support both cookies and download the page that contains the hidden field, most don't.
+
+It's a good example of a anti-spam measure that will work well as long 
+as too many people don't use it.
+
+There are actually an infinite number of these, if you're able to make 
+your submission script distinct enough in a different way from 
+everything else out there, you probably won't get spam for a while.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From ttech5593 at gmail.com  Sat May 27 03:37:12 2006
+From: ttech5593 at gmail.com (ttech5593)
+Date: Fri, 26 May 2006 20:37:12 -0700
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <4477B978.2020605@mullenweg.com>
+Message-ID: <000001c6813e$d81925c0$6500a8c0@joeys>
+
+>It's a good example of a anti-spam measure that will work well as long as
+too many 
+>people don't use it.
+>
+>There are actually an infinite number of these, if you're able to make your
+submission 
+>script distinct enough in a different way from everything else out there,
+you probably >won't get spam for a while.
+
+So true... Spammers keep finding ways around the spam blocking tools and
+anti-spam measures. Take Spam Karma 2.2 for example, it works but not all
+the time any more. If you use that with Akismet and maybe Bad Behavior
+you'll be ahead of the spammers for a while. Till they figure it out and
+then spam problems all over again. It's seem though it is a never ending
+cycle.
+
+
+
+From m at mullenweg.com  Sat May 27 23:12:54 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat, 27 May 2006 16:12:54 -0700
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <000001c6813e$d81925c0$6500a8c0@joeys>
+References: <000001c6813e$d81925c0$6500a8c0@joeys>
+Message-ID: <4478DCF6.8040906@mullenweg.com>
+
+ttech5593 wrote:
+> So true... Spammers keep finding ways around the spam blocking tools and
+> anti-spam measures. Take Spam Karma 2.2 for example, it works but not all
+> the time any more. If you use that with Akismet and maybe Bad Behavior
+> you'll be ahead of the spammers for a while. Till they figure it out and
+> then spam problems all over again. It's seem though it is a never ending
+> cycle.
+
+That's where you're wrong. Unlike something static you download and 
+install on your blog, Akismet can (and does) adapt right along with the 
+spammers. Any solution that can't change as fast as they do has all the 
+cards stacked against it in the long run.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From newsletter at scytheman.net  Sun May 28 13:42:27 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Sun, 28 May 2006 15:42:27 +0200
+Subject: [spam-stopper] Heavy attack
+In-Reply-To: <4478DCF6.8040906@mullenweg.com>
+References: <000001c6813e$d81925c0$6500a8c0@joeys>
+	<4478DCF6.8040906@mullenweg.com>
+Message-ID: <4479A8C3.1090300@scytheman.net>
+
+Matt Mullenweg wrote:
+> ttech5593 wrote:
+>> So true... Spammers keep finding ways around the spam blocking tools and
+>> anti-spam measures. Take Spam Karma 2.2 for example, it works but not 
+>> all
+>> the time any more. If you use that with Akismet and maybe Bad Behavior
+>> you'll be ahead of the spammers for a while. Till they figure it out and
+>> then spam problems all over again. It's seem though it is a never ending
+>> cycle.
+>
+> That's where you're wrong. Unlike something static you download and 
+> install on your blog, Akismet can (and does) adapt right along with 
+> the spammers. Any solution that can't change as fast as they do has 
+> all the cards stacked against it in the long run.
+>
+Not quite true ... Akismet lacks some checks that would prevent even 
+more spam to get trough, especially checks that identify REAL 
+commenters. It happened twice on my own blog that Akismet thought that I 
+was a spamer. Luckily Spam Karma gave my comment enough points (because 
+I was logged in!!!) ... checking if the commented post is really old or 
+was recently commented would help, too. All this is available in 
+"static" tools like Spam Karma and I wouldn't want to miss it (and the 
+javascript-check/captcha fallback).
+
+And about the long run: we will not be able to prevent spam from 
+happening ... ultimately manual spam, while slow, will always appear on 
+blogs if no human is checking the comments :-(
+
+

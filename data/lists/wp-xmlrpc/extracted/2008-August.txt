@@ -1,0 +1,358 @@
+From ryan at boren.nu  Mon Aug  4 19:43:43 2008
+From: ryan at boren.nu (Ryan Boren)
+Date: Mon Aug  4 19:43:56 2008
+Subject: [wp-xmlrpc] Comments API
+Message-ID: <c8f37c930808041243w48881fd1qbbdae492fbbabbc1@mail.gmail.com>
+
+http://trac.wordpress.org/ticket/7446
+
+Latest patch:
+
+ http://trac.wordpress.org/attachment/ticket/7446/7446.9.diff
+
+The following methods are implemented:
+
+wp.getComment(blog_id, username, password, comment_id)
+
+wp.getComments(blog_id, username, password, {status, post_id, number, offset}
+
+wp.deleteComment(blog_id, username, password, comment_id)
+
+wp.editComment(blog_id, username, password, comment_id, {status,
+date_created_gmt, content, author, author_url, author_email, })
+
+wp.newComment(blog_id, username, password, post, {content, author,
+author_email, author_url})
+// author info is optional if authorization is successful.
+Unregistered commenting is allowed if a plugin sets the
+xmlrpc_allow_anonymous_comments filter to true.  Default is to not
+allow unregistered comments.  User must auth.
+
+wp.getCommentStatusList(blog_id, username, password)
+From alex at fav.or.it  Tue Aug  5 13:38:08 2008
+From: alex at fav.or.it (Alex Forrow)
+Date: Tue Aug  5 13:38:23 2008
+Subject: [wp-xmlrpc] Comments API
+In-Reply-To: <c8f37c930808041243w48881fd1qbbdae492fbbabbc1@mail.gmail.com>
+References: <c8f37c930808041243w48881fd1qbbdae492fbbabbc1@mail.gmail.com>
+Message-ID: <004d01c8f700$80039c00$800ad400$@or.it>
+
+Hi,
+
+The changes you've made look excellent, though I'm concerned that anonymous commenting is being neglected here. Although a lot of XMLRPC use is blog authors manipulating their blogs remotely, use of the interface by 3rd parties for services such as commenting and pingbacks is something thats only going to get more popular. I believe anonymous commenting via XMLRPC should be enabled by default, just as commenting via the form is.
+
+In terms of security, its fair to say that allowing commenting via XMLRPC is no more risky than allowing commenting via the standard form POST action. Also, as with WordPress 2.6, XMLRPC is disabled by default, so requiring a plugin to enable anonymous commenting is only adding another hurdle for blog owners to cross if they want to enable this feature. I appreciate opening another possible entry point for spam is not ideal, but more would be lost by cutting these blogs off from the potential of receiving comments from external sources.
+
+Kind regards,
+
+Alex Forrow
+Systems Administrator, Favorit Limited
+Blog: http://blog.fav.or.it/
+Telephone: 0845 643 0673
+Address: favorit Ltd, Building L033, London Road, Reading, RG1 5AQ
+
+This e-mail contains confidential information and is for the exclusive use of the addressee/s. If you are not the addressee, then any distribution, copying or use of this e-mail is prohibited. If received in error, please advise the sender and delete it immediately. We accept no liability for any loss or damage suffered by any person arising from use of this e-mail.
+favorit Limited
+Registered No: 06411859 England
+Registered Office: Reading Enterprise Hub, University of Reading, Earley Gate, Reading, Berkshire, RG6 6AU
+
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Ryan Boren
+Sent: 04 August 2008 20:44
+To: wp-xmlrpc@lists.automattic.com
+Subject: [wp-xmlrpc] Comments API
+
+http://trac.wordpress.org/ticket/7446
+
+Latest patch:
+
+ http://trac.wordpress.org/attachment/ticket/7446/7446.9.diff
+
+The following methods are implemented:
+
+wp.getComment(blog_id, username, password, comment_id)
+
+wp.getComments(blog_id, username, password, {status, post_id, number, offset}
+
+wp.deleteComment(blog_id, username, password, comment_id)
+
+wp.editComment(blog_id, username, password, comment_id, {status,
+date_created_gmt, content, author, author_url, author_email, })
+
+wp.newComment(blog_id, username, password, post, {content, author,
+author_email, author_url})
+// author info is optional if authorization is successful.
+Unregistered commenting is allowed if a plugin sets the
+xmlrpc_allow_anonymous_comments filter to true.  Default is to not
+allow unregistered comments.  User must auth.
+
+wp.getCommentStatusList(blog_id, username, password)
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Tue Aug  5 15:07:44 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Aug  5 15:08:07 2008
+Subject: [wp-xmlrpc] Comments API
+In-Reply-To: <004d01c8f700$80039c00$800ad400$@or.it>
+References: <c8f37c930808041243w48881fd1qbbdae492fbbabbc1@mail.gmail.com>
+	<004d01c8f700$80039c00$800ad400$@or.it>
+Message-ID: <9F2119F3-806A-4C71-ABCC-3136152C81B4@randomnetworks.com>
+
+
+On Aug 5, 2008, at 7:38 AM, Alex Forrow wrote:
+
+> The changes you've made look excellent, though I'm concerned that  
+> anonymous commenting is being neglected here. Although a lot of  
+> XMLRPC use is blog authors manipulating their blogs remotely, use  
+> of the interface by 3rd parties for services such as commenting and  
+> pingbacks is something thats only going to get more popular. I  
+> believe anonymous commenting via XMLRPC should be enabled by  
+> default, just as commenting via the form is.
+>
+> In terms of security, its fair to say that allowing commenting via  
+> XMLRPC is no more risky than allowing commenting via the standard  
+> form POST action. Also, as with WordPress 2.6, XMLRPC is disabled  
+> by default, so requiring a plugin to enable anonymous commenting is  
+> only adding another hurdle for blog owners to cross if they want to  
+> enable this feature. I appreciate opening another possible entry  
+> point for spam is not ideal, but more would be lost by cutting  
+> these blogs off from the potential of receiving comments from  
+> external sources.
+
+
+This is only true for certain conditions.  There are a number of  
+plugins that add items to the comment form/page that make it harder  
+for spammers to get through.  Blogs that use those plugins this would  
+be a step backwards, which we are trying to avoid.
+
+I've got back and forth on this, but as someone who gets 5 tons of  
+spam on his personal blog, we've got to come up with way to help  
+distributed comments, that doesn't involve open another spam flood gate.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From sondod at givethepeople.com  Thu Aug 21 22:50:28 2008
+From: sondod at givethepeople.com (David Dodson)
+Date: Thu Aug 21 22:50:36 2008
+Subject: [wp-xmlrpc] Non-Moderator Comments
+Message-ID: <E8E12625-41A7-4DCF-AB94-A4E6B55C53F2@givethepeople.com>
+
+Following the threads I understand the desire to prevent spam from  
+coming through the xmlrpc pipe, but want to raise the question of non- 
+moderator users being able to post comments through xmlrpc.  Currently  
+only admins or editors can post through the xmlrpc even with valid  
+login credentials.  Assuming the WP site is set up so that users have  
+to be logged in to comment, subscribers, contributors and authors  
+should also be able to post comments.  I did a test commenting out the  
+code which checks for moderator status, which allows for subscribers  
+to post.  The nice thing is that for first time subscribers, the  
+comments still must be approved in this manner.  As such, unless I'm  
+missing something, I don't think doing this would leave a means for  
+spam to exploit, unless the concern is having to moderate attempts.   
+Otherwise none of the spam comments could make it live just by using  
+the xmlrpc without being moderated first.
+
+Thoughts?
+
+DD
+From jmails at gmail.com  Sat Aug 23 05:39:49 2008
+From: jmails at gmail.com (Joseph Samuel)
+Date: Sat Aug 23 05:40:00 2008
+Subject: [wp-xmlrpc] Post with embed/iframe
+Message-ID: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+
+When I try publish a post using xmlrpc, the resulting published post strips off the "embed" or "iframe" tag contents. 
+
+Is there any way around this? 
+
+Thanks in advance for any help.
+
+Thanks
+Joseph
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080823/e6a20b63/attachment.htm
+From jalkut at red-sweater.com  Sat Aug 23 17:48:16 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Aug 23 17:48:34 2008
+Subject: [wp-xmlrpc] Post with embed/iframe
+In-Reply-To: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+References: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+Message-ID: <2491D14F-870D-4FA3-9663-1DC213A39AD8@red-sweater.com>
+
+Hi Joseph - maybe somebody else can elaborate further, but I believe  
+the source of this issue is a security feature applied by the file wp- 
+includes/kses.php.
+
+Some of my customers have had good luck editing that file to be more  
+liberal with the types of attributes it allows for a given tag.
+
+Daniel
+
+On Aug 23, 2008, at 1:39 AM, Joseph Samuel wrote:
+
+> When I try publish a post using xmlrpc, the resulting published post  
+> strips off the "embed" or "iframe" tag contents.
+>
+> Is there any way around this?
+>
+> Thanks in advance for any help.
+>
+> Thanks
+> Joseph
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From jmails at gmail.com  Sat Aug 23 17:51:50 2008
+From: jmails at gmail.com (Joseph Samuel)
+Date: Sat Aug 23 17:52:04 2008
+Subject: [wp-xmlrpc] Post with embed/iframe
+References: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+	<2491D14F-870D-4FA3-9663-1DC213A39AD8@red-sweater.com>
+Message-ID: <25184DA5169644B9AA24C3BEC672D1C3@Joseph>
+
+Thanks for the reply. I was able to make this work by adding a plugin that 
+convert my tag to the embed statement.  As you pointed out, it seems this is 
+a security feature.
+
+Thanks
+Joseph
+
+--------------------------------------------------
+From: "Daniel Jalkut" <jalkut@red-sweater.com>
+Sent: Saturday, August 23, 2008 10:48 AM
+To: <wp-xmlrpc@lists.automattic.com>
+Subject: Re: [wp-xmlrpc] Post with embed/iframe
+
+> Hi Joseph - maybe somebody else can elaborate further, but I believe  the 
+> source of this issue is a security feature applied by the file wp- 
+> includes/kses.php.
+>
+> Some of my customers have had good luck editing that file to be more 
+> liberal with the types of attributes it allows for a given tag.
+>
+> Daniel
+>
+> On Aug 23, 2008, at 1:39 AM, Joseph Samuel wrote:
+>
+>> When I try publish a post using xmlrpc, the resulting published post 
+>> strips off the "embed" or "iframe" tag contents.
+>>
+>> Is there any way around this?
+>>
+>> Thanks in advance for any help.
+>>
+>> Thanks
+>> Joseph
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc 
+
+From joseph at randomnetworks.com  Mon Aug 25 15:54:13 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Aug 25 15:54:35 2008
+Subject: [wp-xmlrpc] Non-Moderator Comments
+In-Reply-To: <E8E12625-41A7-4DCF-AB94-A4E6B55C53F2@givethepeople.com>
+References: <E8E12625-41A7-4DCF-AB94-A4E6B55C53F2@givethepeople.com>
+Message-ID: <BEB04045-800E-43EB-8213-27078309EA24@randomnetworks.com>
+
+
+On Aug 21, 2008, at 4:50 PM, David Dodson wrote:
+
+> Following the threads I understand the desire to prevent spam from  
+> coming through the xmlrpc pipe, but want to raise the question of  
+> non-moderator users being able to post comments through xmlrpc.  
+> Currently only admins or editors can post through the xmlrpc even  
+> with valid login credentials.  Assuming the WP site is set up so  
+> that users have to be logged in to comment, subscribers,  
+> contributors and authors should also be able to post comments.  I  
+> did a test commenting out the code which checks for moderator  
+> status, which allows for subscribers to post.  The nice thing is  
+> that for first time subscribers, the comments still must be approved  
+> in this manner.  As such, unless I'm missing something, I don't  
+> think doing this would leave a means for spam to exploit, unless the  
+> concern is having to moderate attempts. Otherwise none of the spam  
+> comments could make it live just by using the xmlrpc without being  
+> moderated first.
+
+
+(Since no one else has responded)
+
+There is a certain appeal to allowing regular users to submit  
+comments.  Create a new ticket at trac.wordpress.org and upload a diff  
+and lets see what this would look like.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From joseph at randomnetworks.com  Mon Aug 25 15:56:04 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Aug 25 15:56:28 2008
+Subject: [wp-xmlrpc] Post with embed/iframe
+In-Reply-To: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+References: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+Message-ID: <4DE6020F-5A8C-42CF-A7EE-C8A83F415C7B@randomnetworks.com>
+
+
+On Aug 22, 2008, at 11:39 PM, Joseph Samuel wrote:
+
+> When I try publish a post using xmlrpc, the resulting published post  
+> strips off the "embed" or "iframe" tag contents.
+>
+> Is there any way around this?
+>
+> Thanks in advance for any help.
+
+
+As you and Daniel have already noted, this is done intentionally to  
+try and avoid having third party code injected into a post.
+
+That said, I thought that admin users had that filter skipped.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From jalkut at red-sweater.com  Mon Aug 25 16:32:37 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon Aug 25 16:33:09 2008
+Subject: [wp-xmlrpc] Post with embed/iframe
+In-Reply-To: <4DE6020F-5A8C-42CF-A7EE-C8A83F415C7B@randomnetworks.com>
+References: <5BEFEAE019184757B6C17B51A0CD10B4@Joseph>
+	<4DE6020F-5A8C-42CF-A7EE-C8A83F415C7B@randomnetworks.com>
+Message-ID: <1C48D17A-3C9A-4CD7-9B22-CCAC001C8F23@red-sweater.com>
+
+On Aug 25, 2008, at 11:56 AM, Joseph Scott wrote:
+
+> That said, I thought that admin users had that filter skipped.
+
+Aha! That would make sense - explains why I never personally see the  
+limitation on my blog.
+
+Daniel
+

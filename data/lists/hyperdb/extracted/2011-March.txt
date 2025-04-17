@@ -1,0 +1,400 @@
+From drew.weaver at thenap.com  Fri Mar 11 14:23:38 2011
+From: drew.weaver at thenap.com (Drew Weaver)
+Date: Fri, 11 Mar 2011 09:23:38 -0500
+Subject: [HyperDB] Is hyperdb depreciated?
+Message-ID: <F3318834F1F89D46857972DD4B411D7001A1358847@exchange>
+
+Hi,
+
+I am trying to find out if hyperdb is depreciated or if it is just not being maintained.
+
+When I use hyperdb in my implementation there are a ton of warnings/errors being posted to my apache log.
+
+Below are some examples:
+
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined index:  global__r in /content/wp-content/db.php on line 388, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined property:  hyperdb::$write in /content/wp-content/db.php on line 432, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined offset:  1 in /content/wp-content/db.php on line 467, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: charset in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: collate in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+[Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+
+These seem to appear pretty much constantly.
+
+thanks,
+-Drew
+
+
+
+
+From barry at automattic.com  Fri Mar 11 16:00:09 2011
+From: barry at automattic.com (Barry Abrahamson)
+Date: Fri, 11 Mar 2011 10:00:09 -0600
+Subject: [HyperDB] Is hyperdb depreciated?
+In-Reply-To: <F3318834F1F89D46857972DD4B411D7001A1358847@exchange>
+References: <F3318834F1F89D46857972DD4B411D7001A1358847@exchange>
+Message-ID: <FAE9118D-4F7A-4225-BC34-9752D005C76A@automattic.com>
+
+
+On Mar 11, 2011, at 8:23 AM, Drew Weaver wrote:
+
+> Hi,
+> 
+> I am trying to find out if hyperdb is depreciated or if it is just not being maintained.
+> 
+> When I use hyperdb in my implementation there are a ton of warnings/errors being posted to my apache log.
+> 
+> Below are some examples:
+> 
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined index:  global__r in /content/wp-content/db.php on line 388, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined property:  hyperdb::$write in /content/wp-content/db.php on line 432, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined offset:  1 in /content/wp-content/db.php on line 467, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: charset in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: collate in /content/wp-content/db.php on line 532, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> [Fri Mar 11 08:21:00 2011] [error] [client 192.168.170.210] PHP Notice:  Undefined variable: use_master in /content/wp-content/db.php on line 362, referer: http://sitename.com/post-text
+> 
+> These seem to appear pretty much constantly.
+
+Howdy,
+
+Thanks for the note.  This is on our list to fix.  Expect to see those fixes and some other, cool updates for HyperDB coming soon.
+
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+
+From bulk at thecodecave.com  Sat Mar 12 20:10:58 2011
+From: bulk at thecodecave.com (Brian Layman)
+Date: Sat, 12 Mar 2011 15:10:58 -0500
+Subject: [HyperDB] Is hyperdb depreciated?
+In-Reply-To: <FAE9118D-4F7A-4225-BC34-9752D005C76A@automattic.com>
+References: <F3318834F1F89D46857972DD4B411D7001A1358847@exchange>
+	<FAE9118D-4F7A-4225-BC34-9752D005C76A@automattic.com>
+Message-ID: <4D7BD352.4060301@thecodecave.com>
+
+On 3/11/2011 11:00 AM, Barry Abrahamson wrote:
+>
+> Howdy,
+>
+> Thanks for the note.  This is on our list to fix.  Expect to see those fixes and some other, cool updates for HyperDB coming soon.
+>
+> --
+> Barry Abrahamson | Systems Wrangler | Automattic
+> Blog: http://barry.wordpress.com
+>
+OoO Barry Do Tell!
+
+-Brian Layman
+
+From aris at goteama.com  Sat Mar 12 23:39:14 2011
+From: aris at goteama.com (Aris Blevins)
+Date: Sat, 12 Mar 2011 15:39:14 -0800
+Subject: [HyperDB] Multiple Database Setup and Read
+Message-ID: <AB6C69C6-2FB6-4B65-A51E-F5A424F6D331@goteama.com>
+
+Hi there,
+
+I have some clients that have a main Wordpress install and now are  
+hoping to add two mini-sites that draw specific posts from the main  
+site. My hope was to set up two separate Wordpress installs and use  
+HyperDB to allow me to pull from the main database as needed.
+
+I have add the databases as follows:
+
+<code>
+$wpdb->add_database(array(
+	'host'     => 'mysql.german.site',     // If port is other than 3306,  
+use host:port.
+	'user'     => 'username',
+	'password' => 'password',
+	'name'     => 'german_db',
+	'dataset'  => 'global'
+));
+
+$wpdb->add_database(array(
+	'host'     => 'mysql.site',     // If port is other than 3306, use  
+host:port.
+	'user'     => 'username',
+	'password' => 'password',
+	'name'     => 'main_db',
+	'write'    => 0,
+	'read'     => 1,
+	'dataset'  => 'main'
+));
+</code>
+
+The first database is for the site that will highlight german content  
+from the main site.
+
+The second is the main database - I want to be able to only read from  
+this site.
+
+The two databases have different table prefixes (ge_ for german and  
+wp_ for the main site)
+
+I had hoped that this would work (as a test):
+
+<code>
+global $wpdb;
+$wpdb->set_prefix(?wp_?);
+
+$fivesdrafts = $wpdb->get_results("SELECT post_title FROM $wpdb->posts  
+WHERE post_status = 'published'");
+
+foreach ($fivesdrafts as $fivesdraft) {
+	echo $fivesdraft->post_title;
+}
+</code>
+
+But I get nothing on the page here. Any ideas? The final goal here is  
+to pull in all published posts from a specific category and list them  
+on this page.
+
+Any help would be appreciated, let me know if I need to post more  
+information.
+
+Thanks,
+Aris
+
+From lists.automattic.com at callum-macdonald.com  Mon Mar 14 10:51:23 2011
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Mon, 14 Mar 2011 10:51:23 +0000
+Subject: [HyperDB] Multiple Database Setup and Read
+In-Reply-To: <AB6C69C6-2FB6-4B65-A51E-F5A424F6D331@goteama.com>
+References: <AB6C69C6-2FB6-4B65-A51E-F5A424F6D331@goteama.com>
+Message-ID: <1300099883.18640.2.camel@lupo>
+
+Hola Aris,
+
+I don't think HyperDB is the tool for the job you've described.
+
+I think you'd be much simpler to put all the data into one database,
+using 2 table prefixes as you suggest, and then pull data through some
+kind of plugin.
+
+HyperDB is designed to allow WordPress to scale. Unless you're hosting
+thousands of blogs, seeing massive traffic or have some other reason to
+split databases over multiple servers, I don't think you need HyperDB.
+
+I suggest you try the support forums for assistance on doing this
+through a plugin.
+
+Love & joy - Callum.
+
+On Sat, 2011-03-12 at 15:39 -0800, Aris Blevins wrote:
+> Hi there,
+> 
+> I have some clients that have a main Wordpress install and now are  
+> hoping to add two mini-sites that draw specific posts from the main  
+> site. My hope was to set up two separate Wordpress installs and use  
+> HyperDB to allow me to pull from the main database as needed.
+> 
+> I have add the databases as follows:
+> 
+> <code>
+> $wpdb->add_database(array(
+> 	'host'     => 'mysql.german.site',     // If port is other than 3306,  
+> use host:port.
+> 	'user'     => 'username',
+> 	'password' => 'password',
+> 	'name'     => 'german_db',
+> 	'dataset'  => 'global'
+> ));
+> 
+> $wpdb->add_database(array(
+> 	'host'     => 'mysql.site',     // If port is other than 3306, use  
+> host:port.
+> 	'user'     => 'username',
+> 	'password' => 'password',
+> 	'name'     => 'main_db',
+> 	'write'    => 0,
+> 	'read'     => 1,
+> 	'dataset'  => 'main'
+> ));
+> </code>
+> 
+> The first database is for the site that will highlight german content  
+> from the main site.
+> 
+> The second is the main database - I want to be able to only read from  
+> this site.
+> 
+> The two databases have different table prefixes (ge_ for german and  
+> wp_ for the main site)
+> 
+> I had hoped that this would work (as a test):
+> 
+> <code>
+> global $wpdb;
+> $wpdb->set_prefix(?wp_?);
+> 
+> $fivesdrafts = $wpdb->get_results("SELECT post_title FROM $wpdb->posts  
+> WHERE post_status = 'published'");
+> 
+> foreach ($fivesdrafts as $fivesdraft) {
+> 	echo $fivesdraft->post_title;
+> }
+> </code>
+> 
+> But I get nothing on the page here. Any ideas? The final goal here is  
+> to pull in all published posts from a specific category and list them  
+> on this page.
+> 
+> Any help would be appreciated, let me know if I need to post more  
+> information.
+> 
+> Thanks,
+> Aris
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+
+
+From drew.weaver at thenap.com  Tue Mar 15 18:47:21 2011
+From: drew.weaver at thenap.com (Drew Weaver)
+Date: Tue, 15 Mar 2011 14:47:21 -0400
+Subject: [HyperDB] Mailing list for high load wordpress?
+Message-ID: <F3318834F1F89D46857972DD4B411D7001BC53F94E@exchange>
+
+Is there a general mailing list for high performance/high load wordpress?
+
+thanks,
+-Drew
+
+
+From dan at digitaltrends.com  Tue Mar 15 18:48:51 2011
+From: dan at digitaltrends.com (Dan Gaul)
+Date: Tue, 15 Mar 2011 11:48:51 -0700
+Subject: [HyperDB] Mailing list for high load wordpress?
+In-Reply-To: <F3318834F1F89D46857972DD4B411D7001BC53F94E@exchange>
+Message-ID: <C9A502A3.8A93E%dan@digitaltrends.com>
+
+Would be nice if there was.
+-- 
+Dan Gaul
+CTO
+Digital Trends
+111 SW 5th Ave, Suite 1000
+Portland, OR 97204
+Phone: 503.342.2890 Ext. 83
+www.digitaltrends.com <http://www.digitaltrends.com/>
+ 
+Become a fan of Digital Trends on Facebook
+<http://www.facebook.com/pages/Digital-Trends/8522591132> !
+
+CONFIDENTIALITY
+The information transmitted herein is intended only for the addressee and
+may contain confidential, proprietary and/or privileged material. Any
+unauthorized review, distribution or other use of or the taking of any
+action in reliance upon this information is prohibited. If you receive this
+email in error, please contact the sender and delete or destroy this message
+and all copies.
+
+
+> From: Drew Weaver <drew.weaver at thenap.com>
+> Reply-To: <hyperdb at lists.automattic.com>
+> Date: Tue, 15 Mar 2011 14:47:21 -0400
+> To: "'hyperdb at lists.automattic.com'" <hyperdb at lists.automattic.com>
+> Subject: [HyperDB] Mailing list for high load wordpress?
+> 
+> Is there a general mailing list for high performance/high load wordpress?
+> 
+> thanks,
+> -Drew
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+
+From drew.weaver at thenap.com  Tue Mar 15 18:50:12 2011
+From: drew.weaver at thenap.com (Drew Weaver)
+Date: Tue, 15 Mar 2011 14:50:12 -0400
+Subject: [HyperDB] Mailing list for high load wordpress?
+In-Reply-To: <C9A502A3.8A93E%dan@digitaltrends.com>
+References: <F3318834F1F89D46857972DD4B411D7001BC53F94E@exchange>
+	<C9A502A3.8A93E%dan@digitaltrends.com>
+Message-ID: <F3318834F1F89D46857972DD4B411D7001BC53F950@exchange>
+
+I'm having a heck of a time figuring out why MySQL process jumps to 700% on two different hosts every time people approve comments on this WP installation, driving me crazy.
+
+-Drew
+
+
+-----Original Message-----
+From: hyperdb-bounces at lists.automattic.com [mailto:hyperdb-bounces at lists.automattic.com] On Behalf Of Dan Gaul
+Sent: Tuesday, March 15, 2011 2:49 PM
+To: hyperdb at lists.automattic.com
+Subject: Re: [HyperDB] Mailing list for high load wordpress?
+
+Would be nice if there was.
+-- 
+Dan Gaul
+CTO
+Digital Trends
+111 SW 5th Ave, Suite 1000
+Portland, OR 97204
+Phone: 503.342.2890 Ext. 83
+www.digitaltrends.com <http://www.digitaltrends.com/>
+ 
+Become a fan of Digital Trends on Facebook
+<http://www.facebook.com/pages/Digital-Trends/8522591132> !
+
+CONFIDENTIALITY
+The information transmitted herein is intended only for the addressee and
+may contain confidential, proprietary and/or privileged material. Any
+unauthorized review, distribution or other use of or the taking of any
+action in reliance upon this information is prohibited. If you receive this
+email in error, please contact the sender and delete or destroy this message
+and all copies.
+
+
+> From: Drew Weaver <drew.weaver at thenap.com>
+> Reply-To: <hyperdb at lists.automattic.com>
+> Date: Tue, 15 Mar 2011 14:47:21 -0400
+> To: "'hyperdb at lists.automattic.com'" <hyperdb at lists.automattic.com>
+> Subject: [HyperDB] Mailing list for high load wordpress?
+> 
+> Is there a general mailing list for high performance/high load wordpress?
+> 
+> thanks,
+> -Drew
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+_______________________________________________
+HyperDB mailing list
+HyperDB at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From drew.weaver at thenap.com  Wed Mar 16 12:37:43 2011
+From: drew.weaver at thenap.com (Drew Weaver)
+Date: Wed, 16 Mar 2011 08:37:43 -0400
+Subject: [HyperDB] Final question
+Message-ID: <F3318834F1F89D46857972DD4B411D7001C20F91FE@exchange>
+
+Has anyone hacked W3 Total Cache so that the database caching can work with Hyperdb?
+
+thanks,
+-Drew
+
+

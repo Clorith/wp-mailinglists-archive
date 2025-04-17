@@ -1,0 +1,73 @@
+From mrbrog at gmail.com  Wed Jan 11 06:41:01 2017
+From: mrbrog at gmail.com (Claudio Simeone)
+Date: Wed, 11 Jan 2017 07:41:01 +0100
+Subject: [wp-hackers] Access custom table using global wpdb not working
+In-Reply-To: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+References: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+Message-ID: <CABKd4DXQc2_wfDUL2Y-JE308pG=8-ParJeLxQ9NcqejxOnc4_A@mail.gmail.com>
+
+2016-12-27 19:17 GMT+01:00 Chris Hearn <chris.hearn01 at ntlworld.com>:
+
+[cut]
+
+> If there some change that only allows "standard" wordpress table names now?
+
+Hi Chris, to add custom tables in the $wpdb object I did in this way
+
+add_action( 'init', 'register_custom_table', 1 );
+add_action( 'switch_blog', 'register_custom_table' ); // for multisite
+
+function register_custom_table() {
+    global $wpdb;
+    $wpdb->custom_tablename = $wpdb->prefix . 'custom_tablename';
+}
+
+
+regards
+Claudio
+
+From chris.hearn01 at ntlworld.com  Wed Jan 11 12:43:09 2017
+From: chris.hearn01 at ntlworld.com (Chris Hearn)
+Date: Wed, 11 Jan 2017 12:43:09 +0000
+Subject: [wp-hackers] Access custom table using global wpdb not working
+In-Reply-To: <CABKd4DXQc2_wfDUL2Y-JE308pG=8-ParJeLxQ9NcqejxOnc4_A@mail.gmail.com>
+References: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+ <CABKd4DXQc2_wfDUL2Y-JE308pG=8-ParJeLxQ9NcqejxOnc4_A@mail.gmail.com>
+Message-ID: <ceec24df-2ef9-47dd-b6fd-747bbf2d4574@ntlworld.com>
+
+Thanks Claudio!
+
+Chris
+
+
+On 11/01/2017 06:41, Claudio Simeone wrote:
+> 2016-12-27 19:17 GMT+01:00 Chris Hearn <chris.hearn01 at ntlworld.com>:
+>
+> [cut]
+>
+>> If there some change that only allows "standard" wordpress table names now?
+> Hi Chris, to add custom tables in the $wpdb object I did in this way
+>
+> add_action( 'init', 'register_custom_table', 1 );
+> add_action( 'switch_blog', 'register_custom_table' ); // for multisite
+>
+> function register_custom_table() {
+>      global $wpdb;
+>      $wpdb->custom_tablename = $wpdb->prefix . 'custom_tablename';
+> }
+>
+>
+> regards
+> Claudio
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+---
+This email has been checked for viruses by Avast antivirus software.
+https://www.avast.com/antivirus
+

@@ -1,0 +1,601 @@
+From joseph at randomnetworks.com  Mon Dec  1 18:24:27 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Dec  1 18:24:45 2008
+Subject: [wp-xmlrpc] PHP scrip for approving comments via XMLRPC
+In-Reply-To: <139308955002984579392273074895595691951-Webmail@me.com>
+References: <139308955002984579392273074895595691951-Webmail@me.com>
+Message-ID: <629BDE38-E9FF-4FFC-A31D-C38C6E02491B@randomnetworks.com>
+
+
+On Nov 28, 2008, at 9:16 AM, Melvin Rivera wrote:
+
+> In preparation for the upcoming 2.7 release I've released a PHP script
+> for approving comments via XMLRPC. This can finally allow someone to
+> play the role of approving comments without giving them access to the
+> WordPress admin.
+>
+> I would love hear your thoughts about it.
+>
+> http://code.google.com/p/wordpress-comments
+
+
+
+I like this.  As we expose more and more functionality in the external  
+facing APIs I hope we see more apps like this (both web and desktop).
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From iamduyu at gmail.com  Mon Dec  1 20:48:36 2008
+From: iamduyu at gmail.com (iamduyu@gmail.com)
+Date: Mon Dec  1 20:44:49 2008
+Subject: [wp-xmlrpc] About tags
+Message-ID: <A7C12D1913A34EDF98F4138F8C2BA760@justdoit>
+
+http://codex.wordpress.org/XML-RPC_Support
+
+"Keywords are not supported in the MovableType API. "
+
+Still not supported now ? then, how can i set tags for a post?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081201/15ccd953/attachment.htm
+From joseph at randomnetworks.com  Mon Dec  1 22:11:27 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Dec  1 22:11:46 2008
+Subject: [wp-xmlrpc] About tags
+In-Reply-To: <A7C12D1913A34EDF98F4138F8C2BA760@justdoit>
+References: <A7C12D1913A34EDF98F4138F8C2BA760@justdoit>
+Message-ID: <9D41A921-3733-4437-88B9-77DD23915599@randomnetworks.com>
+
+
+On Dec 1, 2008, at 1:48 PM, <iamduyu@gmail.com> <iamduyu@gmail.com>  
+wrote:
+
+> http://codex.wordpress.org/XML-RPC_Support
+>
+> "Keywords are not supported in the MovableType API. "
+>
+> Still not supported now ? then, how can i set tags for a post?
+
+
+Yikes!  I've let the XML-RPC docs rot for far too long.
+
+We do support the 'mt_keywords' field in metaWeblog.newPost/editPost  
+which are tags in WordPress.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081201/ea5ab906/attachment.htm
+From davidsiaw at gmail.com  Tue Dec  2 11:14:49 2008
+From: davidsiaw at gmail.com (David Siaw)
+Date: Tue Dec  2 11:15:09 2008
+Subject: [wp-xmlrpc] Re: PHP scrip for approving comments via XMLRPC (Melvin
+	Rivera)
+In-Reply-To: <20081129120007.4670171AD@comox.textdrive.com>
+References: <20081129120007.4670171AD@comox.textdrive.com>
+Message-ID: <493518A9.6020202@gmail.com>
+
+Very nice. I have been developing an XML RPC client to manage wordpress 
+for some time now and have encountered limitations such as these. This 
+will aid greatly in the development of better blogging clients for 
+wordpress.
+
+wp-xmlrpc-request@lists.automattic.com wrote:
+> Send wp-xmlrpc mailing list submissions to
+> 	wp-xmlrpc@lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> or, via email, send a message with subject or body 'help' to
+> 	wp-xmlrpc-request@lists.automattic.com
+>
+> You can reach the person managing the list at
+> 	wp-xmlrpc-owner@lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-xmlrpc digest..."
+>
+>
+> Today's Topics:
+>
+>    1. PHP scrip for approving comments via XMLRPC (Melvin Rivera)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Fri, 28 Nov 2008 11:16:41 -0500
+> From: Melvin Rivera <melvitax@me.com>
+> Subject: [wp-xmlrpc] PHP scrip for approving comments via XMLRPC
+> To: wp-xmlrpc@lists.automattic.com
+> Message-ID: <139308955002984579392273074895595691951-Webmail@me.com>
+> Content-Type: text/plain; charset=ISO-8859-1
+>
+> In preparation for the upcoming 2.7 release I've released a PHP script 
+> for approving comments via XMLRPC. This can finally allow someone to 
+> play the role of approving comments without giving them access to the 
+> WordPress admin. 
+>
+> I would love hear your thoughts about it. 
+>
+> http://code.google.com/p/wordpress-comments 
+>
+>
+> Melvin 
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+> End of wp-xmlrpc Digest, Vol 18, Issue 4
+> ****************************************
+>
+>   
+
+From iamduyu at gmail.com  Thu Dec  4 13:16:47 2008
+From: iamduyu at gmail.com (iamduyu@gmail.com)
+Date: Thu Dec  4 13:13:00 2008
+Subject: [wp-xmlrpc] Does the get_comment return the trackbacks ?
+Message-ID: <CC0AE4B41124428E82825449592175D0@justdoit>
+
+~
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081204/1683de75/attachment.htm
+From joseph at randomnetworks.com  Thu Dec  4 16:08:47 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Dec  4 16:09:07 2008
+Subject: [wp-xmlrpc] Does the get_comment return the trackbacks ?
+In-Reply-To: <CC0AE4B41124428E82825449592175D0@justdoit>
+References: <CC0AE4B41124428E82825449592175D0@justdoit>
+Message-ID: <56A0147A-474D-44B7-987B-36D528322177@randomnetworks.com>
+
+
+On Dec 4, 2008, at 6:16 AM, <iamduyu@gmail.com> <iamduyu@gmail.com>  
+wrote:
+
+> Does the get_comment return the trackbacks ?
+>
+
+
+
+I'm assuming you mean the wp.getComment method.  Yes it does return  
+trackbacks.  What I just noticed though is that we don't include the  
+comment type when returning the comment data.  I'll see about adding  
+that field.
+
+
+Subject only emails are harder to quote.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From iamduyu at gmail.com  Sat Dec  6 18:15:10 2008
+From: iamduyu at gmail.com (iamduyu@gmail.com)
+Date: Sat Dec  6 18:11:23 2008
+Subject: [wp-xmlrpc] About xmlrpc and pingbacks
+Message-ID: <590EBC9357784E7182E5478EFB6CE47F@justdoit>
+
+Does WP pingback the links in the post posted through xmlrpc?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081206/32413d8a/attachment.htm
+From joseph at randomnetworks.com  Mon Dec  8 15:07:50 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Dec  8 15:08:09 2008
+Subject: [wp-xmlrpc] About xmlrpc and pingbacks
+In-Reply-To: <590EBC9357784E7182E5478EFB6CE47F@justdoit>
+References: <590EBC9357784E7182E5478EFB6CE47F@justdoit>
+Message-ID: <8E538A8A-992B-483B-B71E-CF019256AAD3@randomnetworks.com>
+
+
+On Dec 6, 2008, at 11:15 AM, <iamduyu@gmail.com> <iamduyu@gmail.com>  
+wrote:
+
+> Does WP pingback the links in the post posted through xmlrpc?
+
+
+
+Yes, a post submitted via XML-RPC in WordPress goes through the same  
+hooks as one submitted via wp-admin.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From joseph at randomnetworks.com  Thu Dec 11 16:49:35 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Dec 11 16:49:49 2008
+Subject: [wp-xmlrpc] 2.7 changes for XML-RPC and AtomPub
+Message-ID: <4E1A947B-2079-4FD0-93D9-C0C6293B84F4@randomnetworks.com>
+
+
+I've got a post up with what's changed since the 2.6 branch for XML- 
+RPC and AtomPub:
+
+	http://josephscott.org/archives/2008/12/wordpress-27-released-xml-rpc-and-atompub-changes/
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From patrick at sendmyemailhere.com  Sat Dec 27 04:12:48 2008
+From: patrick at sendmyemailhere.com (Patrick Carlow)
+Date: Sat Dec 27 04:12:59 2008
+Subject: [wp-xmlrpc] wp.newPage
+Message-ID: <C7CA49FEB9FC4D6A9158B3FC0E54C1D9@PPCTACO>
+
+Hello,
+
+ 
+
+Sorry if this isn't the right place for this, but I'm having a lot of
+trouble trying to get wp.newPage to work using a PHP script.
+
+ 
+
+wp.getPageList works as expected, but wp.newPage returns the error:
+faultCode  401    faultString  Invalid post type
+
+ 
+
+I don't see anything in the doc that shows an option to set the post type.
+
+ 
+
+Thanks,
+Patrick
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081227/cdd4dd33/attachment.htm
+From joseph at randomnetworks.com  Mon Dec 29 17:37:33 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Dec 29 17:37:49 2008
+Subject: [wp-xmlrpc] wp.newPage
+In-Reply-To: <C7CA49FEB9FC4D6A9158B3FC0E54C1D9@PPCTACO>
+References: <C7CA49FEB9FC4D6A9158B3FC0E54C1D9@PPCTACO>
+Message-ID: <F7C20CA0-31AF-4547-8CBD-D762BCC199BE@randomnetworks.com>
+
+
+On Dec 26, 2008, at 9:12 PM, Patrick Carlow wrote:
+
+> Hello,
+>
+> Sorry if this isn?t the right place for this, but I?m having a lot  
+> of trouble trying to get wp.newPage to work using a PHP script.
+>
+> wp.getPageList works as expected, but wp.newPage returns the error:  
+> faultCode  401    faultString  Invalid post type
+>
+> I don?t see anything in the doc that shows an option to set the post  
+> type.
+
+
+It would be helpful to see the script to get an idea of what's wrong.   
+Here's a simple test script I use for wp.newPage with out any problems:
+
+<?php
+require "./IXR_Library.inc.php";
+$method_name = "wp.newPage";
+
+$rpc_url = "http://localhost/~joseph/wp/trunk/xmlrpc.php";
+$blog_id    = 1;
+$username   = "username";
+$password   = "password";
+$publish    = false;
+
+$post = array(
+     "title"         => "New Page Test",
+     "description"   => "Hello there, this is a test."
+);
+
+
+$rpc = new IXR_Client( $rpc_url );
+$status = $rpc->query(
+     $method_name,
+     $blog_id,
+     $username,
+     $password,
+     $post,
+     $publish
+);
+
+if( !$status ) {
+     print "Error in RPC request\n";
+     print_r( $rpc );
+     exit;
+}
+
+print_r( $rpc->getResponse( ) );
+print "\n";
+
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081229/92882230/attachment.htm
+From patrick at sendmyemailhere.com  Tue Dec 30 04:02:01 2008
+From: patrick at sendmyemailhere.com (Patrick Carlow)
+Date: Tue Dec 30 04:02:18 2008
+Subject: [wp-xmlrpc] wp.newPage
+In-Reply-To: <F7C20CA0-31AF-4547-8CBD-D762BCC199BE@randomnetworks.com>
+References: <C7CA49FEB9FC4D6A9158B3FC0E54C1D9@PPCTACO>
+	<F7C20CA0-31AF-4547-8CBD-D762BCC199BE@randomnetworks.com>
+Message-ID: <FA1DE92AADDC4928B7DEA0DC6D25EFBF@PPCTACO>
+
+Thanks Joseph,
+
+ 
+
+That worked perfectly.  I was previously using cURL which worked fine for
+blogger.newPost and wp.getPageList but not wp.newPage.
+
+I hadn't tried IXR_Library.inc.php yet, but it worked great, thanks for your
+help!
+
+ 
+
+Patrick
+
+No virus found in this incoming message.
+Checked by AVG - http://www.avg.com
+Version: 8.0.176 / Virus Database: 270.10.0/1865 - Release Date: 12/29/2008
+10:48 AM
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20081230/a6e3ffe0/attachment.htm
+From joseph at randomnetworks.com  Tue Dec 30 17:15:44 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Dec 30 17:16:00 2008
+Subject: [wp-xmlrpc] base64_decode missing in metaWeblog.newMediaObject
+Message-ID: <62E90C6F-F420-42EF-B484-F8A4E04F5A90@randomnetworks.com>
+
+
+It was pointed out to me (http://garrickvanburen.com/archive/wordpress-27-xmlrpcphp-monkey-patches 
+  and http://www.kgarner.com/blog/archives/2008/06/06/small-fix-for-wordpress-xml-rpc/) 
+  that in metaWeblog.newMediaObject WordPress is not decoding the bits  
+field as base64, which is what the spec indicates it should be: http://www.xmlrpc.com/metaWeblogNewMediaObject 
+.    I'm happy to push for this fix to go into WordPress, but wanted  
+to get some feedback first since the code has been missing this for at  
+least 2 years.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From jalkut at red-sweater.com  Tue Dec 30 17:47:36 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue Dec 30 17:48:34 2008
+Subject: [wp-xmlrpc] base64_decode missing in metaWeblog.newMediaObject
+In-Reply-To: <62E90C6F-F420-42EF-B484-F8A4E04F5A90@randomnetworks.com>
+References: <62E90C6F-F420-42EF-B484-F8A4E04F5A90@randomnetworks.com>
+Message-ID: <5305B34E-2721-407B-B4FE-2690317681A8@red-sweater.com>
+
+What I'm naturally concerned with is, if the bits were not being  
+decoded from base64 already, then how on earth are file uploads  
+working for all existing clients?
+
+I suspect something else in the chain is magically decoding the  
+base64. Possibly a php feature that is just not working right for the  
+afflicted user who proposed this patch?
+
+Daniel
+
+On Dec 30, 2008, at 12:15 PM, Joseph Scott wrote:
+
+>
+> It was pointed out to me (http://garrickvanburen.com/archive/wordpress-27-xmlrpcphp-monkey-patches 
+>  and http://www.kgarner.com/blog/archives/2008/06/06/small-fix-for-wordpress-xml-rpc/) 
+>  that in metaWeblog.newMediaObject WordPress is not decoding the  
+> bits field as base64, which is what the spec indicates it should be: http://www.xmlrpc.com/metaWeblogNewMediaObject 
+> .    I'm happy to push for this fix to go into WordPress, but wanted  
+> to get some feedback first since the code has been missing this for  
+> at least 2 years.
+>
+> --
+> Joseph Scott
+> joseph@josephscott.org
+> http://josephscott.org/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From jalkut at red-sweater.com  Tue Dec 30 17:56:17 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue Dec 30 17:56:32 2008
+Subject: [wp-xmlrpc] base64_decode missing in metaWeblog.newMediaObject
+In-Reply-To: <5305B34E-2721-407B-B4FE-2690317681A8@red-sweater.com>
+References: <62E90C6F-F420-42EF-B484-F8A4E04F5A90@randomnetworks.com>
+	<5305B34E-2721-407B-B4FE-2690317681A8@red-sweater.com>
+Message-ID: <94F53099-9CD7-43BA-8764-87894ED0ADAF@red-sweater.com>
+
+Joseph - I suspect what is happening here is that the afflicted users  
+are not enclosing their "bits" in a <base64> tag.  MarsEdit, and I  
+suspect every other client that currently works, puts the data in such  
+a tag, which causes your XMLRPC parser to do the base64 decoding  
+automatically:
+
+wp-includes/class-IXR.php
+
+See line 241.
+
+So it would be dangerous to take their patch because any clients that  
+currently embed the bits explicitly in a <base64> node will have had  
+their bits already decoded.
+
+Daniel
+
+On Dec 30, 2008, at 12:47 PM, Daniel Jalkut wrote:
+
+> What I'm naturally concerned with is, if the bits were not being  
+> decoded from base64 already, then how on earth are file uploads  
+> working for all existing clients?
+>
+> I suspect something else in the chain is magically decoding the  
+> base64. Possibly a php feature that is just not working right for  
+> the afflicted user who proposed this patch?
+>
+> Daniel
+>
+> On Dec 30, 2008, at 12:15 PM, Joseph Scott wrote:
+>
+>>
+>> It was pointed out to me (http://garrickvanburen.com/archive/wordpress-27-xmlrpcphp-monkey-patches 
+>>  and http://www.kgarner.com/blog/archives/2008/06/06/small-fix-for-wordpress-xml-rpc/) 
+>>  that in metaWeblog.newMediaObject WordPress is not decoding the  
+>> bits field as base64, which is what the spec indicates it should  
+>> be: http://www.xmlrpc.com/metaWeblogNewMediaObject.    I'm happy to  
+>> push for this fix to go into WordPress, but wanted to get some  
+>> feedback first since the code has been missing this for at least 2  
+>> years.
+>>
+>> --
+>> Joseph Scott
+>> joseph@josephscott.org
+>> http://josephscott.org/
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From peter.westwood at ftwr.co.uk  Tue Dec 30 18:14:54 2008
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Tue Dec 30 18:15:11 2008
+Subject: [wp-xmlrpc] base64_decode missing in metaWeblog.newMediaObject
+In-Reply-To: <94F53099-9CD7-43BA-8764-87894ED0ADAF@red-sweater.com>
+References: <62E90C6F-F420-42EF-B484-F8A4E04F5A90@randomnetworks.com>	<5305B34E-2721-407B-B4FE-2690317681A8@red-sweater.com>
+	<94F53099-9CD7-43BA-8764-87894ED0ADAF@red-sweater.com>
+Message-ID: <495A651E.2030708@ftwr.co.uk>
+
+Daniel Jalkut wrote:
+> Joseph - I suspect what is happening here is that the afflicted users 
+> are not enclosing their "bits" in a <base64> tag.  MarsEdit, and I 
+> suspect every other client that currently works, puts the data in such 
+> a tag, which causes your XMLRPC parser to do the base64 decoding 
+> automatically:
+>
+> wp-includes/class-IXR.php
+>
+> See line 241.
+>
+> So it would be dangerous to take their patch because any clients that 
+> currently embed the bits explicitly in a <base64> node will have had 
+> their bits already decoded.
+>
+Indeed, we've been round this loop before. [1]
+
+IXR does the base64 decoding for us.
+
+If the uploads aren't working from someone then there requests are duff 
+as Daniel says.
+
+[1] http://trac.wordpress.org/ticket/1008
+
+westi
+
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5 
+
+From joseph at randomnetworks.com  Tue Dec 30 18:48:36 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Dec 30 18:48:57 2008
+Subject: [wp-xmlrpc] base64_decode missing in metaWeblog.newMediaObject
+In-Reply-To: <495A651E.2030708@ftwr.co.uk>
+References: <62E90C6F-F420-42EF-B484-F8A4E04F5A90@randomnetworks.com>	<5305B34E-2721-407B-B4FE-2690317681A8@red-sweater.com>
+	<94F53099-9CD7-43BA-8764-87894ED0ADAF@red-sweater.com>
+	<495A651E.2030708@ftwr.co.uk>
+Message-ID: <41DCBFA7-DCB9-47EB-8B35-0F7FF2CCE8B8@randomnetworks.com>
+
+
+On Dec 30, 2008, at 11:14 AM, Peter Westwood wrote:
+
+> Indeed, we've been round this loop before. [1]
+>
+> IXR does the base64 decoding for us.
+
+
+You are absolutely correct.  And my initial thought was the same as  
+Daniel's, if this was a problem how was it ever working before :-)
+
+I'll follow up with the authors of those blog posts to point out that  
+they probably aren't encoding 'bits' correctly.
+
+Thanks Peter and Daniel.
+
+
+> If the uploads aren't working from someone then there requests are  
+> duff as Daniel says.
+>
+> [1] http://trac.wordpress.org/ticket/1008
+
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+

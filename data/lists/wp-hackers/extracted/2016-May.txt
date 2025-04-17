@@ -1,0 +1,547 @@
+From wp-hackers at striderweb.com  Mon May  2 21:52:32 2016
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Mon, 2 May 2016 16:52:32 -0500
+Subject: [wp-hackers] PHP requirement for plugins
+Message-ID: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+
+Hi all ?
+
+Is there a standardized method in WordPress to declare that a plugin or theme requires a certain version of PHP?  I?ve started coding my plugins to require PHP 5.4.
+
+I know I can write code that does something like check for the right PHP version and deactivate the plugin if it?s not met; but is there anything like this already within WP?  It would be great if we could just add a line to the Readme.txt or the plugin Headers.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+
+
+From jdg at codesymphony.co  Mon May  2 22:05:31 2016
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Mon, 2 May 2016 18:05:31 -0400
+Subject: [wp-hackers] PHP requirement for plugins
+In-Reply-To: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+References: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+Message-ID: <662ED10D-0B4B-4613-AFDD-5BB5BDCBFB1C@codesymphony.co>
+
+Hi Stephen,
+
+I don't know if there is a "best practice" implementation of this out there or not. There is nothing like this in WordPress core, and probably never will be. You might want to take a look at https://core.trac.wordpress.org/ticket/26909 and the related tickets for a better understanding of why.
+
+- J.D.
+
+> On May 2, 2016, at 5:52 PM, Stephen Rider <wp-hackers at striderweb.com> wrote:
+> 
+> Hi all ?
+> 
+> Is there a standardized method in WordPress to declare that a plugin or theme requires a certain version of PHP?  I?ve started coding my plugins to require PHP 5.4.
+> 
+> I know I can write code that does something like check for the right PHP version and deactivate the plugin if it?s not met; but is there anything like this already within WP?  It would be great if we could just add a line to the Readme.txt or the plugin Headers.
+> 
+> -- 
+> Stephen Rider
+> 
+> wp-hackers at striderweb.com
+> http://striderweb.com/nerdaphernalia
+> 
+> 
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jamie at wunderdojo.com  Mon May  2 22:56:33 2016
+From: jamie at wunderdojo.com (James Currie)
+Date: Mon, 2 May 2016 15:56:33 -0700
+Subject: [wp-hackers] PHP requirement for plugins
+In-Reply-To: <662ED10D-0B4B-4613-AFDD-5BB5BDCBFB1C@codesymphony.co>
+References: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+ <662ED10D-0B4B-4613-AFDD-5BB5BDCBFB1C@codesymphony.co>
+Message-ID: <CABx60RgSDZWPPRAkxdad+WU_NGNoH_7h+=itbJzF7pQNTO0TQg@mail.gmail.com>
+
+Nothing I'm aware of. This is what I use:
+
+ public static function check_php_version() {
+            $plugin_name = PLUGIN_NAME;
+            $php_min_version = MIN_PHP_VERSION;
+            $php_min_version_formatted = MIN_PHP_VERSION_FORMATTED;
+
+            if ( ! ( PHP_VERSION_ID ) || version_compare( PHP_VERSION_ID,
+$php_min_version, '<' )) {
+                wp_die( sprintf( __( 'PHP version %1$s or greater is
+required to use this version of the %2$s plugin!', 'text-domain' ),
+"<strong>{$php_min_version_formatted}</strong>", $plugin_name ) );
+            }
+
+        }
+
+The constants it references look like:
+
+const MIN_PHP_VERSION = '50300';
+const MIN_PHP_VERSION_FORMATTED = '5.3.0';
+
+*Jamie Currie*
+------------------
+CEO, wunderdojo
+949-734-0758
+Located in sunny Southern California
+GMT / UTC - 7 hours
+
+On Mon, May 2, 2016 at 3:05 PM, J.D. Grimes <jdg at codesymphony.co> wrote:
+
+> Hi Stephen,
+>
+> I don't know if there is a "best practice" implementation of this out
+> there or not. There is nothing like this in WordPress core, and probably
+> never will be. You might want to take a look at
+> https://core.trac.wordpress.org/ticket/26909 and the related tickets for
+> a better understanding of why.
+>
+> - J.D.
+>
+> > On May 2, 2016, at 5:52 PM, Stephen Rider <wp-hackers at striderweb.com>
+> wrote:
+> >
+> > Hi all ?
+> >
+> > Is there a standardized method in WordPress to declare that a plugin or
+> theme requires a certain version of PHP?  I?ve started coding my plugins to
+> require PHP 5.4.
+> >
+> > I know I can write code that does something like check for the right PHP
+> version and deactivate the plugin if it?s not met; but is there anything
+> like this already within WP?  It would be great if we could just add a line
+> to the Readme.txt or the plugin Headers.
+> >
+> > --
+> > Stephen Rider
+> >
+> > wp-hackers at striderweb.com
+> > http://striderweb.com/nerdaphernalia
+> >
+> >
+> >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From chloe.desoutter+wphackers at gmail.com  Tue May  3 08:29:24 2016
+From: chloe.desoutter+wphackers at gmail.com (=?UTF-8?Q?Chlo=C3=A9_Desoutter?=)
+Date: Tue, 3 May 2016 10:29:24 +0200
+Subject: [wp-hackers] PHP requirement for plugins
+In-Reply-To: <CABx60RgSDZWPPRAkxdad+WU_NGNoH_7h+=itbJzF7pQNTO0TQg@mail.gmail.com>
+References: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+ <662ED10D-0B4B-4613-AFDD-5BB5BDCBFB1C@codesymphony.co>
+ <CABx60RgSDZWPPRAkxdad+WU_NGNoH_7h+=itbJzF7pQNTO0TQg@mail.gmail.com>
+Message-ID: <CAH9U35mROBOwBPJvsULka=pxZQw1_X+6y__cZ1YGeung1_Of7g@mail.gmail.com>
+
+Hello,
+
+I don't mean to troll but why as plug-in/theme developers should we
+consider supporting obsolete, unmaintained versions of PHP that will suffer
+from huge security flaws?
+
+This grasping to past versions, broadest compatibility, etc. hinders with
+providing secure, reliable code.
+
+We should be the ones pushing hosters and hoster customers towards newer,
+better supported code versions.
+
+That said, your version test code needs to be the first called by your
+plug-in and to refrain from using newer syntactic elements that would cause
+parse errors.
+
+Yours sincerely,
+
+2016-05-03 0:56 GMT+02:00 James Currie <jamie at wunderdojo.com>:
+
+> Nothing I'm aware of. This is what I use:
+>
+>  public static function check_php_version() {
+>             $plugin_name = PLUGIN_NAME;
+>             $php_min_version = MIN_PHP_VERSION;
+>             $php_min_version_formatted = MIN_PHP_VERSION_FORMATTED;
+>
+>             if ( ! ( PHP_VERSION_ID ) || version_compare( PHP_VERSION_ID,
+> $php_min_version, '<' )) {
+>                 wp_die( sprintf( __( 'PHP version %1$s or greater is
+> required to use this version of the %2$s plugin!', 'text-domain' ),
+> "<strong>{$php_min_version_formatted}</strong>", $plugin_name ) );
+>             }
+>
+>         }
+>
+> The constants it references look like:
+>
+> const MIN_PHP_VERSION = '50300';
+> const MIN_PHP_VERSION_FORMATTED = '5.3.0';
+>
+> *Jamie Currie*
+> ------------------
+> CEO, wunderdojo
+> 949-734-0758
+> Located in sunny Southern California
+> GMT / UTC - 7 hours
+>
+> On Mon, May 2, 2016 at 3:05 PM, J.D. Grimes <jdg at codesymphony.co> wrote:
+>
+> > Hi Stephen,
+> >
+> > I don't know if there is a "best practice" implementation of this out
+> > there or not. There is nothing like this in WordPress core, and probably
+> > never will be. You might want to take a look at
+> > https://core.trac.wordpress.org/ticket/26909 and the related tickets for
+> > a better understanding of why.
+> >
+> > - J.D.
+> >
+> > > On May 2, 2016, at 5:52 PM, Stephen Rider <wp-hackers at striderweb.com>
+> > wrote:
+> > >
+> > > Hi all ?
+> > >
+> > > Is there a standardized method in WordPress to declare that a plugin or
+> > theme requires a certain version of PHP?  I?ve started coding my plugins
+> to
+> > require PHP 5.4.
+> > >
+> > > I know I can write code that does something like check for the right
+> PHP
+> > version and deactivate the plugin if it?s not met; but is there anything
+> > like this already within WP?  It would be great if we could just add a
+> line
+> > to the Readme.txt or the plugin Headers.
+> > >
+> > > --
+> > > Stephen Rider
+> > >
+> > > wp-hackers at striderweb.com
+> > > http://striderweb.com/nerdaphernalia
+> > >
+> > >
+> > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From abdussamad at postbox.work  Tue May  3 09:02:45 2016
+From: abdussamad at postbox.work (Abdussamad)
+Date: Tue, 3 May 2016 14:02:45 +0500
+Subject: [wp-hackers] PHP requirement for plugins
+In-Reply-To: <CAH9U35mROBOwBPJvsULka=pxZQw1_X+6y__cZ1YGeung1_Of7g@mail.gmail.com>
+References: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+ <662ED10D-0B4B-4613-AFDD-5BB5BDCBFB1C@codesymphony.co>
+ <CABx60RgSDZWPPRAkxdad+WU_NGNoH_7h+=itbJzF7pQNTO0TQg@mail.gmail.com>
+ <CAH9U35mROBOwBPJvsULka=pxZQw1_X+6y__cZ1YGeung1_Of7g@mail.gmail.com>
+Message-ID: <57286935.6040206@postbox.work>
+
+
+Hi,
+
+WordPress.org maintains stats about the PHP versions people are using. 
+It's worth a look:
+
+https://wordpress.org/about/stats/
+
+The data is current. The page is updated based on data from active WP 
+installations.
+
+Regards,
+Abdussamad
+
+On 05/03/2016 01:29 PM, Chlo? Desoutter wrote:
+> Hello,
+>
+> I don't mean to troll but why as plug-in/theme developers should we
+> consider supporting obsolete, unmaintained versions of PHP that will suffer
+> from huge security flaws?
+>
+> This grasping to past versions, broadest compatibility, etc. hinders with
+> providing secure, reliable code.
+>
+> We should be the ones pushing hosters and hoster customers towards newer,
+> better supported code versions.
+>
+> That said, your version test code needs to be the first called by your
+> plug-in and to refrain from using newer syntactic elements that would cause
+> parse errors.
+>
+> Yours sincerely,
+>
+> 2016-05-03 0:56 GMT+02:00 James Currie <jamie at wunderdojo.com>:
+>
+>> Nothing I'm aware of. This is what I use:
+>>
+>>   public static function check_php_version() {
+>>              $plugin_name = PLUGIN_NAME;
+>>              $php_min_version = MIN_PHP_VERSION;
+>>              $php_min_version_formatted = MIN_PHP_VERSION_FORMATTED;
+>>
+>>              if ( ! ( PHP_VERSION_ID ) || version_compare( PHP_VERSION_ID,
+>> $php_min_version, '<' )) {
+>>                  wp_die( sprintf( __( 'PHP version %1$s or greater is
+>> required to use this version of the %2$s plugin!', 'text-domain' ),
+>> "<strong>{$php_min_version_formatted}</strong>", $plugin_name ) );
+>>              }
+>>
+>>          }
+>>
+>> The constants it references look like:
+>>
+>> const MIN_PHP_VERSION = '50300';
+>> const MIN_PHP_VERSION_FORMATTED = '5.3.0';
+>>
+>> *Jamie Currie*
+>> ------------------
+>> CEO, wunderdojo
+>> 949-734-0758
+>> Located in sunny Southern California
+>> GMT / UTC - 7 hours
+>>
+>> On Mon, May 2, 2016 at 3:05 PM, J.D. Grimes <jdg at codesymphony.co> wrote:
+>>
+>>> Hi Stephen,
+>>>
+>>> I don't know if there is a "best practice" implementation of this out
+>>> there or not. There is nothing like this in WordPress core, and probably
+>>> never will be. You might want to take a look at
+>>> https://core.trac.wordpress.org/ticket/26909 and the related tickets for
+>>> a better understanding of why.
+>>>
+>>> - J.D.
+>>>
+>>>> On May 2, 2016, at 5:52 PM, Stephen Rider <wp-hackers at striderweb.com>
+>>> wrote:
+>>>>
+>>>> Hi all ?
+>>>>
+>>>> Is there a standardized method in WordPress to declare that a plugin or
+>>> theme requires a certain version of PHP?  I?ve started coding my plugins
+>> to
+>>> require PHP 5.4.
+>>>>
+>>>> I know I can write code that does something like check for the right
+>> PHP
+>>> version and deactivate the plugin if it?s not met; but is there anything
+>>> like this already within WP?  It would be great if we could just add a
+>> line
+>>> to the Readme.txt or the plugin Headers.
+>>>>
+>>>> --
+>>>> Stephen Rider
+>>>>
+>>>> wp-hackers at striderweb.com
+>>>> http://striderweb.com/nerdaphernalia
+>>>>
+>>>>
+>>>>
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jamesorodig at gmail.com  Wed May  4 11:58:36 2016
+From: jamesorodig at gmail.com (James DiGioia)
+Date: Wed, 4 May 2016 07:58:36 -0400
+Subject: [wp-hackers] PHP requirement for plugins
+In-Reply-To: <57286935.6040206@postbox.work>
+References: <A946024D-1FCF-456F-B16D-8471E1624395@striderweb.com>
+ <662ED10D-0B4B-4613-AFDD-5BB5BDCBFB1C@codesymphony.co>
+ <CABx60RgSDZWPPRAkxdad+WU_NGNoH_7h+=itbJzF7pQNTO0TQg@mail.gmail.com>
+ <CAH9U35mROBOwBPJvsULka=pxZQw1_X+6y__cZ1YGeung1_Of7g@mail.gmail.com>
+ <57286935.6040206@postbox.work>
+Message-ID: <CAL0fVhO_bqTAXvgK1r-GHOjtwXzVjdoytFebhO7k6LqJy-3RZg@mail.gmail.com>
+
+There's also this library, which will handle PHP version checking and put
+up an admin notice in WordPress if the user's version isn't high enough:
+
+https://github.com/WPupdatePHP/wp-update-php
+
+- James
+
+On Tue, May 3, 2016 at 5:02 AM, Abdussamad <abdussamad at postbox.work> wrote:
+
+>
+> Hi,
+>
+> WordPress.org maintains stats about the PHP versions people are using.
+> It's worth a look:
+>
+> https://wordpress.org/about/stats/
+>
+> The data is current. The page is updated based on data from active WP
+> installations.
+>
+> Regards,
+> Abdussamad
+>
+>
+> On 05/03/2016 01:29 PM, Chlo? Desoutter wrote:
+>
+>> Hello,
+>>
+>> I don't mean to troll but why as plug-in/theme developers should we
+>> consider supporting obsolete, unmaintained versions of PHP that will
+>> suffer
+>> from huge security flaws?
+>>
+>> This grasping to past versions, broadest compatibility, etc. hinders with
+>> providing secure, reliable code.
+>>
+>> We should be the ones pushing hosters and hoster customers towards newer,
+>> better supported code versions.
+>>
+>> That said, your version test code needs to be the first called by your
+>> plug-in and to refrain from using newer syntactic elements that would
+>> cause
+>> parse errors.
+>>
+>> Yours sincerely,
+>>
+>> 2016-05-03 0:56 GMT+02:00 James Currie <jamie at wunderdojo.com>:
+>>
+>> Nothing I'm aware of. This is what I use:
+>>>
+>>>   public static function check_php_version() {
+>>>              $plugin_name = PLUGIN_NAME;
+>>>              $php_min_version = MIN_PHP_VERSION;
+>>>              $php_min_version_formatted = MIN_PHP_VERSION_FORMATTED;
+>>>
+>>>              if ( ! ( PHP_VERSION_ID ) || version_compare(
+>>> PHP_VERSION_ID,
+>>> $php_min_version, '<' )) {
+>>>                  wp_die( sprintf( __( 'PHP version %1$s or greater is
+>>> required to use this version of the %2$s plugin!', 'text-domain' ),
+>>> "<strong>{$php_min_version_formatted}</strong>", $plugin_name ) );
+>>>              }
+>>>
+>>>          }
+>>>
+>>> The constants it references look like:
+>>>
+>>> const MIN_PHP_VERSION = '50300';
+>>> const MIN_PHP_VERSION_FORMATTED = '5.3.0';
+>>>
+>>> *Jamie Currie*
+>>> ------------------
+>>> CEO, wunderdojo
+>>> 949-734-0758
+>>> Located in sunny Southern California
+>>> GMT / UTC - 7 hours
+>>>
+>>> On Mon, May 2, 2016 at 3:05 PM, J.D. Grimes <jdg at codesymphony.co> wrote:
+>>>
+>>> Hi Stephen,
+>>>>
+>>>> I don't know if there is a "best practice" implementation of this out
+>>>> there or not. There is nothing like this in WordPress core, and probably
+>>>> never will be. You might want to take a look at
+>>>> https://core.trac.wordpress.org/ticket/26909 and the related tickets
+>>>> for
+>>>> a better understanding of why.
+>>>>
+>>>> - J.D.
+>>>>
+>>>> On May 2, 2016, at 5:52 PM, Stephen Rider <wp-hackers at striderweb.com>
+>>>>>
+>>>> wrote:
+>>>>
+>>>>>
+>>>>> Hi all ?
+>>>>>
+>>>>> Is there a standardized method in WordPress to declare that a plugin or
+>>>>>
+>>>> theme requires a certain version of PHP?  I?ve started coding my plugins
+>>>>
+>>> to
+>>>
+>>>> require PHP 5.4.
+>>>>
+>>>>>
+>>>>> I know I can write code that does something like check for the right
+>>>>>
+>>>> PHP
+>>>
+>>>> version and deactivate the plugin if it?s not met; but is there anything
+>>>> like this already within WP?  It would be great if we could just add a
+>>>>
+>>> line
+>>>
+>>>> to the Readme.txt or the plugin Headers.
+>>>>
+>>>>>
+>>>>> --
+>>>>> Stephen Rider
+>>>>>
+>>>>> wp-hackers at striderweb.com
+>>>>> http://striderweb.com/nerdaphernalia
+>>>>>
+>>>>>
+>>>>>
+>>>>> _______________________________________________
+>>>>> wp-hackers mailing list
+>>>>> wp-hackers at lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>>>
+>>>>
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>>
+>>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+

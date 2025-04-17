@@ -1,0 +1,1305 @@
+From rich at boakes.org  Fri Jun  2 16:14:12 2006
+From: rich at boakes.org (rich boakes)
+Date: Fri, 02 Jun 2006 17:14:12 +0100
+Subject: [spam-stopper] A small akismet extension for separating ham from
+	spam
+Message-ID: <448063D4.5040709@boakes.org>
+
+Hi Folks,
+
+For me, Akismet was great at first because it 
+identified the spam, and (although rare) when 
+there were false positives, there was only 10:1 
+spam ratio so the real messages were really obvious.
+
+The recent upsurge in comments (and thus the 
+upsurge in Akismet's quarry) has had a 
+detrimental knock-on effect on the ease of 
+separating ham from spam.
+
+The task of spotting a piece of false-positive 
+ham in the middle of hundreds of spams is no 
+different to what we were doing before, manually 
+sifting through every message - the only change 
+is that instead of looking for "ham to accept" 
+we now have to look for "ham to de-spam".
+
+To improve this I added a "Worst Offenders" 
+section to the 1.15 version of Akismet.  It 
+lists the IP addresses and domains that appear 
+most frequently, and allows the user to delete 
+these en-masse, reducing the amount of spam/ham 
+filtering to a far more manageable amount.
+
+It's manageable on my site anyway, your mileage 
+may differ.
+
+The updated plugin is here:
+http://boakes.org/download/akismet-1.15-wo.zip
+
+It hopefully proves that such a system is fairly 
+useful, and might give people a few ideas for 
+better solutions.
+
+Thinking forward I was considering two avenues 
+of development that might be useful:
+
+(1) combine the worst-offenders IP addresses 
+with the existing WP capability to write the 
+.htaccess file, thus having a dynamic deny list 
+that targets active spam-bots.
+
+(2) to allow more experimentation, the Akismet 
+size of things could be made a bit more 
+pluggable with filters triggered when the spam 
+page is submitted and displayed.  This could 
+enable akismet plugin-lets to provide more 
+intelligent management functions (like this one) 
+without having to update the core plugin).
+
+Anyway; food for thought and a plugin to play 
+with.  Hope it's useful :)
+
+Rich
+--
+http://boakes.org
+
+
+From simonpain at hotmail.com  Mon Jun  5 03:45:33 2006
+From: simonpain at hotmail.com (Simon Pain)
+Date: Mon, 5 Jun 2006 13:45:33 +1000
+Subject: [spam-stopper] Akismet Expression Engine plugin
+Message-ID: <BAY119-W4AB7A27C2B2B392876756AF940@phx.gbl>
+
+Hi All,
+ 
+Has anyone developed an Akismet plugin or enhancement for pMachine's Expression Engine 1.4 blog tool?
+ 
+Thanks in advance,
+SimonP
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060605/8dbe7b3b/attachment.htm>
+
+From webmacster87 at gmail.com  Mon Jun  5 13:48:54 2006
+From: webmacster87 at gmail.com (Douglas Bell)
+Date: Mon, 5 Jun 2006 06:48:54 -0700
+Subject: [spam-stopper] Akismet MODification for phpBB
+Message-ID: <46DFAA7C-015C-4DF5-B91F-499343019FD0@gmail.com>
+
+Hello everyone,
+
+Just letting you guys know that I'm working on an Akismet  
+MODification for phpBB. I'm hoping to make an alpha release of the  
+code this week, however I do have a Subversion repository set up with  
+the dev code. The support topic for the MOD can be found here: http:// 
+www.phpbb.com/phpBB/viewtopic.php?t=393648
+
+Hope this helps someone!
+--Fountain of Apples/webmacster87
+
+
+From r at schestowitz.com  Wed Jun  7 02:46:31 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Wed, 07 Jun 2006 03:46:31 +0100
+Subject: [spam-stopper] Akismet Expression Engine plugin
+In-Reply-To: <BAY119-W4AB7A27C2B2B392876756AF940@phx.gbl>
+References: <BAY119-W4AB7A27C2B2B392876756AF940@phx.gbl>
+Message-ID: <20060607034631.o6oadz6qyrk04g0c@banana.catalyst2.com>
+
+___/ On Mon 05 Jun 2006 04:45:33 BST, [ Simon Pain ] wrote : \___
+
+> Hi All,
+>
+> Has anyone developed an Akismet plugin or enhancement for pMachine's 
+> Expression Engine 1.4 blog tool?
+>
+> Thanks in advance,
+> SimonP
+
+Hi,
+
+I believe that a fairly complete list is *this*:
+
+http://akismet.com/development/
+
+There may, however, be implementations that were not brought to Automattic's
+attention or simply not added to the list yet.
+
+You may be able to use one of the existing GPL'd implementations (many to
+choose from) as a starting point which works well with the API's and hooks.
+
+Hope it helps,
+
+Roy
+
+-- 
+Roy S. Schestowitz
+http://Schestowitz.com  |  GNU is Not UNIX  ?     PGP-Key: 0x74572E8E
+  3:35am  up 40 days  9:08,  11 users,  load average: 2.58, 2.59, 2.31
+      http://iuron.com - proposing a non-profit search engine
+
+
+
+From r at schestowitz.com  Wed Jun  7 02:51:07 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Wed, 07 Jun 2006 03:51:07 +0100
+Subject: [spam-stopper] Akismet MODification for phpBB
+In-Reply-To: <46DFAA7C-015C-4DF5-B91F-499343019FD0@gmail.com>
+References: <46DFAA7C-015C-4DF5-B91F-499343019FD0@gmail.com>
+Message-ID: <20060607035107.xg9ubwjhdd0o4cgw@banana.catalyst2.com>
+
+___/ On Mon 05 Jun 2006 14:48:54 BST, [ Douglas Bell ] wrote : \___
+
+> Hello everyone,
+>
+> Just letting you guys know that I'm working on an Akismet  
+> MODification for phpBB. I'm hoping to make an alpha release of the  
+> code this week, however I do have a Subversion repository set up with 
+>  the dev code. The support topic for the MOD can be found here: 
+> http:// www.phpbb.com/phpBB/viewtopic.php?t=393648
+
+If I may add a suggestion/request:
+
+A key to filtering in phpBB  might also be  that of excluding and moderating
+memberships, which have become detrimental.  I don't truly know how this can
+be achieved without unwanted consequences, but I look forward to seeing some
+solution to phpBB SPAM.
+
+Best wishes,
+
+Roy
+
+-- 
+Roy S. Schestowitz
+http://Schestowitz.com  |  Open Prospects   ?     PGP-Key: 0x74572E8E
+  3:40am  up 40 days  9:13,  12 users,  load average: 2.34, 2.45, 2.30
+      http://iuron.com - knowledge engine, not a search engine
+
+
+
+From webmacster87 at gmail.com  Wed Jun  7 03:44:53 2006
+From: webmacster87 at gmail.com (Douglas Bell)
+Date: Tue, 6 Jun 2006 20:44:53 -0700
+Subject: [spam-stopper] Akismet MODification for phpBB
+In-Reply-To: <20060607035107.xg9ubwjhdd0o4cgw@banana.catalyst2.com>
+References: <46DFAA7C-015C-4DF5-B91F-499343019FD0@gmail.com>
+	<20060607035107.xg9ubwjhdd0o4cgw@banana.catalyst2.com>
+Message-ID: <1230F33B-D1D2-45FE-A16B-AA31D38F40DB@gmail.com>
+
+The difficult parts are getting together the information that is sent  
+to Akismet from phpBB (since Akismet is intended for blogs, not  
+fora), but I am working it out. So far, I'm working on a basic system  
+where the admin can choose to check all comments for spam, only check  
+unregistered comments for spam, or not check any comments for spam.  
+I'm hoping in future versions I can extend this to allow more  
+advanced control using phpBB's authentication system.
+--Fountain of Apples/webmacster87
+On Jun 6, 2006, at 7:51 PM, Roy Schestowitz wrote:
+
+> ___/ On Mon 05 Jun 2006 14:48:54 BST, [ Douglas Bell ] wrote : \___
+>
+>> Hello everyone,
+>>
+>> Just letting you guys know that I'm working on an Akismet
+>> MODification for phpBB. I'm hoping to make an alpha release of the
+>> code this week, however I do have a Subversion repository set up with
+>>  the dev code. The support topic for the MOD can be found here:
+>> http:// www.phpbb.com/phpBB/viewtopic.php?t=393648
+>
+> If I may add a suggestion/request:
+>
+> A key to filtering in phpBB  might also be  that of excluding and  
+> moderating
+> memberships, which have become detrimental.  I don't truly know how  
+> this can
+> be achieved without unwanted consequences, but I look forward to  
+> seeing some
+> solution to phpBB SPAM.
+>
+> Best wishes,
+>
+> Roy
+>
+> --
+> Roy S. Schestowitz
+> http://Schestowitz.com  |  Open Prospects   ?     PGP-Key: 0x74572E8E
+>  3:40am  up 40 days  9:13,  12 users,  load average: 2.34, 2.45, 2.30
+>      http://iuron.com - knowledge engine, not a search engine
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+From r at schestowitz.com  Wed Jun  7 11:43:00 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Wed, 07 Jun 2006 12:43:00 +0100
+Subject: [spam-stopper] Akismet MODification for phpBB
+In-Reply-To: <1230F33B-D1D2-45FE-A16B-AA31D38F40DB@gmail.com>
+References: <46DFAA7C-015C-4DF5-B91F-499343019FD0@gmail.com>
+	<20060607035107.xg9ubwjhdd0o4cgw@banana.catalyst2.com>
+	<1230F33B-D1D2-45FE-A16B-AA31D38F40DB@gmail.com>
+Message-ID: <20060607124300.mlj9sm411y8088k4@banana.catalyst2.com>
+
+___/ On Wed 07 Jun 2006 04:44:53 BST, [ Douglas Bell ] wrote : \___
+
+> The difficult parts are getting together the information that is sent 
+>  to Akismet from phpBB (since Akismet is intended for blogs, not  
+> fora), but I am working it out. So far, I'm working on a basic system 
+>  where the admin can choose to check all comments for spam, only 
+> check  unregistered comments for spam, or not check any comments for 
+> spam.  I'm hoping in future versions I can extend this to allow more  
+> advanced control using phpBB's authentication system.
+> --Fountain of Apples/webmacster87
+> On Jun 6, 2006, at 7:51 PM, Roy Schestowitz wrote:
+>
+>> ___/ On Mon 05 Jun 2006 14:48:54 BST, [ Douglas Bell ] wrote : \___
+>>
+>>> Hello everyone,
+>>>
+>>> Just letting you guys know that I'm working on an Akismet
+>>> MODification for phpBB. I'm hoping to make an alpha release of the
+>>> code this week, however I do have a Subversion repository set up with
+>>>  the dev code. The support topic for the MOD can be found here:
+>>> http:// www.phpbb.com/phpBB/viewtopic.php?t=393648
+>>
+>> If I may add a suggestion/request:
+>>
+>> A key to filtering in phpBB  might also be  that of excluding and  
+>> moderating
+>> memberships, which have become detrimental.  I don't truly know how  
+>> this can
+>> be achieved without unwanted consequences, but I look forward to  
+>> seeing some
+>> solution to phpBB SPAM.
+>>
+>> Best wishes,
+>>
+>> Roy
+>>
+>> --
+>> Roy S. Schestowitz
+>> http://Schestowitz.com  |  Open Prospects   ?     PGP-Key: 0x74572E8E
+>>  3:40am  up 40 days  9:13,  12 users,  load average: 2.34, 2.45, 2.30
+>>      http://iuron.com - knowledge engine, not a search engine
+>>
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+-- 
+Roy S. Schestowitz
+http://Schestowitz.com
+
+
+
+From r at schestowitz.com  Wed Jun  7 11:50:23 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Wed, 07 Jun 2006 12:50:23 +0100
+Subject: [spam-stopper] Akismet MODification for phpBB
+In-Reply-To: <1230F33B-D1D2-45FE-A16B-AA31D38F40DB@gmail.com>
+References: <46DFAA7C-015C-4DF5-B91F-499343019FD0@gmail.com>
+	<20060607035107.xg9ubwjhdd0o4cgw@banana.catalyst2.com>
+	<1230F33B-D1D2-45FE-A16B-AA31D38F40DB@gmail.com>
+Message-ID: <20060607125023.uhztfqc5ism8c88s@banana.catalyst2.com>
+
+___/ On Wed 07 Jun 2006 04:44:53 BST, [ Douglas Bell ] wrote : \___
+
+> On Jun 6, 2006, at 7:51 PM, Roy Schestowitz wrote:
+>
+>> ___/ On Mon 05 Jun 2006 14:48:54 BST, [ Douglas Bell ] wrote : \___
+>>
+>>> Hello everyone,
+>>>
+>>> Just letting you guys know that I'm working on an Akismet
+>>> MODification for phpBB. I'm hoping to make an alpha release of the
+>>> code this week, however I do have a Subversion repository set up with
+>>>  the dev code. The support topic for the MOD can be found here:
+>>> http:// www.phpbb.com/phpBB/viewtopic.php?t=393648
+>>
+>> If I may add a suggestion/request:
+>>
+>> A key to filtering in phpBB  might also be  that of excluding and  
+>> moderating
+>> memberships, which have become detrimental.  I don't truly know how  
+>> this can
+>> be achieved without unwanted consequences, but I look forward to  
+>> seeing some
+>> solution to phpBB SPAM.
+>
+> The difficult parts are getting together the information that is sent 
+> to Akismet from phpBB (since Akismet is intended for blogs, not  
+> fora), but I am working it out. So far, I'm working on a basic system 
+> where the admin can choose to check all comments for spam, only check 
+>  unregistered comments for spam, or not check any comments for spam.  
+> I'm hoping in future versions I can extend this to allow more  
+> advanced control using phpBB's authentication system.
+
+A couple of points spring to mind:
+
+	(1) Forum messages are different from comments/posts, so the Akismet
+	    filter can wind up rather baffled, handling a mashmash of diffe-
+	    rent 'processes' (merging Apples and Oranges). I wonder how this
+	    would ever be extended (if ever) to something such as E-mail
+
+	(2) Whatever you do to facilitate Akismet interfaces,  please ensure
+	    it  is not consistent with phpBB's  clunky and totally  unusable
+	    administration panel. Keep it Simple and Stupid (KISS), just li-
+	    ke WordPress.
+
+Best wishes,
+
+Roy
+
+-- 
+Roy S. Schestowitz      |    /earth: file system full
+http://Schestowitz.com  |  Open Prospects   ?     PGP-Key: 0x74572E8E
+12:40pm  up 40 days 18:13,  11 users,  load average: 1.05, 1.31, 1.16
+      http://iuron.com - knowledge engine, not a search engine
+
+
+
+From akismet at phpmix.org  Thu Jun  8 03:15:46 2006
+From: akismet at phpmix.org (markus)
+Date: Thu, 8 Jun 2006 05:15:46 +0200
+Subject: [spam-stopper] Akismet module for Drupal 4.7
+Message-ID: <001001c68aa9$d9a197f0$0100a8c0@m00>
+
+Hi!
+
+I would like to mention that I've been working on an Akismet module for
+Drupal 4.7. It is not finished, but all basic features are already
+implemented. Details can be located here:
+
+http://www.phpmix.org/story/protected_by_akismet#comment-68
+
+
+I'm also trying to keep the Drupal community informed about its progress
+from this post:
+
+http://drupal.org/node/50502
+
+
+The stable page for this project is located here:
+
+http://www.phpmix.org/projects/drupal/4_7/akismet
+
+
+where a package is already available for testing, in beta stage. While I'm
+polishing the code and adding some late features, I'm open suggestions. I'm
+for making it as good as the WP plugin. :-)
+
+
+I would like to avail the oportunity to thank all people involved in the
+creation and maintenance of Akismet. This service has been a really great
+idea. Also, thanks for opening it to non-WP platforms. Let's fight
+against'em together!
+
+
+Regards,
+Markus
+
+
+
+From rich at boakes.org  Thu Jun  8 18:55:56 2006
+From: rich at boakes.org (rich boakes)
+Date: Thu, 08 Jun 2006 19:55:56 +0100
+Subject: [spam-stopper] A small akismet extension for updating htaccess
+Message-ID: <448872BC.9030903@boakes.org>
+
+Further to my thinking aloud [1] about combining 
+the "Worst Offenders" hack with automated 
+htaccess modification, I bashed out a rough copy 
+today [2] and the results have been promising.
+
+Basically when you the user deletes an IP 
+address based offender from Akismet they have 
+the option of banning that address from 
+connecting in future.
+
+I think this potentially saves each server (and 
+the Akismet service) from an awful lot of work.
+
+[1] 
+http://comox.textdrive.com/pipermail/spam-stopper/2006-June/000349.html
+[2] http://boakes.org/akismet-htaccess-extension
+
+Rich
+
+
+From dirk at haun-online.de  Thu Jun  8 19:11:55 2006
+From: dirk at haun-online.de (Dirk Haun)
+Date: Thu, 8 Jun 2006 21:11:55 +0200
+Subject: [spam-stopper] A small akismet extension for updating htaccess
+In-Reply-To: <448872BC.9030903@boakes.org>
+References: <448872BC.9030903@boakes.org>
+Message-ID: <20060608191155.17707@smtp.haun-online.de>
+
+rich boakes wrote:
+
+>Basically when you the user deletes an IP 
+>address based offender from Akismet they have 
+>the option of banning that address from 
+>connecting in future.
+
+A similar approach: I've ported Bad Behavior for Geeklog and when
+Geeklog's spam filter detects spam, it can optionally report the
+spammer's IP address to Bad Behavior. So it's Bad Behavior doing the
+blocking, instead of the .htaccess.
+
+
+>I think this potentially saves each server (and 
+>the Akismet service) from an awful lot of work.
+
+It's not quite as successful as one may think, as spammers often use
+botnets or open proxies all over the place, so that identical spam is
+often coming from a lot of different IP addresses.
+
+bye, Dirk
+
+
+-- 
+http://www.geeklog.net/
+http://geeklog.info/
+
+
+
+From rich at boakes.org  Thu Jun  8 21:19:48 2006
+From: rich at boakes.org (rich boakes)
+Date: Thu, 08 Jun 2006 22:19:48 +0100
+Subject: [spam-stopper] A small akismet extension for updating htaccess
+In-Reply-To: <20060608191155.17707@smtp.haun-online.de>
+References: <448872BC.9030903@boakes.org>
+	<20060608191155.17707@smtp.haun-online.de>
+Message-ID: <44889474.9040602@boakes.org>
+
+Dirk Haun wrote:
+> rich boakes wrote:
+
+>> Basically when you the user deletes an IP 
+>> address based offender from Akismet they have 
+>> the option of banning that address from 
+>> connecting in future.
+
+> A similar approach: I've ported Bad Behavior for Geeklog and when
+> Geeklog's spam filter detects spam, it can optionally report the
+> spammer's IP address to Bad Behavior. So it's Bad Behavior doing the
+> blocking, instead of the .htaccess.
+
+One possible advantage over (/assistance to) PHP 
+based solutions (such as Bad Behavior) is that 
+it works at the server level, so the 403 is sent 
+before PHP is invoked.
+
+This may be particularly useful where 
+performance is important, but can also be 
+considered a disadvantage because whilst the 
+concept is portable, the htaccess file is not.
+
+>> I think this potentially saves each server (and 
+>> the Akismet service) from an awful lot of work.
+> 
+> It's not quite as successful as one may think, as spammers often use
+> botnets or open proxies all over the place, so that identical spam is
+> often coming from a lot of different IP addresses.
+
+One thing that might mitigate this problem is 
+that the IP addresses this plugin blocks are 
+ones that are we know are targeting the blocking 
+blog, so the success ratio should be "better 
+than random".
+
+That said, I have no preconceptions about how 
+successful it will be; but that's what I hope to 
+find out!
+
+So far I've seen > 90% reduction in the need to 
+ask Akismet for help.  Perhaps someone on the 
+server side can have a look at the stats from my 
+ID to see if the difference remains significant 
+and useful over time.
+
+Rich
+
+
+From shayne at perthimc.asn.au  Sun Jun 11 07:34:24 2006
+From: shayne at perthimc.asn.au (Shayne O'Neill)
+Date: Sun, 11 Jun 2006 15:34:24 +0800 (WST)
+Subject: [spam-stopper] Seeking php4lib
+Message-ID: <Pine.LNX.4.64.0606111534080.20671@perthimc.asn.au>
+
+
+Hey guys,
+
+Im having a bit of a problem with damn spammers. I run a little community
+site, and its a 4yo homecrafted CMS , and its absolutely getting hammered.
+To the point its grotesquely inflated the hosting costs , let alone the
+hundreds of manhours hunting and pruneing the thousands of idiotic
+ringtone type spams. I keep adding little measures in, right up to MD5
+signatures and the lot, and they keep getting around it.
+
+Anyway, I want to give akismet a go.
+
+Now to do this I need the php4 library. Problem is the link off the
+akismet site is dead, and it appears the author has closed his website,
+
+Has anyone a copy of this library. Im planning to modify the lib so if it
+catches spammers, it returns a wonderful file I have thats a 1 gig gzipped
+string of zeros (and a html header) zipped into 1 meg. My experiments show
+it'll kill every browser it encounters and probably most bots. If that
+doesnt work Im prepared to code a teergrub module for apache (Starts to
+send a header then falls asleep. The bot ends up stuck there for hours on
+end waiting for its process to end).
+
+Cheers,
+Shayne.
+
+
+From akismet at phpmix.org  Mon Jun 12 03:17:57 2006
+From: akismet at phpmix.org (markus)
+Date: Mon, 12 Jun 2006 05:17:57 +0200
+Subject: [spam-stopper] Re: Akismet module for Drupal 4.7
+Message-ID: <001301c68dce$cfbf06a0$0100a8c0@m00>
+
+After several days of work and tests here at phpMiX.org, I'm proud to
+announce the immediate availability of about 2000 lines of code compiled
+into "Akismet module v1.0.0 for Drupal 4.7".
+
+In just a few words, when new content is submitted to a Drupal based site,
+the akismet module sends a real time request to Akismet.com. If it isn't
+spam, the content is published, if it is, then it is placed on to the
+moderation queue. Moderators may opt-in to receive e-mail notifications for
+all content, just content needing approval or nothing at all. The module is
+fully customizable, almost everything is optional. It also keeps track of a
+counter that you can use to show your visitors how many spam has been caught
+by Akismet in your site.
+
+I have also implemented a quite simple method to check for updates at
+certain intervals, which is customizable from the settings panel. It can
+also be disabled.
+
+For a complete list of features, support resources and download, please
+visit the project page for the "Akismet module for Drupal" at:
+
+http://www.phpmix.org/projects/drupal/4_7/akismet
+
+
+Bests to all,
+Markus
+
+
+
+From akismet at phpmix.org  Mon Jun 12 05:04:04 2006
+From: akismet at phpmix.org (markus)
+Date: Mon, 12 Jun 2006 07:04:04 +0200
+Subject: [spam-stopper] Re: Akismet module for Drupal 4.7
+References: <001301c68dce$cfbf06a0$0100a8c0@m00>
+Message-ID: <000901c68ddd$a7534960$0100a8c0@m00>
+
+BTW, any chance to get this Drupal module listed in the "Other Application
+Plugins" section of this page?
+http://akismet.com/development/
+
+Should anyone find something interesting in its implementation.
+
+If so, the actual home of the module would be this:
+http://www.phpmix.org/projects/drupal/4_7/akismet
+
+
+Thanks in advance and bests to all,
+
+Markus
+
+
+
+From rich at boakes.org  Thu Jun 15 11:24:47 2006
+From: rich at boakes.org (rich boakes)
+Date: Thu, 15 Jun 2006 12:24:47 +0100
+Subject: [spam-stopper] Redirection Domains & A and idea for a self-check API
+In-Reply-To: <20060615095835.GB25501@level22.com>
+References: <20060615085636.3E86644B8B@mail2.level22.com>
+	<20060615095835.GB25501@level22.com>
+Message-ID: <4491437F.8010201@boakes.org>
+
+Earlier today I spoke with Eric Hammond of 
+notlong.com after receiving a topside of spam 
+that was using notlong as a redirection service; 
+he's very quickly killed off the misused URLs 
+(thanks Eric).
+
+Services such as notlong would benefit greatly 
+if they could access a list of spammed URLs so 
+they could disable them before they can be 
+profited from, and it seems that Akismet.com is 
+well placed to provide such a service.
+
+Eric had all kinds of other questions when I 
+mentioned that akismet was able to stop the spam 
+before it got through; questions I can't answer 
+such as:
+
+> What specifically is known to akismet.com?  The specific notlong.com 
+> URLs or the long URLs where they get redirected?  Are you sure 
+> akismet.com is not simply blocking all notlong.com URLs?
+
+If anyone can furnish Eric with non-speculative 
+answers then I'm sure he'll be delighted; but in 
+the meantime I thought I'd moot the idea of an 
+API for checking if your domain has been used 
+for spam.
+
+Rich
+--
+http://boakes.org
+
+From shayne at perthimc.asn.au  Thu Jun 15 16:16:19 2006
+From: shayne at perthimc.asn.au (Shayne O'Neill)
+Date: Fri, 16 Jun 2006 00:16:19 +0800 (WST)
+Subject: [spam-stopper] Redirection Domains & A and idea for a self-check
+	API
+In-Reply-To: <4491437F.8010201@boakes.org>
+References: <20060615085636.3E86644B8B@mail2.level22.com>
+	<20060615095835.GB25501@level22.com> <4491437F.8010201@boakes.org>
+Message-ID: <Pine.LNX.4.64.0606160011520.20671@perthimc.asn.au>
+
+
+Perhaps it'd be nice to make some system where service providers (stuff 
+like blogger or the commercial wordpress providers, and stuff like the 
+notlong and tinyurl, etc, etc, stuff , can get a perhaps xml-rpc type 
+notification that their service is getting abused in some way.
+
+Like if akismet , however the heck its working internally, goes "Ok, this 
+url http: //makewangbigger.blogger.com is a spam url" then if could fire 
+off an xml-rpc notification that that url is being abused and then blogger 
+or whatever could go "ok. This notification is comming from akismet, we 
+trust akismet, time to nuke it".
+
+It'd have to be formalised, and with propper measures to avoid abuse (for 
+instant people putting in bogus requests against political opponent blogs, 
+or whatever). But basically if there was a way to knock the spammers right 
+off the large commercial services, then that'll make the spammers job ALOT 
+more expensive and harder.
+
+On Thu, 15 Jun 2006, rich boakes wrote:
+
+> Earlier today I spoke with Eric Hammond of notlong.com after receiving a 
+> topside of spam that was using notlong as a redirection service; he's very 
+> quickly killed off the misused URLs (thanks Eric).
+>
+> Services such as notlong would benefit greatly if they could access a list of 
+> spammed URLs so they could disable them before they can be profited from, and 
+> it seems that Akismet.com is well placed to provide such a service.
+>
+> Eric had all kinds of other questions when I mentioned that akismet was able 
+> to stop the spam before it got through; questions I can't answer such as:
+>
+>> What specifically is known to akismet.com?  The specific notlong.com URLs 
+>> or the long URLs where they get redirected?  Are you sure akismet.com is 
+>> not simply blocking all notlong.com URLs?
+>
+> If anyone can furnish Eric with non-speculative answers then I'm sure he'll 
+> be delighted; but in the meantime I thought I'd moot the idea of an API for 
+> checking if your domain has been used for spam.
+>
+> Rich
+> --
+> http://boakes.org
+>
+
+
+From enygma at phpdeveloper.org  Thu Jun 15 21:32:56 2006
+From: enygma at phpdeveloper.org (enygma at phpdeveloper.org)
+Date: Thu, 15 Jun 2006 17:32:56 -0400 (EDT)
+Subject: [spam-stopper] my IP
+Message-ID: <Pine.LNX.4.63.0606151732130.32358@u15194060.onlinehome-server.com>
+
+So I guess I shouldn't have tested using my own IP, huh?
+Is there a way to negate these submissions or do I just have to live with 
+it now?
+
+-chris
+
+
+From akismet at phpmix.org  Fri Jun 16 16:27:32 2006
+From: akismet at phpmix.org (markus)
+Date: Fri, 16 Jun 2006 18:27:32 +0200
+Subject: [spam-stopper] A small akismet extension for updating htaccess
+Message-ID: <002701c69161$cc3a8400$0100a8c0@m00>
+
+Since I announced and released the Akismet module for Drupal, I have
+observed that my site is now target for some spambots, hence I have now a
+bit more food for testing :-(
+
+I'm adding now a few more features to the module and I'm also thinking about
+adding some kind of measures to prevent from having small DoS periods due to
+spambots generating all the extra work involved in checking with Akismet,
+sending e-mail notifications to spam moderators or whatever.
+
+I guess it is important for Akismet to get as much information as possible
+about spam (even if it is known), so I'm not thinking about adding heavy
+algorithms locally or adding permanent bans (using Bad Behavior kind of
+tools nor .htaccess)...
+
+What I've been thinking is the fact that we may have spam in the moderation
+queue. This is volatile information because it will be removed by a cron
+task based on expiration (defined by module options). However, this is
+information that we could perhaps use to checker before sending a request to
+Akismet, and ban if the IP of a new attempt to post a comment matches the IP
+of one of those items in the queue, or if the text of the comment matches
+(good when spambots use proxies), or if URLs (full or only the host) in the
+text matches, etc.
+
+That is, I'm thinking just about measures against spambots. Simple checks
+that could be made against known spam that we may have for a short period of
+time in the queue. I'm currently coding a new version of the module, I would
+love to hear thoughts or suggestions about that. :-)
+
+
+Cheers
+Markus
+
+
+
+--- Original message follows: ---
+rich boakes rich at boakes.org
+Thu Jun 8 21:19:48 GMT 2006
+
+Dirk Haun wrote:
+> rich boakes wrote:
+
+>> Basically when you the user deletes an IP
+>> address based offender from Akismet they have
+>> the option of banning that address from
+>> connecting in future.
+
+> A similar approach: I've ported Bad Behavior for Geeklog and when
+> Geeklog's spam filter detects spam, it can optionally report the
+> spammer's IP address to Bad Behavior. So it's Bad Behavior doing the
+> blocking, instead of the .htaccess.
+
+One possible advantage over (/assistance to) PHP
+based solutions (such as Bad Behavior) is that
+it works at the server level, so the 403 is sent
+before PHP is invoked.
+
+This may be particularly useful where
+performance is important, but can also be
+considered a disadvantage because whilst the
+concept is portable, the htaccess file is not.
+
+>> I think this potentially saves each server (and
+>> the Akismet service) from an awful lot of work.
+>
+> It's not quite as successful as one may think, as spammers often use
+> botnets or open proxies all over the place, so that identical spam is
+> often coming from a lot of different IP addresses.
+
+One thing that might mitigate this problem is
+that the IP addresses this plugin blocks are
+ones that are we know are targeting the blocking
+blog, so the success ratio should be "better
+than random".
+
+That said, I have no preconceptions about how
+successful it will be; but that's what I hope to
+find out!
+
+So far I've seen > 90% reduction in the need to
+ask Akismet for help.  Perhaps someone on the
+server side can have a look at the stats from my
+ID to see if the difference remains significant
+and useful over time.
+
+Rich
+
+
+
+From rich at boakes.org  Fri Jun 16 16:48:05 2006
+From: rich at boakes.org (rich boakes)
+Date: Fri, 16 Jun 2006 17:48:05 +0100
+Subject: [spam-stopper] A small akismet extension for updating htaccess
+In-Reply-To: <002701c69161$cc3a8400$0100a8c0@m00>
+References: <002701c69161$cc3a8400$0100a8c0@m00>
+Message-ID: <4492E0C5.9060202@boakes.org>
+
+markus wrote:
+> That is, I'm thinking just about measures against spambots. Simple checks
+> that could be made against known spam that we may have for a short period of
+> time in the queue. I'm currently coding a new version of the module, I would
+> love to hear thoughts or suggestions about that. :-)
+
+Funny you should mention that; I've started 
+coding it twice already (my plan was rewrite the 
+htaccess file so that any any IP address with 
+more than n comments in the unmoderated spam 
+queue would get a 403, this is in addition to 
+the existing 403 ban that I'd set up), but I 
+stopped short both times, realising that it's 
+probably more useful to suggest some changes to 
+the plugin first, so such experiments can be 
+attempted by listening for akismet hooks, rather 
+than extending the plugin itself.
+
+So here's a straw man describing the kind of 
+hooks that would be useful:
+
+  spam page being shown
+  spam page being submitted
+  comment checked and it's spam
+  comment checked and it's not spam
+  comment submitted for despam
+  comment submitted as spam
+  spam comment is deleted
+
+Off the top of my head those would be a good 
+start and (assuming the comment is passed as a 
+parameter for each), and should make further 
+spam-stopping experiments a bit easier.
+
+I might have missed something glaringly obvious 
+though, hence this thinking aloud.
+
+Rich
+--
+http://boakes.org
+
+
+From akismet at phpmix.org  Fri Jun 16 18:07:06 2006
+From: akismet at phpmix.org (markus)
+Date: Fri, 16 Jun 2006 20:07:06 +0200
+Subject: [spam-stopper] A small akismet extension for updating htaccess
+References: <002701c69161$cc3a8400$0100a8c0@m00> <4492E0C5.9060202@boakes.org>
+Message-ID: <002201c6916f$b193f920$0100a8c0@m00>
+
+hmm... adding hooks might also add certain overhead, which is what I'm
+trying to avoid. On the other hand, hooks might be more easy to extend,
+adapt... hmm...
+
+I'm mostly concerned about doing something (if at all possible simple) to
+minimize Denial of Service situations when a spambot is having a go with a
+particular site.
+
+Since I have a couple more feaures ready to release for Akismet module for
+Drupal (this week-end, if life permits), I'll be adding something simple now
+and see what happens. :-)
+
+
+Cheers,
+Markus
+--
+http://www.phpmix.org
+
+
+
+----- Original Message ----- 
+From: "rich boakes" <rich at boakes.org>
+To: <spam-stopper at lists.automattic.com>
+Sent: Friday, June 16, 2006 6:48 PM
+Subject: Re: [spam-stopper] A small akismet extension for updating htaccess
+
+
+> markus wrote:
+>>That is, I'm thinking just about measures against spambots. Simple checks
+>>that could be made against known spam that we may have for a short period
+>>of time in the queue. I'm currently coding a new version of the module, I
+>>would love to hear thoughts or suggestions about that. :-)
+>
+> Funny you should mention that; I've started
+> coding it twice already (my plan was rewrite the
+> htaccess file so that any any IP address with
+> more than n comments in the unmoderated spam
+> queue would get a 403, this is in addition to
+> the existing 403 ban that I'd set up), but I
+> stopped short both times, realising that it's
+> probably more useful to suggest some changes to
+> the plugin first, so such experiments can be
+> attempted by listening for akismet hooks, rather
+> than extending the plugin itself.
+>
+> So here's a straw man describing the kind of
+> hooks that would be useful:
+>
+>   spam page being shown
+>   spam page being submitted
+>   comment checked and it's spam
+>   comment checked and it's not spam
+>   comment submitted for despam
+>   comment submitted as spam
+>   spam comment is deleted
+>
+> Off the top of my head those would be a good
+> start and (assuming the comment is passed as a
+> parameter for each), and should make further
+> spam-stopping experiments a bit easier.
+>
+> I might have missed something glaringly obvious
+> though, hence this thinking aloud.
+>
+> Rich
+> --
+> http://boakes.org
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+From akismet at phpmix.org  Wed Jun 21 16:14:56 2006
+From: akismet at phpmix.org (markus)
+Date: Wed, 21 Jun 2006 18:14:56 +0200
+Subject: [spam-stopper] Reporting spammers to their ISP
+Message-ID: <001201c6954d$db38f000$0100a8c0@m00>
+
+Hi all!
+
+I was getting close to 0 spam in my site, but since I released Akismet
+module for Drupal I'm getting one or two, heh. Not a problem because Akismet
+is catching them all. However, most of this spam is sent from a single
+spambot, from where I've been learning a bit about their practices.
+
+Some facts and observations:
+
+a) They seem to use a custom HTTP client, that supports cookies so it is
+able to keep the PHP session alive. This is a must when comment preview is
+required before being able to submit the comment.
+
+b) They send the spam from different IPs that may or may not be proxies.
+Some of them seem to be ordinary PCs (just guessing now, probably infected
+with a trollan or something similar). I have also observed that they have
+been monitoring the attack by doing manual requests from behind a proxy.
+Probably because their automated engine was getting a few errors :P
+
+c) They use real e-mail addresses from a known free e-mail provider. I know
+this because I'm using a module that checks the MX records to get the list
+of mail servers and connects to them to check if the e-mail is valid.
+
+d) They tend to fill in the homepage field of the comment with the URL of
+the advertised site (or one of them).
+
+e) I have also observed that they reuse the same IPs and e-mail addresses to
+deploy different attacks, even when these attacks are happen in different
+days. It seems no one is reporting to the corresponding ISPs abuse of these
+resources ...hmm... or abuse report resolutions are taking a lot of time...
+
+
+So I was thinking...
+
+There is little we can do to break their clients. There are even programable
+HTTP clients that support javascript, so they can easily emmulate whatever a
+user would be required to do.
+
+However, I wonder if there is something we could do to stop them use the
+same IPs, e-mail addresses and advertised sites again and again. It might be
+hard, but we are a lot more than them.
+
+Would it be possible to join efforts to document procedures to report their
+activities to the involved ISPs and/or e-mail providers. If we really could,
+I believe, they would have to spend a lot more money trying to renew those
+resources that we could eventually stop.
+
+Akismet is great, but maybe there is something more that we all could do?
+
+Any thoughts or experiences reporting spammers out there? What if we join
+efforts in this direction?
+
+
+Cheers
+Markus
+
+
+
+From unteins at somuchgeek.com  Wed Jun 21 18:22:45 2006
+From: unteins at somuchgeek.com (Unteins (Jason Goldsmith))
+Date: Wed, 21 Jun 2006 11:22:45 -0700
+Subject: [spam-stopper] Reporting spammers to their ISP
+In-Reply-To: <001201c6954d$db38f000$0100a8c0@m00>
+References: <001201c6954d$db38f000$0100a8c0@m00>
+Message-ID: <BAC1B009-6339-407D-BDF2-BF9DF236CCC2@somuchgeek.com>
+
+The key would be to develop an automated system to report the  
+relevant information to the appropriate abuse channel at the ISP. I  
+would think that the best place to start is to work with ISPs who are  
+known to be strongly anti-Spam to develop the infrastructure and  
+protocols and then try to get it adopted as a standard more or less.  
+Akismet could then feed the information to the ISPs when spam was  
+caught, but it would also allow other filters and systems to submit  
+to them as well.
+
+The key would be to aggregate the complaints until they reached some  
+threshold that the ISP felt was worth dealing with then submitting.  
+So you'd want to work out with an ISP that once the aggregator got  
+500 or 5000 or 5,000,000 spams from the abused accounts they would  
+then stop the abuse.
+
+Jason
+
+
+From akismet at phpmix.org  Fri Jun 23 13:24:31 2006
+From: akismet at phpmix.org (markus)
+Date: Fri, 23 Jun 2006 15:24:31 +0200
+Subject: [spam-stopper] Reporting spammers to their ISP
+References: <001201c6954d$db38f000$0100a8c0@m00>
+	<BAC1B009-6339-407D-BDF2-BF9DF236CCC2@somuchgeek.com>
+Message-ID: <000701c696c8$61737520$0100a8c0@m00>
+
+Probably the major goal of comment spammers is to increase their site ranks
+in search engines, etc. So... all that is needed is a coordinated effort to
+remove their sites from search engine databases.
+
+I would like to post here the links to report abuse to Google and Yahoo!
+
+http://www.google.com/contact/spamreport.html
+http://help.yahoo.com/help/us/ysearch/deletions/deletions-07.html
+
+I even thought to add something to the Akismet module for Drupal to help
+site administrators fill in those forms. However, it would be really great
+if Akismet itself could provide more information or even coordinate such
+abuse reports.
+
+The idea would be make the job of those who deal with abuse reports easier.
+
+Anyone with experience reporting comment spam to Google, Yahoo! or others?
+
+
+Regards,
+Markus
+
+
+
+From sunir at sunir.org  Tue Jun 27 16:17:59 2006
+From: sunir at sunir.org (Sunir Shah)
+Date: Tue, 27 Jun 2006 12:17:59 -0400
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <000701c696c8$61737520$0100a8c0@m00>
+Message-ID: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+
+Hey folks,
+
+Just saying hello.
+
+I'm experimenting with Akismet at MeatballWiki.
+MeatballWiki is a well known wiki amongst wiki
+developers.
+
+    http://www.usemod.com/cgi-bin/mb.pl
+
+If it goes well, I will encourage other wikis
+to adopt it.
+
+Best,
+Sunir
+
+
+
+From m at mullenweg.com  Tue Jun 27 17:28:25 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 27 Jun 2006 10:28:25 -0700
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+References: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+Message-ID: <44A16AB9.1090609@mullenweg.com>
+
+Sunir Shah wrote:
+> I'm experimenting with Akismet at MeatballWiki.
+> MeatballWiki is a well known wiki amongst wiki
+> developers.
+
+Let me know how the initial tests are, I have a couple ideas about how 
+Akismet could be tweaked to work better with wiki-type content, but 
+there isn't much data around it yet.
+
+I guess the biggest thing would be experimenting with just sending the 
+added text, rather than the whole page.
+
+If you can, please send a "comment_type" of "wiki".
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From sunir at sunir.org  Tue Jun 27 18:00:12 2006
+From: sunir at sunir.org (Sunir Shah)
+Date: Tue, 27 Jun 2006 14:00:12 -0400
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <44A16AB9.1090609@mullenweg.com>
+Message-ID: <20060627180035.DA2A8637F@comox.textdrive.com>
+
+Matt,
+
+> I guess the biggest thing would be experimenting 
+> with just sending the added text, rather than the 
+> whole page.
+
+That's what I am doing. Sending the whole page
+may penalize existing URLs. Once I am done, I'll
+publish a Perl module, perhaps Net::Akismet::Wiki.
+
+> If you can, please send a "comment_type" of "wiki".
+
+Will do.
+
+Best,
+Sunir
+
+
+
+From shayne at perthimc.asn.au  Wed Jun 28 01:50:49 2006
+From: shayne at perthimc.asn.au (Shayne O'Neill)
+Date: Wed, 28 Jun 2006 09:50:49 +0800 (WST)
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+References: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+Message-ID: <Pine.LNX.4.64.0606280947190.17907@perthimc.asn.au>
+
+
+Hey , thats a smart idea. I've seen some wiki's brutalised BADLY by 
+spammers (My old one was effectively destroyed, it was a hand coded one 
+for a one-off and had no real defenses).
+
+I might have a stab at building an akismet module for phpwiki (nice one, 
+think media-wiki lite), seeing as its a pretty damn easy wiki to hack.
+
+Also, status report: I integrated akismet with activismo, a CMS designed 
+for the "indymedia" political-left open publishing sites, and its working 
+a charm. Heck I'm even getting my afternoons back. It unfortuntately 
+reports 127.0.0.1 to the akismet system, but thats an unfortunate side 
+effect of a apache setup custom hacked to remove all IP logging for user 
+security sake. It still works a treat. One or two misses, but thats well 
+better than a couple hundred spams a day.
+
+On Tue, 27 Jun 2006, Sunir Shah wrote:
+
+> Hey folks,
+>
+> Just saying hello.
+>
+> I'm experimenting with Akismet at MeatballWiki.
+> MeatballWiki is a well known wiki amongst wiki
+> developers.
+>
+>    http://www.usemod.com/cgi-bin/mb.pl
+>
+> If it goes well, I will encourage other wikis
+> to adopt it.
+>
+> Best,
+> Sunir
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+From akismet at matt-good.net  Wed Jun 28 03:30:25 2006
+From: akismet at matt-good.net (Matthew Good)
+Date: Tue, 27 Jun 2006 23:30:25 -0400
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+References: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+Message-ID: <1151465426.7177.7.camel@localhost.localdomain>
+
+On Tue, 2006-06-27 at 12:17 -0400, Sunir Shah wrote:
+> I'm experimenting with Akismet at MeatballWiki.
+> MeatballWiki is a well known wiki amongst wiki
+> developers.
+> 
+>     http://www.usemod.com/cgi-bin/mb.pl
+> 
+> If it goes well, I will encourage other wikis
+> to adopt it.
+
+Akismet has been working well for filtering the Wiki-spam in Trac.
+We're using the Python difflib module to extract only the new content
+from the pending edit to test for spam.  We do still maintain a list of
+some regex patterns to block when certain items seem to be slipping
+through Akismet, but this is fairly rare.
+
+http://projects.edgewall.com/trac/browser/sandbox/spam-filter/tracspamfilter/api.py#L56
+
+-- 
+Matthew Good <akismet at matt-good.net>
+
+
+
+From akismet at matt-good.net  Wed Jun 28 03:34:41 2006
+From: akismet at matt-good.net (Matthew Good)
+Date: Tue, 27 Jun 2006 23:34:41 -0400
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <1151465426.7177.7.camel@localhost.localdomain>
+References: <20060627161820.8A2EF5C9E@comox.textdrive.com>
+	<1151465426.7177.7.camel@localhost.localdomain>
+Message-ID: <1151465681.7177.10.camel@localhost.localdomain>
+
+On Tue, 2006-06-27 at 23:30 -0400, Matthew Good wrote:
+> On Tue, 2006-06-27 at 12:17 -0400, Sunir Shah wrote:
+> > I'm experimenting with Akismet at MeatballWiki.
+> > MeatballWiki is a well known wiki amongst wiki
+> > developers.
+> > 
+> >     http://www.usemod.com/cgi-bin/mb.pl
+> > 
+> > If it goes well, I will encourage other wikis
+> > to adopt it.
+> 
+> Akismet has been working well for filtering the Wiki-spam in Trac.
+> We're using the Python difflib module to extract only the new content
+> from the pending edit to test for spam.  We do still maintain a list of
+> some regex patterns to block when certain items seem to be slipping
+> through Akismet, but this is fairly rare.
+> 
+> http://projects.edgewall.com/trac/browser/sandbox/spam-filter/tracspamfilter/api.py#L56
+
+Oops, I actually meant to link to the Akismet module we're using:
+http://projects.edgewall.com/trac/browser/sandbox/spam-filter/tracspamfilter/filters/akismet.py
+
+-- 
+Matthew Good <akismet at matt-good.net>
+
+
+
+From garvin at s9y.org  Wed Jun 28 08:29:09 2006
+From: garvin at s9y.org (Garvin Hicking)
+Date: Wed, 28 Jun 2006 10:29:09 +0200 (CEST)
+Subject: [spam-stopper] Akismet.com Support for Serendipity!
+Message-ID: <3276.217.76.101.162.1151483349.squirrel@supergarv.dyndns.org>
+
+Hi!
+
+Some time ago (April) we implemented Akismet.com support into Serendipity
+(www.s9y.org). I used the contact form on the akismet development page to tell
+you about that support.
+
+Until now, the development page on http://akismet.com/development/ doesn't list
+that fact, and I would like to know what needs to be done to get listed there?
+Other blog applications apart from WordPress seem to be listed there as well, so
+I suppose that's no issue, right? ;-)
+
+Thanks for your great service,
+Garvin
+
+-- 
+++ Garvin Hicking | Web-Entwickler [PHP]    | www.garv.in | ICQ 21392242
+++ Developer of   | www.phpMyAdmin.net      | www.s9y.org
+
+++ Make me happy  | http://wishes.garv.in
+
+
+

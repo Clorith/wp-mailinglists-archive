@@ -1,0 +1,81 @@
+From dougal at gunters.org  Sun Apr 17 16:49:34 2011
+From: dougal at gunters.org (Dougal Campbell)
+Date: Sun, 17 Apr 2011 12:49:34 -0400
+Subject: [wp-xmlrpc] Setting custom taxonomy on the fly
+Message-ID: <4DAB1A1E.2070406@gunters.org>
+
+I'm currently working on a theme, and one of the things I wanted to do 
+is to automatically set the Post Format when using an XML-RPC client. 
+This isn't currently supported by the WordPress for iPhone app, for 
+example, so I was trying to hack around it by looking for a string at 
+the beginning of a post, something like:
+
+   :status: Watching the game and drinking a beer. Life is good.
+
+I was going to detect the ':status:' string, remove it from 
+post_content, update the post on the fly, and set the post format.
+
+But I keep running into roadblocks.
+
+For one thing, in class-wp-xmlrpc-server.php, the mw_newPost() method 
+doesn't do any filtering of the supplied data. This would be the ideal 
+place for me to do what I want, because I could theoretically just add a 
+'tax_input' key to the post data that is passed into wp_insert_post(), 
+and everything would just be magic from there. I suggest adding a new 
+filter after the data is compacted into the $postdata array, and before 
+it is passed to wp_insert_post();
+
+Similarly, another opportunity would be is if there was a filter in 
+wp_insert_post() after parsing the args, but before the extract() is 
+performed. This would give another chance to inject/alter the post data 
+before it is processed.
+
+Without a filter in one of those places, it's extremely difficult for a 
+plugin or theme to set/change custom taxonomy terms on a post on the 
+fly, when the post comes in via XML-RPC.
+
+So that leaves us with just a couple of other opportunities to act: the 
+'wp_insert_post_data' filter, and the 'wp_insert_post' action. With the 
+filter, I can detect my sentinel string and strip it back out of the 
+post, but I can't set the post_format, because we don't have a post_ID 
+yet. But if we get all the way to the 'wp_insert_post' action, updating 
+the post content to strip out the sentinel is a problem, because using 
+wp_update_post() will in turn call wp_insert_post(), which is a 
+recursive loop.
+
+One more place where a filter would be useful is when wp_insert_post() 
+checks for the $tax_input variable (which would have been included in 
+the original $postarr argument passed into the function). A 'tax_input' 
+filter which received the post_ID would be another chance to extend the 
+ability to manipulate custom taxonomies on the fly, at post creation time.
+
+
+(I've also posted this as a Trac ticket: 
+http://core.trac.wordpress.org/ticket/17156)
+
+-- 
+Dougal Campbell <dougal at gunters.org>
+http://dougal.gunters.org/
+http://twitter.com/dougal
+http://twitual.com/
+
+
+From joseph at josephscott.org  Wed Apr 20 15:32:25 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 20 Apr 2011 09:32:25 -0600
+Subject: [wp-xmlrpc] upcoming WordPress 3.2 changes
+Message-ID: <BANLkTincCn_WPQf3aHLJ=a=DR9_MsSn+WQ@mail.gmail.com>
+
+Just a quick heads up, all of the tickets mentioned at
+http://wpdevel.wordpress.com/2011/04/12/some-low-hanging-xml-rpc-items-for-wp/
+- have been committed to WordPress -trunk, so they will be part of the
+upcoming WordPress 3.2 release.
+
+Please check take a look at these and test away, if these changes have
+any issues or edge cases that we missed now is the time to catch them.
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

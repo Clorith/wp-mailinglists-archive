@@ -1,0 +1,128 @@
+From jidanni at jidanni.org  Sun Feb  1 23:14:37 2009
+From: jidanni at jidanni.org (jidanni@jidanni.org)
+Date: Sun Feb  1 23:14:48 2009
+Subject: [wp-docs] Re: favicon.ico linked to a wiki page
+References: <7235ce780901300344u1f65e93agce9aa6f5e4ec6542@mail.gmail.com>
+Message-ID: <873aex3g2q.fsf@jidanni.org>
+
+All I know is if one checks one's site logs, one will often find
+favicon.ico is the #1 requested of all files. One might even create
+one for the sole reason that sending 404s or 301s etc. use more
+bandwidth than just giving the browser what it wants directly...
+From mike at zed1.com  Sun Feb  8 19:02:59 2009
+From: mike at zed1.com (Mike Little)
+Date: Sun Feb  8 19:03:11 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4982BE95.3070405@mullenweg.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+	<4978FD2D.70209@mullenweg.com>
+	<DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+	<7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+	<4982BE95.3070405@mullenweg.com>
+Message-ID: <7235ce780902081102i4d958822m86fbf5beb46783dc@mail.gmail.com>
+
+Sorry I didn't reply to this earlier...
+
+2009/1/30 Matt Mullenweg <m@mullenweg.com>:
+> Mike Little wrote:
+>>
+>
+>> Which brings me to a  second problem. Subversion does not to my
+>> knowledge diff xml files as xml files. That is, it does not understand
+>> the semantics of an xml file structure. It treats them as ascii
+>> records (lines) and that doesn't work for structured files. I am not
+>> aware of a third party add-on that will do the job either (subversion
+>> supports pluggable diff engines). At least not an open source one.
+>
+> I'm not sure what's the matter with this, any different than using
+> Subversion to manage a HTML file. Why does the diff engine need to be aware
+> of the markup language?
+>
+
+In my experience, the main problem is when you have XML structured
+files with a large element that is wrapped by the XML editor across
+say, 30 lines. If you change a single word at the beginiing of that
+element, the whole element gets re-wrapped.
+
+As far as Subversion is concerned, it will see 30 changed lines
+instead one changed element. When you get a large number of these, it
+can be tiresome to see what has really changed.
+
+When you add in the idea of multiple people editing the same resource,
+where someone might change a single word at the opposite end of the
+same element. Subversion in that case would likely show a conflict for
+every line of that element whereas, the change ought to be easy to
+merge.
+
+When the XML files are the size of those in the subversion book, I
+would imagine that it would quickly become an impossible task to use
+subversion to manage changes XML files in the same way you would
+manage code changes.
+
+It is quite a while since I tried to manage structured documents in
+this way, so it may be that things have improved.
+
+
+mIKE
+-- 
+Mike Little
+http://zed1.com/
+From justmichaelh at gmail.com  Tue Feb 24 13:24:34 2009
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Tue Feb 24 13:24:49 2009
+Subject: [wp-docs] Unable to upload file into Codex
+Message-ID: <601901c99683$3da27930$6701a8c0@dell8600>
+
+A Codex user notified me [1] that they couldn't upload a file into Codex.
+
+When attempting to upload a file, this error message is displayed:
+"The upload directory (public) is not writable by the webserver. "
+
+Thanks for looking at this problem.
+
+MichaelH
+
+[1] 
+http://codex.wordpress.org/index.php?title=User_talk%3AMichaelH&diff=67842&oldid=67325
+
+From lorellevan at gmail.com  Wed Feb 25 22:38:33 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Wed Feb 25 22:38:44 2009
+Subject: [wp-docs] Unable to upload file into Codex
+In-Reply-To: <601901c99683$3da27930$6701a8c0@dell8600>
+References: <601901c99683$3da27930$6701a8c0@dell8600>
+Message-ID: <fded39850902251438s6caa1521q95425799eecb3ab3@mail.gmail.com>
+
+It appears to have been a server issue and it is all fixed. Thanks for
+letting us know!
+
+Lorelle
+
+
+On Tue, Feb 24, 2009 at 5:24 AM, Michael E. Hancock
+<justmichaelh@gmail.com>wrote:
+
+> A Codex user notified me [1] that they couldn't upload a file into Codex.
+>
+> When attempting to upload a file, this error message is displayed:
+> "The upload directory (public) is not writable by the webserver. "
+>
+> Thanks for looking at this problem.
+>
+> MichaelH
+>
+> [1]
+> http://codex.wordpress.org/index.php?title=User_talk%3AMichaelH&diff=67842&oldid=67325
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090225/64656120/attachment.htm

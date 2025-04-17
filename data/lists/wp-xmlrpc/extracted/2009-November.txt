@@ -1,0 +1,113 @@
+From aj at cerqueti.co.uk  Mon Nov  2 11:31:51 2009
+From: aj at cerqueti.co.uk (AJ Cerqueti)
+Date: Mon, 2 Nov 2009 11:31:51 +0000
+Subject: [wp-xmlrpc] Problems with dateCreated in
+	metaWeblog.newPost/editPost - dateTime.iso8601
+In-Reply-To: <6C130FEB-F46E-48EC-A77D-5DE28063DE0F@red-sweater.com>
+References: <468cd95c0910300917m7ad17374t996f21b4f5326ff5@mail.gmail.com>
+	<6C130FEB-F46E-48EC-A77D-5DE28063DE0F@red-sweater.com>
+Message-ID: <468cd95c0911020331i4b9e18e9y60b1a9de1463ccfe@mail.gmail.com>
+
+Hi,
+
+Thanks again for your help, Daniel. Realised the PHP function
+xmlrpc_encode_request() wasn't returning the datetime member formatted as
+below, as it can't take apart an IXR Date object or a Date::ISO8601 object
+apart properly, which I'd not anticipated. Assumed it'd check the IXR Date's
+asXml() function first, but apparently not. Used SimpleXML to insert the
+datetime member node as a separate step.
+
+Many thanks,
+
+AJ
+
+On Fri, Oct 30, 2009 at 4:24 PM, Daniel Jalkut <jalkut at red-sweater.com>wrote:
+
+> Hi AJ, you should post a copy of what the actual XML cargo looks like that
+> gets sent over the network.  Otherwise it's harder for the folks on this
+> list to speculate what might be wrong.
+>
+> For your reference, here is an example of a properly formatted dateTime
+> parameter that works:
+>
+>                        <name>dateCreated</name>
+>
+>  <value><dateTime.iso8601>20091029T16:23:02Z</dateTime.iso8601></value>
+>                        </member>
+>
+> When in doubt about these types of things, a great approach is to find a
+> client that works, and monitor what it sends over the network, to see what
+> you need to mimic.
+>
+> Daniel
+>
+>
+> On Oct 30, 2009, at 12:17pm, AJ Cerqueti wrote:
+>
+>  Hi,
+>>
+>> This has clearly been discussed before:
+>> http://comox.textdrive.com/pipermail/wp-xmlrpc/2008-April/000188.html
+>>
+>> If dateCreated is of PHP type DateTime, posting will succeed, when it's a
+>> string in ISO8601 format it fails.
+>> However, no matter what date the DateTime object contains, it doesn't seem
+>> to pass the timestamp.
+>>
+>> E.g.
+>>
+>> $title = htmlentities($title,ENT_NOQUOTES,$encoding);
+>> $keywords = htmlentities($keywords,ENT_NOQUOTES,$encoding);
+>> $datetime = new DateTime('2008-08-03 14:52:10');
+>> echo "Formatted ISO: " . $datetime->format(DATE_ISO8601) . "<br />\n";
+>> var_dump($datetime);
+>>
+>> $content = array(
+>> 'title'=>$title,
+>> 'description'=>$body,
+>> 'dateCreated' => $datetime,
+>> 'mt_allow_comments'=>1,
+>> 'mt_allow_pings'=>1,
+>> 'post_type'=>'post',
+>> 'mt_keywords'=>$keywords,
+>> 'categories'=>array($category));
+>>
+>> Will post, but date will be current time.
+>>
+>> Any ideas?
+>>
+>> Cheers,
+>>
+>> AJ
+>>
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091102/77bfea07/attachment.htm>
+
+From lloydomattic at gmail.com  Wed Nov 11 20:37:52 2009
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Wed, 11 Nov 2009 12:37:52 -0800
+Subject: [wp-xmlrpc] XML-RPC_wp doc needs update
+Message-ID: <70ebb7140911111237w51b9d930hfe63eb4a11c60bbd@mail.gmail.com>
+
+http://codex.wordpress.org/XML-RPC_wp looks to need a little update, if only
+to update the version that it is accurate to. Any volunteers?
+
+Cheers,
+Lloyd
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091111/caef6535/attachment.htm>
+

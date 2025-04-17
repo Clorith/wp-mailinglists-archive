@@ -1,0 +1,2006 @@
+From djpaul at gmail.com  Sun Mar  6 20:30:16 2011
+From: djpaul at gmail.com (Paul Gibbs)
+Date: Sun, 6 Mar 2011 20:30:16 +0000
+Subject: [wp-xmlrpc] login() and error handling (WP 3.1)
+Message-ID: <C586D0F4-4492-4339-8C6D-F731096FE1CB@gmail.com>
+
+Hi
+
+I am working on adding XML-RPC support to a plugin. I have a query around wp_xmlrpc_server::login and error handling, and would appreciate information on the proper way to do this.
+I am using the 'xmlrpc_methods' filter to register my custom XML-RPC function. As part of my function, I need to check if the user is logged in. This is pretty straightforward but when I intentionally supply invalid credentials, wp_xmlrpc_server::login sets $this->error. As I've invoked login() statically, $this doesn't exist and PHP throws a PHP fatal error ("Using $this when not in object context").
+
+Should I either:
+a) duplicate login() into a custom function in my plugin and use that?
+b) should WordPress' login() function be modified to return the IXR_Error object rather than set $this->error?  (obviously would need to update the rest of WP's XML-RPC functions to handle this change)?
+c) or just create my own wp_xmlrpc_server object within my function and use that object's login()?
+
+Thanks
+
+Regards
+Paul Gibbs
+
+From joseph at josephscott.org  Mon Mar  7 16:51:10 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 7 Mar 2011 09:51:10 -0700
+Subject: [wp-xmlrpc] login() and error handling (WP 3.1)
+In-Reply-To: <C586D0F4-4492-4339-8C6D-F731096FE1CB@gmail.com>
+References: <C586D0F4-4492-4339-8C6D-F731096FE1CB@gmail.com>
+Message-ID: <AANLkTinodE6qB_fVBcX89bHRBPuSgXMxauL7edTJeerx@mail.gmail.com>
+
+Have you tried using the 'global $wp_xmlrpc_server' instance?
+
+On Sun, Mar 6, 2011 at 1:30 PM, Paul Gibbs <djpaul at gmail.com> wrote:
+> I am working on adding XML-RPC support to a plugin. I have a query around wp_xmlrpc_server::login and error handling, and would appreciate information on the proper way to do this.
+> I am using the 'xmlrpc_methods' filter to register my custom XML-RPC function. As part of my function, I need to check if the user is logged in. This is pretty straightforward but when I intentionally supply invalid credentials, wp_xmlrpc_server::login sets $this->error. As I've invoked login() statically, $this doesn't exist and PHP throws a PHP fatal error ("Using $this when not in object context").
+>
+> Should I either:
+> a) duplicate login() into a custom function in my plugin and use that?
+> b) should WordPress' login() function be modified to return the IXR_Error object rather than set $this->error? ?(obviously would need to update the rest of WP's XML-RPC functions to handle this change)?
+> c) or just create my own wp_xmlrpc_server object within my function and use that object's login()?
+>
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From djpaul at gmail.com  Mon Mar  7 18:58:46 2011
+From: djpaul at gmail.com (Paul Gibbs)
+Date: Mon, 7 Mar 2011 18:58:46 +0000
+Subject: [wp-xmlrpc] login() and error handling (WP 3.1)
+In-Reply-To: <AANLkTinodE6qB_fVBcX89bHRBPuSgXMxauL7edTJeerx@mail.gmail.com>
+References: <C586D0F4-4492-4339-8C6D-F731096FE1CB@gmail.com>
+	<AANLkTinodE6qB_fVBcX89bHRBPuSgXMxauL7edTJeerx@mail.gmail.com>
+Message-ID: <EE63DE35-1DF0-4B87-A968-720313602DA8@gmail.com>
+
+I didn't spot that; thanks Joseph
+
+
+On 7 Mar 2011, at 16:51, Joseph Scott wrote:
+
+> Have you tried using the 'global $wp_xmlrpc_server' instance?
+> 
+> 
+> -- 
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+
+
+From n.prasath.002 at gmail.com  Sat Mar 19 18:01:01 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sat, 19 Mar 2011 23:31:01 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+Message-ID: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+
+Hi hackers,
+
+I,m interested in working on extending WordPress xmlrpc capabilities for
+this years GSOC. I came up with some ideas for improving the current API.
+Please let me know what you think of these ideas and possible additions to
+this project. Thank You.
+
+*User Management*
+
+There is no methods to manage users via XMLRPC. Managing users using clients
+would be a very useful feature. There would be new user tab in my wp-android
+app ;). The proposed methods will allow only current user to manage user
+with a capability check. New users can't register themselves because it will
+allow spammers to create mass accounts. Also its better if we have a method
+to get capabilities of the user when connecting at the first instance so we
+can validate capabilities at the client end.
+
+*Tags Management*
+
+ There are enough methods to manage categories via XMLRPC. But not tags. For
+example we cannot create a tag with description or a slug. Changing terms is
+a frequent thing we do with our weblog. Instead of going through the
+edit_post method it is good to have separate methods for managing terms.
+This will decrease the server load by efficiently changing the terms.
+Categories can be changed by mt_setPostCategories, mt_getPostCategories.
+Having similar methods for tags will improve efficiency.
+
+*Comment Management*
+
+ Adding support to return comment meta values. This has been requested in
+trac. I think having separate methods for comment meta values is good rater
+than integrating into comment methods.
+
+*Improved search API*
+
+This has been addressed on tickets
+#6850<http://core.trac.wordpress.org/ticket/6850> and
+#16316 <http://core.trac.wordpress.org/ticket/16316>. The current search
+methods imposed unnecessary burden to the server, A more generalized search
+API for all getters (posts, users, comments etc) will increase the
+performance of both client and server.
+
+   -
+
+   Post/Pages - WP_Query class accepts a lot of parameters for querying
+   post/pages. Modify the getRecentPosts methods to accept these parameters and
+   pass it to the WP_Query. This includes retrieving posts by
+   category,tag,date etc.
+   -
+
+   Users - WP_User_Query class can be used to query users. These parameters
+   will be passed through the new wp.getusers method. This includes
+   retrieving users by roles etc
+   -
+
+   Comments ? Again WP_Comment_Query class can be used. wp.getComments will
+   pass more paremeters such as author _email etc.
+
+ There is also another option of separately querying using global $wpdb
+similar to getPageList.
+
+*Trash improvements*
+
+ when you delete a post via xmlrpc it trashes it and the getRecentPosts
+method does not return the trashed items. It would be useful to have methods
+for deleting posts permanently and to retrieve trashed items. Pages,
+
+*Post Revisions*
+
+ Methods to support getting post revisions. This return a array of a posts
+for a given post id.
+
+*Flow Control Improvements*
+
+This to improve efficiency and reduce the server load. metaweblog methods
+can be used for post and pages. Putting common actions first and directing
+according to post/page and doing specific things. Similar improvements can
+be made wherever possible. Also capability checks can be made first before
+processing through the logic.
+
+Cheers
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110319/37b17a27/attachment.htm>
+
+From eric at eam.me  Sun Mar 20 00:50:11 2011
+From: eric at eam.me (Eric Mann)
+Date: Sat, 19 Mar 2011 17:50:11 -0700
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+Message-ID: <AANLkTikDKT2XxzgDs9JYZ7Ou-o1HXnEkyeMe4YA31P8z@mail.gmail.com>
+
+You've put a lot of thought into this so far, and I'm liking where you're
+headed.  Here is a quick observation that might help you refine some of the
+idea:
+
+*Tags Management*
+Both tags and categories are *taxonomies*.  Rather than build out new
+features specific to tags to beef up the system, it might be a stronger idea
+to generalize the system so it can manage *any* taxonomy.
+
+Aside from that, I see no problems with what you're proposing, but let me
+push back a little bit.  What experience do you have working with the
+XML-RPC API so far?  Have you patched it yet, or will this be your first
+stab at it?
+
+On Sat, Mar 19, 2011 at 11:01 AM, prasath nadarajah <n.prasath.002 at gmail.com
+> wrote:
+
+> Hi hackers,
+>
+> I,m interested in working on extending WordPress xmlrpc capabilities for
+> this years GSOC. I came up with some ideas for improving the current API.
+> Please let me know what you think of these ideas and possible additions to
+> this project. Thank You.
+>
+> *User Management*
+>
+> There is no methods to manage users via XMLRPC. Managing users using
+> clients would be a very useful feature. There would be new user tab in my
+> wp-android app ;). The proposed methods will allow only current user to
+> manage user with a capability check. New users can't register themselves
+> because it will allow spammers to create mass accounts. Also its better if
+> we have a method to get capabilities of the user when connecting at the
+> first instance so we can validate capabilities at the client end.
+>
+> *Tags Management*
+>
+>  There are enough methods to manage categories via XMLRPC. But not tags.
+> For example we cannot create a tag with description or a slug. Changing
+> terms is a frequent thing we do with our weblog. Instead of going through
+> the edit_post method it is good to have separate methods for managing terms.
+> This will decrease the server load by efficiently changing the terms.
+> Categories can be changed by mt_setPostCategories, mt_getPostCategories.
+> Having similar methods for tags will improve efficiency.
+>
+> *Comment Management*
+>
+>  Adding support to return comment meta values. This has been requested in
+> trac. I think having separate methods for comment meta values is good rater
+> than integrating into comment methods.
+>
+> *Improved search API*
+>
+> This has been addressed on tickets #6850<http://core.trac.wordpress.org/ticket/6850> and
+> #16316 <http://core.trac.wordpress.org/ticket/16316>. The current search
+> methods imposed unnecessary burden to the server, A more generalized search
+> API for all getters (posts, users, comments etc) will increase the
+> performance of both client and server.
+>
+>    -
+>
+>    Post/Pages - WP_Query class accepts a lot of parameters for querying
+>    post/pages. Modify the getRecentPosts methods to accept these
+>    parameters and pass it to the WP_Query. This includes retrieving posts
+>    by category,tag,date etc.
+>    -
+>
+>    Users - WP_User_Query class can be used to query users. These
+>    parameters will be passed through the new wp.getusers method. This
+>    includes retrieving users by roles etc
+>    -
+>
+>    Comments ? Again WP_Comment_Query class can be used. wp.getComments
+>    will pass more paremeters such as author _email etc.
+>
+>  There is also another option of separately querying using global $wpdb
+> similar to getPageList.
+>
+> *Trash improvements*
+>
+>  when you delete a post via xmlrpc it trashes it and the getRecentPosts
+> method does not return the trashed items. It would be useful to have methods
+> for deleting posts permanently and to retrieve trashed items. Pages,
+>
+> *Post Revisions*
+>
+>  Methods to support getting post revisions. This return a array of a posts
+> for a given post id.
+>
+> *Flow Control Improvements*
+>
+> This to improve efficiency and reduce the server load. metaweblog methods
+> can be used for post and pages. Putting common actions first and directing
+> according to post/page and doing specific things. Similar improvements can
+> be made wherever possible. Also capability checks can be made first before
+> processing through the logic.
+>
+> Cheers
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110319/f8068bb5/attachment-0001.htm>
+
+From n.prasath.002 at gmail.com  Sun Mar 20 14:07:18 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sun, 20 Mar 2011 19:37:18 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTikDKT2XxzgDs9JYZ7Ou-o1HXnEkyeMe4YA31P8z@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTikDKT2XxzgDs9JYZ7Ou-o1HXnEkyeMe4YA31P8z@mail.gmail.com>
+Message-ID: <AANLkTikQTmVECn=ZYOKnnfL3Dw_q0hFKN9zoLLMSKqNN@mail.gmail.com>
+
+Hi Eric,
+Thank you for your feedback
+I,m currently developing a desktop client for WordPress on top of Netbeans
+platform.
+Basic features are implemented and i will release a version 1.0 soon.
+You can see development progress here ( Its free and opensource :) )
+http://code.google.com/p/remoteblogger/
+I used Apache XMLRPC libraries.
+
+These ideas popped up to me while i was developing the client.
+For instance i really think managing users is a very useful feature.
+
+I also patched a feature request.
+http://core.trac.wordpress.org/ticket/11150
+
+I,m working on a draft proposal now to get feedback from the mentors.
+Would you be interested in mentoring this project?
+
+Cheers
+
+On Sun, Mar 20, 2011 at 6:20 AM, Eric Mann <eric at eam.me> wrote:
+
+> You've put a lot of thought into this so far, and I'm liking where you're
+> headed.  Here is a quick observation that might help you refine some of the
+> idea:
+>
+> *Tags Management*
+> Both tags and categories are *taxonomies*.  Rather than build out new
+> features specific to tags to beef up the system, it might be a stronger idea
+> to generalize the system so it can manage *any* taxonomy.
+>
+> Aside from that, I see no problems with what you're proposing, but let me
+> push back a little bit.  What experience do you have working with the
+> XML-RPC API so far?  Have you patched it yet, or will this be your first
+> stab at it?
+>
+> On Sat, Mar 19, 2011 at 11:01 AM, prasath nadarajah <
+> n.prasath.002 at gmail.com> wrote:
+>
+>> Hi hackers,
+>>
+>> I,m interested in working on extending WordPress xmlrpc capabilities for
+>> this years GSOC. I came up with some ideas for improving the current API.
+>> Please let me know what you think of these ideas and possible additions to
+>> this project. Thank You.
+>>
+>> *User Management*
+>>
+>> There is no methods to manage users via XMLRPC. Managing users using
+>> clients would be a very useful feature. There would be new user tab in my
+>> wp-android app ;). The proposed methods will allow only current user to
+>> manage user with a capability check. New users can't register themselves
+>> because it will allow spammers to create mass accounts. Also its better
+>> if we have a method to get capabilities of the user when connecting at
+>> the first instance so we can validate capabilities at the client end.
+>>
+>> *Tags Management*
+>>
+>>  There are enough methods to manage categories via XMLRPC. But not tags.
+>> For example we cannot create a tag with description or a slug. Changing
+>> terms is a frequent thing we do with our weblog. Instead of going through
+>> the edit_post method it is good to have separate methods for managing terms.
+>> This will decrease the server load by efficiently changing the terms.
+>> Categories can be changed by mt_setPostCategories, mt_getPostCategories.
+>> Having similar methods for tags will improve efficiency.
+>>
+>> *Comment Management*
+>>
+>>  Adding support to return comment meta values. This has been requested in
+>> trac. I think having separate methods for comment meta values is good rater
+>> than integrating into comment methods.
+>>
+>> *Improved search API*
+>>
+>> This has been addressed on tickets #6850<http://core.trac.wordpress.org/ticket/6850> and
+>> #16316 <http://core.trac.wordpress.org/ticket/16316>. The current search
+>> methods imposed unnecessary burden to the server, A more generalized search
+>> API for all getters (posts, users, comments etc) will increase the
+>> performance of both client and server.
+>>
+>>    -
+>>
+>>    Post/Pages - WP_Query class accepts a lot of parameters for querying
+>>    post/pages. Modify the getRecentPosts methods to accept these
+>>    parameters and pass it to the WP_Query. This includes retrieving posts
+>>    by category,tag,date etc.
+>>    -
+>>
+>>    Users - WP_User_Query class can be used to query users. These
+>>    parameters will be passed through the new wp.getusers method. This
+>>    includes retrieving users by roles etc
+>>    -
+>>
+>>    Comments ? Again WP_Comment_Query class can be used. wp.getComments
+>>    will pass more paremeters such as author _email etc.
+>>
+>>  There is also another option of separately querying using global $wpdb
+>> similar to getPageList.
+>>
+>> *Trash improvements*
+>>
+>>  when you delete a post via xmlrpc it trashes it and the getRecentPosts
+>> method does not return the trashed items. It would be useful to have methods
+>> for deleting posts permanently and to retrieve trashed items. Pages,
+>>
+>> *Post Revisions*
+>>
+>>  Methods to support getting post revisions. This return a array of a posts
+>> for a given post id.
+>>
+>> *Flow Control Improvements*
+>>
+>> This to improve efficiency and reduce the server load. metaweblog methods
+>> can be used for post and pages. Putting common actions first and directing
+>> according to post/page and doing specific things. Similar improvements
+>> can be made wherever possible. Also capability checks can be made first
+>> before processing through the logic.
+>>
+>> Cheers
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110320/fe6adc68/attachment.htm>
+
+From n.prasath.002 at gmail.com  Sun Mar 20 18:29:15 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sun, 20 Mar 2011 23:59:15 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTikQTmVECn=ZYOKnnfL3Dw_q0hFKN9zoLLMSKqNN@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTikDKT2XxzgDs9JYZ7Ou-o1HXnEkyeMe4YA31P8z@mail.gmail.com>
+	<AANLkTikQTmVECn=ZYOKnnfL3Dw_q0hFKN9zoLLMSKqNN@mail.gmail.com>
+Message-ID: <AANLkTin_=s-8jnJf5o9xeARnzhh+4v-hCzVzzKQToPtp@mail.gmail.com>
+
+Just a quick thought.
+Blogger API is now obsolete and blogger uses Google Data API now.
+I posted it in their mailing list asking about!!
+http://groups.google.com/group/bloggerdev/browse_thread/thread/642a26c14bf6ff55
+
+http://groups.google.com/group/bloggerdev/browse_thread/thread/ea89b737d662fb81/94c3eea57a27d306?lnk=gst&q=ancient+popular#94c3eea57a27d306
+
+<http://groups.google.com/group/bloggerdev/browse_thread/thread/642a26c14bf6ff55>Should
+i consider depreciating Blogger functions and redirecting (if no creating)
+to relevant WP-functions??
+So one day we will be able to completely remove Blogger functions?
+what do you think?
+
+On Sun, Mar 20, 2011 at 7:37 PM, prasath nadarajah
+<n.prasath.002 at gmail.com>wrote:
+
+> Hi Eric,
+> Thank you for your feedback
+> I,m currently developing a desktop client for WordPress on top of Netbeans
+> platform.
+> Basic features are implemented and i will release a version 1.0 soon.
+> You can see development progress here ( Its free and opensource :) )
+> http://code.google.com/p/remoteblogger/
+> I used Apache XMLRPC libraries.
+>
+> These ideas popped up to me while i was developing the client.
+> For instance i really think managing users is a very useful feature.
+>
+> I also patched a feature request.
+> http://core.trac.wordpress.org/ticket/11150
+>
+> I,m working on a draft proposal now to get feedback from the mentors.
+> Would you be interested in mentoring this project?
+>
+> Cheers
+>
+> On Sun, Mar 20, 2011 at 6:20 AM, Eric Mann <eric at eam.me> wrote:
+>
+>> You've put a lot of thought into this so far, and I'm liking where you're
+>> headed.  Here is a quick observation that might help you refine some of the
+>> idea:
+>>
+>> *Tags Management*
+>> Both tags and categories are *taxonomies*.  Rather than build out new
+>> features specific to tags to beef up the system, it might be a stronger idea
+>> to generalize the system so it can manage *any* taxonomy.
+>>
+>> Aside from that, I see no problems with what you're proposing, but let me
+>> push back a little bit.  What experience do you have working with the
+>> XML-RPC API so far?  Have you patched it yet, or will this be your first
+>> stab at it?
+>>
+>> On Sat, Mar 19, 2011 at 11:01 AM, prasath nadarajah <
+>> n.prasath.002 at gmail.com> wrote:
+>>
+>>> Hi hackers,
+>>>
+>>> I,m interested in working on extending WordPress xmlrpc capabilities for
+>>> this years GSOC. I came up with some ideas for improving the current API.
+>>> Please let me know what you think of these ideas and possible additions to
+>>> this project. Thank You.
+>>>
+>>> *User Management*
+>>>
+>>> There is no methods to manage users via XMLRPC. Managing users using
+>>> clients would be a very useful feature. There would be new user tab in
+>>> my wp-android app ;). The proposed methods will allow only current user
+>>> to manage user with a capability check. New users can't register themselves
+>>> because it will allow spammers to create mass accounts. Also its better
+>>> if we have a method to get capabilities of the user when connecting at
+>>> the first instance so we can validate capabilities at the client end.
+>>>
+>>> *Tags Management*
+>>>
+>>>  There are enough methods to manage categories via XMLRPC. But not tags.
+>>> For example we cannot create a tag with description or a slug. Changing
+>>> terms is a frequent thing we do with our weblog. Instead of going through
+>>> the edit_post method it is good to have separate methods for managing terms.
+>>> This will decrease the server load by efficiently changing the terms.
+>>> Categories can be changed by mt_setPostCategories, mt_getPostCategories.
+>>> Having similar methods for tags will improve efficiency.
+>>>
+>>> *Comment Management*
+>>>
+>>>  Adding support to return comment meta values. This has been requested in
+>>> trac. I think having separate methods for comment meta values is good rater
+>>> than integrating into comment methods.
+>>>
+>>> *Improved search API*
+>>>
+>>> This has been addressed on tickets #6850<http://core.trac.wordpress.org/ticket/6850> and
+>>> #16316 <http://core.trac.wordpress.org/ticket/16316>. The current search
+>>> methods imposed unnecessary burden to the server, A more generalized search
+>>> API for all getters (posts, users, comments etc) will increase the
+>>> performance of both client and server.
+>>>
+>>>    -
+>>>
+>>>    Post/Pages - WP_Query class accepts a lot of parameters for querying
+>>>    post/pages. Modify the getRecentPosts methods to accept these
+>>>    parameters and pass it to the WP_Query. This includes retrieving
+>>>    posts by category,tag,date etc.
+>>>    -
+>>>
+>>>    Users - WP_User_Query class can be used to query users. These
+>>>    parameters will be passed through the new wp.getusers method. This
+>>>    includes retrieving users by roles etc
+>>>    -
+>>>
+>>>    Comments ? Again WP_Comment_Query class can be used. wp.getComments
+>>>    will pass more paremeters such as author _email etc.
+>>>
+>>>  There is also another option of separately querying using global $wpdb
+>>> similar to getPageList.
+>>>
+>>> *Trash improvements*
+>>>
+>>>  when you delete a post via xmlrpc it trashes it and the getRecentPosts
+>>> method does not return the trashed items. It would be useful to have methods
+>>> for deleting posts permanently and to retrieve trashed items. Pages,
+>>>
+>>> *Post Revisions*
+>>>
+>>>  Methods to support getting post revisions. This return a array of a
+>>> posts for a given post id.
+>>>
+>>> *Flow Control Improvements*
+>>>
+>>> This to improve efficiency and reduce the server load. metaweblog
+>>> methods can be used for post and pages. Putting common actions first and
+>>> directing according to post/page and doing specific things. Similar
+>>> improvements can be made wherever possible. Also capability checks can
+>>> be made first before processing through the logic.
+>>>
+>>> Cheers
+>>>
+>>> _______________________________________________
+>>> wp-xmlrpc mailing list
+>>> wp-xmlrpc at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>>
+>>>
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110320/09d4f29f/attachment-0001.htm>
+
+From jalkut at red-sweater.com  Mon Mar 21 02:21:46 2011
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon, 21 Mar 2011 02:21:46 +0000
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTin_=s-8jnJf5o9xeARnzhh+4v-hCzVzzKQToPtp@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTikDKT2XxzgDs9JYZ7Ou-o1HXnEkyeMe4YA31P8z@mail.gmail.com>
+	<AANLkTikQTmVECn=ZYOKnnfL3Dw_q0hFKN9zoLLMSKqNN@mail.gmail.com>
+	<AANLkTin_=s-8jnJf5o9xeARnzhh+4v-hCzVzzKQToPtp@mail.gmail.com>
+Message-ID: <E255F9AA-F0E3-4DAD-87AB-E45802C6A8DF@red-sweater.com>
+
+In general, XML-RPC blogging APIs including WordPress API are built upon the work that came before, not always replacing existing API methods from prior incarnations.
+
+So "Blogger" APIs are still fundamental to providing the behavior required of the WordPress API, the Movable Type API, and the MetaWeblog API.
+
+Support for these methods should be removed only if they are not clearly incorporated into later incarnations of the API.
+
+Daniel
+
+On Mar 20, 2011, at 6:29pm, prasath nadarajah wrote:
+
+> Should i consider depreciating Blogger functions and redirecting (if no creating) to relevant WP-functions??
+> So one day we will be able to completely remove Blogger functions?
+> what do you think?
+
+
+From mmuro at advance.ua.edu  Mon Mar 21 20:03:23 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Mon, 21 Mar 2011 15:03:23 -0500
+Subject: [wp-xmlrpc] Possible to filter posts users see in their mobile app?
+Message-ID: <5B0C3E3C-7199-48DB-B706-96D1C6EA041F@ur.ua.edu>
+
+Is it possible to filter the posts or categories that XML-RPC users see in their mobile application?
+
+I have a plugin that hooks into pre_get_posts and list_terms_exclusions to do what I need it to do in the admin. I've had requests to allow the same functionality on their mobile devices such as the WordPress iOS app.
+
+Thanks,
+
+Matthew Muro
+
+
+
+
+
+
+From eric at eam.me  Mon Mar 21 20:15:13 2011
+From: eric at eam.me (Eric Mann)
+Date: Mon, 21 Mar 2011 13:15:13 -0700
+Subject: [wp-xmlrpc] Possible to filter posts users see in their mobile
+	app?
+In-Reply-To: <5B0C3E3C-7199-48DB-B706-96D1C6EA041F@ur.ua.edu>
+References: <5B0C3E3C-7199-48DB-B706-96D1C6EA041F@ur.ua.edu>
+Message-ID: <AANLkTiknVxJ=JMumjYKZTXgUGyb3TbYYEY5eQKk7TrPL@mail.gmail.com>
+
+Matthew,
+
+This really depends on which XML-RPC calls the mobile application is making.
+ Off the top of my head, I'd think they were using `blogger.getRecentPosts`
+to get the blog's most recent posts.  This method internally calls
+wp_get_recent_posts() which uses the get_posts() function to pull things
+from the database.
+
+This *should* be firing the pre_get_posts automatically.  Is it not?  Have
+you tried to trace the route of a request?  What have you done so far to
+extend this functionality to users of the WordPress iOS app and what have
+been the results?
+
+On Mon, Mar 21, 2011 at 1:03 PM, Muro, Matthew <mmuro at advance.ua.edu> wrote:
+
+> Is it possible to filter the posts or categories that XML-RPC users see in
+> their mobile application?
+>
+> I have a plugin that hooks into pre_get_posts and list_terms_exclusions to
+> do what I need it to do in the admin. I've had requests to allow the same
+> functionality on their mobile devices such as the WordPress iOS app.
+>
+> Thanks,
+>
+> Matthew Muro
+>
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110321/344ddda6/attachment.htm>
+
+From mmuro at advance.ua.edu  Mon Mar 21 20:34:34 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Mon, 21 Mar 2011 15:34:34 -0500
+Subject: [wp-xmlrpc] Possible to filter posts users see in their mobile
+ app?
+Message-ID: <D46D0284-6994-4970-94B3-0A7BF14DD72A@ur.ua.edu>
+
+Currently, I'm only running through the filters if is_admin() which might be why the filter isn't being applied.
+
+I just added a check for the XMLRPC_REQUEST constant, manually filtered pre_get_posts and list_terms_exclusions and the posts/categories were properly restricted.
+
+This is what I'm doing to handle xml-rpc:
+if ( defined ( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
+add_action( 'xmlrpc_call', array( &$this, 'posts' ) );
+}
+
+In my posts function is where I'm setting the categories and hooking into the filters I mentioned above.
+
+Is there anything else I need to be checking for or will this cover it?
+
+Matthew
+
+Matthew,
+
+This really depends on which XML-RPC calls the mobile application is making.
+ Off the top of my head, I'd think they were using `blogger.getRecentPosts`
+to get the blog's most recent posts.  This method internally calls
+wp_get_recent_posts() which uses the get_posts() function to pull things
+from the database.
+
+This *should* be firing the pre_get_posts automatically.  Is it not?  Have
+you tried to trace the route of a request?  What have you done so far to
+extend this functionality to users of the WordPress iOS app and what have
+been the results?
+
+Matthew Muro
+
+
+From eric at eam.me  Mon Mar 21 20:40:32 2011
+From: eric at eam.me (Eric Mann)
+Date: Mon, 21 Mar 2011 13:40:32 -0700
+Subject: [wp-xmlrpc] Possible to filter posts users see in their mobile
+	app?
+In-Reply-To: <D46D0284-6994-4970-94B3-0A7BF14DD72A@ur.ua.edu>
+References: <D46D0284-6994-4970-94B3-0A7BF14DD72A@ur.ua.edu>
+Message-ID: <AANLkTimPi=mvCfMUUV9trc9qU0DiWWd+8wMgmqnHc3v7@mail.gmail.com>
+
+Nothing sticks out.  Give it a try from a couple of different systems (iOS
+app, Android app if you have it, another XML-RPC interface).  But if it
+works with one, it should work with all of them.  Where are you doing the
+check for the XMLRPC_REQUEST constant?  My only concern would be that the
+check itself might be missed somehow if it lives in the wrong part of the
+code or is used on the wrong hook.
+
+On Mon, Mar 21, 2011 at 1:34 PM, Muro, Matthew <mmuro at advance.ua.edu> wrote:
+
+> Currently, I'm only running through the filters if is_admin() which might
+> be why the filter isn't being applied.
+>
+> I just added a check for the XMLRPC_REQUEST constant, manually filtered
+> pre_get_posts and list_terms_exclusions and the posts/categories were
+> properly restricted.
+>
+> This is what I'm doing to handle xml-rpc:
+> if ( defined ( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
+> add_action( 'xmlrpc_call', array( &$this, 'posts' ) );
+> }
+>
+> In my posts function is where I'm setting the categories and hooking into
+> the filters I mentioned above.
+>
+> Is there anything else I need to be checking for or will this cover it?
+>
+> Matthew
+>
+> Matthew,
+>
+> This really depends on which XML-RPC calls the mobile application is
+> making.
+>  Off the top of my head, I'd think they were using `blogger.getRecentPosts`
+> to get the blog's most recent posts.  This method internally calls
+> wp_get_recent_posts() which uses the get_posts() function to pull things
+> from the database.
+>
+> This *should* be firing the pre_get_posts automatically.  Is it not?  Have
+> you tried to trace the route of a request?  What have you done so far to
+> extend this functionality to users of the WordPress iOS app and what have
+> been the results?
+>
+> Matthew Muro
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110321/825c4e4d/attachment.htm>
+
+From mmuro at advance.ua.edu  Mon Mar 21 20:46:27 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Mon, 21 Mar 2011 15:46:27 -0500
+Subject: [wp-xmlrpc] Possible to filter posts users see in their
+	mobile	app?
+In-Reply-To: <AANLkTimPi=mvCfMUUV9trc9qU0DiWWd+8wMgmqnHc3v7@mail.gmail.com>
+References: <D46D0284-6994-4970-94B3-0A7BF14DD72A@ur.ua.edu>
+	<AANLkTimPi=mvCfMUUV9trc9qU0DiWWd+8wMgmqnHc3v7@mail.gmail.com>
+Message-ID: <3695130F-F53E-42CB-A23B-E388568D4B48@ur.ua.edu>
+
+See source here:  http://plugins.trac.wordpress.org/browser/restrict-categories/trunk/restrict-categories.php
+
+I'm adding it to line 50 in my __construct().
+
+For a regular browser, it's added through the admin_init action.  For mobile app users, I'm using the xmlrpc_call action unless you think I need to use a different hook.
+
+Matthew Muro
+
+
+On Mar 21, 2011, at 3:40 PM, Eric Mann wrote:
+
+Nothing sticks out.  Give it a try from a couple of different systems (iOS app, Android app if you have it, another XML-RPC interface).  But if it works with one, it should work with all of them.  Where are you doing the check for the XMLRPC_REQUEST constant?  My only concern would be that the check itself might be missed somehow if it lives in the wrong part of the code or is used on the wrong hook.
+
+On Mon, Mar 21, 2011 at 1:34 PM, Muro, Matthew <mmuro at advance.ua.edu<mailto:mmuro at advance.ua.edu>> wrote:
+Currently, I'm only running through the filters if is_admin() which might be why the filter isn't being applied.
+
+I just added a check for the XMLRPC_REQUEST constant, manually filtered pre_get_posts and list_terms_exclusions and the posts/categories were properly restricted.
+
+This is what I'm doing to handle xml-rpc:
+if ( defined ( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
+add_action( 'xmlrpc_call', array( &$this, 'posts' ) );
+}
+
+In my posts function is where I'm setting the categories and hooking into the filters I mentioned above.
+
+Is there anything else I need to be checking for or will this cover it?
+
+Matthew
+
+Matthew,
+
+This really depends on which XML-RPC calls the mobile application is making.
+ Off the top of my head, I'd think they were using `blogger.getRecentPosts`
+to get the blog's most recent posts.  This method internally calls
+wp_get_recent_posts() which uses the get_posts() function to pull things
+from the database.
+
+This *should* be firing the pre_get_posts automatically.  Is it not?  Have
+you tried to trace the route of a request?  What have you done so far to
+extend this functionality to users of the WordPress iOS app and what have
+been the results?
+
+Matthew Muro
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+<ATT00001..txt>
+
+
+From eric at eam.me  Mon Mar 21 20:55:42 2011
+From: eric at eam.me (Eric Mann)
+Date: Mon, 21 Mar 2011 13:55:42 -0700
+Subject: [wp-xmlrpc] Possible to filter posts users see in their mobile
+	app?
+In-Reply-To: <3695130F-F53E-42CB-A23B-E388568D4B48@ur.ua.edu>
+References: <D46D0284-6994-4970-94B3-0A7BF14DD72A@ur.ua.edu>
+	<AANLkTimPi=mvCfMUUV9trc9qU0DiWWd+8wMgmqnHc3v7@mail.gmail.com>
+	<3695130F-F53E-42CB-A23B-E388568D4B48@ur.ua.edu>
+Message-ID: <AANLkTinJ7fZmJDmTBSzxnYE=t4=GDENkvv-0QCZNcAja@mail.gmail.com>
+
+I don't see anything wrong with that in your case.  The xmlrpc_call action
+is fired after logging in the requesting user ... so as long as you don't
+need to do anything *before* login, you should be just fine.
+
+On Mon, Mar 21, 2011 at 1:46 PM, Muro, Matthew <mmuro at advance.ua.edu> wrote:
+
+> See source here:
+> http://plugins.trac.wordpress.org/browser/restrict-categories/trunk/restrict-categories.php
+>
+> I'm adding it to line 50 in my __construct().
+>
+> For a regular browser, it's added through the admin_init action.  For
+> mobile app users, I'm using the xmlrpc_call action unless you think I need
+> to use a different hook.
+>
+> Matthew Muro
+>
+>
+> On Mar 21, 2011, at 3:40 PM, Eric Mann wrote:
+>
+> Nothing sticks out.  Give it a try from a couple of different systems (iOS
+> app, Android app if you have it, another XML-RPC interface).  But if it
+> works with one, it should work with all of them.  Where are you doing the
+> check for the XMLRPC_REQUEST constant?  My only concern would be that the
+> check itself might be missed somehow if it lives in the wrong part of the
+> code or is used on the wrong hook.
+>
+> On Mon, Mar 21, 2011 at 1:34 PM, Muro, Matthew <mmuro at advance.ua.edu
+> <mailto:mmuro at advance.ua.edu>> wrote:
+> Currently, I'm only running through the filters if is_admin() which might
+> be why the filter isn't being applied.
+>
+> I just added a check for the XMLRPC_REQUEST constant, manually filtered
+> pre_get_posts and list_terms_exclusions and the posts/categories were
+> properly restricted.
+>
+> This is what I'm doing to handle xml-rpc:
+> if ( defined ( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
+> add_action( 'xmlrpc_call', array( &$this, 'posts' ) );
+> }
+>
+> In my posts function is where I'm setting the categories and hooking into
+> the filters I mentioned above.
+>
+> Is there anything else I need to be checking for or will this cover it?
+>
+> Matthew
+>
+> Matthew,
+>
+> This really depends on which XML-RPC calls the mobile application is
+> making.
+>  Off the top of my head, I'd think they were using `blogger.getRecentPosts`
+> to get the blog's most recent posts.  This method internally calls
+> wp_get_recent_posts() which uses the get_posts() function to pull things
+> from the database.
+>
+> This *should* be firing the pre_get_posts automatically.  Is it not?  Have
+> you tried to trace the route of a request?  What have you done so far to
+> extend this functionality to users of the WordPress iOS app and what have
+> been the results?
+>
+> Matthew Muro
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> <ATT00001..txt>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110321/1f2412ab/attachment-0001.htm>
+
+From mmuro at advance.ua.edu  Mon Mar 21 21:03:01 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Mon, 21 Mar 2011 16:03:01 -0500
+Subject: [wp-xmlrpc] Possible to filter posts users see in their
+	mobile	app?
+In-Reply-To: <AANLkTinJ7fZmJDmTBSzxnYE=t4=GDENkvv-0QCZNcAja@mail.gmail.com>
+References: <D46D0284-6994-4970-94B3-0A7BF14DD72A@ur.ua.edu>
+	<AANLkTimPi=mvCfMUUV9trc9qU0DiWWd+8wMgmqnHc3v7@mail.gmail.com>
+	<3695130F-F53E-42CB-A23B-E388568D4B48@ur.ua.edu>
+	<AANLkTinJ7fZmJDmTBSzxnYE=t4=GDENkvv-0QCZNcAja@mail.gmail.com>
+Message-ID: <20395E3A-51A5-4436-A49A-DE67CA7B8AED@ur.ua.edu>
+
+Cool.
+
+I tested through MarsEdit and it works.  There seems to be a delay between when a change is made through the plugin's settings page and when it's actually live through the remote app.  But, that's not a big deal as long as it happens.
+
+Thanks for the help!
+
+Matthew Muro
+
+
+
+On Mar 21, 2011, at 3:55 PM, Eric Mann wrote:
+
+I don't see anything wrong with that in your case.  The xmlrpc_call action is fired after logging in the requesting user ... so as long as you don't need to do anything before login, you should be just fine.
+
+On Mon, Mar 21, 2011 at 1:46 PM, Muro, Matthew <mmuro at advance.ua.edu<mailto:mmuro at advance.ua.edu>> wrote:
+See source here:  http://plugins.trac.wordpress.org/browser/restrict-categories/trunk/restrict-categories.php
+
+I'm adding it to line 50 in my __construct().
+
+For a regular browser, it's added through the admin_init action.  For mobile app users, I'm using the xmlrpc_call action unless you think I need to use a different hook.
+
+Matthew Muro
+
+
+On Mar 21, 2011, at 3:40 PM, Eric Mann wrote:
+
+Nothing sticks out.  Give it a try from a couple of different systems (iOS app, Android app if you have it, another XML-RPC interface).  But if it works with one, it should work with all of them.  Where are you doing the check for the XMLRPC_REQUEST constant?  My only concern would be that the check itself might be missed somehow if it lives in the wrong part of the code or is used on the wrong hook.
+
+On Mon, Mar 21, 2011 at 1:34 PM, Muro, Matthew <mmuro at advance.ua.edu<mailto:mmuro at advance.ua.edu><mailto:mmuro at advance.ua.edu<mailto:mmuro at advance.ua.edu>>> wrote:
+Currently, I'm only running through the filters if is_admin() which might be why the filter isn't being applied.
+
+I just added a check for the XMLRPC_REQUEST constant, manually filtered pre_get_posts and list_terms_exclusions and the posts/categories were properly restricted.
+
+This is what I'm doing to handle xml-rpc:
+if ( defined ( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
+add_action( 'xmlrpc_call', array( &$this, 'posts' ) );
+}
+
+In my posts function is where I'm setting the categories and hooking into the filters I mentioned above.
+
+Is there anything else I need to be checking for or will this cover it?
+
+Matthew
+
+Matthew,
+
+This really depends on which XML-RPC calls the mobile application is making.
+ Off the top of my head, I'd think they were using `blogger.getRecentPosts`
+to get the blog's most recent posts.  This method internally calls
+wp_get_recent_posts() which uses the get_posts() function to pull things
+from the database.
+
+This *should* be firing the pre_get_posts automatically.  Is it not?  Have
+you tried to trace the route of a request?  What have you done so far to
+extend this functionality to users of the WordPress iOS app and what have
+been the results?
+
+Matthew Muro
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com><mailto:wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>>
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+<ATT00001..txt>
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+<ATT00001..txt>
+
+
+From jorge at automattic.com  Tue Mar 22 14:23:33 2011
+From: jorge at automattic.com (Jorge Bernal)
+Date: Tue, 22 Mar 2011 15:23:33 +0100
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+Message-ID: <AANLkTimGUpG6YZEHQC8pHwn3PcQ5HPywYbbi_SiPxR+7@mail.gmail.com>
+
+Sounds great, XMLRPC could use some love ;)
+
+I plan to gather some ideas for improvements from the mobile team in
+the following weeks.
+Besides adding missing features, my main concern right now is trying
+to reduce redundant calls and minimize traffic: I'd bet nobody was
+thinking of 3G when the api was invented.
+
+Some ideas for now:
+* Add a "since" attribute to methods like wp.getRecentPosts,
+wp.getComments, so we can check for new stuff without downloading
+everything again. Started at
+http://core.trac.wordpress.org/ticket/16882
+* wp.getLatestActivity - get posts/comments since a given date. Maybe
+even add categories or anything that changed, so syncing would involve
+one call only
+* wp.quickPost - merge newPost and newMediaObject, so publishing a
+picture can be done with just one call. Maybe quickPost is not the
+best name for it, but roughly that's the idea
+
+As for obsolete APIs, many of the wp.* methods use the mw, mt, or
+blogger implementations. Nothing should be removed to maintain
+compatibility, but the wp.* API should be able to leave those
+implementations behind
+
+On Sat, Mar 19, 2011 at 7:01 PM, prasath nadarajah
+<n.prasath.002 at gmail.com> wrote:
+> Hi hackers,
+>
+> I,m interested in working on extending WordPress xmlrpc capabilities for
+> this years GSOC. I came up with some ideas for improving the current API.
+> Please let me know what you think of these ideas and possible additions to
+> this project. Thank You.
+
+-- 
+Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+Mobile Engineer @ Automattic | http://automattic.com/
+
+http://jorgebernal.info/ | http://jorgebernal.es/ | http://twitter.com/koke
+
+From n.prasath.002 at gmail.com  Wed Mar 23 01:27:10 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Wed, 23 Mar 2011 06:57:10 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTimGUpG6YZEHQC8pHwn3PcQ5HPywYbbi_SiPxR+7@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTimGUpG6YZEHQC8pHwn3PcQ5HPywYbbi_SiPxR+7@mail.gmail.com>
+Message-ID: <AANLkTin4HWhS9SEsWY-DM0kxp9V_NXvaRRPNxQU1MwRY@mail.gmail.com>
+
+Hi Jorge
+Thanks for the feedback!!!
+I would really love to see what the mobile team is expecting in XMLRPC
+improvements.
+I will include these idea in my proposal.
+I posted a draft proposal with the new API in my blog.
+http://nprasath.com/wordpress-remote-api/
+
+check it there and drop comments.
+
+cheers
+
+
+
+On Tue, Mar 22, 2011 at 7:53 PM, Jorge Bernal <jorge at automattic.com> wrote:
+
+> Sounds great, XMLRPC could use some love ;)
+>
+> I plan to gather some ideas for improvements from the mobile team in
+> the following weeks.
+> Besides adding missing features, my main concern right now is trying
+> to reduce redundant calls and minimize traffic: I'd bet nobody was
+> thinking of 3G when the api was invented.
+>
+> Some ideas for now:
+> * Add a "since" attribute to methods like wp.getRecentPosts,
+> wp.getComments, so we can check for new stuff without downloading
+> everything again. Started at
+> http://core.trac.wordpress.org/ticket/16882
+> * wp.getLatestActivity - get posts/comments since a given date. Maybe
+> even add categories or anything that changed, so syncing would involve
+> one call only
+> * wp.quickPost - merge newPost and newMediaObject, so publishing a
+> picture can be done with just one call. Maybe quickPost is not the
+> best name for it, but roughly that's the idea
+>
+> As for obsolete APIs, many of the wp.* methods use the mw, mt, or
+> blogger implementations. Nothing should be removed to maintain
+> compatibility, but the wp.* API should be able to leave those
+> implementations behind
+>
+> On Sat, Mar 19, 2011 at 7:01 PM, prasath nadarajah
+> <n.prasath.002 at gmail.com> wrote:
+> > Hi hackers,
+> >
+> > I,m interested in working on extending WordPress xmlrpc capabilities for
+> > this years GSOC. I came up with some ideas for improving the current API.
+> > Please let me know what you think of these ideas and possible additions
+> to
+> > this project. Thank You.
+>
+> --
+> Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+> Mobile Engineer @ Automattic | http://automattic.com/
+>
+> http://jorgebernal.info/ | http://jorgebernal.es/ |
+> http://twitter.com/koke
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110323/9d052322/attachment.htm>
+
+From baptiste.bernard at utopiaweb.fr  Wed Mar 23 10:44:36 2011
+From: baptiste.bernard at utopiaweb.fr (Baptiste Bernard)
+Date: Wed, 23 Mar 2011 11:44:36 +0100
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTin4HWhS9SEsWY-DM0kxp9V_NXvaRRPNxQU1MwRY@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTimGUpG6YZEHQC8pHwn3PcQ5HPywYbbi_SiPxR+7@mail.gmail.com>
+	<AANLkTin4HWhS9SEsWY-DM0kxp9V_NXvaRRPNxQU1MwRY@mail.gmail.com>
+Message-ID: <AANLkTikBrOvNKw7HCF1iD+Aeg5ELv2xU-ruz_uYv8e_G@mail.gmail.com>
+
+Hi all,
+
+CRUD of categories could be great too !
+No way to edit a category atm :'( so We can edit the "default" category
+through api :/ (was forgotten by developpers a priori)
+
+   - wp.newCategory
+   - wp.editCategory
+   - wp.deleteCategory
+   - wp.getCategory
+   - wp.getCategories
+
+cheers
+
+2011/3/23 prasath nadarajah <n.prasath.002 at gmail.com>
+
+> Hi Jorge
+> Thanks for the feedback!!!
+> I would really love to see what the mobile team is expecting in XMLRPC
+> improvements.
+> I will include these idea in my proposal.
+> I posted a draft proposal with the new API in my blog.
+> http://nprasath.com/wordpress-remote-api/
+>
+> check it there and drop comments.
+>
+> cheers
+>
+>
+>
+> On Tue, Mar 22, 2011 at 7:53 PM, Jorge Bernal <jorge at automattic.com>wrote:
+>
+>> Sounds great, XMLRPC could use some love ;)
+>>
+>> I plan to gather some ideas for improvements from the mobile team in
+>> the following weeks.
+>> Besides adding missing features, my main concern right now is trying
+>> to reduce redundant calls and minimize traffic: I'd bet nobody was
+>> thinking of 3G when the api was invented.
+>>
+>> Some ideas for now:
+>> * Add a "since" attribute to methods like wp.getRecentPosts,
+>> wp.getComments, so we can check for new stuff without downloading
+>> everything again. Started at
+>> http://core.trac.wordpress.org/ticket/16882
+>> * wp.getLatestActivity - get posts/comments since a given date. Maybe
+>> even add categories or anything that changed, so syncing would involve
+>> one call only
+>> * wp.quickPost - merge newPost and newMediaObject, so publishing a
+>> picture can be done with just one call. Maybe quickPost is not the
+>> best name for it, but roughly that's the idea
+>>
+>> As for obsolete APIs, many of the wp.* methods use the mw, mt, or
+>> blogger implementations. Nothing should be removed to maintain
+>> compatibility, but the wp.* API should be able to leave those
+>> implementations behind
+>>
+>> On Sat, Mar 19, 2011 at 7:01 PM, prasath nadarajah
+>> <n.prasath.002 at gmail.com> wrote:
+>> > Hi hackers,
+>> >
+>> > I,m interested in working on extending WordPress xmlrpc capabilities for
+>> > this years GSOC. I came up with some ideas for improving the current
+>> API.
+>> > Please let me know what you think of these ideas and possible additions
+>> to
+>> > this project. Thank You.
+>>
+>> --
+>> Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+>> Mobile Engineer @ Automattic | http://automattic.com/
+>>
+>> http://jorgebernal.info/ | http://jorgebernal.es/ |
+>> http://twitter.com/koke
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110323/193f9d96/attachment.htm>
+
+From n.prasath.002 at gmail.com  Wed Mar 23 11:25:40 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Wed, 23 Mar 2011 16:55:40 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTikBrOvNKw7HCF1iD+Aeg5ELv2xU-ruz_uYv8e_G@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTimGUpG6YZEHQC8pHwn3PcQ5HPywYbbi_SiPxR+7@mail.gmail.com>
+	<AANLkTin4HWhS9SEsWY-DM0kxp9V_NXvaRRPNxQU1MwRY@mail.gmail.com>
+	<AANLkTikBrOvNKw7HCF1iD+Aeg5ELv2xU-ruz_uYv8e_G@mail.gmail.com>
+Message-ID: <AANLkTinVN+EtviKuQm=os+PV=-JB8at3uvc30S6vfJnF@mail.gmail.com>
+
+I did'nt understand what your saying
+
+wp.editCategory is missing and i have added a patch for that.
+
+wp.newCategory, wp.deleteCategory is already there.
+wp.getCategories is replaced by mw_getCategories
+
+wp.getCategory is an option but normally there a few categories in a blog
+and mw_getCategories can do the job
+
+On Wed, Mar 23, 2011 at 4:14 PM, Baptiste Bernard <
+baptiste.bernard at utopiaweb.fr> wrote:
+
+> Hi all,
+>
+> CRUD of categories could be great too !
+> No way to edit a category atm :'( so We can edit the "default" category
+> through api :/ (was forgotten by developpers a priori)
+>
+>    - wp.newCategory
+>    - wp.editCategory
+>    - wp.deleteCategory
+>    - wp.getCategory
+>    - wp.getCategories
+>
+> cheers
+>
+>
+> 2011/3/23 prasath nadarajah <n.prasath.002 at gmail.com>
+>
+>> Hi Jorge
+>> Thanks for the feedback!!!
+>> I would really love to see what the mobile team is expecting in XMLRPC
+>> improvements.
+>> I will include these idea in my proposal.
+>> I posted a draft proposal with the new API in my blog.
+>> http://nprasath.com/wordpress-remote-api/
+>>
+>> check it there and drop comments.
+>>
+>> cheers
+>>
+>>
+>>
+>> On Tue, Mar 22, 2011 at 7:53 PM, Jorge Bernal <jorge at automattic.com>wrote:
+>>
+>>> Sounds great, XMLRPC could use some love ;)
+>>>
+>>> I plan to gather some ideas for improvements from the mobile team in
+>>> the following weeks.
+>>> Besides adding missing features, my main concern right now is trying
+>>> to reduce redundant calls and minimize traffic: I'd bet nobody was
+>>> thinking of 3G when the api was invented.
+>>>
+>>> Some ideas for now:
+>>> * Add a "since" attribute to methods like wp.getRecentPosts,
+>>> wp.getComments, so we can check for new stuff without downloading
+>>> everything again. Started at
+>>> http://core.trac.wordpress.org/ticket/16882
+>>> * wp.getLatestActivity - get posts/comments since a given date. Maybe
+>>> even add categories or anything that changed, so syncing would involve
+>>> one call only
+>>> * wp.quickPost - merge newPost and newMediaObject, so publishing a
+>>> picture can be done with just one call. Maybe quickPost is not the
+>>> best name for it, but roughly that's the idea
+>>>
+>>> As for obsolete APIs, many of the wp.* methods use the mw, mt, or
+>>> blogger implementations. Nothing should be removed to maintain
+>>> compatibility, but the wp.* API should be able to leave those
+>>> implementations behind
+>>>
+>>> On Sat, Mar 19, 2011 at 7:01 PM, prasath nadarajah
+>>> <n.prasath.002 at gmail.com> wrote:
+>>> > Hi hackers,
+>>> >
+>>> > I,m interested in working on extending WordPress xmlrpc capabilities
+>>> for
+>>> > this years GSOC. I came up with some ideas for improving the current
+>>> API.
+>>> > Please let me know what you think of these ideas and possible additions
+>>> to
+>>> > this project. Thank You.
+>>>
+>>> --
+>>> Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+>>> Mobile Engineer @ Automattic | http://automattic.com/
+>>>
+>>> http://jorgebernal.info/ | http://jorgebernal.es/ |
+>>> http://twitter.com/koke
+>>> _______________________________________________
+>>> wp-xmlrpc mailing list
+>>> wp-xmlrpc at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>>
+>>
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110323/8fc42e74/attachment-0001.htm>
+
+From joseph at josephscott.org  Wed Mar 23 16:17:04 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 23 Mar 2011 10:17:04 -0600
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+Message-ID: <AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+
+On Sat, Mar 19, 2011 at 12:01 PM, prasath nadarajah
+<n.prasath.002 at gmail.com> wrote:
+> Adding support to return comment meta values. This has been requested in
+> trac. I think having separate methods for comment meta values is good rater
+> than integrating into comment methods.
+
+
+I don't think we really need separate individual methods for comment
+meta data.  For post meta data we expose it via the existing post
+management methods.
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From n.prasath.002 at gmail.com  Wed Mar 23 17:21:51 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Wed, 23 Mar 2011 22:51:51 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+Message-ID: <AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+
+Hi joseph,
+what i thought was most of the blog dont use commenta meta value.
+post meta values are extensively used, but not comment metas.
+If you use the default comment form the comment meta tables will
+be empty. my comment meta table is empty i guess this is the case with
+most of the blogs including wordpress.com blogs.
+
+Also comments are greater in numbers than posts. typically a famous blog
+will have 40-60 comments. so everytime you query for a comment it
+will query comments table as well as the comment meta table.
+this may possibly double the response time in mobile apps.
+seperately querying for meta values when needed is more efficient.
+
+what do you think?
+correct me if i,m wrong
+
+
+On Wed, Mar 23, 2011 at 9:47 PM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> On Sat, Mar 19, 2011 at 12:01 PM, prasath nadarajah
+> <n.prasath.002 at gmail.com> wrote:
+> > Adding support to return comment meta values. This has been requested in
+> > trac. I think having separate methods for comment meta values is good
+> rater
+> > than integrating into comment methods.
+>
+>
+> I don't think we really need separate individual methods for comment
+> meta data.  For post meta data we expose it via the existing post
+> management methods.
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110323/7078f188/attachment.htm>
+
+From eric at eam.me  Wed Mar 23 17:27:38 2011
+From: eric at eam.me (Eric Mann)
+Date: Wed, 23 Mar 2011 10:27:38 -0700
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+Message-ID: <AANLkTi=5XBkdRE98kAb1KL2UUjYeed12qs28rT7QPuw0@mail.gmail.com>
+
+As you say, the majority of blogs won't use post meta values, so I see this
+need as an edge case.  If a specific plugin is adding comment meta that
+needs to be accessed remotely, that plugin should be handling the extension
+of the API on its own.
+
+But if you were to build this kind of setup, I'd add a flag to the request
+for comments that tells WordPress to return comment meta or not to.  Then
+set that flag to false by default.  Then we have one call that either
+returns meta or not based on your specific needs.
+
+Whether you have two calls on the client end or two queries on the server
+end, you'll always need to do two things ... but make the API as simple as
+possible (one client call) to make it easier to use for a larger number of
+clients.
+
+On Wed, Mar 23, 2011 at 10:21 AM, prasath nadarajah <n.prasath.002 at gmail.com
+> wrote:
+
+> Hi joseph,
+> what i thought was most of the blog dont use commenta meta value.
+> post meta values are extensively used, but not comment metas.
+> If you use the default comment form the comment meta tables will
+> be empty. my comment meta table is empty i guess this is the case with
+> most of the blogs including wordpress.com blogs.
+>
+> Also comments are greater in numbers than posts. typically a famous blog
+> will have 40-60 comments. so everytime you query for a comment it
+> will query comments table as well as the comment meta table.
+> this may possibly double the response time in mobile apps.
+> seperately querying for meta values when needed is more efficient.
+>
+> what do you think?
+> correct me if i,m wrong
+>
+>
+> On Wed, Mar 23, 2011 at 9:47 PM, Joseph Scott <joseph at josephscott.org>wrote:
+>
+>> On Sat, Mar 19, 2011 at 12:01 PM, prasath nadarajah
+>> <n.prasath.002 at gmail.com> wrote:
+>> > Adding support to return comment meta values. This has been requested in
+>> > trac. I think having separate methods for comment meta values is good
+>> rater
+>> > than integrating into comment methods.
+>>
+>>
+>> I don't think we really need separate individual methods for comment
+>> meta data.  For post meta data we expose it via the existing post
+>> management methods.
+>>
+>>
+>> --
+>> Joseph Scott
+>> joseph at josephscott.org
+>> http://josephscott.org/
+>>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110323/ff1f2666/attachment.htm>
+
+From n.prasath.002 at gmail.com  Wed Mar 23 17:36:21 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Wed, 23 Mar 2011 23:06:21 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTi=5XBkdRE98kAb1KL2UUjYeed12qs28rT7QPuw0@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+	<AANLkTi=5XBkdRE98kAb1KL2UUjYeed12qs28rT7QPuw0@mail.gmail.com>
+Message-ID: <AANLkTinDkrAwB41EK_bxniSMwMLEwNuRo_kq3kUuKWyM@mail.gmail.com>
+
+That sound great!!!!
+Having a flag and retrieving the comment meta values based on that is good.
+Mobile clients may chose to omit that to increase response time.
+
+I will modify the proposal accordingly.
+Thanks for the suggestion
+
+On Wed, Mar 23, 2011 at 10:57 PM, Eric Mann <eric at eam.me> wrote:
+
+> As you say, the majority of blogs won't use post meta values, so I see this
+> need as an edge case.  If a specific plugin is adding comment meta that
+> needs to be accessed remotely, that plugin should be handling the extension
+> of the API on its own.
+>
+> But if you were to build this kind of setup, I'd add a flag to the request
+> for comments that tells WordPress to return comment meta or not to.  Then
+> set that flag to false by default.  Then we have one call that either
+> returns meta or not based on your specific needs.
+>
+> Whether you have two calls on the client end or two queries on the server
+> end, you'll always need to do two things ... but make the API as simple as
+> possible (one client call) to make it easier to use for a larger number of
+> clients.
+>
+> On Wed, Mar 23, 2011 at 10:21 AM, prasath nadarajah <
+> n.prasath.002 at gmail.com> wrote:
+>
+>> Hi joseph,
+>> what i thought was most of the blog dont use commenta meta value.
+>> post meta values are extensively used, but not comment metas.
+>> If you use the default comment form the comment meta tables will
+>> be empty. my comment meta table is empty i guess this is the case with
+>> most of the blogs including wordpress.com blogs.
+>>
+>> Also comments are greater in numbers than posts. typically a famous blog
+>> will have 40-60 comments. so everytime you query for a comment it
+>> will query comments table as well as the comment meta table.
+>> this may possibly double the response time in mobile apps.
+>> seperately querying for meta values when needed is more efficient.
+>>
+>> what do you think?
+>> correct me if i,m wrong
+>>
+>>
+>> On Wed, Mar 23, 2011 at 9:47 PM, Joseph Scott <joseph at josephscott.org>wrote:
+>>
+>>> On Sat, Mar 19, 2011 at 12:01 PM, prasath nadarajah
+>>> <n.prasath.002 at gmail.com> wrote:
+>>> > Adding support to return comment meta values. This has been requested
+>>> in
+>>> > trac. I think having separate methods for comment meta values is good
+>>> rater
+>>> > than integrating into comment methods.
+>>>
+>>>
+>>> I don't think we really need separate individual methods for comment
+>>> meta data.  For post meta data we expose it via the existing post
+>>> management methods.
+>>>
+>>>
+>>> --
+>>> Joseph Scott
+>>> joseph at josephscott.org
+>>> http://josephscott.org/
+>>>
+>>
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110323/8fa06346/attachment.htm>
+
+From joseph at josephscott.org  Wed Mar 23 20:19:51 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 23 Mar 2011 14:19:51 -0600
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+Message-ID: <AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+
+There is no harm in sending back an empty array for comments that have
+no meta data.
+
+Have you benchmarked these different approaches to determine that it
+would double the response time?  I don't think it will dramatically
+increase the over head, but I'd be curious to see test results.  After
+for sites that cache data I think it the difference will be very, very
+small.
+
+On Wed, Mar 23, 2011 at 11:21 AM, prasath nadarajah
+<n.prasath.002 at gmail.com> wrote:
+> what i thought was most of the blog dont use commenta meta value.
+> post meta values are extensively used, but not comment metas.
+> If you use the default comment form the comment meta tables will
+> be empty. my comment meta table is empty i guess this is the case with
+> most of the blogs including wordpress.com blogs.
+> Also comments are greater in numbers than posts. typically a famous blog
+> will have 40-60 comments. so everytime you query for a comment it
+> will query comments table as well as the comment meta table.
+> this may possibly double the response time in mobile apps.
+> seperately querying for meta values when needed is more efficient.
+> what do you think?
+> correct me if i,m wrong
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From n.prasath.002 at gmail.com  Thu Mar 24 19:40:07 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Fri, 25 Mar 2011 01:10:07 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+	<AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+Message-ID: <AANLkTikghHc5vpkMy2hwwHrnwrkyJjBCA0c8p=HmxmY-@mail.gmail.com>
+
+Did some testing with the above approach and the results are more or less
+the same.
+Comment meta values can be send with wp.getComments method.
+
+patched this ticket
+http://core.trac.wordpress.org/ticket/13835
+
+On Thu, Mar 24, 2011 at 1:49 AM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> There is no harm in sending back an empty array for comments that have
+> no meta data.
+>
+> Have you benchmarked these different approaches to determine that it
+> would double the response time?  I don't think it will dramatically
+> increase the over head, but I'd be curious to see test results.  After
+> for sites that cache data I think it the difference will be very, very
+> small.
+>
+> On Wed, Mar 23, 2011 at 11:21 AM, prasath nadarajah
+> <n.prasath.002 at gmail.com> wrote:
+> > what i thought was most of the blog dont use commenta meta value.
+> > post meta values are extensively used, but not comment metas.
+> > If you use the default comment form the comment meta tables will
+> > be empty. my comment meta table is empty i guess this is the case with
+> > most of the blogs including wordpress.com blogs.
+> > Also comments are greater in numbers than posts. typically a famous blog
+> > will have 40-60 comments. so everytime you query for a comment it
+> > will query comments table as well as the comment meta table.
+> > this may possibly double the response time in mobile apps.
+> > seperately querying for meta values when needed is more efficient.
+> > what do you think?
+> > correct me if i,m wrong
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110325/1de9f7a1/attachment.htm>
+
+From n.prasath.002 at gmail.com  Sat Mar 26 13:35:42 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sat, 26 Mar 2011 19:05:42 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTikghHc5vpkMy2hwwHrnwrkyJjBCA0c8p=HmxmY-@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+	<AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+	<AANLkTikghHc5vpkMy2hwwHrnwrkyJjBCA0c8p=HmxmY-@mail.gmail.com>
+Message-ID: <AANLkTin3PCAWXweGBMO_KaUZ_q6O7CvpzU2twUhg_nPk@mail.gmail.com>
+
+I added some more ideas to the project.
+
+A full proposal can be found here.
+
+http://nprasath.com/wordpress-webservices/
+
+Please give me some feedback on this.
+
+Also suggest ideas that you think useful for external apps
+
+*
+*
+
+*Custom Post Types Management*
+
+WordPress 3.0 <http://codex.wordpress.org/Version_3.0> gives you the
+capability to add your own custom post
+types<http://codex.wordpress.org/Post_Types#Custom_Types> and
+to use them in different ways. A generic API for managing posts would be
+beneficial include post, pages, nav_menu_items as well as user defined
+custom post types.
+
+Custom post type are not stored persistently. So we have do it in each
+request. We can save the details as options through xmlrpc and add a
+loop increate_initial_taxonomies() method to retrieve custom post
+type. See
+this paste for reference http://pastebin.com/JhtrjYRA
+
+Same approach can be done for taxonomy management as well.
+
+*Custom Taxonomy Management*
+
+ WordPress 3 gives us fully hierarchical custom taxonomies. Managing custom
+taxonomies would using clients be awesome. Same as custom post type a
+generic API for managing taxonomies is good as it inclues categories, tags,
+post formats, nav_menus as well as user defined taxonomies.
+
+*Support For Mobile Notifications*
+
+ This enables mobile clients to show notifications about the updates in the
+blog. A generic method which can accept date-time as an argument and queries
+for new posts, comments, user etc and return an array containing the new
+changes. This would is possible after improving the search API and also
+reduces the bandwidth used by the mobile apps.
+
+ Mobile clients can hold the date-time when they are closed an at opening
+they can pass the this argument and retrieve notifications about new
+activity thus reducing the usage of bandwidth.
+
+On Fri, Mar 25, 2011 at 1:10 AM, prasath nadarajah
+<n.prasath.002 at gmail.com>wrote:
+
+> Did some testing with the above approach and the results are more or less
+> the same.
+> Comment meta values can be send with wp.getComments method.
+>
+> patched this ticket
+> http://core.trac.wordpress.org/ticket/13835
+>
+>
+> On Thu, Mar 24, 2011 at 1:49 AM, Joseph Scott <joseph at josephscott.org>wrote:
+>
+>> There is no harm in sending back an empty array for comments that have
+>> no meta data.
+>>
+>> Have you benchmarked these different approaches to determine that it
+>> would double the response time?  I don't think it will dramatically
+>> increase the over head, but I'd be curious to see test results.  After
+>> for sites that cache data I think it the difference will be very, very
+>> small.
+>>
+>> On Wed, Mar 23, 2011 at 11:21 AM, prasath nadarajah
+>> <n.prasath.002 at gmail.com> wrote:
+>> > what i thought was most of the blog dont use commenta meta value.
+>> > post meta values are extensively used, but not comment metas.
+>> > If you use the default comment form the comment meta tables will
+>> > be empty. my comment meta table is empty i guess this is the case with
+>> > most of the blogs including wordpress.com blogs.
+>> > Also comments are greater in numbers than posts. typically a famous blog
+>> > will have 40-60 comments. so everytime you query for a comment it
+>> > will query comments table as well as the comment meta table.
+>> > this may possibly double the response time in mobile apps.
+>> > seperately querying for meta values when needed is more efficient.
+>> > what do you think?
+>> > correct me if i,m wrong
+>>
+>>
+>>
+>> --
+>> Joseph Scott
+>> joseph at josephscott.org
+>> http://josephscott.org/
+>>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110326/92008eb1/attachment.htm>
+
+From joseph at josephscott.org  Sat Mar 26 18:29:32 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 26 Mar 2011 12:29:32 -0600
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTin3PCAWXweGBMO_KaUZ_q6O7CvpzU2twUhg_nPk@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+	<AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+	<AANLkTikghHc5vpkMy2hwwHrnwrkyJjBCA0c8p=HmxmY-@mail.gmail.com>
+	<AANLkTin3PCAWXweGBMO_KaUZ_q6O7CvpzU2twUhg_nPk@mail.gmail.com>
+Message-ID: <AANLkTikN7VX22NwEmeMGNGjNfAfQZ306geOh70TMdh7G@mail.gmail.com>
+
+A method to provide event notifications would be interesting, but
+probably not worth targeting this for mobile clients.  Virtually
+guaranteed that any mobile app that would be interested in these
+events would need to use the event mechanism for that platform.
+Holding open a connection or polling on a mobile client is a horrible
+battery drain.
+
+As scribu already mentioned on
+http://nprasath.com/wordpress-webservices/ management of CPT's isn't
+really viable via XML-RPC because they aren't persistent, but editing
+CPT content would be really handy.  Same for other features in WP that
+are non-persistent.
+
+On Sat, Mar 26, 2011 at 7:35 AM, prasath nadarajah
+<n.prasath.002 at gmail.com> wrote:
+> This enables mobile clients to show notifications about the updates in the
+> blog. A generic method which can accept date-time as an argument and queries
+> for new posts, comments, user etc and return an array containing the new
+> changes. This would is possible after improving the search API and also
+> reduces the bandwidth used by the mobile apps.
+>
+> Mobile clients can hold the date-time when they are closed an at opening
+> they can pass the this argument and retrieve notifications about new
+> activity thus reducing the usage of bandwidth.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From n.prasath.002 at gmail.com  Sat Mar 26 18:59:29 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sun, 27 Mar 2011 00:29:29 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTikN7VX22NwEmeMGNGjNfAfQZ306geOh70TMdh7G@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+	<AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+	<AANLkTikghHc5vpkMy2hwwHrnwrkyJjBCA0c8p=HmxmY-@mail.gmail.com>
+	<AANLkTin3PCAWXweGBMO_KaUZ_q6O7CvpzU2twUhg_nPk@mail.gmail.com>
+	<AANLkTikN7VX22NwEmeMGNGjNfAfQZ306geOh70TMdh7G@mail.gmail.com>
+Message-ID: <AANLkTinT+kqfcpVUu4ey=yW6JNG9v+6xv39-RkX0+b8h@mail.gmail.com>
+
+What i thought was mobile clients can use this on startup
+rather than in real time.
+
+Every time i open the android app do something and close.
+The next time i open in the startup screen
+we can display notifications about the changes.
+On startup clients can call this method to display notifications.
+This way the battery life is saved.
+
+On Sat, Mar 26, 2011 at 11:59 PM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> A method to provide event notifications would be interesting, but
+> probably not worth targeting this for mobile clients.  Virtually
+> guaranteed that any mobile app that would be interested in these
+> events would need to use the event mechanism for that platform.
+> Holding open a connection or polling on a mobile client is a horrible
+> battery drain.
+>
+> As scribu already mentioned on
+> http://nprasath.com/wordpress-webservices/ management of CPT's isn't
+> really viable via XML-RPC because they aren't persistent, but editing
+> CPT content would be really handy.  Same for other features in WP that
+> are non-persistent.
+>
+> On Sat, Mar 26, 2011 at 7:35 AM, prasath nadarajah
+> <n.prasath.002 at gmail.com> wrote:
+> > This enables mobile clients to show notifications about the updates in
+> the
+> > blog. A generic method which can accept date-time as an argument and
+> queries
+> > for new posts, comments, user etc and return an array containing the new
+> > changes. This would is possible after improving the search API and also
+> > reduces the bandwidth used by the mobile apps.
+> >
+> > Mobile clients can hold the date-time when they are closed an at opening
+> > they can pass the this argument and retrieve notifications about new
+> > activity thus reducing the usage of bandwidth.
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110327/094468c8/attachment.htm>
+
+From n.prasath.002 at gmail.com  Tue Mar 29 20:07:56 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Wed, 30 Mar 2011 01:37:56 +0530
+Subject: [wp-xmlrpc] GSOC Proposal - Extending WordPress Remote API
+In-Reply-To: <AANLkTinT+kqfcpVUu4ey=yW6JNG9v+6xv39-RkX0+b8h@mail.gmail.com>
+References: <AANLkTinhS4-2RLF0BAFeEk-VPoGMF_8=FWzX839Cfgef@mail.gmail.com>
+	<AANLkTin4m+g3DdDaSJKPu5P7AZ3667+bhaB8RGkQHY0H@mail.gmail.com>
+	<AANLkTi=WnkZkPcGBdji6m5Rc2F4=ErE+nhdS3RBts51Q@mail.gmail.com>
+	<AANLkTimV3d9JietOJMcfzodxLNoqLBTpjbJ+rfpiAeN6@mail.gmail.com>
+	<AANLkTikghHc5vpkMy2hwwHrnwrkyJjBCA0c8p=HmxmY-@mail.gmail.com>
+	<AANLkTin3PCAWXweGBMO_KaUZ_q6O7CvpzU2twUhg_nPk@mail.gmail.com>
+	<AANLkTikN7VX22NwEmeMGNGjNfAfQZ306geOh70TMdh7G@mail.gmail.com>
+	<AANLkTinT+kqfcpVUu4ey=yW6JNG9v+6xv39-RkX0+b8h@mail.gmail.com>
+Message-ID: <AANLkTin2u7hFCt0D1FU9xbN4JOrK1f6EDz0f6S2Sh+M0@mail.gmail.com>
+
+Updated my proposal.
+I think this should be the final one
+http://nprasath.com/wordpress-webservices/
+
+Thank You for your feedbacks!!!
+
+
+On Sun, Mar 27, 2011 at 12:29 AM, prasath nadarajah <n.prasath.002 at gmail.com
+> wrote:
+
+> What i thought was mobile clients can use this on startup
+> rather than in real time.
+>
+> Every time i open the android app do something and close.
+> The next time i open in the startup screen
+> we can display notifications about the changes.
+> On startup clients can call this method to display notifications.
+> This way the battery life is saved.
+>
+> On Sat, Mar 26, 2011 at 11:59 PM, Joseph Scott <joseph at josephscott.org>wrote:
+>
+>> A method to provide event notifications would be interesting, but
+>> probably not worth targeting this for mobile clients.  Virtually
+>> guaranteed that any mobile app that would be interested in these
+>> events would need to use the event mechanism for that platform.
+>> Holding open a connection or polling on a mobile client is a horrible
+>> battery drain.
+>>
+>> As scribu already mentioned on
+>> http://nprasath.com/wordpress-webservices/ management of CPT's isn't
+>> really viable via XML-RPC because they aren't persistent, but editing
+>> CPT content would be really handy.  Same for other features in WP that
+>> are non-persistent.
+>>
+>> On Sat, Mar 26, 2011 at 7:35 AM, prasath nadarajah
+>> <n.prasath.002 at gmail.com> wrote:
+>> > This enables mobile clients to show notifications about the updates in
+>> the
+>> > blog. A generic method which can accept date-time as an argument and
+>> queries
+>> > for new posts, comments, user etc and return an array containing the new
+>> > changes. This would is possible after improving the search API and also
+>> > reduces the bandwidth used by the mobile apps.
+>> >
+>> > Mobile clients can hold the date-time when they are closed an at opening
+>> > they can pass the this argument and retrieve notifications about new
+>> > activity thus reducing the usage of bandwidth.
+>>
+>>
+>>
+>> --
+>> Joseph Scott
+>> joseph at josephscott.org
+>> http://josephscott.org/
+>>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110330/538633bd/attachment.htm>
+

@@ -1,0 +1,609 @@
+From forum at santosohome.com  Fri Sep 12 09:26:44 2008
+From: forum at santosohome.com (M.S.)
+Date: Fri Sep 12 09:30:07 2008
+Subject: [wp-xmlrpc] XML RPC no response with flash lite?
+Message-ID: <B4A70FA2-3700-41CC-9B1B-19A084AF5351@santosohome.com>
+
+hi everyone, this is my first post
+
+i'm trying to develop flash lite client for wordpress blog, i've tried  
+using xmlrpcflash by mattism @ sf.net but when put into mobile it  
+gives out of memory error.
+
+so i'm trying to re-write at first the metaWeblog.getRecentPosts but  
+unsuccessful, hope i can get a solution. i haven't done programming  
+for 8 years so i'm in beginner mode.
+
+the xml is created as xml rpc spec but i got no XML response back. any  
+idea why?
+
+this is the trace output in flash (username and password replaced):
+
+this is xmlcallstring:  
+<methodCall><methodName>metaWeblog.getRecentPosts</ 
+methodName><params><param><value><string>1</string></value></ 
+param><param><value><string>username</string></value></ 
+param><param><value><string>password</string></value></ 
+param><param><value><int>20</int></value></param></params></methodCall>
+FTPS033: A Call to loadVariables(http://santosohome.com/xmlrpc.php)  
+found, limitations might apply.
+Connected to http://santosohome.com:80/xmlrpc.php.
+Sent data to http://santosohome.com:80/xmlrpc.php.
+Loaded data from http://santosohome.com:80/xmlrpc.php.
+Finished request for http://santosohome.com:80/xmlrpc.php.
+This is onData
+loaded: false
+status: 0
+this is the respond :
+
+
+this is the code
+
+var SERVICE_URL:String = "http://santosohome.com/xmlrpc.php";
+
+var blog_id:String = "1";
+var username:String = ""; //emptied for mail list
+var password:String = ""; //emptied for mail list
+var totalpost:String = "20";
+
+var METHOD_NEW_POST:String = "metaWeblog.newPost";
+var METHOD_EDIT_POST:String = "metaWeblog.editPost";
+var METHOD_GET_POST:String = "metaWeblog.getPost";
+var METHOD_GET_RECENT_POST:String = "metaWeblog.getRecentPosts";
+var METHOD_GET_CATEGORIES:String = "metaWeblog.getCategories";
+var METHOD_NEW_MEDIAOBJECT:String = "metaWeblog.newMediaObject";
+
+var userDetail:Array = [
+						[blog_id, "string"],
+						[username, "string"],
+						[password, "string"],
+						[totalpost, "int"]
+						];
+
+var xmlCall:XML = new XML();
+var xmlResponse:XML = new XML();
+var ParentNode:XMLNode;
+var ChildNode:XMLNode;
+
+function createXML(args:Array) {
+	ParentNode = xmlCall.createElement("methodCall");
+
+	xmlCall.appendChild(ParentNode);
+	
+	ChildNode = xmlCall.createElement("methodName");
+	ChildNode.appendChild(xmlCall.createTextNode(METHOD_GET_RECENT_POST));
+	ParentNode.appendChild(ChildNode);
+	
+	ChildNode = xmlCall.createElement("params");
+	ParentNode.appendChild(ChildNode);
+	ParentNode = ChildNode;
+	
+	createParams(args);
+}
+
+function createParams(args:Array) {
+	for (i=0; i < args.length; i++) {
+		ChildNode = xmlCall.createElement("param");
+		var Node:XMLNode = xmlCall.createElement("value");
+		ChildNode.appendChild(Node);
+		var NodeType:XMLNode = xmlCall.createElement(args[i][1]);
+		Node.appendChild(NodeType);
+		NodeType.appendChild(xmlCall.createTextNode(args[i][0]));
+		
+		ParentNode.appendChild(ChildNode);
+	}
+	
+	var xmlCallString:String = xmlCall.toString();
+	
+	trace("this is xmlcallstring: " + xmlCallString);
+	
+	var x:XML = new XML();
+	x.ignoreWhite = true;
+	x.xmlDecl = '<?xml version="1.0"?>';
+	x.contentType = "text/xml";
+	x.parseXML( xmlCallString );
+	
+	x.sendAndLoad(SERVICE_URL, xmlResponse);
+	
+}
+
+createXML(userDetail);
+
+xmlResponse.onLoad = function () {
+	myText.text = xmlResponse.toString();
+	trace("this is onLoad");
+	trace("loaded: " + xmlResponse.loaded);
+	trace("status: " + xmlResponse.status);
+	trace("this is the respond : " + xmlResponse);
+}
+
+xmlResponse.onData = function () {
+	myText.text = xmlResponse.toString();
+	trace("This is onData");
+	trace("loaded: " + xmlResponse.loaded);
+	trace("status: " + xmlResponse.status);
+	trace("this is the respond : " + xmlResponse);
+}
+From luap777 at gmail.com  Mon Sep 22 01:42:58 2008
+From: luap777 at gmail.com (Paul S)
+Date: Mon Sep 22 01:43:08 2008
+Subject: [wp-xmlrpc] Edit Category?
+Message-ID: <98298a100809211842h3e809024mc7ae97d4029fcd97@mail.gmail.com>
+
+Greetings,
+
+I may have overlooked something, but is there anything like wp.editCategory?
+
+Thank you,
+
+Paul
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080922/dbd734d3/attachment.htm
+From tomhoag at gmail.com  Mon Sep 22 15:40:07 2008
+From: tomhoag at gmail.com (Tom Hoag)
+Date: Mon Sep 22 15:40:42 2008
+Subject: [wp-xmlrpc] Using date_created_gmt in a Java application??
+Message-ID: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+
+I'm writing a Java app using the redstone xmlrpc library and having a
+problem with both postCreated and date_created_gmt
+
+Whenever I set the postCreated field, WP interprets/modifies the timezone to
+GMT. For the time being, I've kludged the date (adding the difference
+between the local TZ and GMT) so that WP gets the post date right.  This is
+ugly and I'd rather not do this . . .
+
+It's been suggested that I use the date_created_gmt field, but I've had zero
+luck getting this to work.  It seems that WP cannot parse the passed in
+java.util.Date as a valid date and subsequently defaults to the current
+date.
+
+Any thoughts on whats going on here?  Anyone care to share some working
+code?
+
+thanks
+
+tom
+
+
+Here's a snipet of what I'm doing . . .
+
+
+HashMap<String,Object> content = new HashMap<String,Object>();
+
+java.util.Date postDate;
+
+Calendar c = Calendar.getInstance();
+c.add(Calendar.Days, 7);
+
+postDate = c.getTime();
+
+// snip . . .
+// title, keywords, category, description, etc.  are all populated . . .
+//
+
+content.put("title",title);
+content.put("mt_keywords",keywords);
+content.put("categories", new String[]{category});
+content.put("post_status", "publish");
+content.put("description", articlebody);
+ //content.put("date_created_gmt",  postDate);  // date doesn't get
+interpretted correctly and defaults to the current date
+content.put("dateCreated", postDate); // date is offset by local TZ - GMT
+
+Object[] params = new Object[]{new String("n/a"), user, pass, content, new
+Boolean("true")};
+ Object token;
+try {
+  token = client.invoke("metaWeblog.newPost", params);
+} catch (XmlRpcException ex) {
+  Logger.getLogger(WPDripFeederView.class.getName()).log(Level.SEVERE, null,
+ex);
+} catch (XmlRpcFault ex) {
+  Logger.getLogger(WPDripFeederView.class.getName()).log(Level.SEVERE, null,
+ex);
+}
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080922/99fef0a9/attachment.htm
+From joseph at randomnetworks.com  Mon Sep 22 18:24:19 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Sep 22 18:24:39 2008
+Subject: [wp-xmlrpc] Edit Category?
+In-Reply-To: <98298a100809211842h3e809024mc7ae97d4029fcd97@mail.gmail.com>
+References: <98298a100809211842h3e809024mc7ae97d4029fcd97@mail.gmail.com>
+Message-ID: <D4A74DC6-327C-455D-B38D-29A1BDDDA2F5@randomnetworks.com>
+
+
+On Sep 21, 2008, at 7:42 PM, Paul S wrote:
+
+> Greetings,
+>
+> I may have overlooked something, but is there anything like  
+> wp.editCategory?
+>
+Hmmm, seems like we managed to miss that one.
+
+Want to add a ticket for that: trac.wordpress.org
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Mon Sep 22 18:30:48 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Sep 22 18:31:11 2008
+Subject: [wp-xmlrpc] Using date_created_gmt in a Java application??
+In-Reply-To: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+References: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+Message-ID: <B54AE7BC-77FB-4090-A50D-CD0E771242C0@randomnetworks.com>
+
+
+On Sep 22, 2008, at 9:40 AM, Tom Hoag wrote:
+
+>
+> I'm writing a Java app using the redstone xmlrpc library and having  
+> a problem with both postCreated and date_created_gmt
+>
+> Whenever I set the postCreated field, WP interprets/modifies the  
+> timezone to GMT. For the time being, I've kludged the date (adding  
+> the difference between the local TZ and GMT) so that WP gets the  
+> post date right.  This is ugly and I'd rather not do this . . .
+>
+> It's been suggested that I use the date_created_gmt field, but I've  
+> had zero luck getting this to work.  It seems that WP cannot parse  
+> the passed in java.util.Date as a valid date and subsequently  
+> defaults to the current date.
+>
+> Any thoughts on whats going on here?  Anyone care to share some  
+> working code?
+
+
+
+Can you post the raw XML when using date_created_gmt?  I'm afraid my  
+Java skills are pretty limited, perhaps someone else will have some  
+suggestions on that side of things.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From tomhoag at gmail.com  Tue Sep 23 13:54:32 2008
+From: tomhoag at gmail.com (Tom Hoag)
+Date: Tue Sep 23 13:54:48 2008
+Subject: [wp-xmlrpc] Using date_created_gmt in a Java application??
+In-Reply-To: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+References: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+Message-ID: <561806f00809230654s1c9e1e83j549e8ee180342481@mail.gmail.com>
+
+Turns out the version of WP that I'm using as a test blog has an older
+version of xmlrpc.php
+that does not have date_created_gmt (only looks for dateCreated in the
+struct).  Hence, using
+the date_created_gmt field is yielding exactly the result that I was seeing:
+use current date.
+(I was referencing a local copy of xmlrpc.php that I must have grabbed from
+a more recent
+version of WP)
+
+So now I'm back to the dateCreated situation -- dateCreated interprets the
+passed in date
+as GMT.  Which, as it turns out, is exactly what the spec specifies (
+http://www.xmlrpc.com/spec)
+
+<dateTime.iso8601>    date/time    19980717T14:08:55
+
+Note that there is not TZ (or millisecond) component to the dateTime.iso8601
+-- So I'm supposing
+that my method of offsetting my desired postdate by the diff between the
+local TZ and GMT is
+the only way to get around this . . .
+
+Also, I started going down the path to dump the XML being sent to the
+server, but couldn't find
+anything.  Is there a mechanism on WP to log the XML somewhere??  Would be
+handy to know
+for future debugging.
+
+thanks
+
+tom
+
+
+
+
+> Message: 3
+> Date: Mon, 22 Sep 2008 12:30:48 -0600
+> From: Joseph Scott <joseph@randomnetworks.com>
+> Subject: Re: [wp-xmlrpc] Using date_created_gmt in a Java
+>        application??
+>
+>
+>
+> On Sep 22, 2008, at 9:40 AM, Tom Hoag wrote:
+>
+> >
+> > I'm writing a Java app using the redstone xmlrpc library and having
+> > a problem with both postCreated and date_created_gmt
+> >
+> > Whenever I set the postCreated field, WP interprets/modifies the
+> > timezone to GMT. For the time being, I've kludged the date (adding
+> > the difference between the local TZ and GMT) so that WP gets the
+> > post date right.  This is ugly and I'd rather not do this . . .
+> >
+> > It's been suggested that I use the date_created_gmt field, but I've
+> > had zero luck getting this to work.  It seems that WP cannot parse
+> > the passed in java.util.Date as a valid date and subsequently
+> > defaults to the current date.
+> >
+> > Any thoughts on whats going on here?  Anyone care to share some
+> > working code?
+>
+>
+>
+> Can you post the raw XML when using date_created_gmt?  I'm afraid my
+> Java skills are pretty limited, perhaps someone else will have some
+> suggestions on that side of things.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080923/167c2247/attachment.htm
+From Joe.Cheng at microsoft.com  Tue Sep 23 15:28:41 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Tue Sep 23 15:28:57 2008
+Subject: [wp-xmlrpc] Using date_created_gmt in a Java application??
+In-Reply-To: <561806f00809230654s1c9e1e83j549e8ee180342481@mail.gmail.com>
+References: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+	<561806f00809230654s1c9e1e83j549e8ee180342481@mail.gmail.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A2B67B81E5A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+The spec doesn't actually specify.
+
+What timezone should be assumed for the dateTime.iso8601 type? UTC? localtime?
+Don't assume a timezone. It should be specified by the server in its documentation what assumptions it makes about timezones.
+
+I believe appending a "Z" to the end of the date/time string will make WP interpret it as GMT-if your library will let you do that.
+
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Tom Hoag
+Sent: Tuesday, September 23, 2008 6:55 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Using date_created_gmt in a Java application??
+
+
+Turns out the version of WP that I'm using as a test blog has an older version of xmlrpc.php
+that does not have date_created_gmt (only looks for dateCreated in the struct).  Hence, using
+the date_created_gmt field is yielding exactly the result that I was seeing: use current date.
+(I was referencing a local copy of xmlrpc.php that I must have grabbed from a more recent
+version of WP)
+
+So now I'm back to the dateCreated situation -- dateCreated interprets the passed in date
+as GMT.  Which, as it turns out, is exactly what the spec specifies (http://www.xmlrpc.com/spec)
+
+<dateTime.iso8601>    date/time    19980717T14:08:55
+
+Note that there is not TZ (or millisecond) component to the dateTime.iso8601 -- So I'm supposing
+that my method of offsetting my desired postdate by the diff between the local TZ and GMT is
+the only way to get around this . . .
+
+Also, I started going down the path to dump the XML being sent to the server, but couldn't find
+anything.  Is there a mechanism on WP to log the XML somewhere??  Would be handy to know
+for future debugging.
+
+thanks
+
+tom
+
+
+
+Message: 3
+Date: Mon, 22 Sep 2008 12:30:48 -0600
+From: Joseph Scott <joseph@randomnetworks.com<mailto:joseph@randomnetworks.com>>
+Subject: Re: [wp-xmlrpc] Using date_created_gmt in a Java
+       application??
+
+
+
+On Sep 22, 2008, at 9:40 AM, Tom Hoag wrote:
+
+>
+> I'm writing a Java app using the redstone xmlrpc library and having
+> a problem with both postCreated and date_created_gmt
+>
+> Whenever I set the postCreated field, WP interprets/modifies the
+> timezone to GMT. For the time being, I've kludged the date (adding
+> the difference between the local TZ and GMT) so that WP gets the
+> post date right.  This is ugly and I'd rather not do this . . .
+>
+> It's been suggested that I use the date_created_gmt field, but I've
+> had zero luck getting this to work.  It seems that WP cannot parse
+> the passed in java.util.Date as a valid date and subsequently
+> defaults to the current date.
+>
+> Any thoughts on whats going on here?  Anyone care to share some
+> working code?
+
+
+
+Can you post the raw XML when using date_created_gmt?  I'm afraid my
+Java skills are pretty limited, perhaps someone else will have some
+suggestions on that side of things.
+
+--
+Joseph Scott
+joseph@randomnetworks.com<mailto:joseph@randomnetworks.com>
+http://joseph.randomnetworks.com/
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080923/4003429a/attachment.htm
+From Joe.Cheng at microsoft.com  Tue Sep 23 15:31:34 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Tue Sep 23 15:31:49 2008
+Subject: [wp-xmlrpc] Using date_created_gmt in a Java application??
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A2B67B81E5A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+	<561806f00809230654s1c9e1e83j549e8ee180342481@mail.gmail.com>
+	<EF14FE208FC8364F94E8A58EF085979A2B67B81E5A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A2B67B81E61@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Sorry, I didn't read closely enough. Yes, seems like you should change your time to GMT.
+
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joe Cheng
+Sent: Tuesday, September 23, 2008 8:29 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: RE: [wp-xmlrpc] Using date_created_gmt in a Java application??
+
+The spec doesn't actually specify.
+
+What timezone should be assumed for the dateTime.iso8601 type? UTC? localtime?
+Don't assume a timezone. It should be specified by the server in its documentation what assumptions it makes about timezones.
+
+I believe appending a "Z" to the end of the date/time string will make WP interpret it as GMT-if your library will let you do that.
+
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Tom Hoag
+Sent: Tuesday, September 23, 2008 6:55 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Using date_created_gmt in a Java application??
+
+
+Turns out the version of WP that I'm using as a test blog has an older version of xmlrpc.php
+that does not have date_created_gmt (only looks for dateCreated in the struct).  Hence, using
+the date_created_gmt field is yielding exactly the result that I was seeing: use current date.
+(I was referencing a local copy of xmlrpc.php that I must have grabbed from a more recent
+version of WP)
+
+So now I'm back to the dateCreated situation -- dateCreated interprets the passed in date
+as GMT.  Which, as it turns out, is exactly what the spec specifies (http://www.xmlrpc.com/spec)
+
+<dateTime.iso8601>    date/time    19980717T14:08:55
+
+Note that there is not TZ (or millisecond) component to the dateTime.iso8601 -- So I'm supposing
+that my method of offsetting my desired postdate by the diff between the local TZ and GMT is
+the only way to get around this . . .
+
+Also, I started going down the path to dump the XML being sent to the server, but couldn't find
+anything.  Is there a mechanism on WP to log the XML somewhere??  Would be handy to know
+for future debugging.
+
+thanks
+
+tom
+
+
+Message: 3
+Date: Mon, 22 Sep 2008 12:30:48 -0600
+From: Joseph Scott <joseph@randomnetworks.com<mailto:joseph@randomnetworks.com>>
+Subject: Re: [wp-xmlrpc] Using date_created_gmt in a Java
+       application??
+
+
+
+On Sep 22, 2008, at 9:40 AM, Tom Hoag wrote:
+
+>
+> I'm writing a Java app using the redstone xmlrpc library and having
+> a problem with both postCreated and date_created_gmt
+>
+> Whenever I set the postCreated field, WP interprets/modifies the
+> timezone to GMT. For the time being, I've kludged the date (adding
+> the difference between the local TZ and GMT) so that WP gets the
+> post date right.  This is ugly and I'd rather not do this . . .
+>
+> It's been suggested that I use the date_created_gmt field, but I've
+> had zero luck getting this to work.  It seems that WP cannot parse
+> the passed in java.util.Date as a valid date and subsequently
+> defaults to the current date.
+>
+> Any thoughts on whats going on here?  Anyone care to share some
+> working code?
+
+
+
+Can you post the raw XML when using date_created_gmt?  I'm afraid my
+Java skills are pretty limited, perhaps someone else will have some
+suggestions on that side of things.
+
+--
+Joseph Scott
+joseph@randomnetworks.com<mailto:joseph@randomnetworks.com>
+http://joseph.randomnetworks.com/
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080923/8c617ba5/attachment-0001.htm
+From joseph at randomnetworks.com  Tue Sep 23 17:12:06 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Sep 23 17:12:20 2008
+Subject: [wp-xmlrpc] Using date_created_gmt in a Java application??
+In-Reply-To: <561806f00809230654s1c9e1e83j549e8ee180342481@mail.gmail.com>
+References: <561806f00809220840h11ba391elb343ab08864a923e@mail.gmail.com>
+	<561806f00809230654s1c9e1e83j549e8ee180342481@mail.gmail.com>
+Message-ID: <0CE03E24-8EA1-43A1-8425-7D029EC5ADDD@randomnetworks.com>
+
+
+On Sep 23, 2008, at 7:54 AM, Tom Hoag wrote:
+
+> Turns out the version of WP that I'm using as a test blog has an  
+> older version of xmlrpc.php
+> that does not have date_created_gmt (only looks for dateCreated in  
+> the struct).  Hence, using
+> the date_created_gmt field is yielding exactly the result that I was  
+> seeing: use current date.
+> (I was referencing a local copy of xmlrpc.php that I must have  
+> grabbed from a more recent
+> version of WP)
+
+Yep, that would explain it :-)
+
+
+> So now I'm back to the dateCreated situation -- dateCreated  
+> interprets the passed in date
+> as GMT.  Which, as it turns out, is exactly what the spec specifies (http://www.xmlrpc.com/spec 
+> )
+>
+> <dateTime.iso8601>    date/time    19980717T14:08:55
+>
+> Note that there is not TZ (or millisecond) component to the  
+> dateTime.iso8601 -- So I'm supposing
+> that my method of offsetting my desired postdate by the diff between  
+> the local TZ and GMT is
+> the only way to get around this . . .
+
+Sadly the spec doesn't detail out the TZ issues at all (even worse it  
+says each app should figure it out for themselves).  This was why we  
+added date_created_gmt to WordPress, to have a field that was always  
+(by definition) GMT.
+
+
+> Also, I started going down the path to dump the XML being sent to  
+> the server, but couldn't find
+> anything.  Is there a mechanism on WP to log the XML somewhere??   
+> Would be handy to know
+> for future debugging.
+
+
+I sniff the traffic in transit, on Windows using Fiddler and on Mac  
+using HTTPScoop.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+

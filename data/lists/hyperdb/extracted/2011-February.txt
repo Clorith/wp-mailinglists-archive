@@ -1,0 +1,157 @@
+From lists.automattic.com at callum-macdonald.com  Tue Feb  1 13:36:37 2011
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Tue, 01 Feb 2011 13:36:37 +0000
+Subject: [HyperDB] Sharding scheme
+In-Reply-To: <4D4614B6.2010402@thecodecave.com>
+References: <4D3F107D.3010904@thecodecave.com>
+	<4D4614B6.2010402@thecodecave.com>
+Message-ID: <1296567397.2352.10.camel@lupo>
+
+Hola Brian,
+
+I'm a little out of the loop these days, I retired from all that working
+malarky about 18 months ago.
+
+For what it's worth, I'd recommend going with Andy's advice, wait to
+scale until you have scale to deal with. Then you'll have actual live
+data to figure out where your bottlenecks are and how to deal with them.
+
+Love & joy - Callum.
+
+On Sun, 2011-01-30 at 20:47 -0500, Brian Layman wrote:
+> On 1/25/2011 1:03 PM, Brian Layman wrote:
+> > I have an install that will likely grow to 10,000 sites by year's 
+> > end.  There's potential in this market space for that number to be 
+> > significantly higher.  In the last week, it has doubled in size to 
+> > 2200 sites. The database now has over 20,000 tables.  Obviously, there 
+> > is a need for sharding here. There were extenuating circumstances that 
+> > prevented sharding on the initial launch but I would like to activate 
+> > it now.
+> >
+> > I was wondering what you thought would be a good breakdown of the 
+> > sites...  I was thinking 100 sites per dataset would be a fair number. 
+> > That puts each databases at 1500-ish tables per dataset.  It would 
+> > result in my having 100 databases in the end, it has a nice even ring 
+> > to it and is easily comprehended at a glance. My worry is that I am 
+> > creating too many database connections and will a bottle neck of 
+> > another kind.  Is this a concern? I don't want to create a problem 
+> > where one doesn't currently exist. The hardware is keeping up just 
+> > fine at the moment and I am getting sub 3 or 2 second load times.
+> >
+> > So I was thinking of functions like this in db-config.php:
+> >
+> > for ( $counter = 0; $counter <= 30; $counter++) { // Allow for 3000 
+> > sites for now
+> >     // Add the connection to the Master
+> >     $wpdb->add_database(array(
+> >         'host' => DB_HOST,
+> >         'user' => DB_USER,
+> >         'password' => DB_PASSWORD,
+> >         'name' => DB_NAME . '_' . $counter,
+> >         'write' => 1,
+> >         'read' => 1,
+> >         'dataset' => DB_NAME . '_' . $counter,
+> >         'timeout' => 0.2, ));
+> >
+> >     // Add the connection to the Slave(s)
+> >     $wpdb->add_database(array(
+> >         'host' => DB_HOST2,
+> >         'user' => DB_USER,
+> >         'password' => DB_PASSWORD,
+> >         'name' => DB_NAME . '_' . $counter,
+> >         'write' => 0,
+> >         'read' => 1,
+> >         'dataset' => DB_NAME . '_' . $counter,
+> >         'timeout' => 0.2,
+> >     ));
+> > }
+> >
+> > $wpdb->add_callback('ehi_dbname');
+> >
+> > function ehi_dbname($query, $wpdb) {
+> >     if ( preg_match("/^{$wpdb->base_prefix}\d+_/i", $wpdb->table) ) {
+> >         $dbid = intval($wpdb->blogid/100);
+> >         $NEW_DB_NAME = DB_NAME . "_" . $dbid;
+> >         error_log ($wpdb->table . " would use :" . $NEW_DB_NAME);
+> >     } else {
+> >         $NEW_DB_NAME = DB_NAME . "_common";
+> >         error_log ($wpdb->table . " would use :" . $NEW_DB_NAME);
+> >     }
+> >
+> >     return $NEW_DB_NAME;
+> >
+> > }
+> >
+> >
+> > Other than the fact that I wouldn't create all 100 database 
+> > connections immediately, does that make sense? I'll probably make a 
+> > foreach loop to make adding read servers an easy task. But I think 
+> > I've got the basic concepts all there.  Does this seem to be a 
+> > reasonable configuration with 1 read and 1 read/write server. These 
+> > are currently running on hand built Amazon m1.large ec2 servers - 
+> > though I am considering switching them over to RDS during this process.
+> >
+> > One more thought...  Moving forward, as the need arises to create more 
+> > read servers, does it make sense to have all of the datasets active on 
+> > all of the read servers in order to keep reads evenly distributed? Or 
+> > would it be better to assign odd datasets to odd numbered read servers 
+> > and even to even numbered read servers and thus divide the connections 
+> > needed  and evenly reduce the databases being accessed on each 
+> > machines. Would this perhaps improve caching?
+> >
+> > I'd love to gain from the expertise of people who have been down this 
+> > road before.
+> >
+> > Thanks!
+> >
+> Nobody has replied to this, but in the meantime I went and read the 
+> entirety of this mailing list's archive.  In August of last year
+> Andy had said:
+> 
+> "Without further information I'd say proceed without partitioning.
+> Don't try to do all your scaling in advance; it doesn't work."
+> experiments once you have real-world data and traffic.
+> 
+> when talking about a potentially 50K site database.
+> 
+> Later Callum mentioned:
+> 
+> "we partitioned the data (for about 300k blogs at that point) across multiple databases
+> on a single database server."
+> 
+> Soooooo, since I am having no noticeable slow downs (With the exception of phpmyadmin which calls "show tables") with our database of 22K tables - a mere 2426 sites, I'm thinking I should not even consider sharding.  Is that correct?
+> 
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+
+
+From bulk at thecodecave.com  Tue Feb  1 16:34:19 2011
+From: bulk at thecodecave.com (Brian Layman)
+Date: Tue, 01 Feb 2011 11:34:19 -0500
+Subject: [HyperDB] Sharding scheme
+In-Reply-To: <1296567397.2352.10.camel@lupo>
+References: <4D3F107D.3010904@thecodecave.com>	<4D4614B6.2010402@thecodecave.com>
+	<1296567397.2352.10.camel@lupo>
+Message-ID: <4D48360B.8010102@thecodecave.com>
+
+On 2/1/2011 8:36 AM, Callum Macdonald wrote:
+> Hola Brian,
+>
+> I'm a little out of the loop these days, I retired from all that working
+> malarky about 18 months ago.
+>
+> For what it's worth, I'd recommend going with Andy's advice, wait to
+> scale until you have scale to deal with. Then you'll have actual live
+> data to figure out where your bottlenecks are and how to deal with them.
+>
+> Love&  joy - Callum.
+Thanks Callum,
+
+I appreciate the reply and advice.
+
+Brian
+

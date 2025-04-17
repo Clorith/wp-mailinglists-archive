@@ -1,0 +1,130 @@
+From mzvarik at gmail.com  Mon Sep 22 22:00:53 2008
+From: mzvarik at gmail.com (=?ISO-8859-2?Q?Martin_Zvar=EDk?=)
+Date: Mon Sep 22 22:00:44 2008
+Subject: [HyperDB] Multiple database connections?
+Message-ID: <48D81595.8090302@gmail.com>
+
+Hi,
+I have not inspected the HyperDB code nor used it, but if I am just 
+logically thinking...
+If I have articles in database #1 and comments in database #2 --- isn't 
+it slower to have it in several servers and databases (using HyperDB) in 
+comparison to one DB, one server? (this question is a result from 
+experiencing that connection to database server takes time)
+
+If you find this question irrelevant please reply anyway, I'd like to 
+catch on on this.
+
+Thank you,
+Martin
+From Brian at b5media.com  Mon Sep 22 23:01:03 2008
+From: Brian at b5media.com (Brian Layman)
+Date: Mon Sep 22 23:01:31 2008
+Subject: [HyperDB] Multiple database connections?
+In-Reply-To: <48D81595.8090302@gmail.com>
+References: <48D81595.8090302@gmail.com>
+Message-ID: <012201c91d07$170aa540$451fefc0$@com>
+
+If you figure that each database server can only process a certain number of
+commands at any one time and that it can only send out a certain amount of
+information at once, you can see that increased traffic can eventually
+overrun your resources.  When you get to that point, obviously you'll
+improve your performance when you double, triple or quadruple the processing
+power and bandwidth by adding more servers/datacenters. Additionally, if a
+server or 
+datacenter goes down, having all requests seamlessly route another database
+server/center allows your site to stay up.
+
+HyperDB provides ability leverage multiple database servers and/or
+datacenters to address these kinds of perfomance issues.
+
+Hope that helps.
+
+Brian Layman
+b5media, Inc.
+
+-----Original Message-----
+From: hyperdb-bounces@lists.automattic.com
+[mailto:hyperdb-bounces@lists.automattic.com] On Behalf Of Martin Zvar?k
+Sent: Monday, September 22, 2008 6:01 PM
+To: hyperdb@lists.automattic.com
+Subject: [HyperDB] Multiple database connections?
+
+Hi,
+I have not inspected the HyperDB code nor used it, but if I am just 
+logically thinking...
+If I have articles in database #1 and comments in database #2 --- isn't 
+it slower to have it in several servers and databases (using HyperDB) in 
+comparison to one DB, one server? (this question is a result from 
+experiencing that connection to database server takes time)
+
+If you find this question irrelevant please reply anyway, I'd like to 
+catch on on this.
+
+Thank you,
+Martin
+_______________________________________________
+HyperDB mailing list
+HyperDB@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From mzvarik at gmail.com  Mon Sep 22 23:08:18 2008
+From: mzvarik at gmail.com (=?ISO-8859-1?Q?Martin_Zvar=EDk?=)
+Date: Mon Sep 22 23:08:12 2008
+Subject: [HyperDB] Multiple database connections?
+In-Reply-To: <012201c91d07$170aa540$451fefc0$@com>
+References: <48D81595.8090302@gmail.com> <012201c91d07$170aa540$451fefc0$@com>
+Message-ID: <48D82562.7020603@gmail.com>
+
+I understand now.
+
+Brian Layman napsal(a):
+> If you figure that each database server can only process a certain number of
+> commands at any one time and that it can only send out a certain amount of
+> information at once, you can see that increased traffic can eventually
+> overrun your resources.  When you get to that point, obviously you'll
+> improve your performance when you double, triple or quadruple the processing
+> power and bandwidth by adding more servers/datacenters. Additionally, if a
+> server or 
+> datacenter goes down, having all requests seamlessly route another database
+> server/center allows your site to stay up.
+>
+> HyperDB provides ability leverage multiple database servers and/or
+> datacenters to address these kinds of perfomance issues.
+>
+> Hope that helps.
+>
+> Brian Layman
+> b5media, Inc.
+>
+> -----Original Message-----
+> From: hyperdb-bounces@lists.automattic.com
+> [mailto:hyperdb-bounces@lists.automattic.com] On Behalf Of Martin Zvar?k
+> Sent: Monday, September 22, 2008 6:01 PM
+> To: hyperdb@lists.automattic.com
+> Subject: [HyperDB] Multiple database connections?
+>
+> Hi,
+> I have not inspected the HyperDB code nor used it, but if I am just 
+> logically thinking...
+> If I have articles in database #1 and comments in database #2 --- isn't 
+> it slower to have it in several servers and databases (using HyperDB) in 
+> comparison to one DB, one server? (this question is a result from 
+> experiencing that connection to database server takes time)
+>
+> If you find this question irrelevant please reply anyway, I'd like to 
+> catch on on this.
+>
+> Thank you,
+> Martin
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+>   

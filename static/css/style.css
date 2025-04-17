@@ -1,0 +1,103 @@
+/* Base styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.header h1 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+/* Thread list */
+.thread-list {
+    list-style: none;
+    padding: 0;
+}
+
+.thread-item {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
+}
+
+.thread-item:hover {
+    background-color: #f8f9fa;
+}
+
+.thread-link {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.thread-link:hover {
+    color: #3498db;
+}
+
+.thread-meta {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Thread view */
+.thread-header {
+    margin-bottom: 30px;
+}
+
+.back-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.back-link:hover {
+    color: #3498db;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.message {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.message-sender {
+    font-weight: 500;
+}
+
+.message-date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.message-content {
+    white-space: pre-wrap;
+} 

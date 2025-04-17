@@ -1,0 +1,513 @@
+From frust at iti.cs.tu-bs.de  Tue Sep 25 12:08:04 2012
+From: frust at iti.cs.tu-bs.de (Frank Rust)
+Date: Tue, 25 Sep 2012 14:08:04 +0200
+Subject: [wp-xmlrpc] Extend xml-rpc
+Message-ID: <1348574884.24022.12.camel@viator.rust.local>
+
+Hi there.
+
+I try to add a new xml-rpc function to wordpress but I can not get it
+running.
+
+Here my code (part of a plugin), to keep it simple I took an example
+from the web:
+<?php
+/*
+   Plugin Name: Franks WordPress Test Plugin
+   Plugin URI: http://www.xxxxx.de/WP
+   Description: Das ist mein allererstes WordPress Plugin
+   Author: Frank Rust
+   Author URI: http://www.xxxxx.de/WP
+   Version: 0.0.3
+*/
+
+include_once(ABSPATH . WPINC . '/class-IXR.php'); 
+include_once(ABSPATH . WPINC . '/class-wp-http-ixr-client.php'); 
+ 
+add_filter( 'xmlrpc_methods', 'fwpr_add_new_xmlrpc_methods' );
+function fwpr_add_new_xmlrpc_methods( $methods ) {
+    $methods['demo.multiplyTwoNumbers'] = 'multiply_two_numbers';
+    return $methods;
+}
+ 
+function multiply_two_numbers( $args ) {
+    $first  = (int) $args[0];
+    $second = (int) $args[1];
+ 
+    return $first * $second;
+}
+
+// (...) lots of other code 
+
+I'm running WP 3.4.2 (german).
+The plugin is activated, other functions are working well.
+And now when trying to call that 'demo.multiplyTwoNumbers' I get the
+answer faultCode: -32601
+faultString: server error. requested method  does not exist.
+
+So what am I doing wrong? Missing some include or initialization? Is
+there possibility to debug those xmlrpc calls?
+
+Thanks in advance for any help,
+best regards,
+Frank
+ 
+-- 
+------------------------------------------------------------------------
+Frank Rust                          Institut f?r Theoretische Informatik
+Fon: 0531 3919525               Technische Universit?t Carolo-Wilhelmina
+Fax: 0531 3919529                              M?hlenpfordtstrasse 22-23
+Mail: f.rust at tu-bs.de                               D-38106 Braunschweig
+
+
+From mailing at markoheijnen.nl  Tue Sep 25 12:21:38 2012
+From: mailing at markoheijnen.nl (Marko Heijnen)
+Date: Tue, 25 Sep 2012 14:21:38 +0200
+Subject: [wp-xmlrpc] Extend xml-rpc
+In-Reply-To: <1348574884.24022.12.camel@viator.rust.local>
+References: <1348574884.24022.12.camel@viator.rust.local>
+Message-ID: <904C54D4-9E6D-4672-888C-7A4B44661F93@markoheijnen.nl>
+
+Hey,
+
+First of all including IXR isn't needed at all. Don't think that causes issue tho. Looking at the code it does seems fine.
+You can try to set WP_Debug on or check your php error log.
+
+Marko
+
+Op 25 sep. 2012, om 14:08 heeft Frank Rust <frust at iti.cs.tu-bs.de> het volgende geschreven:
+
+> Hi there.
+> 
+> I try to add a new xml-rpc function to wordpress but I can not get it
+> running.
+> 
+> Here my code (part of a plugin), to keep it simple I took an example
+> from the web:
+> <?php
+> /*
+>   Plugin Name: Franks WordPress Test Plugin
+>   Plugin URI: http://www.xxxxx.de/WP
+>   Description: Das ist mein allererstes WordPress Plugin
+>   Author: Frank Rust
+>   Author URI: http://www.xxxxx.de/WP
+>   Version: 0.0.3
+> */
+> 
+> include_once(ABSPATH . WPINC . '/class-IXR.php'); 
+> include_once(ABSPATH . WPINC . '/class-wp-http-ixr-client.php'); 
+> 
+> add_filter( 'xmlrpc_methods', 'fwpr_add_new_xmlrpc_methods' );
+> function fwpr_add_new_xmlrpc_methods( $methods ) {
+>    $methods['demo.multiplyTwoNumbers'] = 'multiply_two_numbers';
+>    return $methods;
+> }
+> 
+> function multiply_two_numbers( $args ) {
+>    $first  = (int) $args[0];
+>    $second = (int) $args[1];
+> 
+>    return $first * $second;
+> }
+> 
+> // (...) lots of other code 
+> 
+> I'm running WP 3.4.2 (german).
+> The plugin is activated, other functions are working well.
+> And now when trying to call that 'demo.multiplyTwoNumbers' I get the
+> answer faultCode: -32601
+> faultString: server error. requested method  does not exist.
+> 
+> So what am I doing wrong? Missing some include or initialization? Is
+> there possibility to debug those xmlrpc calls?
+> 
+> Thanks in advance for any help,
+> best regards,
+> Frank
+> 
+> -- 
+> ------------------------------------------------------------------------
+> Frank Rust                          Institut f?r Theoretische Informatik
+> Fon: 0531 3919525               Technische Universit?t Carolo-Wilhelmina
+> Fax: 0531 3919529                              M?hlenpfordtstrasse 22-23
+> Mail: f.rust at tu-bs.de                               D-38106 Braunschweig
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From alex at buayacorp.com  Tue Sep 25 12:50:26 2012
+From: alex at buayacorp.com (Alexander Concha)
+Date: Tue, 25 Sep 2012 14:50:26 +0200
+Subject: [wp-xmlrpc] Extend xml-rpc
+In-Reply-To: <1348574884.24022.12.camel@viator.rust.local>
+References: <1348574884.24022.12.camel@viator.rust.local>
+Message-ID: <CALt-Q2arfpkuuHiVHT_uaj4A3BKb=G0jsjEy43-ky+=pwUvRPA@mail.gmail.com>
+
+On Tue, Sep 25, 2012 at 2:08 PM, Frank Rust <frust at iti.cs.tu-bs.de> wrote:
+> Hi there.
+>
+> I'm running WP 3.4.2 (german).
+> The plugin is activated, other functions are working well.
+> And now when trying to call that 'demo.multiplyTwoNumbers' I get the
+> answer faultCode: -32601
+> faultString: server error. requested method  does not exist.
+
+Looking at the error message, it looks like your XML RPC client is not
+correctly calling the 'demo.multiplyTwoNumbers' method. The error
+message includes the method being called, i.e. server error. requested
+method METHOD_NAME does not exist.
+
+From frust at iti.cs.tu-bs.de  Tue Sep 25 19:12:53 2012
+From: frust at iti.cs.tu-bs.de (Frank Rust)
+Date: Tue, 25 Sep 2012 21:12:53 +0200
+Subject: [wp-xmlrpc] Extend xml-rpc
+In-Reply-To: <CALt-Q2arfpkuuHiVHT_uaj4A3BKb=G0jsjEy43-ky+=pwUvRPA@mail.gmail.com>
+References: <1348574884.24022.12.camel@viator.rust.local>
+	<CALt-Q2arfpkuuHiVHT_uaj4A3BKb=G0jsjEy43-ky+=pwUvRPA@mail.gmail.com>
+Message-ID: <1348600373.24022.23.camel@viator.rust.local>
+
+Am Dienstag, den 25.09.2012, 14:50 +0200 schrieb Alexander Concha:
+> On Tue, Sep 25, 2012 at 2:08 PM, Frank Rust <frust at iti.cs.tu-bs.de> wrote:
+> > Hi there.
+> >
+> > I'm running WP 3.4.2 (german).
+> > The plugin is activated, other functions are working well.
+> > And now when trying to call that 'demo.multiplyTwoNumbers' I get the
+> > answer faultCode: -32601
+> > faultString: server error. requested method  does not exist.
+> 
+> Looking at the error message, it looks like your XML RPC client is not
+> correctly calling the 'demo.multiplyTwoNumbers' method. The error
+> message includes the method being called, i.e. server error. requested
+> method METHOD_NAME does not exist.
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+Now I've got the solution. First, you are right, the calling program did
+something wrong. 
+
+After fixing that another fault was caused by the multi-site install:
+if the ($current_site->domain != $_SERVER[ 'HTTP_HOST' ]) a redirect is
+started and the xmlrpc call fails. 
+
+Thanks for your help!
+
+
+
+
+ 
+-- 
+------------------------------------------------------------------------
+Frank Rust                          Institut f?r Theoretische Informatik
+Fon: 0531 3919525               Technische Universit?t Carolo-Wilhelmina
+Fax: 0531 3919529                              M?hlenpfordtstrasse 22-23
+Mail: f.rust at tu-bs.de                               D-38106 Braunschweig
+
+
+From frust at iti.cs.tu-bs.de  Fri Sep 28 15:49:47 2012
+From: frust at iti.cs.tu-bs.de (Frank Rust)
+Date: Fri, 28 Sep 2012 17:49:47 +0200
+Subject: [wp-xmlrpc] Bug in xml-rpc code?
+Message-ID: <1348847387.19103.57.camel@viator.rust.local>
+
+I'm trying to get a comment via xml-rpc.
+
+If I do it with wp.getComment I always receive 'error 404: invalid
+comment id'. If I do wp.getComments the comment with the requested id is
+among the results.
+
+Example:
+
+  $rpc = new WP_HTTP_IXR_Client( $this->test_url );
+
+  $params = array(
+                0,
+                $this->remote_login,
+                $this->remote_passwd,
+array('filter'=>array('post_id'=>$pars['comment_post_ID'],'status'=>'','number'=>'','offset'=>0))
+            );
+
+  error_log("getComments( " .print_r($params,true) .") --");
+
+  $rpc->query('wp.getComments',$params);
+  $res = $rpc->getResponse();
+
+  error_log("got from remote:" .print_r($res,true) .") --");
+
+delivers to logfile: 
+
+comment(Array
+ (
+     [0] => 0
+     [1] => username
+     [2] => PaSssword
+     [3] => Array
+         (
+             [filter] => Array
+                 (
+                     [post_id] => 108
+                     [status] => 
+                     [number] => 
+                     [offset] => 0
+                 )
+         )
+ )
+) --
+got from remote:Array
+ (
+     [0] => Array
+         (
+             [date_created_gmt] => IXR_Date Object
+                 (
+                     [year] => 2012
+                     [month] => 09
+                     [day] => 28
+                     [hour] => 15
+                     [minute] => 09
+                     [second] => 56
+                     [timezone] => 
+                 )
+             [user_id] => 10939635
+             [comment_id] => 50
+             [parent] => 47
+             [status] => approve
+             [content] => noch ein wort
+             [link] => <some link...>
+             [post_id] => 108
+             [post_title] => Erster eigener&nbsp;Eintrag
+             [author] => myname
+             [author_url] => http://myblog.wordpress.com
+             [author_email] => myname at mail.de
+             [author_ip] => 89.182.x.x
+             [type] => 
+         )
+     [1] => Array
+         (
+             [date_created_gmt] => IXR_Date Object
+              :
+              :
+              :
+         and so on
+) --
+
+
+BUT
+  $rpc = new WP_HTTP_IXR_Client( $this->test_url );
+
+  $params = array(
+                0,
+                $this->remote_login,
+                $this->remote_passwd,
+                array('comment_id'=>$pars['comment_ID'])
+            );
+
+  error_log("getComment( " .print_r($params,true) .") --");
+
+  $rpc->query('wp.getComment',$params);
+  $res = $rpc->getResponse();
+
+  error_log("got from remote:" .print_r($res,true) .") --");
+
+gives me:
+
+getComment(Array
+ (
+     [0] => 0
+     [1] => username
+     [2] => PaSsword
+     [3] => Array
+         (
+             [comment_id] => 50
+         )
+ )
+) --
+
+got from remote:Array
+ (
+     [faultCode] => 404
+     [faultString] => Ung\xc3\xbcltige Kommentar-ID. 
+ )
+) --
+
+So is this a bug or what could it be?
+
+
+Thanks for any help,
+Frank
+
+
+
+-- 
+------------------------------------------------------------------------
+Frank Rust                          Institut f?r Theoretische Informatik
+Fon: 0531 3919525               Technische Universit?t Carolo-Wilhelmina
+Fax: 0531 3919529                              M?hlenpfordtstrasse 22-23
+Mail: f.rust at tu-bs.de                               D-38106 Braunschweig
+
+
+From joseph at josephscott.org  Fri Sep 28 19:30:35 2012
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 28 Sep 2012 13:30:35 -0600
+Subject: [wp-xmlrpc] Bug in xml-rpc code?
+In-Reply-To: <1348847387.19103.57.camel@viator.rust.local>
+References: <1348847387.19103.57.camel@viator.rust.local>
+Message-ID: <CAE81+yZUOHpbfDaykGiSwyo9srMMu2w6e1UBnOptRG6AvfXgHg@mail.gmail.com>
+
+The fourth argument to wp.getComment isn't an array, it is just the comment id:
+
+wp.getComment( 'blog_id', 'username', 'password', 12345 )
+
+
+
+On Fri, Sep 28, 2012 at 9:49 AM, Frank Rust <frust at iti.cs.tu-bs.de> wrote:
+> I'm trying to get a comment via xml-rpc.
+>
+> If I do it with wp.getComment I always receive 'error 404: invalid
+> comment id'. If I do wp.getComments the comment with the requested id is
+> among the results.
+>
+> Example:
+>
+>   $rpc = new WP_HTTP_IXR_Client( $this->test_url );
+>
+>   $params = array(
+>                 0,
+>                 $this->remote_login,
+>                 $this->remote_passwd,
+> array('filter'=>array('post_id'=>$pars['comment_post_ID'],'status'=>'','number'=>'','offset'=>0))
+>             );
+>
+>   error_log("getComments( " .print_r($params,true) .") --");
+>
+>   $rpc->query('wp.getComments',$params);
+>   $res = $rpc->getResponse();
+>
+>   error_log("got from remote:" .print_r($res,true) .") --");
+>
+> delivers to logfile:
+>
+> comment(Array
+>  (
+>      [0] => 0
+>      [1] => username
+>      [2] => PaSssword
+>      [3] => Array
+>          (
+>              [filter] => Array
+>                  (
+>                      [post_id] => 108
+>                      [status] =>
+>                      [number] =>
+>                      [offset] => 0
+>                  )
+>          )
+>  )
+> ) --
+> got from remote:Array
+>  (
+>      [0] => Array
+>          (
+>              [date_created_gmt] => IXR_Date Object
+>                  (
+>                      [year] => 2012
+>                      [month] => 09
+>                      [day] => 28
+>                      [hour] => 15
+>                      [minute] => 09
+>                      [second] => 56
+>                      [timezone] =>
+>                  )
+>              [user_id] => 10939635
+>              [comment_id] => 50
+>              [parent] => 47
+>              [status] => approve
+>              [content] => noch ein wort
+>              [link] => <some link...>
+>              [post_id] => 108
+>              [post_title] => Erster eigener&nbsp;Eintrag
+>              [author] => myname
+>              [author_url] => http://myblog.wordpress.com
+>              [author_email] => myname at mail.de
+>              [author_ip] => 89.182.x.x
+>              [type] =>
+>          )
+>      [1] => Array
+>          (
+>              [date_created_gmt] => IXR_Date Object
+>               :
+>               :
+>               :
+>          and so on
+> ) --
+>
+>
+> BUT
+>   $rpc = new WP_HTTP_IXR_Client( $this->test_url );
+>
+>   $params = array(
+>                 0,
+>                 $this->remote_login,
+>                 $this->remote_passwd,
+>                 array('comment_id'=>$pars['comment_ID'])
+>             );
+>
+>   error_log("getComment( " .print_r($params,true) .") --");
+>
+>   $rpc->query('wp.getComment',$params);
+>   $res = $rpc->getResponse();
+>
+>   error_log("got from remote:" .print_r($res,true) .") --");
+>
+> gives me:
+>
+> getComment(Array
+>  (
+>      [0] => 0
+>      [1] => username
+>      [2] => PaSsword
+>      [3] => Array
+>          (
+>              [comment_id] => 50
+>          )
+>  )
+> ) --
+>
+> got from remote:Array
+>  (
+>      [faultCode] => 404
+>      [faultString] => Ung\xc3\xbcltige Kommentar-ID.
+>  )
+> ) --
+>
+> So is this a bug or what could it be?
+>
+>
+> Thanks for any help,
+> Frank
+>
+>
+>
+> --
+> ------------------------------------------------------------------------
+> Frank Rust                          Institut f?r Theoretische Informatik
+> Fon: 0531 3919525               Technische Universit?t Carolo-Wilhelmina
+> Fax: 0531 3919529                              M?hlenpfordtstrasse 22-23
+> Mail: f.rust at tu-bs.de                               D-38106 Braunschweig
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

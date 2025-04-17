@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.0;
+            margin: 0;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .search-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .search-button, .clear-button {
+            padding: 8px 16px;
+            background-color: #0366d6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .search-button:hover, .clear-button:hover {
+            background-color: #0256b9;
+            outline: 2px solid #0366d6;
+            outline-offset: 2px;
+        }
+        .clear-button {
+            background-color: #6c757d;
+        }
+        .clear-button:hover {
+            background-color: #5a6268;
+            outline: 2px solid #6c757d;
+        }
+        .clear-button:focus {
+            outline: 2px solid #6c757d;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.3);
+        }
+        .clear-button:focus:not(:focus-visible) {
+            outline: none;
+            box-shadow: none;
+        }
+        .clear-button:focus-visible {
+            outline: 2px solid #6c757d;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.3);
+        }
+        .list-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .list-filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+        .list-filter-item:hover {
+            background-color: #e9ecef;
+        }
+        .list-filter-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+        }
+        .list-filter-item label {
+            cursor: pointer;
+            font-size: 14px;
+            color: #24292e;
+            white-space: nowrap;
+        }
+        .thread {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #0366d6;
+        }
+        .thread:hover {
+            background-color: #f1f4f7;
+        }
+        .thread-title {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        .thread-title a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        .thread-title a:hover {
+            text-decoration: underline;
+        }
+        .thread-meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            align-items: center;
+        }
+        .pagination a, .pagination span {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #0366d6;
+        }
+        .pagination a:hover {
+            background-color: #f1f4f7;
+        }
+        .pagination .current {
+            background-color: #0366d6;
+            color: white;
+            border-color: #0366d6;
+        }
+        .pagination .ellipsis {
+            border: none;
+            color: #666;
+            padding: 5px 0;
+        }
+        .list-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f1f4f7;
+            border-radius: 4px;
+        }
+        .list-info h2 {
+            margin: 0;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .list-info p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{.Title}}</h1>
+            <form action="/" method="GET" class="search-bar" id="searchForm">
+                <div class="search-input-group">
+                    <input type="text" name="q" value="{{.SearchQuery}}" placeholder="Search messages..." class="search-input">
+                    <button type="submit" class="search-button">Filter</button>
+                    <a href="/" class="clear-button">Clear filters</a>
+                </div>
+                <div class="list-filters">
+                    {{range .Lists}}
+                    <div class="list-filter-item">
+                        <input type="checkbox" name="lists[]" value="{{.ID}}" id="list-{{.ID}}" {{if isListSelected .ID $.SelectedLists}}checked{{end}}>
+                        <label for="list-{{.ID}}" title="{{.Description}}">{{.ID}}</label>
+                    </div>
+                    {{end}}
+                </div>
+            </form>
+        </div>
+
+        {{if .ActiveList}}
+            {{range .Lists}}
+                {{if eq .ID $.ActiveList}}
+                <div class="list-info">
+                    <h2>{{.Name}}</h2>
+                    <p>{{.Description}}</p>
+                </div>
+                {{end}}
+            {{end}}
+        {{end}}
+
+        {{range .Threads}}
+        <div class="thread">
+            <h2 class="thread-title">
+                <a href="/thread/{{urlEscape .FirstMessage.MessageID}}">{{.FirstMessage.Subject}}</a>
+            </h2>
+            <div class="thread-meta">
+                Started by {{.FirstMessage.SenderName}} on {{.FirstMessage.Date.UTC.Format "2006-01-02 15:04:05"}} UTC
+                · {{.TotalMessages}} message{{if ne .TotalMessages 1}}s{{end}}
+                {{if gt .TotalMessages 1}}
+                · Last reply on {{.LastMessageDate.UTC.Format "2006-01-02 15:04:05"}} UTC
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+
+        {{if gt .TotalPages 1}}
+        <div class="pagination">
+            <a href="/?page=1{{if .SearchQuery}}&q={{urlEscape .SearchQuery}}{{end}}{{range .SelectedLists}}&lists[]={{urlEscape .}}{{end}}">First</a>
+            {{if .HasPrev}}
+            <a href="/?page={{subtract .CurrentPage 1}}{{if .SearchQuery}}&q={{urlEscape .SearchQuery}}{{end}}{{range .SelectedLists}}&lists[]={{urlEscape .}}{{end}}">Previous</a>
+            {{end}}
+
+            {{$current := .CurrentPage}}
+            {{$total := .TotalPages}}
+            {{$start := subtract $current 3}}
+            {{$end := add $current 3}}
+
+            {{if lt $start 1}}
+                {{$start = 1}}
+            {{end}}
+            {{if gt $end $total}}
+                {{$end = $total}}
+            {{end}}
+
+            {{if gt $start 1}}
+                <a href="/?page=1{{if $.SearchQuery}}&q={{urlEscape $.SearchQuery}}{{end}}{{range $.SelectedLists}}&lists[]={{urlEscape .}}{{end}}">1</a>
+                {{if gt $start 2}}
+                    <span class="ellipsis">...</span>
+                {{end}}
+            {{end}}
+
+            {{range $page := sequence $start $end}}
+                {{if eq $page $.CurrentPage}}
+                <span class="current">{{$page}}</span>
+                {{else}}
+                <a href="/?page={{$page}}{{if $.SearchQuery}}&q={{urlEscape $.SearchQuery}}{{end}}{{range $.SelectedLists}}&lists[]={{urlEscape .}}{{end}}">{{$page}}</a>
+                {{end}}
+            {{end}}
+
+            {{if lt $end $total}}
+                {{if lt $end (subtract $total 1)}}
+                    <span class="ellipsis">...</span>
+                {{end}}
+                <a href="/?page={{$total}}{{if $.SearchQuery}}&q={{urlEscape $.SearchQuery}}{{end}}{{range $.SelectedLists}}&lists[]={{urlEscape .}}{{end}}">{{$total}}</a>
+            {{end}}
+
+            {{if .HasNext}}
+            <a href="/?page={{add .CurrentPage 1}}{{if .SearchQuery}}&q={{urlEscape .SearchQuery}}{{end}}{{range .SelectedLists}}&lists[]={{urlEscape .}}{{end}}">Next</a>
+            {{end}}
+            <a href="/?page={{.TotalPages}}{{if .SearchQuery}}&q={{urlEscape .SearchQuery}}{{end}}{{range .SelectedLists}}&lists[]={{urlEscape .}}{{end}}">Last</a>
+        </div>
+        {{end}}
+    </div>
+
+    <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const checkedLists = Array.from(form.querySelectorAll('input[name="lists[]"]:checked'))
+            .map(input => input.value);
+        
+        const searchQuery = form.querySelector('input[name="q"]').value;
+        let url = '/?';
+        const params = new URLSearchParams();
+        
+        if (searchQuery) {
+            params.set('q', searchQuery);
+        }
+        
+        checkedLists.forEach(list => {
+            params.append('lists[]', list);
+        });
+        
+        window.location.href = '?' + params.toString();
+    });
+    </script>
+</body>
+</html> 

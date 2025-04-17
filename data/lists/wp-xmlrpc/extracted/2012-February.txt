@@ -1,0 +1,84 @@
+From ryanchan404 at gmail.com  Sun Feb  5 11:54:11 2012
+From: ryanchan404 at gmail.com (Ryan Chan)
+Date: Sun, 5 Feb 2012 19:54:11 +0800
+Subject: [wp-xmlrpc] How to remove an uploaded file using XMLRPC
+Message-ID: <CAJvdmtFGzGNKgjq1juTtXpR23vBh-MrtD_O+bYW6MzWSijGFpw@mail.gmail.com>
+
+I am using `wp.uploadFile` to upload file, but any corresponding method to
+remove it?
+
+I have looked into the documentation and cannot find it.
+
+Any idea?
+
+Ref: http://codex.wordpress.org/XML-RPC_wp#wp.uploadFile
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20120205/b158ec60/attachment.htm>
+
+From joseph at josephscott.org  Mon Feb  6 17:20:50 2012
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 6 Feb 2012 10:20:50 -0700
+Subject: [wp-xmlrpc] How to remove an uploaded file using XMLRPC
+In-Reply-To: <CAJvdmtFGzGNKgjq1juTtXpR23vBh-MrtD_O+bYW6MzWSijGFpw@mail.gmail.com>
+References: <CAJvdmtFGzGNKgjq1juTtXpR23vBh-MrtD_O+bYW6MzWSijGFpw@mail.gmail.com>
+Message-ID: <CAE81+yYJ1Q9CuTk4sWJ2-B4wUyeywDB3_ENqLNtTXDOQ_Vu3rw@mail.gmail.com>
+
+We don't currently have a method for delete files.  Media management
+methods is something that has been talked about though.  Need someone
+to put some time on that feature.
+
+On Sun, Feb 5, 2012 at 4:54 AM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+> I am using `wp.uploadFile` to upload file, but any?corresponding?method to
+> remove it?
+>
+> I have looked into the documentation and cannot find it.
+>
+> Any idea?
+>
+> Ref:?http://codex.wordpress.org/XML-RPC_wp#wp.uploadFile
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From ryanchan404 at gmail.com  Wed Feb 29 10:04:55 2012
+From: ryanchan404 at gmail.com (Ryan Chan)
+Date: Wed, 29 Feb 2012 18:04:55 +0800
+Subject: [wp-xmlrpc] Why "Auto Draft" row are created during XMLRPC create
+	new article?
+Message-ID: <CAJvdmtG_7kJpoArK5g0ZyqB54FprL=Sg41sr85C6cvuNH-bHrg@mail.gmail.com>
+
+I found out that during XMLRPC insert post to the wordpress, some strange
+rows, together with the real posts are created, e.g.
+
+INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`,
+`post_content`, `post_title`, `post_excerpt`, `post_status`,
+`comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`,
+`pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`,
+`post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`,
+`comment_count`) VALUES (1,1,'2012-02-29 09:26:43','0000-00-00
+00:00:00','','Auto
+Draft','','auto-draft','open','open','','','','','2012-02-29
+09:26:43','0000-00-00 00:00:00','',0,'
+http://www.example.net/wordpress/test1/?p=1',0,'post','',0);
+
+
+Why "Auto Draft" is created automatically? Can it be skipped?
+
+Thanks.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20120229/283952fb/attachment.htm>
+

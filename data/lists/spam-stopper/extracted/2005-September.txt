@@ -1,0 +1,3998 @@
+From m at mullenweg.com  Tue Sep 20 06:36:27 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon, 19 Sep 2005 23:36:27 -0700
+Subject: [spam-stopper] Welcome everybody
+Message-ID: <432FADEB.9070402@mullenweg.com>
+
+First off I wanted to thank everyone to volunteering to try out this 
+experiment and help out with everything.
+
+Before getting started, I should point out a few things:
+
+* Please deactivate all other spam plugins and clear your blacklists
+* In the beginning you *will* get more spam, as the system starts to learn
+* The idea is that you will get drastically less after a few days
+* When spam does get through mark it as "spam" in the WP interface and 
+it'll be submitted back for review and it'll protect other members of 
+the network.
+
+Without further ado, the plugin is attached. It's a standard upload and 
+activate job, no configuration right now.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: automattic-spam-stopper.php
+Type: application/atom
+Size: 3181 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050919/15a03224/attachment.bin>
+
+From m at mullenweg.com  Tue Sep 20 06:40:08 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon, 19 Sep 2005 23:40:08 -0700
+Subject: [spam-stopper] How it works
+Message-ID: <432FAEC8.3010302@mullenweg.com>
+
+When a comment comes in it submits its data to the spam service, which 
+then runs a number of checks tests on it and compares it to its list of 
+(literally) hundreds of thousands of spams.
+
+It returns back a thumbs up or down.
+
+If the service is down or unreachable it doesn't change the moderation 
+value of the comment.
+
+The secret sauce is a team of highly trained monkeys who can swat spam 
+with their tails while typing.
+
+Feel free to post any questions or comments to this list. I have one 
+more email for the getting-started onslaught.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From nuclearmoose at gmail.com  Tue Sep 20 07:04:37 2005
+From: nuclearmoose at gmail.com (Craig)
+Date: Tue, 20 Sep 2005 00:04:37 -0700
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <432FADEB.9070402@mullenweg.com>
+References: <432FADEB.9070402@mullenweg.com>
+Message-ID: <5aa3aa050920000419a04e8b@mail.gmail.com>
+
+I'm happy to be part of it...but I must admit to feeling rather strange 
+"dropping my pants" like this and exposing myself to the spammers! LOL!
+
+Thanks for letting me participate, Matt.
+
+Craig Hartel
+NuclearMoose
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050920/017666d7/attachment.htm>
+
+From m at mullenweg.com  Tue Sep 20 07:09:52 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 00:09:52 -0700
+Subject: [spam-stopper] Long-term plans
+Message-ID: <432FB5C0.20305@mullenweg.com>
+
+Assuming this whole things works, and we don't know if it will yet, I'm 
+still figuring out how to make it self-sustaining in the long term.
+
+The obvious answer is to have it be a paid-only service, so all costs 
+are covered from the beginning, but I really feel like the web needs 
+serious help with comment spam, and charging for basic protection isn't 
+going to make the web a better place.
+
+I would be more comfortable with something where it was free for regular 
+people, and only businesses or enterprises paid (enough to support 
+everybody).
+
+There may be "keys" or accounts at some point to prevent abuse.
+
+However the plugin and API are designed to be pretty easy to recreate, 
+so if someone wanted to run their own spam service they could easily.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From rainchx at gmail.com  Tue Sep 20 07:14:23 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Tue, 20 Sep 2005 19:14:23 +1200
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <432FADEB.9070402@mullenweg.com>
+References: <432FADEB.9070402@mullenweg.com>
+Message-ID: <2d764fd0050920001448967ad9@mail.gmail.com>
+
+Just set 11 comments as spam. hope they came through! good to see something 
+happening to them!
+
+Sarah
+http://sarahk.pcpropertymanager.com/blog/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050920/a1dc68e3/attachment.htm>
+
+From rainchx at gmail.com  Tue Sep 20 07:17:46 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Tue, 20 Sep 2005 19:17:46 +1200
+Subject: [spam-stopper] Long-term plans
+In-Reply-To: <432FB5C0.20305@mullenweg.com>
+References: <432FB5C0.20305@mullenweg.com>
+Message-ID: <2d764fd005092000175cf3050b@mail.gmail.com>
+
+And there needs to be an appeals court for false positives, but really, this 
+is fantastic and it's long overdue. 
+
+Sarah
+
+On 20/09/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> 
+> Assuming this whole things works, and we don't know if it will yet, I'm
+> still figuring out how to make it self-sustaining in the long term.
+> 
+> The obvious answer is to have it be a paid-only service, so all costs
+> are covered from the beginning, but I really feel like the web needs
+> serious help with comment spam, and charging for basic protection isn't
+> going to make the web a better place.
+> 
+> I would be more comfortable with something where it was free for regular
+> people, and only businesses or enterprises paid (enough to support
+> everybody).
+> 
+> There may be "keys" or accounts at some point to prevent abuse.
+> 
+> However the plugin and API are designed to be pretty easy to recreate,
+> so if someone wanted to run their own spam service they could easily.
+> 
+> --
+> Matt Mullenweg
+> http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> 
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050920/b08cac7d/attachment.htm>
+
+From m at mullenweg.com  Tue Sep 20 07:19:20 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 00:19:20 -0700
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <5aa3aa050920000419a04e8b@mail.gmail.com>
+References: <432FADEB.9070402@mullenweg.com>
+	<5aa3aa050920000419a04e8b@mail.gmail.com>
+Message-ID: <432FB7F8.3070207@mullenweg.com>
+
+Craig wrote:
+> I'm happy to be part of it...but I must admit to feeling rather strange 
+> "dropping my pants" like this and exposing myself to the spammers! LOL!
+
+I think that's some great imagery to start the project off with. :)
+
+By the time we're done spammers around the world will quiver in their boots.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Tue Sep 20 07:25:18 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 00:25:18 -0700
+Subject: [spam-stopper] Long-term plans
+In-Reply-To: <2d764fd005092000175cf3050b@mail.gmail.com>
+References: <432FB5C0.20305@mullenweg.com>
+	<2d764fd005092000175cf3050b@mail.gmail.com>
+Message-ID: <432FB95E.2080205@mullenweg.com>
+
+Sarah King wrote:
+> And there needs to be an appeals court for false positives, but really, 
+> this is fantastic and it's long overdue.
+
+The system is designed to err on the side of no false positives, but 
+especially over the next couple of weeks we're going to be watching the 
+comment stream manually and tweaking things if any false positives come 
+through. (There have been none thus far.)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From melanie at itcouldbenothing.com  Tue Sep 20 07:33:26 2005
+From: melanie at itcouldbenothing.com (Melanie)
+Date: Tue, 20 Sep 2005 03:33:26 -0400
+Subject: [spam-stopper] Question: How to clear blacklist
+In-Reply-To: <432FB7F8.3070207@mullenweg.com>
+References: <432FADEB.9070402@mullenweg.com>	<5aa3aa050920000419a04e8b@mail.gmail.com>
+	<432FB7F8.3070207@mullenweg.com>
+Message-ID: <432FBB46.4010807@itcouldbenothing.com>
+
+I may be the only person who doesn't know how to do it, but I figure if 
+I don't, there's probably at least one other person who is out here with 
+me, so I'll be the one who bares my ignorance and asks the question.
+
+I've been using Spam Karma, just upgraded to SK2 today actually. (Effort 
+that could have been spent elsewhere?) I *think* I cleared my blacklist 
+by going to the Manage SK2 page, then Blacklist, then removed all the 
+entries in the list. But I want to make sure that's all I needed to do. 
+I'd like to be testing this the right way, you know?
+
+There were only 20 entries -- but I'm thinking that's just because I 
+just upgraded to SK2 today, as I get about 30 spam comments a day 
+usually, so surely there would have been more entries before -- is there 
+something else I need to clear from the previous version of SK?
+
+Glad to help test, and thanks for any answers in advance!
+
+Mel
+itcouldbenothing.com/fruitfly
+
+
+
+
+From m at mullenweg.com  Tue Sep 20 07:51:00 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 00:51:00 -0700
+Subject: [spam-stopper] Question: How to clear blacklist
+In-Reply-To: <432FBB46.4010807@itcouldbenothing.com>
+References: <432FADEB.9070402@mullenweg.com>	<5aa3aa050920000419a04e8b@mail.gmail.com>	<432FB7F8.3070207@mullenweg.com>
+	<432FBB46.4010807@itcouldbenothing.com>
+Message-ID: <432FBF64.8040403@mullenweg.com>
+
+Melanie wrote:
+> I've been using Spam Karma, just upgraded to SK2 today actually. (Effort 
+> that could have been spent elsewhere?) I *think* I cleared my blacklist 
+> by going to the Manage SK2 page, then Blacklist, then removed all the 
+> entries in the list. But I want to make sure that's all I needed to do. 
+> I'd like to be testing this the right way, you know?
+
+You should deactivate any other plugins on the plugin screen. Once 
+they're deactivated you shouldn't have to worry about them.
+
+Under Options > Discussion there is your built-in WP mod list and 
+blacklist, you should clear that out too.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From melanie at itcouldbenothing.com  Tue Sep 20 08:01:43 2005
+From: melanie at itcouldbenothing.com (Melanie)
+Date: Tue, 20 Sep 2005 04:01:43 -0400
+Subject: [spam-stopper] Question: How to clear blacklist
+In-Reply-To: <432FBF64.8040403@mullenweg.com>
+References: <432FADEB.9070402@mullenweg.com>	<5aa3aa050920000419a04e8b@mail.gmail.com>	<432FB7F8.3070207@mullenweg.com>	<432FBB46.4010807@itcouldbenothing.com>
+	<432FBF64.8040403@mullenweg.com>
+Message-ID: <432FC1E7.7000804@itcouldbenothing.com>
+
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050920/0f2c6863/attachment.htm>
+
+From r at schestowitz.com  Tue Sep 20 10:58:48 2005
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Tue, 20 Sep 2005 11:58:48 +0100
+Subject: [spam-stopper] Long-term plans
+In-Reply-To: <432FB5C0.20305@mullenweg.com>
+References: <432FB5C0.20305@mullenweg.com>
+Message-ID: <20050920115848.a4cmj4hd1e0ow004@banana.catalyst2.com>
+
+_____/ On Tue 20 Sep 2005 08:09:52 BST, [Matt Mullenweg] wrote : \_____
+
+I have just noticed automattic.com. I never realised it was there until 
+I looked
+at the code... registered with GoDaddy.com and already some very 
+descent status!
+The domain name is an excellent one (very catchy) and I was surprised 
+it hadn't
+been taken.
+
+
+> Assuming this whole things works, and we don't know if it will yet, 
+> I'm still figuring out how to make it self-sustaining in the long 
+> term.
+
+
+I am sure that many people will voluntarily donate a pittance, especially
+bearing in mind what a hassle the project saves them from.
+
+
+> The obvious answer is to have it be a paid-only service, so all costs 
+> are covered from the beginning, but I really feel like the web needs 
+> serious help with comment spam, and charging for basic protection 
+> isn't going to make the web a better place.
+>
+> I would be more comfortable with something where it was free for 
+> regular people, and only businesses or enterprises paid (enough to 
+> support everybody).
+
+
+I was thinking along the same lines. BSD springs to mind.
+
+
+> There may be "keys" or accounts at some point to prevent abuse.
+>
+> However the plugin and API are designed to be pretty easy to 
+> recreate, so if someone wanted to run their own spam service they 
+> could easily.
+                                                  ^^^^^^^^^^^^
+
+You mean "anti-spam", right? *smile*
+
+API's that are too open would also allow the (more cunning among the) spammers
+to shrewdly prepare spam that penetrates. Be careful. For the same reasons
+(among others, e.g. competition), big G will not reveal their special recipe.
+SEO's can really muck up the SERP's as one /recent/ story shows <
+http://tinyurl.com/crswj >.
+
+Roy
+
+-- 
+Roy S. Schestowitz      | "Avoid missing ball for higher score"
+http://Schestowitz.com  |    SuSE Linux    |     PGP-Key: 74572E8E
+11:50am  up 26 days  0:04,  4 users,  load average: 0.05, 0.22, 0.25
+
+
+
+From unteins at somuchgeek.com  Tue Sep 20 12:52:04 2005
+From: unteins at somuchgeek.com (Unteins)
+Date: Tue, 20 Sep 2005 05:52:04 -0700
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <5aa3aa050920000419a04e8b@mail.gmail.com>
+References: <432FADEB.9070402@mullenweg.com>
+	<5aa3aa050920000419a04e8b@mail.gmail.com>
+Message-ID: <5CA7879D-B409-49F3-9C69-668B0AABC183@somuchgeek.com>
+
+Moose feels strange dropping his pants....now that's a first ;)
+
+Btw, Hi Craig!
+
+I am going to try this on blog #2 first, then if all seems well, I  
+will go with blog #1 as well. Do I have to be on WP 1.5.2? I will  
+need to upgrade the blog.
+
+This sounds a bit like the old spam service which I tested, which was  
+helpful.
+
+I cleared my moderation list, so that blog is as vulnerable as a  
+newborn doe. I didn't clear Spam Karma 2 out, just turned it off.  
+That way if I find it necessary to switch back, I should be ok. I  
+don't think this should skew results in anyway.
+
+In the words of those famous cockroaches "Rrrraaaaaiiiiiiidddddd!"
+
+On Sep 20, 2005, at 12:04 AM, Craig wrote:
+
+> I'm happy to be part of it...but I must admit to feeling rather  
+> strange "dropping my pants" like this and exposing myself to the  
+> spammers! LOL!
+>
+> Thanks for letting me participate, Matt.
+>
+> Craig Hartel
+> NuclearMoose
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+From unteins at somuchgeek.com  Tue Sep 20 13:36:06 2005
+From: unteins at somuchgeek.com (Unteins)
+Date: Tue, 20 Sep 2005 06:36:06 -0700
+Subject: [spam-stopper] How it works
+In-Reply-To: <432FAEC8.3010302@mullenweg.com>
+References: <432FAEC8.3010302@mullenweg.com>
+Message-ID: <38892616-C115-437D-BE1C-B26844A5E13B@somuchgeek.com>
+
+This phrase should be hard coded (along with byob@ in the email :) as  
+spam:
+
+"You may find it interesting"
+
+I get that in about 75% of my spam....makes it easy the filter, but  
+geeze it is annoying. I don't find pointless off topic stuff  
+interesting.
+
+2 spams arrived on my doorstep in the first hour after starting the  
+trials....wheeee
+
+
+From m at mullenweg.com  Tue Sep 20 15:08:51 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 08:08:51 -0700
+Subject: [spam-stopper] How it works
+In-Reply-To: <38892616-C115-437D-BE1C-B26844A5E13B@somuchgeek.com>
+References: <432FAEC8.3010302@mullenweg.com>
+	<38892616-C115-437D-BE1C-B26844A5E13B@somuchgeek.com>
+Message-ID: <43302603.70407@mullenweg.com>
+
+Unteins wrote:
+> 2 spams arrived on my doorstep in the first hour after starting the  
+> trials....wheeee
+
+I just fixed a few bugs that were causing some things to get through 
+which should have been protected.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Tue Sep 20 15:08:22 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 08:08:22 -0700
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <5CA7879D-B409-49F3-9C69-668B0AABC183@somuchgeek.com>
+References: <432FADEB.9070402@mullenweg.com>	<5aa3aa050920000419a04e8b@mail.gmail.com>
+	<5CA7879D-B409-49F3-9C69-668B0AABC183@somuchgeek.com>
+Message-ID: <433025E6.3060606@mullenweg.com>
+
+Unteins wrote:
+> I am going to try this on blog #2 first, then if all seems well, I  will 
+> go with blog #1 as well. Do I have to be on WP 1.5.2? I will  need to 
+> upgrade the blog.
+
+You need to be on at least 1.5, the latest version probably wouldn't hurt.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From i88schwartz at gmail.com  Tue Sep 20 15:21:55 2005
+From: i88schwartz at gmail.com (Ian Schwartz)
+Date: Tue, 20 Sep 2005 11:21:55 -0400
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <433025E6.3060606@mullenweg.com>
+References: <432FADEB.9070402@mullenweg.com>
+	<5aa3aa050920000419a04e8b@mail.gmail.com>
+	<5CA7879D-B409-49F3-9C69-668B0AABC183@somuchgeek.com>
+	<433025E6.3060606@mullenweg.com>
+Message-ID: <b0f805b005092008215de0216a@mail.gmail.com>
+
+Thanks for letting me join .. should I disable Enhanced View? It's not a 
+spam plugin but it lets you view blacklisted comments.
+
+On 9/20/05, Matt Mullenweg <m at mullenweg.com> wrote: 
+> 
+> Unteins wrote:
+> > I am going to try this on blog #2 first, then if all seems well, I will
+> > go with blog #1 as well. Do I have to be on WP 1.5.2? I will need to
+> > upgrade the blog.
+> 
+> You need to be on at least 1.5, the latest version probably wouldn't hurt.
+> 
+> --
+> Matt Mullenweg
+> http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050920/beef0b30/attachment.htm>
+
+From m at mullenweg.com  Tue Sep 20 15:24:26 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 08:24:26 -0700
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <b0f805b005092008215de0216a@mail.gmail.com>
+References: <432FADEB.9070402@mullenweg.com>	<5aa3aa050920000419a04e8b@mail.gmail.com>	<5CA7879D-B409-49F3-9C69-668B0AABC183@somuchgeek.com>	<433025E6.3060606@mullenweg.com>
+	<b0f805b005092008215de0216a@mail.gmail.com>
+Message-ID: <433029AA.5040404@mullenweg.com>
+
+Ian Schwartz wrote:
+> Thanks for letting me join .. should I disable Enhanced View? It's not a 
+> spam plugin but it lets you view blacklisted comments.
+
+No that should be fine to leave.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From terrancedc at earthlink.net  Tue Sep 20 17:20:07 2005
+From: terrancedc at earthlink.net (Terrance Heath)
+Date: Tue, 20 Sep 2005 13:20:07 -0400
+Subject: [spam-stopper] Comment Moderation Question
+Message-ID: <90714089-9482-4959-8E5A-C688875621B7@earthlink.net>
+
+I currently have moderation set up for people who don't have approved  
+comments, or comments that have more than five links. I also have a  
+pretty long list of terms that cause comment to get put  in the  
+moderation queue.  Do I need to turn these options off as well as  
+clear the moderation list in order to use this plugin?
+
+Terrance Heath
+Washington, DC
+terrancedc at earthlink.net
+http://www.republicoft.com
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050920/25067490/attachment.htm>
+
+From m at mullenweg.com  Tue Sep 20 18:56:36 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 11:56:36 -0700
+Subject: [spam-stopper] Comment Moderation Question
+In-Reply-To: <90714089-9482-4959-8E5A-C688875621B7@earthlink.net>
+References: <90714089-9482-4959-8E5A-C688875621B7@earthlink.net>
+Message-ID: <43305B64.9000007@mullenweg.com>
+
+Terrance Heath wrote:
+> I currently have moderation set up for people who don't have approved 
+> comments, or comments that have more than five links. I also have a 
+> pretty long list of terms that cause comment to get put  in the 
+> moderation queue.  Do I need to turn these options off as well as clear 
+> the moderation list in order to use this plugin?
+
+I would leave the first one, but clear out your long list of terms. You 
+shouldn't need it any more.
+
+-- 
+Matt Mullenweg
+http://photomatt.net  | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Tue Sep 20 18:57:19 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 11:57:19 -0700
+Subject: [spam-stopper] More updates
+Message-ID: <43305B8F.9090603@mullenweg.com>
+
+Just tweaked the matching a bit more, it seems to be catching a lot more 
+junk.
+
+
+By tomorrow it should be running close to full-speed for everyone who 
+has already installed it.
+
+-- 
+Matt Mullenweg
+http://photomatt.net  | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From rainchx at gmail.com  Tue Sep 20 18:59:50 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Wed, 21 Sep 2005 06:59:50 +1200
+Subject: [spam-stopper] Long-term plans
+In-Reply-To: <20050920115848.a4cmj4hd1e0ow004@banana.catalyst2.com>
+References: <432FB5C0.20305@mullenweg.com>
+	<20050920115848.a4cmj4hd1e0ow004@banana.catalyst2.com>
+Message-ID: <2d764fd0050920115959097e5b@mail.gmail.com>
+
+> 
+> > Assuming this whole things works, and we don't know if it will yet,
+> > I'm still figuring out how to make it self-sustaining in the long
+> > term.
+> 
+> 
+> I am sure that many people will voluntarily donate a pittance, especially
+> bearing in mind what a hassle the project saves them from.
+> 
+> 
+> And we'd happily give a link back to you with a cute image and "protected 
+by Matt"
+
+Sarah
+http://sarahk.pcpropertymanager.com/blog/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050921/ca7d581c/attachment.htm>
+
+From unteins at somuchgeek.com  Tue Sep 20 19:03:11 2005
+From: unteins at somuchgeek.com (unteins at somuchgeek.com)
+Date: Tue, 20 Sep 2005 14:03:11 -0500 (CDT)
+Subject: [spam-stopper] More updates
+In-Reply-To: <43305B8F.9090603@mullenweg.com>
+References: <43305B8F.9090603@mullenweg.com>
+Message-ID: <13906.17.255.240.158.1127242991.squirrel@17.255.240.158>
+
+I have 10 more spams, starting at 1:17 PM server time, which I think is
+11:17 AM California time and going until 1:52 PM, spamming them now...
+
+> Just tweaked the matching a bit more, it seems to be catching a lot more
+> junk.
+>
+>
+> By tomorrow it should be running close to full-speed for everyone who
+> has already installed it.
+>
+> --
+> Matt Mullenweg
+> http://photomatt.net  | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+
+From unteins at somuchgeek.com  Tue Sep 20 19:10:54 2005
+From: unteins at somuchgeek.com (unteins at somuchgeek.com)
+Date: Tue, 20 Sep 2005 14:10:54 -0500 (CDT)
+Subject: [spam-stopper] Long-term plans
+In-Reply-To: <432FB5C0.20305@mullenweg.com>
+References: <432FB5C0.20305@mullenweg.com>
+Message-ID: <9806.17.255.240.158.1127243454.squirrel@17.255.240.158>
+
+It is an interesting problem how to pay for these sorts of things. Its too
+bad you can't leverage the mass adoption a la Bit Torrent and have
+everyone who uses it foot part of the cost in terms of server resources,
+which is most likely going to be the bulk of expense.
+
+Out of curiosity, and I am thinking off the top of my head here, is there
+any reason why the system couldn't be setup as a hybrid local/remote?
+Basically, each client hosts a local version which checks the spaminess of
+a comment and if it is spam, rejects it locally, possibly creating some
+kind of update record to send on periodically to the main site (though if
+it is already detectable as spam, I don't know if that would be of any
+use) and if a comment passes the local spam check only those get sent on
+to the remote server? If they are flagged as spam by the remote, the
+remote must have better data to check against so an update is run?
+
+Should keep the overal server needs down, if it is feasible.
+
+If the cost of spam exceeded the cost of preventing spam, then I might pay
+for it. But currently there are effective free spam tools out there
+(including my own two little hands deleting the crud flood) so I doubt I'd
+pay for the service at this juncture, but I am sure there are those who
+would. I would be totally willing to include a link as payment if that was
+asked. I'm a little annoyed that Ethan Zohn (Survivor Africa Winner) uses
+WordPress and stripped out the credits (http://eZhon.com and my post
+about:
+http://somuchgeek.com/2005/09/18/survivor-africa-winner-ethan-uses-wordpress/)
+
+> Assuming this whole things works, and we don't know if it will yet, I'm
+> still figuring out how to make it self-sustaining in the long term.
+>
+> The obvious answer is to have it be a paid-only service, so all costs
+> are covered from the beginning, but I really feel like the web needs
+> serious help with comment spam, and charging for basic protection isn't
+> going to make the web a better place.
+>
+> I would be more comfortable with something where it was free for regular
+> people, and only businesses or enterprises paid (enough to support
+> everybody).
+>
+> There may be "keys" or accounts at some point to prevent abuse.
+>
+> However the plugin and API are designed to be pretty easy to recreate,
+> so if someone wanted to run their own spam service they could easily.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+
+From m at mullenweg.com  Wed Sep 21 02:12:07 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 20 Sep 2005 19:12:07 -0700
+Subject: [spam-stopper] Awfully quiet around here
+Message-ID: <4330C177.3090408@mullenweg.com>
+
+How's it working?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From rainchx at gmail.com  Wed Sep 21 02:18:25 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Wed, 21 Sep 2005 14:18:25 +1200
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <2d764fd005092019182049ec5c@mail.gmail.com>
+
+I just checked my blog and 4 poker posts had got through. 
+
+How do we know that the plugin is actually working? does it stamp or log 
+anything locally? Can you check at your end that you're getting input from 
+my blog?
+
+Sarah
+http://sarahk.pcpropertymanager.com/blog/
+
+On 21/09/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> 
+> How's it working?
+> 
+> --
+> Matt Mullenweg
+> http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> 
+
+
+
+-- 
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050921/688d0fb9/attachment.htm>
+
+From sim at hampel.com.au  Wed Sep 21 02:24:58 2005
+From: sim at hampel.com.au (Sim' Hampel)
+Date: Wed, 21 Sep 2005 12:24:58 +1000
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <4330C47A.70904@hampel.com.au>
+
+Nothing so far on any of my blogs.
+
+Don't know whether that's a result of my having comments turned off on 
+older posts for all that time. I've turned comments back on now.
+
+So either the spammers are active and it's working, or else the spammers 
+aren't hitting me at the moment, and we can't really tell.
+
+Sim'
+
+Matt Mullenweg wrote:
+> How's it working?
+> 
+
+-- 
+Simon Hampel (Sim')
+sim at hampel.com.au
+
+Ph. +61 417 878 963
+NodePhone: +61 2 9043 0036
+Jabber IM: sim at jabber.zim.net.au
+MSN IM: sim at hampel.com.au
+
+Blog :: The Rhyme of Sim'
+http://www.hampel.com.au/blog
+
+InvestEd :: Teaching Australians to Invest
+http://www.invested.com.au/
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: sim.vcf
+Type: text/x-vcard
+Size: 270 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050921/34800d47/attachment.vcf>
+
+From doug at coffeeswirls.com  Wed Sep 21 02:40:11 2005
+From: doug at coffeeswirls.com (Doug McHone)
+Date: Tue, 20 Sep 2005 21:40:11 -0500
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <4330C80B.5040503@coffeeswirls.com>
+
+I'm getting spam still, though not as many as normal. Using the 
+auto-moderate plugin, I would expect 100-200 spams a day.  I would 
+estimate 50 that I've marked as spam today. 
+
+Doug
+
+Matt Mullenweg wrote:
+
+> How's it working?
+>
+
+
+
+From dmitrivonklein at gmail.com  Wed Sep 21 03:03:08 2005
+From: dmitrivonklein at gmail.com (Dmitri Von Klein)
+Date: Tue, 20 Sep 2005 20:03:08 -0700
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <CA6BABD5-2827-47B9-8BFC-E31F81322F9D@gmail.com>
+
+All quiet on the spam front =)
+
+On Sep 20, 2005, at 7:12 PM, Matt Mullenweg wrote:
+
+> How's it working?
+>
+> -- 
+> Matt Mullenweg
+>  http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+From gott at uberbin.net  Wed Sep 21 03:28:29 2005
+From: gott at uberbin.net (=?iso-8859-1?Q?=DCberbin.net?=)
+Date: Wed, 21 Sep 2005 00:28:29 -0300
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <CA6BABD5-2827-47B9-8BFC-E31F81322F9D@gmail.com>
+Message-ID: <20050921032837.7307BB2B50@filch.dreamhost.com>
+
+Not so quiet here... My friend Holdem is quite active ;)
+
+-----Original Message-----
+From: spam-stopper-bounces at lists.automattic.com
+[mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Dmitri Von Klein
+Sent: Mi?rcoles, 21 de Septiembre de 2005 12:03 a.m.
+To: spam-stopper at lists.automattic.com
+Subject: Re: [spam-stopper] Awfully quiet around here
+
+All quiet on the spam front =)
+
+On Sep 20, 2005, at 7:12 PM, Matt Mullenweg wrote:
+
+> How's it working?
+>
+> --
+> Matt Mullenweg
+>  http://photomatt.net | http://wordpress.org http://pingomatic.com | 
+> http://cnet.com _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+_______________________________________________
+spam-stopper mailing list
+spam-stopper at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From r at schestowitz.com  Wed Sep 21 05:58:52 2005
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Wed, 21 Sep 2005 06:58:52 +0100
+Subject: [spam-stopper] Spam-stopper Back-end
+Message-ID: <20050921065852.ukyrmxbll90c408w@banana.catalyst2.com>
+
+I have looked at the code quite thoroughly, noticing that URL's of sites get
+recorded. This introduces the interesting possibility of getting spam
+statistics, as well as the possibility of tracking blogs. By all means, it is
+not something that bothers me.
+
+I also notice that filter output is binary, i.e. accept or reject. A
+Spamassassim-like ranking mechanism is worth considering in the future (at the
+cost of complexity). Regardless:
+
+I am curious as to what happens at the back-end. Is it something which ought to
+remain undisclosed at present?
+
+	$comment['user_ip']    = $_SERVER['REMOTE_ADDR'];
+	$comment['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+	$comment['referrer']   = $_SERVER['HTTP_REFERER'];
+	$comment['blog']       = get_option('home');
+
+I am assuming that this is at most information one can gather. Whether you use a
+Bayesian approach I don't know. How do you train your filters? Are you building
+a neural network? Linear discriminant analysis? Support vector machines?
+Boosting? All such choices can make a tremendous difference in the long-term,
+especially if yet another service was to compete with yours. By changing your
+filter some day 'along the way' you throw away what you already have. Stay away
+from lock-ins (layering, abstractionand long testing phase are key points). To
+get the least false positives [1], you need to make some important choices:
+
+- The training algorithm
+- The criteria (parameters) used in training, e.g. should you even care about
+user-agent, or will it just add noise to our model? The spammer can easily
+spoof these; not the case with IP addresses.
+- Localisation or 'fragmentation' of filters, e.g. Chinese blogs will need
+difference filters from these of an American. Mix the two and you will weaken
+the model's specificity and generalisation ability.
+
+[1] Spaminator, for example, can really puts off the user when it intercepts
+(READ: not flags or re-directs) genuine contributions. False positive are a
+popularity killer, especially due to the /volume/ of comment spam, where once
+has to eye-scan.
+
+Roy
+
+PS - This time I proofread, so I hope there will be no typos as in my previous
+message.
+
+-- 
+Roy S. Schestowitz      | Useless fact: There are five regular polyhedra
+http://Schestowitz.com  |    SuSE Linux    |     PGP-Key: 74572E8E
+  6:55am  up 26 days 19:09,  3 users,  load average: 0.04, 0.10, 0.17
+
+
+From r at schestowitz.com  Wed Sep 21 06:19:51 2005
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Wed, 21 Sep 2005 07:19:51 +0100
+Subject: [spam-stopper] Potential Pitfall
+Message-ID: <20050921071951.a261dyo6nb40wkc0@banana.catalyst2.com>
+
+I forgot to mention in my previous message yet another issue that could arise.
+You must be very careful who gets hold of the plug-in and probably impose a
+difficult-to-fool registration mechanism. This is not a matter of getting paid
+licences. There need to be a way of ensuring that illegitimate blogs do not
+have access to spam-stopper.
+
+A tool such as this in the hand of a spammer is dangerous. They may force you to
+flush down your filters, starting from scratch again. Since you record blog URL,
+you could probably weed out noise, but what if you have millions a la
+Ping-o-matic?
+
+Links exchanges and mass erection of blogs at Google's get-you-blog-in-5-minutes
+schemes have shown the need for quality control. Spammer don't lack traffic.
+Spammers don't mind destruction either. Give a spammer access to spam-stopper
+and they will make their comments appear benign using brute force. Conversely,
+let them make some mockup comments and report them as spam... solely in order
+to break your filters and lead to false positives. In turn, as a direct
+consequence, people may stop using spam-stopper, which has become overly
+susceptible to spam. So, comments peculate yet again...
+
+The bottom line is that one of the perils one faces is controlling the spam
+reporters. You need to be provided with a statistical sample that is large
+enough, but to have good 'quality control' at the same time. How can you then
+handle zombies, dynamic IP addresses, etc? Will you need to authenticate with
+those who report spam?
+
+There are not questions to be discarded. Where there are gaps, there will be
+exploits. Use word-matching spam mechanism and the spammers will use 1's and
+4's to spell Viagra or use different encodings in HTML. Allow too lenient an
+access to spam.automattic.com and the vulnerability will sooner or later be
+spotted.
+
+Roy
+
+
+-- 
+Roy S. Schestowitz      | Bottom-post: as English goes from top to bottom
+http://Schestowitz.com  |    SuSE Linux    |     PGP-Key: 74572E8E
+  7:05am  up 26 days 19:19,  3 users,  load average: 0.50, 0.43, 0.30
+
+
+From melanie at itcouldbenothing.com  Wed Sep 21 06:55:09 2005
+From: melanie at itcouldbenothing.com (Melanie)
+Date: Wed, 21 Sep 2005 02:55:09 -0400
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <433103CD.8070204@itcouldbenothing.com>
+
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050921/7d90b143/attachment.htm>
+
+From m at mullenweg.com  Wed Sep 21 08:07:42 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 21 Sep 2005 01:07:42 -0700
+Subject: [spam-stopper] Bug
+Message-ID: <433114CE.7080705@mullenweg.com>
+
+There seems to be a bug where the web service marks it as spam but it 
+still shows up in WP anyway. I'm going to try to track this down 
+tomorrow, a cursory overview didn't reveal any problems with the plugin.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Wed Sep 21 08:36:20 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 21 Sep 2005 01:36:20 -0700
+Subject: [spam-stopper] Bug
+In-Reply-To: <433114CE.7080705@mullenweg.com>
+References: <433114CE.7080705@mullenweg.com>
+Message-ID: <43311B84.9010206@mullenweg.com>
+
+Matt Mullenweg wrote:
+> There seems to be a bug where the web service marks it as spam but it 
+> still shows up in WP anyway. I'm going to try to track this down 
+> tomorrow, a cursory overview didn't reveal any problems with the plugin.
+
+Okay, I have no idea what changed but $response seems to be an array now 
+rather than a string. I'll test this on a few other servers and see 
+what's up.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From jennifer at geeksmakemehot.com  Wed Sep 21 11:02:56 2005
+From: jennifer at geeksmakemehot.com (Jennifer Ledbetter)
+Date: Wed, 21 Sep 2005 06:02:56 -0500
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <43313DE0.2070200@geeksmakemehot.com>
+
+Matt Mullenweg wrote:
+
+> How's it working?
+>
+As of this morning:
+
+21 spam comments have gotten through
+24 trackbacks
+
+Also, someone tried to comment and this is what happend " It took the 
+first line of my comment before it threw errors and the rest was lost".
+
+I have a nifty little folder in my inbox that I've been saving the spam 
+that has gotten through.  Do you need to look at any of these?
+
+I say let's have a Spam Party.  Ever BBQed Spam? 
+
+<3 Jennifer
+
+
+From unteins at somuchgeek.com  Wed Sep 21 12:48:04 2005
+From: unteins at somuchgeek.com (unteins at somuchgeek.com)
+Date: Wed, 21 Sep 2005 07:48:04 -0500 (CDT)
+Subject: [spam-stopper] Awfully quiet around here
+In-Reply-To: <4330C177.3090408@mullenweg.com>
+References: <4330C177.3090408@mullenweg.com>
+Message-ID: <46465.24.6.195.248.1127306884.squirrel@24.6.195.248>
+
+No spam other than what I reported earlier. I know there won't be any
+legit comments on the blog I am using the plugin on.
+
+My laptop commited suicide yesterday. Luckily the drive was still
+operable, thank goodness for Firewire Target Disk mode.
+
+> How's it working?
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+
+From skeltoac at gmail.com  Wed Sep 21 16:56:49 2005
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 21 Sep 2005 11:56:49 -0500
+Subject: [spam-stopper] Bug
+In-Reply-To: <43311B84.9010206@mullenweg.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+Message-ID: <e6ec604d050921095621530a6e@mail.gmail.com>
+
+code:
+		$response = explode("\r\n\r\n", $response, 2);
+		
+		if ( 'true' == $response )
+			$auto_comment_approved = 'spam';
+
+php manual:
+explode
+
+(PHP 3, PHP 4, PHP 5)
+explode -- Split a string by string
+Description
+array explode ( string separator, string string [, int limit] )
+
+Returns an array of strings, each of which is a substring of string
+formed by splitting it on boundaries formed by the string separator.
+If limit is set, the returned array will contain a maximum of limit
+elements with the last element containing the rest of string.
+
+---
+
+An array will never be equal to 'true'. Try testing $response[1].
+
+Andy
+
+
+On 9/21/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> Matt Mullenweg wrote:
+> > There seems to be a bug where the web service marks it as spam but it
+> > still shows up in WP anyway. I'm going to try to track this down
+> > tomorrow, a cursory overview didn't reveal any problems with the plugin.
+>
+> Okay, I have no idea what changed but $response seems to be an array now
+> rather than a string. I'll test this on a few other servers and see
+> what's up.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+From doug at coffeeswirls.com  Wed Sep 21 15:14:44 2005
+From: doug at coffeeswirls.com (Doug)
+Date: Wed, 21 Sep 2005 15:14:44 -0000
+Subject: [spam-stopper] It's looking good!
+Message-ID: <20050921190652.4F3F55C16@comox.textdrive.com>
+
+Under 10 spams today so far.  Matt, I do believe you are on to something
+here!  Is this plugin one that will be able to adapt as the spammers adapt?
+
+Doug
+
+
+
+From gott at uberbin.net  Wed Sep 21 19:16:02 2005
+From: gott at uberbin.net (=?iso-8859-1?Q?=DCberbin.net?=)
+Date: Wed, 21 Sep 2005 16:16:02 -0300
+Subject: [spam-stopper] Not so good down here
+In-Reply-To: <20050921190652.4F3F55C16@comox.textdrive.com>
+Message-ID: <20050921191611.3B3CD862A1@plunder.dreamhost.com>
+
+Matt, sorry for being the black-sheep here...  but within the last 6 hours I got 110
+spams.
+At least 100 would be stopped with the blacklist (usual words as mortgage/s poker, etc)
+
+Regards
+Mariano
+
+
+
+
+From m at mullenweg.com  Wed Sep 21 19:30:38 2005
+From: m at mullenweg.com (Matthew Mullenweg)
+Date: Wed, 21 Sep 2005 12:30:38 -0700
+Subject: [spam-stopper] Bug
+In-Reply-To: <e6ec604d050921095621530a6e@mail.gmail.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+Message-ID: <4331B4DE.9040307@mullenweg.com>
+
+Andy Skelton wrote:
+> An array will never be equal to 'true'. Try testing $response[1].
+
+That's what I did on my site last night and it started working again.
+
+While I'm hesitant to push it out as a new update is that there seems to 
+be something weird going on, the old way did work for a while, though I 
+have no idea why.
+
+If you've been getting a lot of spam change that line to $response[1] as 
+Andy suggests above.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From skeltoac at gmail.com  Wed Sep 21 19:41:32 2005
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 21 Sep 2005 14:41:32 -0500
+Subject: [spam-stopper] Bug
+In-Reply-To: <4331B4DE.9040307@mullenweg.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+	<4331B4DE.9040307@mullenweg.com>
+Message-ID: <e6ec604d050921124111f0ddc1@mail.gmail.com>
+
+I made the change on my own site this morning and the plugin has
+properly marked all spam since that time. To apply the change, open
+the plugin file and change line 46
+
+from:
+		if ( 'true' == $response )
+
+to:
+		if ( 'true' == $response[1] )
+
+and save the file. That is all.
+
+Andy
+
+On 9/21/05, Matthew Mullenweg <m at mullenweg.com> wrote:
+> Andy Skelton wrote:
+> > An array will never be equal to 'true'. Try testing $response[1].
+>
+> That's what I did on my site last night and it started working again.
+>
+> While I'm hesitant to push it out as a new update is that there seems to
+> be something weird going on, the old way did work for a while, though I
+> have no idea why.
+>
+> If you've been getting a lot of spam change that line to $response[1] as
+> Andy suggests above.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+From dmoola at gmail.com  Wed Sep 21 20:58:23 2005
+From: dmoola at gmail.com (Daniel)
+Date: Wed, 21 Sep 2005 13:58:23 -0700
+Subject: [spam-stopper] Bug
+In-Reply-To: <e6ec604d050921124111f0ddc1@mail.gmail.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+	<4331B4DE.9040307@mullenweg.com>
+	<e6ec604d050921124111f0ddc1@mail.gmail.com>
+Message-ID: <1c3153cf05092113587d8a5f5f@mail.gmail.com>
+
+I made this change earlier as well. I was getting spam all the way up until
+that point and now there hasn't been a peep.
+ Hizzah!
+ Daniel
+
+ On 9/21/05, Andy Skelton <skeltoac at gmail.com> wrote:
+>
+> I made the change on my own site this morning and the plugin has
+> properly marked all spam since that time. To apply the change, open
+> the plugin file and change line 46
+>
+> from:
+> if ( 'true' == $response )
+>
+> to:
+> if ( 'true' == $response[1] )
+>
+> and save the file. That is all.
+>
+> Andy
+>
+> On 9/21/05, Matthew Mullenweg <m at mullenweg.com> wrote:
+> > Andy Skelton wrote:
+> > > An array will never be equal to 'true'. Try testing $response[1].
+> >
+> > That's what I did on my site last night and it started working again.
+> >
+> > While I'm hesitant to push it out as a new update is that there seems to
+> > be something weird going on, the old way did work for a while, though I
+> > have no idea why.
+> >
+> > If you've been getting a lot of spam change that line to $response[1] as
+> > Andy suggests above.
+> >
+> > --
+> > Matt Mullenweg
+> > http://photomatt.net | http://wordpress.org
+> > http://pingomatic.com | http://cnet.com
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> >
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050921/e97af77e/attachment.htm>
+
+From skeltoac at gmail.com  Wed Sep 21 21:04:17 2005
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 21 Sep 2005 16:04:17 -0500
+Subject: [spam-stopper] Bug
+In-Reply-To: <1c3153cf05092113587d8a5f5f@mail.gmail.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+	<4331B4DE.9040307@mullenweg.com>
+	<e6ec604d050921124111f0ddc1@mail.gmail.com>
+	<1c3153cf05092113587d8a5f5f@mail.gmail.com>
+Message-ID: <e6ec604d05092114046b242308@mail.gmail.com>
+
+Here's something you can do for fun (or to test the plugin, if you're
+going to be that way):
+
+select comment_date, comment_approved, comment_author,
+left(comment_content, 25) as comment_snippet from skeltoac_comments
+order by comment_date desc limit 10;
+
+I've been checking that every couple of hours and it's very nice to
+see the results. :-)
+
+Andy
+
+On 9/21/05, Daniel <dmoola at gmail.com> wrote:
+> I made this change earlier as well.  I was getting spam all the way up until
+> that point and now there hasn't been a peep.
+>
+> Hizzah!
+>
+> Daniel
+>
+>
+> On 9/21/05, Andy Skelton <skeltoac at gmail.com> wrote:
+> >
+> > I made the change on my own site this morning and the plugin has
+> > properly marked all spam since that time. To apply the change, open
+> > the plugin file and change line 46
+> >
+> > from:
+> >                if ( 'true' == $response )
+> >
+> > to:
+> >                if ( 'true' == $response[1] )
+> >
+> > and save the file. That is all.
+> >
+> > Andy
+> >
+> > On 9/21/05, Matthew Mullenweg < m at mullenweg.com> wrote:
+> > > Andy Skelton wrote:
+> > > > An array will never be equal to 'true'. Try testing $response[1].
+> > >
+> > > That's what I did on my site last night and it started working again.
+> > >
+> > > While I'm hesitant to push it out as a new update is that there seems to
+> > > be something weird going on, the old way did work for a while, though I
+> > > have no idea why.
+> > >
+> > > If you've been getting a lot of spam change that line to $response[1] as
+> > > Andy suggests above.
+> > >
+> > > --
+> > > Matt Mullenweg
+> > >   http://photomatt.net | http://wordpress.org
+> > > http://pingomatic.com | http://cnet.com
+> > > _______________________________________________
+> > > spam-stopper mailing list
+> > > spam-stopper at lists.automattic.com
+> > >
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> > >
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> >
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+
+
+From skeltoac at gmail.com  Wed Sep 21 21:04:47 2005
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 21 Sep 2005 16:04:47 -0500
+Subject: [spam-stopper] Bug
+In-Reply-To: <e6ec604d05092114046b242308@mail.gmail.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+	<4331B4DE.9040307@mullenweg.com>
+	<e6ec604d050921124111f0ddc1@mail.gmail.com>
+	<1c3153cf05092113587d8a5f5f@mail.gmail.com>
+	<e6ec604d05092114046b242308@mail.gmail.com>
+Message-ID: <e6ec604d0509211404496214ab@mail.gmail.com>
+
+Er, wp_comments
+
+/me blushes
+
+On 9/21/05, Andy Skelton <skeltoac at gmail.com> wrote:
+> Here's something you can do for fun (or to test the plugin, if you're
+> going to be that way):
+>
+> select comment_date, comment_approved, comment_author,
+> left(comment_content, 25) as comment_snippet from skeltoac_comments
+> order by comment_date desc limit 10;
+>
+> I've been checking that every couple of hours and it's very nice to
+> see the results. :-)
+>
+> Andy
+>
+> On 9/21/05, Daniel <dmoola at gmail.com> wrote:
+> > I made this change earlier as well.  I was getting spam all the way up until
+> > that point and now there hasn't been a peep.
+> >
+> > Hizzah!
+> >
+> > Daniel
+> >
+> >
+> > On 9/21/05, Andy Skelton <skeltoac at gmail.com> wrote:
+> > >
+> > > I made the change on my own site this morning and the plugin has
+> > > properly marked all spam since that time. To apply the change, open
+> > > the plugin file and change line 46
+> > >
+> > > from:
+> > >                if ( 'true' == $response )
+> > >
+> > > to:
+> > >                if ( 'true' == $response[1] )
+> > >
+> > > and save the file. That is all.
+> > >
+> > > Andy
+> > >
+> > > On 9/21/05, Matthew Mullenweg < m at mullenweg.com> wrote:
+> > > > Andy Skelton wrote:
+> > > > > An array will never be equal to 'true'. Try testing $response[1].
+> > > >
+> > > > That's what I did on my site last night and it started working again.
+> > > >
+> > > > While I'm hesitant to push it out as a new update is that there seems to
+> > > > be something weird going on, the old way did work for a while, though I
+> > > > have no idea why.
+> > > >
+> > > > If you've been getting a lot of spam change that line to $response[1] as
+> > > > Andy suggests above.
+> > > >
+> > > > --
+> > > > Matt Mullenweg
+> > > >   http://photomatt.net | http://wordpress.org
+> > > > http://pingomatic.com | http://cnet.com
+> > > > _______________________________________________
+> > > > spam-stopper mailing list
+> > > > spam-stopper at lists.automattic.com
+> > > >
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> > > >
+> > > _______________________________________________
+> > > spam-stopper mailing list
+> > > spam-stopper at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> > >
+> >
+> >
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> >
+> >
+> >
+>
+
+
+From unteins at somuchgeek.com  Wed Sep 21 21:12:33 2005
+From: unteins at somuchgeek.com (unteins at somuchgeek.com)
+Date: Wed, 21 Sep 2005 16:12:33 -0500 (CDT)
+Subject: [spam-stopper] Bug
+In-Reply-To: <4331B4DE.9040307@mullenweg.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+	<4331B4DE.9040307@mullenweg.com>
+Message-ID: <43614.67.174.237.101.1127337153.squirrel@67.174.237.101>
+
+I've gotten 25 spams today, so I will make the change.
+
+It would be nice if somewhere we could get a basic report of how many
+spams have been blocked, otherwise I can't tell if I just have no spam or
+if all spam is being blocked. I won't be able to try until I get home
+though. My laptop is in the iHospital.
+
+> Andy Skelton wrote:
+>> An array will never be equal to 'true'. Try testing $response[1].
+>
+> That's what I did on my site last night and it started working again.
+>
+> While I'm hesitant to push it out as a new update is that there seems to
+> be something weird going on, the old way did work for a while, though I
+> have no idea why.
+>
+> If you've been getting a lot of spam change that line to $response[1] as
+> Andy suggests above.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+
+From nuclearmoose at gmail.com  Thu Sep 22 01:39:24 2005
+From: nuclearmoose at gmail.com (Craig)
+Date: Wed, 21 Sep 2005 18:39:24 -0700
+Subject: [spam-stopper] Bug
+In-Reply-To: <e6ec604d050921124111f0ddc1@mail.gmail.com>
+References: <433114CE.7080705@mullenweg.com> <43311B84.9010206@mullenweg.com>
+	<e6ec604d050921095621530a6e@mail.gmail.com>
+	<4331B4DE.9040307@mullenweg.com>
+	<e6ec604d050921124111f0ddc1@mail.gmail.com>
+Message-ID: <5aa3aa05092118396d15d7d0@mail.gmail.com>
+
+Made the change as well. No spam has showed up yet. It's eerily quiet...I've
+been getting tonnes of Chinese spam comments over the last while too, so I'm
+hoping that this will stop them, as the comments have typically contained
+dozens of links in simplified Chinese, so spam words are kinda hard to pick
+out! :^)
+
+Craig.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050921/c8a82387/attachment.htm>
+
+From doug at coffeeswirls.com  Thu Sep 22 02:30:08 2005
+From: doug at coffeeswirls.com (Doug McHone)
+Date: Wed, 21 Sep 2005 21:30:08 -0500
+Subject: [spam-stopper] Bug
+In-Reply-To: <5aa3aa05092118396d15d7d0@mail.gmail.com>
+References: <433114CE.7080705@mullenweg.com>
+	<43311B84.9010206@mullenweg.com>	<e6ec604d050921095621530a6e@mail.gmail.com>	<4331B4DE.9040307@mullenweg.com>	<e6ec604d050921124111f0ddc1@mail.gmail.com>
+	<5aa3aa05092118396d15d7d0@mail.gmail.com>
+Message-ID: <43321730.4040100@coffeeswirls.com>
+
+I concur.  I made the same change (quite a feat for someone who doesn't 
+know PHP) and the results have been tremendous!  I had to put in a 
+comment on my own blog to be sure that the comments still worked! 
+
+Doug
+
+Craig wrote:
+
+> Made the change as well. No spam has showed up yet. It's eerily 
+> quiet...I've been getting tonnes of Chinese spam comments over the 
+> last while too, so I'm hoping that this will stop them, as the 
+> comments have typically contained dozens of links in simplified 
+> Chinese, so spam words are kinda hard to pick out! :^)
+>
+> Craig.
+>
+>------------------------------------------------------------------------
+>
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+>  
+>
+
+
+
+From m at mullenweg.com  Thu Sep 22 02:35:37 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 21 Sep 2005 19:35:37 -0700
+Subject: [spam-stopper] Bug
+In-Reply-To: <43321730.4040100@coffeeswirls.com>
+References: <433114CE.7080705@mullenweg.com>	<43311B84.9010206@mullenweg.com>	<e6ec604d050921095621530a6e@mail.gmail.com>	<4331B4DE.9040307@mullenweg.com>	<e6ec604d050921124111f0ddc1@mail.gmail.com>	<5aa3aa05092118396d15d7d0@mail.gmail.com>
+	<43321730.4040100@coffeeswirls.com>
+Message-ID: <43321879.8060507@mullenweg.com>
+
+Doug McHone wrote:
+> I concur.  I made the same change (quite a feat for someone who doesn't 
+> know PHP) and the results have been tremendous!  I had to put in a 
+> comment on my own blog to be sure that the comments still worked!
+
+This is what I like to hear. :)
+
+I'm going to invite a few more people to the mailing list and send out a 
+new version of the plugin later tonight, just FYI.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From doug at coffeeswirls.com  Thu Sep 22 03:52:30 2005
+From: doug at coffeeswirls.com (Doug McHone)
+Date: Wed, 21 Sep 2005 22:52:30 -0500
+Subject: [spam-stopper] Bug
+In-Reply-To: <43321879.8060507@mullenweg.com>
+References: <433114CE.7080705@mullenweg.com>	<43311B84.9010206@mullenweg.com>	<e6ec604d050921095621530a6e@mail.gmail.com>	<4331B4DE.9040307@mullenweg.com>	<e6ec604d050921124111f0ddc1@mail.gmail.com>	<5aa3aa05092118396d15d7d0@mail.gmail.com>	<43321730.4040100@coffeeswirls.com>
+	<43321879.8060507@mullenweg.com>
+Message-ID: <43322A7E.9010705@coffeeswirls.com>
+
+Matt,
+I assume that you will make some adjustments and try it with another 
+test group, and if their results are this phenomenal, the plugin will be 
+released.  Will we get some notice of the release time so we can post on 
+it?  I already have a title ready: "The Silence of the Spams"
+
+lol
+Doug
+
+Matt Mullenweg wrote:
+
+> Doug McHone wrote:
+>
+>> I concur.  I made the same change (quite a feat for someone who 
+>> doesn't know PHP) and the results have been tremendous!  I had to put 
+>> in a comment on my own blog to be sure that the comments still worked!
+>
+>
+> This is what I like to hear. :)
+>
+> I'm going to invite a few more people to the mailing list and send out 
+> a new version of the plugin later tonight, just FYI.
+>
+
+
+
+From m at mullenweg.com  Thu Sep 22 07:05:04 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 22 Sep 2005 00:05:04 -0700
+Subject: [spam-stopper] New plugin and welcome
+Message-ID: <433257A0.10702@mullenweg.com>
+
+First I want to welcome a few new people to the tester group, thanks for 
+helping us out!
+
+To recap the story thus far, we have a simple plugin that calls a web 
+service that stops spam dead. (Or tries to.) When it misses something 
+and you mark it as "spam" on the moderate screen it learns. The idea is 
+that the longer you use it and the more people use it, the smarter and 
+more effective it will be.
+
+I've attached the latest version (0.4) of the plugin. The last version 
+had an error that was causing it not to get results properly, so make 
+sure to upgrade.
+
+To install upload the plugin to your plugin directory and activate. 
+Please deactivate *all* other spam plugins you may be running and delete 
+everything from your moderation and blacklist lists (under Options > 
+Discussion).
+
+It's possible that a few spams might slip through at first, but it 
+should get better and better.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: automattic-spam-stopper.php
+Type: application/atom
+Size: 3147 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050922/cc4f9d40/attachment.bin>
+
+From nuclearmoose at gmail.com  Thu Sep 22 07:50:45 2005
+From: nuclearmoose at gmail.com (Craig)
+Date: Thu, 22 Sep 2005 00:50:45 -0700
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <433257A0.10702@mullenweg.com>
+References: <433257A0.10702@mullenweg.com>
+Message-ID: <5aa3aa05092200502285b7e4@mail.gmail.com>
+
+Upgrade done. No spam since starting with this plugin.
+Craig.
+
+
+From unteins at somuchgeek.com  Thu Sep 22 13:43:32 2005
+From: unteins at somuchgeek.com (unteins at somuchgeek.com)
+Date: Thu, 22 Sep 2005 08:43:32 -0500 (CDT)
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <433257A0.10702@mullenweg.com>
+References: <433257A0.10702@mullenweg.com>
+Message-ID: <39115.24.6.195.248.1127396612.squirrel@24.6.195.248>
+
+I had 20+ spams overnight, but I didn't have the newest plugin, so that's
+ok. Here's hoping this one stops the spam. I hate having to set them as
+spam one by one.
+
+Is the web service going to be open to other plugin developers or is the
+service and the plugin going to be tightly coupled?
+
+> First I want to welcome a few new people to the tester group, thanks for
+> helping us out!
+>
+> To recap the story thus far, we have a simple plugin that calls a web
+> service that stops spam dead. (Or tries to.) When it misses something
+> and you mark it as "spam" on the moderate screen it learns. The idea is
+> that the longer you use it and the more people use it, the smarter and
+> more effective it will be.
+>
+> I've attached the latest version (0.4) of the plugin. The last version
+> had an error that was causing it not to get results properly, so make
+> sure to upgrade.
+>
+> To install upload the plugin to your plugin directory and activate.
+> Please deactivate *all* other spam plugins you may be running and delete
+> everything from your moderation and blacklist lists (under Options >
+> Discussion).
+>
+> It's possible that a few spams might slip through at first, but it
+> should get better and better.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+
+From rich at boakes.org  Thu Sep 22 14:04:13 2005
+From: rich at boakes.org (rich boakes)
+Date: Thu, 22 Sep 2005 15:04:13 +0100
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <433257A0.10702@mullenweg.com>
+References: <433257A0.10702@mullenweg.com>
+Message-ID: <4332B9DD.3050301@boakes.org>
+
+Matt Mullenweg wrote:
+> First I want to welcome a few new people
+> to the tester group, thanks for
+> helping us out!
+
+It's installed, and activated on boakes.org as
+of 10 minutes ago.  No spam yet, but no comments
+either...
+
+The first thing I notice is that there's no
+obvious feedback to indicate how much spam has
+been killed. Something for the dashboard perhaps?
+
+Rich
+--
+http://boakes.org
+
+
+From heilemann at gmail.com  Thu Sep 22 14:07:24 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Thu, 22 Sep 2005 16:07:24 +0200
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <4332B9DD.3050301@boakes.org>
+References: <433257A0.10702@mullenweg.com> <4332B9DD.3050301@boakes.org>
+Message-ID: <5a715c0a05092207073029f8ba@mail.gmail.com>
+
+It's activated on Binary Bonsai as well.
+
+How does it work? :)
+
+I've had a few spam comments slip through, but they've been of those devious
+ones that could very well be human typed...
+
+On 9/22/05, rich boakes <rich at boakes.org> wrote:
+>
+> Matt Mullenweg wrote:
+> > First I want to welcome a few new people
+> > to the tester group, thanks for
+> > helping us out!
+>
+> It's installed, and activated on boakes.org <http://boakes.org> as
+> of 10 minutes ago. No spam yet, but no comments
+> either...
+>
+> The first thing I notice is that there's no
+> obvious feedback to indicate how much spam has
+> been killed. Something for the dashboard perhaps?
+>
+> Rich
+> --
+> http://boakes.org
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050922/1cbe4aa2/attachment.htm>
+
+From gott at uberbin.net  Thu Sep 22 14:15:19 2005
+From: gott at uberbin.net (=?iso-8859-1?Q?=DCberbin.net?=)
+Date: Thu, 22 Sep 2005 11:15:19 -0300
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <4332B9DD.3050301@boakes.org>
+Message-ID: <20050922141525.5D98F8628A@plunder.dreamhost.com>
+
+ 
+Matt,
+Yesterday before installing this version I've got 135 spams :s
+
+Since the new install I received zero spam :)
+
+Regards
+Mariano
+
+
+:::::::::::::::
+www.uberbin.net
+www.celularis.com
+www.fdlog.com
+www.weblogs.clarin.com
+www.weblogs.com.ar
+
+
+
+
+From m at mullenweg.com  Thu Sep 22 16:19:47 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 22 Sep 2005 09:19:47 -0700
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <4332B9DD.3050301@boakes.org>
+References: <433257A0.10702@mullenweg.com> <4332B9DD.3050301@boakes.org>
+Message-ID: <4332D9A3.3070808@mullenweg.com>
+
+rich boakes wrote:
+> The first thing I notice is that there's no
+> obvious feedback to indicate how much spam has
+> been killed. Something for the dashboard perhaps?
+
+It'd be depressing, right now the comments running through it are about 
+98% spam!
+
+Anyway I'll see if I can do this in a very lightweight way. I'm hesitant 
+to add too much overhead because I want it to be as fast as humanly 
+possible.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Thu Sep 22 16:21:06 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 22 Sep 2005 09:21:06 -0700
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <39115.24.6.195.248.1127396612.squirrel@24.6.195.248>
+References: <433257A0.10702@mullenweg.com>
+	<39115.24.6.195.248.1127396612.squirrel@24.6.195.248>
+Message-ID: <4332D9F2.4080809@mullenweg.com>
+
+unteins at somuchgeek.com wrote:
+> Is the web service going to be open to other plugin developers or is the
+> service and the plugin going to be tightly coupled?
+
+I haven't been planning on making the code of the server public simply 
+because I don't want to give away the secret sauce to the spammers.
+
+However anyone can run their own server that works with the plugin, they 
+just have to duplicate the very simple API it uses.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From unteins at somuchgeek.com  Thu Sep 22 17:50:09 2005
+From: unteins at somuchgeek.com (unteins at somuchgeek.com)
+Date: Thu, 22 Sep 2005 12:50:09 -0500 (CDT)
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <4332D9F2.4080809@mullenweg.com>
+References: <433257A0.10702@mullenweg.com>
+	<39115.24.6.195.248.1127396612.squirrel@24.6.195.248>
+	<4332D9F2.4080809@mullenweg.com>
+Message-ID: <48206.67.174.237.101.1127411409.squirrel@67.174.237.101>
+
+I think that you answered my question, i wasn't very clear.
+
+What I meant was, will it be allowable for other developers to make
+plugins which makes use of the automattic server and API, since the calls
+are in your plugin, you can't exactly keep them secret.
+
+As far as the stats , go, what happens to the spams that are caught by the
+plugin? Are they moderated as spam? If so, then really all that is needed
+is a generic spam/ham plugin for WordPress that checks with the local
+statistics. I don't think anyone wants to see global spam stats (ie
+automattic has crushed 4.2 trillion spam comments since 9/23/05, although
+you'd very quickly surpass those McDonald's signs ;)
+
+> unteins at somuchgeek.com wrote:
+>> Is the web service going to be open to other plugin developers or is the
+>> service and the plugin going to be tightly coupled?
+>
+> I haven't been planning on making the code of the server public simply
+> because I don't want to give away the secret sauce to the spammers.
+>
+> However anyone can run their own server that works with the plugin, they
+> just have to duplicate the very simple API it uses.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+
+From dmoola at gmail.com  Thu Sep 22 17:55:22 2005
+From: dmoola at gmail.com (Daniel)
+Date: Thu, 22 Sep 2005 10:55:22 -0700
+Subject: [spam-stopper] mistakenly marked as spam
+Message-ID: <1c3153cf050922105511a886ab@mail.gmail.com>
+
+So far I love what I see. I only received 1 spam last night as opposed to
+hundreds.
+ My only questions are: What happens if I mistakenly mark someone's comment
+as spam. Is there a way to tell the system to unmark/unlearn them?
+ Daniel
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050922/35b52581/attachment.htm>
+
+From m at mullenweg.com  Thu Sep 22 18:27:00 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 22 Sep 2005 11:27:00 -0700
+Subject: [spam-stopper] mistakenly marked as spam
+In-Reply-To: <1c3153cf050922105511a886ab@mail.gmail.com>
+References: <1c3153cf050922105511a886ab@mail.gmail.com>
+Message-ID: <4332F774.7010003@mullenweg.com>
+
+Daniel wrote:
+> So far I love what I see.  I only received 1 spam last night as opposed 
+> to hundreds.
+>  
+> My only questions are:  What happens if I mistakenly mark someone's 
+> comment as spam.  Is there a way to tell the system to unmark/unlearn them?
+
+The way we're doing things it's highly unlikely to get false positives. 
+All spam is still in your DB marked as spam, so you can recover it if 
+you want.
+
+During this testing period I'm watching every comment go by, there have 
+been no false positives yet.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From jennifer at geeksmakemehot.com  Thu Sep 22 18:30:06 2005
+From: jennifer at geeksmakemehot.com (Jennifer Ledbetter)
+Date: Thu, 22 Sep 2005 13:30:06 -0500
+Subject: [spam-stopper] Welcome everybody
+In-Reply-To: <433029AA.5040404@mullenweg.com>
+References: <432FADEB.9070402@mullenweg.com>	<5aa3aa050920000419a04e8b@mail.gmail.com>	<5CA7879D-B409-49F3-9C69-668B0AABC183@somuchgeek.com>	<433025E6.3060606@mullenweg.com>	<b0f805b005092008215de0216a@mail.gmail.com>
+	<433029AA.5040404@mullenweg.com>
+Message-ID: <4332F82E.30109@geeksmakemehot.com>
+
+Since the update I haven't gotten any spam.  Working tons better :)
+
+<3 Jennifer
+
+
+From doug at coffeeswirls.com  Thu Sep 22 14:57:47 2005
+From: doug at coffeeswirls.com (Doug)
+Date: Thu, 22 Sep 2005 14:57:47 -0000
+Subject: [spam-stopper] mistakenly marked as spam
+Message-ID: <20050922184955.275385CC7@comox.textdrive.com>
+
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050922/abf61ba0/attachment.htm>
+
+From dmoola at gmail.com  Thu Sep 22 19:22:52 2005
+From: dmoola at gmail.com (Daniel)
+Date: Thu, 22 Sep 2005 12:22:52 -0700
+Subject: [spam-stopper] mistakenly marked as spam
+In-Reply-To: <20050922184955.275385CC7@comox.textdrive.com>
+References: <20050922184955.275385CC7@comox.textdrive.com>
+Message-ID: <1c3153cf05092212225e2e95bf@mail.gmail.com>
+
+No no, heh.... haven't done that. But I know in the past I've looked over a
+whole list of moderated comments and just clicked the check all as spam
+button.... only to relialize later one was hiding in the masses of spam.
+ Daniel
+
+ On 9/22/05, Doug <doug at coffeeswirls.com> wrote:
+>
+> "During this testing period I'm watching every comment go by, there have
+> been no false positives yet."
+>
+> You haven't visited any online casinos or applied for any credit cards,
+> have you? Being innundated by this junk has to leave some sort of residue!
+>
+>
+>  --------- Original Message --------
+> From: spam-stopper at lists.automattic.com
+> To: "spam-stopper at lists.automattic.com" <spam-stopper at lists.automattic.com
+> >
+> Subject: Re: [spam-stopper] mistakenly marked as spam
+> Date: 22/09/05 19:45
+>
+>
+> Daniel wrote:
+> > So far I love what I see. I only received 1 spam last night as opposed
+> > to hundreds.
+> >
+> > My only questions are: What happens if I mistakenly mark someone's
+> > comment as spam. Is there a way to tell the system to unmark/unlearn
+> them?
+>
+> The way we're doing things it's highly unlikely to get false positives.
+> All spam is still in your DB marked as spam, so you can recover it if
+> you want.
+>
+> During this testing period I'm watching every comment go by, there have
+> been no false positives yet.
+>
+> --
+> Matt Mullenweg
+> http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050922/e380921d/attachment.htm>
+
+From nuclearmoose at gmail.com  Fri Sep 23 05:56:59 2005
+From: nuclearmoose at gmail.com (Craig)
+Date: Thu, 22 Sep 2005 22:56:59 -0700
+Subject: [spam-stopper] Spam-free...
+Message-ID: <5aa3aa0509222256a2e8abf@mail.gmail.com>
+
+...as free as the wind blows
+As free as the grass grows
+My blog is still spam-free.
+
+Oh please don't let this be a dream! ;^)
+
+Craig.
+
+
+From dmoola at gmail.com  Fri Sep 23 05:59:06 2005
+From: dmoola at gmail.com (Daniel)
+Date: Thu, 22 Sep 2005 22:59:06 -0700
+Subject: [spam-stopper] Spam-free...
+In-Reply-To: <5aa3aa0509222256a2e8abf@mail.gmail.com>
+References: <5aa3aa0509222256a2e8abf@mail.gmail.com>
+Message-ID: <1c3153cf0509222259cefca22@mail.gmail.com>
+
+Mine as well...almost... had 1 when I woke up this morning and got to my
+desk.
+Nothing since!
+ ::giddy school dance giggles::
+ Daniel
+
+ On 9/22/05, Craig <nuclearmoose at gmail.com> wrote:
+>
+> ...as free as the wind blows
+> As free as the grass grows
+> My blog is still spam-free.
+>
+> Oh please don't let this be a dream! ;^)
+>
+> Craig.
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050922/e57536f8/attachment.htm>
+
+From rainchx at gmail.com  Fri Sep 23 09:27:25 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Fri, 23 Sep 2005 21:27:25 +1200
+Subject: [spam-stopper] Spam-free...
+In-Reply-To: <1c3153cf0509222259cefca22@mail.gmail.com>
+References: <5aa3aa0509222256a2e8abf@mail.gmail.com>
+	<1c3153cf0509222259cefca22@mail.gmail.com>
+Message-ID: <2d764fd005092302272b7b1b9b@mail.gmail.com>
+
+I just had 2 notifications come through to my gmail account (2 is great, so
+low) and gmail marked 1 of the notifications as spam - that was a first!
+
+On 23/09/05, Daniel <dmoola at gmail.com> wrote:
+>
+> Mine as well...almost... had 1 when I woke up this morning and got to my
+> desk.
+> Nothing since!
+>  ::giddy school dance giggles::
+>  Daniel
+>
+>  On 9/22/05, Craig <nuclearmoose at gmail.com> wrote:
+> >
+> > ...as free as the wind blows
+> > As free as the grass grows
+> > My blog is still spam-free.
+> >
+> > Oh please don't let this be a dream! ;^)
+> >
+> > Craig.
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> >
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+
+
+--
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050923/4da86689/attachment.htm>
+
+From ben at branders.name  Fri Sep 23 19:13:55 2005
+From: ben at branders.name (Ben Branders)
+Date: Fri, 23 Sep 2005 21:13:55 +0200
+Subject: [spam-stopper] Works very good for other languages
+Message-ID: <433453F3.3090307@branders.name>
+
+Hi
+
+
+
+Spam-stopper really impressed me. I didn't receive spam since I activated
+Spam-stopper. With most anti-spam tools it's very depressing if you are
+using it with another language (some of the tools think Dutch looks a lot
+like spam and put it in moderation, so I still have to go through the list
+manually).
+
+My website is in Dutch and I receive about 20-30 spam messages a day (quite
+a lot for a personal blog). I haven't received spam since yesterday and
+other posts show up normal.
+
+Nice work!! :-)
+
+
+
+Best regards
+-- 
+Ben Branders
+
+  web      http://branders.name               http://www.livre.nl
+  jabber   ben at jabber.belnet.be          http://www.mozbrowser.nl
+  OpenPGP  0x46938FDB               http://www.mozilla-europe.org
+
+
+
+From henry at henrymalmgren.com  Sat Sep 24 14:22:13 2005
+From: henry at henrymalmgren.com (Henry Malmgren)
+Date: Sat, 24 Sep 2005 10:22:13 -0400
+Subject: [spam-stopper] Does it work with trackbacks?
+In-Reply-To: <433453F3.3090307@branders.name>
+Message-ID: <HEROboXrkwi6rAeTEkH00000001@hero.Palmer.usap.gov>
+
+ 
+So far in the 48 hours I've had it activated, I've had zero spam comments,
+and one spam trackback.  Is it supposed to be filtering those as well?
+
+
+
+
+From vscarpenter at gmail.com  Sat Sep 24 20:25:10 2005
+From: vscarpenter at gmail.com (Vinit Carpenter)
+Date: Sat, 24 Sep 2005 15:25:10 -0500
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <433257A0.10702@mullenweg.com>
+References: <433257A0.10702@mullenweg.com>
+Message-ID: <2035e650050924132574ad9fe5@mail.gmail.com>
+
+Hi Matt.  I've been using your new spam-stopper plugin for the last
+few days and it's worked great -- My question is should the plugin
+mark the spam messages as spam and then disappear or should they show
+up as comments that need moderation?  I am getting a lot of emails
+about comments that need moderation.  Is that the correct behaviour? 
+Thanks
+
+--Vinny
+http://www.j2eegeek.com/blog/
+
+On 9/22/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> First I want to welcome a few new people to the tester group, thanks for
+> helping us out!
+>
+> To recap the story thus far, we have a simple plugin that calls a web
+> service that stops spam dead. (Or tries to.) When it misses something
+> and you mark it as "spam" on the moderate screen it learns. The idea is
+> that the longer you use it and the more people use it, the smarter and
+> more effective it will be.
+>
+> I've attached the latest version (0.4) of the plugin. The last version
+> had an error that was causing it not to get results properly, so make
+> sure to upgrade.
+>
+> To install upload the plugin to your plugin directory and activate.
+> Please deactivate *all* other spam plugins you may be running and delete
+> everything from your moderation and blacklist lists (under Options >
+> Discussion).
+>
+> It's possible that a few spams might slip through at first, but it
+> should get better and better.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+>
+
+
+From heilemann at gmail.com  Sat Sep 24 20:28:28 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Sat, 24 Sep 2005 22:28:28 +0200
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <2035e650050924132574ad9fe5@mail.gmail.com>
+References: <433257A0.10702@mullenweg.com>
+	<2035e650050924132574ad9fe5@mail.gmail.com>
+Message-ID: <5a715c0a0509241328307cf4b8@mail.gmail.com>
+
+I'm a bit confused as to what 'normal behavior' is as well...
+
+On 9/24/05, Vinit Carpenter <vscarpenter at gmail.com> wrote:
+>
+> Hi Matt. I've been using your new spam-stopper plugin for the last
+> few days and it's worked great -- My question is should the plugin
+> mark the spam messages as spam and then disappear or should they show
+> up as comments that need moderation? I am getting a lot of emails
+> about comments that need moderation. Is that the correct behaviour?
+> Thanks
+>
+> --Vinny
+> http://www.j2eegeek.com/blog/
+>
+> On 9/22/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> > First I want to welcome a few new people to the tester group, thanks for
+> > helping us out!
+> >
+> > To recap the story thus far, we have a simple plugin that calls a web
+> > service that stops spam dead. (Or tries to.) When it misses something
+> > and you mark it as "spam" on the moderate screen it learns. The idea is
+> > that the longer you use it and the more people use it, the smarter and
+> > more effective it will be.
+> >
+> > I've attached the latest version (0.4) of the plugin. The last version
+> > had an error that was causing it not to get results properly, so make
+> > sure to upgrade.
+> >
+> > To install upload the plugin to your plugin directory and activate.
+> > Please deactivate *all* other spam plugins you may be running and delete
+> > everything from your moderation and blacklist lists (under Options >
+> > Discussion).
+> >
+> > It's possible that a few spams might slip through at first, but it
+> > should get better and better.
+> >
+> > --
+> > Matt Mullenweg
+> > http://photomatt.net | http://wordpress.org
+> > http://pingomatic.com | http://cnet.com
+> >
+> >
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> >
+> >
+> >
+> >
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050924/bdc272e2/attachment.htm>
+
+From m at mullenweg.com  Sun Sep 25 05:35:11 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat, 24 Sep 2005 22:35:11 -0700
+Subject: [spam-stopper] Does it work with trackbacks?
+In-Reply-To: <HEROboXrkwi6rAeTEkH00000001@hero.Palmer.usap.gov>
+References: <HEROboXrkwi6rAeTEkH00000001@hero.Palmer.usap.gov>
+Message-ID: <4336370F.3070706@mullenweg.com>
+
+Henry Malmgren wrote:
+> So far in the 48 hours I've had it activated, I've had zero spam comments,
+> and one spam trackback.  Is it supposed to be filtering those as well?
+
+Yes it's filtering trackbacks but those are more likely to slip past 
+then comments. Mark it as spam and it'll learn!
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Sun Sep 25 05:36:10 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat, 24 Sep 2005 22:36:10 -0700
+Subject: [spam-stopper] New plugin and welcome
+In-Reply-To: <2035e650050924132574ad9fe5@mail.gmail.com>
+References: <433257A0.10702@mullenweg.com>
+	<2035e650050924132574ad9fe5@mail.gmail.com>
+Message-ID: <4336374A.3010003@mullenweg.com>
+
+Vinit Carpenter wrote:
+> Hi Matt.  I've been using your new spam-stopper plugin for the last
+> few days and it's worked great -- My question is should the plugin
+> mark the spam messages as spam and then disappear or should they show
+> up as comments that need moderation?  I am getting a lot of emails
+> about comments that need moderation.  Is that the correct behaviour? 
+
+They should be marked as spam and then disappear. There is a bug 
+*somewhere* where even after being marked as spam they can end up in 
+moderation anyway, not sure where in the flow it's getting lost.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From heilemann at gmail.com  Sun Sep 25 09:11:33 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Sun, 25 Sep 2005 11:11:33 +0200
+Subject: [spam-stopper] Spam Managing
+Message-ID: <5a715c0a05092502115063a084@mail.gmail.com>
+
+Yo all,
+
+Yesterday I had 100+ legitimate comments get marked as spam. I'm still
+not 100% sure on the cause, but I think it might be due to this:
+http://binarybonsai.com/archives/2005/09/25/k2-r90-users-listen-up/
+(I'm looking into it).
+
+Regardless, WP sincerly needs an interface for brining comments back
+from the spam-grave. It took me way way too long to sift through my
+SQL db (I have no 1337 SQL sk1llz, so I did it manually); and it was
+easier for me to delete the comments in question than to mark them as
+approved.
+
+It wasn't so bad this time, as most of the comments were merely
+testing the new ajax comments in K2, but I'd hate to see something
+like it happen again.
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+
+
+From m at mullenweg.com  Sun Sep 25 16:30:35 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 25 Sep 2005 09:30:35 -0700
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <5a715c0a05092502115063a084@mail.gmail.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>
+Message-ID: <4336D0AB.2040007@mullenweg.com>
+
+Michael Heilemann wrote:
+> Yesterday I had 100+ legitimate comments get marked as spam. I'm still
+> not 100% sure on the cause, but I think it might be due to this:
+> http://binarybonsai.com/archives/2005/09/25/k2-r90-users-listen-up/
+> (I'm looking into it).
+
+I just went through the last 200 or so comments marked on my site and 
+didn't see any false positives. I would definitely like to know what 
+caused this.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From heilemann at gmail.com  Sun Sep 25 17:06:42 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Sun, 25 Sep 2005 19:06:42 +0200
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <4336D0AB.2040007@mullenweg.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>
+	<4336D0AB.2040007@mullenweg.com>
+Message-ID: <5a715c0a05092510064167c042@mail.gmail.com>
+
+It's very weird indeed. I haven't had time today to properly look it
+over, but I'm also sort of working blindly here; I don't know what
+could trigger something as being spam.
+
+Currently it seems that my comments are the only ones being marked as
+spam (?!?!?!), and I have _no_ clue what to do about it :(
+
+- Mike
+
+On 9/25/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> Michael Heilemann wrote:
+> > Yesterday I had 100+ legitimate comments get marked as spam. I'm still
+> > not 100% sure on the cause, but I think it might be due to this:
+> > http://binarybonsai.com/archives/2005/09/25/k2-r90-users-listen-up/
+> > (I'm looking into it).
+>
+> I just went through the last 200 or so comments marked on my site and
+> didn't see any false positives. I would definitely like to know what
+> caused this.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+
+
+From m at mullenweg.com  Sun Sep 25 17:28:38 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 25 Sep 2005 10:28:38 -0700
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <5a715c0a05092510064167c042@mail.gmail.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>	<4336D0AB.2040007@mullenweg.com>
+	<5a715c0a05092510064167c042@mail.gmail.com>
+Message-ID: <4336DE46.5010207@mullenweg.com>
+
+Michael Heilemann wrote:
+> Currently it seems that my comments are the only ones being marked as
+> spam (?!?!?!), and I have _no_ clue what to do about it :(
+
+Here is a comment from your site which just went through seconds ago as 
+not spam:
+
+2005-09-25 17:28:58 Array
+(
+     [comment_author] => James
+     [comment_author_email] => james at turley1.gotadsl.co.uk
+     [comment_author_url] => http://theilliad.net/blog/
+     [comment_content] => Thanks for the heads up Michael.
+     [comment_type] =>
+     [user_ID] =>
+     [user_ip] => 213.208.100.76
+     [user_agent] => Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; 
+en-US; rv:1.8b5) Gecko/20050920 Camino/1.0a1+
+     [referrer] =>
+     [blog] => http://binarybonsai.com
+     [UNIQUE_ID] => @izkE38AAAEAAGFIufoAAAAN
+     [HTTP_USER_AGENT] => Mozilla/5.0 (Macintosh; U; PPC Mac OS X 
+Mach-O; en-US; rv:1.8b5) Gecko/20050920 Camino/1.0a1+
+     [HTTP_ACCEPT_CHARSET] => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+     [HTTP_KEEP_ALIVE] => 300
+     [HTTP_CONNECTION] => close
+     [HTTP_X_REQUESTED_WITH] => XMLHttpRequest
+     [HTTP_X_PROTOTYPE_VERSION] => 1.3.1
+     [HTTP_CACHE_CONTROL] => no-cache
+     [REMOTE_PORT] => 34016
+)
+
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From heilemann at gmail.com  Sun Sep 25 18:18:38 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Sun, 25 Sep 2005 20:18:38 +0200
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <4336DE46.5010207@mullenweg.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>
+	<4336D0AB.2040007@mullenweg.com>
+	<5a715c0a05092510064167c042@mail.gmail.com>
+	<4336DE46.5010207@mullenweg.com>
+Message-ID: <5a715c0a05092511187ebad5ca@mail.gmail.com>
+
+Do you have any idea what I can do to make myself not be a spammer?
+It's all pretty black arts for me.
+
+
+On 9/25/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> Michael Heilemann wrote:
+> > Currently it seems that my comments are the only ones being marked as
+> > spam (?!?!?!), and I have _no_ clue what to do about it :(
+>
+> Here is a comment from your site which just went through seconds ago as
+> not spam:
+>
+> 2005-09-25 17:28:58 Array
+> (
+>      [comment_author] => James
+>      [comment_author_email] => james at turley1.gotadsl.co.uk
+>      [comment_author_url] => http://theilliad.net/blog/
+>      [comment_content] => Thanks for the heads up Michael.
+>      [comment_type] =>
+>      [user_ID] =>
+>      [user_ip] => 213.208.100.76
+>      [user_agent] => Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;
+> en-US; rv:1.8b5) Gecko/20050920 Camino/1.0a1+
+>      [referrer] =>
+>      [blog] => http://binarybonsai.com
+>      [UNIQUE_ID] => @izkE38AAAEAAGFIufoAAAAN
+>      [HTTP_USER_AGENT] => Mozilla/5.0 (Macintosh; U; PPC Mac OS X
+> Mach-O; en-US; rv:1.8b5) Gecko/20050920 Camino/1.0a1+
+>      [HTTP_ACCEPT_CHARSET] => ISO-8859-1,utf-8;q=0.7,*;q=0.7
+>      [HTTP_KEEP_ALIVE] => 300
+>      [HTTP_CONNECTION] => close
+>      [HTTP_X_REQUESTED_WITH] => XMLHttpRequest
+>      [HTTP_X_PROTOTYPE_VERSION] => 1.3.1
+>      [HTTP_CACHE_CONTROL] => no-cache
+>      [REMOTE_PORT] => 34016
+> )
+>
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+
+
+From m at mullenweg.com  Sun Sep 25 19:26:20 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 25 Sep 2005 12:26:20 -0700
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <5a715c0a05092511187ebad5ca@mail.gmail.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>	<4336D0AB.2040007@mullenweg.com>	<5a715c0a05092510064167c042@mail.gmail.com>	<4336DE46.5010207@mullenweg.com>
+	<5a715c0a05092511187ebad5ca@mail.gmail.com>
+Message-ID: <4336F9DC.4030405@mullenweg.com>
+
+Michael Heilemann wrote:
+> Do you have any idea what I can do to make myself not be a spammer?
+> It's all pretty black arts for me.
+
+I'm not sure what you mean by that. Are you saying comments you make are 
+being marked as spam? If you mean the problem where EVERYTHING was 
+marked as spam, I suspect that's related to something else because I'm 
+sure everyone would have noticed something like that.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From heilemann at gmail.com  Sun Sep 25 19:43:49 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Sun, 25 Sep 2005 21:43:49 +0200
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <4336F9DC.4030405@mullenweg.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>
+	<4336D0AB.2040007@mullenweg.com>
+	<5a715c0a05092510064167c042@mail.gmail.com>
+	<4336DE46.5010207@mullenweg.com>
+	<5a715c0a05092511187ebad5ca@mail.gmail.com>
+	<4336F9DC.4030405@mullenweg.com>
+Message-ID: <5a715c0a050925124362754dfc@mail.gmail.com>
+
+I mean just the fact that _my_ comments are being marked as spam...
+I'm the admin! :)
+
+
+
+On 9/25/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> Michael Heilemann wrote:
+> > Do you have any idea what I can do to make myself not be a spammer?
+> > It's all pretty black arts for me.
+>
+> I'm not sure what you mean by that. Are you saying comments you make are
+> being marked as spam? If you mean the problem where EVERYTHING was
+> marked as spam, I suspect that's related to something else because I'm
+> sure everyone would have noticed something like that.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+
+
+From m at mullenweg.com  Sun Sep 25 19:44:25 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 25 Sep 2005 12:44:25 -0700
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <5a715c0a050925124362754dfc@mail.gmail.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>	<4336D0AB.2040007@mullenweg.com>	<5a715c0a05092510064167c042@mail.gmail.com>	<4336DE46.5010207@mullenweg.com>	<5a715c0a05092511187ebad5ca@mail.gmail.com>	<4336F9DC.4030405@mullenweg.com>
+	<5a715c0a050925124362754dfc@mail.gmail.com>
+Message-ID: <4336FE19.6070508@mullenweg.com>
+
+Michael Heilemann wrote:
+> I mean just the fact that _my_ comments are being marked as spam...
+> I'm the admin! :)
+
+Can you make a comment now to test? I haven't seen anything come across 
+the stream from you.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Sun Sep 25 19:50:21 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 25 Sep 2005 12:50:21 -0700
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <5a715c0a050925124362754dfc@mail.gmail.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>	<4336D0AB.2040007@mullenweg.com>	<5a715c0a05092510064167c042@mail.gmail.com>	<4336DE46.5010207@mullenweg.com>	<5a715c0a05092511187ebad5ca@mail.gmail.com>	<4336F9DC.4030405@mullenweg.com>
+	<5a715c0a050925124362754dfc@mail.gmail.com>
+Message-ID: <4336FF7D.4080409@mullenweg.com>
+
+Michael Heilemann wrote:
+> I mean just the fact that _my_ comments are being marked as spam...
+> I'm the admin! :)
+
+I just downloaded K2 r90 and I see *you've completely rewritten the 
+comment script as part of the theme*. This is wrong on so many levels, 
+and I'm afraid I can't support you as long as this continues.
+
+Themes are for PRESENTATION, not for rewriting core functionality.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From heilemann at gmail.com  Sun Sep 25 20:06:16 2005
+From: heilemann at gmail.com (Michael Heilemann)
+Date: Sun, 25 Sep 2005 22:06:16 +0200
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <4336FF7D.4080409@mullenweg.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>
+	<4336D0AB.2040007@mullenweg.com>
+	<5a715c0a05092510064167c042@mail.gmail.com>
+	<4336DE46.5010207@mullenweg.com>
+	<5a715c0a05092511187ebad5ca@mail.gmail.com>
+	<4336F9DC.4030405@mullenweg.com>
+	<5a715c0a050925124362754dfc@mail.gmail.com>
+	<4336FF7D.4080409@mullenweg.com>
+Message-ID: <5a715c0a05092513062f160fc@mail.gmail.com>
+
+It's Chris' code, I have no idea what it does or does not do.
+
+Regardless, I doubt that K2's comment code is the culprit in marking
+me, the admin of the system, as a spammer.
+
+Does ANYONE know where to start looking for a solution to this? Is
+this all black magic? Why do anti-spam solutions always turn around
+and bite me in the ass?
+
+
+
+On 9/25/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> Michael Heilemann wrote:
+> > I mean just the fact that _my_ comments are being marked as spam...
+> > I'm the admin! :)
+>
+> I just downloaded K2 r90 and I see *you've completely rewritten the
+> comment script as part of the theme*. This is wrong on so many levels,
+> and I'm afraid I can't support you as long as this continues.
+>
+> Themes are for PRESENTATION, not for rewriting core functionality.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+--
+Aloha,
+Michael Heilemann
+http://binarybonsai.com
+
+
+From m at mullenweg.com  Sun Sep 25 20:22:00 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 25 Sep 2005 13:22:00 -0700
+Subject: [spam-stopper] Spam Managing
+In-Reply-To: <5a715c0a05092513062f160fc@mail.gmail.com>
+References: <5a715c0a05092502115063a084@mail.gmail.com>	<4336D0AB.2040007@mullenweg.com>	<5a715c0a05092510064167c042@mail.gmail.com>	<4336DE46.5010207@mullenweg.com>	<5a715c0a05092511187ebad5ca@mail.gmail.com>	<4336F9DC.4030405@mullenweg.com>	<5a715c0a050925124362754dfc@mail.gmail.com>	<4336FF7D.4080409@mullenweg.com>
+	<5a715c0a05092513062f160fc@mail.gmail.com>
+Message-ID: <433706E8.4020504@mullenweg.com>
+
+Michael Heilemann wrote:
+> It's Chris' code, I have no idea what it does or does not do.
+
+It replaces wp-comments-post.php. This also means k2's comments-ajax.php
+will need to be updated every time WP is updated, for example the script
+is significantly different than how comments work in 1.6 already.
+
+There is a set API for plugins to modify the comment workflow, if you're 
+going to modify functionality you should use that, not duplicate the file.
+
+> Regardless, I doubt that K2's comment code is the culprit in marking
+> me, the admin of the system, as a spammer.
+
+There have been three "testing" comments from eudaimic at binarybonsai.com, 
+each returned false (not marked as spam).
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+
+From r at schestowitz.com  Tue Sep 27 02:50:16 2005
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Tue, 27 Sep 2005 03:50:16 +0100
+Subject: [spam-stopper] Apache Rule to Stop Spam?
+Message-ID: <20050927035016.0esfnpx2wjcw0wg8@banana.catalyst2.com>
+
+I know this may be off topic, but I suggest you folks have a look at:
+
+http://www.dvorak.org/blog/?p=2904
+
+This Apache rule is said to be capable of blocking spam very effectively in
+Dvorak's WordPress blog.
+
+Matt, I tried spam-stopper in my WordPress 1.2.x installations, but the hooks
+appear to neglect the plug-in. Spam just kept flooding in (more easily than
+ever since other protections were down) and there was no notion of spam
+flagging. I also set up a test-bed at http://www.schestowitz.com/Spam/ with
+some inbound links. I suspect it does not attract any spammers though.
+
+Roy
+
+-- 
+Roy S. Schestowitz      | $> unzip; ping; mount /usr; grep; umount& sleep
+http://Schestowitz.com  |    SuSE Linux    |     PGP-Key: 74572E8E
+  3:45am  up 32 days 15:59,  2 users,  load average: 0.36, 0.49, 0.6
+
+
+From m at mullenweg.com  Tue Sep 27 02:49:44 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon, 26 Sep 2005 19:49:44 -0700
+Subject: [spam-stopper] Apache Rule to Stop Spam?
+In-Reply-To: <20050927035016.0esfnpx2wjcw0wg8@banana.catalyst2.com>
+References: <20050927035016.0esfnpx2wjcw0wg8@banana.catalyst2.com>
+Message-ID: <4338B348.2050607@mullenweg.com>
+
+Roy Schestowitz wrote:
+> Matt, I tried spam-stopper in my WordPress 1.2.x installations, but the hooks
+> appear to neglect the plug-in. Spam just kept flooding in (more easily than
+> ever since other protections were down) and there was no notion of spam
+> flagging. I also set up a test-bed at http://www.schestowitz.com/Spam/ with
+> some inbound links. I suspect it does not attract any spammers though.
+
+Sorry I may have neglected to mention it before, but the plugin requires 
+version 1.5 or above.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From derek at escalan.com  Tue Sep 27 04:10:20 2005
+From: derek at escalan.com (Derek Scruggs)
+Date: Mon, 26 Sep 2005 22:10:20 -0600
+Subject: [spam-stopper] Steady flow of spam today
+In-Reply-To: <20050927035016.0esfnpx2wjcw0wg8@banana.catalyst2.com>
+Message-ID: <BAY0-SMTP0448378ADB48435A1673B4F18A0@phx.gbl>
+
+Hmmm... It seemed to be working, but I had a steady flow today. Not huge
+numbers, but consistent. Here's an example.
+
+---------------
+
+New trackback on your post # "Happy Valentine's Day"
+
+Website: online casino (IP: 210.177.65.142 , 210.177.65.142)
+URI    : http://online-casino.hotels4asia.com
+Excerpt: 
+<trackback /><strong>online casino</strong>
+online casino Occasionally, indeed, it would supiese that he deliberately
+made rousin with the exact saddle-ponies of his amont
+
+You can see all trackbacks on this post here: 
+http://www.askderekscruggs.com/happy-valentines-day.html#comments
+
+
+
+From m at mullenweg.com  Tue Sep 27 04:14:34 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon, 26 Sep 2005 21:14:34 -0700
+Subject: [spam-stopper] Steady flow of spam today
+In-Reply-To: <BAY0-SMTP0448378ADB48435A1673B4F18A0@phx.gbl>
+References: <BAY0-SMTP0448378ADB48435A1673B4F18A0@phx.gbl>
+Message-ID: <4338C72A.5050008@mullenweg.com>
+
+Derek Scruggs wrote:
+> Hmmm... It seemed to be working, but I had a steady flow today. Not huge
+> numbers, but consistent. Here's an example.
+
+I noticed those guys earlier, submit any you haven't already as spam but 
+otherwise you should be protected now.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From dmoola at gmail.com  Tue Sep 27 04:22:33 2005
+From: dmoola at gmail.com (Daniel)
+Date: Mon, 26 Sep 2005 21:22:33 -0700
+Subject: [spam-stopper] Steady flow of spam today
+In-Reply-To: <4338C72A.5050008@mullenweg.com>
+References: <BAY0-SMTP0448378ADB48435A1673B4F18A0@phx.gbl>
+	<4338C72A.5050008@mullenweg.com>
+Message-ID: <1c3153cf050926212253fd9553@mail.gmail.com>
+
+no spam in days here!
+ YAY!
+ Daniel
+
+ On 9/26/05, Matt Mullenweg <m at mullenweg.com> wrote:
+>
+> Derek Scruggs wrote:
+> > Hmmm... It seemed to be working, but I had a steady flow today. Not huge
+> > numbers, but consistent. Here's an example.
+>
+> I noticed those guys earlier, submit any you haven't already as spam but
+> otherwise you should be protected now.
+>
+> --
+> Matt Mullenweg
+> http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050926/aa248e7d/attachment.htm>
+
+From rich at boakes.org  Tue Sep 27 09:34:21 2005
+From: rich at boakes.org (rich boakes)
+Date: Tue, 27 Sep 2005 10:34:21 +0100
+Subject: [spam-stopper] Stealth?
+Message-ID: <4339121D.9090005@boakes.org>
+
+Are we ok to discuss the plugin/service
+publicly, by word of mouth and on the net, or
+are we under a magical cloak-of-stealth?
+
+Rich
+--
+http://boakes.org
+
+
+From m at mullenweg.com  Tue Sep 27 21:25:05 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 27 Sep 2005 14:25:05 -0700
+Subject: [spam-stopper] Stealth?
+In-Reply-To: <4339121D.9090005@boakes.org>
+References: <4339121D.9090005@boakes.org>
+Message-ID: <4339B8B1.5010403@mullenweg.com>
+
+rich boakes wrote:
+> Are we ok to discuss the plugin/service
+> publicly, by word of mouth and on the net, or
+> are we under a magical cloak-of-stealth?
+
+If you want to talk about how it's working for you, well or not, that's 
+fine, but I'd rather you not share the plugin itself and the way which 
+it works until things are more finalized.
+
+-- 
+Matt Mullenweg
+http://photomatt.net  | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From derek at escalan.com  Thu Sep 29 15:00:30 2005
+From: derek at escalan.com (Derek Scruggs)
+Date: Thu, 29 Sep 2005 09:00:30 -0600
+Subject: [spam-stopper] Four spams overnight
+Message-ID: <BAY0-SMTP04EB1D4F1C3D2CB82552B6F18C0@phx.gbl>
+
+Last night I received four casino spams similar to below. I don't remember
+100%, but it seems that all the spam that's gotten through for me is casino
+related. The four from last night are all trackbacks.
+
+-Derek
+
+> -----Original Message-----
+> From: Ask Derek Scruggs [mailto:wordpress at escalan.com] 
+> Sent: Thursday, September 29, 2005 6:03 AM
+> To: derek at askderekscruggs.com
+> Subject: [Ask Derek Scruggs] Trackback: "The "River of News" 
+> in NewsGator"
+> 
+> 
+> 
+> New trackback on your post # "The "River of News" in NewsGator"
+> 
+> Website: casino chips (IP: 202.143.138.162 , 202.143.138.162)
+> URI    : http://casino-chips.hrmasters.com
+> Excerpt: 
+> <trackback /><strong>casino chips</strong>
+> casino chips They waist-deep away encouraged, hopeful, cost 
+> for the ameasure that presides ahead of them, or for the 
+> darse they mus
+> 
+> You can see all trackbacks on this post here: 
+> http://www.askderekscruggs.com/river-of-news-in-newsgator.html
+#comments
+
+
+
+From gott at uberbin.net  Thu Sep 29 15:25:12 2005
+From: gott at uberbin.net (Mariano Amartino - uberbin.net)
+Date: Thu, 29 Sep 2005 12:25:12 -0300
+Subject: [spam-stopper] Four spams overnight
+In-Reply-To: <BAY0-SMTP04EB1D4F1C3D2CB82552B6F18C0@phx.gbl>
+Message-ID: <20050929152523.1E8488625B@plunder.dreamhost.com>
+
+7 spams of casino... Similar to this one... Today in the last 4 hours
+Regards
+mariano 
+
+-----Original Message-----
+From: spam-stopper-bounces at lists.automattic.com
+[mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Derek Scruggs
+Sent: Jueves, 29 de Septiembre de 2005 12:01 p.m.
+To: spam-stopper at lists.automattic.com
+Subject: [spam-stopper] Four spams overnight
+
+Last night I received four casino spams similar to below. I don't remember 100%, but it
+seems that all the spam that's gotten through for me is casino related. The four from last
+night are all trackbacks.
+
+-Derek
+
+> -----Original Message-----
+> From: Ask Derek Scruggs [mailto:wordpress at escalan.com]
+> Sent: Thursday, September 29, 2005 6:03 AM
+> To: derek at askderekscruggs.com
+> Subject: [Ask Derek Scruggs] Trackback: "The "River of News" 
+> in NewsGator"
+> 
+> 
+> 
+> New trackback on your post # "The "River of News" in NewsGator"
+> 
+> Website: casino chips (IP: 202.143.138.162 , 202.143.138.162)
+> URI    : http://casino-chips.hrmasters.com
+> Excerpt: 
+> <trackback /><strong>casino chips</strong> casino chips They 
+> waist-deep away encouraged, hopeful, cost for the ameasure that 
+> presides ahead of them, or for the darse they mus
+> 
+> You can see all trackbacks on this post here: 
+> http://www.askderekscruggs.com/river-of-news-in-newsgator.html
+#comments
+
+_______________________________________________
+spam-stopper mailing list
+spam-stopper at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From unteins at somuchgeek.com  Thu Sep 29 16:00:28 2005
+From: unteins at somuchgeek.com (Unteins (Jason Goldsmith))
+Date: Thu, 29 Sep 2005 09:00:28 -0700
+Subject: [spam-stopper] 4 Trackback Spams
+Message-ID: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+
+I got 4 trackback spams last night. Marked them as spam, so they are  
+there for review.
+
+About the only interesting tidbit was one said something about  
+banning poker spam or something like that, but it was in fact, poker  
+spam.
+
+The other 3 seemed like typical trackback spam.
+
+
+From rainchx at gmail.com  Thu Sep 29 19:12:16 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Fri, 30 Sep 2005 07:12:16 +1200
+Subject: [spam-stopper] Four spams overnight
+In-Reply-To: <20050929152523.1E8488625B@plunder.dreamhost.com>
+References: <BAY0-SMTP04EB1D4F1C3D2CB82552B6F18C0@phx.gbl>
+	<20050929152523.1E8488625B@plunder.dreamhost.com>
+Message-ID: <2d764fd0050929121225bd65b8@mail.gmail.com>
+
+ditto on the casino, but on looking at the comments table it's stopping more
+than it lets through
+
+just got this one - first spam on that topic
+
+*Name:* student loans | *URI:* http://student-loans.meridiancapitalinc.com |
+*IP:* 221.243.158.250<http://ws.arin.net/cgi-bin/whois.pl?queryinput=221.243.158.250>
+
+*student loans*
+
+student loans , that her death resemblances affected with such real sorrow,
+and with such a harvest-tide moose-run of lo
+
+Sarah
+
+
+On 30/09/05, Mariano Amartino - uberbin.net <http://uberbin.net> <
+gott at uberbin.net> wrote:
+>
+> 7 spams of casino... Similar to this one... Today in the last 4 hours
+> Regards
+> mariano
+>
+> -----Original Message-----
+> From: spam-stopper-bounces at lists.automattic.com
+> [mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Derek
+> Scruggs
+> Sent: Jueves, 29 de Septiembre de 2005 12:01 p.m.
+> To: spam-stopper at lists.automattic.com
+> Subject: [spam-stopper] Four spams overnight
+>
+> Last night I received four casino spams similar to below. I don't remember
+> 100%, but it
+> seems that all the spam that's gotten through for me is casino related.
+> The four from last
+> night are all trackbacks.
+>
+> -Derek
+>
+> > -----Original Message-----
+> > From: Ask Derek Scruggs [mailto:wordpress at escalan.com]
+> > Sent: Thursday, September 29, 2005 6:03 AM
+> > To: derek at askderekscruggs.com
+> > Subject: [Ask Derek Scruggs] Trackback: "The "River of News"
+> > in NewsGator"
+> >
+> >
+> >
+> > New trackback on your post # "The "River of News" in NewsGator"
+> >
+> > Website: casino chips (IP: 202.143.138.162 <http://202.143.138.162> ,
+> 202.143.138.162 <http://202.143.138.162>)
+> > URI : http://casino-chips.hrmasters.com
+> > Excerpt:
+> > <trackback /><strong>casino chips</strong> casino chips They
+> > waist-deep away encouraged, hopeful, cost for the ameasure that
+> > presides ahead of them, or for the darse they mus
+> >
+> > You can see all trackbacks on this post here:
+> > http://www.askderekscruggs.com/river-of-news-in-newsgator.html
+> #comments
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+--
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050930/d9235745/attachment.htm>
+
+From m at mullenweg.com  Fri Sep 30 02:17:09 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 29 Sep 2005 19:17:09 -0700
+Subject: [spam-stopper] 4 Trackback Spams
+In-Reply-To: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+Message-ID: <433CA025.5080408@mullenweg.com>
+
+Unteins (Jason Goldsmith) wrote:
+> I got 4 trackback spams last night. Marked them as spam, so they are 
+> there for review.
+> 
+> About the only interesting tidbit was one said something about banning 
+> poker spam or something like that, but it was in fact, poker spam.
+> 
+> The other 3 seemed like typical trackback spam.
+
+Thanks for the reports everyone!
+
+I've updated everything to better protect against this type of attack.
+
+Remember to mark anything that gets through as "spam" so I can use all 
+that data to better protect everyone.
+
+-- 
+Matt Mullenweg
+http://photomatt.net  | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From melanie at itcouldbenothing.com  Fri Sep 30 08:09:42 2005
+From: melanie at itcouldbenothing.com (Melanie)
+Date: Fri, 30 Sep 2005 04:09:42 -0400
+Subject: [spam-stopper] 4 spams over the last day or so
+In-Reply-To: <433CA025.5080408@mullenweg.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+	<433CA025.5080408@mullenweg.com>
+Message-ID: <433CF2C6.4050601@itcouldbenothing.com>
+
+For a few days there, nothing. Now it seems I'm getting one every 4 - 6 
+hours come through. This is really no worse than I was getting with SK 
+as my shield, but it makes me wonder if they're already working around 
+whatever is protecting me with this plugin...
+
+Plus, I noticed a larger number of real comments getting pushed into 
+moderation rather than going right out. I'd only ever had one real 
+comment go into moderation before, but I've had 4 or 5 real comments 
+land there since running this plugin. It's not terribly annoying to me, 
+since I don't get a high number of comments overall... but it's a rather 
+large percentage if you look at that. I'd imagine a more popular site 
+would find that frustrating. Or am I the only one seeing that?
+
+Mel
+http://itcouldbenothing.com/fruitfly
+
+
+
+
+
+
+From ben at branders.name  Fri Sep 30 08:42:30 2005
+From: ben at branders.name (Ben Branders)
+Date: Fri, 30 Sep 2005 10:42:30 +0200 (CEST)
+Subject: [spam-stopper] 4 Trackback Spams
+In-Reply-To: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+Message-ID: <16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+
+On Thu, September 29, 2005 18:00, Unteins (Jason Goldsmith) said:
+> I got 4 trackback spams last night. Marked them as spam, so they are
+> there for review.
+
+Today I got my first spam since I've been using Spam Stopper.
+
+I marked it as spam, but just to be sure, here it is:
+
+> Nieuwe trackback op je bericht #93 "Nokia weblog"
+> Website: loan calculator (IP: 203.190.254.9 , e250.icddrb.org)
+> URI    : http://loan-calculator.meridiancapitalinc.com
+> Excerpt:
+> <strong>loan calculator</strong>
+>
+> loan calculator We can imagine how this savoured would be handled by the
+> wait-and-see suburb's of our slane ; how th
+>
+> Je kan alle trackbacks bij dit bericht hier bekijken:
+> http://branders.name/archives/2004/03/11/nokia-weblog#comments
+
+
+How can I be sure no real comments get deleted by spam stopper? I don't
+see a list of the comments/trackbacks that are processed. It would be nice
+if there was a logfile with an undelete option.
+
+
+
+Best regards
+-- 
+Ben Branders
+
+  web      http://branders.name               http://www.livre.nl
+  jabber   ben at jabber.belnet.be          http://www.mozbrowser.nl
+  OpenPGP  0x46938FDB               http://www.mozilla-europe.org
+
+
+
+
+From rainchx at gmail.com  Fri Sep 30 08:49:00 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Fri, 30 Sep 2005 20:49:00 +1200
+Subject: [spam-stopper] 4 Trackback Spams
+In-Reply-To: <16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+	<16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+Message-ID: <2d764fd00509300149k2b0da012o@mail.gmail.com>
+
+same guy is crawling all over my blog...
+
+On 30/09/05, Ben Branders <ben at branders.name> wrote:
+>
+> On Thu, September 29, 2005 18:00, Unteins (Jason Goldsmith) said:
+> > I got 4 trackback spams last night. Marked them as spam, so they are
+> > there for review.
+>
+> Today I got my first spam since I've been using Spam Stopper.
+>
+> I marked it as spam, but just to be sure, here it is:
+>
+> > Nieuwe trackback op je bericht #93 "Nokia weblog"
+> > Website: loan calculator (IP: 203.190.254.9 <http://203.190.254.9> ,
+> e250.icddrb.org <http://e250.icddrb.org>)
+> > URI : http://loan-calculator.meridiancapitalinc.com
+> > Excerpt:
+> > <strong>loan calculator</strong>
+> >
+> > loan calculator We can imagine how this savoured would be handled by the
+> > wait-and-see suburb's of our slane ; how th
+> >
+> > Je kan alle trackbacks bij dit bericht hier bekijken:
+> > http://branders.name/archives/2004/03/11/nokia-weblog#comments
+>
+>
+> How can I be sure no real comments get deleted by spam stopper? I don't
+> see a list of the comments/trackbacks that are processed. It would be nice
+> if there was a logfile with an undelete option.
+>
+>
+>
+> Best regards
+> --
+> Ben Branders
+>
+> web http://branders.name http://www.livre.nl
+> jabber ben at jabber.belnet.be http://www.mozbrowser.nl
+> OpenPGP 0x46938FDB http://www.mozilla-europe.org
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+--
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050930/3b74fe3e/attachment.htm>
+
+From rainchx at gmail.com  Fri Sep 30 08:59:10 2005
+From: rainchx at gmail.com (Sarah King)
+Date: Fri, 30 Sep 2005 20:59:10 +1200
+Subject: [spam-stopper] 4 spams over the last day or so
+In-Reply-To: <433CF2C6.4050601@itcouldbenothing.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+	<433CA025.5080408@mullenweg.com>
+	<433CF2C6.4050601@itcouldbenothing.com>
+Message-ID: <2d764fd00509300159n66fcd734n@mail.gmail.com>
+
+Hey Mel
+
+I've avoided commenting on the blogs I'm discovering through this trial. Had
+to comment on Mel's blog, and good to see the word breast doesn't trigger a
+spam hit ;)
+
+Sarah
+
+On 30/09/05, Melanie <melanie at itcouldbenothing.com> wrote:
+>
+> For a few days there, nothing. Now it seems I'm getting one every 4 - 6
+> hours come through. This is really no worse than I was getting with SK
+> as my shield, but it makes me wonder if they're already working around
+> whatever is protecting me with this plugin...
+>
+> Plus, I noticed a larger number of real comments getting pushed into
+> moderation rather than going right out. I'd only ever had one real
+> comment go into moderation before, but I've had 4 or 5 real comments
+> land there since running this plugin. It's not terribly annoying to me,
+> since I don't get a high number of comments overall... but it's a rather
+> large percentage if you look at that. I'd imagine a more popular site
+> would find that frustrating. Or am I the only one seeing that?
+>
+> Mel
+> http://itcouldbenothing.com/fruitfly
+>
+>
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+--
+Sarah King
+Estatement Ltd
+p: 09 815 8642
+m: 025 277 5898
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20050930/9aae10a6/attachment.htm>
+
+From m at mullenweg.com  Fri Sep 30 11:15:41 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 04:15:41 -0700
+Subject: [spam-stopper] 4 spams over the last day or so
+In-Reply-To: <433CF2C6.4050601@itcouldbenothing.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>	<433CA025.5080408@mullenweg.com>
+	<433CF2C6.4050601@itcouldbenothing.com>
+Message-ID: <433D1E5D.30706@mullenweg.com>
+
+Melanie wrote:
+> Plus, I noticed a larger number of real comments getting pushed into 
+> moderation rather than going right out. I'd only ever had one real 
+> comment go into moderation before, but I've had 4 or 5 real comments 
+> land there since running this plugin. It's not terribly annoying to me, 
+> since I don't get a high number of comments overall... but it's a rather 
+> large percentage if you look at that. I'd imagine a more popular site 
+> would find that frustrating. Or am I the only one seeing that?
+
+There is probably something else in WP causing that, maybe limits on the 
+number of links or having to approve untrusted commenters? The plugin 
+just passes through whatever "comment status" came to it, it only 
+changes it if it finds spam.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Fri Sep 30 11:18:07 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 04:18:07 -0700
+Subject: [spam-stopper] 4 spams over the last day or so
+In-Reply-To: <2d764fd00509300159n66fcd734n@mail.gmail.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>	<433CA025.5080408@mullenweg.com>	<433CF2C6.4050601@itcouldbenothing.com>
+	<2d764fd00509300159n66fcd734n@mail.gmail.com>
+Message-ID: <433D1EEF.1020209@mullenweg.com>
+
+Sarah King wrote:
+> I've avoided commenting on the blogs I'm discovering through this trial. 
+> Had to comment on Mel's blog, and good to see the word breast doesn't 
+> trigger a spam hit ;)
+
+Awesome. :)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Fri Sep 30 11:20:00 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 04:20:00 -0700
+Subject: [spam-stopper] 4 Trackback Spams
+In-Reply-To: <16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>
+	<16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+Message-ID: <433D1F60.9050307@mullenweg.com>
+
+Ben Branders wrote:
+> How can I be sure no real comments get deleted by spam stopper? I don't
+> see a list of the comments/trackbacks that are processed. It would be nice
+> if there was a logfile with an undelete option.
+
+Someone had pointed out a plugin that did this, what was it?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From doug at coffeeswirls.com  Fri Sep 30 11:38:34 2005
+From: doug at coffeeswirls.com (Doug McHone)
+Date: Fri, 30 Sep 2005 06:38:34 -0500
+Subject: [spam-stopper] I'll see your 4 Trackback Spams and raise you 50...
+In-Reply-To: <2d764fd00509300149k2b0da012o@mail.gmail.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>	<16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+	<2d764fd00509300149k2b0da012o@mail.gmail.com>
+Message-ID: <433D23BA.9050209@coffeeswirls.com>
+
+Oh my, About 50 TBs got through and maybe 3-4 comments that will all be 
+marked as spam.  Is there a plugin that I haven't found that will let me 
+mass edit as spam rather than just deleting them?
+
+Doug
+
+Sarah King wrote:
+
+> same guy is crawling all over my blog...
+>
+> On 30/09/05, *Ben Branders* <ben at branders.name 
+> <mailto:ben at branders.name>> wrote:
+>
+>     On Thu, September 29, 2005 18:00, Unteins (Jason Goldsmith) said:
+>     > I got 4 trackback spams last night. Marked them as spam, so they are
+>     > there for review.
+>
+>     Today I got my first spam since I've been using Spam Stopper.
+>
+>     I marked it as spam, but just to be sure, here it is:
+>
+>     > Nieuwe trackback op je bericht #93 "Nokia weblog"
+>     > Website: loan calculator (IP: 203.190.254.9
+>     <http://203.190.254.9> , e250.icddrb.org <http://e250.icddrb.org>)
+>     > URI    : http://loan-calculator.meridiancapitalinc.com
+>     > Excerpt:
+>     > <strong>loan calculator</strong>
+>     >
+>     > loan calculator We can imagine how this savoured would be
+>     handled by the
+>     > wait-and-see suburb's of our slane ; how th
+>     >
+>     > Je kan alle trackbacks bij dit bericht hier bekijken:
+>     > http://branders.name/archives/2004/03/11/nokia-weblog#comments
+>
+>
+>     How can I be sure no real comments get deleted by spam stopper? I
+>     don't
+>     see a list of the comments/trackbacks that are processed. It would
+>     be nice
+>     if there was a logfile with an undelete option.
+>
+>
+>
+>     Best regards
+>     --
+>     Ben Branders
+>
+>       web      http://branders.name               http://www.livre.nl
+>       jabber   ben at jabber.belnet.be
+>     <mailto:ben at jabber.belnet.be>          http://www.mozbrowser.nl
+>       OpenPGP  0x46938FDB               http://www.mozilla-europe.org
+>
+>
+>     _______________________________________________
+>     spam-stopper mailing list
+>     spam-stopper at lists.automattic.com
+>     <mailto:spam-stopper at lists.automattic.com>
+>     http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+>
+> -- 
+> Sarah King
+> Estatement Ltd
+> p: 09 815 8642
+> m: 025 277 5898
+>
+>------------------------------------------------------------------------
+>
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+>  
+>
+
+
+
+From m at mullenweg.com  Fri Sep 30 11:47:31 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 04:47:31 -0700
+Subject: [spam-stopper] It was off
+Message-ID: <433D25D3.3060309@mullenweg.com>
+
+Sorry, the service was actually not checking comments for the past few 
+hours due to a silly typo. I apologize for what might have gotten 
+through. You can "mass edit" things on the moderation screen, which has 
+some "mark all as ____ " links at the bottom of the page.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From doug at coffeeswirls.com  Fri Sep 30 11:53:41 2005
+From: doug at coffeeswirls.com (Doug McHone)
+Date: Fri, 30 Sep 2005 06:53:41 -0500
+Subject: [spam-stopper] It was off
+In-Reply-To: <433D25D3.3060309@mullenweg.com>
+References: <433D25D3.3060309@mullenweg.com>
+Message-ID: <433D2745.2020302@coffeeswirls.com>
+
+I'm using 1.5.2 and all it gives is to delete the checked comments.  A 
+delete all checked as spam would be helpful as well (wink, wink!)
+
+Doug
+
+Matt Mullenweg wrote:
+
+> Sorry, the service was actually not checking comments for the past few 
+> hours due to a silly typo. I apologize for what might have gotten 
+> through. You can "mass edit" things on the moderation screen, which 
+> has some "mark all as ____ " links at the bottom of the page.
+>
+
+
+
+From ben at branders.name  Fri Sep 30 11:57:29 2005
+From: ben at branders.name (Ben Branders)
+Date: Fri, 30 Sep 2005 13:57:29 +0200 (CEST)
+Subject: [spam-stopper] It was off
+In-Reply-To: <433D2745.2020302@coffeeswirls.com>
+References: <433D25D3.3060309@mullenweg.com>
+	<433D2745.2020302@coffeeswirls.com>
+Message-ID: <64292.57.66.46.207.1128081449.squirrel@mails.fab4.be>
+
+On Fri, September 30, 2005 13:53, Doug McHone said:
+> I'm using 1.5.2 and all it gives is to delete the checked comments.  A
+> delete all checked as spam would be helpful as well (wink, wink!)
+
+You can mark the comments/trackbacks as spam, but it's still difficult.
+You have to edit the comment. In the advanced options, check "spam" and
+confirm.
+
+
+
+Best regards
+-- 
+Ben Branders
+
+  web      http://branders.name               http://www.livre.nl
+  jabber   ben at jabber.belnet.be          http://www.mozbrowser.nl
+  OpenPGP  0x46938FDB               http://www.mozilla-europe.org
+
+
+
+
+From melanie at itcouldbenothing.com  Fri Sep 30 13:09:59 2005
+From: melanie at itcouldbenothing.com (Melanie)
+Date: Fri, 30 Sep 2005 09:09:59 -0400
+Subject: [spam-stopper] 4 spams over the last day or so
+In-Reply-To: <433D1E5D.30706@mullenweg.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>	<433CA025.5080408@mullenweg.com>	<433CF2C6.4050601@itcouldbenothing.com>
+	<433D1E5D.30706@mullenweg.com>
+Message-ID: <433D3927.70403@itcouldbenothing.com>
+
+My settings for comment moderation are the same as they've ever been 
+(which is to say the default). I had only upgraded to 1.5.2 (from 1.5) 
+about a week before we started testing this. Is there something else 
+that comes with 1.5.2 that might be pushing these to moderation? (I 
+don't have any other comment plugins active... so I know it's not a plugin.)
+
+And Sarah's comment (thanks!) that included the word breast (you gotta 
+love posts about boobies, right?) - while it didn't get marked for spam 
+- did get sent to moderation.
+
+Mel
+http://itcouldbenothing.com/fruitfly
+
+
+Matt Mullenweg wrote:
+
+>
+> There is probably something else in WP causing that, maybe limits on 
+> the number of links or having to approve untrusted commenters? The 
+> plugin just passes through whatever "comment status" came to it, it 
+> only changes it if it finds spam.
+>
+
+
+From rich at boakes.org  Fri Sep 30 13:17:41 2005
+From: rich at boakes.org (rich boakes)
+Date: Fri, 30 Sep 2005 14:17:41 +0100
+Subject: [spam-stopper] 4 Trackback Spams
+In-Reply-To: <433D1F60.9050307@mullenweg.com>
+References: <FFBC45D4-4D51-4177-9D18-CCD1D1B46829@somuchgeek.com>	<16731.57.66.46.207.1128069750.squirrel@mails.fab4.be>
+	<433D1F60.9050307@mullenweg.com>
+Message-ID: <433D3AF5.3060409@boakes.org>
+
+I think I too have just discovered a couple of
+messages that were incorrectly flagged as spam
+by sifting the DB.
+
+It's possible that I manually marked them as
+spam in error, but I don't think I did.
+
+So,
+  (a) +1 for any pointers to a
+      "browse my spam" feature.
+
+...and in a similar vein...
+
+  (b) Are there any plans to include an
+      "oh bugger, that wasn't spam, please
+      don't add it to the DB" button.
+
+Rich
+--
+http://boakes.org/pics/2005/automattic/automattic.jpg
+
+
+From gott at uberbin.net  Fri Sep 30 13:39:23 2005
+From: gott at uberbin.net (Mariano Amartino - uberbin.net)
+Date: Fri, 30 Sep 2005 10:39:23 -0300
+Subject: [spam-stopper] It was off
+In-Reply-To: <433D25D3.3060309@mullenweg.com>
+Message-ID: <20050930133935.7C699862E6@plunder.dreamhost.com>
+
+Now I understand the 194 comments in moderation :P 
+
+-----Original Message-----
+From: spam-stopper-bounces at lists.automattic.com
+[mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Matt Mullenweg
+Sent: Viernes, 30 de Septiembre de 2005 08:48 a.m.
+To: spam-stopper at lists.automattic.com
+Subject: [spam-stopper] It was off
+
+Sorry, the service was actually not checking comments for the past few hours due to a
+silly typo. I apologize for what might have gotten through. You can "mass edit" things on
+the moderation screen, which has some "mark all as ____ " links at the bottom of the page.
+
+--
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org http://pingomatic.com | http://cnet.com
+_______________________________________________
+spam-stopper mailing list
+spam-stopper at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From m at mullenweg.com  Fri Sep 30 18:05:43 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 11:05:43 -0700
+Subject: [spam-stopper] It was off
+In-Reply-To: <433D2745.2020302@coffeeswirls.com>
+References: <433D25D3.3060309@mullenweg.com>
+	<433D2745.2020302@coffeeswirls.com>
+Message-ID: <433D7E77.6070807@mullenweg.com>
+
+Doug McHone wrote:
+> I'm using 1.5.2 and all it gives is to delete the checked comments.  A 
+> delete all checked as spam would be helpful as well (wink, wink!)
+
+You should go to wp-admin/moderation.php. There is a listing of comments 
+in moderation and a radio box under each. At the bottom of the page you 
+can mark all as spam, delete, ignore, approve.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From m at mullenweg.com  Fri Sep 30 18:06:50 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 11:06:50 -0700
+Subject: [spam-stopper] It was off
+In-Reply-To: <20050930133935.7C699862E6@plunder.dreamhost.com>
+References: <20050930133935.7C699862E6@plunder.dreamhost.com>
+Message-ID: <433D7EBA.9010906@mullenweg.com>
+
+Mariano Amartino - uberbin.net wrote:
+> Now I understand the 194 comments in moderation :P 
+
+That's how much it protects you when on! :)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From gott at uberbin.net  Fri Sep 30 18:31:43 2005
+From: gott at uberbin.net (Mariano Amartino - uberbin.net)
+Date: Fri, 30 Sep 2005 15:31:43 -0300
+Subject: [spam-stopper] It was off
+In-Reply-To: <433D7EBA.9010906@mullenweg.com>
+Message-ID: <20050930183153.66971B3307@filch.dreamhost.com>
+
+Nice marketing tactic :P (just kidding) 
+
+-----Original Message-----
+From: spam-stopper-bounces at lists.automattic.com
+[mailto:spam-stopper-bounces at lists.automattic.com] On Behalf Of Matt Mullenweg
+Sent: Viernes, 30 de Septiembre de 2005 03:07 p.m.
+To: spam-stopper at lists.automattic.com
+Subject: Re: [spam-stopper] It was off
+
+Mariano Amartino - uberbin.net wrote:
+> Now I understand the 194 comments in moderation :P
+
+That's how much it protects you when on! :)
+
+--
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org http://pingomatic.com | http://cnet.com
+_______________________________________________
+spam-stopper mailing list
+spam-stopper at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From m at mullenweg.com  Fri Sep 30 18:45:11 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 30 Sep 2005 11:45:11 -0700
+Subject: [spam-stopper] That annoying guy who has been getting through
+Message-ID: <433D87B7.90607@mullenweg.com>
+
+I found a way to completely nail the annoying guy who posts links to 
+regular blogs. You should never see that bugger again. (If it works, 
+which it has against all the messages in the corpus.)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+
+
+From skeltoac at gmail.com  Fri Sep 30 18:53:02 2005
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Fri, 30 Sep 2005 13:53:02 -0500
+Subject: [spam-stopper] That annoying guy who has been getting through
+In-Reply-To: <433D87B7.90607@mullenweg.com>
+References: <433D87B7.90607@mullenweg.com>
+Message-ID: <e6ec604d0509301153vd48676bs2b03f501c6ae4cfa@mail.gmail.com>
+
+The guy who had the nerve to post on his own blog about how annoying
+spammers are? :-)
+
+On 9/30/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> I found a way to completely nail the annoying guy who posts links to
+> regular blogs. You should never see that bugger again. (If it works,
+> which it has against all the messages in the corpus.)
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://cnet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+From unteins at somuchgeek.com  Fri Sep 30 22:37:24 2005
+From: unteins at somuchgeek.com (Unteins (Jason Goldsmith))
+Date: Fri, 30 Sep 2005 15:37:24 -0700
+Subject: [spam-stopper] 29  Spams last night
+Message-ID: <6F7EF716-F9AC-4E52-B772-514802F42059@somuchgeek.com>
+
+I got hit with 27 poker spams and 2 loan spams around 5 am last night.
+
+I saw there was a typo, so presumably that is fixed now.
+
+Based on Matt's comments, it would appear that I can use the moderate  
+all comments feature without interfering with the spam smashing.
+
+Unteins
+http://somuchgeek.com
+
+
+
+
+
+From nuclearmoose at gmail.com  Fri Sep 30 22:51:48 2005
+From: nuclearmoose at gmail.com (Craig)
+Date: Fri, 30 Sep 2005 15:51:48 -0700
+Subject: [spam-stopper] 29 Spams last night
+In-Reply-To: <6F7EF716-F9AC-4E52-B772-514802F42059@somuchgeek.com>
+References: <6F7EF716-F9AC-4E52-B772-514802F42059@somuchgeek.com>
+Message-ID: <5aa3aa0509301551w74ae00auc07fbbd0b9d9754a@mail.gmail.com>
+
+I have been using only two settings - moderate when two or more links
+are included and moderate if no previously approved comments have been
+made. So far I've had only two comments go to moderation that were
+actually spam.
+
+This is frikkin' awesome! Matt, I'm gonna give you a moose hug when
+you do your Canada tour! :^P
+
+Craig
+Nuclear Moose.
+
+PS:
+Jason - it's cool to see you around again!
+
+
+From unteins at somuchgeek.com  Fri Sep 30 23:12:48 2005
+From: unteins at somuchgeek.com (Unteins (Jason Goldsmith))
+Date: Fri, 30 Sep 2005 16:12:48 -0700
+Subject: [spam-stopper] 29 Spams last night
+In-Reply-To: <5aa3aa0509301551w74ae00auc07fbbd0b9d9754a@mail.gmail.com>
+References: <6F7EF716-F9AC-4E52-B772-514802F42059@somuchgeek.com>
+	<5aa3aa0509301551w74ae00auc07fbbd0b9d9754a@mail.gmail.com>
+Message-ID: <2DA87195-DD13-4394-A114-AE2486A54A38@somuchgeek.com>
+
+Its good to see me around too....uh...wait :)
+
+Yeah, this plugin works pretty well. I tested the similar Spam  
+Service that Mark Ghoush I think put out and it was equally as good.
+
+It is as effective as Spam Karma was, so that is cool. I like SK and  
+this plugin, not sure where the advantage/disadvantages of each is.
+
+Btw, Matt, what happens if the spam service is unreachable?
+
+On Sep 30, 2005, at 3:51 PM, Craig wrote:
+
+
+
+
+
+> I have been using only two settings - moderate when two or more links
+> are included and moderate if no previously approved comments have been
+> made. So far I've had only two comments go to moderation that were
+> actually spam.
+>
+> This is frikkin' awesome! Matt, I'm gonna give you a moose hug when
+> you do your Canada tour! :^P
+>
+> Craig
+> Nuclear Moose.
+>
+> PS:
+> Jason - it's cool to see you around again!
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+>
+>
+
+
+
+
+
+
+

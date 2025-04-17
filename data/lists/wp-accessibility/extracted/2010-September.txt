@@ -1,0 +1,594 @@
+From elfin at elfden.co.uk  Sun Sep  5 12:53:05 2010
+From: elfin at elfden.co.uk (Rich Pedley)
+Date: Sun, 05 Sep 2010 13:53:05 +0100
+Subject: [wp-accessibility] Twenty Ten
+Message-ID: <4C8392B1.1020209@elfden.co.uk>
+
+This list is unused, we need to start using it!
+
+Now I've made a start with looking at the accessibility of Twenty Ten, 
+starting with Links, well mainly.
+
+http://core.trac.wordpress.org/ticket/14782
+[quote]
+
+Starting off with changes to the CSS only.
+
+Links: colors amended where necessary. added underscores and/or color 
+changes for active, hover and focus.
+
+Gallery image links: adjusted things to use margin to center the image 
+rather than padding, to allow for adding highlighting on image links.
+
+Skip link: now appears above the #access menu when tabbing through the 
+page.
+
+Grey text/links: was 888 this just failed the color contrast, so 
+changed it to 777 throughout.
+
+Forms: added highlight for input text and textarea, for active and focus.
+[/quote]
+
+Feel free to add comments there.
+
+
+However I have an issue with the access (role: navigation) menu, which 
+can't be fixed with CSS alone, and is not just an accessibility issue, 
+but a usability issue.
+To test and replicate download and use the test data via
+http://codex.wordpress.org/Theme_Unit_Test
+
+You'll notice that the last link in the navigation is 'Parent Page', 
+hover over that, and then the 'Child page 1'. Unless you have a 
+widescreen the 'Child page 2' cannot be seen.
+
+Is there a javascript solution for this?
+
+
+Additionally of course because some of these pages are _only_ 
+accessible via the menu, there should be an alternative listing 
+display on the main pages linked. However that may be outside the 
+scope of what we can cover (other than _strongly_ suggesting a widget 
+is available that can do this).
+
+Rich
+
+
+
+
+
+From jane at automattic.com  Sun Sep  5 14:09:06 2010
+From: jane at automattic.com (Jane Wells)
+Date: Sun, 05 Sep 2010 10:09:06 -0400
+Subject: [wp-accessibility] Twenty Ten
+In-Reply-To: <4C8392B1.1020209@elfden.co.uk>
+References: <4C8392B1.1020209@elfden.co.uk>
+Message-ID: <4C83A482.8020102@automattic.com>
+
+  Hi Rich. It's great that you're taking initiative with this following 
+the wpdevel discussion, but for anything that touches UI (link color, 
+especially) it really needs to be coordinated with existing UI stuff. I 
+have asked for volunteers before to do a separate admin theme that 
+purely aimed at accessibility (much higher contrast, larger click 
+targets, etc) but didn't get much response. We're going to be doing a 
+CSS color sweep/cleanup in 3.1, so if you're changing link colors now, 
+it's likely your patch will get overwritten without malicious intention.
+
+Also, I know it seems silly, but each change should really be it's on 
+patch. Better to have a patch of only a line or two that has a single 
+function, so that if something has to be reverted, all the other changes 
+don't get lost with it. Like in this example, if we needed to revert 
+link color changes b/c they weren't approved UI changes, but we didn't 
+want to lose newly-added labels or something, with it being one whole 
+patch there would be an issue.
+
+Also, if you were just going through and adding under-the-hood things 
+for screen readers, etc., that would be fine to do independently, but it 
+appears you are actually changing design things--colors, 
+margins/padding, highlights--and these are not things that get changed 
+lightly. The theme designer (since it is 2010 you're working on now) 
+needs to be involved. Chances are he'd be fine with it, but actual 
+changes to the UI need to run by him for design approval. I'll email him 
+the ticket number you have listed below so he can weigh in and approve 
+or identify any reasons he had for doing it the way he did. When you get 
+to the admin, I would suggest working on an accessibility-specific admin 
+color scheme first (which we would add to the existing blue and gray) 
+rather than trying to patch the existing color schemes directly, as we 
+can (and want to) approve a separate scheme fairly quickly, but changing 
+the base UI for 20 million+ users is more political and takes longer.
+
+If you intend to make changes that are visible in the UI, like adding 
+elements on the screen and changing colors, you really should join the 
+UI group and work through it there, so that your work doesn't get 
+rejected as being out of alignment with the existing UI conventions. The 
+UI group blog is at http://make.wordpress.org/ui and there are weekly 
+IRC meetings on Tuesdays at 2:30pm in irc.freenode.net #wordpress-ui.
+
+Thanks,
+Jane
+
+On 9/5/10 8:53 AM, Rich Pedley wrote:
+> This list is unused, we need to start using it!
+>
+> Now I've made a start with looking at the accessibility of Twenty Ten, 
+> starting with Links, well mainly.
+>
+> http://core.trac.wordpress.org/ticket/14782
+> [quote]
+>
+> Starting off with changes to the CSS only.
+>
+> Links: colors amended where necessary. added underscores and/or color 
+> changes for active, hover and focus.
+>
+> Gallery image links: adjusted things to use margin to center the image 
+> rather than padding, to allow for adding highlighting on image links.
+>
+> Skip link: now appears above the #access menu when tabbing through the 
+> page.
+>
+> Grey text/links: was 888 this just failed the color contrast, so 
+> changed it to 777 throughout.
+>
+> Forms: added highlight for input text and textarea, for active and focus.
+> [/quote]
+>
+> Feel free to add comments there.
+>
+>
+> However I have an issue with the access (role: navigation) menu, which 
+> can't be fixed with CSS alone, and is not just an accessibility issue, 
+> but a usability issue.
+> To test and replicate download and use the test data via
+> http://codex.wordpress.org/Theme_Unit_Test
+>
+> You'll notice that the last link in the navigation is 'Parent Page', 
+> hover over that, and then the 'Child page 1'. Unless you have a 
+> widescreen the 'Child page 2' cannot be seen.
+>
+> Is there a javascript solution for this?
+>
+>
+> Additionally of course because some of these pages are _only_ 
+> accessible via the menu, there should be an alternative listing 
+> display on the main pages linked. However that may be outside the 
+> scope of what we can cover (other than _strongly_ suggesting a widget 
+> is available that can do this).
+>
+> Rich
+>
+>
+>
+>
+> _______________________________________________
+> wp-accessibility mailing list
+> wp-accessibility at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+
+
+From mrwiblog at gmail.com  Sun Sep  5 16:10:17 2010
+From: mrwiblog at gmail.com (Chris Taylor - stillbreathing.co.uk)
+Date: Sun, 5 Sep 2010 17:10:17 +0100
+Subject: [wp-accessibility] Twenty Ten
+In-Reply-To: <4C83A482.8020102@automattic.com>
+References: <4C8392B1.1020209@elfden.co.uk> <4C83A482.8020102@automattic.com>
+Message-ID: <AANLkTi=FGG9SrWuZdek7Zdx+h5k99Qx4XL=Z2eF+__ds@mail.gmail.com>
+
+Hi,
+
+I'd be very interested in helping with admin accessibility, but does
+it need to be a separate theme? Seems like a basic, accessible (even
+mobile-friendly) admin area which is progressively enhanced would be a
+better long-term goal.
+
+Has any work started on this yet.
+
+Chris
+
+On 9/5/10, Jane Wells <jane at automattic.com> wrote:
+>   Hi Rich. It's great that you're taking initiative with this following
+> the wpdevel discussion, but for anything that touches UI (link color,
+> especially) it really needs to be coordinated with existing UI stuff. I
+> have asked for volunteers before to do a separate admin theme that
+> purely aimed at accessibility (much higher contrast, larger click
+> targets, etc) but didn't get much response. We're going to be doing a
+> CSS color sweep/cleanup in 3.1, so if you're changing link colors now,
+> it's likely your patch will get overwritten without malicious intention.
+>
+> Also, I know it seems silly, but each change should really be it's on
+> patch. Better to have a patch of only a line or two that has a single
+> function, so that if something has to be reverted, all the other changes
+> don't get lost with it. Like in this example, if we needed to revert
+> link color changes b/c they weren't approved UI changes, but we didn't
+> want to lose newly-added labels or something, with it being one whole
+> patch there would be an issue.
+>
+> Also, if you were just going through and adding under-the-hood things
+> for screen readers, etc., that would be fine to do independently, but it
+> appears you are actually changing design things--colors,
+> margins/padding, highlights--and these are not things that get changed
+> lightly. The theme designer (since it is 2010 you're working on now)
+> needs to be involved. Chances are he'd be fine with it, but actual
+> changes to the UI need to run by him for design approval. I'll email him
+> the ticket number you have listed below so he can weigh in and approve
+> or identify any reasons he had for doing it the way he did. When you get
+> to the admin, I would suggest working on an accessibility-specific admin
+> color scheme first (which we would add to the existing blue and gray)
+> rather than trying to patch the existing color schemes directly, as we
+> can (and want to) approve a separate scheme fairly quickly, but changing
+> the base UI for 20 million+ users is more political and takes longer.
+>
+> If you intend to make changes that are visible in the UI, like adding
+> elements on the screen and changing colors, you really should join the
+> UI group and work through it there, so that your work doesn't get
+> rejected as being out of alignment with the existing UI conventions. The
+> UI group blog is at http://make.wordpress.org/ui and there are weekly
+> IRC meetings on Tuesdays at 2:30pm in irc.freenode.net #wordpress-ui.
+>
+> Thanks,
+> Jane
+>
+> On 9/5/10 8:53 AM, Rich Pedley wrote:
+>> This list is unused, we need to start using it!
+>>
+>> Now I've made a start with looking at the accessibility of Twenty Ten,
+>> starting with Links, well mainly.
+>>
+>> http://core.trac.wordpress.org/ticket/14782
+>> [quote]
+>>
+>> Starting off with changes to the CSS only.
+>>
+>> Links: colors amended where necessary. added underscores and/or color
+>> changes for active, hover and focus.
+>>
+>> Gallery image links: adjusted things to use margin to center the image
+>> rather than padding, to allow for adding highlighting on image links.
+>>
+>> Skip link: now appears above the #access menu when tabbing through the
+>> page.
+>>
+>> Grey text/links: was 888 this just failed the color contrast, so
+>> changed it to 777 throughout.
+>>
+>> Forms: added highlight for input text and textarea, for active and focus.
+>> [/quote]
+>>
+>> Feel free to add comments there.
+>>
+>>
+>> However I have an issue with the access (role: navigation) menu, which
+>> can't be fixed with CSS alone, and is not just an accessibility issue,
+>> but a usability issue.
+>> To test and replicate download and use the test data via
+>> http://codex.wordpress.org/Theme_Unit_Test
+>>
+>> You'll notice that the last link in the navigation is 'Parent Page',
+>> hover over that, and then the 'Child page 1'. Unless you have a
+>> widescreen the 'Child page 2' cannot be seen.
+>>
+>> Is there a javascript solution for this?
+>>
+>>
+>> Additionally of course because some of these pages are _only_
+>> accessible via the menu, there should be an alternative listing
+>> display on the main pages linked. However that may be outside the
+>> scope of what we can cover (other than _strongly_ suggesting a widget
+>> is available that can do this).
+>>
+>> Rich
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> wp-accessibility mailing list
+>> wp-accessibility at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>
+> _______________________________________________
+> wp-accessibility mailing list
+> wp-accessibility at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>
+
+From elfin at elfden.co.uk  Sun Sep  5 18:24:21 2010
+From: elfin at elfden.co.uk (Rich Pedley)
+Date: Sun, 05 Sep 2010 19:24:21 +0100
+Subject: [wp-accessibility] Twenty Ten
+In-Reply-To: <4C83A482.8020102@automattic.com>
+References: <4C8392B1.1020209@elfden.co.uk> <4C83A482.8020102@automattic.com>
+Message-ID: <4C83E055.3000806@elfden.co.uk>
+
+On 05/09/2010 15:09, Jane Wells wrote:
+>    Hi Rich. It's great that you're taking initiative with this following
+> the wpdevel discussion, but for anything that touches UI (link color,
+> especially) it really needs to be coordinated with existing UI stuff. I
+> have asked for volunteers before to do a separate admin theme that
+> purely aimed at accessibility (much higher contrast, larger click
+> targets, etc) but didn't get much response. We're going to be doing a
+> CSS color sweep/cleanup in 3.1, so if you're changing link colors now,
+> it's likely your patch will get overwritten without malicious intention.
+
+Well remember that so far I'm concentrating on the theme and front end 
+output, as opposed to backend/admin. Idea being that it will help 
+ensure a process is developed(for me!), and for me to see how well 
+changes get accepted by others.
+
+Up next would probably be forms or adding in skip links or 2.
+
+> Also, I know it seems silly, but each change should really be it's on
+> patch. Better to have a patch of only a line or two that has a single
+> function, so that if something has to be reverted, all the other changes
+> don't get lost with it. Like in this example, if we needed to revert
+> link color changes b/c they weren't approved UI changes, but we didn't
+> want to lose newly-added labels or something, with it being one whole
+> patch there would be an issue.
+
+Well I can split the current patch down into portions, though remember 
+it is so far just changes to the CSS. You'll find that a lot of 
+accessibility 'fixes' need changes elsewhere. So it's not always easy 
+to split it down into smaller chunks. Having said that... I think the 
+patch can be split into 3 or 4 smaller ones, at least I will try to. 
+At least that way I can perhaps better add the reasoning for each change.
+
+But...
+
+if one patch is rejected, it may then have a knock on effect to 
+others, so they would all have be interlinked by some method.
+
+An example is the Gallery CSS changes I made. This was changing the 
+padding because a 10px border on an image was giving me an ugly red 
+10px border on the focus and hover states. So that change was 
+necessary to accommodate image link highlighting.
+
+
+> Also, if you were just going through and adding under-the-hood things
+> for screen readers, etc., that would be fine to do independently, but it
+> appears you are actually changing design things--colors,
+> margins/padding, highlights--and these are not things that get changed
+> lightly. The theme designer (since it is 2010 you're working on now)
+> needs to be involved. Chances are he'd be fine with it, but actual
+> changes to the UI need to run by him for design approval. I'll email him
+> the ticket number you have listed below so he can weigh in and approve
+> or identify any reasons he had for doing it the way he did.
+
+ahh yeah understood, and thanks. if necessary I can work with him to 
+improve accessibility without compromising his design.
+
+
+> When you get
+> to the admin, I would suggest working on an accessibility-specific admin
+> color scheme first (which we would add to the existing blue and gray)
+> rather than trying to patch the existing color schemes directly, as we
+> can (and want to) approve a separate scheme fairly quickly, but changing
+> the base UI for 20 million+ users is more political and takes longer.
+
+Mind if I play Devil's Advocate here. A color scheme is only going to 
+help a small portion of users. It would actually be far more important 
+to ensure the markup is correct first. There are quite a few issues 
+that would need to be addressed. (I'll skip the usual rant).
+
+But a high contrast color scheme would be a good idea to start with, 
+as there are less changes involved.
+
+> If you intend to make changes that are visible in the UI, like adding
+> elements on the screen and changing colors, you really should join the
+> UI group and work through it there, so that your work doesn't get
+> rejected as being out of alignment with the existing UI conventions. The
+> UI group blog is at http://make.wordpress.org/ui and there are weekly
+> IRC meetings on Tuesdays at 2:30pm in irc.freenode.net #wordpress-ui.
+
+2:30pm? which timezone?
+
+Are they purely for backend/admin or do they cover the default themes 
+as well?
+
+Rich
+
+From elfin at elfden.co.uk  Wed Sep  8 09:43:00 2010
+From: elfin at elfden.co.uk (Rich Pedley)
+Date: Wed, 08 Sep 2010 10:43:00 +0100
+Subject: [wp-accessibility] Accessibility query
+Message-ID: <4C875AA4.8000809@elfden.co.uk>
+
+(cc'ed to 2 lists, please be careful when replying)
+
+As some of you may know I've suggested some accessibility enhancements 
+for the Twenty Ten theme.
+encompassing trac ticket: #14782
+
+But that side(ie mainly CSS changes) is virtually complete, aside from 
+correcting/adapting things to fit in a little more smoothly.
+
+Next on the list would be for me to look at forms.
+
+However I think I need to check on how far this will go before effort 
+is put in, as the changes would be vast.
+
+A lot of the forms are split into boxes, so I'll concentrate on that 
+for the moment. Each box is, generally, a collection of inputs within 
+an all encompassing form. Ideally these should be in fieldset's, with 
+accompanying legend's.
+
+Additionally, text inside a form, not in labels or fieldsets, isn't 
+readable by 'all' screen readers when in _forms mode_.
+http://www.pws-ltd.com/sections/articles/2008/accessible_forms.html
+JAWS 10 may be addressing this issue, but it will be a long time 
+before that is widely used, and it should not be the only screen 
+reader considered to be in use.
+
+However correlating the necessary changes would involve a great deal 
+of work and time. Actually making the changes would involve more work, 
+and more time.
+
+So I suppose the crux is, is accessibility a high priority? If it 
+isn't I doubt that the core team can spare the man hours and any work 
+that I might do is likely to become obsolete very quickly if not 
+implemented sooner rather than later.
+
+I'm more than happy to put in the time and effort but would feel more 
+comfortable knowing that we are on the same page when it comes to 
+accessibility. If not then I can put that effort elsewhere within 
+WordPress.
+
+Rich
+
+From bob at bob-easton.com  Wed Sep  8 16:31:06 2010
+From: bob at bob-easton.com (Bob Easton)
+Date: Wed, 08 Sep 2010 12:31:06 -0400
+Subject: [wp-accessibility] Accessibility query
+In-Reply-To: <4C875AA4.8000809@elfden.co.uk>
+References: <4C875AA4.8000809@elfden.co.uk>
+Message-ID: <4C87BA4A.7020209@bob-easton.com>
+
+  Commenting on Rich Pedley's query about whether to make the forms for 
+the administrative interface accessible...
+
+I am not an active WP developer, but as an Accessibility Consultant with 
+over a dozen years experience with web accessibility,
+
+I write to encourage the work that Rich proposes. Forms are the toughest 
+aspect of web accessibility. They are very difficult for many kinds of 
+disabilities, and almost impossible for the visually impaired unless the 
+form is erm.... well formed. Those fieldset and legend elements serve a 
+critically important purpose for many users. Forms are also difficult 
+for developers and designers. Developers end up with a heck of a lot 
+more little details to attend to. Designers sometimes dislike the 
+appearance of correctly structured forms. CSS has helped resolve this to 
+some extent, but some designers still resist structural forms elements.
+
+So, forms end up being a triple problem, for the users, for the 
+developers, and for the designers. It takes a concerted effort to make 
+them work well, look delightful, and be fully accessible.
+
+Yes, it's a substantial challenge. The whole admin interface is one 
+large set of forms.  On the other hand, having this interface be fully 
+accessible could be a key differentiator for WordPress. No other 
+blogging platform comes remotely close to being accessible and a fully 
+accessible WP would both serve a wider audience and have strong boasting 
+rights.
+
+-- 
+Bob Easton
+http://access-matters.com
+
+
+From startrekcafe at gmail.com  Thu Sep 16 12:23:42 2010
+From: startrekcafe at gmail.com (Marvin Hunkin)
+Date: Thu, 16 Sep 2010 22:23:42 +1000
+Subject: [wp-accessibility] word press accessibility with jaws
+Message-ID: <A690C40A436844AE8D4986E53714817A@marvinPC>
+
+?Send wp-testers mailing list submissions to
+wp-testers at lists.automattic.com
+
+To subscribe or unsubscribe via the World Wide Web, visit
+http://lists.automattic.com/mailman/listinfo/wp-testers
+or, via email, send a message with subject or body 'help' to
+wp-testers-request at lists.automattic.com
+
+You can reach the person managing the list at
+wp-testers-owner at lists.automattic.com
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of wp-testers digest..."
+
+
+Today's Topics:
+
+   1. using word press (Marvin Hunkin)
+   2. Re: using word press (Rich Pedley)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Thu, 16 Sep 2010 17:41:17 +1000
+From: "Marvin Hunkin" <startrekcafe at gmail.com>
+Subject: [wp-testers] using word press
+To: <wp-testers at lists.automattic.com>
+Message-ID: <E0894101752F4E72B56CD07FC48E6FFA at marvinPC>
+Content-Type: text/plain; charset="iso-8859-1"
+
+    hi.
+a blind computer user using the jaws for windows screen reader from http://www.freedomscientific.com
+and wondering how to use word press.
+and to rebuild my star trek site using cms.
+now how to start this project and to rebuild.
+had been using visual web developer express 2008 and sql server management studio.
+and a blind programming friend from blindgeeks at yahoogroups.com but he has not got time to help with the project, that he started with me over 18 months ago.
+and now stuck and got coders block.
+so was thinking about using a cms.
+so how to dtart.
+any accessibility that will work with jaws.
+got the wamp server 2.0.
+thank you.
+marvin.
+ps: using windows vista home premium on a toshiba a300 satellite 2 gh ram, 2.1 ghz processor, 250 gb ram, a 1 tb external western digital hard disk, ati radium graphics, real tech audio manager.
+
+------------------------------
+
+Message: 2
+Date: Thu, 16 Sep 2010 09:59:42 +0100
+From: Rich Pedley <elfin at elfden.co.uk>
+Subject: Re: [wp-testers] using word press
+To: wp-testers at lists.automattic.com
+Message-ID: <4C91DC7E.8000202 at elfden.co.uk>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+
+Hi Marvin,
+
+You might find the accessibility list more useful, you can join it via:
+http://lists.automattic.com/mailman/listinfo/wp-accessibility
+
+I know there is a least one partially sighted user on that list who 
+should be able to answer some of your questions. (I think he uses Jaws).
+
+Rich
+
+On 16/09/2010 08:41, Marvin Hunkin wrote:
+>      hi.
+> a blind computer user using the jaws for windows screen reader from http://www.freedomscientific.com
+> and wondering how to use word press.
+> and to rebuild my star trek site using cms.
+> now how to start this project and to rebuild.
+> had been using visual web developer express 2008 and sql server management studio.
+> and a blind programming friend from blindgeeks at yahoogroups.com but he has not got time to help with the project, that he started with me over 18 months ago.
+> and now stuck and got coders block.
+> so was thinking about using a cms.
+> so how to dtart.
+> any accessibility that will work with jaws.
+> got the wamp server 2.0.
+> thank you.
+> marvin.
+> ps: using windows vista home premium on a toshiba a300 satellite 2 gh ram, 2.1 ghz processor, 250 gb ram, a 1 tb external western digital hard disk, ati radium graphics, real tech audio manager.
+> _______________________________________________
+> wp-testers mailing list
+> wp-testers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-testers
+>
+>
+>
+>
+> No virus found in this incoming message.
+> Checked by AVG - www.avg.com
+> Version: 9.0.851 / Virus Database: 271.1.1/3137 - Release Date: 09/15/10 19:34:00
+>
+
+
+
+------------------------------
+
+_______________________________________________
+wp-testers mailing list
+wp-testers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-testers
+
+
+End of wp-testers Digest, Vol 67, Issue 7
+*****************************************
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-accessibility/attachments/20100916/4a7450f6/attachment.htm>
+

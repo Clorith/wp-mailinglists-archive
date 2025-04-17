@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Thread.FirstMessage.Subject}} - Mail List Archive</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.0;
+            margin: 0;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .thread-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .thread-title {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .thread-meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0366d6;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #0366d6;
+        }
+        .message.first {
+            border-left-color: #28a745;
+            background-color: #f3f9f4;
+        }
+        .message-header {
+            margin-bottom: 10px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .message-sender {
+            font-weight: 500;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .message-email {
+            color: #666;
+            font-weight: normal;
+        }
+        .message-date {
+            color: #666;
+        }
+        .message-content {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        .quote {
+            color: #666;
+            display: inline;
+            border-left: 2px solid #ddd;
+            padding-left: 10px;
+            margin: 0;
+        }
+        .gravatar {
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .list-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f1f4f7;
+            border-radius: 4px;
+        }
+        .list-info h2 {
+            margin: 0;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .list-info p {
+            margin: 0;
+            color: #666;
+        }
+        .list-link {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        .list-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to All Lists</a>
+
+        {{if .List}}
+        <div class="list-info">
+            <h2>
+                <a href="/?lists[]={{urlEscape .List.ID}}" class="list-link">{{.List.Name}}</a>
+            </h2>
+            <p>{{.List.Description}}</p>
+        </div>
+        {{end}}
+
+        <div class="thread-header">
+            <h1 class="thread-title">{{.Thread.FirstMessage.Subject}}</h1>
+            <div class="thread-meta">
+                {{.Thread.TotalMessages}} message{{if ne .Thread.TotalMessages 1}}s{{end}} in this thread
+            </div>
+        </div>
+
+        <div class="messages">
+            <div class="message first">
+                <div class="message-header">
+                    <div>
+                        <span class="message-sender">
+                            <img class="gravatar" src="https://www.gravatar.com/avatar/{{md5 .Thread.FirstMessage.SenderEmail}}?s=32&d=identicon" alt="{{.Thread.FirstMessage.SenderName}}'s avatar">
+                            {{.Thread.FirstMessage.SenderName}}
+                            <span class="message-email">&lt;{{.Thread.FirstMessage.SenderEmail}}&gt;</span>
+                        </span>
+                    </div>
+                    <span class="message-date">{{.Thread.FirstMessage.Date.UTC.Format "2006-01-02 15:04:05"}} UTC</span>
+                </div>
+                <div class="message-content">
+                    {{range splitLines .Thread.FirstMessage.Body}}
+                        {{if hasPrefix . ">"}}<span class="quote">{{.}}</span>{{else}}{{.}}{{end}}
+                    {{end}}
+                </div>
+            </div>
+
+            {{range .Thread.Replies}}
+            <div class="message">
+                <div class="message-header">
+                    <div>
+                        <span class="message-sender">
+                            <img class="gravatar" src="https://www.gravatar.com/avatar/{{md5 .SenderEmail}}?s=32&d=identicon" alt="{{.SenderName}}'s avatar">
+                            {{.SenderName}}
+                            <span class="message-email">&lt;{{.SenderEmail}}&gt;</span>
+                        </span>
+                    </div>
+                    <span class="message-date">{{.Date.UTC.Format "2006-01-02 15:04:05"}} UTC</span>
+                </div>
+                <div class="message-content">
+                    {{range splitLines .Body}}
+                        {{if hasPrefix . ">"}}<span class="quote">{{.}}</span>{{else}}{{.}}{{end}}
+                    {{end}}
+                </div>
+            </div>
+            {{end}}
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,249 @@
+From mc at stuffmc.com  Fri Nov 23 00:08:48 2012
+From: mc at stuffmc.com (StuFF mc)
+Date: Fri, 23 Nov 2012 01:08:48 +0100
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main" multi-site?
+In-Reply-To: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+Message-ID: <CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+
+Hi,
+
+I'm calling wp.getOptions on a WordPress MU 2.7 ? I haven't tried yet
+on a "recent" WP, but I'd like to support 2.7 upwards anyways.
+
+I was suprised to see that I don't get an answer when calling this on
+anything else than "blog_id = 1".
+
+Any idea?
+
+From alex at buayacorp.com  Fri Nov 23 00:50:15 2012
+From: alex at buayacorp.com (Alexander Concha)
+Date: Fri, 23 Nov 2012 01:50:15 +0100
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main"
+	multi-site?
+In-Reply-To: <CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+	<CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+Message-ID: <CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+
+On Fri, Nov 23, 2012 at 1:08 AM, StuFF mc <mc at stuffmc.com> wrote:
+> Hi,
+>
+> I'm calling wp.getOptions on a WordPress MU 2.7 ? I haven't tried yet
+> on a "recent" WP, but I'd like to support 2.7 upwards anyways.
+>
+> I was suprised to see that I don't get an answer when calling this on
+> anything else than "blog_id = 1".
+
+The blod_id argument isn't used. You should be doing xmlrpc requests
+to the proper subsite urls. i.e.
+htttp://multisite.com/subsite1/xmlrpc.php or
+http://subsite1.multisite.com/xmlrpc.php
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From mc at stuffmc.com  Fri Nov 23 00:52:35 2012
+From: mc at stuffmc.com (StuFF mc)
+Date: Fri, 23 Nov 2012 01:52:35 +0100
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main"
+	multi-site?
+In-Reply-To: <CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+	<CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+	<CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+Message-ID: <CAHvd4xRDDU3kX0DyaMUYLjbVatFbLrG8u-eb9v25_S7nnAMR2g@mail.gmail.com>
+
+http://codex.wordpress.org/XML-RPC_wp#wp.getOptions
+
+Of course, it's used! Otherwise all you get is a 403   "Bad login/pass
+combination."
+
+
+
+On Fri, Nov 23, 2012 at 1:50 AM, Alexander Concha <alex at buayacorp.com> wrote:
+> On Fri, Nov 23, 2012 at 1:08 AM, StuFF mc <mc at stuffmc.com> wrote:
+>> Hi,
+>>
+>> I'm calling wp.getOptions on a WordPress MU 2.7 ? I haven't tried yet
+>> on a "recent" WP, but I'd like to support 2.7 upwards anyways.
+>>
+>> I was suprised to see that I don't get an answer when calling this on
+>> anything else than "blog_id = 1".
+>
+> The blod_id argument isn't used. You should be doing xmlrpc requests
+> to the proper subsite urls. i.e.
+> htttp://multisite.com/subsite1/xmlrpc.php or
+> http://subsite1.multisite.com/xmlrpc.php
+> --
+> Alexander Concha
+> http://www.buayacorp.com
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From alex at buayacorp.com  Fri Nov 23 01:20:54 2012
+From: alex at buayacorp.com (Alexander Concha)
+Date: Fri, 23 Nov 2012 02:20:54 +0100
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main"
+	multi-site?
+In-Reply-To: <CAHvd4xRDDU3kX0DyaMUYLjbVatFbLrG8u-eb9v25_S7nnAMR2g@mail.gmail.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+	<CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+	<CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+	<CAHvd4xRDDU3kX0DyaMUYLjbVatFbLrG8u-eb9v25_S7nnAMR2g@mail.gmail.com>
+Message-ID: <CALt-Q2YqPZ5+ccdTS+QLgZ+BF3QSDC0=8mL4sM+KeaXTOxAkoQ@mail.gmail.com>
+
+On Fri, Nov 23, 2012 at 1:52 AM, StuFF mc <mc at stuffmc.com> wrote:
+> http://codex.wordpress.org/XML-RPC_wp#wp.getOptions
+>
+> Of course, it's used! Otherwise all you get is a 403   "Bad login/pass
+> combination."
+
+The argument is required, but it is ignored AFAIK. Anyway, it's up to
+you if you want to try what I said.
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From mc at stuffmc.com  Fri Nov 23 08:09:51 2012
+From: mc at stuffmc.com (StuFF mc)
+Date: Fri, 23 Nov 2012 09:09:51 +0100
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main"
+	multi-site?
+In-Reply-To: <CALt-Q2YqPZ5+ccdTS+QLgZ+BF3QSDC0=8mL4sM+KeaXTOxAkoQ@mail.gmail.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+	<CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+	<CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+	<CAHvd4xRDDU3kX0DyaMUYLjbVatFbLrG8u-eb9v25_S7nnAMR2g@mail.gmail.com>
+	<CALt-Q2YqPZ5+ccdTS+QLgZ+BF3QSDC0=8mL4sM+KeaXTOxAkoQ@mail.gmail.com>
+Message-ID: <6E6FEBAD-7C66-4877-AF04-F1A9C7838048@stuffmc.com>
+
+I tried before replying - it doesn't work without the argument - at least in wp 2.7 which is what my multisite is, but I doubt it changed.
+
+Sent from my iPhone 4S
+
+Le 23.11.2012 ? 02:20, Alexander Concha <alex at buayacorp.com> a ?crit :
+
+> On Fri, Nov 23, 2012 at 1:52 AM, StuFF mc <mc at stuffmc.com> wrote:
+>> http://codex.wordpress.org/XML-RPC_wp#wp.getOptions
+>> 
+>> Of course, it's used! Otherwise all you get is a 403   "Bad login/pass
+>> combination."
+> 
+> The argument is required, but it is ignored AFAIK. Anyway, it's up to
+> you if you want to try what I said.
+> -- 
+> Alexander Concha
+> http://www.buayacorp.com
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From mailing at markoheijnen.nl  Fri Nov 23 13:10:55 2012
+From: mailing at markoheijnen.nl (Marko Heijnen)
+Date: Fri, 23 Nov 2012 14:10:55 +0100
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main"
+	multi-site?
+In-Reply-To: <6E6FEBAD-7C66-4877-AF04-F1A9C7838048@stuffmc.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+	<CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+	<CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+	<CAHvd4xRDDU3kX0DyaMUYLjbVatFbLrG8u-eb9v25_S7nnAMR2g@mail.gmail.com>
+	<CALt-Q2YqPZ5+ccdTS+QLgZ+BF3QSDC0=8mL4sM+KeaXTOxAkoQ@mail.gmail.com>
+	<6E6FEBAD-7C66-4877-AF04-F1A9C7838048@stuffmc.com>
+Message-ID: <6B89A0E7-9C20-4645-BCBB-A3E6AA3BE78A@markoheijnen.nl>
+
+You should stop trying to make it workable from 2.7 and up. Try 3.0. Then everything got merged and makes so much more sense.
+
+Alexander is right. The first parameter can be everything. WordPress don't care about the value.
+Parameter 2 and 3 are the username and password.
+
+So bottom-line is: Use the url of the site you want to call.
+
+
+Op 23 nov. 2012, om 09:09 heeft StuFF mc <mc at stuffmc.com> het volgende geschreven:
+
+> I tried before replying - it doesn't work without the argument - at least in wp 2.7 which is what my multisite is, but I doubt it changed.
+> 
+> Sent from my iPhone 4S
+> 
+> Le 23.11.2012 ? 02:20, Alexander Concha <alex at buayacorp.com> a ?crit :
+> 
+>> On Fri, Nov 23, 2012 at 1:52 AM, StuFF mc <mc at stuffmc.com> wrote:
+>>> http://codex.wordpress.org/XML-RPC_wp#wp.getOptions
+>>> 
+>>> Of course, it's used! Otherwise all you get is a 403   "Bad login/pass
+>>> combination."
+>> 
+>> The argument is required, but it is ignored AFAIK. Anyway, it's up to
+>> you if you want to try what I said.
+>> -- 
+>> Alexander Concha
+>> http://www.buayacorp.com
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From joseph at josephscott.org  Fri Nov 23 19:02:17 2012
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 23 Nov 2012 12:02:17 -0700
+Subject: [wp-xmlrpc] wp.getOptions only answers from the "main"
+	multi-site?
+In-Reply-To: <CALt-Q2YqPZ5+ccdTS+QLgZ+BF3QSDC0=8mL4sM+KeaXTOxAkoQ@mail.gmail.com>
+References: <CAHvd4xRBXXiZj344cLU7Qc6nju0H40h72mc4agRu32=zuT=VDg@mail.gmail.com>
+	<CAHvd4xSs06fHdKxwg6R7boDJYNbOrU9FhHjmHP=2K6iaoUZ4hA@mail.gmail.com>
+	<CALt-Q2ZS2aUYMoWtuW8GyUANLfAkRO_7_qXXAPBNkQuKN3d10w@mail.gmail.com>
+	<CAHvd4xRDDU3kX0DyaMUYLjbVatFbLrG8u-eb9v25_S7nnAMR2g@mail.gmail.com>
+	<CALt-Q2YqPZ5+ccdTS+QLgZ+BF3QSDC0=8mL4sM+KeaXTOxAkoQ@mail.gmail.com>
+Message-ID: <CAE81+yb6iYFAp8L=Te7N0n5Qg_yOb9H32mZjBEDitsvwAoUupQ@mail.gmail.com>
+
+Alex is correct, the blog_id parameter is required, but it isn't used (you
+can check the code to confirm this).  The correct way to make a request for
+a specific site in a MU/MS setup is to query the XML-RPC end point for that
+site (as Alex mentioned).
+
+I'll second the comments about having a newer minimum version requirement,
+since WP 2.7 is nearly four years old now.  That is old enough that it
+doesn't even show up on the wordpress.org stats page -
+http://wordpress.org/about/stats/
+
+
+
+On Thu, Nov 22, 2012 at 6:20 PM, Alexander Concha <alex at buayacorp.com>wrote:
+
+> On Fri, Nov 23, 2012 at 1:52 AM, StuFF mc <mc at stuffmc.com> wrote:
+> > http://codex.wordpress.org/XML-RPC_wp#wp.getOptions
+> >
+> > Of course, it's used! Otherwise all you get is a 403   "Bad login/pass
+> > combination."
+>
+> The argument is required, but it is ignored AFAIK. Anyway, it's up to
+> you if you want to try what I said.
+> --
+> Alexander Concha
+> http://www.buayacorp.com
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20121123/9bd26a7a/attachment.htm>
+

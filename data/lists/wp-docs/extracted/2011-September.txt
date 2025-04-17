@@ -1,0 +1,2165 @@
+From spencerhill at theportlandco.com  Thu Sep  1 02:54:02 2011
+From: spencerhill at theportlandco.com (Spencer Hill)
+Date: Wed, 31 Aug 2011 19:54:02 -0700
+Subject: [wp-docs] The main page.
+Message-ID: <6C0C2692-4605-493D-8F56-95D8BE21F9F8@ThePortlandCo.com>
+
+I think I agree with you Andrea. Though, I don't think anyone in this conversation is suggesting we provide site-specific support - that's obviously not manageable. But it would seem any questions people have to how WordPress functions - out of the box - should be included within the codex. So questions like "How do I edit a page?", or "How do I add a post?", etc... should be included in the codex in my opinion. Or at least some official WordPress wiki.
+
+From spencerhill at theportlandco.com  Thu Sep  1 03:07:08 2011
+From: spencerhill at theportlandco.com (Spencer Hill)
+Date: Wed, 31 Aug 2011 20:07:08 -0700
+Subject: [wp-docs] The main page.
+Message-ID: <CEB6B7FD-1553-485C-B911-20C3E5A4DBBA@ThePortlandCo.com>
+
+After reading a few more of these replies it sounds like there is becoming a consensus that the codex should be reserved for documentation related to installing WordPress.
+
+I think it's good we're honing in on a focus for what the codex is. However, learn.WordPress.com isn't a sufficient resource (from what I've observed) regarding training on the fundamental aspects of WordPress as it's released to hosted sites because it's geared to training about WordPress.com - which is not the same thing technically.
+
+What about a learn.WordPress.org? It could function exactly like the codex does but be focused on training. This would keep it separate from the codex, but still fulfill the critical need for basic training on how to actually use WordPress.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110831/523b6cd1/attachment.htm>
+
+From jane at automattic.com  Thu Sep  1 03:13:03 2011
+From: jane at automattic.com (Jane Wells)
+Date: Wed, 31 Aug 2011 23:13:03 -0400
+Subject: [wp-docs] The main page.
+In-Reply-To: <CEB6B7FD-1553-485C-B911-20C3E5A4DBBA@ThePortlandCo.com>
+References: <CEB6B7FD-1553-485C-B911-20C3E5A4DBBA@ThePortlandCo.com>
+Message-ID: <4E5EF83F.8090706@automattic.com>
+
+On 8/31/11 11:07 PM, Spencer Hill wrote:
+> After reading a few more of these replies
+<snip>
+> learn.WordPress.com <http://learn.WordPress.com> isn't a sufficient 
+> resource
+<snip>
+> What about a learn.WordPress.org <http://learn.WordPress.org>?
+Please refer to my reply about this two days ago: 
+http://lists.automattic.com/pipermail/wp-docs/2011-August/002657.html
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110831/469bba00/attachment.htm>
+
+From david at thatchurch.com  Thu Sep  1 03:26:37 2011
+From: david at thatchurch.com (David Miles)
+Date: Wed, 31 Aug 2011 22:26:37 -0500
+Subject: [wp-docs] Added user page on .htaccess file generation,
+	feedback?
+In-Reply-To: <CAN2v4ZR0Q+AtctCFeCDO4ADy6tUxDyjw+qNvmGYz0Mwph52cyA@mail.gmail.com>
+References: <CAFVN-HSOOJ+sHJYnOsaOCzH92=WXJdpJc+W8fqy-E6ndRzcU0A@mail.gmail.com>
+	<CAD-FghwZzz8vRj2fjRpBqrt22eLg94S9co=UZwh4AXvsUiexYQ@mail.gmail.com>
+	<CAD-FghyMrv-d7r_gFzYj05pn7Hg5CgrS7vaQQg5FBnVPEKC2Pg@mail.gmail.com>
+	<CAFVN-HQojrha+iqKgF=BccHv3sqB66+cAXpGVjU2JSE1_cY-Kg@mail.gmail.com>
+	<20110831144514.95635u7kugkq750k@ipstenu.org>
+	<CAN2v4ZR0Q+AtctCFeCDO4ADy6tUxDyjw+qNvmGYz0Mwph52cyA@mail.gmail.com>
+Message-ID: <CAFVN-HR1zKJ5yTqUi-gkxfcP6t3ri+g2_rugLgQffzT52-atwQ@mail.gmail.com>
+
+Thank you all very much for the feedback!  Far more than I expected, that's
+for sure.
+I have hit one snag when it comes to Multisite ... I haven't got the
+slightest clue where or even if .htaccess file(s) are
+even acknowledged/generated since from the best I can tell, the
+save_mod_rewrite_rules() in wp-admin/includes/misc.php is responsible for
+saving the .htaccess file and exits immediately if it is a multisite.
+This really sucks considering I'm developing a theme for a multisite install
+and did all of this on a single install without realizing this... Any
+suggestions on where to look or if I'm just out of luck?
+
+@Lorelle,
+I honestly wasn't sure what title to use, but it was what I searched for
+since Googling things pertaining to WordPress and .htaccess brings up a
+bunch of stuff on manually editing the file or only pertained to internal
+rewriting.
+So in hopes of throwing someone a break, I figured I'd try to use a
+unique(r) title and hope they find it.  If nothing else, I did put a link to
+it on the http://codex.wordpress.org/Class_Reference/WP_Rewrite page at the
+bottom since that's THE PLACE to find more on the topic.
+I didn't want to clutter that page any more and didn't feel a new Codex page
+was needed, so I used a User page instead.  Normally I would've just used a
+blog post, but it's much better structured there and just made a cozy spot
+that others can expand on it as well and not have to do so in long threaded
+comments.
+
+Thanks again.
+
+On Wed, Aug 31, 2011 at 4:59 PM, Lorelle on WordPress <
+lorelleonwordpress at gmail.com> wrote:
+
+> Great article and it looks like you are getting fantastic help. However,
+> I'm not sure I like the title. Can we come up with something more helpful or
+> is that really the thing that people will look for when they search for this
+> help?
+>
+> Thanks!
+>
+> Lorelle
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110831/ce234432/attachment.htm>
+
+From otto at ottodestruct.com  Thu Sep  1 04:03:07 2011
+From: otto at ottodestruct.com (Otto)
+Date: Wed, 31 Aug 2011 23:03:07 -0500
+Subject: [wp-docs] Added user page on .htaccess file generation,
+	feedback?
+In-Reply-To: <CAFVN-HR1zKJ5yTqUi-gkxfcP6t3ri+g2_rugLgQffzT52-atwQ@mail.gmail.com>
+References: <CAFVN-HSOOJ+sHJYnOsaOCzH92=WXJdpJc+W8fqy-E6ndRzcU0A@mail.gmail.com>
+	<CAD-FghwZzz8vRj2fjRpBqrt22eLg94S9co=UZwh4AXvsUiexYQ@mail.gmail.com>
+	<CAD-FghyMrv-d7r_gFzYj05pn7Hg5CgrS7vaQQg5FBnVPEKC2Pg@mail.gmail.com>
+	<CAFVN-HQojrha+iqKgF=BccHv3sqB66+cAXpGVjU2JSE1_cY-Kg@mail.gmail.com>
+	<20110831144514.95635u7kugkq750k@ipstenu.org>
+	<CAN2v4ZR0Q+AtctCFeCDO4ADy6tUxDyjw+qNvmGYz0Mwph52cyA@mail.gmail.com>
+	<CAFVN-HR1zKJ5yTqUi-gkxfcP6t3ri+g2_rugLgQffzT52-atwQ@mail.gmail.com>
+Message-ID: <CAD-FghzBb7rTmgrh4DQ=-dguRMKHD_=dd-DaHvB=ksNetPx4zA@mail.gmail.com>
+
+On Wed, Aug 31, 2011 at 10:26 PM, David Miles <david at thatchurch.com> wrote:
+> Thank you all very much for the feedback! ?Far more than I expected, that's
+> for sure.
+> I have hit one snag when it comes to Multisite ... I haven't got the
+> slightest clue where or even if .htaccess file(s) are
+> even?acknowledged/generated since from the best I can tell, the
+> save_mod_rewrite_rules() in wp-admin/includes/misc.php is responsible for
+> saving the .htaccess file and exits immediately if it is a multisite.
+
+Multisite is special. Flushing doesn't change your .htaccess rules in
+that case, because those rules apply to the entire network, not just
+to one site in that network.
+
+There is no way to write special .htaccess rules from WP in a
+multisite install that I am aware of.
+
+-Otto
+
+From andrea at ronandandrea.com  Thu Sep  1 10:29:29 2011
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Thu, 1 Sep 2011 07:29:29 -0300
+Subject: [wp-docs] Added user page on .htaccess file generation,
+	feedback?
+In-Reply-To: <CAD-FghzBb7rTmgrh4DQ=-dguRMKHD_=dd-DaHvB=ksNetPx4zA@mail.gmail.com>
+References: <CAFVN-HSOOJ+sHJYnOsaOCzH92=WXJdpJc+W8fqy-E6ndRzcU0A@mail.gmail.com>
+	<CAD-FghwZzz8vRj2fjRpBqrt22eLg94S9co=UZwh4AXvsUiexYQ@mail.gmail.com>
+	<CAD-FghyMrv-d7r_gFzYj05pn7Hg5CgrS7vaQQg5FBnVPEKC2Pg@mail.gmail.com>
+	<CAFVN-HQojrha+iqKgF=BccHv3sqB66+cAXpGVjU2JSE1_cY-Kg@mail.gmail.com>
+	<20110831144514.95635u7kugkq750k@ipstenu.org>
+	<CAN2v4ZR0Q+AtctCFeCDO4ADy6tUxDyjw+qNvmGYz0Mwph52cyA@mail.gmail.com>
+	<CAFVN-HR1zKJ5yTqUi-gkxfcP6t3ri+g2_rugLgQffzT52-atwQ@mail.gmail.com>
+	<CAD-FghzBb7rTmgrh4DQ=-dguRMKHD_=dd-DaHvB=ksNetPx4zA@mail.gmail.com>
+Message-ID: <CAJzjkbeKC+NQ02LAfpRHQS9Pa1y+RZ_QAtPkUgx1ORrHeMbEkQ@mail.gmail.com>
+
+You may just want to note on that page what Otto stated - how multisite is
+just special that way. ;)
+
+A.
+
+On Thu, Sep 1, 2011 at 1:03 AM, Otto <otto at ottodestruct.com> wrote:
+
+> On Wed, Aug 31, 2011 at 10:26 PM, David Miles <david at thatchurch.com>
+> wrote:
+> > Thank you all very much for the feedback!  Far more than I expected,
+> that's
+> > for sure.
+> > I have hit one snag when it comes to Multisite ... I haven't got the
+> > slightest clue where or even if .htaccess file(s) are
+> > even acknowledged/generated since from the best I can tell, the
+> > save_mod_rewrite_rules() in wp-admin/includes/misc.php is responsible for
+> > saving the .htaccess file and exits immediately if it is a multisite.
+>
+> Multisite is special. Flushing doesn't change your .htaccess rules in
+> that case, because those rules apply to the entire network, not just
+> to one site in that network.
+>
+> There is no way to write special .htaccess rules from WP in a
+> multisite install that I am aware of.
+>
+> -Otto
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110901/9d6df073/attachment.htm>
+
+From andrea at ronandandrea.com  Thu Sep  1 10:40:08 2011
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Thu, 1 Sep 2011 07:40:08 -0300
+Subject: [wp-docs] The main page.
+In-Reply-To: <6C0C2692-4605-493D-8F56-95D8BE21F9F8@ThePortlandCo.com>
+References: <6C0C2692-4605-493D-8F56-95D8BE21F9F8@ThePortlandCo.com>
+Message-ID: <CAJzjkbexL2y=vW3=-g43Exe-g4e=mPA7s6D+BnJF2w80q+3HpA@mail.gmail.com>
+
+And those basics are there  http://codex.wordpress.org/Writing_Posts (for
+example). I'm not suggesting they not be. (double negative, sorry.)
+
+I think there was a misunderstanding with regards to my pointing our the
+WordPress.com docs as an *example*. I had responded to m3shrom here:
+http://lists.automattic.com/pipermail/wp-docs/2011-August/002651.html
+
+where he said:
+
+">* Personally, I've struggled in working on docs which are targeted at*
+
+>* people using*>* - their own install*>* - Wordpress.com*>* - a blog on a hosted WordPress network"*
+
+And I was reiterating that the codex should be solely for people managing
+their own install. That's it. If they are managing their own network, that
+is also covered, but we should not be expected to write docs for people who
+have someone else managing their blog.
+
+Does that make sense?
+
+A.
+
+On Wed, Aug 31, 2011 at 11:54 PM, Spencer Hill <
+spencerhill at theportlandco.com> wrote:
+
+> I think I agree with you Andrea. Though, I don't think anyone in this
+> conversation is suggesting we provide site-specific support - that's
+> obviously not manageable. But it would seem any questions people have to how
+> WordPress functions - out of the box - should be included within the codex.
+> So questions like "How do I edit a page?", or "How do I add a post?", etc...
+> should be included in the codex in my opinion. Or at least some official
+> WordPress wiki.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110901/b5d2e15a/attachment-0001.htm>
+
+From johnbillion+wp at gmail.com  Fri Sep  9 18:15:59 2011
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Fri, 9 Sep 2011 19:15:59 +0100
+Subject: [wp-docs] Hardening WordPress
+Message-ID: <CAOqAKWA_s0Vcm=1QBiwoTzhhPheKLQqL+yjk7OhCgtGcw3+JNA@mail.gmail.com>
+
+I've just saved a fairly large change to the Hardening WordPress page
+[1]. I've basically cleaned the information that was there. Grammar
+and presentation has been improved, some areas have been brought up to
+date, and a couple of redundant sections have been removed. Some areas
+have taken cues from the discussion page.
+
+Any problems with the page, do let me know.
+
+John
+
+[1] http://codex.wordpress.org/Hardening_WordPress
+
+From johnbillion at gmail.com  Fri Sep  9 18:17:04 2011
+From: johnbillion at gmail.com (John Blackbourn)
+Date: Fri, 9 Sep 2011 19:17:04 +0100
+Subject: [wp-docs] Hardening WordPress
+Message-ID: <CAOqAKWC-wDf9nVLJHPcpsriePMXYfgD_Qwfk83ofA9y3XYKtrA@mail.gmail.com>
+
+I've just saved a fairly large change to the Hardening WordPress page [1].
+
+I've basically cleaned the information that was there. Grammar and
+presentation has been improved, some areas have been brought up to
+date, and a couple of redundant sections have been removed. Some areas
+have taken cues from the discussion page.
+
+Any problems with the page, do let me know.
+
+John
+
+[1] http://codex.wordpress.org/Hardening_WordPress
+
+From bughunter at riseup.net  Sat Sep 10 20:33:21 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Sat, 10 Sep 2011 22:33:21 +0200
+Subject: [wp-docs] codex git repo ???
+Message-ID: <1007516551.20110910223321@riseup.net>
+
+Hi,
+
+is there a codex git repo for offline processing / viewing? I need the
+codex  offline for a long time and would like to update it a few times
+a week with git pull - is this possible?
+
+If NOT - would you be interested in this? I can offer to maintain it a
+little  bit,  if  you like - I think giving access to docs offline via
+git will be a great benefit!
+
+Please tell me, what you think, THANKS!
+
+Have a nice day,
+Bughunter
+
+
+From lorelleonwordpress at gmail.com  Sat Sep 10 21:33:39 2011
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Sat, 10 Sep 2011 14:33:39 -0700
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <1007516551.20110910223321@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+Message-ID: <CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+
+This is a request that comes up often. Please search the mailing list
+archives for information on this. Thanks,
+
+Lorelle
+
+On Sat, Sep 10, 2011 at 1:33 PM, BUGHUNTER <bughunter at riseup.net> wrote:
+
+> Hi,
+>
+> is there a codex git repo for offline processing / viewing? I need the
+> codex  offline for a long time and would like to update it a few times
+> a week with git pull - is this possible?
+>
+> If NOT - would you be interested in this? I can offer to maintain it a
+> little  bit,  if  you like - I think giving access to docs offline via
+> git will be a great benefit!
+>
+> Please tell me, what you think, THANKS!
+>
+> Have a nice day,
+> Bughunter
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110910/ff288108/attachment.htm>
+
+From bughunter at riseup.net  Sun Sep 11 14:22:44 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Sun, 11 Sep 2011 16:22:44 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+Message-ID: <1933273435.20110911162244@riseup.net>
+
+Hi Lorelle, 
+
+thank you very much for your attention - however, it would be really
+great to receive answers to my questions.
+
+I searched the archives using google but found only 3 entries for git
+without any relevance for my questions.
+
+So I assume the answer to my first question
+
+> is there a codex git repo for offline processing / viewing?
+
+would be NO - is this right? 
+
+Note: you can answer with a positive sounding YES on this ;)
+
+My second question was: 
+
+> would you be interested in this?
+
+If you are not interested in a codex git repo I surely will
+immediately stop investigating into this and spend my time with
+something that actually finds some positive resonance - I was
+intending to improve the wordpress codex experience.
+
+Of course I found the "Dump of the Codex?" thread - this interesting
+discussion ends with your important observation:
+
+> The problem is that the Codex is a living document and changes
+> daily, so these tend to go out of date fast.
+
+Unfortunately the discussion stops there - much too early, many
+options have not been mentioned - you definitely are right with your
+observation, but there are several other ways of mirroring or dumping
+the codex database to a git repo.
+
+The most efficient solutions will only work with direct access to the
+codex mediawiki database, so your interest in offering a solution will
+be the first requirement - if you do not want it, we do not need to
+discuss better ways to mirror the codex.
+
+If you like the idea and would like to support it, why not discuss it?
+
+
+BTW there is a problem with access to the mailing list interface and
+also to the archives - if I copy the link
+
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+and paste it into the browser address bar I get a 403 "forbidden".
+
+however, accessing it from
+http://lists.automattic.com/mailman/listinfo DOES work - strange - I
+did not look deeper into this as it seems to be some kind of webserver
+misconfig...
+
+Thanks for your attention,
+Bughunter
+
+
+From ipstenu at ipstenu.org  Sun Sep 11 15:36:20 2011
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Sun, 11 Sep 2011 10:36:20 -0500
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <1933273435.20110911162244@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+Message-ID: <31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+
+Offline viewing of the codex: http://lists.automattic.com/pipermail/wp-docs/2011-May/002548.html
+
+Not a GIT question per say but a MediaWiki one.
+
+----
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+On 11 Sep 2011, at 9:22:44AM, BUGHUNTER wrote:
+
+> Hi Lorelle, 
+> 
+> thank you very much for your attention - however, it would be really
+> great to receive answers to my questions.
+> 
+> I searched the archives using google but found only 3 entries for git
+> without any relevance for my questions.
+> 
+> So I assume the answer to my first question
+> 
+>> is there a codex git repo for offline processing / viewing?
+> 
+> would be NO - is this right? 
+> 
+> Note: you can answer with a positive sounding YES on this ;)
+> 
+> My second question was: 
+> 
+>> would you be interested in this?
+> 
+> If you are not interested in a codex git repo I surely will
+> immediately stop investigating into this and spend my time with
+> something that actually finds some positive resonance - I was
+> intending to improve the wordpress codex experience.
+> 
+> Of course I found the "Dump of the Codex?" thread - this interesting
+> discussion ends with your important observation:
+> 
+>> The problem is that the Codex is a living document and changes
+>> daily, so these tend to go out of date fast.
+> 
+> Unfortunately the discussion stops there - much too early, many
+> options have not been mentioned - you definitely are right with your
+> observation, but there are several other ways of mirroring or dumping
+> the codex database to a git repo.
+> 
+> The most efficient solutions will only work with direct access to the
+> codex mediawiki database, so your interest in offering a solution will
+> be the first requirement - if you do not want it, we do not need to
+> discuss better ways to mirror the codex.
+> 
+> If you like the idea and would like to support it, why not discuss it?
+> 
+> 
+> BTW there is a problem with access to the mailing list interface and
+> also to the archives - if I copy the link
+> 
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+> and paste it into the browser address bar I get a 403 "forbidden".
+> 
+> however, accessing it from
+> http://lists.automattic.com/mailman/listinfo DOES work - strange - I
+> did not look deeper into this as it seems to be some kind of webserver
+> misconfig...
+> 
+> Thanks for your attention,
+> Bughunter
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+From bughunter at riseup.net  Mon Sep 12 21:26:27 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Mon, 12 Sep 2011 23:26:27 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+Message-ID: <1915026173.20110912232627@riseup.net>
+
+Hi,
+
+> Offline viewing of the codex:
+> http://lists.automattic.com/pipermail/wp-docs/2011-May/002548.html
+
+yes, did you read my message? I wrote about that thread and that it
+starts too early. There are many mediawiki export tools.
+
+Bughunter
+
+
+From charles.freesmelvin at me.com  Mon Sep 12 21:38:26 2011
+From: charles.freesmelvin at me.com (Charles Frees-Melvin)
+Date: Mon, 12 Sep 2011 18:38:26 -0300
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <1915026173.20110912232627@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+Message-ID: <F504059A-27FA-4813-A7F3-B44B0F0EFF32@me.com>
+
+I believe the MediaWiki project is working on offline support in a coming release.
+
+--
+Charles E. Frees-Melvin
+charles at cefm.ca
+www.cefm.ca
+506-640-1007
+
+Sent from my Rogers iPhone 3G
+
+On 2011-09-12, at 18:26, BUGHUNTER <bughunter at riseup.net> wrote:
+
+> Hi,
+> 
+>> Offline viewing of the codex:
+>> http://lists.automattic.com/pipermail/wp-docs/2011-May/002548.html
+> 
+> yes, did you read my message? I wrote about that thread and that it
+> starts too early. There are many mediawiki export tools.
+> 
+> Bughunter
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+From bughunter at riseup.net  Mon Sep 12 21:57:44 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Mon, 12 Sep 2011 23:57:44 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+Message-ID: <322969871.20110912235744@riseup.net>
+
+sorry, I meant that thread STOPS too early.
+
+should not repeat myself, leads to errors :)
+
+
+From ipstenu at ipstenu.org  Mon Sep 12 23:52:58 2011
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Mon, 12 Sep 2011 18:52:58 -0500
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <1915026173.20110912232627@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+Message-ID: <89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+
+And as that thread pointed out, we were using a MediaWiki version that is too many revisions back to make full use of them.  Still are, actually.  Current revision is 1.17.0, we're on 1.15.0, and MediaWiki's plugin-- sorry, EXTENSION matrix is a clustered mess that makes me giggle whenever someone looks at WordPress's and complains. (Perspective is a wondrous thing.)
+
+You can still export pages: http://codex.wordpress.org/Special:Export
+
+We just can't add the tools in that would make it allow for decent offline viewing.
+
+So ... is there a specific tool you have in mind that we CAN use?  If you know of one, do share.
+
+----
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+On 12 Sep 2011, at 4:26:27PM, BUGHUNTER wrote:
+
+> Hi,
+> 
+>> Offline viewing of the codex:
+>> http://lists.automattic.com/pipermail/wp-docs/2011-May/002548.html
+> 
+> yes, did you read my message? I wrote about that thread and that it
+> starts too early. There are many mediawiki export tools.
+> 
+> Bughunter
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+From lorelleonwordpress at gmail.com  Thu Sep 15 00:43:23 2011
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Wed, 14 Sep 2011 17:43:23 -0700
+Subject: [wp-docs] Hardening WordPress
+In-Reply-To: <CAOqAKWA_s0Vcm=1QBiwoTzhhPheKLQqL+yjk7OhCgtGcw3+JNA@mail.gmail.com>
+References: <CAOqAKWA_s0Vcm=1QBiwoTzhhPheKLQqL+yjk7OhCgtGcw3+JNA@mail.gmail.com>
+Message-ID: <CAN2v4ZRUwxMxjSS0Vw0g3ZPAmFWgaW_5EgL_xKiPv=VtFRs_0w@mail.gmail.com>
+
+Sorry I haven't seen anyone jump in here, so I will. Thank you so much. It
+looks good. It is also much appreciated.
+
+Thanks!
+
+Lorelle
+
+
+On Fri, Sep 9, 2011 at 11:15 AM, John Blackbourn
+<johnbillion+wp at gmail.com>wrote:
+
+> I've just saved a fairly large change to the Hardening WordPress page
+> [1]. I've basically cleaned the information that was there. Grammar
+> and presentation has been improved, some areas have been brought up to
+> date, and a couple of redundant sections have been removed. Some areas
+> have taken cues from the discussion page.
+>
+> Any problems with the page, do let me know.
+>
+> John
+>
+> [1] http://codex.wordpress.org/Hardening_WordPress
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110914/8234bc9e/attachment.htm>
+
+From bughunter at riseup.net  Fri Sep 16 20:39:39 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Fri, 16 Sep 2011 22:39:39 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+Message-ID: <1416260644.20110916223939@riseup.net>
+
+Hi,
+
+> MediaWiki's plugin-- sorry, EXTENSION matrix is a clustered mess
+
+:) - don?t, don?t, don?t believe the hype.... :)
+
+> You can still export pages: http://codex.wordpress.org/Special:Export
+
+yes, I am fiddling with that already, thanks for the link.
+
+> So ... is there a specific tool you have in mind that we CAN use? If
+> you know of one, do share.
+
+Did you ever try https://github.com/tierra/mwpublisher ? - the code is
+quite old, but the author says it still works, I asked him via gitub.
+
+Also there is the old dump script:
+http://svn.wikimedia.org/viewvc/mediawiki/trunk/phase3/maintenance/dumpBackup.php?view=markup
+
+
+
+Have a nice day,
+Bughunter
+
+
+From bughunter at riseup.net  Sun Sep 18 15:52:20 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Sun, 18 Sep 2011 17:52:20 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+Message-ID: <1237927063.20110918175220@riseup.net>
+
+Hi,
+
+btw I also had a nice experience with http://www.wikitaxi.org -
+unfortunately WIndows only, but shows nicely what is possible.
+
+> We just can't add the tools in that would make it allow for decent
+> offline viewing.
+
+the tools are already there, if you have mediawiki and php on the
+server, what seems to be obviuos...
+
+
+
+
+> So ... is there a specific tool you have in mind that we CAN use?  If you know of one, do share.
+
+
+From bughunter at riseup.net  Sun Sep 18 16:01:01 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Sun, 18 Sep 2011 18:01:01 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+Message-ID: <177178430.20110918180101@riseup.net>
+
+Hi,
+
+btw I also had an interesting experience with http://www.wikitaxi.org
+- unfortunately Windows only, but shows nicely what is possible.
+
+> We just can't add the tools in that would make it allow for decent
+> offline viewing.
+
+the tools are already there, if you have mediawiki and php on the
+server...
+
+http://meta.wikimedia.org/wiki/Data_dumps
+
+if you provide some dumps the other part of the work could be done by
+people interested in transforming the dumps into any decent format for
+offline viewing. Would be great to have the codex dumps downloadable
+or even better rsyncable, that?s not too much of an effort, is it?
+
+One small step for you, one giant leap for the community... ;)
+
+Thanks again for your attention!
+
+Have a nice day,
+Bughunter
+
+
+From wordpress at zed1.com  Sun Sep 18 16:04:58 2011
+From: wordpress at zed1.com (Mike Little)
+Date: Sun, 18 Sep 2011 17:04:58 +0100
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <1237927063.20110918175220@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+	<1237927063.20110918175220@riseup.net>
+Message-ID: <CAMb54M2ES6veQAXbpN79NLTq4JLEnQ5o5oX5q+aq__vMu1gB2A@mail.gmail.com>
+
+On Sun, Sep 18, 2011 at 16:52, BUGHUNTER <bughunter at riseup.net> wrote:
+
+> Hi,
+>
+> btw I also had a nice experience with http://www.wikitaxi.org -
+> unfortunately WIndows only, but shows nicely what is possible.
+>
+> > We just can't add the tools in that would make it allow for decent
+> > offline viewing.
+>
+> the tools are already there, if you have mediawiki and php on the
+> server, what seems to be obviuos...
+>
+>
+As was mentioned in the other thread, the mediawiki is not a vanilla one.
+
+By the way, you could have scraped the whole site by now with a simple wget.
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110918/4271f1de/attachment.htm>
+
+From wordpress at zed1.com  Sun Sep 18 16:06:32 2011
+From: wordpress at zed1.com (Mike Little)
+Date: Sun, 18 Sep 2011 17:06:32 +0100
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <177178430.20110918180101@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+	<177178430.20110918180101@riseup.net>
+Message-ID: <CAMb54M3xYtMNS-fG3pQ5-M0rFh05trx-P_rpjVR0qqWFfhy1FQ@mail.gmail.com>
+
+On Sun, Sep 18, 2011 at 17:01, BUGHUNTER <bughunter at riseup.net> wrote:
+
+> Hi,
+>
+> btw I also had an interesting experience with http://www.wikitaxi.org
+> - unfortunately Windows only, but shows nicely what is possible.
+>
+> > We just can't add the tools in that would make it allow for decent
+> > offline viewing.
+>
+> the tools are already there, if you have mediawiki and php on the
+> server...
+>
+> http://meta.wikimedia.org/wiki/Data_dumps
+>
+> if you provide some dumps the other part of the work could be done by
+> people interested in transforming the dumps into any decent format for
+> offline viewing. Would be great to have the codex dumps downloadable
+> or even better rsyncable, that?s not too much of an effort, is it?
+>
+> One small step for you, one giant leap for the community... ;)
+>
+>
+
+You have yet to explain why you need this. What giant leap for the community
+will you having a private copy of the codex provide?
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110918/2e62ff42/attachment.htm>
+
+From bughunter at riseup.net  Sun Sep 18 19:10:56 2011
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Sun, 18 Sep 2011 21:10:56 +0200
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <CAMb54M3xYtMNS-fG3pQ5-M0rFh05trx-P_rpjVR0qqWFfhy1FQ@mail.gmail.com>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+	<177178430.20110918180101@riseup.net>
+	<CAMb54M3xYtMNS-fG3pQ5-M0rFh05trx-P_rpjVR0qqWFfhy1FQ@mail.gmail.com>
+Message-ID: <1483987531.20110918211056@riseup.net>
+
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110918/50d98238/attachment.htm>
+
+From wordpress at zed1.com  Sun Sep 18 19:38:35 2011
+From: wordpress at zed1.com (Mike Little)
+Date: Sun, 18 Sep 2011 20:38:35 +0100
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <1483987531.20110918211056@riseup.net>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+	<177178430.20110918180101@riseup.net>
+	<CAMb54M3xYtMNS-fG3pQ5-M0rFh05trx-P_rpjVR0qqWFfhy1FQ@mail.gmail.com>
+	<1483987531.20110918211056@riseup.net>
+Message-ID: <CAMb54M1ZZ1G9KJos=jCNAXYWGfJsFHjqYjwCYDMLKkOS0szPZQ@mail.gmail.com>
+
+On Sun, Sep 18, 2011 at 20:10, BUGHUNTER <bughunter at riseup.net> wrote:
+
+>  Hello Mike,
+>
+>
+>  You have yet to explain why you need this. What giant leap for the
+> community will you having a private copy of the codex provide?
+>
+> Hmmm, it was written before: there are people still offline a lot!
+>
+>
+Actually what you wrote was "is there a codex git repo for offline
+processing / viewing?"
+
+
+
+>  I do not feel that your question is legitimate or could not be answered by
+> yourself, but why not just answer it - I will work on a project in asia for
+> a few months and, well, you might imagine that there are still places on
+> this planet where there is no internet 24/7 - really! Especially in an
+> educational context it might be good to have codex offline with rsyncable
+> and therefor  efficient updates.
+>
+> Now, that I answered your question, I wold like you to answer mine:
+>
+>
+> > You have yet to explain why you need this.
+>
+> Why do feel like I have to explain this?
+>
+>
+I don't feel like you have to explain it, I simply asked the question.
+
+You seem to be very insistent asking for something there seems little
+enthusiasm to do, and then you declared that it would be good for the
+community, but I didn't understand from your earlier posts in this thread
+why it would be good.
+
+
+
+
+> Really, is it so uncommon that people read documentation offline?
+>
+>
+As I mention above, you specifically referred to "processing"
+
+
+
+>  BTW I did not think that this is a problem or anything that an experienced
+> developer had to think more than 10 minutes about or that it might be
+> becoming an issue discussed so much. In the time we are discussing this,
+> dumps could have been configured many times...
+>
+>
+It has been explained in this thread and the other referred thread that the
+codex is not a standard codex and has modified code, and for all I know
+modified data structure too.
+
+And as I have already pointed out in my previous email, you could have
+spidered the whole codex many times over during the course of this thread.
+
+Why would a spidered copy of the site not be suitable for off line reading?
+
+
+
+> Another question: your mediawiki is so special that mysql dumps do not work
+> anymore? Seriously? And you can not solve it?
+>
+>
+Firstly, it's not my MediaWiki, secondly, you seem to be making the mistake
+that what you think is desirable and easy, is desirable and easy for anyone
+else. It seems to me that there is no great desire to provide this service.
+
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110918/13a0ad7d/attachment.htm>
+
+From ipstenu at ipstenu.org  Sun Sep 18 20:47:10 2011
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Sun, 18 Sep 2011 15:47:10 -0500
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <CAMb54M1ZZ1G9KJos=jCNAXYWGfJsFHjqYjwCYDMLKkOS0szPZQ@mail.gmail.com>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+	<177178430.20110918180101@riseup.net>
+	<CAMb54M3xYtMNS-fG3pQ5-M0rFh05trx-P_rpjVR0qqWFfhy1FQ@mail.gmail.com>
+	<1483987531.20110918211056@riseup.net>
+	<CAMb54M1ZZ1G9KJos=jCNAXYWGfJsFHjqYjwCYDMLKkOS0szPZQ@mail.gmail.com>
+Message-ID: <76F01090-26A3-4285-BE1C-7C60FC706C8C@ipstenu.org>
+
+Understanding the why and wherefore of a question helps the people answering it find the best answer possible.  Many times, the best answer that satisfies as much as possible, can only be found with a complete understanding.
+
+In that specific situation, people who need to access it while working offline, I would consider spinning up my own, localhost version of MediaWiki (make it read only), running an export of the WordPress content, and copying it all up.  Sync it once or twice a week, and Bob's your uncle.  Keeps it both readable AND in a familiar format/layout.
+
+----
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+On 18 Sep 2011, at 2:38:35PM, Mike Little wrote:
+
+> 
+> 
+> On Sun, Sep 18, 2011 at 20:10, BUGHUNTER <bughunter at riseup.net> wrote:
+> Hello Mike,
+> 
+> 
+> You have yet to explain why you need this. What giant leap for the community will you having a private copy of the codex provide?
+> 
+> 
+> Hmmm, it was written before: there are people still offline a lot! 
+> 
+> 
+> Actually what you wrote was "is there a codex git repo for offline processing / viewing?"
+> 
+>  
+> I do not feel that your question is legitimate or could not be answered by yourself, but why not just answer it - I will work on a project in asia for a few months and, well, you might imagine that there are still places on this planet where there is no internet 24/7 - really! Especially in an educational context it might be good to have codex offline with rsyncable and therefor  efficient updates.
+> 
+> Now, that I answered your question, I wold like you to answer mine: 
+> 
+> 
+> > You have yet to explain why you need this.
+> 
+> Why do feel like I have to explain this? 
+> 
+> 
+> I don't feel like you have to explain it, I simply asked the question. 
+> 
+> You seem to be very insistent asking for something there seems little enthusiasm to do, and then you declared that it would be good for the community, but I didn't understand from your earlier posts in this thread why it would be good.
+> 
+> 
+>  
+> Really, is it so uncommon that people read documentation offline? 
+> 
+> 
+> As I mention above, you specifically referred to "processing"
+> 
+>  
+> BTW I did not think that this is a problem or anything that an experienced developer had to think more than 10 minutes about or that it might be becoming an issue discussed so much. In the time we are discussing this, dumps could have been configured many times...
+> 
+> 
+> It has been explained in this thread and the other referred thread that the codex is not a standard codex and has modified code, and for all I know modified data structure too.
+> 
+> And as I have already pointed out in my previous email, you could have spidered the whole codex many times over during the course of this thread.
+> 
+> Why would a spidered copy of the site not be suitable for off line reading?
+> 
+>  
+> Another question: your mediawiki is so special that mysql dumps do not work anymore? Seriously? And you can not solve it?
+> 
+> 
+> Firstly, it's not my MediaWiki, secondly, you seem to be making the mistake that what you think is desirable and easy, is desirable and easy for anyone else. It seems to me that there is no great desire to provide this service.
+> 
+> 
+> 
+> Mike
+> -- 
+> Mike Little
+> http://zed1.com/
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+From ipstenu at ipstenu.org  Sun Sep 18 20:47:56 2011
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Sun, 18 Sep 2011 15:47:56 -0500
+Subject: [wp-docs] codex git repo ???
+In-Reply-To: <76F01090-26A3-4285-BE1C-7C60FC706C8C@ipstenu.org>
+References: <1007516551.20110910223321@riseup.net>
+	<CAN2v4ZStXqUWNsKJc_c3LFQj_nJK+9pV2xkOteXwm6tRgc0-5A@mail.gmail.com>
+	<1933273435.20110911162244@riseup.net>
+	<31FA15A8-8105-4CCE-9D69-38E448035329@ipstenu.org>
+	<1915026173.20110912232627@riseup.net>
+	<89C95037-DA47-471F-AA8A-14441977B507@ipstenu.org>
+	<177178430.20110918180101@riseup.net>
+	<CAMb54M3xYtMNS-fG3pQ5-M0rFh05trx-P_rpjVR0qqWFfhy1FQ@mail.gmail.com>
+	<1483987531.20110918211056@riseup.net>
+	<CAMb54M1ZZ1G9KJos=jCNAXYWGfJsFHjqYjwCYDMLKkOS0szPZQ@mail.gmail.com>
+	<76F01090-26A3-4285-BE1C-7C60FC706C8C@ipstenu.org>
+Message-ID: <D6098517-71C3-46A9-B3B2-1D0B6514DBBD@ipstenu.org>
+
+Forgot to add in the URL for a wget formula I've used before: http://yoush.homelinux.org:8079/tech/download-mediawiki-content-for-offline-browsing
+
+----
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+On 18 Sep 2011, at 3:47:10PM, Mika A Epstein wrote:
+
+> Understanding the why and wherefore of a question helps the people answering it find the best answer possible.  Many times, the best answer that satisfies as much as possible, can only be found with a complete understanding.
+> 
+> In that specific situation, people who need to access it while working offline, I would consider spinning up my own, localhost version of MediaWiki (make it read only), running an export of the WordPress content, and copying it all up.  Sync it once or twice a week, and Bob's your uncle.  Keeps it both readable AND in a familiar format/layout.
+> 
+> ----
+> Mika A Epstein (aka Ipstenu)
+> http://ipstenu.org
+> 
+> On 18 Sep 2011, at 2:38:35PM, Mike Little wrote:
+> 
+>> 
+>> 
+>> On Sun, Sep 18, 2011 at 20:10, BUGHUNTER <bughunter at riseup.net> wrote:
+>> Hello Mike,
+>> 
+>> 
+>> You have yet to explain why you need this. What giant leap for the community will you having a private copy of the codex provide?
+>> 
+>> 
+>> Hmmm, it was written before: there are people still offline a lot! 
+>> 
+>> 
+>> Actually what you wrote was "is there a codex git repo for offline processing / viewing?"
+>> 
+>> 
+>> I do not feel that your question is legitimate or could not be answered by yourself, but why not just answer it - I will work on a project in asia for a few months and, well, you might imagine that there are still places on this planet where there is no internet 24/7 - really! Especially in an educational context it might be good to have codex offline with rsyncable and therefor  efficient updates.
+>> 
+>> Now, that I answered your question, I wold like you to answer mine: 
+>> 
+>> 
+>>> You have yet to explain why you need this.
+>> 
+>> Why do feel like I have to explain this? 
+>> 
+>> 
+>> I don't feel like you have to explain it, I simply asked the question. 
+>> 
+>> You seem to be very insistent asking for something there seems little enthusiasm to do, and then you declared that it would be good for the community, but I didn't understand from your earlier posts in this thread why it would be good.
+>> 
+>> 
+>> 
+>> Really, is it so uncommon that people read documentation offline? 
+>> 
+>> 
+>> As I mention above, you specifically referred to "processing"
+>> 
+>> 
+>> BTW I did not think that this is a problem or anything that an experienced developer had to think more than 10 minutes about or that it might be becoming an issue discussed so much. In the time we are discussing this, dumps could have been configured many times...
+>> 
+>> 
+>> It has been explained in this thread and the other referred thread that the codex is not a standard codex and has modified code, and for all I know modified data structure too.
+>> 
+>> And as I have already pointed out in my previous email, you could have spidered the whole codex many times over during the course of this thread.
+>> 
+>> Why would a spidered copy of the site not be suitable for off line reading?
+>> 
+>> 
+>> Another question: your mediawiki is so special that mysql dumps do not work anymore? Seriously? And you can not solve it?
+>> 
+>> 
+>> Firstly, it's not my MediaWiki, secondly, you seem to be making the mistake that what you think is desirable and easy, is desirable and easy for anyone else. It seems to me that there is no great desire to provide this service.
+>> 
+>> 
+>> 
+>> Mike
+>> -- 
+>> Mike Little
+>> http://zed1.com/
+>> 
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+From ipstenu at ipstenu.org  Mon Sep 19 16:40:32 2011
+From: ipstenu at ipstenu.org (Mika A. Epstein)
+Date: Mon, 19 Sep 2011 11:40:32 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+Message-ID: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+
+I've noticed a lot of people have WP in a subfolder and want to use 
+that to run 'as if it was in root.'  To most of us, just following the 
+directions on 
+http://codex.wordpress.org/Giving_WordPress_Its_Own_Directory and 
+skipping the obvious parts is ... obvious.
+
+But not so to a newbie.
+
+I drafted out 
+http://codex.wordpress.org/User:Ipstenu/Giving_WordPress_Its_Own_Directory 
+which has a subsection for when your site is already in a subfolder.
+
+Since "Giving WordPress Its Own Directory" is locked, I'm pitching that 
+re-write here :)
+
+I'm also kind of thinking we should remove the SVN stuff - Doesn't seem 
+very appropriate.
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+From andrea at ronandandrea.com  Mon Sep 19 17:05:15 2011
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Mon, 19 Sep 2011 14:05:15 -0300
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+Message-ID: <CAJzjkbcFDnPb_p5XYky8n7L5Ntp2073bteG9bmuGEzsL=Cfpnw@mail.gmail.com>
+
++1
+
+Although in the first heading, it's "its". :D
+
+a.
+
+On Mon, Sep 19, 2011 at 1:40 PM, Mika A. Epstein <ipstenu at ipstenu.org> wrote:
+> I've noticed a lot of people have WP in a subfolder and want to use that to
+> run 'as if it was in root.' ?To most of us, just following the directions on
+> http://codex.wordpress.org/Giving_WordPress_Its_Own_Directory and skipping
+> the obvious parts is ... obvious.
+>
+> But not so to a newbie.
+>
+> I drafted out
+> http://codex.wordpress.org/User:Ipstenu/Giving_WordPress_Its_Own_Directory
+> which has a subsection for when your site is already in a subfolder.
+>
+> Since "Giving WordPress Its Own Directory" is locked, I'm pitching that
+> re-write here :)
+>
+> I'm also kind of thinking we should remove the SVN stuff - Doesn't seem very
+> appropriate.
+>
+> --
+> Mika A Epstein (aka Ipstenu)
+> http://ipstenu.org
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+--
+Andrea Rennick, http://wpebooks.com?and?http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies?http://rml.me/aio
+
+From justmichaelh at gmail.com  Mon Sep 19 17:39:45 2011
+From: justmichaelh at gmail.com (justmichaelh)
+Date: Mon, 19 Sep 2011 13:39:45 -0400
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+Message-ID: <00d301cc76f3$1f6c6630$5e453290$@gmail.com>
+
+
+
+>From:  Mika A. Epstein
+>Since "Giving WordPress Its Own Directory" is locked, I'm pitching that
+re-write here :)
+
+
+Unprotected that article so you could make the edits there.
+
+MichaelH
+
+
+
+
+
+From ipstenu at ipstenu.org  Mon Sep 19 17:54:52 2011
+From: ipstenu at ipstenu.org (Mika A. Epstein)
+Date: Mon, 19 Sep 2011 12:54:52 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <00d301cc76f3$1f6c6630$5e453290$@gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<00d301cc76f3$1f6c6630$5e453290$@gmail.com>
+Message-ID: <986f8b5fdb72d06ba9529e8f24d155f4@ipstenu.org>
+
+Thanks. :)  C/P done.
+
+On Mon, 19 Sep 2011 13:39:45 -0400, justmichaelh wrote:
+>>From:  Mika A. Epstein
+>>Since "Giving WordPress Its Own Directory" is locked, I'm pitching 
+>> that
+> re-write here :)
+>
+>
+> Unprotected that article so you could make the edits there.
+>
+> MichaelH
+>
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+From esmi at quirm.net  Mon Sep 19 17:55:33 2011
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Mon, 19 Sep 2011 18:55:33 +0100
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+Message-ID: <4E778215.2020701@quirm.net>
+
+on 19/09/2011 17:40 Mika A. Epstein said the following:
+
+> I drafted out
+> http://codex.wordpress.org/User:Ipstenu/Giving_WordPress_Its_Own_Directory
+> which has a subsection for when your site is already in a subfolder.
+
+I agree that this would be far more helpful to a newbie.
+
+> I'm also kind of thinking we should remove the SVN stuff - Doesn't seem
+> very appropriate.
+
+Agreed. Perhaps the WordPress MU sub-section at the bottom of the page 
+could also be removed?
+
+Mel
+
+
+
+
+From ipstenu at ipstenu.org  Mon Sep 19 20:12:44 2011
+From: ipstenu at ipstenu.org (Mika A. Epstein)
+Date: Mon, 19 Sep 2011 15:12:44 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <4E778215.2020701@quirm.net>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+Message-ID: <d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+
+Removed both. It's not like we can't easily add 'em back in!
+
+Yay for revisions!
+
+On Mon, 19 Sep 2011 18:55:33 +0100, esmi at quirm dot net wrote:
+> on 19/09/2011 17:40 Mika A. Epstein said the following:
+>
+>> I drafted out
+>> 
+>> http://codex.wordpress.org/User:Ipstenu/Giving_WordPress_Its_Own_Directory
+>> which has a subsection for when your site is already in a subfolder.
+>
+> I agree that this would be far more helpful to a newbie.
+>
+>> I'm also kind of thinking we should remove the SVN stuff - Doesn't 
+>> seem
+>> very appropriate.
+>
+> Agreed. Perhaps the WordPress MU sub-section at the bottom of the
+> page could also be removed?
+>
+> Mel
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+From lorelleonwordpress at gmail.com  Tue Sep 20 19:15:54 2011
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue, 20 Sep 2011 12:15:54 -0700
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+Message-ID: <CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+
+Totally brilliant!!! Thanks for finding the gap and filling it.
+
+However, we need to change the references from example.com/wordpress/ and
+example.com/wp/ to other subweb/folder names. There is a chronic problem
+with using these folder names which appear in the URL. They turn up in
+searches with unrelated content just because "wordpress" is in the url. We
+need to get people to install WordPress in other folder names like /blog/ or
+/posts/ or /cars/ for all I care and get WordPress out of the URL. Someone
+blogging about cars and never WordPress shouldn't have WordPress in the URL.
+
+
+Not sure how to handle that so I'm leaving it up to you. It's an SEO issue
+but it's also a control issue. They should be able to name it whatever they
+want that is relevant to their content and topic.
+
+Make sense?
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110920/c82af36a/attachment.htm>
+
+From esmi at quirm.net  Tue Sep 20 19:55:36 2011
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Tue, 20 Sep 2011 20:55:36 +0100
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+Message-ID: <4E78EFB8.4030004@quirm.net>
+
+on 20/09/2011 20:15 Lorelle on WordPress said the following:
+
+> Someone
+> blogging about cars and never WordPress shouldn't have WordPress in the URL.
+
+Couldn't agree more. Perhaps this should be dealt with at the 
+installation stage?
+
+<http://codex.wordpress.org/Installing_WordPress> does mention it but 
+perhaps it could emphasised more? In fact maybe the whole 5 minute guide 
+could do with an overhaul? There are lots of references to "directories" 
+and subdirectories" whilst people seem more used to "folders" these days.
+
+Sample rewrite of Step 5:
+
+5. Get ready to upload the WordPress files to your web server:
+
+# If you want WordPress to run your main site (e.g. 
+http://example.com/), upload all of the contents of the 'wordpress' 
+folder (but *not* the folder itself)  to your web server.
+
+# If you want to have WordPress to have its own folder on your web site 
+(e.g. http://example.com/blog/), rename the wordpress folder on your 
+computer to your preferred name (e.g. blog) and then upload the entire 
+folder to your web server.
+
+Thoughts?
+
+Mel
+
+
+
+From lorelleonwordpress at gmail.com  Tue Sep 20 20:03:54 2011
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue, 20 Sep 2011 13:03:54 -0700
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <4E78EFB8.4030004@quirm.net>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+Message-ID: <CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+
+On your side. Good point. Maybe we need to do a full run at this and make
+sure that we aren't shooting ourselves in the foot and making things worse.
+
+Lroelle
+
+On Tue, Sep 20, 2011 at 12:55 PM, esmi at quirm dot net <esmi at quirm.net>wrote:
+
+> on 20/09/2011 20:15 Lorelle on WordPress said the following:
+>
+>
+>  Someone
+>> blogging about cars and never WordPress shouldn't have WordPress in the
+>> URL.
+>>
+>
+> Couldn't agree more. Perhaps this should be dealt with at the installation
+> stage?
+>
+> <http://codex.wordpress.org/**Installing_WordPress<http://codex.wordpress.org/Installing_WordPress>>
+> does mention it but perhaps it could emphasised more? In fact maybe the
+> whole 5 minute guide could do with an overhaul? There are lots of references
+> to "directories" and subdirectories" whilst people seem more used to
+> "folders" these days.
+>
+> Sample rewrite of Step 5:
+>
+> 5. Get ready to upload the WordPress files to your web server:
+>
+> # If you want WordPress to run your main site (e.g. http://example.com/),
+> upload all of the contents of the 'wordpress' folder (but *not* the folder
+> itself)  to your web server.
+>
+> # If you want to have WordPress to have its own folder on your web site
+> (e.g. http://example.com/blog/), rename the wordpress folder on your
+> computer to your preferred name (e.g. blog) and then upload the entire
+> folder to your web server.
+>
+> Thoughts?
+>
+>
+> Mel
+>
+>
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110920/75a1a116/attachment.htm>
+
+From andrea at ronandandrea.com  Tue Sep 20 20:05:19 2011
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Tue, 20 Sep 2011 17:05:19 -0300
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+Message-ID: <CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+
+I'm all for adding bits to the install procedure to persuade people to
+not use /wordpress/. Yes.
+
+a.
+
+On Tue, Sep 20, 2011 at 5:03 PM, Lorelle on WordPress
+<lorelleonwordpress at gmail.com> wrote:
+> On your side. Good point. Maybe we need to do a full run at this and make
+> sure that we aren't shooting ourselves in the foot and making things worse.
+>
+> Lroelle
+>
+> On Tue, Sep 20, 2011 at 12:55 PM, esmi at quirm dot net <esmi at quirm.net>
+> wrote:
+>>
+>> on 20/09/2011 20:15 Lorelle on WordPress said the following:
+>>
+>>> Someone
+>>> blogging about cars and never WordPress shouldn't have WordPress in the
+>>> URL.
+>>
+>> Couldn't agree more. Perhaps this should be dealt with at the installation
+>> stage?
+>>
+>> <http://codex.wordpress.org/Installing_WordPress> does mention it but
+>> perhaps it could emphasised more? In fact maybe the whole 5 minute guide
+>> could do with an overhaul? There are lots of references to "directories" and
+>> subdirectories" whilst people seem more used to "folders" these days.
+>>
+>> Sample rewrite of Step 5:
+>>
+>> 5. Get ready to upload the WordPress files to your web server:
+>>
+>> # If you want WordPress to run your main site (e.g. http://example.com/),
+>> upload all of the contents of the 'wordpress' folder (but *not* the folder
+>> itself) ?to your web server.
+>>
+>> # If you want to have WordPress to have its own folder on your web site
+>> (e.g. http://example.com/blog/), rename the wordpress folder on your
+>> computer to your preferred name (e.g. blog) and then upload the entire
+>> folder to your web server.
+>>
+>> Thoughts?
+>>
+>> Mel
+>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+
+
+
+-- 
+--
+Andrea Rennick, http://wpebooks.com?and?http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies?http://rml.me/aio
+
+From ipstenu at ipstenu.org  Wed Sep 21 00:20:07 2011
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Tue, 20 Sep 2011 19:20:07 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+Message-ID: <D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+
+The only problem is 'blog' is only slightly more useful than 'wordpress' - The number of sites that use WP for something other than a blog is on the rise.  Perhaps it would be better to make it clear that the folder name is mutable.
+
+(Also I'd keep in subdirectories, as if you switch to MultiSite, the install is either subdirectory or subdomain, not 'subfolder' and it would carry through logically as the users grow in skill level.  Of course to say 'subdirectory (i.e. a folder)' is not inappropriate!)
+
+5. Get ready to upload the WordPress files to your web server:
+
+# If you want WordPress to run your main site (e.g. http://example.com/ ), upload all of the contents of the 'wordpress' folder (but <strong>not</strong> the folder itself)  to your web server.
+
+# If you want to have WordPress to have its own folder on your web site (e.g. http://example.com/FOLDERNAME/ ), rename the wordpress folder on your computer to your preferred name (e.g. FOLDERNAME) and then upload the entire folder to your web server.  This name will be a part of your URL, so be certain to pick something appropriate to your site, be it 'blog' or 'news.'  Using 'wordpress' as your folder name is not advised, as it's rarely relevant to the visitors to you site.
+
+
+
+----
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+On 20 Sep 2011, at 3:05:19PM, Andrea Rennick wrote:
+
+> I'm all for adding bits to the install procedure to persuade people to
+> not use /wordpress/. Yes.
+> 
+> a.
+> 
+> On Tue, Sep 20, 2011 at 5:03 PM, Lorelle on WordPress
+> <lorelleonwordpress at gmail.com> wrote:
+>> On your side. Good point. Maybe we need to do a full run at this and make
+>> sure that we aren't shooting ourselves in the foot and making things worse.
+>> 
+>> Lroelle
+>> 
+>> On Tue, Sep 20, 2011 at 12:55 PM, esmi at quirm dot net <esmi at quirm.net>
+>> wrote:
+>>> 
+>>> on 20/09/2011 20:15 Lorelle on WordPress said the following:
+>>> 
+>>>> Someone
+>>>> blogging about cars and never WordPress shouldn't have WordPress in the
+>>>> URL.
+>>> 
+>>> Couldn't agree more. Perhaps this should be dealt with at the installation
+>>> stage?
+>>> 
+>>> <http://codex.wordpress.org/Installing_WordPress> does mention it but
+>>> perhaps it could emphasised more? In fact maybe the whole 5 minute guide
+>>> could do with an overhaul? There are lots of references to "directories" and
+>>> subdirectories" whilst people seem more used to "folders" these days.
+>>> 
+>>> Sample rewrite of Step 5:
+>>> 
+>>> 5. Get ready to upload the WordPress files to your web server:
+>>> 
+>>> # If you want WordPress to run your main site (e.g. http://example.com/),
+>>> upload all of the contents of the 'wordpress' folder (but *not* the folder
+>>> itself)  to your web server.
+>>> 
+>>> # If you want to have WordPress to have its own folder on your web site
+>>> (e.g. http://example.com/blog/), rename the wordpress folder on your
+>>> computer to your preferred name (e.g. blog) and then upload the entire
+>>> folder to your web server.
+>>> 
+>>> Thoughts?
+>>> 
+>>> Mel
+>>> 
+>>> 
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>> 
+>> 
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>> 
+>> 
+> 
+> 
+> 
+> -- 
+> --
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+From esmi at quirm.net  Wed Sep 21 09:45:34 2011
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Wed, 21 Sep 2011 10:45:34 +0100
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+Message-ID: <4E79B23E.4080207@quirm.net>
+
+on 21/09/2011 01:20 Mika A Epstein said the following:
+> The only problem is 'blog' is only slightly more useful than
+> 'wordpress' - The number of sites that use WP for something other
+> than a blog is on the rise.  Perhaps it would be better to make it
+> clear that the folder name is mutable.
+
+I agree that 'blog' isn't that helpful but, if we want a generic example 
+in there (and that would probably be a Good Idea), we're always going to 
+be stuck with something that doesn't suit 90% of sites.
+
+> (Also I'd keep in subdirectories, as if you switch to MultiSite, the
+> install is either subdirectory or subdomain, not 'subfolder' and it
+> would carry through logically as the users grow in skill level.  Of
+> course to say 'subdirectory (i.e. a folder)' is not inappropriate!)
+
+Good point. So perhaps use 'subdirectory (a folder within the main 
+directory)' when referring to the server?
+
+FWIW, I think this is (bizarrely) the most important change:
+
+> 5. Get ready to upload the WordPress files to your web server:
+
+The current page says "Upload the WordPress files...' and I think people 
+stop reading Step 5 at that point. So the whole 'choosing the right 
+folder name or install in root' gets missed, when what we really want is 
+for people to stop and think for a moment before they upload.
+
+Mel
+
+
+
+From esmi at quirm.net  Wed Sep 21 11:50:33 2011
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Wed, 21 Sep 2011 12:50:33 +0100
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+Message-ID: <4E79CF89.9090303@quirm.net>
+
+on 20/09/2011 21:03 Lorelle on WordPress said the following:
+> On your side. Good point. Maybe we need to do a full run at this and make
+> sure that we aren't shooting ourselves in the foot and making things worse.
+
+Another shot at the 5-minute install:
+<http://codex.wordpress.org/User:Esmi/5-Minute_Install#Famous_5-Minute_Install>
+
+Bit I can still see areas on 
+<http://codex.wordpress.org/Installing_WordPress#Detailed_Instructions> 
+that need either expanding or possible removing. For example:
+
+- Things You Need to Do to Install WordPress
+Possibly expand to link to Create the Database and a User
+
+- Detailed Instructions
+How useful are all the details on using wget these days?
+
+Mel
+
+
+From ipstenu at ipstenu.org  Wed Sep 21 16:40:22 2011
+From: ipstenu at ipstenu.org (Mika A. Epstein)
+Date: Wed, 21 Sep 2011 11:40:22 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <4E79B23E.4080207@quirm.net>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+Message-ID: <1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+
+I think you're right about number 5.
+
+Trying to make it obvious but not klugdey (since if you use WP in own 
+directory, no one sees you named the folder gooberville unless they 
+login or view source)
+
+5. Get ready to upload the WordPress files to your web server.  The 
+name of the subdirectory (aka a folder within the main directory) on 
+your server that you install WordPress into will be a part of your URL.  
+Be certain to pick something appropriate, be it 'blog' or 'news.'  Using 
+'wordpress' as your folder name is not advised.
+
+# If you want WordPress to run your main site (e.g. http://example.com/ 
+), upload all of the contents of the 'wordpress' folder (but 
+<strong>not</strong> the folder itself)  to your web server.
+
+# If you want to have WordPress to have its own folder on your web site 
+(e.g. http://example.com/blog/ ), rename the wordpress folder on your 
+computer to your preferred name (e.g. blog) and then upload the entire 
+folder to your web server.
+
+
+On Wed, 21 Sep 2011 10:45:34 +0100, esmi at quirm dot net wrote:
+> on 21/09/2011 01:20 Mika A Epstein said the following:
+>> The only problem is 'blog' is only slightly more useful than
+>> 'wordpress' - The number of sites that use WP for something other
+>> than a blog is on the rise.  Perhaps it would be better to make it
+>> clear that the folder name is mutable.
+>
+> I agree that 'blog' isn't that helpful but, if we want a generic
+> example in there (and that would probably be a Good Idea), we're
+> always going to be stuck with something that doesn't suit 90% of
+> sites.
+>
+>> (Also I'd keep in subdirectories, as if you switch to MultiSite, the
+>> install is either subdirectory or subdomain, not 'subfolder' and it
+>> would carry through logically as the users grow in skill level.  Of
+>> course to say 'subdirectory (i.e. a folder)' is not inappropriate!)
+>
+> Good point. So perhaps use 'subdirectory (a folder within the main
+> directory)' when referring to the server?
+>
+> FWIW, I think this is (bizarrely) the most important change:
+>
+>> 5. Get ready to upload the WordPress files to your web server:
+>
+> The current page says "Upload the WordPress files...' and I think
+> people stop reading Step 5 at that point. So the whole 'choosing the
+> right folder name or install in root' gets missed, when what we 
+> really
+> want is for people to stop and think for a moment before they upload.
+>
+> Mel
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+From chip at chipbennett.net  Wed Sep 21 17:36:13 2011
+From: chip at chipbennett.net (Chip Bennett)
+Date: Wed, 21 Sep 2011 12:36:13 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+	<1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+Message-ID: <CAPdLKqc8Zo3RWoFjhzsaw4rcF0vKDwLF4UT71A3ouFOy2icbww@mail.gmail.com>
+
+Might it be helpful if the default download .ZIP file didn't put all its
+contents inside a "wordpress" folder?
+
+Chip
+
+On Wed, Sep 21, 2011 at 11:40 AM, Mika A. Epstein <ipstenu at ipstenu.org>wrote:
+
+> I think you're right about number 5.
+>
+> Trying to make it obvious but not klugdey (since if you use WP in own
+> directory, no one sees you named the folder gooberville unless they login or
+> view source)
+>
+> 5. Get ready to upload the WordPress files to your web server.  The name of
+> the subdirectory (aka a folder within the main directory) on your server
+> that you install WordPress into will be a part of your URL.  Be certain to
+> pick something appropriate, be it 'blog' or 'news.'  Using 'wordpress' as
+> your folder name is not advised.
+>
+>
+> # If you want WordPress to run your main site (e.g. http://example.com/ ),
+> upload all of the contents of the 'wordpress' folder (but
+> <strong>not</strong> the folder itself)  to your web server.
+>
+> # If you want to have WordPress to have its own folder on your web site
+> (e.g. http://example.com/blog/ ), rename the wordpress folder on your
+> computer to your preferred name (e.g. blog) and then upload the entire
+> folder to your web server.
+>
+>
+>
+> On Wed, 21 Sep 2011 10:45:34 +0100, esmi at quirm dot net wrote:
+>
+>> on 21/09/2011 01:20 Mika A Epstein said the following:
+>>
+>>> The only problem is 'blog' is only slightly more useful than
+>>> 'wordpress' - The number of sites that use WP for something other
+>>> than a blog is on the rise.  Perhaps it would be better to make it
+>>> clear that the folder name is mutable.
+>>>
+>>
+>> I agree that 'blog' isn't that helpful but, if we want a generic
+>> example in there (and that would probably be a Good Idea), we're
+>> always going to be stuck with something that doesn't suit 90% of
+>> sites.
+>>
+>>  (Also I'd keep in subdirectories, as if you switch to MultiSite, the
+>>> install is either subdirectory or subdomain, not 'subfolder' and it
+>>> would carry through logically as the users grow in skill level.  Of
+>>> course to say 'subdirectory (i.e. a folder)' is not inappropriate!)
+>>>
+>>
+>> Good point. So perhaps use 'subdirectory (a folder within the main
+>> directory)' when referring to the server?
+>>
+>> FWIW, I think this is (bizarrely) the most important change:
+>>
+>>  5. Get ready to upload the WordPress files to your web server:
+>>>
+>>
+>> The current page says "Upload the WordPress files...' and I think
+>> people stop reading Step 5 at that point. So the whole 'choosing the
+>> right folder name or install in root' gets missed, when what we really
+>> want is for people to stop and think for a moment before they upload.
+>>
+>> Mel
+>>
+>>
+>> ______________________________**_________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>
+>
+> --
+> Mika A Epstein (aka Ipstenu)
+> http://ipstenu.org
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20110921/456702b1/attachment.htm>
+
+From esmi at quirm.net  Wed Sep 21 19:08:16 2011
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Wed, 21 Sep 2011 20:08:16 +0100
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+	<1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+Message-ID: <4E7A3620.9090107@quirm.net>
+
+on 21/09/2011 17:40 Mika A. Epstein said the following:
+> I think you're right about number 5.
+>
+> Trying to make it obvious but not klugdey (since if you use WP in own
+> directory, no one sees you named the folder gooberville unless they
+> login or view source)
+
+Yep - a lot more concise.
+
+Mel
+
+
+From esmi at quirm.net  Wed Sep 21 19:17:34 2011
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Wed, 21 Sep 2011 20:17:34 +0100
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <CAPdLKqc8Zo3RWoFjhzsaw4rcF0vKDwLF4UT71A3ouFOy2icbww@mail.gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+	<1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+	<CAPdLKqc8Zo3RWoFjhzsaw4rcF0vKDwLF4UT71A3ouFOy2icbww@mail.gmail.com>
+Message-ID: <4E7A384E.6000006@quirm.net>
+
+on 21/09/2011 18:36 Chip Bennett said the following:
+
+> Might it be helpful if the default download .ZIP file didn't put all its
+> contents inside a "wordpress" folder?
+
+I did wonder about this too but assumed there was some logistical reason 
+for it.
+
+Mel
+
+
+
+From gxxaxx at gmail.com  Wed Sep 21 19:56:05 2011
+From: gxxaxx at gmail.com (Claude Needham)
+Date: Wed, 21 Sep 2011 12:56:05 -0700
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+	<1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+Message-ID: <CACOUsBULuYnod5+iqwkhjAEuZZmRNU=i0xXVO5109dy_25bUng@mail.gmail.com>
+
+On Wed, Sep 21, 2011 at 9:40 AM, Mika A. Epstein <ipstenu at ipstenu.org> wrote:
+> # If you want WordPress to run your main site (e.g. http://example.com/ ),
+> upload all of the contents of the 'wordpress' folder (but
+> <strong>not</strong> the folder itself) ?to your web server.
+>
+> # If you want to have WordPress to have its own folder on your web site
+> (e.g. http://example.com/blog/ ), rename the wordpress folder on your
+> computer to your preferred name (e.g. blog) and then upload the entire
+> folder to your web server.
+
+# If you want to have WordPress to have its own folder on your web
+site (e.g. http://example.com/blog/ ), create a folder with the
+preferred name (e.g. blog) on the server. Then, upload all of the
+contents of the 'wordpress' folder (but <strong>not</strong> the
+folder itself)  into the newly created folder on your web server (e.g.
+blog).
+
+
+I know this is late in the discussion. But, I wanted to present the
+above modification as a possibility.
+I like the other paragraphs.
+The main impetus for even suggestion and alteration is to create a
+situation in which the upload process is basically the same. The only
+difference being the target directory on the server.
+
+Just a thought.
+
+Regards,
+Claude Needham
+
+From ipstenu at ipstenu.org  Wed Sep 21 20:00:37 2011
+From: ipstenu at ipstenu.org (Mika A. Epstein)
+Date: Wed, 21 Sep 2011 15:00:37 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <4E7A384E.6000006@quirm.net>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+	<1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+	<CAPdLKqc8Zo3RWoFjhzsaw4rcF0vKDwLF4UT71A3ouFOy2icbww@mail.gmail.com>
+	<4E7A384E.6000006@quirm.net>
+Message-ID: <24bf5ed639888590d908fc02dd91deeb@ipstenu.org>
+
+On Wed, 21 Sep 2011 20:17:34 +0100, esmi at quirm dot net wrote:
+> on 21/09/2011 18:36 Chip Bennett said the following:
+>
+>> Might it be helpful if the default download .ZIP file didn't put all 
+>> its
+>> contents inside a "wordpress" folder?
+>
+> I did wonder about this too but assumed there was some logistical
+> reason for it.
+
+Probably because not having a folder could easily overwrite files and 
+stuff by the ignorant.  It's SOP for most webapps.
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+
+From ipstenu at ipstenu.org  Wed Sep 21 20:03:27 2011
+From: ipstenu at ipstenu.org (Mika A. Epstein)
+Date: Wed, 21 Sep 2011 15:03:27 -0500
+Subject: [wp-docs] Proposed change to Giving WordPress Its Own Directory
+In-Reply-To: <CACOUsBULuYnod5+iqwkhjAEuZZmRNU=i0xXVO5109dy_25bUng@mail.gmail.com>
+References: <a471dcbfe65dd7fe098bd282a1ff60a8@ipstenu.org>
+	<4E778215.2020701@quirm.net>
+	<d350c08f98ad5124fb2a8f27c9ea7e41@ipstenu.org>
+	<CAN2v4ZTBEPXqPTXDiyG9z6dF4Edkuu8qdOqro1bwq-xqN0s0xQ@mail.gmail.com>
+	<4E78EFB8.4030004@quirm.net>
+	<CAN2v4ZQQfpVoipBusfs8UaUzhnR8yP4-ax9A+BQbsBiuptGJRg@mail.gmail.com>
+	<CAJzjkbf8HJKDVGqycCiPSCtqsaa+tNQr3KDKO5ZQ1LZMbEjQRw@mail.gmail.com>
+	<D1ADE41C-AEE1-4726-9A5D-0F7CE70EE107@ipstenu.org>
+	<4E79B23E.4080207@quirm.net>
+	<1bf7dd604e83c60f7cbc9be595e4c491@ipstenu.org>
+	<CACOUsBULuYnod5+iqwkhjAEuZZmRNU=i0xXVO5109dy_25bUng@mail.gmail.com>
+Message-ID: <941f38a5af04dba7ca6ae5a086cd0216@ipstenu.org>
+
+On Wed, 21 Sep 2011 12:56:05 -0700, Claude Needham wrote:
+> On Wed, Sep 21, 2011 at 9:40 AM, Mika A. Epstein 
+> <ipstenu at ipstenu.org> wrote:
+>> # If you want WordPress to run your main site (e.g. 
+>> http://example.com/ ),
+>> upload all of the contents of the 'wordpress' folder (but
+>> <strong>not</strong> the folder itself) ?to your web server.
+>>
+>> # If you want to have WordPress to have its own folder on your web 
+>> site
+>> (e.g. http://example.com/blog/ ), rename the wordpress folder on 
+>> your
+>> computer to your preferred name (e.g. blog) and then upload the 
+>> entire
+>> folder to your web server.
+>
+> # If you want to have WordPress to have its own folder on your web
+> site (e.g. http://example.com/blog/ ), create a folder with the
+> preferred name (e.g. blog) on the server. Then, upload all of the
+> contents of the 'wordpress' folder (but <strong>not</strong> the
+> folder itself)  into the newly created folder on your web server 
+> (e.g.
+> blog).
+>
+>
+> I know this is late in the discussion. But, I wanted to present the
+> above modification as a possibility.
+> I like the other paragraphs.
+> The main impetus for even suggestion and alteration is to create a
+> situation in which the upload process is basically the same. The only
+> difference being the target directory on the server.
+
+I think more new users are more comfortable renaming folders on their 
+computers than via FTP.  (This is based on nothing but a gut feeling.)
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org
+

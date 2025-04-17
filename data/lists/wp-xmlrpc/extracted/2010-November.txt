@@ -1,0 +1,748 @@
+From jalkut at red-sweater.com  Fri Nov 12 14:35:33 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri, 12 Nov 2010 09:35:33 -0500
+Subject: [wp-xmlrpc] API support for post formats?
+Message-ID: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+
+
+I am just catching up on progress that has been made to add post formats in WordPress:
+
+http://codex.wordpress.org/Post_Formats
+
+I don't see anything obvious in xmlrpc.php to indicate that this is being exposed yet for API clients. Does anybody have thoughts about adding this support?
+
+The rules seems to be pretty simple: a post format indicates that the conventional post content should be interpreted according to certain rules. So I think from a client point of view it would be sufficient to be able to read and write the post format term on the post.
+
+Daniel
+
+
+From peter.westwood at ftwr.co.uk  Fri Nov 12 14:47:41 2010
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Fri, 12 Nov 2010 14:47:41 +0000
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+Message-ID: <95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+
+
+On 12 Nov 2010, at 14:35, Daniel Jalkut wrote:
+
+> 
+> I am just catching up on progress that has been made to add post formats in WordPress:
+> 
+> http://codex.wordpress.org/Post_Formats
+> 
+> I don't see anything obvious in xmlrpc.php to indicate that this is being exposed yet for API clients. Does anybody have thoughts about adding this support?
+> 
+> The rules seems to be pretty simple: a post format indicates that the conventional post content should be interpreted according to certain rules. So I think from a client point of view it would be sufficient to be able to read and write the post format term on the post.
+
+This sounds like a sensible proposal.
+
+Could you open a trac ticket for this?
+
+Cheers
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From eric at eam.me  Fri Nov 12 15:34:59 2010
+From: eric at eam.me (Eric Mann)
+Date: Fri, 12 Nov 2010 07:34:59 -0800
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+Message-ID: <AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+
+Ticket #15405 (http://core.trac.wordpress.org/ticket/15405).  I hope to
+crack out a patch tonight, but if someone wants to beat me to it, feel free
+:-)
+
+On Fri, Nov 12, 2010 at 6:47 AM, Peter Westwood
+<peter.westwood at ftwr.co.uk>wrote:
+
+>
+> On 12 Nov 2010, at 14:35, Daniel Jalkut wrote:
+>
+> >
+> > I am just catching up on progress that has been made to add post formats
+> in WordPress:
+> >
+> > http://codex.wordpress.org/Post_Formats
+> >
+> > I don't see anything obvious in xmlrpc.php to indicate that this is being
+> exposed yet for API clients. Does anybody have thoughts about adding this
+> support?
+> >
+> > The rules seems to be pretty simple: a post format indicates that the
+> conventional post content should be interpreted according to certain rules.
+> So I think from a client point of view it would be sufficient to be able to
+> read and write the post format term on the post.
+>
+> This sounds like a sensible proposal.
+>
+> Could you open a trac ticket for this?
+>
+> Cheers
+> --
+> Peter Westwood
+> http://blog.ftwr.co.uk | http://westi.wordpress.com
+> C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101112/6ba552df/attachment.htm>
+
+From eric at eam.me  Sat Nov 13 15:53:22 2010
+From: eric at eam.me (Eric Mann)
+Date: Sat, 13 Nov 2010 07:53:22 -0800
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+Message-ID: <AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+
+I've now submitted a patch for #15405.  It adds support for a
+'wp_post_format' parameter in metaWeblog.newPost, metaWeblog.editPost,
+metaWeblog.getPost, and metaWeblog.getRecentPosts.  It also adds a new
+wp.getPostFormats method to return an array of supported post formats for a
+site.
+
+Take a look, give it a test, and let's see if we can get this committed
+ASAP.
+
+On Fri, Nov 12, 2010 at 7:34 AM, Eric Mann <eric at eam.me> wrote:
+
+> Ticket #15405 (http://core.trac.wordpress.org/ticket/15405).  I hope to
+> crack out a patch tonight, but if someone wants to beat me to it, feel free
+> :-)
+>
+>
+> On Fri, Nov 12, 2010 at 6:47 AM, Peter Westwood <peter.westwood at ftwr.co.uk
+> > wrote:
+>
+>>
+>> On 12 Nov 2010, at 14:35, Daniel Jalkut wrote:
+>>
+>> >
+>> > I am just catching up on progress that has been made to add post formats
+>> in WordPress:
+>> >
+>> > http://codex.wordpress.org/Post_Formats
+>> >
+>> > I don't see anything obvious in xmlrpc.php to indicate that this is
+>> being exposed yet for API clients. Does anybody have thoughts about adding
+>> this support?
+>> >
+>> > The rules seems to be pretty simple: a post format indicates that the
+>> conventional post content should be interpreted according to certain rules.
+>> So I think from a client point of view it would be sufficient to be able to
+>> read and write the post format term on the post.
+>>
+>> This sounds like a sensible proposal.
+>>
+>> Could you open a trac ticket for this?
+>>
+>> Cheers
+>> --
+>> Peter Westwood
+>> http://blog.ftwr.co.uk | http://westi.wordpress.com
+>> C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101113/9de12408/attachment.htm>
+
+From joseph at josephscott.org  Sat Nov 13 16:30:17 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 13 Nov 2010 09:30:17 -0700
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+Message-ID: <AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+
+On Sat, Nov 13, 2010 at 8:53 AM, Eric Mann <eric at eam.me> wrote:
+> I've now submitted a patch for #15405. ?It adds support for a
+> 'wp_post_format' parameter in metaWeblog.newPost, metaWeblog.editPost,
+> metaWeblog.getPost, and metaWeblog.getRecentPosts. ?It also adds a new
+> wp.getPostFormats method to return an array of supported post formats for a
+> site.
+
+Took a quick scan of the diff (haven't actually tried it yet) and
+noticed a couple of things:
+
+    do_action('xmlrpc_call', 'wp.GetPostFormats');
+
+should probably be
+
+    do_action('xmlrpc_call', 'wp.getPostFormats');
+
+What is wp_set_post_format()?  I couldn't find any reference to it in -trunk.
+
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From eric at eam.me  Sat Nov 13 16:56:56 2010
+From: eric at eam.me (Eric Mann)
+Date: Sat, 13 Nov 2010 08:56:56 -0800
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+Message-ID: <AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+
+Thanks for the catches.  Those were both typos, and I've fixed both in the
+newest patch.
+
+wp_set_post_format() should have been wp_set_post_terms() ... Using the
+set_post_format() method from this patch as an example:
+http://core.trac.wordpress.org/attachment/ticket/14746/14746.6.diff
+
+On Sat, Nov 13, 2010 at 8:30 AM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> On Sat, Nov 13, 2010 at 8:53 AM, Eric Mann <eric at eam.me> wrote:
+> > I've now submitted a patch for #15405.  It adds support for a
+> > 'wp_post_format' parameter in metaWeblog.newPost, metaWeblog.editPost,
+> > metaWeblog.getPost, and metaWeblog.getRecentPosts.  It also adds a new
+> > wp.getPostFormats method to return an array of supported post formats for
+> a
+> > site.
+>
+> Took a quick scan of the diff (haven't actually tried it yet) and
+> noticed a couple of things:
+>
+>    do_action('xmlrpc_call', 'wp.GetPostFormats');
+>
+> should probably be
+>
+>    do_action('xmlrpc_call', 'wp.getPostFormats');
+>
+> What is wp_set_post_format()?  I couldn't find any reference to it in
+> -trunk.
+>
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101113/c155753e/attachment.htm>
+
+From joseph at josephscott.org  Wed Nov 17 07:06:58 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 17 Nov 2010 00:06:58 -0700
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+Message-ID: <AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+
+Sorry for not getting back to this sooner.  I ran through a few tests
+with your latest patch and found a couple of times, around the
+'default' post format.  See
+http://core.trac.wordpress.org/ticket/15405#comment:8 for details.
+
+On Sat, Nov 13, 2010 at 9:56 AM, Eric Mann <eric at eam.me> wrote:
+> Thanks for the catches. ?Those were both typos, and I've fixed both in the
+> newest patch.
+> wp_set_post_format() should have been wp_set_post_terms() ... Using the
+> set_post_format() method from this patch as an
+> example:?http://core.trac.wordpress.org/attachment/ticket/14746/14746.6.diff
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From eric at eam.me  Wed Nov 17 16:04:29 2010
+From: eric at eam.me (Eric Mann)
+Date: Wed, 17 Nov 2010 08:04:29 -0800
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+Message-ID: <AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+
+Thanks for the feedback.  I'll take a look at it tonight when I get done
+with work and see if there's a more elegant way to handle the "default" post
+format.
+
+On Tue, Nov 16, 2010 at 11:06 PM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> Sorry for not getting back to this sooner.  I ran through a few tests
+> with your latest patch and found a couple of times, around the
+> 'default' post format.  See
+> http://core.trac.wordpress.org/ticket/15405#comment:8 for details.
+>
+> On Sat, Nov 13, 2010 at 9:56 AM, Eric Mann <eric at eam.me> wrote:
+> > Thanks for the catches.  Those were both typos, and I've fixed both in
+> the
+> > newest patch.
+> > wp_set_post_format() should have been wp_set_post_terms() ... Using the
+> > set_post_format() method from this patch as an
+> > example:
+> http://core.trac.wordpress.org/attachment/ticket/14746/14746.6.diff
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101117/42653ca2/attachment.htm>
+
+From jalkut at red-sweater.com  Wed Nov 17 16:06:41 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed, 17 Nov 2010 11:06:41 -0500
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+	<AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+Message-ID: <5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+
+Eric, thanks for picking up and running with this. Great contributions!
+
+Daniel
+
+On Nov 17, 2010, at 11:04am, Eric Mann wrote:
+
+> Thanks for the feedback.  I'll take a look at it tonight when I get done with work and see if there's a more elegant way to handle the "default" post format.
+> 
+> On Tue, Nov 16, 2010 at 11:06 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> Sorry for not getting back to this sooner.  I ran through a few tests
+> with your latest patch and found a couple of times, around the
+> 'default' post format.  See
+> http://core.trac.wordpress.org/ticket/15405#comment:8 for details.
+> 
+> On Sat, Nov 13, 2010 at 9:56 AM, Eric Mann <eric at eam.me> wrote:
+> > Thanks for the catches.  Those were both typos, and I've fixed both in the
+> > newest patch.
+> > wp_set_post_format() should have been wp_set_post_terms() ... Using the
+> > set_post_format() method from this patch as an
+> > example: http://core.trac.wordpress.org/attachment/ticket/14746/14746.6.diff
+> 
+> 
+> 
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From eric at eam.me  Fri Nov 19 02:57:49 2010
+From: eric at eam.me (Eric Mann)
+Date: Thu, 18 Nov 2010 18:57:49 -0800
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+	<AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+	<5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+Message-ID: <AANLkTinLGy5DTGFMvm-ZEf1PAWSKjU2H-YGURxyrDL2O@mail.gmail.com>
+
+OK, I've added a new patch.  As I mentioned in my note just before it, I
+haven't changed too much.  Basically, you can specify "default" as the value
+of a post format and it will be converted to "0" automatically.
+
+The actual, hard-coded post format array is:
+
+$strings <http://phpxref.ftwr.co.uk/wordpress/_variables/strings.html> = array(
+    '0'       => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Default',
+'Post format' ),
+    'aside'   => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Aside',
+'Post format' ),
+    'chat'    => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Chat',
+'Post format' ),
+    'gallery' => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Gallery',
+'Post format' ),
+    'link'    => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Link',
+'Post format' ),
+    'image'   => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Image',
+'Post format' ),
+    'quote'   => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Quote',
+'Post format' ),
+    'status'  => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Status',
+'Post format' ),
+    'video'   => _x
+<http://phpxref.ftwr.co.uk/wordpress/_functions/_x.html>( 'Video',
+'Post format' )
+);
+
+So you can see a "default" post actually has a post format slug of "0,"
+which is what seemed to make no sense when we tested things.  I'm going to
+leave the method that returns an array of post formats as-is for now.  It's
+returning an accurate slug ("0") even if that seems counterintuitive.  The
+same for the methods that get posts, they'll return the set slug for post
+formats.
+
+However, the two methods that can set a post format (metaWeblog.newPost and
+metaWeblog.editPost) should be more flexible.  After all, we should "be
+conservative in what we send, but liberal in what we receive."  So you can
+send either "0" or "default" when setting a post format of "default," and
+the system will recognize both.
+
+Take a look at the new patch and let me know what you think.  I'd *really *like
+to get this committed ASAP ...
+
+~Eric
+
+On Wed, Nov 17, 2010 at 8:06 AM, Daniel Jalkut <jalkut at red-sweater.com>wrote:
+
+> Eric, thanks for picking up and running with this. Great contributions!
+>
+> Daniel
+>
+> On Nov 17, 2010, at 11:04am, Eric Mann wrote:
+>
+> > Thanks for the feedback.  I'll take a look at it tonight when I get done
+> with work and see if there's a more elegant way to handle the "default" post
+> format.
+> >
+> > On Tue, Nov 16, 2010 at 11:06 PM, Joseph Scott <joseph at josephscott.org>
+> wrote:
+> > Sorry for not getting back to this sooner.  I ran through a few tests
+> > with your latest patch and found a couple of times, around the
+> > 'default' post format.  See
+> > http://core.trac.wordpress.org/ticket/15405#comment:8 for details.
+> >
+> > On Sat, Nov 13, 2010 at 9:56 AM, Eric Mann <eric at eam.me> wrote:
+> > > Thanks for the catches.  Those were both typos, and I've fixed both in
+> the
+> > > newest patch.
+> > > wp_set_post_format() should have been wp_set_post_terms() ... Using the
+> > > set_post_format() method from this patch as an
+> > > example:
+> http://core.trac.wordpress.org/attachment/ticket/14746/14746.6.diff
+> >
+> >
+> >
+> > --
+> > Joseph Scott
+> > joseph at josephscott.org
+> > http://josephscott.org/
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101118/16c1c192/attachment.htm>
+
+From joseph at josephscott.org  Fri Nov 19 05:40:55 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu, 18 Nov 2010 22:40:55 -0700
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTinLGy5DTGFMvm-ZEf1PAWSKjU2H-YGURxyrDL2O@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+	<AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+	<5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+	<AANLkTinLGy5DTGFMvm-ZEf1PAWSKjU2H-YGURxyrDL2O@mail.gmail.com>
+Message-ID: <AANLkTi=FgOaifMF5X_=7GfWOOCZtPAeq=G8g=HevFBk2@mail.gmail.com>
+
+I posted an updated patch and follow comments on
+http://core.trac.wordpress.org/ticket/15405
+
+Long story short: zero is now 'default', added validation, return
+default if post format is empty, tightened up code just a bit, and
+adjusted style for WP coding style.
+
+I re-ran tests against it and everything appears to work.  Hopefully
+westi has a few minutes to review it, if he is fine with it then I'll
+commit it to -trunk.
+
+
+On Thu, Nov 18, 2010 at 7:57 PM, Eric Mann <eric at eam.me> wrote:
+> OK, I've added a new patch. ?As I mentioned in my note just before it, I
+> haven't changed too much. ?Basically, you can specify "default" as the value
+> of a post format and it will be converted to "0" automatically.
+> The actual, hard-coded post format array is:
+>
+> $strings = array(
+>     '0'       => _x( 'Default', 'Post format' ),
+>     'aside'   => _x( 'Aside',   'Post format' ),
+>     'chat'    => _x( 'Chat',    'Post format' ),
+>     'gallery' => _x( 'Gallery', 'Post format' ),
+>     'link'    => _x( 'Link',    'Post format' ),
+>     'image'   => _x( 'Image',   'Post format' ),
+>     'quote'   => _x( 'Quote',   'Post format' ),
+>     'status'  => _x( 'Status',  'Post format' ),
+>     'video'   => _x( 'Video',   'Post format' )
+> );
+>
+> So you can see a "default" post actually has a post format slug of "0,"
+> which is what seemed to make no sense when we tested things. ?I'm going to
+> leave the method that returns an array of post formats as-is for now. ?It's
+> returning an accurate slug ("0") even if that seems counterintuitive. ?The
+> same for the methods that get posts, they'll return the set slug for post
+> formats.
+> However, the two methods that can set a post format (metaWeblog.newPost and
+> metaWeblog.editPost) should be more flexible. ?After all, we should "be
+> conservative in what we send, but liberal in what we receive." ?So you can
+> send either "0" or "default" when setting a post format of "default," and
+> the system will recognize both.
+> Take a look at the new patch and let me know what you think. ?I'd
+> really?like to get this committed ASAP ...
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From joseph at josephscott.org  Fri Nov 19 14:08:17 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 19 Nov 2010 07:08:17 -0700
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTi=FgOaifMF5X_=7GfWOOCZtPAeq=G8g=HevFBk2@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+	<AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+	<5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+	<AANLkTinLGy5DTGFMvm-ZEf1PAWSKjU2H-YGURxyrDL2O@mail.gmail.com>
+	<AANLkTi=FgOaifMF5X_=7GfWOOCZtPAeq=G8g=HevFBk2@mail.gmail.com>
+Message-ID: <AANLkTinp=wvEqG5_y_ty+YixHFNDd-3rJHkSZJOjNEE8@mail.gmail.com>
+
+Since westi was ok with the patch, I've committed it to -trunk
+http://core.trac.wordpress.org/changeset/16484
+
+On Thu, Nov 18, 2010 at 10:40 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> I posted an updated patch and follow comments on
+> http://core.trac.wordpress.org/ticket/15405
+>
+> Long story short: zero is now 'default', added validation, return
+> default if post format is empty, tightened up code just a bit, and
+> adjusted style for WP coding style.
+>
+> I re-ran tests against it and everything appears to work. ?Hopefully
+> westi has a few minutes to review it, if he is fine with it then I'll
+> commit it to -trunk
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From eric at eam.me  Fri Nov 19 15:26:15 2010
+From: eric at eam.me (Eric Mann)
+Date: Fri, 19 Nov 2010 07:26:15 -0800
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTinp=wvEqG5_y_ty+YixHFNDd-3rJHkSZJOjNEE8@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+	<AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+	<5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+	<AANLkTinLGy5DTGFMvm-ZEf1PAWSKjU2H-YGURxyrDL2O@mail.gmail.com>
+	<AANLkTi=FgOaifMF5X_=7GfWOOCZtPAeq=G8g=HevFBk2@mail.gmail.com>
+	<AANLkTinp=wvEqG5_y_ty+YixHFNDd-3rJHkSZJOjNEE8@mail.gmail.com>
+Message-ID: <AANLkTinVd1Tf2rvLRd-Pz6PvkRTwNVoeLpxpyn=ezZvG@mail.gmail.com>
+
+Fantastic!  Now let's see how long it takes for third party tools (Live
+Writer?) to start using the new API.  Third party publishing tools are
+useless unless they implement the cool new features.
+
+On Fri, Nov 19, 2010 at 6:08 AM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> Since westi was ok with the patch, I've committed it to -trunk
+> http://core.trac.wordpress.org/changeset/16484
+>
+> On Thu, Nov 18, 2010 at 10:40 PM, Joseph Scott <joseph at josephscott.org>
+> wrote:
+> > I posted an updated patch and follow comments on
+> > http://core.trac.wordpress.org/ticket/15405
+> >
+> > Long story short: zero is now 'default', added validation, return
+> > default if post format is empty, tightened up code just a bit, and
+> > adjusted style for WP coding style.
+> >
+> > I re-ran tests against it and everything appears to work.  Hopefully
+> > westi has a few minutes to review it, if he is fine with it then I'll
+> > commit it to -trunk
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101119/70e320a6/attachment.htm>
+
+From jalkut at red-sweater.com  Fri Nov 19 15:42:45 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri, 19 Nov 2010 10:42:45 -0500
+Subject: [wp-xmlrpc] API support for post formats?
+In-Reply-To: <AANLkTinVd1Tf2rvLRd-Pz6PvkRTwNVoeLpxpyn=ezZvG@mail.gmail.com>
+References: <D5E09935-78D1-4C6E-93E0-DABD589F8A56@red-sweater.com>
+	<95D92458-47FC-4C08-BCE6-EFFC54F8C7AD@ftwr.co.uk>
+	<AANLkTi=fqiUxUeCG-t+qkiBCd7=F86TbQsx35e2fOFJX@mail.gmail.com>
+	<AANLkTinn=_f4kp2eg_8j-A-Op_EtuXRdp4Yf-6bJQCX2@mail.gmail.com>
+	<AANLkTikQB+CPR5yaiQsBwYcBii5YusBFjWh4SnYNiRq6@mail.gmail.com>
+	<AANLkTi=5brpjiJ+jpnUYwRNPOA8r1tkwAcLaaRG6mqbx@mail.gmail.com>
+	<AANLkTi=Av9fpfjAvYJLOcrsLugwFyHgiJCJ6PD9ZA2Cz@mail.gmail.com>
+	<AANLkTimELkPuALYuFuz874qO_frRXOEJSpM1AZf_XXwn@mail.gmail.com>
+	<5A2A4CD8-12FD-4DF6-8646-479E0BC764F8@red-sweater.com>
+	<AANLkTinLGy5DTGFMvm-ZEf1PAWSKjU2H-YGURxyrDL2O@mail.gmail.com>
+	<AANLkTi=FgOaifMF5X_=7GfWOOCZtPAeq=G8g=HevFBk2@mail.gmail.com>
+	<AANLkTinp=wvEqG5_y_ty+YixHFNDd-3rJHkSZJOjNEE8@mail.gmail.com>
+	<AANLkTinVd1Tf2rvLRd-Pz6PvkRTwNVoeLpxpyn=ezZvG@mail.gmail.com>
+Message-ID: <BA00B610-1FD8-4997-9AEA-88F646ADEA3C@red-sweater.com>
+
+Awesome, thanks guys. As for third party tools, Eric, at least my MarsEdit app (Mac only) is anxious to start using this.
+
+Just gotta get the UI done on my end to appropriately restructure the UI for each format. Fortunately my work to do similar for Tumblr should help a bit here.
+
+Daniel
+
+On Nov 19, 2010, at 10:26am, Eric Mann wrote:
+
+> Fantastic!  Now let's see how long it takes for third party tools (Live Writer?) to start using the new API.  Third party publishing tools are useless unless they implement the cool new features.
+> 
+> On Fri, Nov 19, 2010 at 6:08 AM, Joseph Scott <joseph at josephscott.org> wrote:
+> Since westi was ok with the patch, I've committed it to -trunk
+> http://core.trac.wordpress.org/changeset/16484
+> 
+> On Thu, Nov 18, 2010 at 10:40 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> > I posted an updated patch and follow comments on
+> > http://core.trac.wordpress.org/ticket/15405
+> >
+> > Long story short: zero is now 'default', added validation, return
+> > default if post format is empty, tightened up code just a bit, and
+> > adjusted style for WP coding style.
+> >
+> > I re-ran tests against it and everything appears to work.  Hopefully
+> > westi has a few minutes to review it, if he is fine with it then I'll
+> > commit it to -trunk
+> 
+> 
+> 
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+

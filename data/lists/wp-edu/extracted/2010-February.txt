@@ -1,0 +1,1070 @@
+From Patrick_Laverty at brown.edu  Wed Feb 17 15:43:54 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Wed, 17 Feb 2010 10:43:54 -0500
+Subject: [wp-edu] Two questions, even referring to doc is helpful
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+
+I am using WPMU 2.8.6 on my own server.
+
+ 
+
+First, is there a plugin for this?  
+
+ 
+
+Anyone know if there's a plugin for this? Or an easy setting? When users
+currently log in to my system, they get the "Your Profile" page.
+Instead, I want them to get to the /wp-admin/index.php?page=myblogs
+view.
+
+ 
+
+Second, how do I create blogs without using the dashboard?
+
+ 
+
+Shouldn't this work? I have my own php script where I am trying to
+create a blog using the wpmu_create_blog function. I use:
+
+$domain = "******.brown.edu";
+$path = "blogs/abc123";
+$user_id = 107;
+$title = "A new blog";
+$meta = Array("public"=>1);
+
+wpmu_create_blog($domain, $path, $title, $user_id, $meta = '', $site_id
+= 1);
+
+But when I run it, I get:
+
+Fatal error: Call to undefined function add_action() in
+/opt/local/apache2/htdocs/blogs/wp-includes/wpmu-functions.php on line
+1781
+
+So I look at that line in the code and I see:
+
+<p class="message">%s</p>
+
+It is true that add_action() is not defined in this file, but it is
+defined in plugin.php. I see the doc for add_action, but am I supposed
+to link up wpmu_create_blog with add_action? Is that how this is
+supposed to work?
+
+I'm looking through the Codex for how to create blogs. Anyone got it
+bookmarked or something?
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100217/3e845148/attachment.htm>
+
+From robertmooreweb at gmail.com  Thu Feb 18 01:10:09 2010
+From: robertmooreweb at gmail.com (Robert Moore)
+Date: Thu, 18 Feb 2010 09:10:09 +0800
+Subject: [wp-edu] Two questions, even referring to doc is helpful
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+Message-ID: <6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+
+On Wed, Feb 17, 2010 at 11:43 PM, Laverty, Patrick <
+Patrick_Laverty at brown.edu> wrote:
+
+>  I am using WPMU 2.8.6 on my own server.
+>
+>
+>
+> First, is there a plugin for this?
+>
+>
+>
+> Anyone know if there's a plugin for this? Or an easy setting? When users
+> currently log in to my system, they get the "Your Profile" page. Instead, I
+> want them to get to the /wp-admin/index.php?page=myblogs view.
+>
+
+This plugin *might* help:
+
+http://wordpress.org/extend/plugins/peters-login-redirect/
+
+Not sure if it can do what you want or if it even works with mu.
+
+http://vogsphere.org/redirecting-wordpress-subscribers/
+
+That is possibly a better solution if you have the knowledge to create your
+own plugin and put in the business rules regarding the redirect (if the user
+is just a subscriber and doesn't have any blogs then the myblogs view
+probably isn't suitable and the default profile page might be ok?).
+
+
+>
+>
+> Second, how do I create blogs without using the dashboard?
+>
+>
+>
+> Shouldn't this work? I have my own php script where I am trying to create a
+> blog using the wpmu_create_blog function. I use:
+> ...
+>
+> It is true that add_action() is not defined in this file, but it is defined
+> in plugin.php. I see the doc for add_action, but am I supposed to link up
+> wpmu_create_blog with add_action? Is that how this is supposed to work?
+>
+What files are you including above the call to wpmu_create_blog?
+
+If you only included the file that that function is within then the
+add_action function within another file won't be included. Instead you
+should probably include the wp-load.php file in the root wordpress folder.
+
+
+
+-- 
+Robert Moore
+0400 7777 63
+Website Designer
+http://www.mooredesign.com.au/
+Developer - Curtin University
+http://www.curtin.edu.au/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/283ee5c1/attachment.htm>
+
+From Patrick_Laverty at brown.edu  Thu Feb 18 20:02:08 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Thu, 18 Feb 2010 15:02:08 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+	<6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+
+Having some trouble with the Anarchos Media Player (AMP) plugin.  It
+seems like a pretty straightforward plugin, unzip into my mu-plugins
+directory and then activate.  Ok, problem there.  I'm looking in my Site
+Admin, and there's no reference to anything that looks like AMP.
+However, I do get the yellow A button on my editor when I create a new
+post.  But when I click on the A button, I get nothing.  I ran firebug,
+and the error that I get is "edInsertVideoSite is not defined"
+
+ 
+
+Anyone heard of this?  I'm not finding much with google and the AMP's
+own forums seem to be taken over by pharmaspam.  That's not very
+re-assuring.
+
+ 
+
+Or if you use a different but similar plugin from AMP, what is it?
+
+ 
+
+Thanks.
+
+ 
+
+Patrick
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/1f502c1d/attachment.htm>
+
+From matt.lists at gmail.com  Thu Feb 18 20:19:32 2010
+From: matt.lists at gmail.com (matt.lists at gmail.com)
+Date: Thu, 18 Feb 2010 15:19:32 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+	<6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+	<09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+Message-ID: <7e96986c1002181219q50ece7e0ud70b62951aafa7cf@mail.gmail.com>
+
+Hi Patrick,
+
+I know that Jim Groom recently found that the Anarchy Media Player was
+causing him problems (http://twitter.com/jimgroom/statuses/8394198236).  I
+use Viper's Video Quicktags --
+http://wordpress.org/extend/plugins/vipers-video-quicktags/changelog/
+
+You might also consider upgrading to WordPress 2.9, which allows video
+embeds via URL - http://wordpress.org/development/2009/12/wordpress-2-9/
+
+Best,
+
+Matt
+---------------------------------------------------------
+Matthew K. Gold, Ph.D.
+Project Director, CUNY Academic Commons (http://commons.gc.cuny.edu)
+
+
+On Thu, Feb 18, 2010 at 3:02 PM, Laverty, Patrick <Patrick_Laverty at brown.edu
+> wrote:
+
+>  Having some trouble with the Anarchos Media Player (AMP) plugin.  It
+> seems like a pretty straightforward plugin, unzip into my mu-plugins
+> directory and then activate.  Ok, problem there.  I?m looking in my Site
+> Admin, and there?s no reference to anything that looks like AMP.  However, I
+> do get the yellow A button on my editor when I create a new post.  But when
+> I click on the A button, I get nothing.  I ran firebug, and the error that I
+> get is ?edInsertVideoSite is not defined?
+>
+>
+>
+> Anyone heard of this?  I?m not finding much with google and the AMP?s own
+> forums seem to be taken over by pharmaspam.  That?s not very re-assuring.
+>
+>
+>
+> Or if you use a different but similar plugin from AMP, what is it?
+>
+>
+>
+> Thanks.
+>
+>
+>
+> Patrick
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/496f0be5/attachment.htm>
+
+From joseph.ugoretz at mhc.cuny.edu  Thu Feb 18 20:41:46 2010
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Thu, 18 Feb 2010 15:41:46 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <7e96986c1002181219q50ece7e0ud70b62951aafa7cf@mail.gmail.com>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+	<6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+	<09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+	<7e96986c1002181219q50ece7e0ud70b62951aafa7cf@mail.gmail.com>
+Message-ID: <60C003A0-B1B6-4058-869D-A9B6458CFED4@mhc.cuny.edu>
+
+I have found podpress to be far superior to AMP if you want to actually embed videos that you have uploaded (not just links to video on other sites like video quicktags or 2.9 embeds will do).  Podpress gives you an integrated player, customized still image, and (if it's a route you ever decide to use), an iTunes-friendly feed with enclosures.
+
+I'm not sure why Podpress is not more widely used--maybe because of the perception that it's only for podcasting--but I have had very good results with it over a long period of time.
+
+
+--
+Joseph Ugoretz, PhD
+Director of Technology and Learning
+William E. Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+On Feb 18, 2010, at 3:19 PM, matt.lists at gmail.com<mailto:matt.lists at gmail.com> wrote:
+
+Hi Patrick,
+
+I know that Jim Groom recently found that the Anarchy Media Player was causing him problems (http://twitter.com/jimgroom/statuses/8394198236).  I use Viper's Video Quicktags -- http://wordpress.org/extend/plugins/vipers-video-quicktags/changelog/
+
+You might also consider upgrading to WordPress 2.9, which allows video embeds via URL - http://wordpress.org/development/2009/12/wordpress-2-9/
+
+Best,
+
+Matt
+---------------------------------------------------------
+Matthew K. Gold, Ph.D.
+Project Director, CUNY Academic Commons (http://commons.gc.cuny.edu<http://commons.gc.cuny.edu/>)
+
+
+On Thu, Feb 18, 2010 at 3:02 PM, Laverty, Patrick <Patrick_Laverty at brown.edu<mailto:Patrick_Laverty at brown.edu>> wrote:
+Having some trouble with the Anarchos Media Player (AMP) plugin.  It seems like a pretty straightforward plugin, unzip into my mu-plugins directory and then activate.  Ok, problem there.  I?m looking in my Site Admin, and there?s no reference to anything that looks like AMP.  However, I do get the yellow A button on my editor when I create a new post.  But when I click on the A button, I get nothing.  I ran firebug, and the error that I get is ?edInsertVideoSite is not defined?
+
+Anyone heard of this?  I?m not finding much with google and the AMP?s own forums seem to be taken over by pharmaspam.  That?s not very re-assuring.
+
+Or if you use a different but similar plugin from AMP, what is it?
+
+Thanks.
+
+Patrick
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+<ATT00002.c>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/ba1e8f5c/attachment.htm>
+
+From jimgroom at gmail.com  Thu Feb 18 20:53:17 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Thu, 18 Feb 2010 15:53:17 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+	<6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+	<09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+Message-ID: <20a800651002181253s1ad1ced0n5b31bfe1284b1ad0@mail.gmail.com>
+
+Patrick,
+
+We use Anarchy Media Player still at UMW Blogs, but are in the process of
+phasing it out because it is not supported anymore, and can be a bit of a
+resource hound.  That said, I personally haven't found a media player that
+works nearly as well.
+
+If you still want to use I can send you the files I have and are working.
+
+Best,
+Jim
+
+On Thu, Feb 18, 2010 at 3:02 PM, Laverty, Patrick <Patrick_Laverty at brown.edu
+> wrote:
+
+>  Having some trouble with the Anarchos Media Player (AMP) plugin.  It
+> seems like a pretty straightforward plugin, unzip into my mu-plugins
+> directory and then activate.  Ok, problem there.  I?m looking in my Site
+> Admin, and there?s no reference to anything that looks like AMP.  However, I
+> do get the yellow A button on my editor when I create a new post.  But when
+> I click on the A button, I get nothing.  I ran firebug, and the error that I
+> get is ?edInsertVideoSite is not defined?
+>
+>
+>
+> Anyone heard of this?  I?m not finding much with google and the AMP?s own
+> forums seem to be taken over by pharmaspam.  That?s not very re-assuring.
+>
+>
+>
+> Or if you use a different but similar plugin from AMP, what is it?
+>
+>
+>
+> Thanks.
+>
+>
+>
+> Patrick
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/aebfe77b/attachment-0001.htm>
+
+From amy.hendrix at duke.edu  Thu Feb 18 21:10:32 2010
+From: amy.hendrix at duke.edu (Amy Hendrix)
+Date: Thu, 18 Feb 2010 16:10:32 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <20a800651002181253s1ad1ced0n5b31bfe1284b1ad0@mail.gmail.com>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+	<6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+	<09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+	<20a800651002181253s1ad1ced0n5b31bfe1284b1ad0@mail.gmail.com>
+Message-ID: <1ce947c91002181310q4dbb55f1t9e4b098c2422d155@mail.gmail.com>
+
+Hey Jim,
+
+Can you say more about your process for transitioning away from AMP?
+Given AMP's state of (non)support and WP native embeds, we'd like to
+nudge our people away from it before our service gets too much bigger,
+but we wouldn't want to just shut it off if it's going to break the
+content that's already in place. Are you giving your users warnings?
+self-help instructions? some kind of upgrade scripts for existing
+embeds?
+
+Thanks,
+Amy
+
+On Thu, Feb 18, 2010 at 3:53 PM, James Groom <jimgroom at gmail.com> wrote:
+> Patrick,
+>
+> We use Anarchy Media Player still at UMW Blogs, but are in the process of
+> phasing it out because it is not supported anymore, and can be a bit of a
+> resource hound.? That said, I personally haven't found a media player that
+> works nearly as well.
+>
+> If you still want to use I can send you the files I have and are working.
+>
+> Best,
+> Jim
+>
+> On Thu, Feb 18, 2010 at 3:02 PM, Laverty, Patrick
+> <Patrick_Laverty at brown.edu> wrote:
+>>
+>> Having some trouble with the Anarchos Media Player (AMP) plugin.? It seems
+>> like a pretty straightforward plugin, unzip into my mu-plugins directory and
+>> then activate.? Ok, problem there.? I?m looking in my Site Admin, and
+>> there?s no reference to anything that looks like AMP.? However, I do get the
+>> yellow A button on my editor when I create a new post.? But when I click on
+>> the A button, I get nothing.? I ran firebug, and the error that I get is
+>> ?edInsertVideoSite is not defined?
+>>
+>>
+>>
+>> Anyone heard of this?? I?m not finding much with google and the AMP?s own
+>> forums seem to be taken over by pharmaspam.? That?s not very re-assuring.
+>>
+>>
+>>
+>> Or if you use a different but similar plugin from AMP, what is it?
+>>
+>>
+>>
+>> Thanks.
+>>
+>>
+>>
+>> Patrick
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+From jimgroom at gmail.com  Thu Feb 18 21:29:52 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Thu, 18 Feb 2010 16:29:52 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <1ce947c91002181310q4dbb55f1t9e4b098c2422d155@mail.gmail.com>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu>
+	<6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com>
+	<09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu>
+	<20a800651002181253s1ad1ced0n5b31bfe1284b1ad0@mail.gmail.com>
+	<1ce947c91002181310q4dbb55f1t9e4b098c2422d155@mail.gmail.com>
+Message-ID: <20a800651002181329o7e287fe0r84cb4b8b70bddd18@mail.gmail.com>
+
+Amy,
+
+Right now we are recommending users against it, and pushing for straight
+embeds in HTML view.  we then are going to go through the database and
+rewite all the AMP code for YouTUbe videos (99% of the usage) to a straight
+embed code which should solve the problem with bad code and lost videos.  As
+of Fall 2010, Anarchy will no longer be available, and we'll check out what
+the best options for audio uploads are.  We've stayed away from PodPress
+because it too is a resource hound, and adds an unimaginable amount of
+tables to each blog database.  More than that, no one uploads their own
+videos onto UMW Blogs.
+
+Viper's plugin integrated into 2.9.1 is promising, but I haven;t tested that
+with audio yet.  Anarchy worked brilliantly with audio, but turns out most
+folks used it for YouTube, nonetheless, it was a beautiful thing for audio
+when it was still supported.  I'll miss you anarchy.
+
+Jim
+
+On Thu, Feb 18, 2010 at 4:10 PM, Amy Hendrix <amy.hendrix at duke.edu> wrote:
+
+> Hey Jim,
+>
+> Can you say more about your process for transitioning away from AMP?
+> Given AMP's state of (non)support and WP native embeds, we'd like to
+> nudge our people away from it before our service gets too much bigger,
+> but we wouldn't want to just shut it off if it's going to break the
+> content that's already in place. Are you giving your users warnings?
+> self-help instructions? some kind of upgrade scripts for existing
+> embeds?
+>
+> Thanks,
+> Amy
+>
+> On Thu, Feb 18, 2010 at 3:53 PM, James Groom <jimgroom at gmail.com> wrote:
+> > Patrick,
+> >
+> > We use Anarchy Media Player still at UMW Blogs, but are in the process of
+> > phasing it out because it is not supported anymore, and can be a bit of a
+> > resource hound.  That said, I personally haven't found a media player
+> that
+> > works nearly as well.
+> >
+> > If you still want to use I can send you the files I have and are working.
+> >
+> > Best,
+> > Jim
+> >
+> > On Thu, Feb 18, 2010 at 3:02 PM, Laverty, Patrick
+> > <Patrick_Laverty at brown.edu> wrote:
+> >>
+> >> Having some trouble with the Anarchos Media Player (AMP) plugin.  It
+> seems
+> >> like a pretty straightforward plugin, unzip into my mu-plugins directory
+> and
+> >> then activate.  Ok, problem there.  I?m looking in my Site Admin, and
+> >> there?s no reference to anything that looks like AMP.  However, I do get
+> the
+> >> yellow A button on my editor when I create a new post.  But when I click
+> on
+> >> the A button, I get nothing.  I ran firebug, and the error that I get is
+> >> ?edInsertVideoSite is not defined?
+> >>
+> >>
+> >>
+> >> Anyone heard of this?  I?m not finding much with google and the AMP?s
+> own
+> >> forums seem to be taken over by pharmaspam.  That?s not very
+> re-assuring.
+> >>
+> >>
+> >>
+> >> Or if you use a different but similar plugin from AMP, what is it?
+> >>
+> >>
+> >>
+> >> Thanks.
+> >>
+> >>
+> >>
+> >> Patrick
+> >>
+> >> _______________________________________________
+> >> wp-edu mailing list
+> >> wp-edu at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-edu
+> >>
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> >
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/af881006/attachment.htm>
+
+From Patrick_Laverty at brown.edu  Thu Feb 18 22:10:35 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Thu, 18 Feb 2010 17:10:35 -0500
+Subject: [wp-edu] Plugin AMP help
+In-Reply-To: <20a800651002181329o7e287fe0r84cb4b8b70bddd18@mail.gmail.com>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07A852EA@MAIL3.AD.Brown.Edu><6dfe1b471002171710s1f0a027g5974fce0e694eee4@mail.gmail.com><09DED73804A95B42ACFEFF57AEA3B24E07B08A66@MAIL3.AD.Brown.Edu><20a800651002181253s1ad1ced0n5b31bfe1284b1ad0@mail.gmail.com><1ce947c91002181310q4dbb55f1t9e4b098c2422d155@mail.gmail.com>
+	<20a800651002181329o7e287fe0r84cb4b8b70bddd18@mail.gmail.com>
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E07B08B21@MAIL3.AD.Brown.Edu>
+
+Thanks for the feedback everyone.  I think what sounds like the best
+before for us, just starting out with nothing currently, is to use the
+2.9 Embed.  Might as well go native, rather than depending on a 3rd
+party plugin.
+
+ 
+
+Thanks and very happy to get all the feedback!
+
+ 
+
+Patrick
+
+ 
+
+From: wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of James Groom
+Sent: Thursday, February 18, 2010 4:30 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Plugin AMP help
+
+ 
+
+Amy,
+
+Right now we are recommending users against it, and pushing for straight
+embeds in HTML view.  we then are going to go through the database and
+rewite all the AMP code for YouTUbe videos (99% of the usage) to a
+straight embed code which should solve the problem with bad code and
+lost videos.  As of Fall 2010, Anarchy will no longer be available, and
+we'll check out what the best options for audio uploads are.  We've
+stayed away from PodPress because it too is a resource hound, and adds
+an unimaginable amount of tables to each blog database.  More than that,
+no one uploads their own videos onto UMW Blogs.
+
+Viper's plugin integrated into 2.9.1 is promising, but I haven;t tested
+that with audio yet.  Anarchy worked brilliantly with audio, but turns
+out most folks used it for YouTube, nonetheless, it was a beautiful
+thing for audio when it was still supported.  I'll miss you anarchy.
+
+Jim
+
+On Thu, Feb 18, 2010 at 4:10 PM, Amy Hendrix <amy.hendrix at duke.edu>
+wrote:
+
+Hey Jim,
+
+Can you say more about your process for transitioning away from AMP?
+Given AMP's state of (non)support and WP native embeds, we'd like to
+nudge our people away from it before our service gets too much bigger,
+but we wouldn't want to just shut it off if it's going to break the
+content that's already in place. Are you giving your users warnings?
+self-help instructions? some kind of upgrade scripts for existing
+embeds?
+
+Thanks,
+Amy
+
+
+On Thu, Feb 18, 2010 at 3:53 PM, James Groom <jimgroom at gmail.com> wrote:
+> Patrick,
+>
+> We use Anarchy Media Player still at UMW Blogs, but are in the process
+of
+> phasing it out because it is not supported anymore, and can be a bit
+of a
+> resource hound.  That said, I personally haven't found a media player
+that
+> works nearly as well.
+>
+> If you still want to use I can send you the files I have and are
+working.
+>
+> Best,
+> Jim
+>
+> On Thu, Feb 18, 2010 at 3:02 PM, Laverty, Patrick
+> <Patrick_Laverty at brown.edu> wrote:
+>>
+>> Having some trouble with the Anarchos Media Player (AMP) plugin.  It
+seems
+>> like a pretty straightforward plugin, unzip into my mu-plugins
+directory and
+>> then activate.  Ok, problem there.  I'm looking in my Site Admin, and
+>> there's no reference to anything that looks like AMP.  However, I do
+get the
+>> yellow A button on my editor when I create a new post.  But when I
+click on
+>> the A button, I get nothing.  I ran firebug, and the error that I get
+is
+>> "edInsertVideoSite is not defined"
+>>
+>>
+>>
+>> Anyone heard of this?  I'm not finding much with google and the AMP's
+own
+>> forums seem to be taken over by pharmaspam.  That's not very
+re-assuring.
+>>
+>>
+>>
+>> Or if you use a different but similar plugin from AMP, what is it?
+>>
+>>
+>>
+>> Thanks.
+>>
+>>
+>>
+>> Patrick
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100218/64302c3c/attachment-0001.htm>
+
+From Patrick_Laverty at brown.edu  Mon Feb 22 20:40:33 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Mon, 22 Feb 2010 15:40:33 -0500
+Subject: [wp-edu] Shibboleth plugin
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E07B092AF@MAIL3.AD.Brown.Edu>
+
+Is anyone else using the Shibboleth plugin for Wordpress, preferably MU?
+We're looking to use it for groups management especially with course
+blogs, but it's not quite ready for that, plus it will not work with the
+new WP 3.0.  
+
+ 
+
+Anyone else worrying about this or thinking about solutions?
+
+ 
+
+Thanks.
+
+ 
+
+Patrick
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100222/d0a2663f/attachment.htm>
+
+From sknox at boisestate.edu  Mon Feb 22 21:12:39 2010
+From: sknox at boisestate.edu (Skip Knox)
+Date: Mon, 22 Feb 2010 14:12:39 -0700
+Subject: [wp-edu] Shibboleth plugin
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E07B092AF@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07B092AF@MAIL3.AD.Brown.Edu>
+Message-ID: <785f6c6c1002221312v5dd0ca12t6b118be2e2dc04a8@mail.gmail.com>
+
+We're using an LDAP plugin, slightly modified. It talks to our Active
+Directory. The only issue we've come up against so far is that for blogs
+that need non-University members, we have to create a separate instance with
+separate rules. Since we're still pre-implementation at this point, I can't
+say how well it will work out or even how often it will be used.
+
+
+Skip Knox
+Boise State University
+
+
+
+On Mon, Feb 22, 2010 at 1:40 PM, Laverty, Patrick <Patrick_Laverty at brown.edu
+> wrote:
+
+>  Is anyone else using the Shibboleth plugin for Wordpress, preferably MU?
+>  We?re looking to use it for groups management especially with course blogs,
+> but it?s not quite ready for that, plus it will not work with the new WP
+> 3.0.
+>
+>
+>
+> Anyone else worrying about this or thinking about solutions?
+>
+>
+>
+> Thanks.
+>
+>
+>
+> Patrick
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100222/58608ecb/attachment.htm>
+
+From Patrick_Laverty at brown.edu  Mon Feb 22 21:54:36 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Mon, 22 Feb 2010 16:54:36 -0500
+Subject: [wp-edu] Shibboleth plugin
+References: <09DED73804A95B42ACFEFF57AEA3B24E07B092AF@MAIL3.AD.Brown.Edu>
+	<785f6c6c1002221312v5dd0ca12t6b118be2e2dc04a8@mail.gmail.com>
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E0564B987@MAIL3.AD.Brown.Edu>
+
+Thanks Skip, there are a number of problems with the LDAP plugin for us.  For one, the connection between the WP and LDAP server is not SSL'd (thought I might have seen an update recently that it is).  But the bigger need for us is to have federated access, which clearly LDAP doesn't offer.
+
+Patrick
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com on behalf of Skip Knox
+Sent: Mon 2/22/2010 4:12 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Shibboleth plugin
+ 
+We're using an LDAP plugin, slightly modified. It talks to our Active
+Directory. The only issue we've come up against so far is that for blogs
+that need non-University members, we have to create a separate instance with
+separate rules. Since we're still pre-implementation at this point, I can't
+say how well it will work out or even how often it will be used.
+
+
+Skip Knox
+Boise State University
+
+
+
+On Mon, Feb 22, 2010 at 1:40 PM, Laverty, Patrick <Patrick_Laverty at brown.edu
+> wrote:
+
+>  Is anyone else using the Shibboleth plugin for Wordpress, preferably MU?
+>  We're looking to use it for groups management especially with course blogs,
+> but it's not quite ready for that, plus it will not work with the new WP
+> 3.0.
+>
+>
+>
+> Anyone else worrying about this or thinking about solutions?
+>
+>
+>
+> Thanks.
+>
+>
+>
+> Patrick
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/ms-tnef
+Size: 3423 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100222/de7c70fb/attachment.bin>
+
+From sknox at boisestate.edu  Mon Feb 22 22:58:06 2010
+From: sknox at boisestate.edu (Skip Knox)
+Date: Mon, 22 Feb 2010 15:58:06 -0700
+Subject: [wp-edu] Shibboleth plugin
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E0564B987@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07B092AF@MAIL3.AD.Brown.Edu>
+	<785f6c6c1002221312v5dd0ca12t6b118be2e2dc04a8@mail.gmail.com>
+	<09DED73804A95B42ACFEFF57AEA3B24E0564B987@MAIL3.AD.Brown.Edu>
+Message-ID: <785f6c6c1002221458w5f7cf197gc606be447eb10fa9@mail.gmail.com>
+
+I think SSL is one of the mods our developer did. Or got what was there to
+work properly in our environment. At any rate, our login is definitely SSL.
+But yeah, the federated thing is an issue, and not just with WordPress.
+
+Shibboleth keeps lurking around the back room, but we haven't got it
+integrated into anything yet.
+
+Skip Knox
+Boise State University
+
+
+
+On Mon, Feb 22, 2010 at 2:54 PM, Laverty, Patrick <Patrick_Laverty at brown.edu
+> wrote:
+
+> Thanks Skip, there are a number of problems with the LDAP plugin for us.
+>  For one, the connection between the WP and LDAP server is not SSL'd
+> (thought I might have seen an update recently that it is).  But the bigger
+> need for us is to have federated access, which clearly LDAP doesn't offer.
+>
+> Patrick
+>
+>
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com on behalf of Skip Knox
+> Sent: Mon 2/22/2010 4:12 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] Shibboleth plugin
+>
+> We're using an LDAP plugin, slightly modified. It talks to our Active
+> Directory. The only issue we've come up against so far is that for blogs
+> that need non-University members, we have to create a separate instance
+> with
+> separate rules. Since we're still pre-implementation at this point, I can't
+> say how well it will work out or even how often it will be used.
+>
+>
+> Skip Knox
+> Boise State University
+>
+>
+>
+> On Mon, Feb 22, 2010 at 1:40 PM, Laverty, Patrick <
+> Patrick_Laverty at brown.edu
+> > wrote:
+>
+> >  Is anyone else using the Shibboleth plugin for Wordpress, preferably MU?
+> >  We're looking to use it for groups management especially with course
+> blogs,
+> > but it's not quite ready for that, plus it will not work with the new WP
+> > 3.0.
+> >
+> >
+> >
+> > Anyone else worrying about this or thinking about solutions?
+> >
+> >
+> >
+> > Thanks.
+> >
+> >
+> >
+> > Patrick
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> >
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100222/c02ffac1/attachment.htm>
+
+From Patrick_Laverty at brown.edu  Wed Feb 24 14:49:45 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Wed, 24 Feb 2010 09:49:45 -0500
+Subject: [wp-edu] send mail plugin?
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E07B7AA0F@MAIL3.AD.Brown.Edu>
+
+Anyone heard of a Wordpress plugin that will mail a new post
+"somewhere"?  Maybe to a list of subscribed email addresses.  I'm not
+just looking for one that *notifies* when there is a new post, I
+actually want the text of the post emailed somewhere.
+
+ 
+
+I'm finding plugins to post by email and notify, but nothing yet that
+actually emails the whole post somewhere.
+
+ 
+
+Thanks!
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100224/c911d1ae/attachment.htm>
+
+From sergeybiryukov.ru at gmail.com  Wed Feb 24 15:13:26 2010
+From: sergeybiryukov.ru at gmail.com (Sergey Biryukov)
+Date: Wed, 24 Feb 2010 18:13:26 +0300
+Subject: [wp-edu] send mail plugin?
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E07B7AA0F@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07B7AA0F@MAIL3.AD.Brown.Edu>
+Message-ID: <302f789c1002240713w661cb32et5f1cc6935e431c52@mail.gmail.com>
+
+Have you looked into these?
+http://wordpress.org/extend/plugins/post-notification/
+http://wordpress.org/extend/plugins/subscribe2/
+
+-- 
+Sergey
+http://profiles.wordpress.org/sergeybiryukov
+
+
+
+On Wed, Feb 24, 2010 at 5:49 PM, Laverty, Patrick
+<Patrick_Laverty at brown.edu> wrote:
+> Anyone heard of a Wordpress plugin that will mail a new post ?somewhere??
+> Maybe to a list of subscribed email addresses.? I?m not just looking for one
+> that *notifies* when there is a new post, I actually want the text of the
+> post emailed somewhere.
+>
+>
+>
+> I?m finding plugins to post by email and notify, but nothing yet that
+> actually emails the whole post somewhere.
+>
+>
+>
+> Thanks!
+>
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+From CWyatt at clarku.edu  Wed Feb 24 15:20:21 2010
+From: CWyatt at clarku.edu (Chuck Wyatt)
+Date: Wed, 24 Feb 2010 10:20:21 -0500
+Subject: [wp-edu] send mail plugin?
+In-Reply-To: <09DED73804A95B42ACFEFF57AEA3B24E07B7AA0F@MAIL3.AD.Brown.Edu>
+References: <09DED73804A95B42ACFEFF57AEA3B24E07B7AA0F@MAIL3.AD.Brown.Edu>
+Message-ID: <66BEB1F62153EE4EB54ECACD76E2599199B6D81813@john.ad.clarku.edu>
+
+If you sign up your RSS feed to feedburner, you can embed a "subscribe by email" widget.  The entire post will be mailed to subscribers.  Super easy to set up.
+
+-Chuck
+
+________________________________
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Laverty, Patrick
+Sent: Wednesday, February 24, 2010 9:50 AM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] send mail plugin?
+
+Anyone heard of a Wordpress plugin that will mail a new post "somewhere"?  Maybe to a list of subscribed email addresses.  I'm not just looking for one that *notifies* when there is a new post, I actually want the text of the post emailed somewhere.
+
+I'm finding plugins to post by email and notify, but nothing yet that actually emails the whole post somewhere.
+
+Thanks!
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100224/24bffe1e/attachment.htm>
+
+From Patrick_Laverty at brown.edu  Thu Feb 25 19:42:53 2010
+From: Patrick_Laverty at brown.edu (Laverty, Patrick)
+Date: Thu, 25 Feb 2010 14:42:53 -0500
+Subject: [wp-edu] Anyone else using Twitter Tools plugin?
+Message-ID: <09DED73804A95B42ACFEFF57AEA3B24E07B7B17B@MAIL3.AD.Brown.Edu>
+
+I'm using the Twitter Tools plugin with a widget and one thing I'm
+noticing is that when my tags and @ is linked (don't know why some are
+linked and some are not), but when they're linked, there's a line break
+after the # or @ and the tag or username.  
+
+ 
+
+Does this happen to anyone else?  I don't see it in the plugin's "Known
+Issues".
+
+ 
+
+Are you using a different twitter plugin with better success?
+
+ 
+
+Thanks!
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100225/75efce36/attachment.htm>
+

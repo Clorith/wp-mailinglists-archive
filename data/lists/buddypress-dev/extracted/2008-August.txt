@@ -1,0 +1,1805 @@
+From andypeatling at automattic.com  Fri Aug  1 04:30:27 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Aug  1 04:50:20 2008
+Subject: [buddypress-dev] $bp global
+Message-ID: <B846F0A0-685F-45A9-8CDD-8799AC814CD3@automattic.com>
+
+I've just checked in updates to every component in trunk.
+
+Up until now BuddyPress component settings have been stored in a  
+number of global variables, all set in a number of different places  
+(bad). I've now moved all settings under a "$bp" global variable.  
+BuddyPress component settings are now added to $bp in a specific  
+function for each component (better).
+
+Global settings for each component are set in:
+
+bp_core_setup_globals(), bp_xprofile_setup_globals(),  
+bp_messages_setup_globals() etc etc.
+
+You can check out what is stored, and the structure by using:
+
+<?php print_r ( $bp ) ?> or <?php var_dump( $bp ) ?>
+
+rather than having to hunt for a specific global.
+
+If anyone is writing additional custom components (I know there are a  
+few people) this is a major change, so you'll unfortunately need to  
+make some updates. Sorry about that, it's better now than never!
+
+Cheers
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+From justin at jnorton.co.uk  Fri Aug  1 12:00:14 2008
+From: justin at jnorton.co.uk (justin@jnorton.co.uk)
+Date: Fri Aug  1 16:18:35 2008
+Subject: [buddypress-dev] Out of Office AutoReply: buddypress-dev Digest,
+	Vol 5, Issue 1
+Message-ID: <20080801120014.13937.qmail@erasmus.34sp.com>
+
+Hello I am out of the office until the 5th of August.
+
+I will get back to you ASAP upon my return.
+
+Regards,
+
+Justin.
+
+
+From justin at jnorton.co.uk  Sat Aug  2 12:00:41 2008
+From: justin at jnorton.co.uk (justin@jnorton.co.uk)
+Date: Sat Aug  2 18:50:06 2008
+Subject: [buddypress-dev] Out of Office AutoReply: buddypress-dev Digest,
+	Vol 5, Issue 2
+Message-ID: <20080802120041.29594.qmail@erasmus.34sp.com>
+
+Hello I am out of the office until the 5th of August.
+
+I will get back to you ASAP upon my return.
+
+Regards,
+
+Justin.
+
+
+From andrea at creativeweb.it  Tue Aug  5 12:22:35 2008
+From: andrea at creativeweb.it (Andrea Ceccarelli)
+Date: Tue Aug  5 12:22:44 2008
+Subject: [buddypress-dev] Bug on Delete
+Message-ID: <4ca2a7d0808050522n35b6442xae5d6bbe55ab1076@mail.gmail.com>
+
+Deleting user from wordpress has no effect on xprofile tables.
+Regards
+d0k
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080805/962b5773/attachment.htm
+From andrea at creativeweb.it  Fri Aug  8 17:53:44 2008
+From: andrea at creativeweb.it (Andrea Ceccarelli)
+Date: Fri Aug  8 17:53:52 2008
+Subject: [buddypress-dev] A couple of bugs and possible fix for xprofile
+Message-ID: <4ca2a7d0808081053k2b62c48dwbd135921813650e0@mail.gmail.com>
+
+A couple of bug that you should consider:
+
+#1
+The cropper does not work in the right way on IE.
+In the file cropper.css adding this line should avoid problems on IE
+
+.crop-img {
+    position:relative; /* ----------- IE ------- */
+}
+
+#2 Uploading the picture on registration, and cropping it during the
+activation process create a different value on user data regarding
+xprofile_avatar_v(1|2)
+I'm using a little patch while recovering this data from the first blog of
+the mu installation:
+$img=(ereg($user->source_domain,$user->xprofile_avatar_v2))?$user->xprofile_avatar_v2:$user->source_domain.$user->xprofile_avatar_v2;
+but you should consider to fix this bug on registration if possible
+
+Good luck
+d0k
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080808/3261cb0c/attachment.htm
+From dbisset at dimensionmedia.com  Sun Aug 10 20:08:00 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Sun Aug 10 20:08:55 2008
+Subject: [buddypress-dev] changing your user password via BuddyPress
+Message-ID: <20080810160800.j7hohjsio0ssw8sk@www.dimensionmedia.com>
+
+Hey all,
+
+I was looking for a way to change your user login password WITHOUT  
+going into wp-admin backend in the spirit of the BuddyPress template.
+
+This is a ROUGH way of doing it (editing the core) but it seems to  
+work. If anyone has suggestions for how to make this work without  
+editting the core i'm all ears. Or maybe this can be a future addition.
+
+What i did was simply create a profile group "advanced" with a textbox  
+"desired password". Then I edited bp-xprofile.php around line 300  
+after the IF statement (if($post_field_string != null)).
+
+if ($group->id == 2 and $group->fields[$j]->id == 24) { // this is the  
+password-update box, located in the advanced(2) group
+									$ID = (int) $userdata->ID;
+
+									// First, get all of the original fields
+									$user = get_userdata($ID);
+
+									// Escape data pulled from DB.
+									$user = add_magic_quotes(get_object_vars($user));
+
+									// If password is changing, hash it now.
+									if ( ! empty($profile_data->value) ) {
+										$plaintext_pass = $profile_data->value;
+										$userdata->user_pass = wp_hash_password($profile_data->value);
+									}
+
+									// Merge old and new fields with new fields overwriting old ones.
+									$userdata = array_merge($user, $userdata);
+									$user_id = wp_insert_user($userdata);
+							}
+
+The reason why i'm not using wp's own function (wp_update_user) to  
+change the data (which is where this code is actually being pulled) is  
+because the wp_update_user attempts to clear/reset cookies and that  
+causes header redirect errors because this is being doing in the  
+middle of rendering the BuddyPress template page.
+
+Like I said, this is rough but so far works. There are better ways and  
+i'm open to hearing them.
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From andypeatling at automattic.com  Wed Aug 13 22:50:42 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed Aug 13 22:50:58 2008
+Subject: [buddypress-dev] Groups v0.1 is in
+Message-ID: <46B973F4-A3E1-438C-A89F-2F294D499B9E@automattic.com>
+
+I've just committed and tagged groups v0.1 and updated all other  
+components to support it.
+
+Please take a look at the roadmap for what is and isn't in 0.1: http://trac.buddypress.org/wiki/roadmap/groups
+
+You can also test the latest version at: http://testdrivewpmu.com
+
+Cheers
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From andypeatling at automattic.com  Thu Aug 14 16:44:26 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Aug 14 16:44:45 2008
+Subject: [buddypress-dev] changing your user password via BuddyPress
+In-Reply-To: <20080810160800.j7hohjsio0ssw8sk@www.dimensionmedia.com>
+References: <20080810160800.j7hohjsio0ssw8sk@www.dimensionmedia.com>
+Message-ID: <46350566-0997-4FC5-A144-8601ED28FD37@automattic.com>
+
+On 10-Aug-08, at 1:08 PM, David J. Bisset wrote:
+
+> Hey all,
+>
+> I was looking for a way to change your user login password WITHOUT  
+> going into wp-admin backend in the spirit of the BuddyPress template.
+>
+> The reason why i'm not using wp's own function (wp_update_user) to  
+> change the data (which is where this code is actually being pulled)  
+> is because the wp_update_user attempts to clear/reset cookies and  
+> that causes header redirect errors because this is being doing in  
+> the middle of rendering the BuddyPress template page.
+>
+> Like I said, this is rough but so far works. There are better ways  
+> and i'm open to hearing them.
+
+Hmm... there must be a way around that. I will take a look at this  
+pretty soon, as I'd like to start bringing user settings into the  
+template. "Disable notification emails" etc.
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From jed at deafnation.com  Fri Aug 15 17:41:58 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Fri Aug 15 17:42:20 2008
+Subject: [buddypress-dev] features in backend?
+In-Reply-To: <87725892.1560321218821577555.JavaMail.root@mail-3.01.com>
+Message-ID: <1684114074.1562581218822118062.JavaMail.root@mail-3.01.com>
+
+I would like to see the messages and other features like friends, groups and others in backend of WPMU. The reason I asked for it because if my users decide to choose different themes to use then they wont be able to access groups or other features at all.
+
+I love the way the theme designed but too many columns for menus when I view the blog section. Is anyone going to be able to redesign the theme different from the default buddypress theme?
+
+I developed our own vlog and video comments applications for WPMU and WP v2.6 which we will be using it with buddypress. I hope to see more mods designed for buddypress very soon before I put WPMU in public with buddypress features. How far will it be ready to get out of BETA?
+
+Thanks, 
+Jed Barish
+From brian.brey at nxtstudios.com  Fri Aug 15 20:54:39 2008
+From: brian.brey at nxtstudios.com (Brian L. Brey)
+Date: Fri Aug 15 20:55:00 2008
+Subject: [buddypress-dev] features in backend?
+In-Reply-To: <87725892.1560321218821577555.JavaMail.root@mail-3.01.com>
+Message-ID: <C4CB3B1F.4E2B%brian.brey@nxtstudios.com>
+
+Hey Jed - 
+
+Some of the back-end menu items are disabled in the code.  I haven?t tested
+it myself yet, but you may want to uncomment the ones you see fit..
+
+I?m looking for a video plugin myself. Are you willing share the plugin you
+created?
+
+Cheers!
+
+Brian
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080815/bb527311/attachment.htm
+From jed at deafnation.com  Fri Aug 15 21:07:53 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Fri Aug 15 21:08:10 2008
+Subject: [buddypress-dev] features in backend?
+Message-ID: <281760292.1614621218834473200.JavaMail.root@mail-3.01.com>
+
+I am not sure if we are allowed to share bec I worked with a company that already offered a plugin as vlog but we spent money to customized it differently and added video comments solution also being able to host on my own instead rely on 3rd party companies to manage it unreliability.
+
+I ll look into script to see if I cld uncomment some lines to appear it in backend. Hope it ll work! I still think that we need widgets to show menu of buddypress features on any themes.
+
+Thanks! Jed
+
+-----Original Message-----
+From: Brian L. Brey <brian.brey@nxtstudios.com>
+Sent: Friday, August 15, 2008 3:55 PM
+To: buddypress-dev@lists.automattic.com
+Subject: [buddypress-dev] features in backend?
+
+Hey Jed - 
+
+Some of the back-end menu items are disabled in the code.  I haven?t tested
+it myself yet, but you may want to uncomment the ones you see fit..
+
+I?m looking for a video plugin myself. Are you willing share the plugin you
+created?
+
+Cheers!
+
+Brian
+From sillyandrea at gmail.com  Fri Aug 15 21:08:14 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Fri Aug 15 21:11:21 2008
+Subject: [buddypress-dev] features in backend?
+In-Reply-To: <C4CB3B1F.4E2B%brian.brey@nxtstudios.com>
+References: <C4CB3B1F.4E2B%brian.brey@nxtstudios.com>
+Message-ID: <48a5f0eb.1d3e400a.31d3.5cfd@mx.google.com>
+
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080815/cc10970a/attachment.htm
+From andypeatling at automattic.com  Fri Aug 15 21:17:13 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Aug 15 21:15:45 2008
+Subject: [buddypress-dev] features in backend?
+In-Reply-To: <281760292.1614621218834473200.JavaMail.root@mail-3.01.com>
+References: <281760292.1614621218834473200.JavaMail.root@mail-3.01.com>
+Message-ID: <6F501F57-5591-4169-82F2-4A9F362CDD91@automattic.com>
+
+The backend menus are commented out as the theme fuctionality is being  
+worked on first. The back end menus wern't yet working correctly, so  
+they were disabled.
+
+You can uncomment the menus definitely, but they are unlikely to work  
+until the best way to mirror theme functionality is worked out. They  
+will be coming back though.
+
+Andy
+
+Sent from my iPhone
+
+On 15-Aug-08, at 2:07 PM, Jed Barish <jed@deafnation.com> wrote:
+
+> I am not sure if we are allowed to share bec I worked with a company  
+> that already offered a plugin as vlog but we spent money to  
+> customized it differently and added video comments solution also  
+> being able to host on my own instead rely on 3rd party companies to  
+> manage it unreliability.
+>
+> I ll look into script to see if I cld uncomment some lines to appear  
+> it in backend. Hope it ll work! I still think that we need widgets  
+> to show menu of buddypress features on any themes.
+>
+> Thanks! Jed
+>
+> -----Original Message-----
+> From: Brian L. Brey <brian.brey@nxtstudios.com>
+> Sent: Friday, August 15, 2008 3:55 PM
+> To: buddypress-dev@lists.automattic.com
+> Subject: [buddypress-dev] features in backend?
+>
+> Hey Jed -
+>
+> Some of the back-end menu items are disabled in the code.  I haven?t  
+> tested
+> it myself yet, but you may want to uncomment the ones you see fit..
+>
+> I?m looking for a video plugin myself. Are you willing share the  
+> plugin you
+> created?
+>
+> Cheers!
+>
+> Brian
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From jed at deafnation.com  Fri Aug 15 21:18:21 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Fri Aug 15 21:18:47 2008
+Subject: [buddypress-dev] features in backend?
+Message-ID: <692004575.1617131218835101502.JavaMail.root@mail-3.01.com>
+
+Thanks for the info! My vlog application is based on a webcam recorder player built-in the backend to record different videos directly to wp. It has several options to set up in different ressolutions, sizes, color and style of players and post on their blogs.
+
+Im going to start the wpmu hosting with buddypress features and my apps soon as beta testing in public. Love wordpress due to lots of excellent mods better than facebook's apps :)
+
+Jed
+
+-----Original Message-----
+From: Andrea <sillyandrea@gmail.com>
+Sent: Friday, August 15, 2008 4:11 PM
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] features in backend?
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+A video plugin that works quite well in MU is here:<br>
+&nbsp;<br>
+<a class="moz-txt-link-freetext" href="http://www.daburna.de/blog/2006/12/13/wordpress-video-plugin/">http://www.daburna.de/blog/2006/12/13/wordpress-video-plugin/</a><br>
+<br>
+Andrea<br>
+<a class="moz-txt-link-freetext" href="http://wpmututorials.com">http://wpmututorials.com</a><br>
+<br>
+Brian L. Brey wrote:
+<blockquote cite="midC4CB3B1F.4E2B%25brian.brey@nxtstudios.com"
+ type="cite">
+  <title>[buddypress-dev] features in backend?</title>
+  <font size="5"><font face="Lucida Grande"><span
+ style="font-size: 10pt;">Hey Jed - <br>
+  <br>
+Some of the back-end menu items are disabled in the code. &nbsp;I haven&#8217;t
+tested it myself yet, but you may want to uncomment the ones you see
+fit.. <br>
+  <br>
+I&#8217;m looking for a video plugin myself. Are you willing share the plugin
+you created?<br>
+  <br>
+Cheers!<br>
+  <br>
+Brian</span></font></font>
+  <pre wrap="">
+<hr size="4" width="90%">
+_______________________________________________
+buddypress-dev mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:buddypress-dev@lists.automattic.com">buddypress-dev@lists.automattic.com</a>
+<a class="moz-txt-link-freetext" href="http://lists.automattic.com/mailman/listinfo/buddypress-dev">http://lists.automattic.com/mailman/listinfo/buddypress-dev</a>
+  </pre>
+</blockquote>
+<br>
+<pre class="moz-signature" cols="72">-- 
+<a class="moz-txt-link-freetext" href="http://atypicalife.net/blog/">http://atypicalife.net/blog/</a>  personal anecdotes from our days
+<a class="moz-txt-link-freetext" href="http://homeschooljournal.net/">http://homeschooljournal.net/</a> free blogs for homeschoolers
+<a class="moz-txt-link-freetext" href="http://wpmututorials.com/">http://wpmututorials.com/</a>     tutorials for WordpressMU
+<a class="moz-txt-link-freetext" href="http://ronandandrea.com">http://ronandandrea.com</a>       Web consulting
+</pre>
+</body>
+</html>
+From jed at deafnation.com  Fri Aug 15 21:41:41 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Fri Aug 15 21:41:57 2008
+Subject: [buddypress-dev] features in backend?
+Message-ID: <1091125378.1621821218836501609.JavaMail.root@mail-3.01.com>
+
+Thanks andy for the clarification! I ll wait until it comes back. Keep it up :)  Jed
+
+
+-----Original Message-----
+From: Andy Peatling <andypeatling@automattic.com>
+Sent: Friday, August 15, 2008 4:16 PM
+To: buddypress-dev@lists.automattic.com <buddypress-dev@lists.automattic.com>
+Subject: Re: [buddypress-dev] features in backend?
+
+The backend menus are commented out as the theme fuctionality is being  
+worked on first. The back end menus wern't yet working correctly, so  
+they were disabled.
+
+You can uncomment the menus definitely, but they are unlikely to work  
+until the best way to mirror theme functionality is worked out. They  
+will be coming back though.
+
+Andy
+
+Sent from my iPhone
+
+On 15-Aug-08, at 2:07 PM, Jed Barish <jed@deafnation.com> wrote:
+
+> I am not sure if we are allowed to share bec I worked with a company  
+> that already offered a plugin as vlog but we spent money to  
+> customized it differently and added video comments solution also  
+> being able to host on my own instead rely on 3rd party companies to  
+> manage it unreliability.
+>
+> I ll look into script to see if I cld uncomment some lines to appear  
+> it in backend. Hope it ll work! I still think that we need widgets  
+> to show menu of buddypress features on any themes.
+>
+> Thanks! Jed
+>
+> -----Original Message-----
+> From: Brian L. Brey <brian.brey@nxtstudios.com>
+> Sent: Friday, August 15, 2008 3:55 PM
+> To: buddypress-dev@lists.automattic.com
+> Subject: [buddypress-dev] features in backend?
+>
+> Hey Jed -
+>
+> Some of the back-end menu items are disabled in the code.  I haven?t  
+> tested
+> it myself yet, but you may want to uncomment the ones you see fit..
+>
+> I?m looking for a video plugin myself. Are you willing share the  
+> plugin you
+> created?
+>
+> Cheers!
+>
+> Brian
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From phlux0r at gmail.com  Tue Aug 19 00:56:37 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Tue Aug 19 00:56:27 2008
+Subject: [buddypress-dev] BuddyPress compatibility with WPMU 2.6?
+Message-ID: <48AA1A45.2090102@gmail.com>
+
+Hi all,
+
+I've just joined this list as I am working on a WPMU project to build a 
+blog community site with requirements that fit exactly with the features 
+BuddyPress provides, such as extended profiles, private messaging, 
+friends and groups.
+
+I want to use WPMU 2.6+ for this project but realised that the current 
+release of BuddyPress does not work correctly with the Mu release.
+
+So, I'm just wondering how far away is the compatibility update for 
+BuddyPress and WPMu 2.6? Does the current BuddyPress SVN version perhaps 
+work already with Mu2.6?
+
+Thanks in advance and sorry if this has been answered somewhere, I 
+couldn't find any conclusive info about this.
+
+Oh, it would be really nice to say on the BuddyPress Trac download page 
+what version of WPMu is supported :).
+
+
+Kind regards,
+Robert
+From max.favilli at gmail.com  Tue Aug 19 12:27:21 2008
+From: max.favilli at gmail.com (Max Favilli)
+Date: Tue Aug 19 12:27:33 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+Message-ID: <2fd1e9a20808190527h73f3deb8x29dcb0955edd7cd2@mail.gmail.com>
+
+I have exatly the same question. We are working on integrating WPMU with our
+existing community infrastructure and we are seriously considering
+buddypress to replace some of our custom stuff, but doesn't seem to be
+compatible with 2.6, is it something you are going to fix very soon?
+
+
+> Message: 1
+> Date: Tue, 19 Aug 2008 12:56:37 +1200
+> From: phlux0r <phlux0r@gmail.com>
+> Subject: [buddypress-dev] BuddyPress compatibility with WPMU 2.6?
+> To: BuddyPress List <buddypress-dev@lists.automattic.com>
+> Message-ID: <48AA1A45.2090102@gmail.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> Hi all,
+>
+> I've just joined this list as I am working on a WPMU project to build a
+> blog community site with requirements that fit exactly with the features
+> BuddyPress provides, such as extended profiles, private messaging,
+> friends and groups.
+>
+> I want to use WPMU 2.6+ for this project but realised that the current
+> release of BuddyPress does not work correctly with the Mu release.
+>
+> So, I'm just wondering how far away is the compatibility update for
+> BuddyPress and WPMu 2.6? Does the current BuddyPress SVN version perhaps
+> work already with Mu2.6?
+>
+> Thanks in advance and sorry if this has been answered somewhere, I
+> couldn't find any conclusive info about this.
+>
+> Oh, it would be really nice to say on the BuddyPress Trac download page
+> what version of WPMu is supported :).
+>
+>
+> Kind regards,
+> Robert
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> End of buddypress-dev Digest, Vol 5, Issue 10
+> *********************************************
+>
+
+
+
+-- 
+Max Favilli
+max.favilli@gmail.com
+mobile (+39) 348 3367064
+fax (+39) 0291390144
+type http://maxfavilli.com in your webbrowser
+"? just as water retains no constant shape, so in warfare there are no
+constant conditions." (Sun Tzu, The Art of War)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080819/d60cfea0/attachment.htm
+From brian.brey at nxtstudios.com  Tue Aug 19 15:34:42 2008
+From: brian.brey at nxtstudios.com (Brian B)
+Date: Tue Aug 19 15:35:03 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+Message-ID: <C4D03622.4E7D%brian.brey@nxtstudios.com>
+
+I?m using WPMU 2.6 and everything works as expected.. What issues are you
+having?  Keep in mind that not all functionality has been completed. Please
+check the previous posts and the Roadmap for details..
+
+Andy (Buddypress?s king developer) is running on 2.6 as well for his test
+site.. Check it out http://testdrivewpmu.com/
+
+Cheers!
+
+Brian
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080819/2e439635/attachment.htm
+From phlux0r at gmail.com  Tue Aug 19 21:55:09 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Tue Aug 19 21:55:03 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <C4D03622.4E7D%brian.brey@nxtstudios.com>
+References: <C4D03622.4E7D%brian.brey@nxtstudios.com>
+Message-ID: <48AB413D.2000605@gmail.com>
+
+Hi Brian,
+
+thanks for the thumbs up. I just tried a brand new install of WPMu2.6 + 
+BuddyPress latest download (not SVN) and I can see the "Profiles" link 
+now in the Site Admin. This was not available when I installed 
+BuddyPress on another Mu2.6 install which had a few blogs already. Not 
+sure if the sequence of installing things matter here? Also, is it 
+essential to install the BuddyPress theme for the setup to execute 
+correctly (as I haven't done that for my original install)...
+
+Lucky that I'm at the early stages of my project so I can just reinstall 
+my client development site from scratch and get BuddyPress going.
+
+The question is, is there a caveat when installing BuddyPress on and 
+existing WPMu install? Can it be added if a WPMu site is in "full swing" 
+or is that a risk at this stage?
+
+Ahh, the life on the razor's edge, eh :).
+
+Thanks for the good work though. I'm looking forward to my experience 
+with this software.
+
+Regards,
+Robert
+
+Brian B wrote:
+> I?m using WPMU 2.6 and everything works as expected.. What issues are 
+> you having?  Keep in mind that not all functionality has been 
+> completed. Please check the previous posts and the Roadmap for details..
+>
+> Andy (Buddypress?s king developer) is running on 2.6 as well for his 
+> test site.. Check it out http://testdrivewpmu.com/
+>
+> Cheers!
+>
+> Brian
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+
+From brian.brey at nxtstudios.com  Wed Aug 20 00:06:01 2008
+From: brian.brey at nxtstudios.com (Brian B)
+Date: Wed Aug 20 00:06:18 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <C4D03622.4E7D%brian.brey@nxtstudios.com>
+Message-ID: <C4D0ADF9.4EA2%brian.brey@nxtstudios.com>
+
+Hi Robert, 
+
+I have been testing on a new instance of 2.6 myself, so I can say for sure
+that it will work on a existing/ working install. However, since Buddypress
+doesn?t appear to alter existing Wordpress tables I don?t see a reason for
+it to cause any problems. Nor have any adverse affects if the plugins are
+removed from the MU-Plugins folder.
+
+I agree with you, Buddypress is amazing project. Andy (and contributors)
+have done an incredible job with the development and implementation. I have
+gone to bed many nights with a huge smile after seeing just a simple
+addition was made to Buddypress.
+
+One note. The ?home? theme should be applied to the Admin users theme. If it
+isn?t and the ?default? theme is used it will display 404 errors when logged
+on as ?Admin?. Any other user will work fine. The good news, when a  user
+creates an account the ?Default? theme is applied. From my understanding the
+home theme is just a place holder, with a bit of functionality. (blog,
+register, login, etc.)
+
+- Brian
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080820/9e767d84/attachment.htm
+From andypeatling at automattic.com  Wed Aug 20 00:21:48 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed Aug 20 00:22:02 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <48AB413D.2000605@gmail.com>
+References: <C4D03622.4E7D%brian.brey@nxtstudios.com>
+	<48AB413D.2000605@gmail.com>
+Message-ID: <34BF06E0-2E3A-495D-B91F-6A1EFB47FF5C@automattic.com>
+
+On 19-Aug-08, at 2:55 PM, phlux0r wrote:
+
+> Hi Brian,
+>
+> thanks for the thumbs up. I just tried a brand new install of  
+> WPMu2.6 + BuddyPress latest download (not SVN) and I can see the  
+> "Profiles" link now in the Site Admin. This was not available when I  
+> installed BuddyPress on another Mu2.6 install which had a few blogs  
+> already. Not sure if the sequence of installing things matter here?  
+> Also, is it essential to install the BuddyPress theme for the setup  
+> to execute correctly (as I haven't done that for my original  
+> install)...
+
+I'll chime in a little here. Almost all the development so far has  
+gone on the notion of people using it on a fresh installation of MU.
+
+I know there are a lot of people out there who want to drop BuddyPress  
+into an existing blog network (of course this will be of the features  
+of BuddyPress).
+
+Now seems to be a good time to start going back over what has been  
+done and put the parts in place that will let BuddyPress start to  
+support existing installs. I'll be looking at this over the next  
+couple of weeks (I'm on vacation next week), then moving onto the next  
+components.
+
+Specific things that will be looked at:
+
+   - Supporting existing themes - stopping the 404's when template  
+files don't exist. The back end functionality tabs will need to be re- 
+enabled for this. Currently it's the default theme or nothing.
+
+   - Writing code to assign a subdomain or subfolder as your "home  
+base" and all others as blogs you belong to. This should solve the  
+user-vs-blog centric problem.
+
+   - Making sure that BP template tags can be used on any template  
+file, under any page slug. Right now profile information can only be  
+rendered under domain.com/user/profile for example. This won't work  
+for a lot of people. Sollaires opened a ticket for this exact problem  
+recently with a potential fix - http://trac.buddypress.org/ticket/55
+
+Does anyone have any comments on any of this?
+
+Cheers,
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From phlux0r at gmail.com  Wed Aug 20 00:15:31 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Wed Aug 20 00:38:07 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <C4D0ADF9.4EA2%brian.brey@nxtstudios.com>
+References: <C4D0ADF9.4EA2%brian.brey@nxtstudios.com>
+Message-ID: <48AB6223.9080709@gmail.com>
+
+Hi Brian,
+
+yes, I am getting some action out of BuddyPress now :).
+
+I also figured out what was happening to my first attempt (when I didn't 
+see the "Profiles" link in the admin). My site home blog wasn't set as 
+the default blog for the admin user! Good to keep that in mind.
+
+Also, it was confusing to receive the 404's when logged in as admin. 
+This must be intentional? Does that mean that if the admin wants to 
+participate in the site community, they need to create another account 
+for themselves?
+
+Anyhow, thanks for the replies.
+
+Robert
+
+Brian B wrote:
+> Hi Robert,
+>
+> I have been testing on a new instance of 2.6 myself, so I can say for 
+> sure that it will work on a existing/ working install. However, since 
+> Buddypress doesn?t appear to alter existing Wordpress tables I don?t 
+> see a reason for it to cause any problems. Nor have any adverse 
+> affects if the plugins are removed from the MU-Plugins folder.
+>
+> I agree with you, Buddypress is amazing project. Andy (and 
+> contributors) have done an incredible job with the development and 
+> implementation. I have gone to bed many nights with a huge smile after 
+> seeing just a simple addition was made to Buddypress.
+>
+> One note. The ?home? theme should be applied to the Admin users theme. 
+> If it isn?t and the ?default? theme is used it will display 404 errors 
+> when logged on as ?Admin?. Any other user will work fine. The good 
+> news, when a  user creates an account the ?Default? theme is applied. 
+> From my understanding the home theme is just a place holder, with a 
+> bit of functionality. (blog, register, login, etc.)
+>
+> - Brian
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+
+From phlux0r at gmail.com  Wed Aug 20 06:52:23 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Wed Aug 20 06:52:12 2008
+Subject: [buddypress-dev] How to display the blog as default
+Message-ID: <48ABBF27.2000306@gmail.com>
+
+I'm not sure if this is the place to be asking questions about how to do 
+this and that in BuddyPress (and please point me to the right place if 
+it isn't).
+
+I've got Mu set up to use subdomains. Now, when BP is installed, when 
+you go to the root: user.domain.tld/ you get the profile by default. How 
+can I achieve to get the blog to be displayed as the default?
+
+Thanks,
+Robert
+From brian.brey at nxtstudios.com  Wed Aug 20 18:25:47 2008
+From: brian.brey at nxtstudios.com (Brian B)
+Date: Wed Aug 20 18:26:22 2008
+Subject: [buddypress-dev] How to display the blog as default
+Message-ID: <C4D1AFBB.4EC3%brian.brey@nxtstudios.com>
+
+Hi Robert, 
+
+You can change the default page by opening home.php in the themes folder and
+change the code to:
+
+<?php // Do we want the blog or profile as home? Check will go here. if (
+$current_component == 'blog' ) :    include_once (TEMPLATEPATH .
+'/blog.php'); else :    include_once (TEMPLATEPATH . '/blog.php'); endif; ?>
+
+Brian
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080820/34f0cb34/attachment.htm
+From phlux0r at gmail.com  Wed Aug 20 20:54:22 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Wed Aug 20 20:54:12 2008
+Subject: [buddypress-dev] How to display the blog as default
+In-Reply-To: <C4D1AFBB.4EC3%brian.brey@nxtstudios.com>
+References: <C4D1AFBB.4EC3%brian.brey@nxtstudios.com>
+Message-ID: <48AC847E.5090407@gmail.com>
+
+Hi Brian,
+
+hm, that doesn't appear to work. I played around with that file already. 
+It appears that the default/profile/index.php takes over in any case... 
+not sure where it is decided that everything should go to the profile...
+
+Cheers,
+Robert
+
+Brian B wrote:
+> Hi Robert,
+>
+> You can change the default page by opening home.php in the themes 
+> folder and change the code to:
+>
+> <?php // Do we want the blog or profile as home? Check will go here. 
+> if ( $current_component == 'blog' ) :    include_once (TEMPLATEPATH . 
+> '/blog.php'); else :    include_once (TEMPLATEPATH . '/blog.php'); 
+> endif; ?>
+>
+> Brian
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+
+From phlux0r at gmail.com  Wed Aug 20 20:55:33 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Wed Aug 20 20:55:27 2008
+Subject: [buddypress-dev] How to display the blog as default
+In-Reply-To: <C4D1AFBB.4EC3%brian.brey@nxtstudios.com>
+References: <C4D1AFBB.4EC3%brian.brey@nxtstudios.com>
+Message-ID: <48AC84C5.30103@gmail.com>
+
+Hi Brian,
+
+hm, that doesn't appear to work. I played around with that file already. 
+It appears that the default/profile/index.php takes over in any case... 
+not sure where it is decided that if $current_component is blank the 
+site should go to the profile...
+
+Cheers,
+Robert
+
+Brian B wrote:
+> Hi Robert,
+>
+> You can change the default page by opening home.php in the themes 
+> folder and change the code to:
+>
+> <?php // Do we want the blog or profile as home? Check will go here. 
+> if ( $current_component == 'blog' ) :    include_once (TEMPLATEPATH . 
+> '/blog.php'); else :    include_once (TEMPLATEPATH . '/blog.php'); 
+> endif; ?>
+>
+> Brian
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+
+From phlux0r at gmail.com  Thu Aug 21 00:46:24 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Thu Aug 21 01:38:02 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <34BF06E0-2E3A-495D-B91F-6A1EFB47FF5C@automattic.com>
+References: <C4D03622.4E7D%brian.brey@nxtstudios.com>	<48AB413D.2000605@gmail.com>
+	<34BF06E0-2E3A-495D-B91F-6A1EFB47FF5C@automattic.com>
+Message-ID: <48ACBAE0.9010108@gmail.com>
+
+Hi Andy,
+
+I don't know much about BuddyPress yet to make suggestions but, I guess 
+it would be good to have the ability to configure the way BP hooks into 
+Mu. For example, on a default Mu site, the site blog homes are just 
+their subdomains (or subdirectories if VHOST=no). But BP changes that. I 
+hacked around to add a new option under BuddyPress to allow setting if 
+the blog or the profile should be the default home...
+
+In the course of my current project, I will certainly get under the hood 
+of BuddyPress and be able to contribute more...
+
+Cheers,
+Robert
+
+Andy Peatling wrote:
+> On 19-Aug-08, at 2:55 PM, phlux0r wrote:
+>
+>> Hi Brian,
+>>
+>> thanks for the thumbs up. I just tried a brand new install of WPMu2.6 
+>> + BuddyPress latest download (not SVN) and I can see the "Profiles" 
+>> link now in the Site Admin. This was not available when I installed 
+>> BuddyPress on another Mu2.6 install which had a few blogs already. 
+>> Not sure if the sequence of installing things matter here? Also, is 
+>> it essential to install the BuddyPress theme for the setup to execute 
+>> correctly (as I haven't done that for my original install)...
+>
+> I'll chime in a little here. Almost all the development so far has 
+> gone on the notion of people using it on a fresh installation of MU.
+>
+> I know there are a lot of people out there who want to drop BuddyPress 
+> into an existing blog network (of course this will be of the features 
+> of BuddyPress).
+>
+> Now seems to be a good time to start going back over what has been 
+> done and put the parts in place that will let BuddyPress start to 
+> support existing installs. I'll be looking at this over the next 
+> couple of weeks (I'm on vacation next week), then moving onto the next 
+> components.
+>
+> Specific things that will be looked at:
+>
+>   - Supporting existing themes - stopping the 404's when template 
+> files don't exist. The back end functionality tabs will need to be 
+> re-enabled for this. Currently it's the default theme or nothing.
+>
+>   - Writing code to assign a subdomain or subfolder as your "home 
+> base" and all others as blogs you belong to. This should solve the 
+> user-vs-blog centric problem.
+>
+>   - Making sure that BP template tags can be used on any template 
+> file, under any page slug. Right now profile information can only be 
+> rendered under domain.com/user/profile for example. This won't work 
+> for a lot of people. Sollaires opened a ticket for this exact problem 
+> recently with a potential fix - http://trac.buddypress.org/ticket/55
+>
+> Does anyone have any comments on any of this?
+>
+> Cheers,
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://apeatling.wordpress.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+From bradflora at gmail.com  Thu Aug 21 02:35:32 2008
+From: bradflora at gmail.com (Brad Flora)
+Date: Thu Aug 21 02:35:46 2008
+Subject: [buddypress-dev] Call to undefined function bp_is_blog() .... on
+	line 16?
+Message-ID: <44f2b760808201935r5562dd49k92cc04e2f0de9c7b@mail.gmail.com>
+
+Hey there, I'm setting up my first bpress test install and right after I
+switched over to the bpress theme, I received this error.  Do I not have the
+buddypress tables installed?  I wondered about that.
+
+How do I fix this?
+
+The install instructions are somewhat vague about how the buddypress tables
+are installed.  Instead of having them be automatically isntalled at some
+indeterminate point when I log in, what if I had a button I could press to
+install them from the admin?
+
+-Brad
+
+On Wed, Aug 20, 2008 at 7:46 PM, phlux0r <phlux0r@gmail.com> wrote:
+
+> Hi Andy,
+>
+> I don't know much about BuddyPress yet to make suggestions but, I guess it
+> would be good to have the ability to configure the way BP hooks into Mu. For
+> example, on a default Mu site, the site blog homes are just their subdomains
+> (or subdirectories if VHOST=no). But BP changes that. I hacked around to add
+> a new option under BuddyPress to allow setting if the blog or the profile
+> should be the default home...
+>
+> In the course of my current project, I will certainly get under the hood of
+> BuddyPress and be able to contribute more...
+>
+> Cheers,
+> Robert
+>
+>
+> Andy Peatling wrote:
+>
+>> On 19-Aug-08, at 2:55 PM, phlux0r wrote:
+>>
+>>  Hi Brian,
+>>>
+>>> thanks for the thumbs up. I just tried a brand new install of WPMu2.6 +
+>>> BuddyPress latest download (not SVN) and I can see the "Profiles" link now
+>>> in the Site Admin. This was not available when I installed BuddyPress on
+>>> another Mu2.6 install which had a few blogs already. Not sure if the
+>>> sequence of installing things matter here? Also, is it essential to install
+>>> the BuddyPress theme for the setup to execute correctly (as I haven't done
+>>> that for my original install)...
+>>>
+>>
+>> I'll chime in a little here. Almost all the development so far has gone on
+>> the notion of people using it on a fresh installation of MU.
+>>
+>> I know there are a lot of people out there who want to drop BuddyPress
+>> into an existing blog network (of course this will be of the features of
+>> BuddyPress).
+>>
+>> Now seems to be a good time to start going back over what has been done
+>> and put the parts in place that will let BuddyPress start to support
+>> existing installs. I'll be looking at this over the next couple of weeks
+>> (I'm on vacation next week), then moving onto the next components.
+>>
+>> Specific things that will be looked at:
+>>
+>>  - Supporting existing themes - stopping the 404's when template files
+>> don't exist. The back end functionality tabs will need to be re-enabled for
+>> this. Currently it's the default theme or nothing.
+>>
+>>  - Writing code to assign a subdomain or subfolder as your "home base" and
+>> all others as blogs you belong to. This should solve the user-vs-blog
+>> centric problem.
+>>
+>>  - Making sure that BP template tags can be used on any template file,
+>> under any page slug. Right now profile information can only be rendered
+>> under domain.com/user/profile for example. This won't work for a lot of
+>> people. Sollaires opened a ticket for this exact problem recently with a
+>> potential fix - http://trac.buddypress.org/ticket/55
+>>
+>> Does anyone have any comments on any of this?
+>>
+>> Cheers,
+>> Andy
+>>
+>> ---------
+>> Andy Peatling | Social Engineer | Automattic
+>> http://apeatling.wordpress.com
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080821/9cacd8d8/attachment.htm
+From andypeatling at automattic.com  Thu Aug 21 19:22:07 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Aug 21 19:22:21 2008
+Subject: [buddypress-dev] Call to undefined function bp_is_blog() .... on
+	line 16?
+In-Reply-To: <44f2b760808201935r5562dd49k92cc04e2f0de9c7b@mail.gmail.com>
+References: <44f2b760808201935r5562dd49k92cc04e2f0de9c7b@mail.gmail.com>
+Message-ID: <9F0A5A7E-6EAC-4B13-BF0D-B1F860F9D8CB@automattic.com>
+
+On 20-Aug-08, at 7:35 PM, Brad Flora wrote:
+
+> Hey there, I'm setting up my first bpress test install and right  
+> after I switched over to the bpress theme, I received this error.   
+> Do I not have the buddypress tables installed?  I wondered about that.
+
+> How do I fix this?
+
+What's the error?
+
+> The install instructions are somewhat vague about how the buddypress  
+> tables are installed.  Instead of having them be automatically  
+> isntalled at some indeterminate point when I log in, what if I had a  
+> button I could press to install them from the admin?
+
+It's just a case of adding the correct hooks in place, so that the  
+tables will be set up as soon as you hit the site. That way there is  
+no need for this. Normal WordPress plugins create their tables upon  
+activation - but of course mu-plugins are automatically activated.
+
+Cheers
+Andy
+From andypeatling at automattic.com  Thu Aug 21 19:25:12 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Aug 21 19:25:21 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <48ACBAE0.9010108@gmail.com>
+References: <C4D03622.4E7D%brian.brey@nxtstudios.com>	<48AB413D.2000605@gmail.com>
+	<34BF06E0-2E3A-495D-B91F-6A1EFB47FF5C@automattic.com>
+	<48ACBAE0.9010108@gmail.com>
+Message-ID: <66FCA112-8AA0-4D8E-A591-19F6D2E4E736@automattic.com>
+
+On 20-Aug-08, at 5:46 PM, phlux0r wrote:
+
+> Hi Andy,
+>
+> I don't know much about BuddyPress yet to make suggestions but, I  
+> guess it would be good to have the ability to configure the way BP  
+> hooks into Mu. For example, on a default Mu site, the site blog  
+> homes are just their subdomains (or subdirectories if VHOST=no). But  
+> BP changes that. I hacked around to add a new option under  
+> BuddyPress to allow setting if the blog or the profile should be the  
+> default home...
+
+Great, please feel free to share any work! I will be working on blog/ 
+user home options in the next couple of weeks.
+
+> In the course of my current project, I will certainly get under the  
+> hood of BuddyPress and be able to contribute more...
+
+Great! Feel free to take a shot at any of the functionality on the  
+roadmap, or test, bug fix, whatever you feel like really. :)
+
+I'm in the process of commenting most functions in BuddyPress, so  
+understanding the code should begin to get easier from now on.
+
+Cheers
+Andy
+From phlux0r at gmail.com  Thu Aug 21 21:26:15 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Thu Aug 21 21:26:34 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <66FCA112-8AA0-4D8E-A591-19F6D2E4E736@automattic.com>
+References: <C4D03622.4E7D%brian.brey@nxtstudios.com>	<48AB413D.2000605@gmail.com>	<34BF06E0-2E3A-495D-B91F-6A1EFB47FF5C@automattic.com>	<48ACBAE0.9010108@gmail.com>
+	<66FCA112-8AA0-4D8E-A591-19F6D2E4E736@automattic.com>
+Message-ID: <48ADDD77.8040408@gmail.com>
+
+Hi Andy,
+
+what's the best way to share any code?
+
+Regards,
+Robert
+
+Andy Peatling wrote:
+> On 20-Aug-08, at 5:46 PM, phlux0r wrote:
+>
+>> Hi Andy,
+>>
+>> I don't know much about BuddyPress yet to make suggestions but, I 
+>> guess it would be good to have the ability to configure the way BP 
+>> hooks into Mu. For example, on a default Mu site, the site blog homes 
+>> are just their subdomains (or subdirectories if VHOST=no). But BP 
+>> changes that. I hacked around to add a new option under BuddyPress to 
+>> allow setting if the blog or the profile should be the default home...
+>
+> Great, please feel free to share any work! I will be working on 
+> blog/user home options in the next couple of weeks.
+>
+>> In the course of my current project, I will certainly get under the 
+>> hood of BuddyPress and be able to contribute more...
+>
+> Great! Feel free to take a shot at any of the functionality on the 
+> roadmap, or test, bug fix, whatever you feel like really. :)
+>
+> I'm in the process of commenting most functions in BuddyPress, so 
+> understanding the code should begin to get easier from now on.
+>
+> Cheers
+> Andy
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+From andypeatling at automattic.com  Thu Aug 21 22:30:01 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Aug 21 22:30:22 2008
+Subject: [buddypress-dev] Re: Is it working with WPMU 2.6?
+In-Reply-To: <48ADDD77.8040408@gmail.com>
+References: <C4D03622.4E7D%brian.brey@nxtstudios.com>	<48AB413D.2000605@gmail.com>	<34BF06E0-2E3A-495D-B91F-6A1EFB47FF5C@automattic.com>	<48ACBAE0.9010108@gmail.com>
+	<66FCA112-8AA0-4D8E-A591-19F6D2E4E736@automattic.com>
+	<48ADDD77.8040408@gmail.com>
+Message-ID: <9D0430A3-0863-4F36-8B71-98B13DEBDCB5@automattic.com>
+
+> What's the best way to share any code?
+
+Two ways really. The best, if you can manage it, is to create a patch  
+file. This is a file that can be merged with the current code base and  
+easily reviewed and tested.
+
+A how to is here:
+http://laughingmeme.org/2004/02/18/how-to-make-a-patch-file/
+
+Once you have created the patch file, you can create a new ticket at: http://trac.buddypress.org 
+  (login with your WP.org forums user/pass). Describe the problem it  
+fixes and attach the patch file.
+
+If it is only a really small amount of code, then you can always paste  
+it into an email here on the list.
+
+Cheers
+Andy
+
+
+>
+> Andy Peatling wrote:
+>> On 20-Aug-08, at 5:46 PM, phlux0r wrote:
+>>
+>>> Hi Andy,
+>>>
+>>> I don't know much about BuddyPress yet to make suggestions but, I  
+>>> guess it would be good to have the ability to configure the way BP  
+>>> hooks into Mu. For example, on a default Mu site, the site blog  
+>>> homes are just their subdomains (or subdirectories if VHOST=no).  
+>>> But BP changes that. I hacked around to add a new option under  
+>>> BuddyPress to allow setting if the blog or the profile should be  
+>>> the default home...
+>>
+>> Great, please feel free to share any work! I will be working on  
+>> blog/user home options in the next couple of weeks.
+>>
+>>> In the course of my current project, I will certainly get under  
+>>> the hood of BuddyPress and be able to contribute more...
+>>
+>> Great! Feel free to take a shot at any of the functionality on the  
+>> roadmap, or test, bug fix, whatever you feel like really. :)
+>>
+>> I'm in the process of commenting most functions in BuddyPress, so  
+>> understanding the code should begin to get easier from now on.
+>>
+>> Cheers
+>> Andy
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From pile110385 at gmail.com  Sat Aug 23 10:49:11 2008
+From: pile110385 at gmail.com (pile x)
+Date: Sat Aug 23 10:49:25 2008
+Subject: [buddypress-dev] wheres to download
+Message-ID: <eb46a1830808230349t25f17257u6ba7c89819c24be6@mail.gmail.com>
+
+i only can download these plugin
+
+   - Core v0.2.3:
+Download<http://trac.buddypress.org/changeset/282/tags/core/0.2.3?old_path=%2F&format=zip>
+   - Private Messaging v0.3.3:
+Download<http://trac.buddypress.org/changeset/282/tags/private-messaging/0.3.3?old_path=%2F&format=zip>
+   - Extended Profiles v0.3.6:
+Download<http://trac.buddypress.org/changeset/303/tags/extended-profiles/0.3.6?old_path=%2F&format=zip>
+   - Friends v0.1.3:
+Download<http://trac.buddypress.org/changeset/303/tags/friends/0.1.3?old_path=%2F&format=zip>
+   - Groups v0.1.1:
+Download<http://trac.buddypress.org/changeset/291/tags/groups/0.1.1?old_path=%2F&format=zip>
+   - BuddyPress <http://trac.buddypress.org/wiki/BuddyPress> Theme v0.2.4:
+   Download<http://trac.buddypress.org/changeset/303/tags/buddypress-theme/0.2.4?old_path=%2F&format=zip>
+
+wheres the other
+
+   - The Wire
+   - Status Updates
+   - Albums
+
+anyone know ?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080823/ed94fb8b/attachment.htm
+From pile110385 at gmail.com  Sat Aug 23 22:06:08 2008
+From: pile110385 at gmail.com (pile x)
+Date: Sat Aug 23 22:06:18 2008
+Subject: [buddypress-dev] where is the album
+Message-ID: <eb46a1830808231506n14f6da64uabeb6c8eb5fa82f6@mail.gmail.com>
+
+i have installed and cant find the album. where is it ?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080823/0000cc85/attachment.htm
+From phlux0r at gmail.com  Sun Aug 24 03:08:37 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Sun Aug 24 03:08:23 2008
+Subject: [buddypress-dev] wheres to download
+In-Reply-To: <eb46a1830808230349t25f17257u6ba7c89819c24be6@mail.gmail.com>
+References: <eb46a1830808230349t25f17257u6ba7c89819c24be6@mail.gmail.com>
+Message-ID: <48B0D0B5.3010708@gmail.com>
+
+BuddyPress in under development. If there is no plugin for download, 
+that means it hasn't been released yet. So, you won't find the album 
+anywhere...
+
+pile x wrote:
+> i only can download these plugin
+>
+>     * Core v0.2.3: Download
+>       <http://trac.buddypress.org/changeset/282/tags/core/0.2.3?old_path=%2F&format=zip>
+>
+>     * Private Messaging v0.3.3: Download
+>       <http://trac.buddypress.org/changeset/282/tags/private-messaging/0.3.3?old_path=%2F&format=zip>
+>
+>     * Extended Profiles v0.3.6: Download
+>       <http://trac.buddypress.org/changeset/303/tags/extended-profiles/0.3.6?old_path=%2F&format=zip>
+>
+>     * Friends v0.1.3: Download
+>       <http://trac.buddypress.org/changeset/303/tags/friends/0.1.3?old_path=%2F&format=zip>
+>
+>     * Groups v0.1.1: Download
+>       <http://trac.buddypress.org/changeset/291/tags/groups/0.1.1?old_path=%2F&format=zip>
+>
+>     * BuddyPress <http://trac.buddypress.org/wiki/BuddyPress> Theme
+>       v0.2.4: Download
+>       <http://trac.buddypress.org/changeset/303/tags/buddypress-theme/0.2.4?old_path=%2F&format=zip>
+>
+> wheres the other
+>
+>     * The Wire
+>     * Status Updates
+>     * Albums
+>
+> anyone know ?
+>
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+
+From phlux0r at gmail.com  Sun Aug 24 03:12:55 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Sun Aug 24 03:12:37 2008
+Subject: [buddypress-dev] Profile without blog?
+Message-ID: <48B0D1B7.9040707@gmail.com>
+
+WPMu has an option at sign-up to allow the user to choose if they want a 
+blog or just a username. With BudsdyPress installed, when I tried to 
+sign up without creating a blog, my user still received a blog along 
+with the account. Is it not possible to omit the creation of a blog when 
+BuddyPress is active? Ideally I'd like to allow users to choose whether 
+they want a blog or not (or specify an external blog) and yet in all 
+cases I want them to have a BuddyPress profile... is this possible?
+
+Cheers,
+Robert
+From graphite at joeyguerra.com  Mon Aug 25 01:18:22 2008
+From: graphite at joeyguerra.com (Joey Guerra)
+Date: Mon Aug 25 01:19:02 2008
+Subject: [buddypress-dev] Links not resolving correctly in my environment
+	(VHOSTS = no)
+Message-ID: <E9EAEA79-0DC6-4166-B401-DA896BE91022@joeyguerra.com>
+
+Anyone have any suggestions as to how to fix the links like Profile,  
+Blog, Messages, Friends, and Groups after logging into the site? They  
+don't resolve correctly when the app is configured not to use VHOSTS.
+
+Joey Guerra
+From mike at valuecreek.net  Mon Aug 25 02:09:52 2008
+From: mike at valuecreek.net (Mike Axelrod)
+Date: Mon Aug 25 02:10:02 2008
+Subject: [buddypress-dev] After Update > Missing menus in Admin
+In-Reply-To: <48B0D0B5.3010708@gmail.com>
+References: <eb46a1830808230349t25f17257u6ba7c89819c24be6@mail.gmail.com>
+	<48B0D0B5.3010708@gmail.com>
+Message-ID: <48B21470.3060808@valuecreek.net>
+
+Hello -
+
+I just upgraded all my BP components and now I am missing the Admin menu 
+for "Profile" and "Messaging" with were there before.
+
+Any help??
+
+Thanks
+>
+From phlux0r at gmail.com  Mon Aug 25 04:16:01 2008
+From: phlux0r at gmail.com (phlux0r)
+Date: Mon Aug 25 04:15:45 2008
+Subject: [buddypress-dev] After Update > Missing menus in Admin
+In-Reply-To: <48B21470.3060808@valuecreek.net>
+References: <eb46a1830808230349t25f17257u6ba7c89819c24be6@mail.gmail.com>	<48B0D0B5.3010708@gmail.com>
+	<48B21470.3060808@valuecreek.net>
+Message-ID: <48B23201.5020901@gmail.com>
+
+Apparently, the devs have commented those out on purpose. You will need 
+to edit the code files and uncomment them back... Not sure what 
+consequences that might have...
+
+Regards,
+Robert
+
+Mike Axelrod wrote:
+> Hello -
+>
+> I just upgraded all my BP components and now I am missing the Admin 
+> menu for "Profile" and "Messaging" with were there before.
+>
+> Any help??
+>
+> Thanks
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+From andreas at hanfelt.se  Tue Aug 26 07:55:11 2008
+From: andreas at hanfelt.se (Andreas Hanfelt)
+Date: Tue Aug 26 07:55:24 2008
+Subject: [buddypress-dev] -1[[SPLIT]]Friend could not be added
+Message-ID: <766AD2EE-FE2E-4E21-8C1A-C30F1E501CE8@hanfelt.se>
+
+My install of Buddypress is working except for one thing whenever i  
+try to add a friend i get this error code "-1[[SPLIT]]Friend could not  
+be added"..
+
+Does anyone know where to start tracking down this error or do you  
+have any solution?? It works on testdrivewpmu..
+
+Cheers!
+Andreas Hanfelt
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080826/e5b2f7c4/attachment.htm
+From andreas at hanfelt.se  Tue Aug 26 08:18:35 2008
+From: andreas at hanfelt.se (Andreas Hanfelt)
+Date: Tue Aug 26 08:18:54 2008
+Subject: [buddypress-dev] -1[[SPLIT]]Friend could not be added
+In-Reply-To: <766AD2EE-FE2E-4E21-8C1A-C30F1E501CE8@hanfelt.se>
+References: <766AD2EE-FE2E-4E21-8C1A-C30F1E501CE8@hanfelt.se>
+Message-ID: <E98A0358-F970-443F-AF74-638BBA3F64F3@hanfelt.se>
+
+I found out that in the table wp-bp-friends the row is_limited bool  
+DEFAULT 0, was missing now everything works as it should..
+
+
+26 aug 2008 kl. 09.55 skrev Andreas Hanfelt:
+
+> My install of Buddypress is working except for one thing whenever i  
+> try to add a friend i get this error code "-1[[SPLIT]]Friend could  
+> not be added"..
+>
+> Does anyone know where to start tracking down this error or do you  
+> have any solution?? It works on testdrivewpmu..
+>
+> Cheers!
+> Andreas Hanfelt
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080826/e3d88654/attachment.htm
+From mike at valuecreek.net  Sat Aug 30 01:07:55 2008
+From: mike at valuecreek.net (Mike Axelrod)
+Date: Sat Aug 30 01:07:54 2008
+Subject: [buddypress-dev] Import Users?!?!?
+Message-ID: <48B89D6B.6000106@valuecreek.net>
+
+Hey there
+
+Does anyone know a way to upload users and passwords and have it create 
+a blog at the same time?  I have the list in a CSV file already.
+
+Thanks a bunch
+Mike
+From jed at deafnation.com  Sat Aug 30 02:58:05 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Sat Aug 30 02:58:33 2008
+Subject: [buddypress-dev] Import Users?!?!?
+Message-ID: <1578776473.612271220065085961.JavaMail.root@mail-3.01.com>
+
+Yes, I would like to know how to do that. Lets say that I have users on wp v2.6 not wpmu then export into wpmu to create individual blog/user. Is it posssible?
+
+Jed
+
+-----Original Message-----
+From: Mike Axelrod <mike@valuecreek.net>
+Sent: Friday, August 29, 2008 8:08 PM
+To: buddypress-dev@lists.automattic.com
+Subject: [buddypress-dev] Import Users?!?!?
+
+Hey there
+
+Does anyone know a way to upload users and passwords and have it create 
+a blog at the same time?  I have the list in a CSV file already.
+
+Thanks a bunch
+Mike
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From sollaires at gmail.com  Sat Aug 30 03:35:06 2008
+From: sollaires at gmail.com (Dave Hendler)
+Date: Sat Aug 30 03:35:18 2008
+Subject: [buddypress-dev] Import Users?!?!?
+In-Reply-To: <1578776473.612271220065085961.JavaMail.root@mail-3.01.com>
+References: <1578776473.612271220065085961.JavaMail.root@mail-3.01.com>
+Message-ID: <5b7b4b0d0808292035m11c02af6yba7760caffc3a653@mail.gmail.com>
+
+I don't have the link handy, but if you search the wpmu forums, there
+are some older threads about this kind of stuff.  The primary 2
+methods either require using a script that automatically posts data to
+the sign-up form (though posts about this are often deleted or derided
+as being only needed by spam bloggers), or hacking the wpmu core just
+a little bit to allow the wpmu_create_blog() function to work more
+than once in a script (I believe Vinn or Vim is a user who has posted
+some patch files in the wpmu trac).
+
+I have a very hacked together shell script along with a few changes to
+the wpmu core that allows me to automatically import users in my
+primary system into wpmu/bp install, however the code is very hacky
+and not really production ready.  In order to add BP-specific user
+data, I basically copied some code that appears in the sign-up form to
+create the BP Profile fields.  I also have to do some funky stuff with
+$_SERVER to make the wordpress files believe it's being run from a web
+page and not a shell script.  And also make sure I'm very careful with
+any local variable names since they are all in the global scope.  As I
+said, really, really hacky.
+
+The basic answer is that it's not simple (and given the tenor of
+responders to questions like these in the wpmu community, never will
+be simple) but it can be done.  I don't have access to my code atm,
+but I could possibly post some examples of what I've done some time
+next week if there is interest.
+
+- dave
+
+On Fri, Aug 29, 2008 at 10:58 PM, Jed Barish <jed@deafnation.com> wrote:
+> Yes, I would like to know how to do that. Lets say that I have users on wp v2.6 not wpmu then export into wpmu to create individual blog/user. Is it posssible?
+>
+> Jed
+>
+> -----Original Message-----
+> From: Mike Axelrod <mike@valuecreek.net>
+> Sent: Friday, August 29, 2008 8:08 PM
+> To: buddypress-dev@lists.automattic.com
+> Subject: [buddypress-dev] Import Users?!?!?
+>
+> Hey there
+>
+> Does anyone know a way to upload users and passwords and have it create
+> a blog at the same time?  I have the list in a CSV file already.
+>
+> Thanks a bunch
+> Mike
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+dave hendler
+:wq
+From sillyandrea at gmail.com  Sat Aug 30 11:01:22 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Sat Aug 30 11:06:20 2008
+Subject: [buddypress-dev] Import Users?!?!?
+In-Reply-To: <5b7b4b0d0808292035m11c02af6yba7760caffc3a653@mail.gmail.com>
+References: <1578776473.612271220065085961.JavaMail.root@mail-3.01.com>
+	<5b7b4b0d0808292035m11c02af6yba7760caffc3a653@mail.gmail.com>
+Message-ID: <48b9299c.1f2d400a.1ca4.0a9a@mx.google.com>
+
+Nope, you're right - it's not simple. Primarily because WordPressMU 
+handles users differently than WordPress.
+
+Even moving users manually via database records, I still have issues. 
+And that's even before creating a bunch of blogs. :-/
+
+We're still in the early stages of BP development, and even MU has a few 
+things that need fixing. That's part of the reason too.
+
+Andrea_R
+
+Dave Hendler wrote:
+> The basic answer is that it's not simple (and given the tenor of
+> responders to questions like these in the wpmu community, never will
+> be simple) but it can be done.  
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From jed at deafnation.com  Sat Aug 30 15:51:27 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Sat Aug 30 15:51:44 2008
+Subject: [buddypress-dev] Import Users?!?!?
+Message-ID: <791030836.627741220111487075.JavaMail.root@mail-3.01.com>
+
+How's about wpmu users without blogs then enable all users with blogs later on?  Jed
+
+-----Original Message-----
+From: Andrea <sillyandrea@gmail.com>
+Sent: Saturday, August 30, 2008 6:06 AM
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] Import Users?!?!?
+
+Nope, you're right - it's not simple. Primarily because WordPressMU 
+handles users differently than WordPress.
+
+Even moving users manually via database records, I still have issues. 
+And that's even before creating a bunch of blogs. :-/
+
+We're still in the early stages of BP development, and even MU has a few 
+things that need fixing. That's part of the reason too.
+
+Andrea_R
+
+Dave Hendler wrote:
+> The basic answer is that it's not simple (and given the tenor of
+> responders to questions like these in the wpmu community, never will
+> be simple) but it can be done.  
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From sillyandrea at gmail.com  Sat Aug 30 15:52:22 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Sat Aug 30 15:57:21 2008
+Subject: [buddypress-dev] Import Users?!?!?
+In-Reply-To: <791030836.627741220111487075.JavaMail.root@mail-3.01.com>
+References: <791030836.627741220111487075.JavaMail.root@mail-3.01.com>
+Message-ID: <48b96dd5.0c17400a.1431.6f59@mx.google.com>
+
+Still gotta move 'em manually. :-/
+
+(yes, it's really *fun* too.)
+ 
+Jed Barish wrote:
+> How's about wpmu users without blogs then enable all users with blogs later on?  Jed
+>
+> -----Original Message-----
+> From: Andrea <sillyandrea@gmail.com>
+> Sent: Saturday, August 30, 2008 6:06 AM
+> To: buddypress-dev@lists.automattic.com
+> Subject: Re: [buddypress-dev] Import Users?!?!?
+>
+> Nope, you're right - it's not simple. Primarily because WordPressMU 
+> handles users differently than WordPress.
+>
+> Even moving users manually via database records, I still have issues. 
+> And that's even before creating a bunch of blogs. :-/
+>
+> We're still in the early stages of BP development, and even MU has a few 
+> things that need fixing. That's part of the reason too.
+>
+> Andrea_R
+>
+> Dave Hendler wrote:
+>   
+>> The basic answer is that it's not simple (and given the tenor of
+>> responders to questions like these in the wpmu community, never will
+>> be simple) but it can be done.  
+>>     
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From jed at deafnation.com  Sat Aug 30 16:02:06 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Sat Aug 30 16:02:25 2008
+Subject: [buddypress-dev] Import Users?!?!?
+Message-ID: <1004105654.628651220112126752.JavaMail.root@mail-3.01.com>
+
+No custom script to do it easily for us? I guess we better off to register them as user with blog ready. I ll find a way to make the process invisible as user but it ll register them with blogs ready til we make it available. Im ready to launch a beta site with buddypress to test it out with multiple db from wpmu premium.
+
+Thanks! I ll post a url where I ll begin my bp community! Can't wait to see albums and others fully integrated for testing til dec 1st 08. Hope it ll be the official date of release!
+
+Jed
+
+-----Original Message-----
+From: Andrea <sillyandrea@gmail.com>
+Sent: Saturday, August 30, 2008 10:57 AM
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] Import Users?!?!?
+
+Still gotta move 'em manually. :-/
+
+(yes, it's really *fun* too.)
+ 
+Jed Barish wrote:
+> How's about wpmu users without blogs then enable all users with blogs later on?  Jed
+>
+> -----Original Message-----
+> From: Andrea <sillyandrea@gmail.com>
+> Sent: Saturday, August 30, 2008 6:06 AM
+> To: buddypress-dev@lists.automattic.com
+> Subject: Re: [buddypress-dev] Import Users?!?!?
+>
+> Nope, you're right - it's not simple. Primarily because WordPressMU 
+> handles users differently than WordPress.
+>
+> Even moving users manually via database records, I still have issues. 
+> And that's even before creating a bunch of blogs. :-/
+>
+> We're still in the early stages of BP development, and even MU has a few 
+> things that need fixing. That's part of the reason too.
+>
+> Andrea_R
+>
+> Dave Hendler wrote:
+>   
+>> The basic answer is that it's not simple (and given the tenor of
+>> responders to questions like these in the wpmu community, never will
+>> be simple) but it can be done.  
+>>     
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev

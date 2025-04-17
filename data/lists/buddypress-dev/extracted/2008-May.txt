@@ -1,0 +1,3601 @@
+From chengo at gmail.com  Fri May  2 05:42:51 2008
+From: chengo at gmail.com (William)
+Date: Fri May  2 05:43:05 2008
+Subject: [buddypress-dev] BuddyPress Status
+Message-ID: <b63307a70805012242p4ed6c04fqe8eb0a41bc6509c1@mail.gmail.com>
+
+Hi there everyone, I am not sure if this will work, anyway I am a student
+from the university of Sydney, me and my colleague is currently doing a
+independant project based on PHP, due to our time constraints, we started
+searching for existing platforms to work on and buddypress seems to be a
+very nice candidate. So my question here is:
+
+1) What is the current project status? Is the one listed on
+trac.buddypress.org up to date?
+2) Which functionalities is currently working or almost working?
+3) With around Intermediate knowledge of PHP, how hard would it be to take
+up Word Press and BuddyPress and begin work on it? Will we need to spend
+alot of time getting acquainted with WordPress first?
+
+Thanks guys, looking forward to your replies.
+
+William
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080502/2ce22612/attachment.htm
+From andypeatling at automattic.com  Mon May  5 17:50:41 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon May  5 17:50:53 2008
+Subject: [buddypress-dev] BuddyPress Status
+In-Reply-To: <b63307a70805012242p4ed6c04fqe8eb0a41bc6509c1@mail.gmail.com>
+References: <b63307a70805012242p4ed6c04fqe8eb0a41bc6509c1@mail.gmail.com>
+Message-ID: <1213A491-B4F9-4205-99BE-DC39CF7C33EB@automattic.com>
+
+On 1-May-08, at 10:42 PM, William wrote:
+
+> Hi there everyone, I am not sure if this will work, anyway I am a  
+> student from the university of Sydney, me and my colleague is  
+> currently doing a independant project based on PHP, due to our time  
+> constraints, we started searching for existing platforms to work on  
+> and buddypress seems to be a very nice candidate. So my question  
+> here is:
+
+Hi!
+
+> 1) What is the current project status? Is the one listed on  
+> trac.buddypress.org up to date?
+
+The current project status is that BuddyPress is in heavy development  
+mode right now. I've recently updated the project status in Trac.
+
+>
+> 2) Which functionalities is currently working or almost working?
+
+Extended profiles and messaging are the two components that we have  
+completed major work on, these should be functioning well but haven't  
+been tested heavily yet. The groups component is quite far along, but  
+still lacks templating ability to display groups to the user.
+
+>
+> 3) With around Intermediate knowledge of PHP, how hard would it be  
+> to take up Word Press and BuddyPress and begin work on it? Will we  
+> need to spend alot of time getting acquainted with WordPress first?
+
+You'd need fairly good knowledge of how Wordpress works to really  
+understand what is going on. However, what you need to know is all in  
+the Wordpress Codex (codex.wordpress.org) so you can always use that  
+as a reference. The best way to learn is to get in there and see what  
+is going on.
+
+Good luck!
+Andy
+From claggan at eircom.net  Tue May  6 01:07:14 2008
+From: claggan at eircom.net (Gerry Mulgrew)
+Date: Tue May  6 01:07:19 2008
+Subject: [buddypress-dev] (no subject)
+Message-ID: <001c01c8af15$85e9df90$63ce869f@Claggan>
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080506/2c76608f/attachment.htm
+From andypeatling at automattic.com  Wed May  7 19:15:54 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed May  7 19:16:39 2008
+Subject: [buddypress-dev] Project Updates
+Message-ID: <69934088-BC79-4A4B-A083-4CFEFD93A961@automattic.com>
+
+Hi All,
+
+Some project status updates:
+
+---------
+
+* New avatar functionality has been added to BuddyPress courtesy of  
+code provided by Beau Lebens. Profile avatars can now be cropped to  
+two different sizes.
+
+* The extended profile component is now closing in on being feature  
+complete. Justin Ball and Trenton Cameron are working on some  
+additional features as outlined inhttp://trac.buddypress.org/ticket/12
+
+* The extended profile component now includes fully functional  
+template tags. This means profile data can be rendered easily in  
+existing themes.
+
+* The messaging component has been completely re-written. Messages are  
+now threaded and viewed in a conversational style. The component now  
+makes use of the included Wordpress AJAX hooks for inline replying to  
+messages.
+
+* Beau is working on "to:" field AJAX autocompletion that will  
+autocomplete both friend names and group names.
+
+* After a lengthy discussion in #buddypress on IRC, I am putting  
+together a development roadmap this week. This will outline the  
+functionality we want completed for each tagged release. I will be  
+adding this to trac. I have just today tagged version 0.1 at:http://svn.buddypress.org/tags/
+
+* The groups component is being worked on by Chris Taylor when he has  
+spare time. He has done a great job integrating his work with the  
+BuddyPress environment so far. The next step with this component is to  
+create custom template tags so that groups can be rendered within  
+themes. Once I have completed my work on the messaging component I  
+will be helping Chris with this.
+
+----------
+
+I will be emailing the list once the roadmap is complete. This should  
+give people a solid idea on feature breakdown, direction and the  
+current status of our push towards 1.0. If there are any developers  
+out there who would like to give some of their time to the project,  
+please feel free to email me at anytime (or drop into #buddypress on  
+freenode).
+
+As always, bugs can be reported at: http://trac.buddypress.org/ 
+newticket (login with your WP.org support forum credentials).
+
+Thanks!
+Andy
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From wildebees at gmail.com  Thu May  8 18:52:37 2008
+From: wildebees at gmail.com (Wessel van Rensburg)
+Date: Thu May  8 18:52:50 2008
+Subject: [buddypress-dev] 1. Project Updates
+Message-ID: <7e0677d0805081152o1667000br75d8eb0e4c79b9d5@mail.gmail.com>
+
+Great work Andy and everybody else.
+
+> the extended profile component now includes fully functional
+> This means profile data can be rendered easily in
+> existing themes.
+
+Sorry, you might have gone over this before, but does this mean the
+Buddypress specific theme will become redundant and that we will be
+able to use any theme with tags thats WORDPRESS MU  friendly?
+(assuming we integrated the tags)
+
+
+
+-- 
+*
+
+* Wessel van Rensburg
+
+ + 44 7530341889
+ + 27 7658 71271
+
+* Skype: wildebees
+* http://zuluzulu.wordpress.com
+From andypeatling at automattic.com  Thu May  8 20:07:10 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu May  8 20:07:26 2008
+Subject: [buddypress-dev] 1. Project Updates
+In-Reply-To: <7e0677d0805081152o1667000br75d8eb0e4c79b9d5@mail.gmail.com>
+References: <7e0677d0805081152o1667000br75d8eb0e4c79b9d5@mail.gmail.com>
+Message-ID: <4C9C4963-D8AA-48BA-BE04-FFA4149C8171@automattic.com>
+
+On 8-May-08, at 11:52 AM, Wessel van Rensburg wrote:
+
+> Great work Andy and everybody else.
+>
+>> the extended profile component now includes fully functional
+>> This means profile data can be rendered easily in
+>> existing themes.
+>
+> Sorry, you might have gone over this before, but does this mean the
+> Buddypress specific theme will become redundant and that we will be
+> able to use any theme with tags thats WORDPRESS MU  friendly?
+> (assuming we integrated the tags)
+>
+
+We'll provide a default theme that includes all the template tags in  
+the correct places. However, yes, you can use the template tags to  
+provide BuddyPress functionality within your existing WordPress theme.
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From jeromebeta at gmail.com  Fri May  9 07:51:22 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Fri May  9 07:51:33 2008
+Subject: [buddypress-dev] 1. Project Updates
+In-Reply-To: <7e0677d0805081152o1667000br75d8eb0e4c79b9d5@mail.gmail.com>
+References: <7e0677d0805081152o1667000br75d8eb0e4c79b9d5@mail.gmail.com>
+Message-ID: <3f7bc4310805090051u57899fe5hc2c2f9b32df348c2@mail.gmail.com>
+
+I would like to thank everyone working here, it is a wonderful project and I
+believe there is a wonderful team behind it as well, I appreciate your job
+very much!
+
+I just had a try on the lastest trunk, I found it messed up all category,
+archieve and page link of my wpmu site, these links all do not work, I just
+wonder does buddypress support wpmu subdirectory installation? furthermore,
+the avatar upload does not work either, unless I changed the submit url of
+the form in bp-xprofile-avatars.php, I suppose it is the same problem if
+current buddypress build is only designed for subdomian installation.
+
+btw, how to change the Encoding to UTF-8? my wpmu site is UTF-8, but
+buddypress on my site still can not display Chinese correctly.
+
+Is there anybody have any idea about my problems? any clues? thanks very
+much!
+
+On Thu, May 8, 2008 at 8:52 PM, Wessel van Rensburg <wildebees@gmail.com>
+wrote:
+
+> Great work Andy and everybody else.
+>
+> > the extended profile component now includes fully functional
+> > This means profile data can be rendered easily in
+> > existing themes.
+>
+> Sorry, you might have gone over this before, but does this mean the
+> Buddypress specific theme will become redundant and that we will be
+> able to use any theme with tags thats WORDPRESS MU  friendly?
+> (assuming we integrated the tags)
+>
+>
+>
+> --
+> *
+>
+> * Wessel van Rensburg
+>
+>  + 44 7530341889
+>  + 27 7658 71271
+>
+> * Skype: wildebees
+> * http://zuluzulu.wordpress.com
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080509/86b89fd4/attachment.htm
+From andypeatling at automattic.com  Fri May  9 23:24:57 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri May  9 23:25:11 2008
+Subject: [buddypress-dev] @buddypressdev on Twitter
+Message-ID: <2C5A325E-FB76-4D7E-90E7-8B8F1B27AC4F@automattic.com>
+
+I'm posting brief updates under username: 'buddypressdev' for those  
+who use Twitter.
+
+Cheers
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From admin at harikayaa.com  Sat May 10 07:23:20 2008
+From: admin at harikayaa.com (Emre Murat Tatar)
+Date: Sat May 10 07:23:54 2008
+Subject: [buddypress-dev] Contact Grabber
+References: <2C5A325E-FB76-4D7E-90E7-8B8F1B27AC4F@automattic.com>
+Message-ID: <48254D67.000010.00836@SPECIAI>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/jpeg
+Size: 1458 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080510/772a2546/attachment.jpeg
+From chris at stillbreathing.co.uk  Sat May 10 20:18:20 2008
+From: chris at stillbreathing.co.uk (Chris Taylor - stillbreathing.co.uk)
+Date: Sat May 10 20:18:49 2008
+Subject: [buddypress-dev] Contact Grabber
+In-Reply-To: <48254D67.000010.00836@SPECIAI>
+References: <2C5A325E-FB76-4D7E-90E7-8B8F1B27AC4F@automattic.com>
+	<48254D67.000010.00836@SPECIAI>
+Message-ID: <60fe160a0805101318i536527f6nfc086928e2d48891@mail.gmail.com>
+
+Hi,
+
+I've used this system on myJournal.com and it's pretty good, although
+you have to be careful as it can bring back a LOT of contacts, not all
+of them valid email addresses. It is a good way to grow a social
+networking site, but some may see it as a way to allow people to spam
+their friends.
+
+Chris
+
+
+On Sat, May 10, 2008 at 8:23 AM, Emre Murat Tatar <admin@harikayaa.com> wrote:
+> Hi Andy,
+>
+> Twitter is good idea.
+>
+> I'am looking to Friends: Roadmap,
+> I think "Contact Grabber stystem" must be included its
+> http://drupal.org/node/151134
+> http://sourceforge.net/projects/cl-grabber/
+> Its will make "geometrical growth"
+> This is "Magic Word" for big/est social network (facebook etc.)
+>
+> Contact Grabber function/api can be add buddypress?
+>
+> __________
+> Emre Murat
+>
+>
+> -------Original Message-------
+>
+> From: Andy Peatling
+> Date: 05/10/08 02:25:20
+> To: buddypress-dev@lists.automattic.com
+> Subject: [buddypress-dev] @buddypressdev on Twitter
+>
+> I'm posting brief updates under username: 'buddypressdev' for those
+> who use Twitter.
+>
+> Cheers
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+From beau at dentedreality.com.au  Sat May 10 20:27:10 2008
+From: beau at dentedreality.com.au (Beau Lebens)
+Date: Sat May 10 20:27:26 2008
+Subject: [buddypress-dev] Contact Grabber
+In-Reply-To: <60fe160a0805101318i536527f6nfc086928e2d48891@mail.gmail.com>
+References: <2C5A325E-FB76-4D7E-90E7-8B8F1B27AC4F@automattic.com>
+	<48254D67.000010.00836@SPECIAI>
+	<60fe160a0805101318i536527f6nfc086928e2d48891@mail.gmail.com>
+Message-ID: <A8608F20-DD31-49FF-B84F-F5DD839E78F4@dentedreality.com.au>
+
+Another option (if we want to use something like this) is to use the  
+RapLeaf API (http://www.rapleaf.com/apidoc/v2/abook).
+
+I used it on MyBabyOurBaby and it's pretty cool and very easy to use  
+although it does require an API key from RapLeaf.
+
+Just a thought
+
+Beau
+
+-- 
+Beau Lebens
+Dented Reality
+dentedreality.com.au
+beau@dentedreality.com.au
+
+On May 10, 2008, at 1:18 PM, Chris Taylor - stillbreathing.co.uk wrote:
+
+> Hi,
+>
+> I've used this system on myJournal.com and it's pretty good, although
+> you have to be careful as it can bring back a LOT of contacts, not all
+> of them valid email addresses. It is a good way to grow a social
+> networking site, but some may see it as a way to allow people to spam
+> their friends.
+>
+> Chris
+>
+>
+> On Sat, May 10, 2008 at 8:23 AM, Emre Murat Tatar  
+> <admin@harikayaa.com> wrote:
+>> Hi Andy,
+>>
+>> Twitter is good idea.
+>>
+>> I'am looking to Friends: Roadmap,
+>> I think "Contact Grabber stystem" must be included its
+>> http://drupal.org/node/151134
+>> http://sourceforge.net/projects/cl-grabber/
+>> Its will make "geometrical growth"
+>> This is "Magic Word" for big/est social network (facebook etc.)
+>>
+>> Contact Grabber function/api can be add buddypress?
+>>
+>> __________
+>> Emre Murat
+>>
+>>
+>> -------Original Message-------
+>>
+>> From: Andy Peatling
+>> Date: 05/10/08 02:25:20
+>> To: buddypress-dev@lists.automattic.com
+>> Subject: [buddypress-dev] @buddypressdev on Twitter
+>>
+>> I'm posting brief updates under username: 'buddypressdev' for those
+>> who use Twitter.
+>>
+>> Cheers
+>> Andy
+>>
+>> ---------
+>> Andy Peatling | Social Engineer | Automattic
+>> http://andyinlife.com
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From jeromebeta at gmail.com  Mon May 12 07:20:02 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Mon May 12 07:22:53 2008
+Subject: [buddypress-dev] xprofile messed up links
+Message-ID: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+
+First I would like to thank everyone working on this project,  I appreciate
+your job very much!
+
+I planned to integrate xprofile and messages with my wpmu site as the first
+stage, but I got some problems:
+
+1. xprofile messed up all category, archive, page and more other links on my
+wpmu site, did it change the link structure of wpmu?
+
+2. thee avatar uploading, it only works on main blog, for other blogs, you
+need change the submit url of the form in bp-xprofile-avatars.php to make it
+work, my wpmu site is installed in subdirectory mode, is that a problem? is
+the current buddypress build only designed for subdomain mode?
+
+3. buddypress does not using UTF-8 Encoding which I set on my wpmu site, how
+do I resolve it?
+
+thanks a lot!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080512/fbcd2e95/attachment.htm
+From admin at harikayaa.com  Mon May 12 09:52:10 2008
+From: admin at harikayaa.com (Emre Murat Tatar)
+Date: Mon May 12 09:53:04 2008
+Subject: [buddypress-dev] xprofile messed up links
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+Message-ID: <4828134A.00001D.01384@SPECIAI>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/jpeg
+Size: 1458 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080512/803a2a18/attachment.jpeg
+From reinke at gmx.com  Mon May 12 10:12:45 2008
+From: reinke at gmx.com (Carsten Reinke)
+Date: Mon May 12 10:13:02 2008
+Subject: [buddypress-dev] Privacy component
+In-Reply-To: <60fe160a0804181448k3fb6929at770d105021d88467@mail.gmail.com>
+References: <1dae0d150804141639n36fed6b7l27ec54ad3bb59013@mail.gmail.com>
+	<4803ed15.08102c0a.3976.1da6@mx.google.com>
+	<1dae0d150804141701u1237b991yde1323b441094d48@mail.gmail.com>
+	<5aa27e1e0804141734jeb820ccu5964815124ec3bbb@mail.gmail.com>
+	<1dae0d150804141817h6931878dx454fbc0f0bf9ebf5@mail.gmail.com>
+	<38F9D795-6E9A-42D4-A090-03FBED684778@automattic.com>
+	<60fe160a0804181448k3fb6929at770d105021d88467@mail.gmail.com>
+Message-ID: <CB02816B-D529-4555-84E5-9C72956559BA@gmx.com>
+
+Hi,
+
+first of all: Thanks for all the great work done so far.
+
+I've been lurking around here for a while, until now only reading.
+
+I'm currently in the process of implementing a WPMU/Buddypress site  
+which needs privacy based on tags similar to the one described by  
+Chris Taylor.
+
+I have read the roadmap which says "privacy privacy privacy" in core.  
+Is this a subject somebody is already working on actively? Or is  
+there already a plugin or something?
+
+@Chris Taylor: Is your privacy concept something which you want to be  
+added to BP as open source? Or is it specific to your site?
+
+I have only very limited time since I have to run my main business to  
+support my family. But if there's some work which needs my help,  
+maybe I could contribute...
+
+Regards,
+
+Carsten Reinke
+berlinbag.com - Build your own Bag
+
+Am 18.04.2008 um 23:48 schrieb Chris Taylor - stillbreathing.co.uk:
+
+> Hi,
+>
+> A few days ago I said I was working on adding tagging to my friends
+> plugin for myJournal. It's done and working nicely, and after a good
+> conversation with a few people in IRC (room #buddypress on freenode;
+> come on in, the water's fine) it looks like this could form part of a
+> powerful global privacy framework. I did a screenshot of what I've
+> been working on which I hope will help to clarify what I meant. See it
+> here: http://www.stillbreathing.co.uk/images/misc/friend-tags.jpg
+>
+> This shows a number of things. Firstly wherever it says "Contacts"
+> read "Friends", for myJournal those kind of words are configurable by
+> the site admin. You can see a list of "Groups", which is our name for
+> friend tags. Selecting one of these gives you just the people with
+> that tag (it's only single tag selection at the moment). You can also
+> see some pagination, the there's the details for the first friend.
+>
+> Below the name and description for the friend you can see a list of
+> checkboxes with tag names. The first few (Family -> Supplier) are
+> pre-configured by the site admin. Really the "Friend" tag is redundant
+> because everyone in this list is a friend regardless of what other
+> tags they may have.
+>
+> To assign tags to the friend select the checkboxes you want. You can
+> also enter a comma-separated list of new tags into the textbox. When
+> you add new tags it assigns those new tags to the current friend
+> automatically, and also adds those new tags as checkbox options for
+> all other friends. Tags you add are just for you, no-one else can see
+> them. If you remove one of your own tags from all your friends that
+> tag wil disappear from the checkbox list.
+>
+> A couple of things could make this better. Firstly for long lists of
+> tags there will lots of checkboxes - imagine 30 checkboxes repeated
+> for every friend down the page. Nasty. Secondly it would be nice to
+> assign tags to multiple people and save them all in one go; at the
+> moment you have to save each friends tags individually. But that's not
+> a massive job to change.
+>
+> Any comments?
+>
+> Chris
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From jeromebeta at gmail.com  Mon May 12 10:52:06 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Mon May 12 10:52:21 2008
+Subject: [buddypress-dev] xprofile messed up links
+In-Reply-To: <4828134A.00001D.01384@SPECIAI>
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+	<4828134A.00001D.01384@SPECIAI>
+Message-ID: <3f7bc4310805120352l4b819515n183c85ac0edae3cf@mail.gmail.com>
+
+I suggest buddypress could retrieve the DB_CHARSET setting from
+wp-config.php on wpmu, for example:
+
+*define('DB_CHARSET', 'utf8');*
+
+and* *use it for all buddypress components, that should resolve this
+problem.
+btw, does anybody get the link mess-up problem? it is a big trouble for my
+site now, I hope I could sort it out and integrate xprofile and messages
+with my site. thanks!
+
+On Mon, May 12, 2008 at 11:52 AM, Emre Murat Tatar <admin@harikayaa.com>
+wrote:
+
+>    I was a same problem wordpress (before 2.5)
+>
+> Especially, if mySql default character set different and you use
+> non-english language
+> hosting removing is painful.
+>
+> But utf-8 is problem-free.
+>
+>  Among these things,
+>  Like latin-1 or utf-8_language_ci... one alfabet character set better for
+> performance.
+> Maybe, when installing, wordpress/mu can ask,
+> "What do you wnat which character set?"
+>
+>
+> Emre
+>
+>
+>
+>   *-------Original Message-------*
+>
+>  *From:* Jerome <jeromebeta@gmail.com>
+> *Date:* 5/12/2008 10:23:07
+> *To:* buddypress-dev@lists.automattic.com
+> *Subject:* [buddypress-dev] xprofile messed up links
+>
+> First I would like to thank everyone working on this project,  I
+> appreciate your job very much!
+>
+> I planned to integrate xprofile and messages with my wpmu site as the
+> first stage, but I got some problems:
+>
+> 1. xprofile messed up all category, archive, page and more other links on
+> my wpmu site, did it change the link structure of wpmu?
+>
+> 2. thee avatar uploading, it only works on main blog, for other blogs, you
+> need change the submit url of the form in bp-xprofile-avatars.php to make it
+> work, my wpmu site is installed in subdirectory mode, is that a problem? is
+> the current buddypress build only designed for subdomain mode?
+>
+> 3. buddypress does not using UTF-8 Encoding which I set on my wpmu site,
+> how do I resolve it?
+>
+> thanks a lot!
+>
+> ------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>      [image: Free Animations for your email - By IncrediMail! Click Here!]<http://www.incredimail.com/index.asp?id=101219&rui=98996207>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080512/7780dc22/attachment-0001.htm
+From andypeatling at automattic.com  Mon May 12 16:29:50 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon May 12 16:30:40 2008
+Subject: [buddypress-dev] xprofile messed up links
+In-Reply-To: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+Message-ID: <FFFC344C-33E4-488D-90C0-992A640696CE@automattic.com>
+
+On 12-May-08, at 12:20 AM, Jerome wrote:
+
+> 1. xprofile messed up all category, archive, page and more other  
+> links on my wpmu site, did it change the link structure of wpmu?
+
+On 12-May-08, at 3:52 AM, Jerome wrote:
+> btw, does anybody get the link mess-up problem? it is a big trouble  
+> for my site now, I hope I could sort it out and integrate xprofile  
+> and messages with my site. thanks!
+
+Right now everyone working on BuddyPress is using subdomains. I'm  
+going to set up a local install today using subfolders so I can test  
+and fix these link issues.
+
+> I suggest buddypress could retrieve the DB_CHARSET setting from wp- 
+> config.php on wpmu, for example:
+>
+> define('DB_CHARSET', 'utf8');
+
+I'll use this constant in the DB scheme to resolve this problem,  
+thanks for that.
+
+Thanks,
+Andy
+
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From andypeatling at automattic.com  Mon May 12 16:32:28 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon May 12 16:32:43 2008
+Subject: [buddypress-dev] Privacy component
+In-Reply-To: <CB02816B-D529-4555-84E5-9C72956559BA@gmx.com>
+References: <1dae0d150804141639n36fed6b7l27ec54ad3bb59013@mail.gmail.com>
+	<4803ed15.08102c0a.3976.1da6@mx.google.com>
+	<1dae0d150804141701u1237b991yde1323b441094d48@mail.gmail.com>
+	<5aa27e1e0804141734jeb820ccu5964815124ec3bbb@mail.gmail.com>
+	<1dae0d150804141817h6931878dx454fbc0f0bf9ebf5@mail.gmail.com>
+	<38F9D795-6E9A-42D4-A090-03FBED684778@automattic.com>
+	<60fe160a0804181448k3fb6929at770d105021d88467@mail.gmail.com>
+	<CB02816B-D529-4555-84E5-9C72956559BA@gmx.com>
+Message-ID: <BED64463-6E97-4296-98BD-9D69BF8C8476@automattic.com>
+
+On 12-May-08, at 3:12 AM, Carsten Reinke wrote:
+> I have read the roadmap which says "privacy privacy privacy" in  
+> core. Is this a subject somebody is already working on actively? Or  
+> is there already a plugin or something?
+
+Right now there isn't anyone actively working on privacy. If you or  
+anyone out there would like to tackle it, we'd be happy for the help.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+From andypeatling at automattic.com  Mon May 12 17:41:42 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon May 12 17:42:58 2008
+Subject: [buddypress-dev] Contact Grabber
+In-Reply-To: <A8608F20-DD31-49FF-B84F-F5DD839E78F4@dentedreality.com.au>
+References: <2C5A325E-FB76-4D7E-90E7-8B8F1B27AC4F@automattic.com>
+	<48254D67.000010.00836@SPECIAI>
+	<60fe160a0805101318i536527f6nfc086928e2d48891@mail.gmail.com>
+	<A8608F20-DD31-49FF-B84F-F5DD839E78F4@dentedreality.com.au>
+Message-ID: <C4CF0718-137D-45A7-ABB1-A5DDCE1A0539@automattic.com>
+
+>>> I'am looking to Friends: Roadmap,
+>>> I think "Contact Grabber stystem" must be included
+
+
+I'll add this into the roadmap, definitely want that in there.
+
+
+On 10-May-08, at 1:27 PM, Beau Lebens wrote:
+> Another option (if we want to use something like this) is to use the  
+> RapLeaf API (http://www.rapleaf.com/apidoc/v2/abook).
+>
+> I used it on MyBabyOurBaby and it's pretty cool and very easy to use  
+> although it does require an API key from RapLeaf.
+>
+> Just a thought
+
+
+We should try and do this the "right" way if possible. That is, can we  
+utilize something like OAuth so that we don't have to ask for people's  
+mail account login details? I know there are API's for the major web  
+mail providers that let us do this.
+
+I'm sure if we hunt there are good examples out there on the internets.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+>
+> On May 10, 2008, at 1:18 PM, Chris Taylor - stillbreathing.co.uk  
+> wrote:
+>
+>> Hi,
+>>
+>> I've used this system on myJournal.com and it's pretty good, although
+>> you have to be careful as it can bring back a LOT of contacts, not  
+>> all
+>> of them valid email addresses. It is a good way to grow a social
+>> networking site, but some may see it as a way to allow people to spam
+>> their friends.
+>>
+>> Chris
+>>
+>>
+>> On Sat, May 10, 2008 at 8:23 AM, Emre Murat Tatar <admin@harikayaa.com 
+>> > wrote:
+>>> Hi Andy,
+>>>
+>>> Twitter is good idea.
+>>>
+>>> I'am looking to Friends: Roadmap,
+>>> I think "Contact Grabber stystem" must be included its
+>>> http://drupal.org/node/151134
+>>> http://sourceforge.net/projects/cl-grabber/
+>>> Its will make "geometrical growth"
+>>> This is "Magic Word" for big/est social network (facebook etc.)
+>>>
+>>> Contact Grabber function/api can be add buddypress?
+>>>
+>>> __________
+>>> Emre Murat
+>>>
+>>>
+>>> -------Original Message-------
+>>>
+>>> From: Andy Peatling
+>>> Date: 05/10/08 02:25:20
+>>> To: buddypress-dev@lists.automattic.com
+>>> Subject: [buddypress-dev] @buddypressdev on Twitter
+>>>
+>>> I'm posting brief updates under username: 'buddypressdev' for those
+>>> who use Twitter.
+>>>
+>>> Cheers
+>>> Andy
+>>>
+>>> ---------
+>>> Andy Peatling | Social Engineer | Automattic
+>>> http://andyinlife.com
+>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From jeromebeta at gmail.com  Mon May 12 17:47:46 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Mon May 12 17:47:58 2008
+Subject: [buddypress-dev] xprofile messed up links
+In-Reply-To: <FFFC344C-33E4-488D-90C0-992A640696CE@automattic.com>
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+	<FFFC344C-33E4-488D-90C0-992A640696CE@automattic.com>
+Message-ID: <3f7bc4310805121047h32391e3fodf1feeaf689ac957@mail.gmail.com>
+
+Andy, Thanks for your quick reply!
+
+I did some further investigation about the link mess-up problem, and found
+the line 127 and 128 in bp-xprofile.php caused the problem
+
+"Line 127  query_posts('showposts=1');
+ Line 128  if ( have_posts() ) : while ( have_posts() ) : the_post();
+endwhile; endif;
+"
+comment these both 2 lines could solve the problem, but it seems the
+function "the_profile_picture()" can't find the right user-id to render the
+profile picture anymore.
+
+Hope this would be helpful, thanks!
+
+On Mon, May 12, 2008 at 6:29 PM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> On 12-May-08, at 12:20 AM, Jerome wrote:
+>
+> 1. xprofile messed up all category, archive, page and more other links on
+> > my wpmu site, did it change the link structure of wpmu?
+> >
+>
+> On 12-May-08, at 3:52 AM, Jerome wrote:
+>
+> > btw, does anybody get the link mess-up problem? it is a big trouble for
+> > my site now, I hope I could sort it out and integrate xprofile and messages
+> > with my site. thanks!
+> >
+>
+> Right now everyone working on BuddyPress is using subdomains. I'm going to
+> set up a local install today using subfolders so I can test and fix these
+> link issues.
+>
+> I suggest buddypress could retrieve the DB_CHARSET setting from
+> > wp-config.php on wpmu, for example:
+> >
+> > define('DB_CHARSET', 'utf8');
+> >
+>
+> I'll use this constant in the DB scheme to resolve this problem, thanks
+> for that.
+>
+> Thanks,
+> Andy
+>
+>
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080512/bcce8f5b/attachment.htm
+From wildebees at gmail.com  Mon May 12 21:57:02 2008
+From: wildebees at gmail.com (Wessel van Rensburg)
+Date: Mon May 12 21:57:14 2008
+Subject: [buddypress-dev] Google friend connect
+Message-ID: <7e0677d0805121457x1bfb385fje688f05e4babb84c@mail.gmail.com>
+
+I just wanted to make you guys aware of this development (if your not already)
+
+http://www.techcrunch.com/2008/05/12/google-confirms-friend-connect/
+
+-- 
+*
+
+* Wessel van Rensburg
+
+ + 44 7530341889
+ + 27 7658 71271
+
+* Skype: wildebees
+* http://zuluzulu.wordpress.com
+From andypeatling at automattic.com  Mon May 12 23:27:42 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon May 12 23:27:58 2008
+Subject: [buddypress-dev] Tagged components and roadmap
+Message-ID: <026F1603-E5F5-4762-8312-820C48ABDCA8@automattic.com>
+
+We have now started to tag components with version numbers. If you  
+don't plan on writing any code, but simply want to try out or test  
+BuddyPress components you should read the following:
+
+http://trac.buddypress.org/wiki/installing-buddypress
+
+Anyone not planning on developing should basically avoid the trunk in  
+SVN from now on.
+
+Based on the new roadmap: http://trac.buddypress.org/wiki/roadmap we  
+will be tagging releases of each component when the functionality  
+listed for that version has been completed. This will give the  
+opportunity for people to download that version and test it.
+
+I've just tagged version 0.1.1 of the core and the extended profiles  
+component. The bug fixes from 0.1 are:
+
+  - Fixed: Avatar uploads where the uploaded picture would not show up  
+and the cropping box would overlap a grey box.
+  - Fixed: Signup field element layouts for checkboxes and select boxes
+  - Fixed: Signup field callback values when validation fails
+  - Fixed: Inability to upload an avatar when using sub folders
+  - Fixed: Blog switcher tab highlighting when using sub folders
+  - Fixed: Category, archive, page and other link problems when using  
+the extended profile component (can someone confirm this, as it is  
+hard to test on a blank install).
+
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From bryanphelps at gmail.com  Tue May 13 03:54:26 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Tue May 13 03:54:55 2008
+Subject: [buddypress-dev] xprofile messed up links
+In-Reply-To: <3f7bc4310805121047h32391e3fodf1feeaf689ac957@mail.gmail.com>
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+	<FFFC344C-33E4-488D-90C0-992A640696CE@automattic.com>
+	<3f7bc4310805121047h32391e3fodf1feeaf689ac957@mail.gmail.com>
+Message-ID: <38d292690805122054p639d9bd2r86e4dc0a89a5c40e@mail.gmail.com>
+
+Just barely upgraded and am having the same problem with links.  I have been
+out of the loop...has there been any update on this?  (I'm using subdomains)
+
+Bryan
+
+On Mon, May 12, 2008 at 11:47 AM, Jerome <jeromebeta@gmail.com> wrote:
+
+> Andy, Thanks for your quick reply!
+>
+> I did some further investigation about the link mess-up problem, and found
+> the line 127 and 128 in bp-xprofile.php caused the problem
+>
+> "Line 127  query_posts('showposts=1');
+>  Line 128  if ( have_posts() ) : while ( have_posts() ) : the_post();
+> endwhile; endif;
+> "
+> comment these both 2 lines could solve the problem, but it seems the
+> function "the_profile_picture()" can't find the right user-id to render the
+> profile picture anymore.
+>
+> Hope this would be helpful, thanks!
+>
+> On Mon, May 12, 2008 at 6:29 PM, Andy Peatling <
+> andypeatling@automattic.com> wrote:
+>
+> > On 12-May-08, at 12:20 AM, Jerome wrote:
+> >
+> > 1. xprofile messed up all category, archive, page and more other links
+> > > on my wpmu site, did it change the link structure of wpmu?
+> > >
+> >
+> > On 12-May-08, at 3:52 AM, Jerome wrote:
+> >
+> > > btw, does anybody get the link mess-up problem? it is a big trouble
+> > > for my site now, I hope I could sort it out and integrate xprofile and
+> > > messages with my site. thanks!
+> > >
+> >
+> > Right now everyone working on BuddyPress is using subdomains. I'm going
+> > to set up a local install today using subfolders so I can test and fix these
+> > link issues.
+> >
+> > I suggest buddypress could retrieve the DB_CHARSET setting from
+> > > wp-config.php on wpmu, for example:
+> > >
+> > > define('DB_CHARSET', 'utf8');
+> > >
+> >
+> > I'll use this constant in the DB scheme to resolve this problem, thanks
+> > for that.
+> >
+> > Thanks,
+> > Andy
+> >
+> >
+> >
+> > ---------
+> > Andy Peatling | Social Engineer | Automattic
+> > http://andyinlife.com
+> >
+> >
+> >
+> >
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080513/5b8061a0/attachment-0001.htm
+From jeromebeta at gmail.com  Tue May 13 10:16:04 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Tue May 13 10:16:16 2008
+Subject: [buddypress-dev] Tagged components and roadmap
+In-Reply-To: <026F1603-E5F5-4762-8312-820C48ABDCA8@automattic.com>
+References: <026F1603-E5F5-4762-8312-820C48ABDCA8@automattic.com>
+Message-ID: <3f7bc4310805130316n740e279fk35daafa7343a7dbf@mail.gmail.com>
+
+just had a quick try on v0.11, it did fix the avatar uploading problem on
+subdirectory installed wpmu, but link mess-up problem still existed, it
+seems the following two lines in bp-xprofile.php will make every category,
+archive and page link always display the latest one post:
+
+-------------------------------------------
+Line 127   query_posts('showposts=1');
+Line 128   if ( have_posts() ) : while ( have_posts() ) : the_post();
+endwhile; endif;
+---------------------------------------------------
+thanks!
+On Tue, May 13, 2008 at 1:27 AM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> We have now started to tag components with version numbers. If you don't
+> plan on writing any code, but simply want to try out or test BuddyPress
+> components you should read the following:
+>
+> http://trac.buddypress.org/wiki/installing-buddypress
+>
+> Anyone not planning on developing should basically avoid the trunk in SVN
+> from now on.
+>
+> Based on the new roadmap: http://trac.buddypress.org/wiki/roadmap we will
+> be tagging releases of each component when the functionality listed for that
+> version has been completed. This will give the opportunity for people to
+> download that version and test it.
+>
+> I've just tagged version 0.1.1 of the core and the extended profiles
+> component. The bug fixes from 0.1 are:
+>
+>  - Fixed: Avatar uploads where the uploaded picture would not show up and
+> the cropping box would overlap a grey box.
+>  - Fixed: Signup field element layouts for checkboxes and select boxes
+>  - Fixed: Signup field callback values when validation fails
+>  - Fixed: Inability to upload an avatar when using sub folders
+>  - Fixed: Blog switcher tab highlighting when using sub folders
+>  - Fixed: Category, archive, page and other link problems when using the
+> extended profile component (can someone confirm this, as it is hard to test
+> on a blank install).
+>
+>
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080513/27225c33/attachment.htm
+From bryanphelps at gmail.com  Wed May 14 03:34:17 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Wed May 14 03:34:28 2008
+Subject: [buddypress-dev] Profile Data Missing
+Message-ID: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+
+On my test site, profile information disappears once I logout of an
+account.  Is this a common problem or is it just my install?   I'm not even
+sure what would cause this.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080514/2732724b/attachment.htm
+From justinball at gmail.com  Wed May 14 06:51:03 2008
+From: justinball at gmail.com (Justin Ball)
+Date: Wed May 14 06:51:15 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+Message-ID: <82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+
+Do you have more details.  When you log back in does your profile
+information come back or does logging out wipe out your database?
+Also, which version are you running on?
+
+Justin
+
+On Tue, May 13, 2008 at 9:34 PM, Bryan Phelps <bryanphelps@gmail.com> wrote:
+> On my test site, profile information disappears once I logout of an account.
+> Is this a common problem or is it just my install?   I'm not even sure what
+> would cause this.
+>
+>
+> _______________________________________________
+>  buddypress-dev mailing list
+>  buddypress-dev@lists.automattic.com
+>  http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+From jeromebeta at gmail.com  Wed May 14 09:13:49 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Wed May 14 09:14:03 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+Message-ID: <3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+
+it seems then the function renders profile information could not find the
+right user id when you logged out. I also wonder how buddypress pick the
+user id for rendering the profile info and avatar, since a bog could have
+many users, many admins, which one will it pick?
+
+On Wed, May 14, 2008 at 8:51 AM, Justin Ball <justinball@gmail.com> wrote:
+
+> Do you have more details.  When you log back in does your profile
+> information come back or does logging out wipe out your database?
+> Also, which version are you running on?
+>
+> Justin
+>
+> On Tue, May 13, 2008 at 9:34 PM, Bryan Phelps <bryanphelps@gmail.com>
+> wrote:
+> > On my test site, profile information disappears once I logout of an
+> account.
+> > Is this a common problem or is it just my install?   I'm not even sure
+> what
+> > would cause this.
+> >
+> >
+> > _______________________________________________
+> >  buddypress-dev mailing list
+> >  buddypress-dev@lists.automattic.com
+> >  http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+> >
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080514/5e118bda/attachment.htm
+From bryanphelps at gmail.com  Wed May 14 14:40:55 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Wed May 14 14:41:15 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+Message-ID: <38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+
+When I log back in all the profile information is just gone.  It appears to
+just wipe it out.  I've updated to mu 1.5.1 and am using the zip versions of
+buddypress.
+
+On Wed, May 14, 2008 at 3:13 AM, Jerome <jeromebeta@gmail.com> wrote:
+
+> it seems then the function renders profile information could not find the
+> right user id when you logged out. I also wonder how buddypress pick the
+> user id for rendering the profile info and avatar, since a bog could have
+> many users, many admins, which one will it pick?
+>
+>
+> On Wed, May 14, 2008 at 8:51 AM, Justin Ball <justinball@gmail.com> wrote:
+>
+> > Do you have more details.  When you log back in does your profile
+> > information come back or does logging out wipe out your database?
+> > Also, which version are you running on?
+> >
+> > Justin
+> >
+> > On Tue, May 13, 2008 at 9:34 PM, Bryan Phelps <bryanphelps@gmail.com>
+> > wrote:
+> > > On my test site, profile information disappears once I logout of an
+> > account.
+> > > Is this a common problem or is it just my install?   I'm not even sure
+> > what
+> > > would cause this.
+> > >
+> > >
+> > > _______________________________________________
+> > >  buddypress-dev mailing list
+> > >  buddypress-dev@lists.automattic.com
+> > >  http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> > >
+> > >
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080514/d4bc252d/attachment.htm
+From andypeatling at automattic.com  Wed May 14 15:02:25 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed May 14 15:02:38 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+Message-ID: <58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+
+
+On 14-May-08, at 7:40 AM, Bryan Phelps wrote:
+
+> When I log back in all the profile information is just gone.  It  
+> appears to just wipe it out.  I've updated to mu 1.5.1 and am using  
+> the zip versions of buddypress.
+>
+
+I can't seem to reproduce this problem. I thought it may have been due  
+to introducing a rewind_posts() call to fix a previous bug. I've  
+checked my local installation here and it seems to be working okay.
+
+I'm going to do more extensive tests with the new 1.5.1 version of MU  
+and see if the problem lies there.
+
+Andy
+
+
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From andypeatling at automattic.com  Wed May 14 15:04:06 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed May 14 15:04:21 2008
+Subject: [buddypress-dev] Tagged components and roadmap
+In-Reply-To: <3f7bc4310805130316n740e279fk35daafa7343a7dbf@mail.gmail.com>
+References: <026F1603-E5F5-4762-8312-820C48ABDCA8@automattic.com>
+	<3f7bc4310805130316n740e279fk35daafa7343a7dbf@mail.gmail.com>
+Message-ID: <E4D4B189-C081-4C00-869D-099215F942AF@automattic.com>
+
+
+On 13-May-08, at 3:16 AM, Jerome wrote:
+
+> just had a quick try on v0.11, it did fix the avatar uploading  
+> problem on subdirectory installed wpmu, but link mess-up problem  
+> still existed, it seems the following two lines in bp-xprofile.php  
+> will make every category, archive and page link always display the  
+> latest one post:
+>
+> -------------------------------------------
+> Line 127   query_posts('showposts=1');
+> Line 128   if ( have_posts() ) : while ( have_posts() ) :  
+> the_post(); endwhile; endif;
+> ---------------------------------------------------
+> thanks!
+
+It seems as though my rewind_posts() call did not fix this problem.  
+Does anyone have an installation with this problem that I can get  
+access to and bugfix on?
+
+Reply to me directly.
+
+Thanks,
+Andy
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From bryanphelps at gmail.com  Thu May 15 01:21:40 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Thu May 15 01:21:52 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+Message-ID: <38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+
+Just an update...when I login as the admin the profiles display fine.  As
+soon as a I logout and refresh the profiles, they disappear.  Pretty
+strange.
+
+On Wed, May 14, 2008 at 9:02 AM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+>
+> On 14-May-08, at 7:40 AM, Bryan Phelps wrote:
+>
+>  When I log back in all the profile information is just gone.  It appears
+>> to just wipe it out.  I've updated to mu 1.5.1 and am using the zip versions
+>> of buddypress.
+>>
+>>
+> I can't seem to reproduce this problem. I thought it may have been due to
+> introducing a rewind_posts() call to fix a previous bug. I've checked my
+> local installation here and it seems to be working okay.
+>
+> I'm going to do more extensive tests with the new 1.5.1 version of MU and
+> see if the problem lies there.
+>
+> Andy
+>
+>
+>
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080515/f49f987b/attachment.htm
+From bryanphelps at gmail.com  Thu May 15 02:24:30 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Thu May 15 02:24:42 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+Message-ID: <38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+
+Sorry...one more thing.  I logged in as profile1 and the data shows up.  But
+when i look at other profiles while logged in as profile1, it shows me my
+information from profile1 instead of the information that should be in the
+other profiles.  Kind of hard to explain...
+
+On Wed, May 14, 2008 at 7:21 PM, Bryan Phelps <bryanphelps@gmail.com> wrote:
+
+> Just an update...when I login as the admin the profiles display fine.  As
+> soon as a I logout and refresh the profiles, they disappear.  Pretty
+> strange.
+>
+>
+> On Wed, May 14, 2008 at 9:02 AM, Andy Peatling <
+> andypeatling@automattic.com> wrote:
+>
+>>
+>> On 14-May-08, at 7:40 AM, Bryan Phelps wrote:
+>>
+>>  When I log back in all the profile information is just gone.  It appears
+>>> to just wipe it out.  I've updated to mu 1.5.1 and am using the zip versions
+>>> of buddypress.
+>>>
+>>>
+>> I can't seem to reproduce this problem. I thought it may have been due to
+>> introducing a rewind_posts() call to fix a previous bug. I've checked my
+>> local installation here and it seems to be working okay.
+>>
+>> I'm going to do more extensive tests with the new 1.5.1 version of MU and
+>> see if the problem lies there.
+>>
+>> Andy
+>>
+>>
+>>
+>>
+>> ---------
+>> Andy Peatling | Social Engineer | Automattic
+>> http://andyinlife.com
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080515/29f1b49d/attachment.htm
+From sillyandrea at gmail.com  Thu May 15 13:06:17 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Thu May 15 12:59:34 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+Message-ID: <482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+
+I think I know what you mean. It's part of how MU itself works. If I'm 
+logged in as Site Admin and go to any member blog, visiting the profile 
+area will always show my details.
+
+Andrea
+
+Bryan Phelps wrote:
+> Sorry...one more thing.  I logged in as profile1 and the data shows 
+> up.  But when i look at other profiles while logged in as profile1, it 
+> shows me my information from profile1 instead of the information that 
+> should be in the other profiles.  Kind of hard to explain...
+
+-- 
+Follow me on my various websites:
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://atypicalshops.com/     where you can buy our stuff. Opening soon!
+
+From bryanphelps at gmail.com  Thu May 15 14:11:19 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Thu May 15 14:11:46 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+Message-ID: <38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+
+I'm talking about on the output though, not the backend.  If I'm logged in
+as John Doe and then visit other people's outputted profile pages, all the
+profiles show John Doe's info.  The blog title, etc. is right but the
+"basic" information and the extra profile fields I added all show John Doe's
+stuff.  If I'm logged out, nobody's info shows up.
+
+
+
+On Thu, May 15, 2008 at 7:06 AM, Andrea <sillyandrea@gmail.com> wrote:
+
+> I think I know what you mean. It's part of how MU itself works. If I'm
+> logged in as Site Admin and go to any member blog, visiting the profile area
+> will always show my details.
+>
+> Andrea
+>
+> Bryan Phelps wrote:
+>
+>> Sorry...one more thing.  I logged in as profile1 and the data shows up.
+>>  But when i look at other profiles while logged in as profile1, it shows me
+>> my information from profile1 instead of the information that should be in
+>> the other profiles.  Kind of hard to explain...
+>>
+>
+> --
+> Follow me on my various websites:
+> http://atypicalife.net/blog/  personal anecdotes from our days
+> http://homeschooljournal.net/ free blogs for homeschoolers
+> http://wpmututorials.com/     tutorials for WordpressMU
+> http://atypicalshops.com/     where you can buy our stuff. Opening soon!
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080515/d339114a/attachment.htm
+From jeromebeta at gmail.com  Thu May 15 14:43:32 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Thu May 15 14:43:44 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+Message-ID: <3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+
+I suspect the function renders the profile takes the logged user's id by
+mistake, it is supposed to take the id of the user belongs to the blog, but
+the same question I asked before here, which user of the blog will it pick?
+you know that a blog could have many users, many admins...
+
+On Thu, May 15, 2008 at 4:11 PM, Bryan Phelps <bryanphelps@gmail.com> wrote:
+
+> I'm talking about on the output though, not the backend.  If I'm logged in
+> as John Doe and then visit other people's outputted profile pages, all the
+> profiles show John Doe's info.  The blog title, etc. is right but the
+> "basic" information and the extra profile fields I added all show John Doe's
+> stuff.  If I'm logged out, nobody's info shows up.
+>
+>
+>
+> On Thu, May 15, 2008 at 7:06 AM, Andrea <sillyandrea@gmail.com> wrote:
+>
+>> I think I know what you mean. It's part of how MU itself works. If I'm
+>> logged in as Site Admin and go to any member blog, visiting the profile area
+>> will always show my details.
+>>
+>> Andrea
+>>
+>> Bryan Phelps wrote:
+>>
+>>> Sorry...one more thing.  I logged in as profile1 and the data shows up.
+>>>  But when i look at other profiles while logged in as profile1, it shows me
+>>> my information from profile1 instead of the information that should be in
+>>> the other profiles.  Kind of hard to explain...
+>>>
+>>
+>> --
+>> Follow me on my various websites:
+>> http://atypicalife.net/blog/  personal anecdotes from our days
+>> http://homeschooljournal.net/ free blogs for homeschoolers
+>> http://wpmututorials.com/     tutorials for WordpressMU
+>> http://atypicalshops.com/     where you can buy our stuff. Opening soon!
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080515/13410c64/attachment.htm
+From beau at dentedreality.com.au  Thu May 15 16:46:52 2008
+From: beau at dentedreality.com.au (Beau Lebens)
+Date: Thu May 15 16:47:08 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+Message-ID: <9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+
+Isn't one of the restrictions in BP one user = one blog? (if not, it  
+should be :)
+
+But what you're saying sounds right Jerome. Let's follow it through...
+
+It looks like the profile page (index.php) uses  
+the_profile_field_value() to output a value.
+
+That uses the data stored in a global called $field, which I think is  
+populated somewhere along the line during a call like this:
+
+$this->group->fields[$i] = new BP_XProfile_Field( $this->group->fields 
+[$i]->id, $this->user_id );
+
+$this->user_id at that point appears to have been populated during  
+the creation of that object, using a global called $authordata. That  
+appears to be set via WPMU (not BP), and only ever uses $post- 
+ >post_author (probably in this case via setup_postdata() ?).
+
+It looks like all of this triggered via a single-post query/loop in  
+bp-xprofile.php::xprofile_profile_template() which theoretically  
+should allocate the $authordata over to the author of any posts on  
+that blog...
+
+Which leads me to a question - are there *any* posts on those blogs  
+that are not showing their profile properly? I haven't done a lick of  
+testing or even run BP to see this problem in action, but following  
+this thread it would seem like if there were no posts in a blog yet,  
+then the author would never get allocated properly (and thus their  
+profile data would not be loadable).
+
+Anyone?
+
+Beau
+
+
+On May 15, 2008, at 7:43 AM, Jerome wrote:
+
+> I suspect the function renders the profile takes the logged user's  
+> id by mistake, it is supposed to take the id of the user belongs to  
+> the blog, but the same question I asked before here, which user of  
+> the blog will it pick? you know that a blog could have many users,  
+> many admins...
+>
+> On Thu, May 15, 2008 at 4:11 PM, Bryan Phelps  
+> <bryanphelps@gmail.com> wrote:
+> I'm talking about on the output though, not the backend.  If I'm  
+> logged in as John Doe and then visit other people's outputted  
+> profile pages, all the profiles show John Doe's info.  The blog  
+> title, etc. is right but the "basic" information and the extra  
+> profile fields I added all show John Doe's stuff.  If I'm logged  
+> out, nobody's info shows up.
+>
+>
+>
+> On Thu, May 15, 2008 at 7:06 AM, Andrea <sillyandrea@gmail.com> wrote:
+> I think I know what you mean. It's part of how MU itself works. If  
+> I'm logged in as Site Admin and go to any member blog, visiting the  
+> profile area will always show my details.
+>
+> Andrea
+>
+>
+> Bryan Phelps wrote:
+> Sorry...one more thing.  I logged in as profile1 and the data shows  
+> up.  But when i look at other profiles while logged in as profile1,  
+> it shows me my information from profile1 instead of the information  
+> that should be in the other profiles.  Kind of hard to explain...
+>
+> -- 
+> Follow me on my various websites:
+> http://atypicalife.net/blog/  personal anecdotes from our days
+> http://homeschooljournal.net/ free blogs for homeschoolers
+> http://wpmututorials.com/     tutorials for WordpressMU
+> http://atypicalshops.com/     where you can buy our stuff. Opening  
+> soon!
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080515/2bb4e088/attachment-0001.htm
+From andypeatling at automattic.com  Thu May 15 20:36:18 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu May 15 20:37:00 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+Message-ID: <F811B88A-3BDE-4FFD-86D1-09DE6BC6A076@automattic.com>
+
+> I suspect the function renders the profile takes the logged user's  
+> id by mistake, it is supposed to take the id of the user belongs to  
+> the blog, but the same question I asked before here, which user of  
+> the blog will it pick? you know that a blog could have many users,  
+> many admins...
+
+
+It should render the details for the blog owner. Basically, the ID for  
+the user that has defined that blog as their primary blog. Your  
+primary blog has a user icon next to the tab in the admin area. That  
+is where your profile details will show. I believe I'm right in  
+thinking a blog can only have one primary user assigned to it?
+
+Andy
+
+
+
+>
+>
+>
+>
+>
+> On Thu, May 15, 2008 at 7:06 AM, Andrea <sillyandrea@gmail.com> wrote:
+> I think I know what you mean. It's part of how MU itself works. If  
+> I'm logged in as Site Admin and go to any member blog, visiting the  
+> profile area will always show my details.
+>
+> Andrea
+>
+>
+> Bryan Phelps wrote:
+> Sorry...one more thing.  I logged in as profile1 and the data shows  
+> up.  But when i look at other profiles while logged in as profile1,  
+> it shows me my information from profile1 instead of the information  
+> that should be in the other profiles.  Kind of hard to explain...
+>
+> -- 
+> Follow me on my various websites:
+> http://atypicalife.net/blog/  personal anecdotes from our days
+> http://homeschooljournal.net/ free blogs for homeschoolers
+> http://wpmututorials.com/     tutorials for WordpressMU
+> http://atypicalshops.com/     where you can buy our stuff. Opening  
+> soon!
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andypeatling at automattic.com  Thu May 15 20:45:11 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu May 15 20:45:44 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<82aec6810805132351o20ce218dscc18dedd4d00d7c5@mail.gmail.com>
+	<3f7bc4310805140213t7396d905m2531d4629840297a@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+	<9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+Message-ID: <749C5E62-483A-4287-8507-CA6450308F59@automattic.com>
+
+On 15-May-08, at 9:46 AM, Beau Lebens wrote:
+
+> Isn't one of the restrictions in BP one user = one blog? (if not, it  
+> should be :)
+
+It was, but now it isn't, simply because we want to support existing  
+WordPress MU installations. Here's how it works now:
+
+"Multiple blog support: members of your network can now sign up and  
+run more than one blog. Their primary blog is used as their 'home'  
+where they can manage their friends/groups/messages etc (and their  
+profile can be viewed). Other blogs just contain the normal WordPress  
+blogging features. Their home account stays as the first tab in their  
+admin interface and is marked with a user icon."
+
+
+> But what you're saying sounds right Jerome. Let's follow it through...
+>
+> It looks like the profile page (index.php) uses  
+> the_profile_field_value() to output a value.
+>
+> That uses the data stored in a global called $field, which I think  
+> is populated somewhere along the line during a call like this:
+>
+> $this->group->fields[$i] = new BP_XProfile_Field( $this->group- 
+> >fields[$i]->id, $this->user_id );
+>
+> $this->user_id at that point appears to have been populated during  
+> the creation of that object, using a global called $authordata. That  
+> appears to be set via WPMU (not BP), and only ever uses $post- 
+> >post_author (probably in this case via setup_postdata() ?).
+
+I believe this needs to be changed for two reasons...
+
+  - This method is causing issues with links for categories etc etc as  
+mentioned is some previous messages
+  - If a blog has other authors, the author of the latest posts on the  
+blog will define which ID is used. That's obviously not going to work.
+
+Instead, it needs to fetch and use the user ID for the 'primary_blog'  
+meta setting in the wp_usermeta table for the current blog.
+
+There doesn't need to be any major architectural changes to make this  
+happen, it's simply a matter of fetching the user ID and passing it to  
+the right place.
+
+
+> It looks like all of this triggered via a single-post query/loop in  
+> bp-xprofile.php::xprofile_profile_template() which theoretically  
+> should allocate the $authordata over to the author of any posts on  
+> that blog...
+>
+> Which leads me to a question - are there *any* posts on those blogs  
+> that are not showing their profile properly? I haven't done a lick  
+> of testing or even run BP to see this problem in action, but  
+> following this thread it would seem like if there were no posts in a  
+> blog yet, then the author would never get allocated properly (and  
+> thus their profile data would not be loadable).
+
+That's a third reason why the current way isn't going to work. :)
+
+Cheers
+Andy
+From jeromebeta at gmail.com  Thu May 15 21:01:55 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Thu May 15 21:02:06 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <749C5E62-483A-4287-8507-CA6450308F59@automattic.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<38d292690805140740r61a3cc7djf2a510867bcb698b@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+	<9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+	<749C5E62-483A-4287-8507-CA6450308F59@automattic.com>
+Message-ID: <3f7bc4310805151401p1029c81ayfe1ea7bdc33e0781@mail.gmail.com>
+
+thanks! Andy, hope the next build would come out soon.
+
+I changed my wpmu from subdirectories to subdomain mode from now on, I can
+not provide the test information for subdirecotries wpmu anymore.
+
+btw, the links are still messed up on my sudomain wpmu site,
+
+On Thu, May 15, 2008 at 10:45 PM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> On 15-May-08, at 9:46 AM, Beau Lebens wrote:
+>
+> Isn't one of the restrictions in BP one user = one blog? (if not, it should
+>> be :)
+>>
+>
+> It was, but now it isn't, simply because we want to support existing
+> WordPress MU installations. Here's how it works now:
+>
+> "Multiple blog support: members of your network can now sign up and run
+> more than one blog. Their primary blog is used as their 'home' where they
+> can manage their friends/groups/messages etc (and their profile can be
+> viewed). Other blogs just contain the normal WordPress blogging features.
+> Their home account stays as the first tab in their admin interface and is
+> marked with a user icon."
+>
+>
+> But what you're saying sounds right Jerome. Let's follow it through...
+>>
+>> It looks like the profile page (index.php) uses the_profile_field_value()
+>> to output a value.
+>>
+>> That uses the data stored in a global called $field, which I think is
+>> populated somewhere along the line during a call like this:
+>>
+>> $this->group->fields[$i] = new BP_XProfile_Field(
+>> $this->group->fields[$i]->id, $this->user_id );
+>>
+>> $this->user_id at that point appears to have been populated during the
+>> creation of that object, using a global called $authordata. That appears to
+>> be set via WPMU (not BP), and only ever uses $post->post_author (probably in
+>> this case via setup_postdata() ?).
+>>
+>
+> I believe this needs to be changed for two reasons...
+>
+>  - This method is causing issues with links for categories etc etc as
+> mentioned is some previous messages
+>  - If a blog has other authors, the author of the latest posts on the blog
+> will define which ID is used. That's obviously not going to work.
+>
+> Instead, it needs to fetch and use the user ID for the 'primary_blog' meta
+> setting in the wp_usermeta table for the current blog.
+>
+> There doesn't need to be any major architectural changes to make this
+> happen, it's simply a matter of fetching the user ID and passing it to the
+> right place.
+>
+>
+> It looks like all of this triggered via a single-post query/loop in
+>> bp-xprofile.php::xprofile_profile_template() which theoretically should
+>> allocate the $authordata over to the author of any posts on that blog...
+>>
+>> Which leads me to a question - are there *any* posts on those blogs that
+>> are not showing their profile properly? I haven't done a lick of testing or
+>> even run BP to see this problem in action, but following this thread it
+>> would seem like if there were no posts in a blog yet, then the author would
+>> never get allocated properly (and thus their profile data would not be
+>> loadable).
+>>
+>
+> That's a third reason why the current way isn't going to work. :)
+>
+> Cheers
+> Andy
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080515/ef02dc73/attachment.htm
+From jeromebeta at gmail.com  Fri May 16 08:41:18 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Fri May 16 08:41:32 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <3f7bc4310805151401p1029c81ayfe1ea7bdc33e0781@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<58512C64-B5FE-4C14-8F58-8E98D1A06241@automattic.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+	<9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+	<749C5E62-483A-4287-8507-CA6450308F59@automattic.com>
+	<3f7bc4310805151401p1029c81ayfe1ea7bdc33e0781@mail.gmail.com>
+Message-ID: <3f7bc4310805160141p6bf79d6fr4d910e248efd9615@mail.gmail.com>
+
+Andy, may I have a request for the charset of the DB? you said you will use
+the constant "utf-8" in the DB scheme to resolve the problem, could you
+include this fix in the next version 0.1.x? since it is a kind of "preview
+release" for xprofile and private messaging components, it is intended to be
+used and tested by the people around the world, thanks!
+
+
+On Thu, May 15, 2008 at 11:01 PM, Jerome <jeromebeta@gmail.com> wrote:
+
+> thanks! Andy, hope the next build would come out soon.
+>
+> I changed my wpmu from subdirectories to subdomain mode from now on, I can
+> not provide the test information for subdirecotries wpmu anymore.
+>
+> btw, the links are still messed up on my sudomain wpmu site,
+>
+>   On Thu, May 15, 2008 at 10:45 PM, Andy Peatling <
+> andypeatling@automattic.com> wrote:
+>
+>> On 15-May-08, at 9:46 AM, Beau Lebens wrote:
+>>
+>> Isn't one of the restrictions in BP one user = one blog? (if not, it
+>>> should be :)
+>>>
+>>
+>> It was, but now it isn't, simply because we want to support existing
+>> WordPress MU installations. Here's how it works now:
+>>
+>> "Multiple blog support: members of your network can now sign up and run
+>> more than one blog. Their primary blog is used as their 'home' where they
+>> can manage their friends/groups/messages etc (and their profile can be
+>> viewed). Other blogs just contain the normal WordPress blogging features.
+>> Their home account stays as the first tab in their admin interface and is
+>> marked with a user icon."
+>>
+>>
+>> But what you're saying sounds right Jerome. Let's follow it through...
+>>>
+>>> It looks like the profile page (index.php) uses the_profile_field_value()
+>>> to output a value.
+>>>
+>>> That uses the data stored in a global called $field, which I think is
+>>> populated somewhere along the line during a call like this:
+>>>
+>>> $this->group->fields[$i] = new BP_XProfile_Field(
+>>> $this->group->fields[$i]->id, $this->user_id );
+>>>
+>>> $this->user_id at that point appears to have been populated during the
+>>> creation of that object, using a global called $authordata. That appears to
+>>> be set via WPMU (not BP), and only ever uses $post->post_author (probably in
+>>> this case via setup_postdata() ?).
+>>>
+>>
+>> I believe this needs to be changed for two reasons...
+>>
+>>  - This method is causing issues with links for categories etc etc as
+>> mentioned is some previous messages
+>>  - If a blog has other authors, the author of the latest posts on the blog
+>> will define which ID is used. That's obviously not going to work.
+>>
+>> Instead, it needs to fetch and use the user ID for the 'primary_blog' meta
+>> setting in the wp_usermeta table for the current blog.
+>>
+>> There doesn't need to be any major architectural changes to make this
+>> happen, it's simply a matter of fetching the user ID and passing it to the
+>> right place.
+>>
+>>
+>> It looks like all of this triggered via a single-post query/loop in
+>>> bp-xprofile.php::xprofile_profile_template() which theoretically should
+>>> allocate the $authordata over to the author of any posts on that blog...
+>>>
+>>> Which leads me to a question - are there *any* posts on those blogs that
+>>> are not showing their profile properly? I haven't done a lick of testing or
+>>> even run BP to see this problem in action, but following this thread it
+>>> would seem like if there were no posts in a blog yet, then the author would
+>>> never get allocated properly (and thus their profile data would not be
+>>> loadable).
+>>>
+>>
+>> That's a third reason why the current way isn't going to work. :)
+>>
+>> Cheers
+>> Andy
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080516/46e21d53/attachment-0001.htm
+From jeromebeta at gmail.com  Fri May 16 14:14:24 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Fri May 16 14:14:39 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <3f7bc4310805160141p6bf79d6fr4d910e248efd9615@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+	<9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+	<749C5E62-483A-4287-8507-CA6450308F59@automattic.com>
+	<3f7bc4310805151401p1029c81ayfe1ea7bdc33e0781@mail.gmail.com>
+	<3f7bc4310805160141p6bf79d6fr4d910e248efd9615@mail.gmail.com>
+Message-ID: <3f7bc4310805160714u5f78caedh9a737732efe4f0e0@mail.gmail.com>
+
+@ Anday
+
+"*It should render the details for the blog owner. Basically, the ID for the
+user that has defined that blog as their primary blog. Your primary blog has
+a user icon next to the tab in the admin area. That is where your profile
+details will show. I believe I'm right in thinking a blog can only have one
+primary user assigned to it?"*
+
+But unfortunately, I found it is possible to assign a blog as the primary
+blog to many users, I  just tried it on my wpmu v1.5.1 site, in this case, "
+*blog owner -* *the ID for the user that has defined that blog as their
+primary blog"* mechanism will get problem.
+
+On Fri, May 16, 2008 at 10:41 AM, Jerome <jeromebeta@gmail.com> wrote:
+
+> Andy, may I have a request for the charset of the DB? you said you will use
+> the constant "utf-8" in the DB scheme to resolve the problem, could you
+> include this fix in the next version 0.1.x? since it is a kind of "preview
+> release" for xprofile and private messaging components, it is intended to be
+> used and tested by the people around the world, thanks!
+>
+>
+> On Thu, May 15, 2008 at 11:01 PM, Jerome <jeromebeta@gmail.com> wrote:
+>
+>> thanks! Andy, hope the next build would come out soon.
+>>
+>> I changed my wpmu from subdirectories to subdomain mode from now on, I can
+>> not provide the test information for subdirecotries wpmu anymore.
+>>
+>> btw, the links are still messed up on my sudomain wpmu site,
+>>
+>>   On Thu, May 15, 2008 at 10:45 PM, Andy Peatling <
+>> andypeatling@automattic.com> wrote:
+>>
+>>> On 15-May-08, at 9:46 AM, Beau Lebens wrote:
+>>>
+>>> Isn't one of the restrictions in BP one user = one blog? (if not, it
+>>>> should be :)
+>>>>
+>>>
+>>> It was, but now it isn't, simply because we want to support existing
+>>> WordPress MU installations. Here's how it works now:
+>>>
+>>> "Multiple blog support: members of your network can now sign up and run
+>>> more than one blog. Their primary blog is used as their 'home' where they
+>>> can manage their friends/groups/messages etc (and their profile can be
+>>> viewed). Other blogs just contain the normal WordPress blogging features.
+>>> Their home account stays as the first tab in their admin interface and is
+>>> marked with a user icon."
+>>>
+>>>
+>>> But what you're saying sounds right Jerome. Let's follow it through...
+>>>>
+>>>> It looks like the profile page (index.php) uses
+>>>> the_profile_field_value() to output a value.
+>>>>
+>>>> That uses the data stored in a global called $field, which I think is
+>>>> populated somewhere along the line during a call like this:
+>>>>
+>>>> $this->group->fields[$i] = new BP_XProfile_Field(
+>>>> $this->group->fields[$i]->id, $this->user_id );
+>>>>
+>>>> $this->user_id at that point appears to have been populated during the
+>>>> creation of that object, using a global called $authordata. That appears to
+>>>> be set via WPMU (not BP), and only ever uses $post->post_author (probably in
+>>>> this case via setup_postdata() ?).
+>>>>
+>>>
+>>> I believe this needs to be changed for two reasons...
+>>>
+>>>  - This method is causing issues with links for categories etc etc as
+>>> mentioned is some previous messages
+>>>  - If a blog has other authors, the author of the latest posts on the
+>>> blog will define which ID is used. That's obviously not going to work.
+>>>
+>>> Instead, it needs to fetch and use the user ID for the 'primary_blog'
+>>> meta setting in the wp_usermeta table for the current blog.
+>>>
+>>> There doesn't need to be any major architectural changes to make this
+>>> happen, it's simply a matter of fetching the user ID and passing it to the
+>>> right place.
+>>>
+>>>
+>>> It looks like all of this triggered via a single-post query/loop in
+>>>> bp-xprofile.php::xprofile_profile_template() which theoretically should
+>>>> allocate the $authordata over to the author of any posts on that blog...
+>>>>
+>>>> Which leads me to a question - are there *any* posts on those blogs that
+>>>> are not showing their profile properly? I haven't done a lick of testing or
+>>>> even run BP to see this problem in action, but following this thread it
+>>>> would seem like if there were no posts in a blog yet, then the author would
+>>>> never get allocated properly (and thus their profile data would not be
+>>>> loadable).
+>>>>
+>>>
+>>> That's a third reason why the current way isn't going to work. :)
+>>>
+>>> Cheers
+>>> Andy
+>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>
+>>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080516/bd0a8b5b/attachment.htm
+From jeromebeta at gmail.com  Mon May 19 11:35:12 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Mon May 19 11:35:24 2008
+Subject: [buddypress-dev] Profile Data Missing
+In-Reply-To: <3f7bc4310805160141p6bf79d6fr4d910e248efd9615@mail.gmail.com>
+References: <38d292690805132034n5669ab21me13c2dd1e8ec13ce@mail.gmail.com>
+	<38d292690805141821h3a56ed0ep191e84c0670b323f@mail.gmail.com>
+	<38d292690805141924t5c80142kadaf414f729a815c@mail.gmail.com>
+	<482c33a8.14025a0a.2f8c.1cdc@mx.google.com>
+	<38d292690805150711l35e7997dme640df9043445b4a@mail.gmail.com>
+	<3f7bc4310805150743naf76e86g4abc2bf7dfabe22b@mail.gmail.com>
+	<9B067E8B-6A3E-4773-91C3-FA6CDC628BE7@dentedreality.com.au>
+	<749C5E62-483A-4287-8507-CA6450308F59@automattic.com>
+	<3f7bc4310805151401p1029c81ayfe1ea7bdc33e0781@mail.gmail.com>
+	<3f7bc4310805160141p6bf79d6fr4d910e248efd9615@mail.gmail.com>
+Message-ID: <3f7bc4310805190435k69c5d392g1c0e89a20a1bcb6a@mail.gmail.com>
+
+Sorry, I realized the Charset is utf-8 already on V0.1.1, sorry for the
+incovenience, thanks for the great job!
+
+On Fri, May 16, 2008 at 10:41 AM, Jerome <jeromebeta@gmail.com> wrote:
+
+> Andy, may I have a request for the charset of the DB? you said you will use
+> the constant "utf-8" in the DB scheme to resolve the problem, could you
+> include this fix in the next version 0.1.x? since it is a kind of "preview
+> release" for xprofile and private messaging components, it is intended to be
+> used and tested by the people around the world, thanks!
+>
+>
+> On Thu, May 15, 2008 at 11:01 PM, Jerome <jeromebeta@gmail.com> wrote:
+>
+>> thanks! Andy, hope the next build would come out soon.
+>>
+>> I changed my wpmu from subdirectories to subdomain mode from now on, I can
+>> not provide the test information for subdirecotries wpmu anymore.
+>>
+>> btw, the links are still messed up on my sudomain wpmu site,
+>>
+>>   On Thu, May 15, 2008 at 10:45 PM, Andy Peatling <
+>> andypeatling@automattic.com> wrote:
+>>
+>>> On 15-May-08, at 9:46 AM, Beau Lebens wrote:
+>>>
+>>> Isn't one of the restrictions in BP one user = one blog? (if not, it
+>>>> should be :)
+>>>>
+>>>
+>>> It was, but now it isn't, simply because we want to support existing
+>>> WordPress MU installations. Here's how it works now:
+>>>
+>>> "Multiple blog support: members of your network can now sign up and run
+>>> more than one blog. Their primary blog is used as their 'home' where they
+>>> can manage their friends/groups/messages etc (and their profile can be
+>>> viewed). Other blogs just contain the normal WordPress blogging features.
+>>> Their home account stays as the first tab in their admin interface and is
+>>> marked with a user icon."
+>>>
+>>>
+>>> But what you're saying sounds right Jerome. Let's follow it through...
+>>>>
+>>>> It looks like the profile page (index.php) uses
+>>>> the_profile_field_value() to output a value.
+>>>>
+>>>> That uses the data stored in a global called $field, which I think is
+>>>> populated somewhere along the line during a call like this:
+>>>>
+>>>> $this->group->fields[$i] = new BP_XProfile_Field(
+>>>> $this->group->fields[$i]->id, $this->user_id );
+>>>>
+>>>> $this->user_id at that point appears to have been populated during the
+>>>> creation of that object, using a global called $authordata. That appears to
+>>>> be set via WPMU (not BP), and only ever uses $post->post_author (probably in
+>>>> this case via setup_postdata() ?).
+>>>>
+>>>
+>>> I believe this needs to be changed for two reasons...
+>>>
+>>>  - This method is causing issues with links for categories etc etc as
+>>> mentioned is some previous messages
+>>>  - If a blog has other authors, the author of the latest posts on the
+>>> blog will define which ID is used. That's obviously not going to work.
+>>>
+>>> Instead, it needs to fetch and use the user ID for the 'primary_blog'
+>>> meta setting in the wp_usermeta table for the current blog.
+>>>
+>>> There doesn't need to be any major architectural changes to make this
+>>> happen, it's simply a matter of fetching the user ID and passing it to the
+>>> right place.
+>>>
+>>>
+>>> It looks like all of this triggered via a single-post query/loop in
+>>>> bp-xprofile.php::xprofile_profile_template() which theoretically should
+>>>> allocate the $authordata over to the author of any posts on that blog...
+>>>>
+>>>> Which leads me to a question - are there *any* posts on those blogs that
+>>>> are not showing their profile properly? I haven't done a lick of testing or
+>>>> even run BP to see this problem in action, but following this thread it
+>>>> would seem like if there were no posts in a blog yet, then the author would
+>>>> never get allocated properly (and thus their profile data would not be
+>>>> loadable).
+>>>>
+>>>
+>>> That's a third reason why the current way isn't going to work. :)
+>>>
+>>> Cheers
+>>> Andy
+>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>
+>>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080519/e1c477c0/attachment.htm
+From andypeatling at automattic.com  Tue May 20 00:55:43 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May 20 00:55:55 2008
+Subject: [buddypress-dev] Re: Primary Blog ID
+Message-ID: <C952F9F8-417C-4ABD-A766-F878FD7C2EE1@automattic.com>
+
+@ Anday
+
+> "*It should render the details for the blog owner. Basically, the ID  
+> for the
+> user that has defined that blog as their primary blog. Your primary  
+> blog has
+> a user icon next to the tab in the admin area. That is where your  
+> profile
+> details will show. I believe I'm right in thinking a blog can only  
+> have one
+> primary user assigned to it?"*
+>
+> But unfortunately, I found it is possible to assign a blog as the  
+> primary
+> blog to many users, I  just tried it on my wpmu v1.5.1 site, in this  
+> case, "
+> *blog owner -* *the ID for the user that has defined that blog as  
+> their
+> primary blog"* mechanism will get problem.
+
+Hmm, I'm sure this was not the case on my installation. We will need  
+to find a way to work around / address this if the above is correct.
+
+Apologies for the delay in replying, I've been away at a wedding.
+
+Andy
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080520/96d130e0/attachment.htm
+From andypeatling at automattic.com  Tue May 20 00:57:55 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May 20 00:58:05 2008
+Subject: [buddypress-dev] xprofile messed up links
+In-Reply-To: <38d292690805122054p639d9bd2r86e4dc0a89a5c40e@mail.gmail.com>
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+	<FFFC344C-33E4-488D-90C0-992A640696CE@automattic.com>
+	<3f7bc4310805121047h32391e3fodf1feeaf689ac957@mail.gmail.com>
+	<38d292690805122054p639d9bd2r86e4dc0a89a5c40e@mail.gmail.com>
+Message-ID: <AF2BE552-A3C3-4603-BFD8-EBEC6E235AE1@automattic.com>
+
+On 12-May-08, at 8:54 PM, Bryan Phelps wrote:
+
+> Just barely upgraded and am having the same problem with links.  I  
+> have been out of the loop...has there been any update on this?  (I'm  
+> using subdomains)
+
+I tried introducing a rewind_posts() to address this problem, but it  
+seems to not have worked.
+
+I'm going to give it another shot tomorrow to see if there is another  
+method of invoking the $authordata global.
+
+Andy
+From jeromebeta at gmail.com  Tue May 20 20:23:02 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Tue May 20 20:23:16 2008
+Subject: [buddypress-dev] xprofile messed up links
+In-Reply-To: <AF2BE552-A3C3-4603-BFD8-EBEC6E235AE1@automattic.com>
+References: <3f7bc4310805120020v6bcf20b1k352affff9b1ebc00@mail.gmail.com>
+	<FFFC344C-33E4-488D-90C0-992A640696CE@automattic.com>
+	<3f7bc4310805121047h32391e3fodf1feeaf689ac957@mail.gmail.com>
+	<38d292690805122054p639d9bd2r86e4dc0a89a5c40e@mail.gmail.com>
+	<AF2BE552-A3C3-4603-BFD8-EBEC6E235AE1@automattic.com>
+Message-ID: <3f7bc4310805201323y59c86aa9p60078c76c1ac8341@mail.gmail.com>
+
+Thanks for your response! hope you could sort it out soon.
+
+Just had a try on private message v0.2, it really gives this component a
+good upgrading,thanks for the great job!
+
+On Tue, May 20, 2008 at 2:57 AM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> On 12-May-08, at 8:54 PM, Bryan Phelps wrote:
+>
+> Just barely upgraded and am having the same problem with links.  I have
+>> been out of the loop...has there been any update on this?  (I'm using
+>> subdomains)
+>>
+>
+> I tried introducing a rewind_posts() to address this problem, but it seems
+> to not have worked.
+>
+> I'm going to give it another shot tomorrow to see if there is another
+> method of invoking the $authordata global.
+>
+> Andy
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080520/e30f2226/attachment.htm
+From andypeatling at automattic.com  Wed May 21 00:51:12 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed May 21 00:51:27 2008
+Subject: [buddypress-dev] Re: Primary Blog ID
+In-Reply-To: <C952F9F8-417C-4ABD-A766-F878FD7C2EE1@automattic.com>
+References: <C952F9F8-417C-4ABD-A766-F878FD7C2EE1@automattic.com>
+Message-ID: <83DE39FE-D950-4928-98E0-FDF1A3C17A0B@automattic.com>
+
+On 19-May-08, at 5:55 PM, Andy Peatling wrote:
+
+> @ Anday
+>
+>> "*It should render the details for the blog owner. Basically, the  
+>> ID for the
+>> user that has defined that blog as their primary blog. Your primary  
+>> blog has
+>> a user icon next to the tab in the admin area. That is where your  
+>> profile
+>> details will show. I believe I'm right in thinking a blog can only  
+>> have one
+>> primary user assigned to it?"*
+>>
+>> But unfortunately, I found it is possible to assign a blog as the  
+>> primary
+>> blog to many users, I  just tried it on my wpmu v1.5.1 site, in  
+>> this case, "
+>> *blog owner -* *the ID for the user that has defined that blog as  
+>> their
+>> primary blog"* mechanism will get problem.
+>
+> Hmm, I'm sure this was not the case on my installation. We will need  
+> to find a way to work around / address this if the above is correct.
+
+We have found a workaround to this (actually Matt did) that will fix  
+the issues with blog owners and profiles. Instead of invoking the  
+$authordata variable and using that to render the profile, we are  
+matching the blog domain/path to the user.
+
+So, if you visit "andy.buddypress.org" it will take the "andy" part  
+and display the profile for the user "andy". That way, only the  
+profile for the user that signed up with this blog will be shown. You  
+can still assign new administrators/contributors/authors etc etc, but  
+the owners profile will only ever show.
+
+I've made this change and it seems to be working well for both  
+subdomains and subfolders. It should also in theory fix the problems  
+people have been having with links, pages and categories.
+
+I will be checking this in shortly, and hoping to tag a v0.2 of the  
+extended profile component ASAP. We still have a bunch of bugs to fix  
+with some new feature additions.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From bryanphelps at gmail.com  Wed May 21 02:14:15 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Wed May 21 02:14:36 2008
+Subject: [buddypress-dev] Re: Primary Blog ID
+In-Reply-To: <83DE39FE-D950-4928-98E0-FDF1A3C17A0B@automattic.com>
+References: <C952F9F8-417C-4ABD-A766-F878FD7C2EE1@automattic.com>
+	<83DE39FE-D950-4928-98E0-FDF1A3C17A0B@automattic.com>
+Message-ID: <38d292690805201914k11255fe9x7ceb1627f9ba19f8@mail.gmail.com>
+
+Great fix...can't wait to check it out.
+
+On Tue, May 20, 2008 at 6:51 PM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> On 19-May-08, at 5:55 PM, Andy Peatling wrote:
+>
+>  @ Anday
+>>
+>>  "*It should render the details for the blog owner. Basically, the ID for
+>>> the
+>>> user that has defined that blog as their primary blog. Your primary blog
+>>> has
+>>> a user icon next to the tab in the admin area. That is where your profile
+>>> details will show. I believe I'm right in thinking a blog can only have
+>>> one
+>>> primary user assigned to it?"*
+>>>
+>>> But unfortunately, I found it is possible to assign a blog as the primary
+>>> blog to many users, I  just tried it on my wpmu v1.5.1 site, in this
+>>> case, "
+>>> *blog owner -* *the ID for the user that has defined that blog as their
+>>> primary blog"* mechanism will get problem.
+>>>
+>>
+>> Hmm, I'm sure this was not the case on my installation. We will need to
+>> find a way to work around / address this if the above is correct.
+>>
+>
+> We have found a workaround to this (actually Matt did) that will fix the
+> issues with blog owners and profiles. Instead of invoking the $authordata
+> variable and using that to render the profile, we are matching the blog
+> domain/path to the user.
+>
+> So, if you visit "andy.buddypress.org" it will take the "andy" part and
+> display the profile for the user "andy". That way, only the profile for the
+> user that signed up with this blog will be shown. You can still assign new
+> administrators/contributors/authors etc etc, but the owners profile will
+> only ever show.
+>
+> I've made this change and it seems to be working well for both subdomains
+> and subfolders. It should also in theory fix the problems people have been
+> having with links, pages and categories.
+>
+> I will be checking this in shortly, and hoping to tag a v0.2 of the
+> extended profile component ASAP. We still have a bunch of bugs to fix with
+> some new feature additions.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080521/b4e930ba/attachment.htm
+From awedjob at bevvy.org  Thu May 22 03:25:09 2008
+From: awedjob at bevvy.org (Domain Admin)
+Date: Thu May 22 03:25:20 2008
+Subject: [buddypress-dev] Introducing...
+Message-ID: <33d319940805212025w4e54194bybd3da08c56a0ec10@mail.gmail.com>
+
+Introducing me. My name is Scott Moore. New to the list. Looking forward to
+the great potential of BuddyPress.
+
+I'm now off to scour the threads to see what has come before my arrival.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080522/4d9264dd/attachment.htm
+From paul at pburgess.net  Thu May 22 05:02:07 2008
+From: paul at pburgess.net (Paul Burgess)
+Date: Thu May 22 05:02:19 2008
+Subject: [buddypress-dev] Introducing...
+In-Reply-To: <33d319940805212025w4e54194bybd3da08c56a0ec10@mail.gmail.com>
+References: <33d319940805212025w4e54194bybd3da08c56a0ec10@mail.gmail.com>
+Message-ID: <5037e14e0805212202j7bfc6895p4515bdb6ac726441@mail.gmail.com>
+
+Hi!
+
+I'm not a developer so I'm just loitering wondering when the public release
+will be.
+
+I'm hoping to deploy for my school.
+
+paul
+
+2008/5/22 Domain Admin <awedjob@bevvy.org>:
+
+> Introducing me. My name is Scott Moore. New to the list. Looking forward to
+> the great potential of BuddyPress.
+>
+> I'm now off to scour the threads to see what has come before my arrival.
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080522/54e959a3/attachment.htm
+From justinball at gmail.com  Thu May 22 05:47:46 2008
+From: justinball at gmail.com (Justin Ball)
+Date: Thu May 22 05:48:04 2008
+Subject: [buddypress-dev] Introducing...
+In-Reply-To: <5037e14e0805212202j7bfc6895p4515bdb6ac726441@mail.gmail.com>
+References: <33d319940805212025w4e54194bybd3da08c56a0ec10@mail.gmail.com>
+	<5037e14e0805212202j7bfc6895p4515bdb6ac726441@mail.gmail.com>
+Message-ID: <82aec6810805212247y30ade7afs8866c1ecb81c80ea@mail.gmail.com>
+
+Hi Paul,
+
+What school are you with?
+
+Justin
+
+
+
+On Wed, May 21, 2008 at 11:02 PM, Paul Burgess <paul@pburgess.net> wrote:
+> Hi!
+>
+> I'm not a developer so I'm just loitering wondering when the public release
+> will be.
+>
+> I'm hoping to deploy for my school.
+>
+> paul
+>
+> 2008/5/22 Domain Admin <awedjob@bevvy.org>:
+>>
+>> Introducing me. My name is Scott Moore. New to the list. Looking forward
+>> to the great potential of BuddyPress.
+>>
+>> I'm now off to scour the threads to see what has come before my arrival.
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+From paul at pburgess.net  Thu May 22 09:28:59 2008
+From: paul at pburgess.net (Paul Burgess)
+Date: Thu May 22 09:29:12 2008
+Subject: [buddypress-dev] Introducing...
+In-Reply-To: <82aec6810805212247y30ade7afs8866c1ecb81c80ea@mail.gmail.com>
+References: <33d319940805212025w4e54194bybd3da08c56a0ec10@mail.gmail.com>
+	<5037e14e0805212202j7bfc6895p4515bdb6ac726441@mail.gmail.com>
+	<82aec6810805212247y30ade7afs8866c1ecb81c80ea@mail.gmail.com>
+Message-ID: <5037e14e0805220228t353bb387ub440c9ed16f4510a@mail.gmail.com>
+
+American Academy in Larnaca, Cyprus [www.academy.ac.cy] [awful site]
+
+We have just rolled out a Drupal creation to celebrate our centenary [
+aa100.info].
+
+I have a WordPress blog [pburgess.net] that I use primarily for
+communicating with my students and hence my growing interest and admiration
+of WordPress. Colleagues have asked me to build something similar for them
+and then I saw the WordPressMU that Harvard are using and then came across
+BuddyPress. This appears perfect for our next web project which will be a
+multiblog installation [initially for teachers but hopefully students later]
+and file publishing. BuddyPress I hope will be the icing on the cake to
+build community etc.
+
+paul
+
+2008/5/22 Justin Ball <justinball@gmail.com>:
+
+> Hi Paul,
+>
+> What school are you with?
+>
+> Justin
+>
+>
+>
+> On Wed, May 21, 2008 at 11:02 PM, Paul Burgess <paul@pburgess.net> wrote:
+> > Hi!
+> >
+> > I'm not a developer so I'm just loitering wondering when the public
+> release
+> > will be.
+> >
+> > I'm hoping to deploy for my school.
+> >
+> > paul
+> >
+> > 2008/5/22 Domain Admin <awedjob@bevvy.org>:
+> >>
+> >> Introducing me. My name is Scott Moore. New to the list. Looking forward
+> >> to the great potential of BuddyPress.
+> >>
+> >> I'm now off to scour the threads to see what has come before my arrival.
+> >>
+> >> _______________________________________________
+> >> buddypress-dev mailing list
+> >> buddypress-dev@lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >>
+> >
+> >
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+> >
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080522/8ac61268/attachment.htm
+From jeromebeta at gmail.com  Thu May 22 11:33:03 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Thu May 22 11:33:19 2008
+Subject: [buddypress-dev] Private Messaging: a small problem when composing
+	message
+Message-ID: <3f7bc4310805220433x74806d04j340be3ac09ebc4f1@mail.gmail.com>
+
+On Compose page, I got a yellow excalmatory mark icon on IE status, click
+the icon it shows :
+
+-------------------------------------------------
+
+Line:495
+
+Char:4
+
+Error:Object doesn't support this property or method
+
+Code:0
+
+-----------------------------------------
+
+
+
+I also found the text I input in the compose input box is very very small,
+while it becomes normal when I sent this text message out or the text
+display on Inbox page, it should get the "textarea" class from my wpmu css,
+but it seems not, I wonder is it related to the above error.
+
+
+
+furthermore, the same "small text" problem happens when you reply a message,
+but without the yellow excalmatory mark icon on IE status.
+
+
+
+did anybody here get the same problem? thanks!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080522/3e75a40a/attachment.htm
+From awedjob at bevvy.org  Fri May 23 00:06:56 2008
+From: awedjob at bevvy.org (AwedJob)
+Date: Fri May 23 00:07:08 2008
+Subject: [buddypress-dev] Fatal error: Cannot redeclare
+Message-ID: <33d319940805221706k671473fdp13528cf5b8935b1e@mail.gmail.com>
+
+After a fresh install of WPMU and adding the bp-core files I get this error:
+*
+
+Fatal error*: Cannot redeclare add_third_level() (previously declared in
+/home/.lamenting/awedjob/
+bevvy.org/wp-content/mu-plugins/bp-core-thirdlevel.php:4) in *
+/home/.lamenting/awedjob/
+bevvy.org/wp-content/mu-plugins/bp-core/bp-core-thirdlevel.php* on line *23
+*
+I did not get any errors after the WPMU install. With my current hosting
+plan only allows ftp connections so I don't have SSH access. Not sure how
+many other times "add_third_level" is called. Any fixes anyone could suggest
+is appreciated.
+
+Scott Moore
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080523/bd623029/attachment.htm
+From awedjob at bevvy.org  Fri May 23 15:53:37 2008
+From: awedjob at bevvy.org (AwedJob)
+Date: Fri May 23 15:53:46 2008
+Subject: [buddypress-dev] All better (Fatal error)
+Message-ID: <33d319940805230853j5d5fff37kf96561e898df1018@mail.gmail.com>
+
+Nothing like starting over from scratch to clear up any troubles. I got SSH
+access, did the old rm -r *.*, created a new database and began anew. This
+time I added the components one at a time instead of all at once.
+
+Time to play with my new toy now.
+
+Scott Moore
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080523/27e81eae/attachment.htm
+From jeromebeta at gmail.com  Sat May 24 09:46:41 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Sat May 24 09:46:51 2008
+Subject: [buddypress-dev] Link mess-up problem is fixed on the latest trunk
+Message-ID: <3f7bc4310805240246i68d7a4ecqe68784848ce94fe6@mail.gmail.com>
+
+Hi, All
+
+Just wanna  you know that I confirmed that link mess-up problem is fixed on
+the latest trunk I downloaded today (2008/5/24), I verified it on my site,
+wpmu 1.5.1, subdomain installation.
+
+But it seems the profile template tags does not work on this trunk, did
+anyboday get profile template tag problem too?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080524/b37e0df5/attachment.htm
+From jeromebeta at gmail.com  Sat May 24 12:47:45 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Sat May 24 12:48:00 2008
+Subject: [buddypress-dev] Re: Private Messaging: a small problem when
+	composing message
+In-Reply-To: <3f7bc4310805220433x74806d04j340be3ac09ebc4f1@mail.gmail.com>
+References: <3f7bc4310805220433x74806d04j340be3ac09ebc4f1@mail.gmail.com>
+Message-ID: <3f7bc4310805240547n4520ed4fm4af67113ef8365e7@mail.gmail.com>
+
+In addditon, I found 2 more issues about private mesasges.
+
+1. If A sent a message X to B, B deleted message X, next time if A reply on
+message X (X still in his Sent Messages folder), B won't see A's reply.
+
+2. If A sent a message X to B, but before B read it, A go to his Sent
+Messages folder, click Message X, then message X won't be displayed as a new
+message for B.
+
+On Thu, May 22, 2008 at 1:33 PM, Jerome <jeromebeta@gmail.com> wrote:
+
+> On Compose page, I got a yellow excalmatory mark icon on IE status, click
+> the icon it shows :
+>
+> -------------------------------------------------
+>
+> Line:495
+>
+> Char:4
+>
+> Error:Object doesn't support this property or method
+>
+> Code:0
+>
+> -----------------------------------------
+>
+>
+>
+> I also found the text I input in the compose input box is very very small,
+> while it becomes normal when I sent this text message out or the text
+> display on Inbox page, it should get the "textarea" class from my wpmu css,
+> but it seems not, I wonder is it related to the above error.
+>
+>
+>
+> furthermore, the same "small text" problem happens when you reply a
+> message, but without the yellow excalmatory mark icon on IE status.
+>
+>
+>
+> did anybody here get the same problem? thanks!
+>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080524/bf92db02/attachment.htm
+From ponara at gmail.com  Sat May 24 19:03:53 2008
+From: ponara at gmail.com (Ponara)
+Date: Sat May 24 19:04:05 2008
+Subject: [buddypress-dev] Re: 'Friend' or 'Fan'?
+Message-ID: <a3e04a520805241203h344b80d7na7175e971aed26e6@mail.gmail.com>
+
+I'd like to suggest that with news/publication type blog networks, e.g.
+HuffingtonPost, you're not interested in friendships as much as tracking a
+particular author/blogger's latest articles.  In their set up, (which uses
+MT), you are a 'fan' of a blogger, and can therefore keep up to date on his
+latest posts.
+
+
+
+On Tue, May 20, 2008 at 10:14 PM, Bryan Phelps <bryanphelps@gmail.com>
+wrote:
+
+> Great fix...can't wait to check it out.
+>
+> On Tue, May 20, 2008 at 6:51 PM, Andy Peatling <
+> andypeatling@automattic.com> wrote:
+>
+>> On 19-May-08, at 5:55 PM, Andy Peatling wrote:
+>>
+>>  @ Anday
+>>>
+>>>  "*It should render the details for the blog owner. Basically, the ID for
+>>>> the
+>>>> user that has defined that blog as their primary blog. Your primary blog
+>>>> has
+>>>> a user icon next to the tab in the admin area. That is where your
+>>>> profile
+>>>> details will show. I believe I'm right in thinking a blog can only have
+>>>> one
+>>>> primary user assigned to it?"*
+>>>>
+>>>> But unfortunately, I found it is possible to assign a blog as the
+>>>> primary
+>>>> blog to many users, I  just tried it on my wpmu v1.5.1 site, in this
+>>>> case, "
+>>>> *blog owner -* *the ID for the user that has defined that blog as their
+>>>> primary blog"* mechanism will get problem.
+>>>>
+>>>
+>>> Hmm, I'm sure this was not the case on my installation. We will need to
+>>> find a way to work around / address this if the above is correct.
+>>>
+>>
+>> We have found a workaround to this (actually Matt did) that will fix the
+>> issues with blog owners and profiles. Instead of invoking the $authordata
+>> variable and using that to render the profile, we are matching the blog
+>> domain/path to the user.
+>>
+>> So, if you visit "andy.buddypress.org" it will take the "andy" part and
+>> display the profile for the user "andy". That way, only the profile for the
+>> user that signed up with this blog will be shown. You can still assign new
+>> administrators/contributors/authors etc etc, but the owners profile will
+>> only ever show.
+>>
+>> I've made this change and it seems to be working well for both subdomains
+>> and subfolders. It should also in theory fix the problems people have been
+>> having with links, pages and categories.
+>>
+>> I will be checking this in shortly, and hoping to tag a v0.2 of the
+>> extended profile component ASAP. We still have a bunch of bugs to fix with
+>> some new feature additions.
+>>
+>> ---------
+>> Andy Peatling | Social Engineer | Automattic
+>> http://andyinlife.com
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+-- 
+..................................................................
+Ponara Steven Eng
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080524/f301ce60/attachment.htm
+From bryanphelps at gmail.com  Sat May 24 21:17:45 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Sat May 24 21:17:56 2008
+Subject: [buddypress-dev] Link mess-up problem is fixed on the latest trunk
+In-Reply-To: <3f7bc4310805240246i68d7a4ecqe68784848ce94fe6@mail.gmail.com>
+References: <3f7bc4310805240246i68d7a4ecqe68784848ce94fe6@mail.gmail.com>
+Message-ID: <38d292690805241417s49d9bb1cq3bd2636f33eca71c@mail.gmail.com>
+
+Am I missing something?  I updated from the latest trunk today and my pages
+still don't work.
+
+On Sat, May 24, 2008 at 3:46 AM, Jerome <jeromebeta@gmail.com> wrote:
+
+> Hi, All
+>
+> Just wanna  you know that I confirmed that link mess-up problem is fixed on
+> the latest trunk I downloaded today (2008/5/24), I verified it on my site,
+> wpmu 1.5.1, subdomain installation.
+>
+> But it seems the profile template tags does not work on this trunk, did
+> anyboday get profile template tag problem too?
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080524/2f19e624/attachment.htm
+From bryanphelps at gmail.com  Sat May 24 21:22:15 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Sat May 24 21:22:43 2008
+Subject: [buddypress-dev] Link mess-up problem is fixed on the latest trunk
+In-Reply-To: <38d292690805241417s49d9bb1cq3bd2636f33eca71c@mail.gmail.com>
+References: <3f7bc4310805240246i68d7a4ecqe68784848ce94fe6@mail.gmail.com>
+	<38d292690805241417s49d9bb1cq3bd2636f33eca71c@mail.gmail.com>
+Message-ID: <38d292690805241422j5e681486v6a172527076449f5@mail.gmail.com>
+
+Sorry...I was missing something  :)  Works great.
+
+On Sat, May 24, 2008 at 3:17 PM, Bryan Phelps <bryanphelps@gmail.com> wrote:
+
+> Am I missing something?  I updated from the latest trunk today and my pages
+> still don't work.
+>
+> On Sat, May 24, 2008 at 3:46 AM, Jerome <jeromebeta@gmail.com> wrote:
+>
+>> Hi, All
+>>
+>> Just wanna  you know that I confirmed that link mess-up problem is fixed
+>> on the latest trunk I downloaded today (2008/5/24), I verified it on my
+>> site, wpmu 1.5.1, subdomain installation.
+>>
+>> But it seems the profile template tags does not work on this trunk, did
+>> anyboday get profile template tag problem too?
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080524/5b765cf0/attachment.htm
+From jeromebeta at gmail.com  Sat May 24 22:28:57 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Sat May 24 22:29:07 2008
+Subject: [buddypress-dev] Link mess-up problem is fixed on the latest trunk
+In-Reply-To: <38d292690805241422j5e681486v6a172527076449f5@mail.gmail.com>
+References: <3f7bc4310805240246i68d7a4ecqe68784848ce94fe6@mail.gmail.com>
+	<38d292690805241417s49d9bb1cq3bd2636f33eca71c@mail.gmail.com>
+	<38d292690805241422j5e681486v6a172527076449f5@mail.gmail.com>
+Message-ID: <3f7bc4310805241528u527e91a4l557449c031b0cdcd@mail.gmail.com>
+
+How is the profile template tags on your site? I can not get them to work on
+my site.
+
+On Sat, May 24, 2008 at 11:22 PM, Bryan Phelps <bryanphelps@gmail.com>
+wrote:
+
+> Sorry...I was missing something  :)  Works great.
+>
+> On Sat, May 24, 2008 at 3:17 PM, Bryan Phelps <bryanphelps@gmail.com>
+> wrote:
+>
+>> Am I missing something?  I updated from the latest trunk today and my
+>> pages still don't work.
+>>
+>>   On Sat, May 24, 2008 at 3:46 AM, Jerome <jeromebeta@gmail.com> wrote:
+>>
+>>>   Hi, All
+>>>
+>>> Just wanna  you know that I confirmed that link mess-up problem is fixed
+>>> on the latest trunk I downloaded today (2008/5/24), I verified it on my
+>>> site, wpmu 1.5.1, subdomain installation.
+>>>
+>>> But it seems the profile template tags does not work on this trunk, did
+>>> anyboday get profile template tag problem too?
+>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>>
+>>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080524/3de00a45/attachment-0001.htm
+From bryanphelps at gmail.com  Sun May 25 22:23:51 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Sun May 25 22:24:20 2008
+Subject: [buddypress-dev] Link mess-up problem is fixed on the latest trunk
+In-Reply-To: <3f7bc4310805241528u527e91a4l557449c031b0cdcd@mail.gmail.com>
+References: <3f7bc4310805240246i68d7a4ecqe68784848ce94fe6@mail.gmail.com>
+	<38d292690805241417s49d9bb1cq3bd2636f33eca71c@mail.gmail.com>
+	<38d292690805241422j5e681486v6a172527076449f5@mail.gmail.com>
+	<3f7bc4310805241528u527e91a4l557449c031b0cdcd@mail.gmail.com>
+Message-ID: <38d292690805251523y382a6bc0n4d72d80a5ae5fdf7@mail.gmail.com>
+
+What are the profile template tags?  :)  If I'm thinking right, they are
+tags for each field so you can display the data in different places?  If so,
+I'm not even sure how to use them.
+
+
+On Sat, May 24, 2008 at 4:28 PM, Jerome <jeromebeta@gmail.com> wrote:
+
+> How is the profile template tags on your site? I can not get them to work
+> on my site.
+>
+>
+> On Sat, May 24, 2008 at 11:22 PM, Bryan Phelps <bryanphelps@gmail.com>
+> wrote:
+>
+>> Sorry...I was missing something  :)  Works great.
+>>
+>> On Sat, May 24, 2008 at 3:17 PM, Bryan Phelps <bryanphelps@gmail.com>
+>> wrote:
+>>
+>>> Am I missing something?  I updated from the latest trunk today and my
+>>> pages still don't work.
+>>>
+>>>   On Sat, May 24, 2008 at 3:46 AM, Jerome <jeromebeta@gmail.com> wrote:
+>>>
+>>>>   Hi, All
+>>>>
+>>>> Just wanna  you know that I confirmed that link mess-up problem is fixed
+>>>> on the latest trunk I downloaded today (2008/5/24), I verified it on my
+>>>> site, wpmu 1.5.1, subdomain installation.
+>>>>
+>>>> But it seems the profile template tags does not work on this trunk, did
+>>>> anyboday get profile template tag problem too?
+>>>>
+>>>> _______________________________________________
+>>>> buddypress-dev mailing list
+>>>> buddypress-dev@lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>>
+>>>>
+>>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080525/e7d91338/attachment.htm
+From chris at stillbreathing.co.uk  Sun May 25 23:15:46 2008
+From: chris at stillbreathing.co.uk (Chris Taylor - stillbreathing.co.uk)
+Date: Sun May 25 23:15:55 2008
+Subject: [buddypress-dev] Re: 'Friend' or 'Fan'?
+In-Reply-To: <a3e04a520805241203h344b80d7na7175e971aed26e6@mail.gmail.com>
+References: <a3e04a520805241203h344b80d7na7175e971aed26e6@mail.gmail.com>
+Message-ID: <60fe160a0805251615r28e26e08t156fb033c6228c33@mail.gmail.com>
+
+On Sat, May 24, 2008 at 8:03 PM, Ponara <ponara@gmail.com> wrote:
+> I'd like to suggest that with news/publication type blog networks, e.g.
+> HuffingtonPost, you're not interested in friendships as much as tracking a
+> particular author/blogger's latest articles.  In their set up, (which uses
+> MT), you are a 'fan' of a blogger, and can therefore keep up to date on his
+> latest posts.
+
+This shouldn't be too hard to do. My latest friends code allows people
+to categorise their friends, but it should be quite easy for someone
+to set themselves as a fan of someone else - which would not require
+confirmation of course. Yep, that shouldn't be hard at all.
+
+Chris
+From dbisset at dimensionmedia.com  Tue May 27 17:15:43 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Tue May 27 17:16:58 2008
+Subject: [buddypress-dev] modifications to bp-xprofile-templatetags.php
+Message-ID: <20080527131543.gcwnwzouo880ok0k@www.dimensionmedia.com>
+
+Want some feedback on this. I needed to do some logic via php on my  
+homepage/profile page of each blog/account. The functions in  
+bp-xprofile-templatetags simply didn't give an option to return a  
+value, only output it. So i made the following changes:
+
+function the_profile_field_name($inline = false) {
+	global $field;
+	//modified by David
+	if ($inline) {
+		return $field->name;
+	} else {
+		echo $field->name;
+	}
+
+}
+
+function the_profile_field_value($inline = false) {
+	global $field;
+
+	if ( bp_is_serialized($field->data->value) ) {
+		$field_value = unserialize($field->data->value);
+		$field_value = implode( ", ", $field_value );
+		$field->data->value = $field_value;
+	}
+
+	if ( $field->type == "datebox" ) {
+		$field->data->value = bp_format_time( $field->data->value, true );
+	}
+
+	//modified by David
+	if ($inline) {
+		return $field->data->value;
+	} else {
+		echo $field->data->value;
+	}
+}
+
+Area modified below the comments.
+
+Thoughts? Better ways? Should we built this option into these functions?
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From dbisset at dimensionmedia.com  Tue May 27 17:17:52 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Tue May 27 17:18:12 2008
+Subject: [buddypress-dev] problem with cropping tool in IE7, FF
+Message-ID: <20080527131752.x7iqzc8cg4owsocg@www.dimensionmedia.com>
+
+Getting some strange behavior in the latest build of BP.
+
+Avatar cropping tool jumps to the top in IE7. In Firefox, it's ok on  
+the first screen but the next screen it completely breaks.
+
+So my questions are:
+
+1. Anyone else having this issue?
+
+2. Is there a way to simply ask the user for a picture and  
+automatically MAKE THAT THE AVATAR (bypassing the cropping tool  
+altogether)?
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From andypeatling at automattic.com  Tue May 27 19:18:37 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May 27 19:18:58 2008
+Subject: [buddypress-dev] modifications to bp-xprofile-templatetags.php
+In-Reply-To: <20080527131543.gcwnwzouo880ok0k@www.dimensionmedia.com>
+References: <20080527131543.gcwnwzouo880ok0k@www.dimensionmedia.com>
+Message-ID: <427FE7E4-E666-4497-9576-5595B23030ED@automattic.com>
+
+On 27-May-08, at 10:15 AM, David J. Bisset wrote:
+> Want some feedback on this. I needed to do some logic via php on my  
+> homepage/profile page of each blog/account. The functions in bp- 
+> xprofile-templatetags simply didn't give an option to return a  
+> value, only output it. So i made the following changes: [...]
+
+I'm just wondering what situation you would need to return and not  
+echo? The template tags are designed to function within 'the loop' and  
+just spit out the right information. Usually you'd structure your HTML  
+around this, and then call the template tags in the places where you  
+want to render the profile data.
+
+You might want to directly access the profile data object if you want  
+to get hold of data instead of rendering it straight to the page. What  
+do others think?
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From bryanphelps at gmail.com  Tue May 27 19:42:38 2008
+From: bryanphelps at gmail.com (Bryan Phelps)
+Date: Tue May 27 19:42:48 2008
+Subject: [buddypress-dev] modifications to bp-xprofile-templatetags.php
+In-Reply-To: <427FE7E4-E666-4497-9576-5595B23030ED@automattic.com>
+References: <20080527131543.gcwnwzouo880ok0k@www.dimensionmedia.com>
+	<427FE7E4-E666-4497-9576-5595B23030ED@automattic.com>
+Message-ID: <38d292690805271242l7a94e196kb4b30b80089db43d@mail.gmail.com>
+
+The template tags are new to me.  Can someone explain the purpose and how
+they are used or point me to some documentation?
+
+On Tue, May 27, 2008 at 1:18 PM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> On 27-May-08, at 10:15 AM, David J. Bisset wrote:
+>
+>> Want some feedback on this. I needed to do some logic via php on my
+>> homepage/profile page of each blog/account. The functions in
+>> bp-xprofile-templatetags simply didn't give an option to return a value,
+>> only output it. So i made the following changes: [...]
+>>
+>
+> I'm just wondering what situation you would need to return and not echo?
+> The template tags are designed to function within 'the loop' and just spit
+> out the right information. Usually you'd structure your HTML around this,
+> and then call the template tags in the places where you want to render the
+> profile data.
+>
+> You might want to directly access the profile data object if you want to
+> get hold of data instead of rendering it straight to the page. What do
+> others think?
+>
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080527/f94886e9/attachment.htm
+From dbisset at dimensionmedia.com  Wed May 28 04:04:05 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Wed May 28 04:04:23 2008
+Subject: [buddypress-dev] modifications to bp-xprofile-templatetags.php
+Message-ID: <20080528000405.0rids3zysokgkw4k@www.dimensionmedia.com>
+
+Andy,
+
+I am trying to place specific information in specific places on my  
+template, but I didn't see an easy way to do it in the files. Example:
+
+<?php if ( group_has_fields() ) : ?>
+<?php while ( profile_fields() ) : the_profile_field(); ?>
+<?php if ( the_profile_field_name(true) == "Zip Code" ) : ?>
+<?php $zipCode = the_profile_field_value(true); ?>
+<?php endif; ?>
+<?php endwhile; ?>
+<?php endif; ?>
+
+I'm realizing now that this probably isn't the best way, so perhaps  
+you can show me the alternate?
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From dbisset at dimensionmedia.com  Wed May 28 04:39:35 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Wed May 28 04:39:56 2008
+Subject: [buddypress-dev] suggestion: profile avatar functions
+Message-ID: <20080528003935.x0qz25d5sksw8skg@www.dimensionmedia.com>
+
+just checked in the latest BuddyPress version tonight. One thing I noticed:
+
+function the_profile_picture() {
+	global $coreuser_id;
+	echo xprofile_get_avatar($coreuser_id, 2);
+}
+
+Any reason why we can't have a function to pull the thumbnail?
+
+function the_profile_picture_thumbnail() {
+	global $coreuser_id;
+	echo xprofile_get_avatar($coreuser_id, 1);
+}
+
+Also I want to be able to tell if the user has uploaded an avatar so I  
+can place an "add photo/avatar" button on my template. Right now, I'm  
+doing that by created the above function and adding this to my code:
+
+<?php if (the_profile_picture_thumbnail(true) == XPROFILE_DEFAULT_AVATAR) {
+<div class="addphoto">
+<div class="icon"><a href="#"><img src="<?php  
+bloginfo('stylesheet_directory'); ?>/images/buttons/add_plus.gif"  
+alt="" /></a></div>
+<div class="phrase"><a href="#">Add Photo</a></div>
+<br clear="all" />
+</div> <!-- add photo -->
+<? } ?>
+
+Is there a better way? Hopefully you can see why I would desire to  
+know if the user uploaded an avatar.
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From beau at dentedreality.com.au  Wed May 28 06:51:50 2008
+From: beau at dentedreality.com.au (Beau Lebens)
+Date: Wed May 28 06:52:08 2008
+Subject: [buddypress-dev] problem with cropping tool in IE7, FF
+In-Reply-To: <20080527131752.x7iqzc8cg4owsocg@www.dimensionmedia.com>
+References: <20080527131752.x7iqzc8cg4owsocg@www.dimensionmedia.com>
+Message-ID: <B9BF63B8-5480-445C-9AF4-9C2988BB3BC2@dentedreality.com.au>
+
+If anyone else can confirm this (or even if they can't), can someone  
+please send me screenshots? I don't actually have immediate access to  
+a machine with IE7 on it unfortunately, so it's hard to test/confirm  
+this sort of thing.
+
+Thanks,
+
+Beau
+
+-- 
+Beau Lebens
+Dented Reality
+dentedreality.com.au
+beau@dentedreality.com.au
+
+On May 27, 2008, at 10:17 AM, David J. Bisset wrote:
+
+> Getting some strange behavior in the latest build of BP.
+>
+> Avatar cropping tool jumps to the top in IE7. In Firefox, it's ok  
+> on the first screen but the next screen it completely breaks.
+>
+> So my questions are:
+>
+> 1. Anyone else having this issue?
+>
+> 2. Is there a way to simply ask the user for a picture and  
+> automatically MAKE THAT THE AVATAR (bypassing the cropping tool  
+> altogether)?
+>
+> -- 
+> David Bisset
+> Director of Web Development
+> Dimension Media, Inc.
+> www.dimensionmedia.com
+> http://www.linkedin.com/in/davidbisset
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From jeromebeta at gmail.com  Wed May 28 09:49:07 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Wed May 28 09:49:58 2008
+Subject: [buddypress-dev] a more formal prebuilt-fields for countries?
+Message-ID: <3f7bc4310805280249w1227176dxf47a386617b425de@mail.gmail.com>
+
+the current one is very interesting, but could buddypress team provide a
+more formal one in next build? or is there anybody have a formal csv file
+for countries? thanks!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080528/72a6ea01/attachment-0001.htm
+From jeromebeta at gmail.com  Wed May 28 14:33:21 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Wed May 28 14:33:38 2008
+Subject: [buddypress-dev] link problem in Message
+Message-ID: <3f7bc4310805280733u6a073c79k986d0b76a464c6ba@mail.gmail.com>
+
+some link will be added your blog link ahead of it, for example, you write
+http://www.theexamplelink.com, it will become to
+http://yourblog.exampledomain.com/%22http://www.theexamplelink.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080528/99c4a3c2/attachment.htm
+From andypeatling at automattic.com  Wed May 28 19:59:02 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed May 28 19:59:22 2008
+Subject: [buddypress-dev] suggestion: profile avatar functions
+In-Reply-To: <20080528003935.x0qz25d5sksw8skg@www.dimensionmedia.com>
+References: <20080528003935.x0qz25d5sksw8skg@www.dimensionmedia.com>
+Message-ID: <822572A2-57E2-4D9D-AAEE-8BC0D94A6F2A@automattic.com>
+
+
+On 27-May-08, at 9:39 PM, David J. Bisset wrote:
+> Any reason why we can't have a function to pull the thumbnail?
+>
+> function the_profile_picture_thumbnail() {
+> 	global $coreuser_id;
+> 	echo xprofile_get_avatar($coreuser_id, 1);
+> }
+
+No reason at all, I've added that to the template tags file and I'll  
+check it in later today.
+
+> Also I want to be able to tell if the user has uploaded an avatar so  
+> I can place an "add photo/avatar" button on my template. Right now,  
+> I'm doing that by created the above function and adding this to my  
+> code:
+>
+> <?php if (the_profile_picture_thumbnail(true) ==  
+> XPROFILE_DEFAULT_AVATAR) {
+> <div class="addphoto">
+> <div class="icon"><a href="#"><img src="<?php  
+> bloginfo('stylesheet_directory'); ?>/images/buttons/add_plus.gif"  
+> alt="" /></a></div>
+> <div class="phrase"><a href="#">Add Photo</a></div>
+> <br clear="all" />
+> </div> <!-- add photo -->
+> <? } ?>
+>
+> Is there a better way? Hopefully you can see why I would desire to  
+> know if the user uploaded an avatar.
+
+It's probably a better idea to make a 'user_has_avatar()' function, do  
+the calculations in there so you can just do a:
+
+<?php if ( !user_has_avatar() ) { ... } ?>
+From jeromebeta at gmail.com  Sat May 31 18:53:23 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Sat May 31 18:53:31 2008
+Subject: [buddypress-dev] A minor bug in bp-xprofile-avatars.php
+Message-ID: <3f7bc4310805311153r3fa32fcdi121b7da15aedff89@mail.gmail.com>
+
+actually, it can not handel the exact 450*450 picture, so please change Line
+131:
+
+  if ( $size[0] < XPROFILE_AVATAR_V2_W || $size[1] <
+XPROFILE_CROPPING_CANVAS_MAX ) {
+
+to
+
+  if ( $size[0] < XPROFILE_AVATAR_V2_W || $size[1] <=
+XPROFILE_CROPPING_CANVAS_MAX ) {
+
+and the prompt info in Line 132 need be changed accordingly.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080531/0f6a5ffc/attachment.htm

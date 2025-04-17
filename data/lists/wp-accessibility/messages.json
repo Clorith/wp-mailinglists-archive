@@ -1,0 +1,252 @@
+[
+  {
+    "sender_name": "Alastair Campbell",
+    "sender_email": "alastc at gmail.com",
+    "subject": "[wp-accessibility] Let's get started on improving WordPress",
+    "body": "accessibility\nTynan Colin Beatty wrote:\n\u003e Repetetive/non-descriptive link anchors need to be more descriptive and\n\u003e unique.\nI'd advise a little caution before jumping in and changing all of\nthem, the relevant accessibility advice on this is:\nhttp://www.w3.org/TR/WCAG20/#navigation-mechanisms-refs\n\"The purpose of each link can be determined from the link text alone\nor from the link text together with its programmatically determined\nlink context, except where the purpose of the link would be ambiguous\nto users in general.\"\nI.e. if the repetitive links are in an HTML structure that makes it\napparent what each one is related to, adding more description can\nsimply slow people down.\nJim Thatcher did a great explanation of this:\nhttp://jimthatcher.com/news-061607.htm\nFor example, I don't think that the actions in the recent comments\narea of the dashboard would benefit from extra text. The code of a\ncomment down to the first link is something like:\n\u003cdiv class=\"dashboard-comment-wrap\"\u003e\n\u003ch4 class=\"comment-meta\"\u003eFrom \u003ccite\nclass=\"comment-author\"\u003ePersonA\u003c/cite\u003e on \u003ca href=\"#\"\u003eArticle\u003c/a\u003e \u003c/h4\u003e\n\u003cblockquote\u003eThe comment\u003c/blockquote\u003e\n\u003cp class=\"row-actions\"\u003e\u003cspan class=\"approve\"\u003e\u003ca title=\"Approve this\ncomment\" class=\"...\" href=\"#\"\u003eApprove\u003c/a\u003e\u003c/span\u003e\n[more links]\n\u003c/p\u003e\n\u003c/div\u003e\nThe heading above the comments fulfills the 'link context', in the\nsame way as the W3C's example:\nhttp://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/H80\nIt would probably help to make the actions use list markup (p becomes\nul, span becomes li), but that's probably an easier change, and more\nuseful than adding hidden text.\n(NB: Those links could really do with better onfocus indicators - try\nusing them with the keyboard-only and working out which link you're\non!)\nAnyway, sorry to jump straight in like that, it just caught my eye!\nThe accessibility of an app like Wordpress is quite a wide ranging\nchallenge, I guess it's best to pick areas and try and improve the\ncore coding? I would struggle to find time to do a proper review (as\nJoe Clark did a few years ago\n(http://joeclark.org/access/webaccess/WordPress-ATAG-evaluation.html).\nThe admin area and accessibility guidelines have moved on since then,\nso that probably isn't relevant anymore.\nKind regards,\n-Alastair\n--\nhttp://alastairc.ac/",
+    "date": "2009-08-09T13:27:04+01:00",
+    "message_id": "e4e1f3bd0908090527s46a9381cxb745834d1b46fc34@mail.gmail.com"
+  },
+  {
+    "sender_name": "Jane Wells",
+    "sender_email": "jane at automattic.com",
+    "subject": "[wp-accessibility] Accessible admin skin",
+    "body": "Hi there. We've been talking about creating an admin skin (like the  \ncolor scheme option under profile) that would be easier to use for  \npeople with disabilities. Obviously we want the entire admin to be  \naccessible, but in some cases it's not specifically accessibility...  \nthings like small click targets *work* but are harder to hit for some  \npeople. We were thinking this admin skin would do things like show the  \naction links on edit.php persistently instead of on row hover, spell  \nout some things we currently use symbols to represent (like View Post  \ninstead of # for permalink access), make it higher contrast, use  \nbigger fonts, etc.\nInstead of just having a single person create this, it seemed like a  \ngood project to try and bring together some of our more accessibility- \nminded community members. I figure there's room for participation in  \nthis mini-project to: identify issues in the current admin design,  \nmock up the new alternate design, code the css, and test the heck out  \nof the new skin to be sure it does the job well (with a repeat of  \nprevious steps as needed). This list seemed like the right place to  \nstart. Would anyone here be interested in volunteering for this project?\nJane",
+    "date": "2009-09-09T17:29:43-04:00",
+    "message_id": "BA924D04-905A-40B4-AB71-D3E88ABF97B2@automattic.com",
+    "replies": [
+      {
+        "sender_name": "esmi at quirm dot net",
+        "sender_email": "esmi at quirm.net",
+        "subject": "[wp-accessibility] Accessible admin skin",
+        "body": "on 09/09/2009 22:29 Jane Wells said the following:\n\u003e Hi there. We've been talking about creating an admin skin (like the  \n\u003e color scheme option under profile) that would be easier to use for  \n\u003e people with disabilities.  \n\u003e Would anyone here be interested in volunteering for this project?\nI'd be up for that. Had a decent background in designing for low-vision, \ndyslexics, mobility impaired and those with cognitive/learning difficulties.\nI've also got some contacts with professional pan-disability \nuser-testing groups that might come in useful.\nMel P.",
+        "date": "2009-09-09T22:53:17+01:00",
+        "message_id": "4AA823CD.5050007@quirm.net",
+        "in_reply_to": "BA924D04-905A-40B4-AB71-D3E88ABF97B2@automattic.com",
+        "references": [
+          "\u003cBA924D04-905A-40B4-AB71-D3E88ABF97B2@automattic.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Chris Taylor - stillbreathing.co.uk",
+    "sender_email": "chris at stillbreathing.co.uk",
+    "subject": "[wp-accessibility] Menu accessibility",
+    "body": "Hi Jane,\nI'd be interested in helping with this. What do I need to get started\nlooking at it?\nChris",
+    "date": "2010-04-02T08:29:38+01:00",
+    "message_id": "r2i60fe160a1004020029q7a2c13ei18908ac984d9fc1@mail.gmail.com"
+  },
+  {
+    "sender_name": "Jane Wells",
+    "sender_email": "jane at automattic.com",
+    "subject": "[wp-accessibility] New menu system",
+    "body": "Hi everyone. You may have heard about the new menu system being added  \nto WordPress 3.0, based on the WooThemes Custom Navigation. One big  \nproblem is that it's not really accessible. I've identified a couple  \nof things that need to happen to address this, but it would be great  \nif any experts wanted to take a look and ID any/everything we need to  \nfix for accessibility. The menus are in trunk now, under Appearance,  \nif anyone wants to take a look. Results can be posted to the trac  \nticket for menus: https://core.trac.wordpress.org/ticket/11817\nJane",
+    "date": "2010-02-25T14:11:50-05:00",
+    "message_id": "C1929AD1-41CC-41A1-99AC-D0E3729D6E59@automattic.com"
+  },
+  {
+    "sender_name": "",
+    "sender_email": "Rich Pedley \u003celfin at elfden.co.uk\u003e",
+    "subject": "Re: [wp-testers] using word press",
+    "body": "?Send wp-testers mailing list submissions to\nwp-testers at lists.automattic.com\nTo subscribe or unsubscribe via the World Wide Web, visit\nhttp://lists.automattic.com/mailman/listinfo/wp-testers\nor, via email, send a message with subject or body 'help' to\nwp-testers-request at lists.automattic.com\nYou can reach the person managing the list at\nwp-testers-owner at lists.automattic.com\nWhen replying, please edit your Subject line so it is more specific\nthan \"Re: Contents of wp-testers digest...\"\nToday's Topics:\n   1. using word press (Marvin Hunkin)\n   2. Re: using word press (Rich Pedley)\n----------------------------------------------------------------------\nMessage: 1\nTo: \u003cwp-testers at lists.automattic.com\u003e\nContent-Type: text/plain; charset=\"iso-8859-1\"\n    hi.\na blind computer user using the jaws for windows screen reader from http://www.freedomscientific.com\nand wondering how to use word press.\nand to rebuild my star trek site using cms.\nnow how to start this project and to rebuild.\nhad been using visual web developer express 2008 and sql server management studio.\nand a blind programming friend from blindgeeks at yahoogroups.com but he has not got time to help with the project, that he started with me over 18 months ago.\nand now stuck and got coders block.\nso was thinking about using a cms.\nso how to dtart.\nany accessibility that will work with jaws.\ngot the wamp server 2.0.\nthank you.\nmarvin.\nps: using windows vista home premium on a toshiba a300 satellite 2 gh ram, 2.1 ghz processor, 250 gb ram, a 1 tb external western digital hard disk, ati radium graphics, real tech audio manager.\n------------------------------\nMessage: 2\nTo: wp-testers at lists.automattic.com\nContent-Type: text/plain; charset=ISO-8859-1; format=flowed\nHi Marvin,\nYou might find the accessibility list more useful, you can join it via:\nhttp://lists.automattic.com/mailman/listinfo/wp-accessibility\nI know there is a least one partially sighted user on that list who \nshould be able to answer some of your questions. (I think he uses Jaws).\nRich\nOn 16/09/2010 08:41, Marvin Hunkin wrote:\n\u003e      hi.\n\u003e a blind computer user using the jaws for windows screen reader from http://www.freedomscientific.com\n\u003e and wondering how to use word press.\n\u003e and to rebuild my star trek site using cms.\n\u003e now how to start this project and to rebuild.\n\u003e had been using visual web developer express 2008 and sql server management studio.\n\u003e and a blind programming friend from blindgeeks at yahoogroups.com but he has not got time to help with the project, that he started with me over 18 months ago.\n\u003e and now stuck and got coders block.\n\u003e so was thinking about using a cms.\n\u003e so how to dtart.\n\u003e any accessibility that will work with jaws.\n\u003e got the wamp server 2.0.\n\u003e thank you.\n\u003e marvin.\n\u003e ps: using windows vista home premium on a toshiba a300 satellite 2 gh ram, 2.1 ghz processor, 250 gb ram, a 1 tb external western digital hard disk, ati radium graphics, real tech audio manager.\n\u003e _______________________________________________\n\u003e wp-testers mailing list\n\u003e wp-testers at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/wp-testers\n\u003e\n\u003e\n\u003e\n\u003e\n\u003e No virus found in this incoming message.\n\u003e Checked by AVG - www.avg.com\n\u003e Version: 9.0.851 / Virus Database: 271.1.1/3137 - Release Date: 09/15/10 19:34:00\n\u003e\n------------------------------\n_______________________________________________\nwp-testers mailing list\nwp-testers at lists.automattic.com\nhttp://lists.automattic.com/mailman/listinfo/wp-testers\nEnd of wp-testers Digest, Vol 67, Issue 7\n*****************************************\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20100916/4a7450f6/attachment.htm\u003e",
+    "date": "2010-09-16T09:59:42+01:00",
+    "message_id": "4C91DC7E.8000202 at elfden.co.uk"
+  },
+  {
+    "sender_name": "Mike Stahl",
+    "sender_email": "mike.stahl at gmail.com",
+    "subject": "[wp-accessibility] Gallery",
+    "body": "Not sure if this list is even active, but thought I'd give it a shot.\nWhat can we do as developers to make the gallery more accessible? I'l\ncontribute any way that I can. I work with ADA compliance at my company.\nThere are also several little things that I think we can work on like read\nmore links which are not ada compliant because they contain generic text.\nCurrently, we add hidden text to the anchor in themes to bypass this such\nas:\n\u003ca href=\"\"\u003eRead More \u003cspan class=\"hidden\"\u003eabout cars\u003c/span\u003e\u003c/a\u003e\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20130102/c371a86d/attachment.htm\u003e",
+    "date": "2013-01-02T09:08:16-08:00",
+    "message_id": "CAPCi+Z+uPefyLeKOuJpMwmAFzhJjZkXLzzZDH4GvGXhCPuiLRQ@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Gabe Vega Via Iphone4S",
+        "sender_email": "theblindtech at gmail.com",
+        "subject": "[wp-accessibility] Gallery",
+        "body": "I'm here. And I often wondered if this email list was active. I joined in order to learn how to make my websites using WordPress more accessible, or WordPress itself more accessible.\nGabe Vega \nSent from my iPhone\n(623) 565-9357\nOn Jan 2, 2013, at 10:08 AM, Mike Stahl \u003cmike.stahl at gmail.com\u003e wrote:\n\u003e Not sure if this list is even active, but thought I'd give it a shot. \n\u003e \n\u003e What can we do as developers to make the gallery more accessible? I'l contribute any way that I can. I work with ADA compliance at my company.\n\u003e \n\u003e There are also several little things that I think we can work on like read more links which are not ada compliant because they contain generic text. Currently, we add hidden text to the anchor in themes to bypass this such as:\n\u003e \u003ca href=\"\"\u003eRead More \u003cspan class=\"hidden\"\u003eabout cars\u003c/span\u003e\u003c/a\u003e\n\u003e _______________________________________________\n\u003e wp-accessibility mailing list\n\u003e wp-accessibility at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/wp-accessibility\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20130102/3f9e9da5/attachment.htm\u003e",
+        "date": "2013-01-02T10:20:44-07:00",
+        "message_id": "4F6A6D57-D72D-4C3B-AAC8-9EB2AE1976DD@gmail.com",
+        "in_reply_to": "CAPCi+Z+uPefyLeKOuJpMwmAFzhJjZkXLzzZDH4GvGXhCPuiLRQ@mail.gmail.com",
+        "references": [
+          "\u003cCAPCi+Z+uPefyLeKOuJpMwmAFzhJjZkXLzzZDH4GvGXhCPuiLRQ@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "S Gunter",
+    "sender_email": "smg64131 at gmail.com",
+    "subject": "[wp-accessibility] Post to list",
+    "body": "Post tracking information for my wife\nRequest for $500.00. Complete the request now.\n[image: Google Pay logo]\nMoney request\n$ 500\n“Rent”\nPay now\n\u003chttps://wallet.google.com/r/settle?tt=3EC6D464344A47A6aAtdOquChgb5qavdgbdi9w\u003e\nDecline request\n\u003chttps://wallet.google.com/r/declineRequest?tt=3EC6D464344A47A6aAtdOquChgb5qavdgbdi9w\u003e\nMoney requested from Gmail · Learn how\n\u003chttps://support.google.com/mail/?p=email_money\u003e\n[image: Google logo]\nID: L.3EC6-D464-344A-47A6\npay.google.com\n\u003chttps://pay.google.com/?utm_source=wallet\u0026utm_campaign=gmail-snippet\u0026utm_medium=email\u003e\n · Help Center \u003chttp://support.google.com/wallet/?p=email_help\u003e · Protect\nagainst fraud \u003chttp://support.google.com/wallet/?p=email_spam\u003e\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20180715/badd2910/attachment.html\u003e",
+    "date": "2018-07-15T17:34:14-05:00",
+    "message_id": "CAAzgt1eYKibdCBPG+MzrxJq8L4Ln3Qu4pvYBYTb=_37kFmzRAg@mail.gmail.com"
+  },
+  {
+    "sender_name": "Lynne Pope",
+    "sender_email": "lynne.pope at gmail.com",
+    "subject": "[wp-accessibility] Let's get started on improving WordPress",
+    "body": "accessibility\nFirst off, I wish to thank \"the powers that be\" for responding to my request\nfor this mailing list.\nI believe that by discussing and proposing changes to improve WordPress\naccessibility those of us with expertise in this area can make a significant\ndifference.\nLet's see if we can gather together all reports of accessibility issues\nand/or concerns, look at what needs to be done at the code level to correct\nthese, and get moving on bringing WordPress into ATAG and WCAG2.0\ncompliance.\nI'm excited to see this underway!\nLynne\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20090807/aba3c38e/attachment.htm\u003e",
+    "date": "2009-08-07T14:38:52+12:00",
+    "message_id": "427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com",
+    "replies": [
+      {
+        "sender_name": "Tynan Colin Beatty",
+        "sender_email": "junsuijin at gmail.com",
+        "subject": "[wp-accessibility] Let's get started on improving WordPress",
+        "body": "accessibility\nLet's see, since I'm jumping in here completely unaware of previous reports,\nI'll get the ball rolling by bringing up one of the most glaring issues that\nI've encountered:\nRepetetive/non-descriptive link anchors need to be more descriptive and\nunique. This applies to comment 'reply' links, 'read more' links, etc. The\ncurrent preferred technique is to place excess text into a span and then use\ncss to make that span 1 pixel and place it outside of the viewable screen\narea as describe here:\nhttp://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/C7\nI'm uncertain as to how this would affect the 'reply' situation, should\nWordPress Trac ticket #10550 ( http://core.trac.wordpress.org/ticket/10550 )\nbe resolved by changing the links to form inputs; but as it is now, this\nparticular case should be resolved by adding comment id #s into the hidden\nspans, like \u003ca\u003ereply \u003cspan class=\"hide-me\"\u003eto comment #\u003c/span\u003e\u003c/a\u003e or\nsimilar.\n'Read more' can be supplemented by titles. Any other repetetive / unclear\nanchors should also be similarly supplemented to comply with this guideline.\nThoughts?\nOn Thu, Aug 6, 2009 at 9:38 PM, Lynne Pope \u003clynne.pope at gmail.com\u003e wrote:\n\u003e First off, I wish to thank \"the powers that be\" for responding to my\n\u003e request for this mailing list.\n\u003e I believe that by discussing and proposing changes to improve WordPress\n\u003e accessibility those of us with expertise in this area can make a significant\n\u003e difference.\n\u003e\n\u003e Let's see if we can gather together all reports of accessibility issues\n\u003e and/or concerns, look at what needs to be done at the code level to correct\n\u003e these, and get moving on bringing WordPress into ATAG and WCAG2.0\n\u003e compliance.\n\u003e\n\u003e I'm excited to see this underway!\n\u003e\n\u003e Lynne\n\u003e\n\u003e\n\u003e _______________________________________________\n\u003e wp-accessibility mailing list\n\u003e wp-accessibility at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/wp-accessibility\n\u003e\n\u003e\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20090806/23b076f8/attachment.htm\u003e",
+        "date": "2009-08-06T23:42:46-05:00",
+        "message_id": "4f9525dc0908062142n33c3a458j5772672faa08ea96@mail.gmail.com",
+        "in_reply_to": "427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com",
+        "references": [
+          "\u003c427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "danie.vlawcenter at gmail.com",
+    "sender_email": "danie.vlawcenter at gmail.com",
+    "subject": "[wp-accessibility] (no subject)",
+    "body": "Get Outlook for Mobile\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20160229/f1331b44/attachment.html\u003e",
+    "date": "2016-02-29T02:46:22Z",
+    "message_id": "4BD31D14B31E4B42.1-8679b11b-de6b-450c-a974-0ebb19832fe3@mail.outlook.com"
+  },
+  {
+    "sender_name": "John Cocking",
+    "sender_email": "j_cockin at uncg.edu",
+    "subject": "[wp-accessibility] WordPress Admin -- Interaction with Jaws",
+    "body": "Hello,\nI work at a university, where we're using WordPress (with multiple sites) to\nhelp faculty support their courses. We have a single blind user, who relies\nupon the Jaws screen reader to interact with his computer.\nWe are encountering two issues:\n1) On the My Blogs page (my-sites.php in 3.0, or index.php?page=myblogs in\nWPMU 2.9.2), it is impossible to distinguish between the \"Visit\" and\n\"Dashboard\" links of his various sites, as they are not labeled, but are\ninstead informed by their placement on the page.\n2) When editing a page (page.php?action=edit\u0026post=XXX in 2.9.2), the modal\nwindow/overlay created by clicking Add Media is not seen by Jaws, which\nkeeps its focus on the hidden bit of the page -- that bit covered by the\noverlay.\nWhat can I (or we) do to make the admin section a little more accessible?\nThanks,\nJohnC\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20100629/7800e028/attachment.htm\u003e",
+    "date": "2010-06-29T09:41:08-04:00",
+    "message_id": "AANLkTilsn8l_C0c2l3XPiyuw9KbH7dx9P0w96UabNSEU@mail.gmail.com"
+  },
+  {
+    "sender_name": "Aqil Sajjad",
+    "sender_email": "aqil_sajjad at yahoo.ca",
+    "subject": "[wp-accessibility] testing wordpress software for accessibility",
+    "body": "I wanted to learn and test the wordpress software for its accessibility. Is there a way I can test it locally on my own computer before buying any hosting space?\nSecondly, if one creates a blog, is it possible to prevent spam comments without using a captia? Is there any other alternative and more accessible method of filtering out spammers?\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20130706/b484505c/attachment.html\u003e",
+    "date": "2013-07-06T00:19:46-04:00",
+    "message_id": "97969C90C9E846549485A41167B6A103@AQIL2010",
+    "replies": [
+      {
+        "sender_name": "Andrew Nacin",
+        "sender_email": "wp at andrewnacin.com",
+        "subject": "[wp-accessibility] testing wordpress software for accessibility",
+        "body": "On Sat, Jul 6, 2013 at 12:19 AM, Aqil Sajjad \u003caqil_sajjad at yahoo.ca\u003e wrote:\n\u003e **\n\u003e I wanted to learn and test the wordpress software for its accessibility.\n\u003e Is there a way I can test it locally on my own computer before buying any\n\u003e hosting space?\n\u003e\nhttp://codex.wordpress.org/WordPress_Installation_Techniques#Installing_WordPress_Locally\n Secondly, if one creates a blog, is it possible to prevent spam comments\n\u003e without using a captia? Is there any other alternative and more accessible\n\u003e method of filtering out spammers?\n\u003e\nhttp://wordpress.org/plugins/akismet/\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20130706/33696e61/attachment.html\u003e",
+        "date": "2013-07-06T00:30:48-04:00",
+        "message_id": "CAP29Pvjo03CwWSyJzyB9dez1Q3PB+XRgZa-tfVicTk79Skfe9Q@mail.gmail.com",
+        "in_reply_to": "97969C90C9E846549485A41167B6A103@AQIL2010",
+        "references": [
+          "\u003c97969C90C9E846549485A41167B6A103@AQIL2010\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "mani kandan",
+    "sender_email": "manimani1014 at gmail.com",
+    "subject": "[wp-accessibility] help to develop WP project",
+    "body": "Hi everybody...\nI am interest  to do some development in the Wordpress project. I downloaded\nthe project tar file , and i maid it to run in local machine. Before trying\nmy concept in this project I need know about the project architecture and\nother things regarding this project. Can any one guide me , where I\nmay understand the project flow , is there any document? .\nRegards\nManikandan . R\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20110117/59486510/attachment.htm\u003e",
+    "date": "2011-01-17T17:49:39+05:30",
+    "message_id": "AANLkTikZWnM24oiu-x7yoTtzjCZfE_xHnm1vu5LusUh+@mail.gmail.com"
+  },
+  {
+    "sender_name": "Jane Wells",
+    "sender_email": "jane at automattic.com",
+    "subject": "[wp-accessibility] Menus in 3.0",
+    "body": "Hi everyone. We have a new custom menu system coming in version 3.0 of  \nWordPress. The problem is that the code it was born from (WooThemes  \nCustom Nav) doesn't have a no-JS version, which we obviously need for  \naccessibility. The developer who's been working on the menu core  \npatches doesn't have a lot of experience in this area, so while he's  \nmoved right along with the JS version, we really need someone who can  \nhelp with the no-JS version. Would anyone on this list be willing to  \nhelp out on this?\nJane",
+    "date": "2010-04-01T13:20:33-04:00",
+    "message_id": "51C7FE73-909C-4D1D-81BF-0D4A9859B832@automattic.com"
+  },
+  {
+    "sender_name": "Rich Pedley",
+    "sender_email": "elfin at elfden.co.uk",
+    "subject": "[wp-accessibility] Twenty Ten",
+    "body": "This list is unused, we need to start using it!\nNow I've made a start with looking at the accessibility of Twenty Ten, \nstarting with Links, well mainly.\nhttp://core.trac.wordpress.org/ticket/14782\n[quote]\nStarting off with changes to the CSS only.\nLinks: colors amended where necessary. added underscores and/or color \nchanges for active, hover and focus.\nGallery image links: adjusted things to use margin to center the image \nrather than padding, to allow for adding highlighting on image links.\nSkip link: now appears above the #access menu when tabbing through the \npage.\nGrey text/links: was 888 this just failed the color contrast, so \nchanged it to 777 throughout.\nForms: added highlight for input text and textarea, for active and focus.\n[/quote]\nFeel free to add comments there.\nHowever I have an issue with the access (role: navigation) menu, which \ncan't be fixed with CSS alone, and is not just an accessibility issue, \nbut a usability issue.\nTo test and replicate download and use the test data via\nhttp://codex.wordpress.org/Theme_Unit_Test\nYou'll notice that the last link in the navigation is 'Parent Page', \nhover over that, and then the 'Child page 1'. Unless you have a \nwidescreen the 'Child page 2' cannot be seen.\nIs there a javascript solution for this?\nAdditionally of course because some of these pages are _only_ \naccessible via the menu, there should be an alternative listing \ndisplay on the main pages linked. However that may be outside the \nscope of what we can cover (other than _strongly_ suggesting a widget \nis available that can do this).\nRich",
+    "date": "2010-09-05T13:53:05+01:00",
+    "message_id": "4C8392B1.1020209@elfden.co.uk",
+    "replies": [
+      {
+        "sender_name": "Jane Wells",
+        "sender_email": "jane at automattic.com",
+        "subject": "[wp-accessibility] Twenty Ten",
+        "body": "Hi Rich. It's great that you're taking initiative with this following \nthe wpdevel discussion, but for anything that touches UI (link color, \nespecially) it really needs to be coordinated with existing UI stuff. I \nhave asked for volunteers before to do a separate admin theme that \npurely aimed at accessibility (much higher contrast, larger click \ntargets, etc) but didn't get much response. We're going to be doing a \nCSS color sweep/cleanup in 3.1, so if you're changing link colors now, \nit's likely your patch will get overwritten without malicious intention.\nAlso, I know it seems silly, but each change should really be it's on \npatch. Better to have a patch of only a line or two that has a single \nfunction, so that if something has to be reverted, all the other changes \ndon't get lost with it. Like in this example, if we needed to revert \nlink color changes b/c they weren't approved UI changes, but we didn't \nwant to lose newly-added labels or something, with it being one whole \npatch there would be an issue.\nAlso, if you were just going through and adding under-the-hood things \nfor screen readers, etc., that would be fine to do independently, but it \nappears you are actually changing design things--colors, \nmargins/padding, highlights--and these are not things that get changed \nlightly. The theme designer (since it is 2010 you're working on now) \nneeds to be involved. Chances are he'd be fine with it, but actual \nchanges to the UI need to run by him for design approval. I'll email him \nthe ticket number you have listed below so he can weigh in and approve \nor identify any reasons he had for doing it the way he did. When you get \nto the admin, I would suggest working on an accessibility-specific admin \ncolor scheme first (which we would add to the existing blue and gray) \nrather than trying to patch the existing color schemes directly, as we \ncan (and want to) approve a separate scheme fairly quickly, but changing \nthe base UI for 20 million+ users is more political and takes longer.\nIf you intend to make changes that are visible in the UI, like adding \nelements on the screen and changing colors, you really should join the \nUI group and work through it there, so that your work doesn't get \nrejected as being out of alignment with the existing UI conventions. The \nUI group blog is at http://make.wordpress.org/ui and there are weekly \nIRC meetings on Tuesdays at 2:30pm in irc.freenode.net #wordpress-ui.\nThanks,\nJane\nOn 9/5/10 8:53 AM, Rich Pedley wrote:\n\u003e This list is unused, we need to start using it!\n\u003e\n\u003e Now I've made a start with looking at the accessibility of Twenty Ten, \n\u003e starting with Links, well mainly.\n\u003e\n\u003e http://core.trac.wordpress.org/ticket/14782\n\u003e [quote]\n\u003e\n\u003e Starting off with changes to the CSS only.\n\u003e\n\u003e Links: colors amended where necessary. added underscores and/or color \n\u003e changes for active, hover and focus.\n\u003e\n\u003e Gallery image links: adjusted things to use margin to center the image \n\u003e rather than padding, to allow for adding highlighting on image links.\n\u003e\n\u003e Skip link: now appears above the #access menu when tabbing through the \n\u003e page.\n\u003e\n\u003e Grey text/links: was 888 this just failed the color contrast, so \n\u003e changed it to 777 throughout.\n\u003e\n\u003e Forms: added highlight for input text and textarea, for active and focus.\n\u003e [/quote]\n\u003e\n\u003e Feel free to add comments there.\n\u003e\n\u003e\n\u003e However I have an issue with the access (role: navigation) menu, which \n\u003e can't be fixed with CSS alone, and is not just an accessibility issue, \n\u003e but a usability issue.\n\u003e To test and replicate download and use the test data via\n\u003e http://codex.wordpress.org/Theme_Unit_Test\n\u003e\n\u003e You'll notice that the last link in the navigation is 'Parent Page', \n\u003e hover over that, and then the 'Child page 1'. Unless you have a \n\u003e widescreen the 'Child page 2' cannot be seen.\n\u003e\n\u003e Is there a javascript solution for this?\n\u003e\n\u003e\n\u003e Additionally of course because some of these pages are _only_ \n\u003e accessible via the menu, there should be an alternative listing \n\u003e display on the main pages linked. However that may be outside the \n\u003e scope of what we can cover (other than _strongly_ suggesting a widget \n\u003e is available that can do this).\n\u003e\n\u003e Rich\n\u003e\n\u003e\n\u003e\n\u003e\n\u003e _______________________________________________\n\u003e wp-accessibility mailing list\n\u003e wp-accessibility at lists.automattic.com\n\u003e http://lists.automattic.com/mailman/listinfo/wp-accessibility",
+        "date": "2010-09-05T10:09:06-04:00",
+        "message_id": "4C83A482.8020102@automattic.com",
+        "in_reply_to": "4C8392B1.1020209@elfden.co.uk",
+        "references": [
+          "\u003c4C8392B1.1020209@elfden.co.uk\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Rich Pedley",
+    "sender_email": "elfin at elfden.co.uk",
+    "subject": "[wp-accessibility] Accessibility query",
+    "body": "(cc'ed to 2 lists, please be careful when replying)\nAs some of you may know I've suggested some accessibility enhancements \nfor the Twenty Ten theme.\nencompassing trac ticket: #14782\nBut that side(ie mainly CSS changes) is virtually complete, aside from \ncorrecting/adapting things to fit in a little more smoothly.\nNext on the list would be for me to look at forms.\nHowever I think I need to check on how far this will go before effort \nis put in, as the changes would be vast.\nA lot of the forms are split into boxes, so I'll concentrate on that \nfor the moment. Each box is, generally, a collection of inputs within \nan all encompassing form. Ideally these should be in fieldset's, with \naccompanying legend's.\nAdditionally, text inside a form, not in labels or fieldsets, isn't \nreadable by 'all' screen readers when in _forms mode_.\nhttp://www.pws-ltd.com/sections/articles/2008/accessible_forms.html\nJAWS 10 may be addressing this issue, but it will be a long time \nbefore that is widely used, and it should not be the only screen \nreader considered to be in use.\nHowever correlating the necessary changes would involve a great deal \nof work and time. Actually making the changes would involve more work, \nand more time.\nSo I suppose the crux is, is accessibility a high priority? If it \nisn't I doubt that the core team can spare the man hours and any work \nthat I might do is likely to become obsolete very quickly if not \nimplemented sooner rather than later.\nI'm more than happy to put in the time and effort but would feel more \ncomfortable knowing that we are on the same page when it comes to \naccessibility. If not then I can put that effort elsewhere within \nWordPress.\nRich",
+    "date": "2010-09-08T10:43:00+01:00",
+    "message_id": "4C875AA4.8000809@elfden.co.uk",
+    "replies": [
+      {
+        "sender_name": "Bob Easton",
+        "sender_email": "bob at bob-easton.com",
+        "subject": "[wp-accessibility] Accessibility query",
+        "body": "Commenting on Rich Pedley's query about whether to make the forms for \nthe administrative interface accessible...\nI am not an active WP developer, but as an Accessibility Consultant with \nover a dozen years experience with web accessibility,\nI write to encourage the work that Rich proposes. Forms are the toughest \naspect of web accessibility. They are very difficult for many kinds of \ndisabilities, and almost impossible for the visually impaired unless the \nform is erm.... well formed. Those fieldset and legend elements serve a \ncritically important purpose for many users. Forms are also difficult \nfor developers and designers. Developers end up with a heck of a lot \nmore little details to attend to. Designers sometimes dislike the \nappearance of correctly structured forms. CSS has helped resolve this to \nsome extent, but some designers still resist structural forms elements.\nSo, forms end up being a triple problem, for the users, for the \ndevelopers, and for the designers. It takes a concerted effort to make \nthem work well, look delightful, and be fully accessible.\nYes, it's a substantial challenge. The whole admin interface is one \nlarge set of forms.  On the other hand, having this interface be fully \naccessible could be a key differentiator for WordPress. No other \nblogging platform comes remotely close to being accessible and a fully \naccessible WP would both serve a wider audience and have strong boasting \nrights.\n-- \nBob Easton\nhttp://access-matters.com",
+        "date": "2010-09-08T12:31:06-04:00",
+        "message_id": "4C87BA4A.7020209@bob-easton.com",
+        "in_reply_to": "4C875AA4.8000809@elfden.co.uk",
+        "references": [
+          "\u003c4C875AA4.8000809@elfden.co.uk\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Pawel Loba",
+    "sender_email": "lobap at sightpoint.org",
+    "subject": "[wp-accessibility] Any activity?",
+    "body": "Good day,\nIs this list alive?\nBest,\nPawel.",
+    "date": "2014-07-09T21:41:45-04:00",
+    "message_id": "alpine.DEB.2.02.1407092140150.7176@mail.sightpoint.org"
+  },
+  {
+    "sender_name": "Charlie Macdonald",
+    "sender_email": "charlie.mac at ns.sympatico.ca",
+    "subject": "[wp-accessibility] Unsubscribe",
+    "body": "-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20160301/4fadf2cc/attachment.html\u003e",
+    "date": "2016-03-01T08:32:31-04:00",
+    "message_id": "003201d173b6$6d1d1680$47574380$@ns.sympatico.ca"
+  },
+  {
+    "sender_name": "Jennifer Sutton",
+    "sender_email": "jsuttondc at gmail.com",
+    "subject": "[wp-accessibility] status of efforts to improve WordPress",
+    "body": "Accessibility\nHello:\nI'm not sure whether this list is still active, but I thought I'd \npost this message to see whether it might stir discussion and \ngenerate interest.\nI was very very pleased to see this post and the detailed and \nthoughtful comments it generated:\nhttp://make.wordpress.org/accessibility/\nBut we've heard little since then.\nI thought others might either want to post additional comments and/or \nwe might be provided with an update. My guess is that it would be \nideal to post comments to the blog post, rather than to this list, so \nthat all comments will be consolidated there.\nI'm  not a programmer, so I cannot contribute code, however, I am \nmost interested in improving access to WordPress, both in terms of \nthe front-end output, as well as to the administrative back-end.\nI look forward to seeing progress.\nAs some may know, the Drupal community has been making very \nimpressive accessibility improvements, and it will be great to see \nWordPress make similar strides.\nThis kind of work is increasingly important, and the time is right, \ngiven the status of the Authoring Tool Accessibility Guidelines \n(ATAG) from the W3C.  For details, see:\nhttp://www.w3.org/TR/2011/WD-ATAG20-20110426/\nBest,\nJennifer",
+    "date": "2011-06-16T04:03:31-07:00",
+    "message_id": "7.0.1.0.2.20110616034442.04c2c738@earthlink.net",
+    "replies": [
+      {
+        "sender_name": "Andrew Nacin",
+        "sender_email": "wp at andrewnacin.com",
+        "subject": "[wp-accessibility] status of efforts to improve WordPress",
+        "body": "Accessibility\nOn Thu, Jun 16, 2011 at 7:03 AM, Jennifer Sutton \u003cjsuttondc at gmail.com\u003ewrote:\n\u003e I thought others might either want to post additional comments and/or we\n\u003e might be provided with an update. My guess is that it would be ideal to post\n\u003e comments to the blog post, rather than to this list, so that all comments\n\u003e will be consolidated there.\n\u003e\nCorrect, this mailing list is phased out in favor of\nhttp://make.wordpress.org/accessibility/. Soon I'll have it turned off.\nI'm  not a programmer, so I cannot contribute code, however, I am most\n\u003e interested in improving access to WordPress, both in terms of the front-end\n\u003e output, as well as to the administrative back-end.\n\u003e\n\u003e This kind of work is increasingly important, and the time is right, given\n\u003e the status of the Authoring Tool Accessibility Guidelines (ATAG) from the\n\u003e W3C.  For details, see:\n\u003e\n\u003e http://www.w3.org/TR/2011/WD-ATAG20-20110426/\nI really appreciate you wanting to help. We can use it, for sure. I'd also\nlove to hear what has come from the ATAG working group that we should be\npaying attention to, in particular. The W3C has asked us to provide\nfeedback, but most of us don't have the time or knowledge to be able to do\nthat effectively.\nCheers!\nNacin\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: \u003chttp://lists.automattic.com/pipermail/wp-accessibility/attachments/20110616/3b32c6c5/attachment.htm\u003e",
+        "date": "2011-06-16T07:17:17-04:00",
+        "message_id": "BANLkTim4KW-AuHvZOyWKThrfYh=cCv_DGw@mail.gmail.com",
+        "in_reply_to": "7.0.1.0.2.20110616034442.04c2c738@earthlink.net",
+        "references": [
+          "\u003c7.0.1.0.2.20110616034442.04c2c738@earthlink.net\u003e"
+        ]
+      }
+    ]
+  },
+  {
+    "sender_name": "Frank Eberle",
+    "sender_email": "dss1pro at gmail.com",
+    "subject": "[wp-accessibility] Hi need help",
+    "body": "Good day my name is Frank I am blind using wordpress to build my site\nthrough I Page. I was starting the building of the site and found out\nsome of the things like setting up the theem is the only thing I am\nhaving problums with.  Some stuff is not user friendly to a screen\nreader just need to get a business theem with no blogging. thanks for\nthe feed back hoping that some one can help. Please for give the\nspeling been using brail all my life. frank 954-326-7921",
+    "date": "2016-04-12T12:32:37-04:00",
+    "message_id": "CAO2nm8X5PcEgyd_1BR+SOVVkUs=pwKcSKzhdQai_0KGf82emWw@mail.gmail.com"
+  }
+]

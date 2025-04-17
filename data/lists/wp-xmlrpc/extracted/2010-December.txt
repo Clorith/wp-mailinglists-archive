@@ -1,0 +1,96 @@
+From nacin at wordpress.org  Wed Dec  8 18:42:29 2010
+From: nacin at wordpress.org (Andrew Nacin)
+Date: Wed, 8 Dec 2010 13:42:29 -0500
+Subject: [wp-xmlrpc] WordPress 3.0.3
+Message-ID: <AANLkTinoe+Hg_-Te5BC6cwAMoBZ7G-u7ze3XSgRpOLHu@mail.gmail.com>
+
+WordPress 3.0.3 has been released. This is a security release for all
+previous WordPress versions.
+
+This release fixes issues in XML-RPC where which under certain circumstances
+allowed Author- and Contributor-level users to improperly edit, publish, or
+delete posts. This release only affects sites which have XML-RPC enabled.
+
+Those wishing to continue to test the 3.1 Beta, please note that the
+currently nightly build contains the fixes that were included in 3.0.3.
+
+I'd advise you to update your plugin compatibility as appropriate. Plugins
+should be unaffected by this release.
+
+Release announcement: http://wordpress.org/news/2010/12/wordpress-3-0-3/.
+
+Thanks,
+
+ Andrew Nacin
+Core Developer
+WordPress.org
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101208/4005802c/attachment.htm>
+
+From jalkut at red-sweater.com  Tue Dec 21 18:14:01 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue, 21 Dec 2010 13:14:01 -0500
+Subject: [wp-xmlrpc] Publicize features on WordPress.com accessible via API?
+Message-ID: <B750538A-F497-439A-8F39-B38FA76444F1@red-sweater.com>
+
+
+I'm wondering if anybody knows whether the "Publicize" features e.g. for cross-posting to Twitter, are accessible at all via the API on WP.com?
+
+As far as I know custom fields are not user-accessible on WP.com, but I wonder if there's any chance this feature is implemented quietly via custom fields?
+
+Daniel
+
+
+From peter.westwood at ftwr.co.uk  Wed Dec 22 14:03:54 2010
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Wed, 22 Dec 2010 14:03:54 +0000
+Subject: [wp-xmlrpc] Publicize features on WordPress.com accessible via
+	API?
+In-Reply-To: <B750538A-F497-439A-8F39-B38FA76444F1@red-sweater.com>
+References: <B750538A-F497-439A-8F39-B38FA76444F1@red-sweater.com>
+Message-ID: <D6352496-23E7-4A8F-BFEC-C54B7F1E5F98@ftwr.co.uk>
+
+Hi Daniel,
+
+On 21 Dec 2010, at 18:14, Daniel Jalkut wrote:
+> 
+> I'm wondering if anybody knows whether the "Publicize" features e.g. for cross-posting to Twitter, are accessible at all via the API on WP.com?
+> 
+> As far as I know custom fields are not user-accessible on WP.com, but I wonder if there's any chance this feature is implemented quietly via custom fields?
+
+
+I'm not sure what you expect to be available via custom fields here?
+
+Publicize just works as a post publish action if the user has enabled it so XMLRPC posts get Publicized too.
+
+Cheers
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From jalkut at red-sweater.com  Wed Dec 22 15:28:55 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed, 22 Dec 2010 10:28:55 -0500
+Subject: [wp-xmlrpc] Publicize features on WordPress.com accessible via
+	API?
+In-Reply-To: <D6352496-23E7-4A8F-BFEC-C54B7F1E5F98@ftwr.co.uk>
+References: <B750538A-F497-439A-8F39-B38FA76444F1@red-sweater.com>
+	<D6352496-23E7-4A8F-BFEC-C54B7F1E5F98@ftwr.co.uk>
+Message-ID: <780FC1E5-CC4B-4802-8E72-0F3F3DA78501@red-sweater.com>
+
+Thanks for your response, Peter.
+
+I should have done more homework. The customer described the behavior in a way that made me assume they could e.g. customize the content of a publicize tweet on a per-post basis. Maybe there is just a misunderstanding. I'll check back with him!
+
+Daniel
+
+On Dec 22, 2010, at 9:03am, Peter Westwood wrote:
+
+> I'm not sure what you expect to be available via custom fields here?
+> 
+> Publicize just works as a post publish action if the user has enabled it so XMLRPC posts get Publicized too.
+
+

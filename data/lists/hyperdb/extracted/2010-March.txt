@@ -1,0 +1,687 @@
+From Joe_Beck at Comcast.com  Mon Mar  1 05:51:19 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Mon, 01 Mar 2010 00:51:19 -0500
+Subject: [HyperDB] setup question
+Message-ID: <C7B0C007.11D14%Joe_Beck@Comcast.com>
+
+I?m new to hyperdb & need some help getting a dev env configured for a POC.
+we have mysql in a master-slave config and would like to leverage hyperdb
+for 2 things--> split reads/writes and support multiple data center.
+
+For now, the focus is on splitting the reads & writes.
+after going thru the install steps it seemed like a pretty simple process,
+but I?m getting hung up on the add_db_server line in db-settings.php
+originally I had:
+
+add_db_server('global', 0, '', 0,
+0,'172.18.0.52:3306','172.18.0.52:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp1 as read svr
+add_db_server('global', 0, '', 1,
+0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp2 as write svr
+
+but was getting the following error:
+Unable to connect to : while querying table 'wp_1_options' (global_w)
+
+then I was questioning the horizontal partitioning part of this.
+so I commented out the first add_db_server line but still getting the same.
+then, I started going thru the code & tried changing my add_db_server line
+to
+add_db_server('global_w', 0, '', 1,
+0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp2
+
+I stopped getting the orig error but got the std can?t find your blog msg:
+No WPMU site defined on this host. If you are the owner of this site, please
+check <a href='http://codex.wordpress.org/Debugging_WPMU'>Debugging WPMU</a>
+for further assistance.
+
+Any suggestions or guidance on this is greatly appreciated.
+we?re using wpmu 2.8.6 & I downloaded the latest hyperdb, don?t see a
+version on this.
+
+thanks,
+Joe
+
+From skeltoac at gmail.com  Mon Mar  1 14:58:03 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Mon, 1 Mar 2010 08:58:03 -0600
+Subject: [HyperDB] setup question
+In-Reply-To: <e6ec604d1003010653s3257676ajcf2f4b47f3765882@mail.gmail.com>
+References: <C7B0C007.11D14%Joe_Beck@Comcast.com>
+	<e6ec604d1003010653s3257676ajcf2f4b47f3765882@mail.gmail.com>
+Message-ID: <e6ec604d1003010658r1d054bb0u14e92858818efd94@mail.gmail.com>
+
+Your config is telling HyperDB that there is no place to send reads. Try a 1
+in the R arg of the read server.
+
+Andy
+
+On Feb 28, 2010 11:51 PM, "Beck, Joe" <Joe_Beck at comcast.com> wrote:
+
+I?m new to hyperdb & need some help getting a dev env configured for a POC.
+we have mysql in a master-slave config and would like to leverage hyperdb
+for 2 things--> split reads/writes and support multiple data center.
+
+For now, the focus is on splitting the reads & writes.
+after going thru the install steps it seemed like a pretty simple process,
+but I?m getting hung up on the add_db_server line in db-settings.php
+originally I had:
+
+add_db_server('global', 0, '', 0,
+0,'172.18.0.52:3306','172.18.0.52:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp1 as read svr
+add_db_server('global', 0, '', 1,
+0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp2 as write svr
+
+but was getting the following error:
+Unable to connect to : while querying table 'wp_1_options' (global_w)
+
+then I was questioning the horizontal partitioning part of this.
+so I commented out the first add_db_server line but still getting the same.
+then, I started going thru the code & tried changing my add_db_server line
+to
+add_db_server('global_w', 0, '', 1,
+0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp2
+
+I stopped getting the orig error but got the std can?t find your blog msg:
+No WPMU site defined on this host. If you are the owner of this site, please
+check <a href='http://codex.wordpress.org/Debugging_WPMU'>Debugging WPMU</a>
+for further assistance.
+
+Any suggestions or guidance on this is greatly appreciated.
+we?re using wpmu 2.8.6 & I downloaded the latest hyperdb, don?t see a
+version on this.
+
+thanks,
+Joe
+_______________________________________________
+HyperDB mailing list
+HyperDB at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From Joe_Beck at Comcast.com  Mon Mar  1 15:07:12 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Mon, 01 Mar 2010 10:07:12 -0500
+Subject: [HyperDB] setup question
+In-Reply-To: <e6ec604d1003010658r1d054bb0u14e92858818efd94@mail.gmail.com>
+Message-ID: <C7B14250.11D4A%Joe_Beck@Comcast.com>
+
+thanks, I?ll give that a shot later this am.
+based on the comments in that doc, I thought that column was a weighted
+value, making 0 the most preferred db node for reading. looks like it was
+just this presumption I was making that got me mixed up here.
+-Joe
+
+
+On 3/1/10 9:58 AM, "Andy Skelton" <skeltoac at gmail.com> wrote:
+
+> Your config is telling HyperDB that there is no place to send reads. Try a 1
+> in the R arg of the read server.
+> 
+> Andy
+> 
+> On Feb 28, 2010 11:51 PM, "Beck, Joe" <Joe_Beck at comcast.com> wrote:
+> 
+> I?m new to hyperdb & need some help getting a dev env configured for a POC.
+> we have mysql in a master-slave config and would like to leverage hyperdb
+> for 2 things--> split reads/writes and support multiple data center.
+> 
+> For now, the focus is on splitting the reads & writes.
+> after going thru the install steps it seemed like a pretty simple process,
+> but I?m getting hung up on the add_db_server line in db-settings.php
+> originally I had:
+> 
+> add_db_server('global', 0, '', 0,
+> 0,'172.18.0.52:3306','172.18.0.52:3306','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp1 as read svr
+> add_db_server('global', 0, '', 1,
+> 0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp2 as write svr
+> 
+> but was getting the following error:
+> Unable to connect to : while querying table 'wp_1_options' (global_w)
+> 
+> then I was questioning the horizontal partitioning part of this.
+> so I commented out the first add_db_server line but still getting the same.
+> then, I started going thru the code & tried changing my add_db_server line
+> to
+> add_db_server('global_w', 0, '', 1,
+> 0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp2
+> 
+> I stopped getting the orig error but got the std can?t find your blog msg:
+> No WPMU site defined on this host. If you are the owner of this site, please
+> check <a href='http://codex.wordpress.org/Debugging_WPMU'>Debugging WPMU</a>
+> for further assistance.
+> 
+> Any suggestions or guidance on this is greatly appreciated.
+> we?re using wpmu 2.8.6 & I downloaded the latest hyperdb, don?t see a
+> version on this.
+> 
+> thanks,
+> Joe
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+
+
+From Joe_Beck at Comcast.com  Mon Mar  1 18:54:39 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Mon, 01 Mar 2010 13:54:39 -0500
+Subject: [HyperDB] setup question
+In-Reply-To: <e6ec604d1003010658r1d054bb0u14e92858818efd94@mail.gmail.com>
+Message-ID: <C7B1779F.11D87%Joe_Beck@Comcast.com>
+
+thanks. yes, this did it.
+add_db_server('global', 0, '', 1,
+0,'172.18.0.52:3306','172.18.0.52:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp1 main read svr
+add_db_server('global', 0, '', 0,
+1,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+_sprint');  //wp2 write svr
+
+I heard that hyperdb is good for logging/keeping track of queries & where
+they?re being sent.
+anyone have any details on that?
+if I?m mistaken, can anyone recommend a way to validate & track reads &
+writes to verify hyperdb is doing what you expect?
+
+thanks,
+Joe
+
+
+
+On 3/1/10 9:58 AM, "Andy Skelton" <skeltoac at gmail.com> wrote:
+
+> Your config is telling HyperDB that there is no place to send reads. Try a 1
+> in the R arg of the read server.
+> 
+> Andy
+> 
+> On Feb 28, 2010 11:51 PM, "Beck, Joe" <Joe_Beck at comcast.com> wrote:
+> 
+> I?m new to hyperdb & need some help getting a dev env configured for a POC.
+> we have mysql in a master-slave config and would like to leverage hyperdb
+> for 2 things--> split reads/writes and support multiple data center.
+> 
+> For now, the focus is on splitting the reads & writes.
+> after going thru the install steps it seemed like a pretty simple process,
+> but I?m getting hung up on the add_db_server line in db-settings.php
+> originally I had:
+> 
+> add_db_server('global', 0, '', 0,
+> 0,'172.18.0.52:3306','172.18.0.52:3306','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp1 as read svr
+> add_db_server('global', 0, '', 1,
+> 0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp2 as write svr
+> 
+> but was getting the following error:
+> Unable to connect to : while querying table 'wp_1_options' (global_w)
+> 
+> then I was questioning the horizontal partitioning part of this.
+> so I commented out the first add_db_server line but still getting the same.
+> then, I started going thru the code & tried changing my add_db_server line
+> to
+> add_db_server('global_w', 0, '', 1,
+> 0,'172.18.0.55:3306','172.18.0.55:3306','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp2
+> 
+> I stopped getting the orig error but got the std can?t find your blog msg:
+> No WPMU site defined on this host. If you are the owner of this site, please
+> check <a href='http://codex.wordpress.org/Debugging_WPMU'>Debugging WPMU</a>
+> for further assistance.
+> 
+> Any suggestions or guidance on this is greatly appreciated.
+> we?re using wpmu 2.8.6 & I downloaded the latest hyperdb, don?t see a
+> version on this.
+> 
+> thanks,
+> Joe
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+
+
+From dan at digitaltrends.com  Mon Mar  1 19:02:06 2010
+From: dan at digitaltrends.com (Dan Gaul)
+Date: Mon, 01 Mar 2010 11:02:06 -0800
+Subject: [HyperDB] Hyperdb and w3 total cache
+Message-ID: <C7B14F2E.7A0DF%dan@digitaltrends.com>
+
+Has anyone successfully integrated hyperdb and w3 total cache?
+
+If you are not familiar with w3 total cache, it requires a db.php file in
+the wp-content folder as well.  To get both to work, you would have to do
+some integration work with W3 Total Cache.
+
+-dan
+-- 
+Dan Gaul
+CTO
+Digital Trends
+111 SW 5th Ave, Suite 1000
+Portland, OR 97204
+Phone: 503.342.2890 Ext. 83
+www.digitaltrends.com <http://www.digitaltrends.com/>
+ 
+Become a fan of Digital Trends on Facebook
+<http://www.facebook.com/pages/Digital-Trends/8522591132> !
+
+CONFIDENTIALITY
+The information transmitted herein is intended only for the addressee and
+may contain confidential, proprietary and/or privileged material. Any
+unauthorized review, distribution or other use of or the taking of any
+action in reliance upon this information is prohibited. If you receive this
+email in error, please contact the sender and delete or destroy this message
+and all copies.
+
+
+From jerome.m at gmail.com  Tue Mar  2 19:11:57 2010
+From: jerome.m at gmail.com (J M)
+Date: Tue, 2 Mar 2010 14:11:57 -0500
+Subject: [HyperDB] setup question
+In-Reply-To: <C7B1779F.11D87%Joe_Beck@Comcast.com>
+References: <e6ec604d1003010658r1d054bb0u14e92858818efd94@mail.gmail.com>
+	<C7B1779F.11D87%Joe_Beck@Comcast.com>
+Message-ID: <662701801003021111k564cb922j6529d627b64506fe@mail.gmail.com>
+
+since you using Mysql you can do logging from there..
+
+On Mon, Mar 1, 2010 at 1:54 PM, Beck, Joe <Joe_Beck at comcast.com> wrote:
+
+> thanks. yes, this did it.
+> add_db_server('global', 0, '', 1,
+> 0,'172.18.0.52:3306','172.18.0.52:3306
+> ','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp1 main read svr
+> add_db_server('global', 0, '', 0,
+> 1,'172.18.0.55:3306','172.18.0.55:3306
+> ','blogs_sprint','blogs_sprint','blogs
+> _sprint');  //wp2 write svr
+>
+> I heard that hyperdb is good for logging/keeping track of queries & where
+> they?re being sent.
+> anyone have any details on that?
+> if I?m mistaken, can anyone recommend a way to validate & track reads &
+> writes to verify hyperdb is doing what you expect?
+>
+> thanks,
+> Joe
+>
+>
+>
+> On 3/1/10 9:58 AM, "Andy Skelton" <skeltoac at gmail.com> wrote:
+>
+> > Your config is telling HyperDB that there is no place to send reads. Try
+> a 1
+> > in the R arg of the read server.
+> >
+> > Andy
+> >
+> > On Feb 28, 2010 11:51 PM, "Beck, Joe" <Joe_Beck at comcast.com> wrote:
+> >
+> > I?m new to hyperdb & need some help getting a dev env configured for a
+> POC.
+> > we have mysql in a master-slave config and would like to leverage hyperdb
+> > for 2 things--> split reads/writes and support multiple data center.
+> >
+> > For now, the focus is on splitting the reads & writes.
+> > after going thru the install steps it seemed like a pretty simple
+> process,
+> > but I?m getting hung up on the add_db_server line in db-settings.php
+> > originally I had:
+> >
+> > add_db_server('global', 0, '', 0,
+> > 0,'172.18.0.52:3306','172.18.0.52:3306
+> ','blogs_sprint','blogs_sprint','blogs
+> > _sprint');  //wp1 as read svr
+> > add_db_server('global', 0, '', 1,
+> > 0,'172.18.0.55:3306','172.18.0.55:3306
+> ','blogs_sprint','blogs_sprint','blogs
+> > _sprint');  //wp2 as write svr
+> >
+> > but was getting the following error:
+> > Unable to connect to : while querying table 'wp_1_options' (global_w)
+> >
+> > then I was questioning the horizontal partitioning part of this.
+> > so I commented out the first add_db_server line but still getting the
+> same.
+> > then, I started going thru the code & tried changing my add_db_server
+> line
+> > to
+> > add_db_server('global_w', 0, '', 1,
+> > 0,'172.18.0.55:3306','172.18.0.55:3306
+> ','blogs_sprint','blogs_sprint','blogs
+> > _sprint');  //wp2
+> >
+> > I stopped getting the orig error but got the std can?t find your blog
+> msg:
+> > No WPMU site defined on this host. If you are the owner of this site,
+> please
+> > check <a href='http://codex.wordpress.org/Debugging_WPMU'>Debugging
+> WPMU</a>
+> > for further assistance.
+> >
+> > Any suggestions or guidance on this is greatly appreciated.
+> > we?re using wpmu 2.8.6 & I downloaded the latest hyperdb, don?t see a
+> > version on this.
+> >
+> > thanks,
+> > Joe
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> >
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From jerome.m at gmail.com  Tue Mar  2 19:15:44 2010
+From: jerome.m at gmail.com (J M)
+Date: Tue, 2 Mar 2010 14:15:44 -0500
+Subject: [HyperDB] setup question
+In-Reply-To: <662701801003021111k564cb922j6529d627b64506fe@mail.gmail.com>
+References: <e6ec604d1003010658r1d054bb0u14e92858818efd94@mail.gmail.com>
+	<C7B1779F.11D87%Joe_Beck@Comcast.com>
+	<662701801003021111k564cb922j6529d627b64506fe@mail.gmail.com>
+Message-ID: <662701801003021115q3537e270yf0753a886f18bd36@mail.gmail.com>
+
+btw,
+
+i had the same config.. but "SELECT" statements still goes to the Master..
+
+On Tue, Mar 2, 2010 at 2:11 PM, J M <jerome.m at gmail.com> wrote:
+
+> since you using Mysql you can do logging from there..
+>
+>
+> On Mon, Mar 1, 2010 at 1:54 PM, Beck, Joe <Joe_Beck at comcast.com> wrote:
+>
+>> thanks. yes, this did it.
+>> add_db_server('global', 0, '', 1,
+>> 0,'172.18.0.52:3306','172.18.0.52:3306
+>> ','blogs_sprint','blogs_sprint','blogs
+>> _sprint');  //wp1 main read svr
+>> add_db_server('global', 0, '', 0,
+>> 1,'172.18.0.55:3306','172.18.0.55:3306
+>> ','blogs_sprint','blogs_sprint','blogs
+>> _sprint');  //wp2 write svr
+>>
+>> I heard that hyperdb is good for logging/keeping track of queries & where
+>> they?re being sent.
+>> anyone have any details on that?
+>> if I?m mistaken, can anyone recommend a way to validate & track reads &
+>> writes to verify hyperdb is doing what you expect?
+>>
+>> thanks,
+>> Joe
+>>
+>>
+>>
+>> On 3/1/10 9:58 AM, "Andy Skelton" <skeltoac at gmail.com> wrote:
+>>
+>> > Your config is telling HyperDB that there is no place to send reads. Try
+>> a 1
+>> > in the R arg of the read server.
+>> >
+>> > Andy
+>> >
+>> > On Feb 28, 2010 11:51 PM, "Beck, Joe" <Joe_Beck at comcast.com> wrote:
+>> >
+>> > I?m new to hyperdb & need some help getting a dev env configured for a
+>> POC.
+>> > we have mysql in a master-slave config and would like to leverage
+>> hyperdb
+>> > for 2 things--> split reads/writes and support multiple data center.
+>> >
+>> > For now, the focus is on splitting the reads & writes.
+>> > after going thru the install steps it seemed like a pretty simple
+>> process,
+>> > but I?m getting hung up on the add_db_server line in db-settings.php
+>> > originally I had:
+>> >
+>> > add_db_server('global', 0, '', 0,
+>> > 0,'172.18.0.52:3306','172.18.0.52:3306
+>> ','blogs_sprint','blogs_sprint','blogs
+>> > _sprint');  //wp1 as read svr
+>> > add_db_server('global', 0, '', 1,
+>> > 0,'172.18.0.55:3306','172.18.0.55:3306
+>> ','blogs_sprint','blogs_sprint','blogs
+>> > _sprint');  //wp2 as write svr
+>> >
+>> > but was getting the following error:
+>> > Unable to connect to : while querying table 'wp_1_options' (global_w)
+>> >
+>> > then I was questioning the horizontal partitioning part of this.
+>> > so I commented out the first add_db_server line but still getting the
+>> same.
+>> > then, I started going thru the code & tried changing my add_db_server
+>> line
+>> > to
+>> > add_db_server('global_w', 0, '', 1,
+>> > 0,'172.18.0.55:3306','172.18.0.55:3306
+>> ','blogs_sprint','blogs_sprint','blogs
+>> > _sprint');  //wp2
+>> >
+>> > I stopped getting the orig error but got the std can?t find your blog
+>> msg:
+>> > No WPMU site defined on this host. If you are the owner of this site,
+>> please
+>> > check <a href='http://codex.wordpress.org/Debugging_WPMU'>Debugging
+>> WPMU</a>
+>> > for further assistance.
+>> >
+>> > Any suggestions or guidance on this is greatly appreciated.
+>> > we?re using wpmu 2.8.6 & I downloaded the latest hyperdb, don?t see a
+>> > version on this.
+>> >
+>> > thanks,
+>> > Joe
+>> > _______________________________________________
+>> > HyperDB mailing list
+>> > HyperDB at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/hyperdb
+>> > _______________________________________________
+>> > HyperDB mailing list
+>> > HyperDB at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/hyperdb
+>> >
+>>
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>
+>
+>
+
+From jerome.m at gmail.com  Tue Mar  2 20:05:46 2010
+From: jerome.m at gmail.com (J M)
+Date: Tue, 2 Mar 2010 15:05:46 -0500
+Subject: [HyperDB] Splitting READs and WRITEs
+Message-ID: <662701801003021205q74fb390by4f7fbad9b6bef595@mail.gmail.com>
+
+i have this configuration:
+
+add_db_server('global',0,'slave1',1,0,'192.168.136.141:3306','
+192.168.136.141:3306',wordpress,user,user);
+// Slave DB
+
+add_db_server('global',0,'master1',2,1,'192.168.136.70:3306','
+192.168.136.70:3306',wordpress,user,user);
+// Master DB
+
+
+
+-- enabled logging in mysql but some reason not select's are being thrown to
+the "slave1" node.. all SQL are being executed on "master"
+
+any ideas why? did i miss something?
+
+From barry at automattic.com  Tue Mar  2 23:55:57 2010
+From: barry at automattic.com (Barry Abrahamson)
+Date: Tue, 2 Mar 2010 15:55:57 -0800
+Subject: [HyperDB] Splitting READs and WRITEs
+In-Reply-To: <662701801003021205q74fb390by4f7fbad9b6bef595@mail.gmail.com>
+References: <662701801003021205q74fb390by4f7fbad9b6bef595@mail.gmail.com>
+Message-ID: <7845E99B-5376-457D-B2E3-B0660225A679@automattic.com>
+
+
+On Mar 2, 2010, at 12:05 PM, J M wrote:
+
+> i have this configuration:
+> 
+> add_db_server('global',0,'slave1',1,0,'192.168.136.141:3306','
+> 192.168.136.141:3306',wordpress,user,user);
+> // Slave DB
+> 
+> add_db_server('global',0,'master1',2,1,'192.168.136.70:3306','
+> 192.168.136.70:3306',wordpress,user,user);
+> // Master DB
+> 
+> 
+> 
+> -- enabled logging in mysql but some reason not select's are being thrown to
+> the "slave1" node.. all SQL are being executed on "master"
+> 
+> any ideas why? did i miss something?
+
+This shouldn't happen unless:
+
+1) The slave is not available (are you sure you are able to connect?)
+2) There is a write query on the same page load as the read queries - if there is a write, HyperDB will send all subsequent reads on that page load to the master to try and alleviate possible data inconsistency caused by replication lag.
+
+Any errors in your logs?
+
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+
+
+
+From pablo.fabregat at gmail.com  Wed Mar  3 16:46:42 2010
+From: pablo.fabregat at gmail.com (Pablo Fabregat)
+Date: Wed, 3 Mar 2010 13:46:42 -0300
+Subject: [HyperDB] Select in multiple partitions
+Message-ID: <ff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com>
+
+Hi all, i'm using hyperDB with WP MU and i'm trying to do a select in all
+the partitions...
+that is,
+i want to make a "SELECT fields FROM table WHERE etc..." but i need the
+results from all the partitions, is this possible ?
+I set up the servers with add_db_server.
+
+Thanks in advance
+
+From skeltoac at gmail.com  Wed Mar  3 19:45:44 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 3 Mar 2010 13:45:44 -0600
+Subject: [HyperDB] Select in multiple partitions
+In-Reply-To: <ff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com>
+References: <ff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com>
+Message-ID: <e6ec604d1003031145qe64885fp27fe19afa02ba22c@mail.gmail.com>
+
+Sorry, hyperdb does not help you select across partitions. You must query
+each partition yourself and then collate the results.
+
+You might also be interested in the MySQL Federated storage engine.
+
+Andy
+
+On Mar 3, 2010 10:47 AM, "Pablo Fabregat" <pablo.fabregat at gmail.com> wrote:
+
+Hi all, i'm using hyperDB with WP MU and i'm trying to do a select in all
+the partitions...
+that is,
+i want to make a "SELECT fields FROM table WHERE etc..." but i need the
+results from all the partitions, is this possible ?
+I set up the servers with add_db_server.
+
+Thanks in advance
+_______________________________________________
+HyperDB mailing list
+HyperDB at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From pablo.fabregat at gmail.com  Wed Mar  3 19:47:58 2010
+From: pablo.fabregat at gmail.com (Pablo Fabregat)
+Date: Wed, 3 Mar 2010 16:47:58 -0300
+Subject: [HyperDB] Select in multiple partitions
+In-Reply-To: <e6ec604d1003031145qe64885fp27fe19afa02ba22c@mail.gmail.com>
+References: <ff65116b1003030846y5ac093b3i35d7fde4afda3103@mail.gmail.com> 
+	<e6ec604d1003031145qe64885fp27fe19afa02ba22c@mail.gmail.com>
+Message-ID: <ff65116b1003031147u3073fa68n71f7dd1bc52a47a@mail.gmail.com>
+
+Ok,
+so there's a way to switch between different partitions ?
+
+
+
+On 3 March 2010 16:45, Andy Skelton <skeltoac at gmail.com> wrote:
+
+> Sorry, hyperdb does not help you select across partitions. You must query
+> each partition yourself and then collate the results.
+>
+> You might also be interested in the MySQL Federated storage engine.
+>
+> Andy
+>
+> On Mar 3, 2010 10:47 AM, "Pablo Fabregat" <pablo.fabregat at gmail.com>
+> wrote:
+>
+> Hi all, i'm using hyperDB with WP MU and i'm trying to do a select in all
+> the partitions...
+> that is,
+> i want to make a "SELECT fields FROM table WHERE etc..." but i need the
+> results from all the partitions, is this possible ?
+> I set up the servers with add_db_server.
+>
+> Thanks in advance
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From irfan_area47 at yahoo.co.id  Thu Mar 25 13:34:03 2010
+From: irfan_area47 at yahoo.co.id (irfan irfan)
+Date: Thu, 25 Mar 2010 21:34:03 +0800 (SGT)
+Subject: [HyperDB] separate user database
+Message-ID: <409263.39279.qm@web76515.mail.sg1.yahoo.com>
+
+Anyone can help me, how to separate database for user, example user A use database on DB_A, user B user database on DB_B
+Thank before
+
+
+      
+

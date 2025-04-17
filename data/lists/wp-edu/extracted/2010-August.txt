@@ -1,0 +1,1173 @@
+From jimgroom at gmail.com  Sun Aug  8 15:21:22 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Sun, 8 Aug 2010 11:21:22 -0400
+Subject: [wp-edu] WordPress 3.0 and Plugins Report
+In-Reply-To: <7F1E1203-F791-4D34-AB61-A72461EE60C3@lafayette.edu>
+References: <1280222871.10308.10.camel@rivalry>
+	<7F1E1203-F791-4D34-AB61-A72461EE60C3@lafayette.edu>
+Message-ID: <AANLkTi=ngxY1+ZqmX=VUaMNqBzn+npLkLRrGX+uBz2Tt@mail.gmail.com>
+
+Ken,
+
+Awesome list, and it was very useful for the upgrade to 3.0 that UMW Blogs
+just underwent.  Here is my post sharing the play-by-play,
+
+http://bavatuesdays.com/umw-blogs-upgraded-to-wp-3-0-a-play-by-play/
+
+And hope you don;t mind that I republished your email there because I found
+it a key ingredient to how smooth everything went.
+
+Gracias,
+Jim
+
+
+On Thu, Jul 29, 2010 at 2:18 PM, Ken Newquist <newquisk at lafayette.edu>wrote:
+
+> Everyone,
+>
+> Back in June there was some talk about WordPress 3.0 and its compatibility
+> (or lack there of) with popular plugins and themes. We've recently upgraded
+> our production instances of WordPress to 3.0, and I thought I'd give a
+> rundown of the the problems we encountered.
+>
+> ==More Privacy Options==
+> The plugin continues to work, but it generates a PHP fatal error when you
+> edit a site's properties as an admin, making it impossible to save
+> configuration changes. The latest version of the plugin fixes this problem.
+>
+> ==nextGen Gallery: Ignoring MultiSite directory options==
+> nextGen  Gallery has issues with WordPress 3.0 multisite. While existing
+> installations are working ok, folks who add the plugin after the upgrade get
+> this error message:
+>
+> ?Directory wp-content/gallery/ didn?t exist. Please create first the main
+> gallery folder !?
+>
+> The problem is that Blog Directory Path, which is a network-wide option set
+> under the super admin menu, is no longer being respected at the per site
+> level by nextGen. If you manually set the site?s directory path using the
+> site?s ID (available from the main site directory list in the super admin
+> view), then things work properly, but the default setting is now incorrect.
+>
+> The plugin author is aware of the problem, and is working on this and other
+> MultiSite-specific  issues for the next release.
+>
+> http://wordpress.org/support/topic/412008?replies=7
+> http://code.google.com/p/nextgen-gallery/issues/detail?id=286
+>
+> ==nextGen Gallery: Slideshow links don't work on a static home page==
+> If you insert a nextGen Gallery into a page, and then make that page your
+> home page, the link to the slideshow will not work.
+>
+> ==Anarchy Media Player==
+> Anarchy's settings page no longer loads under WordPress 3.0.
+>
+> ==Mandigo (theme)==
+> The Mandigo setting page doesn't load if you're using Mandigo 1.40.1. It
+> works properly with the current version.
+>
+> ==Mandigo + nextGen + WordPress 3.0==
+> Here's a very specific bug -- Mandigo uses an older version of JQuery in
+> its theme, one that doesn't include a particular method that nextGen needs.
+> This causes a fatal error in NextGen, which then causes the JavaScript
+> portions of the Mandigo theme to stop working.
+>
+> Ken
+>
+> --
+> Ken Newquist
+> Web Applications Specialist
+> Lafayette College
+> p: 610.330.5759
+> e: newquisk at lafayette.edu
+> web: http://sites.lafayette.edu/newquisk
+> podcast: http://sites.lafayette.edu/coffeebreak
+> cal:
+> https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100808/8e1c4662/attachment.htm>
+
+From shacker at berkeley.edu  Mon Aug  9 18:22:02 2010
+From: shacker at berkeley.edu (Scot Hacker)
+Date: Mon, 9 Aug 2010 11:22:02 -0700
+Subject: [wp-edu] WP Mass Tools
+Message-ID: <BA0BBE87-B1E0-4487-B059-EA4B45229280@berkeley.edu>
+
+For those of you managing lots of WP installations spread across  
+disparate domains on a single server (at an .edu or elsewhere), wanted  
+to let you know I've made some big improvements to wp-mass-upgrade and  
+wp-create recently, and bundled them as a kit: WP Mass Tools:
+
+http://birdhouse.org/software/2010/08/wordpress-mass-management/
+
+We choose to use this system rather than running MU because upgrades  
+remain easy, working with random paths and domains remains easy, we  
+don't have a single point of failure, etc.
+
+Best,
+Scot
+
+--
+Scot Hacker, Webmaster
+Knight Digital Media Center	
+UC Berkeley Graduate School of Journalism	
+http://kdmc.berkeley.edu
+http://twitter.com/kdmcinfo
+http://journalism.berkeley.edu
+
+
+
+
+
+
+
+
+
+From stas at nerd.ro  Mon Aug 16 14:22:16 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Mon, 16 Aug 2010 17:22:16 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <h2w1bc4cc8b1004080545m9e0851e7r8d8d9a957632c523@mail.gmail.com>
+References: <h2w1bc4cc8b1004080545m9e0851e7r8d8d9a957632c523@mail.gmail.com>
+Message-ID: <1281968536.10024.7.camel@rivalry>
+
+Hi everyone,
+12 weeks ago my mentors (Jeremy, Boone) and I started the project
+BuddyPress Courseware,
+today I would like to announce the RC (probably the stable) version 0.1
+of it.
+
+Here's the list of features:
+* Class Dashboard
+* Courses
+  * Works for both learning models: European/United States
+* Bibliography
+  * Web API's integration with WorldCat/ISBNdb
+  * BibTex Import
+* Assignments
+  * Responses
+  * Forum integration
+  * Gradebook
+    * CSV Import
+* Schedules
+  * Calendar
+    * Month, Week, Day view
+    * Integrates with Assignment due dates
+    * iCal export
+* Customization using an external CSS
+
+The demo video:
+http://gsoc2010.wordpress.com/2010/08/13/the-d-day-v-0-1-beta-release-zip-the/
+
+And the zip link:
+http://stas.nerd.ro/pub/data/2010_sushkov_trunk-r1053.zip
+
+Feedback is welcomed.
+Thanks.
+
+
+From michael_denny at wrdsb.on.ca  Mon Aug 16 14:19:10 2010
+From: michael_denny at wrdsb.on.ca (Michael Denny)
+Date: Mon, 16 Aug 2010 10:19:10 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+Message-ID: <fc.00219468074b20173b9aca00c1bd3df6.74b2018@wrdsb.on.ca>
+
+I will be away from the office from Aug 13 2010 until Aug 23 2010. If you have any questions or concerns, please forward them to james_schumann at wrdsb.on.ca.
+
+Michael 
+
+
+From jeffvand at unc.edu  Mon Aug 23 15:19:38 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Mon, 23 Aug 2010 10:19:38 -0500
+Subject: [wp-edu] Wordpress MU "Reports" Plugin
+Message-ID: <AANLkTi=CAOQwy3M+sa_s+hpc5SK4OLTBoKM46u2b-FbF@mail.gmail.com>
+
+Hi all!,
+
+I am new to this listserv and look forward to learning from y'all.  I run
+the UNC-CH Wordpress MU instance at http://web.unc.edu.
+
+Our site is new and only has around 350 sites so far, but we are growing
+fast and I am finding I need a good way to see what sites are being updated,
+and what ones are not so I can contact, and disable old sites as they go
+stale.  We, probably like many of you, have many sites that are just created
+and abandoned.
+
+I would also like to be able to easily see which sites are using certain
+themes / plugins / etc. and email them.
+
+Anyone developed, or know of something like this?  If not, would you be
+interested in working on something like this with me?
+
+Best,
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen
+UNC Digital Commons Webmaster
+
+Office of Arts & Sciences Information Services (OASIS)
+http://oasis.unc.edu
+
+Would you like to attend a webinar on getting started with your UNC Digital
+Commons Website?  See upcoming workshops here:
+http://opentraining.unc.edu/upcoming-trainings/training-collections/web.unc.edu-training
+
+Questions?  Be sure to check out our FAQ's (http://web.unc.edu/faq/) and
+Documentation (http://web.unc.edu/documentation/)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100823/d9efe2c0/attachment.htm>
+
+From amy.hendrix at duke.edu  Mon Aug 23 15:28:32 2010
+From: amy.hendrix at duke.edu (Amy Hendrix)
+Date: Mon, 23 Aug 2010 11:28:32 -0400
+Subject: [wp-edu] Wordpress MU "Reports" Plugin
+In-Reply-To: <AANLkTi=CAOQwy3M+sa_s+hpc5SK4OLTBoKM46u2b-FbF@mail.gmail.com>
+References: <AANLkTi=CAOQwy3M+sa_s+hpc5SK4OLTBoKM46u2b-FbF@mail.gmail.com>
+Message-ID: <AANLkTi=ggprrAysYd=uW3nAhk2qALGz6FoCF2-J0wATR@mail.gmail.com>
+
+Hi Jeff,
+
+For the plugin and theme info, we use this pair of plugins:
+
+http://wordpress.org/extend/plugins/wpmu-plugin-stats/
+http://wordpress.org/extend/plugins/wpmu-theme-usage-info/
+
+We haven't had much need (yet) to look at update dates in a more
+complicated way than sorting the blogs list by updated date, but I can
+foresee wanting the information as we grow.
+
+Good luck with your site -- we'd love to hear more about how it's going for you!
+
+best,
+Amy
+
+On Mon, Aug 23, 2010 at 11:19 AM, Jeff VanDrimmelen <jeffvand at unc.edu> wrote:
+> Hi all!,
+> I am new to this listserv and look forward to learning from y'all. ?I run
+> the UNC-CH Wordpress MU instance at http://web.unc.edu.
+> Our site is new and only has around 350 sites so far, but we are growing
+> fast and I am finding I need a good way to see what sites are being updated,
+> and what ones are not so I can contact, and disable old sites as they go
+> stale. ?We, probably like many of you, have many sites that are just created
+> and abandoned.
+> I would also like to be able to easily see which sites are using certain
+> themes / plugins / etc. and email them.
+> Anyone developed, or know of something like this? ?If not, would you be
+> interested in working on something like this with me?
+> Best,
+> ~Jeff
+> ----------------------------------------------------------------------------------------------------
+> Jeff VanDrimmelen
+> UNC Digital Commons Webmaster
+> Office of Arts & Sciences Information Services (OASIS)
+> http://oasis.unc.edu
+> Would you like to attend a webinar on getting started with your UNC Digital
+> Commons Website? ?See upcoming workshops
+> here:?http://opentraining.unc.edu/upcoming-trainings/training-collections/web.unc.edu-training
+> Questions? ?Be sure to check out our FAQ's (http://web.unc.edu/faq/) and
+> Documentation (http://web.unc.edu/documentation/)
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+
+
+-- 
+Amy Hendrix
+Center for Instructional Technology
+Duke University
+amy.hendrix at duke.edu | 1 919 681 1886
+
+From newquisk at lafayette.edu  Fri Aug 27 12:43:30 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 27 Aug 2010 08:43:30 -0400
+Subject: [wp-edu] Lafayette College web site relaunched,
+	now powered by WordPress
+In-Reply-To: <1280222871.10308.10.camel@rivalry>
+References: <1280222871.10308.10.camel@rivalry>
+Message-ID: <DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+
+FYI -- Lafayette College recently launched its redesigned web site --  
+it was created by Viget Labs (who did Duke's web site not to long ago)  
+and is powered by WordPress.
+
+http://www.lafayette.edu
+
+Here's post by Viget about it, with a before and after picture of the  
+site home page. :)
+
+http://www.viget.com/blog/lafayette-college-redesign/
+
+
+Ken
+
+--
+Ken Newquist
+Web Applications Specialist
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+From m at mullenweg.com  Fri Aug 27 16:51:56 2010
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 27 Aug 2010 09:51:56 -0700
+Subject: [wp-edu] Lafayette College web site relaunched,
+ now powered by WordPress
+In-Reply-To: <DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+References: <1280222871.10308.10.camel@rivalry>
+	<DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+Message-ID: <4C77ED2C.3020202@mullenweg.com>
+
+On 8/27/2010 5:43 AM, Ken Newquist wrote:
+> FYI -- Lafayette College recently launched its redesigned web site -- it
+> was created by Viget Labs (who did Duke's web site not to long ago) and
+> is powered by WordPress.
+>
+> http://www.lafayette.edu
+
+That's nice.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+
+From jimgroom at gmail.com  Fri Aug 27 18:15:11 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Fri, 27 Aug 2010 14:15:11 -0400
+Subject: [wp-edu] Lafayette College web site relaunched,
+	now powered by WordPress
+In-Reply-To: <4C77ED2C.3020202@mullenweg.com>
+References: <1280222871.10308.10.camel@rivalry>
+	<DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+	<4C77ED2C.3020202@mullenweg.com>
+Message-ID: <AANLkTin6Lz4HxpY6Er4sLggXzThp=iKXDJ9zvpzOAi_D@mail.gmail.com>
+
+Ken,
+
+Congratulations to you and Lafayette College, this looks brilliant. And I
+have to say, I'd love to hear more about the architecture etc. It think it
+is very close to a model UMW will tak this year when we follow your lead.
+
+Best,
+Jim
+
+On Fri, Aug 27, 2010 at 12:51 PM, Matt Mullenweg <m at mullenweg.com> wrote:
+
+> On 8/27/2010 5:43 AM, Ken Newquist wrote:
+>
+>> FYI -- Lafayette College recently launched its redesigned web site -- it
+>> was created by Viget Labs (who did Duke's web site not to long ago) and
+>> is powered by WordPress.
+>>
+>> http://www.lafayette.edu
+>>
+>
+> That's nice.
+>
+> --
+> Matt Mullenweg
+> http://ma.tt | http://wordpress.org | http://automattic.com
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100827/4b435d1d/attachment.htm>
+
+From hhou at esm.rochester.edu  Sat Aug 28 20:26:46 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Sat, 28 Aug 2010 16:26:46 -0400
+Subject: [wp-edu] Lafayette College web site relaunched,
+ now powered by WordPress
+In-Reply-To: <AANLkTin6Lz4HxpY6Er4sLggXzThp=iKXDJ9zvpzOAi_D@mail.gmail.com>
+Message-ID: <C89EE946.111B%hhou@esm.rochester.edu>
+
+Congratulations indeed, what a great use of WP! We at the Eastman School of
+Music are also in the process of transitioning to WP as CMS, although we
+aren?t rolling a total redesign in with it. Would also love to hear more
+about the behind-the-scenes architecture.
+
+Helen
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: James Groom <jimgroom at gmail.com>
+Reply-To: <wp-edu at lists.automattic.com>
+Date: Fri, 27 Aug 2010 14:15:11 -0400
+To: <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Lafayette College web site relaunched, now powered by
+WordPress
+
+Ken,
+
+Congratulations to you and Lafayette College, this looks brilliant. And I
+have to say, I'd love to hear more about the architecture etc. It think it
+is very close to a model UMW will tak this year when we follow your lead.
+
+Best,
+Jim
+
+On Fri, Aug 27, 2010 at 12:51 PM, Matt Mullenweg <m at mullenweg.com> wrote:
+> On 8/27/2010 5:43 AM, Ken Newquist wrote:
+>> FYI -- Lafayette College recently launched its redesigned web site -- it
+>> was created by Viget Labs (who did Duke's web site not to long ago) and
+>> is powered by WordPress.
+>> 
+>> http://www.lafayette.edu
+> 
+> That's nice.
+> 
+> -- 
+> Matt Mullenweg
+> http://ma.tt | http://wordpress.org | http://automattic.com
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100828/6623adbd/attachment.htm>
+
+From jay.collier at thecompass.com  Sat Aug 28 22:08:43 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Sat, 28 Aug 2010 18:08:43 -0400
+Subject: [wp-edu] Lafayette College web site relaunched,
+	now powered by WordPress
+In-Reply-To: <DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+References: <1280222871.10308.10.camel@rivalry>
+	<DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+Message-ID: <55C252F9-3F4E-40A8-B359-ECCC7B9059DD@thecompass.com>
+
+Congratulations to you and your colleagues, Ken. You've done a lot of work since December.
+
+It was good reading both project posts from Viget. 
+
+	<http://www.viget.com/blog/lafayette-college-redesign/>
+	<http://www.viget.com/inspire/behind-the-scenes-lafayette-college/>
+
+Consultants doing thorough branding, architecture, and development work and being transparent about it, too. Great!
+
+-Jay
+
+
+
+On Aug 27, 2010, at 8:43 AM, Ken Newquist wrote:
+
+> FYI -- Lafayette College recently launched its redesigned web site -- it was created by Viget Labs (who did Duke's web site not to long ago) and is powered by WordPress.
+> 
+> http://www.lafayette.edu
+> 
+> Here's post by Viget about it, with a before and after picture of the site home page. :)
+> 
+> http://www.viget.com/blog/lafayette-college-redesign/
+> 
+> Ken 
+
+ 
+
+Jay Collier | The Compass LLC
+Web: http://thecompass.com
+Web: http://jaycollier.net
+E-mail: mailto:jay.collier at thecompass.com
+Voice: callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100828/2016ef0f/attachment.htm>
+
+From newquisk at lafayette.edu  Mon Aug 30 20:35:55 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Mon, 30 Aug 2010 16:35:55 -0400
+Subject: [wp-edu] Lafayette College web site relaunched,
+	now powered by WordPress
+In-Reply-To: <55C252F9-3F4E-40A8-B359-ECCC7B9059DD@thecompass.com>
+References: <1280222871.10308.10.camel@rivalry>
+	<DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+	<55C252F9-3F4E-40A8-B359-ECCC7B9059DD@thecompass.com>
+Message-ID: <0669E875-8F4F-4C2C-B504-AFA4AC24EB1F@lafayette.edu>
+
+
+On Aug 28, 2010, at 6:08 PM, Jay Collier wrote:
+
+> Congratulations to you and your colleagues, Ken. You've done a lot  
+> of work since December.
+
+Thanks Jay! And thanks all your work documenting Bates' WordPress  
+project. Bates was one of our go-to sites when demonstrating how  
+WordPress could be used as a CMS.
+
+> It was good reading both project posts from Viget.
+> <http://www.viget.com/blog/lafayette-college-redesign/>
+> <http://www.viget.com/inspire/behind-the-scenes-lafayette-college/>
+> Consultants doing thorough branding, architecture, and development  
+> work and being transparent about it, too. Great!
+
+Yeah, I liked those too, particularly the "behind the scenes" one. It  
+spawned a nice side conversation about WordPress as CMS.
+
+Ken
+
+
+
+From Joshua.Dodson at lmunet.edu  Tue Aug 31 12:07:37 2010
+From: Joshua.Dodson at lmunet.edu (Dodson, Joshua D)
+Date: Tue, 31 Aug 2010 08:07:37 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 15, Issue 7
+In-Reply-To: <mailman.9.1283256002.10535.wp-edu@lists.automattic.com>
+References: <mailman.9.1283256002.10535.wp-edu@lists.automattic.com>
+Message-ID: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+
+Lafayette and Bates are two amazing examples of what can be done with WordPress to power a university site. I am heading up efforts at Lincoln Memorial University to convert our existing site to WordPress. One issue we are running into is how to properly assign permissions to the various people on the team, which includes multiple departments on campus. Would those who have implemented WordPress in this way share how they arranged their organizational chart to handle admin, safety, security, updates, web standards, duplication of efforts, etc.? Any other pieces of advice would also be appreciated. Thanks!
+
+Joshua
+
+__________________________________________________________________________
+Joshua Dodson | Web Developer | University Advancement | Lincoln Memorial University
+6965 Cumberland Gap Parkway | Harrogate, TN 37752 
+P: 423.869.7160 | 800.325.0900, ext. 7160 | F:?423.869.6370 | E: joshua.dodson at lmunet.edu 
+__________________________________________________________________________
+
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Mon, 30 Aug 2010 16:35:55 -0400
+From: Ken Newquist <newquisk at lafayette.edu>
+Subject: Re: [wp-edu] Lafayette College web site relaunched,	now
+	powered by WordPress
+To: wp-edu at lists.automattic.com
+Message-ID: <0669E875-8F4F-4C2C-B504-AFA4AC24EB1F at lafayette.edu>
+Content-Type: text/plain; charset=US-ASCII; format=flowed; delsp=yes
+
+
+On Aug 28, 2010, at 6:08 PM, Jay Collier wrote:
+
+> Congratulations to you and your colleagues, Ken. You've done a lot  
+> of work since December.
+
+Thanks Jay! And thanks all your work documenting Bates' WordPress  
+project. Bates was one of our go-to sites when demonstrating how  
+WordPress could be used as a CMS.
+
+> It was good reading both project posts from Viget.
+> <http://www.viget.com/blog/lafayette-college-redesign/>
+> <http://www.viget.com/inspire/behind-the-scenes-lafayette-college/>
+> Consultants doing thorough branding, architecture, and development  
+> work and being transparent about it, too. Great!
+
+Yeah, I liked those too, particularly the "behind the scenes" one. It  
+spawned a nice side conversation about WordPress as CMS.
+
+Ken
+
+
+
+
+
+This e-mail and any files transmitted with it are confidential and are intended solely for the use of the individual or entity to whom they are addressed.  This communication may contain material protected by the attorney-client privilege.  If you are not the intended recipient or the person responsible for delivering the e-mail to the intended recipient, be advised that you have received this e-mail in error and that any use, dissemination, forwarding, printing, or copying of this e-mail is strictly prohibited.  If you have received this e-mail in error, please immediately notify the offices designated information technology person by telephone at 800-325-0900.  You will be reimbursed for reasonable costs incurred in notifying us.
+
+From mmuro at advance.ua.edu  Tue Aug 31 13:11:33 2010
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Tue, 31 Aug 2010 08:11:33 -0500
+Subject: [wp-edu] wp-edu Digest, Vol 15, Issue 7
+In-Reply-To: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+References: <mailman.9.1283256002.10535.wp-edu@lists.automattic.com>
+	<2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+Message-ID: <BE1E7137-5CF6-40D0-862B-26739F95D95A@ur.ua.edu>
+
+Joshua,
+
+Your best bet would be to install the Members plugin and create custom roles and permissions.  This way you can assign certain pages to certain departments and they will not be able to edit any others.  Or, you could create custom post types for each department and assign a custom role to that post type.  You have lots of options.  If you are looking to filter WordPress down to subsites, I would probably investigate the multi site setup as it would help with your permissions and making site-wide updates.
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+205-348-0304
+
+
+
+
+
+On Aug 31, 2010, at 7:07 AM, Dodson, Joshua D wrote:
+
+Lafayette and Bates are two amazing examples of what can be done with WordPress to power a university site. I am heading up efforts at Lincoln Memorial University to convert our existing site to WordPress. One issue we are running into is how to properly assign permissions to the various people on the team, which includes multiple departments on campus. Would those who have implemented WordPress in this way share how they arranged their organizational chart to handle admin, safety, security, updates, web standards, duplication of efforts, etc.? Any other pieces of advice would also be appreciated. Thanks!
+
+Joshua
+
+__________________________________________________________________________
+Joshua Dodson | Web Developer | University Advancement | Lincoln Memorial University
+6965 Cumberland Gap Parkway | Harrogate, TN 37752
+P: 423.869.7160 | 800.325.0900, ext. 7160 | F: 423.869.6370 | E: joshua.dodson at lmunet.edu<mailto:joshua.dodson at lmunet.edu>
+__________________________________________________________________________
+
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Mon, 30 Aug 2010 16:35:55 -0400
+From: Ken Newquist <newquisk at lafayette.edu<mailto:newquisk at lafayette.edu>>
+Subject: Re: [wp-edu] Lafayette College web site relaunched, now
+powered by WordPress
+To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Message-ID: <0669E875-8F4F-4C2C-B504-AFA4AC24EB1F at lafayette.edu<mailto:0669E875-8F4F-4C2C-B504-AFA4AC24EB1F at lafayette.edu>>
+Content-Type: text/plain; charset=US-ASCII; format=flowed; delsp=yes
+
+
+On Aug 28, 2010, at 6:08 PM, Jay Collier wrote:
+
+Congratulations to you and your colleagues, Ken. You've done a lot
+of work since December.
+
+Thanks Jay! And thanks all your work documenting Bates' WordPress
+project. Bates was one of our go-to sites when demonstrating how
+WordPress could be used as a CMS.
+
+It was good reading both project posts from Viget.
+<http://www.viget.com/blog/lafayette-college-redesign/>
+<http://www.viget.com/inspire/behind-the-scenes-lafayette-college/>
+Consultants doing thorough branding, architecture, and development
+work and being transparent about it, too. Great!
+
+Yeah, I liked those too, particularly the "behind the scenes" one. It
+spawned a nice side conversation about WordPress as CMS.
+
+Ken
+
+
+
+
+
+This e-mail and any files transmitted with it are confidential and are intended solely for the use of the individual or entity to whom they are addressed.  This communication may contain material protected by the attorney-client privilege.  If you are not the intended recipient or the person responsible for delivering the e-mail to the intended recipient, be advised that you have received this e-mail in error and that any use, dissemination, forwarding, printing, or copying of this e-mail is strictly prohibited.  If you have received this e-mail in error, please immediately notify the offices designated information technology person by telephone at 800-325-0900.  You will be reimbursed for reasonable costs incurred in notifying us.
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From jay.collier at thecompass.com  Tue Aug 31 18:23:16 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Tue, 31 Aug 2010 14:23:16 -0400
+Subject: [wp-edu] Lafayette College web site relaunched,
+	now powered by WordPress
+In-Reply-To: <0669E875-8F4F-4C2C-B504-AFA4AC24EB1F@lafayette.edu>
+References: <1280222871.10308.10.camel@rivalry>
+	<DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+	<55C252F9-3F4E-40A8-B359-ECCC7B9059DD@thecompass.com>
+	<0669E875-8F4F-4C2C-B504-AFA4AC24EB1F@lafayette.edu>
+Message-ID: <003CA4CD-3262-41B5-BA54-17CD8421CC5E@thecompass.com>
+
+Thanks, Ken. 
+
+I'm no longer at Bates (back, now, in the consulting world), but I published links to those posts and graphics on my personal site. 
+
+	<http://jaycollier.net/portfolio/strategy/bates-online-media/>
+
+Our designer, Ethan Magoon, is now stewarding the home site, and I'll suggest he join this list.
+
+I've been planning to develop an online space to support WordPress in learning communities once my current project is complete. Then yesterday I received this announcement from Acquia which sounds a lot like what we're already doing!
+
+	<http://acquia.com/resources/drupal-solutions/education>
+	<http://scholar.harvard.edu/>
+	<http://bit.ly/dje5SH>
+
+Do you know of similar initiatives with WordPress? Anyone? Is there interest?
+
+There is no shortage of great examples; there were three updates to the WordPress in Higher Ed spreadsheet already today.
+
+	<http://bit.ly/cE1MKC>
+
+-Jay
+
+
+On Aug 30, 2010, at 4:35 PM, Ken Newquist wrote:
+
+>> Thanks Jay! And thanks all your work documenting Bates' WordPress project. Bates was one of our go-to sites when demonstrating how WordPress could be used as a CMS.
+
+
+
+
+
+ 
+
+Jay Collier, The Compass LLC
+Web: http://thecompass.com
+Web: http://jaycollier.net
+E-mail: mailto:jay.collier at thecompass.com
+Voice: callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100831/c87aaba6/attachment.htm>
+
+From hhou at esm.rochester.edu  Tue Aug 31 20:06:24 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Tue, 31 Aug 2010 16:06:24 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 15, Issue 7
+In-Reply-To: <BE1E7137-5CF6-40D0-862B-26739F95D95A@ur.ua.edu>
+Message-ID: <C8A2D900.1172%hhou@esm.rochester.edu>
+
+Hi Joshua,
+
+In our current testing using multisite, we are using a combination of Role
+Scoper, Capability Manager, and Revisionary for fine-grained control of
+permissions. This allows us to assign or restrict editing rights of pretty
+much anything (including custom post types) per-user or per-group.
+Revisionary allows us to assign users to only be able to submit a revision
+to a page and have e-mails sent to the appropriate approving party. So far
+we don't have very many users, as we're still in R&D mode, but it seems to
+be working very well thus far. The admin screens and options are admittedly
+confusing at times, but the truth is that there will probably only be one or
+two of us ever worrying about user permissions, just the same as we
+currently do with web server accounts.
+
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+> From: "Muro, Matthew" <mmuro at advance.ua.edu>
+> Reply-To: <wp-edu at lists.automattic.com>
+> Date: Tue, 31 Aug 2010 08:11:33 -0500
+> To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] wp-edu Digest, Vol 15, Issue 7
+> 
+> Joshua,
+> 
+> Your best bet would be to install the Members plugin and create custom roles
+> and permissions.  This way you can assign certain pages to certain departments
+> and they will not be able to edit any others.  Or, you could create custom
+> post types for each department and assign a custom role to that post type.
+> You have lots of options.  If you are looking to filter WordPress down to
+> subsites, I would probably investigate the multi site setup as it would help
+> with your permissions and making site-wide updates.
+> 
+> Matthew Muro
+> Web Developer
+> UA Office of Web Communications
+> 205-348-0304
+> 
+> 
+> 
+> 
+> 
+> On Aug 31, 2010, at 7:07 AM, Dodson, Joshua D wrote:
+> 
+> Lafayette and Bates are two amazing examples of what can be done with
+> WordPress to power a university site. I am heading up efforts at Lincoln
+> Memorial University to convert our existing site to WordPress. One issue we
+> are running into is how to properly assign permissions to the various people
+> on the team, which includes multiple departments on campus. Would those who
+> have implemented WordPress in this way share how they arranged their
+> organizational chart to handle admin, safety, security, updates, web
+> standards, duplication of efforts, etc.? Any other pieces of advice would also
+> be appreciated. Thanks!
+> 
+> Joshua
+> 
+> __________________________________________________________________________
+> Joshua Dodson | Web Developer | University Advancement | Lincoln Memorial
+> University
+> 6965 Cumberland Gap Parkway | Harrogate, TN 37752
+> P: 423.869.7160 | 800.325.0900, ext. 7160 | F: 423.869.6370 | E:
+> joshua.dodson at lmunet.edu<mailto:joshua.dodson at lmunet.edu>
+> __________________________________________________________________________
+> 
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Mon, 30 Aug 2010 16:35:55 -0400
+> From: Ken Newquist <newquisk at lafayette.edu<mailto:newquisk at lafayette.edu>>
+> Subject: Re: [wp-edu] Lafayette College web site relaunched, now
+> powered by WordPress
+> To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> Message-ID: 
+> <0669E875-8F4F-4C2C-B504-AFA4AC24EB1F at lafayette.edu<mailto:0669E875-8F4F-4C2C-
+> B504-AFA4AC24EB1F at lafayette.edu>>
+> Content-Type: text/plain; charset=US-ASCII; format=flowed; delsp=yes
+> 
+> 
+> On Aug 28, 2010, at 6:08 PM, Jay Collier wrote:
+> 
+> Congratulations to you and your colleagues, Ken. You've done a lot
+> of work since December.
+> 
+> Thanks Jay! And thanks all your work documenting Bates' WordPress
+> project. Bates was one of our go-to sites when demonstrating how
+> WordPress could be used as a CMS.
+> 
+> It was good reading both project posts from Viget.
+> <http://www.viget.com/blog/lafayette-college-redesign/>
+> <http://www.viget.com/inspire/behind-the-scenes-lafayette-college/>
+> Consultants doing thorough branding, architecture, and development
+> work and being transparent about it, too. Great!
+> 
+> Yeah, I liked those too, particularly the "behind the scenes" one. It
+> spawned a nice side conversation about WordPress as CMS.
+> 
+> Ken
+> 
+> 
+> 
+> 
+> 
+> This e-mail and any files transmitted with it are confidential and are
+> intended solely for the use of the individual or entity to whom they are
+> addressed.  This communication may contain material protected by the
+> attorney-client privilege.  If you are not the intended recipient or the
+> person responsible for delivering the e-mail to the intended recipient, be
+> advised that you have received this e-mail in error and that any use,
+> dissemination, forwarding, printing, or copying of this e-mail is strictly
+> prohibited.  If you have received this e-mail in error, please immediately
+> notify the offices designated information technology person by telephone at
+> 800-325-0900.  You will be reimbursed for reasonable costs incurred in
+> notifying us.
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From jay.collier at thecompass.com  Tue Aug 31 20:53:50 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Tue, 31 Aug 2010 16:53:50 -0400
+Subject: [wp-edu] Authors and permissions
+References: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+Message-ID: <14BC5B36-5DC9-4949-9930-38BE7CCF897C@thecompass.com>
+
+Joshua-
+
+In my experience managing and editing department sites, I've found that custom permissions weren't worth the extra effort. In WP 3 multisite, each department will have its own site, so only those users you've assigned to that site have access. 
+
+Also, I have always asked for a single editor authorized to publish content (at the default "editor" level) and when there are others (such as faculty) who have permission to update individual pages, I've assigned them as "authors" for final approval by the editor. As people show their enthusiasm and skills, you can shift them up ... or down ;)
+
+(BTW, Tiny-MCE-Advanced allows you to shut down most of the eggregious editing buttons -- like text and background color, left and right justify, etc. -- so authors and editors don't get into trouble in the first place.)
+
+Then, using WP-Audit-Trail, student assistants, armed with quality assurance guidelines, periodically checked out what had been published on each site and provided recommendations for improvements directly to the site editors. Of the 50 sites I managed at a previous college, I only had 1-2 editors who were resistant and who were escalated to me for triage. Over time, the deans assigned others to take over that role. As a matter of fact, recognition of the importance of public communications was integrated more deeply into job descriptions for future hires.
+
+As to initiating sites: at first, we assigned sites based on the org chart -- so there would be clear authority in a dean or director -- and then eventually opened up to microsites that targeted particular audiences or activities, and for which there were experienced editors. The only "administrators" on each subsite were members of the central team, who made changes to widgets, child themes, etc.
+
+Your college culture may or may not support that type of workflow, but I would recommend prototyping with some early adopters and see if the built-in permissions are enough. If not, you can always add more control later.
+
+Hope that is helpful ...
+
+-Jay
+
+
+
+> Lafayette and Bates are two amazing examples of what can be done with WordPress to power a university site. I am heading up efforts at Lincoln Memorial University to convert our existing site to WordPress. One issue we are running into is how to properly assign permissions to the various people on the team, which includes multiple departments on campus. Would those who have implemented WordPress in this way share how they arranged their organizational chart to handle admin, safety, security, updates, web standards, duplication of efforts, etc.? Any other pieces of advice would also be appreciated. Thanks!
+> 
+> Joshua
+
+ 
+
+Jay Collier, The Compass LLC
+Web: http://thecompass.com
+Web: http://jaycollier.net
+E-mail: mailto:jay.collier at thecompass.com
+Voice: callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100831/3ca449c2/attachment-0001.htm>
+
+From David.Grogan at tufts.edu  Tue Aug 31 21:40:05 2010
+From: David.Grogan at tufts.edu (Grogan, David)
+Date: Tue, 31 Aug 2010 21:40:05 +0000
+Subject: [wp-edu] Authors and permissions
+In-Reply-To: <14BC5B36-5DC9-4949-9930-38BE7CCF897C@thecompass.com>
+References: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+	<14BC5B36-5DC9-4949-9930-38BE7CCF897C@thecompass.com>
+Message-ID: <85F05EE0D1E7E1499CCFFE9E3DFDF43C01F103@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+
+Agreed. I'll add that when it comes to content editing I emphasize to users that WP keeps track of page/post versions to that the site admins can see who has edited what and that you can restore older versions of content. Same emphasis when it comes to users or our wiki system. I've yet to see anyone egregiously damage content. And I've rarely seen any inadvertent editing of pages that a user shouldn't be editing. In those cases older version restorer has resolved the issue.
+
+David
+
+--------------------------------------------------------------
+David Grogan
+Manager, Curricular Technology Group
+UIT-Academic Technology
+Tufts University
+
++1 617-627-2859
+david.grogan at tufs.edu
+
+http://uit.tufts.edu/at
+
+
+
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Jay Collier
+Sent: Tuesday, August 31, 2010 4:54 PM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] Authors and permissions
+
+Joshua-
+
+In my experience managing and editing department sites, I've found that custom permissions weren't worth the extra effort. In WP 3 multisite, each department will have its own site, so only those users you've assigned to that site have access.
+
+Also, I have always asked for a single editor authorized to publish content (at the default "editor" level) and when there are others (such as faculty) who have permission to update individual pages, I've assigned them as "authors" for final approval by the editor. As people show their enthusiasm and skills, you can shift them up ... or down ;)
+
+(BTW, Tiny-MCE-Advanced allows you to shut down most of the eggregious editing buttons -- like text and background color, left and right justify, etc. -- so authors and editors don't get into trouble in the first place.)
+
+Then, using WP-Audit-Trail, student assistants, armed with quality assurance guidelines, periodically checked out what had been published on each site and provided recommendations for improvements directly to the site editors. Of the 50 sites I managed at a previous college, I only had 1-2 editors who were resistant and who were escalated to me for triage. Over time, the deans assigned others to take over that role. As a matter of fact, recognition of the importance of public communications was integrated more deeply into job descriptions for future hires.
+
+As to initiating sites: at first, we assigned sites based on the org chart -- so there would be clear authority in a dean or director -- and then eventually opened up to microsites that targeted particular audiences or activities, and for which there were experienced editors. The only "administrators" on each subsite were members of the central team, who made changes to widgets, child themes, etc.
+
+Your college culture may or may not support that type of workflow, but I would recommend prototyping with some early adopters and see if the built-in permissions are enough. If not, you can always add more control later.
+
+Hope that is helpful ...
+
+-Jay
+
+
+
+Lafayette and Bates are two amazing examples of what can be done with WordPress to power a university site. I am heading up efforts at Lincoln Memorial University to convert our existing site to WordPress. One issue we are running into is how to properly assign permissions to the various people on the team, which includes multiple departments on campus. Would those who have implemented WordPress in this way share how they arranged their organizational chart to handle admin, safety, security, updates, web standards, duplication of efforts, etc.? Any other pieces of advice would also be appreciated. Thanks!
+
+Joshua
+
+
+
+Jay Collier, The Compass LLC
+
+Web: http://thecompass.com<http://thecompass.com/>
+
+Web: http://jaycollier.net<http://jaycollier.net/>
+
+E-mail: mailto:jay.collier at thecompass.com
+
+Voice: callto:+1-207-956-0320<callto:+12079560320>
+
+[http://thecompass.com/wp-content/assets/icons/feed-16x16.png]<http://jaycollier.net/feed>[http://thecompass.com/wp-content/assets/icons/email-16x16.png]<http://jaycollier.net/contact/>[http://thecompass.com/wp-content/assets/icons/facebook-16x16.png]<http://www.facebook.com/jayfcollier>[http://thecompass.com/wp-content/assets/icons/flickr-16x16.png]<http://flickr.com/photos/jaycollier/>[http://thecompass.com/wp-content/assets/icons/linkedin-16x16.png]<http://www.linkedin.com/in/jaycollier>[http://thecompass.com/wp-content/assets/icons/lastfm-16x16.png]<http://www.last.fm/user/jcollier/charts>[http://thecompass.com/wp-content/assets/icons/twitter-16x16.png]<http://twitter.com/jaycollier>[http://thecompass.com/wp-content/assets/icons/youtube-16x16.png]<http://www.youtube.com/jaycolliermedia>
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100831/569d5c0c/attachment.htm>
+
+From vida at mascommunication.com  Tue Aug 31 21:42:48 2010
+From: vida at mascommunication.com (Vida Mas)
+Date: Tue, 31 Aug 2010 14:42:48 -0700
+Subject: [wp-edu] Authors and permissions
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C01F103@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+	<14BC5B36-5DC9-4949-9930-38BE7CCF897C@thecompass.com>
+	<85F05EE0D1E7E1499CCFFE9E3DFDF43C01F103@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <AANLkTikXDejtGjF6hT8k8781AvWWppW-1AeAFE3rtoCi@mail.gmail.com>
+
+Can you please, please unsubscribe me from this list?   I have tried it on
+your mail list and am still getting tons of mail here.
+
+I thank you many many times.
+
+Vida Mas
+
+On Tue, Aug 31, 2010 at 2:40 PM, Grogan, David <David.Grogan at tufts.edu>wrote:
+
+>  Agreed. I?ll add that when it comes to content editing I emphasize to
+> users that WP keeps track of page/post versions to that the site admins can
+> see who has edited what and that you can restore older versions of content.
+> Same emphasis when it comes to users or our wiki system. I?ve yet to see
+> anyone egregiously damage content. And I?ve rarely seen any inadvertent
+> editing of pages that a user shouldn?t be editing. In those cases older
+> version restorer has resolved the issue.
+>
+>
+>
+> David
+>
+>
+>
+> --------------------------------------------------------------
+>
+> David Grogan
+>
+> Manager, Curricular Technology Group
+>
+> UIT-Academic Technology
+>
+> Tufts University
+>
+>
+>
+> +1 617-627-2859
+>
+> david.grogan at tufs.edu
+>
+>
+>
+> http://uit.tufts.edu/at
+>
+>
+>
+>
+>
+>
+>
+> *From:* wp-edu-bounces at lists.automattic.com [mailto:
+> wp-edu-bounces at lists.automattic.com] *On Behalf Of *Jay Collier
+> *Sent:* Tuesday, August 31, 2010 4:54 PM
+> *To:* wp-edu at lists.automattic.com
+> *Subject:* [wp-edu] Authors and permissions
+>
+>
+>
+> Joshua-
+>
+>
+>
+> In my experience managing and editing department sites, I've found that
+> custom permissions weren't worth the extra effort. In WP 3 multisite, each
+> department will have its own site, so only those users you've assigned to
+> that site have access.
+>
+>
+>
+> Also, I have always asked for a single editor authorized to publish content
+> (at the default "editor" level) and when there are others (such as faculty)
+> who have permission to update individual pages, I've assigned them as
+> "authors" for final approval by the editor. As people show their enthusiasm
+> and skills, you can shift them up ... or down ;)
+>
+>
+>
+> (BTW, Tiny-MCE-Advanced allows you to shut down most of the eggregious
+> editing buttons -- like text and background color, left and right justify,
+> etc. -- so authors and editors don't get into trouble in the first place.)
+>
+>
+>
+> Then, using WP-Audit-Trail, student assistants, armed with quality
+> assurance guidelines, periodically checked out what had been published on
+> each site and provided recommendations for improvements directly to the site
+> editors. Of the 50 sites I managed at a previous college, I only had 1-2
+> editors who were resistant and who were escalated to me for triage. Over
+> time, the deans assigned others to take over that role. As a matter of fact,
+> recognition of the importance of public communications was integrated more
+> deeply into job descriptions for future hires.
+>
+>
+>
+> As to initiating sites: at first, we assigned sites based on the org chart
+> -- so there would be clear authority in a dean or director -- and then
+> eventually opened up to microsites that targeted particular audiences or
+> activities, and for which there were experienced editors. The only
+> "administrators" on each subsite were members of the central team, who made
+> changes to widgets, child themes, etc.
+>
+>
+>
+> Your college culture may or may not support that type of workflow, but I
+> would recommend prototyping with some early adopters and see if the built-in
+> permissions are enough. If not, you can always add more control later.
+>
+>
+>
+> Hope that is helpful ...
+>
+>
+>
+> -Jay
+>
+>
+>
+>
+>
+>
+>
+>  Lafayette and Bates are two amazing examples of what can be done with
+> WordPress to power a university site. I am heading up efforts at Lincoln
+> Memorial University to convert our existing site to WordPress. One issue we
+> are running into is how to properly assign permissions to the various people
+> on the team, which includes multiple departments on campus. Would those who
+> have implemented WordPress in this way share how they arranged their
+> organizational chart to handle admin, safety, security, updates, web
+> standards, duplication of efforts, etc.? Any other pieces of advice would
+> also be appreciated. Thanks!
+>
+> Joshua
+>
+>
+>
+>
+>  Jay Collier, The Compass LLC
+>
+> Web: http://thecompass.com
+>
+> Web: http://jaycollier.net
+>
+> E-mail: mailto:jay.collier at thecompass.com <jay.collier at thecompass.com>
+>
+> Voice: callto:+1-207-956-0320 <callto:+12079560320>
+>
+> <http://jaycollier.net/feed> <http://jaycollier.net/contact/><http://www.facebook.com/jayfcollier><http://flickr.com/photos/jaycollier/><http://www.linkedin.com/in/jaycollier><http://www.last.fm/user/jcollier/charts><http://twitter.com/jaycollier><http://www.youtube.com/jaycolliermedia>
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100831/4d0c2b89/attachment-0001.htm>
+

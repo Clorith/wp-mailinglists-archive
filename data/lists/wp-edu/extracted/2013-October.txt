@@ -1,0 +1,790 @@
+From ddlang at wisc.edu  Tue Oct  1 14:28:30 2013
+From: ddlang at wisc.edu (Dixie Lang)
+Date: Tue, 01 Oct 2013 09:28:30 -0500
+Subject: [wp-edu] For those who host WordPress sites for others...a question
+ on how to let a site owner update plugins
+In-Reply-To: <76a0f65540a5f.524adbd4@wiscmail.wisc.edu>
+References: <76a0f65540a5f.524adbd4@wiscmail.wisc.edu>
+Message-ID: <76a0fad244345.524a95be@wiscmail.wisc.edu>
+
+Greetings fellow WordPress users,
+
+Background:
+I work in an IT department that provides WordPress hosting and support for three academic departments. Our users are mostly faculty and grad students, and the sites focus on their research labs. 
+
+We maintain a WP multisite with about 55 sites. As the multisite sysadmin, I manage the themes, plugins and WP core files. I also create child themes and write plugins.
+
+Most of our sites are very simple and require little content maintenance (very few blog). One lab group, however, wanted social media plugins that did not play well with the multisite. I moved them to a separate Linux VM running Apache with a single WordPress installation. 
+
+The lab owner (a faculty member) wants to be able to install and configure plugins on his own so he can play with Twitter plugins. He is currently admin on the site.
+
+Technical Implementation Question
+Is it possible to give a site admin on a single WP installation the ability to install, update, and configure plugins, but not delete them or touch core? 
+
+I talked with our Linux sysadmin, and we have thought of 3 possible ways to do this:
+1) By plugin
+2) Through the VM, by creating a Linux user account then letting him enter than information in the WP connection screen
+3) (worst case) Give him SSH access to the plugins folder on the VM and let him use a tool like WinSCP to upload the files
+
+Re #2, the posts I found in the WP Codex led me to believe that the user account entered into the WP connection screen must be in the www-data group or root group. That is a higher security priv that our Linux sysadmin prefers to give him.
+
+Thank you in advance for any guidance you can provide.
+
+Sincerely,
+Dixie Lang
+Web Developer
+Russell Labs Computing 
+University of Wisconsin-Madison
+
+From genial at gmail.com  Tue Oct  1 14:41:15 2013
+From: genial at gmail.com (Tim Owens)
+Date: Tue, 1 Oct 2013 10:41:15 -0400
+Subject: [wp-edu] For those who host WordPress sites for others...a
+ question on how to let a site owner update plugins
+In-Reply-To: <76a0fad244345.524a95be@wiscmail.wisc.edu>
+References: <76a0f65540a5f.524adbd4@wiscmail.wisc.edu>
+ <76a0fad244345.524a95be@wiscmail.wisc.edu>
+Message-ID: <CAPaV0RRPxWNBD1f_vQRqL5Ns3y3BVE06Bn1T3kUY6eL-0frjCw@mail.gmail.com>
+
+A user with the ability to install and update plugins will always have the
+ability to delete them. There's no way on an operating-system level of
+distinguishing between those two actions (in Linux that's write-level
+access). If they're on their own VM with just a single Wordpress install
+just give them admin access to that install. They don't need to be root on
+the box, they just need the same account that owns the Wordpress files.
+Your sysadmin can setup an account for them, chown the folders and files
+for the Wordpress install, and then give them those credentials and it
+should work.
+
+-Tim Owens
+
+
+On Tue, Oct 1, 2013 at 10:28 AM, Dixie Lang <ddlang at wisc.edu> wrote:
+
+> Greetings fellow WordPress users,
+>
+> Background:
+> I work in an IT department that provides WordPress hosting and support for
+> three academic departments. Our users are mostly faculty and grad students,
+> and the sites focus on their research labs.
+>
+> We maintain a WP multisite with about 55 sites. As the multisite sysadmin,
+> I manage the themes, plugins and WP core files. I also create child themes
+> and write plugins.
+>
+> Most of our sites are very simple and require little content maintenance
+> (very few blog). One lab group, however, wanted social media plugins that
+> did not play well with the multisite. I moved them to a separate Linux VM
+> running Apache with a single WordPress installation.
+>
+> The lab owner (a faculty member) wants to be able to install and configure
+> plugins on his own so he can play with Twitter plugins. He is currently
+> admin on the site.
+>
+> Technical Implementation Question
+> Is it possible to give a site admin on a single WP installation the
+> ability to install, update, and configure plugins, but not delete them or
+> touch core?
+>
+> I talked with our Linux sysadmin, and we have thought of 3 possible ways
+> to do this:
+> 1) By plugin
+> 2) Through the VM, by creating a Linux user account then letting him enter
+> than information in the WP connection screen
+> 3) (worst case) Give him SSH access to the plugins folder on the VM and
+> let him use a tool like WinSCP to upload the files
+>
+> Re #2, the posts I found in the WP Codex led me to believe that the user
+> account entered into the WP connection screen must be in the www-data group
+> or root group. That is a higher security priv that our Linux sysadmin
+> prefers to give him.
+>
+> Thank you in advance for any guidance you can provide.
+>
+> Sincerely,
+> Dixie Lang
+> Web Developer
+> Russell Labs Computing
+> University of Wisconsin-Madison
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131001/ced3ea72/attachment.html>
+
+From albah at law.stanford.edu  Tue Oct  1 16:45:03 2013
+From: albah at law.stanford.edu (Alba Holgado)
+Date: Tue, 1 Oct 2013 09:45:03 -0700
+Subject: [wp-edu] For those who host WordPress sites for others...a
+ question on how to let a site owner update plugins
+In-Reply-To: <76a0fad244345.524a95be@wiscmail.wisc.edu>
+References: <76a0f65540a5f.524adbd4@wiscmail.wisc.edu>
+ <76a0fad244345.524a95be@wiscmail.wisc.edu>
+Message-ID: <CAGkje=LF4SaG3093SZdSYv0CGnpHZra_h54Vkt=BdD3_OBcjHQ@mail.gmail.com>
+
+Hi,
+
+You may want to look into building an infrastructure where site owners and
+developers can work on a development instance.
+Having a dev instance is helpful, as it gives site owners and developers a
+safe place for enhancing and testing their sites without breaking the
+production instance.
+Once the desired change is made, the dev instance can be promoted to a
+staging instance via a sync script  where site owners/developers can review
+to ensure that nothing is broken.  If all looks good in the staging
+instance, the site can be promoted to production.
+
+I hope this helps.
+Best-
+Alba
+
+
+On Tue, Oct 1, 2013 at 7:28 AM, Dixie Lang <ddlang at wisc.edu> wrote:
+
+> Greetings fellow WordPress users,
+>
+> Background:
+> I work in an IT department that provides WordPress hosting and support for
+> three academic departments. Our users are mostly faculty and grad students,
+> and the sites focus on their research labs.
+>
+> We maintain a WP multisite with about 55 sites. As the multisite sysadmin,
+> I manage the themes, plugins and WP core files. I also create child themes
+> and write plugins.
+>
+> Most of our sites are very simple and require little content maintenance
+> (very few blog). One lab group, however, wanted social media plugins that
+> did not play well with the multisite. I moved them to a separate Linux VM
+> running Apache with a single WordPress installation.
+>
+> The lab owner (a faculty member) wants to be able to install and configure
+> plugins on his own so he can play with Twitter plugins. He is currently
+> admin on the site.
+>
+> Technical Implementation Question
+> Is it possible to give a site admin on a single WP installation the
+> ability to install, update, and configure plugins, but not delete them or
+> touch core?
+>
+> I talked with our Linux sysadmin, and we have thought of 3 possible ways
+> to do this:
+> 1) By plugin
+> 2) Through the VM, by creating a Linux user account then letting him enter
+> than information in the WP connection screen
+> 3) (worst case) Give him SSH access to the plugins folder on the VM and
+> let him use a tool like WinSCP to upload the files
+>
+> Re #2, the posts I found in the WP Codex led me to believe that the user
+> account entered into the WP connection screen must be in the www-data group
+> or root group. That is a higher security priv that our Linux sysadmin
+> prefers to give him.
+>
+> Thank you in advance for any guidance you can provide.
+>
+> Sincerely,
+> Dixie Lang
+> Web Developer
+> Russell Labs Computing
+> University of Wisconsin-Madison
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131001/f9dd813d/attachment.html>
+
+From tcrabtree at tusculum.edu  Tue Oct  1 19:56:08 2013
+From: tcrabtree at tusculum.edu (TCrabtree)
+Date: Tue, 1 Oct 2013 15:56:08 -0400
+Subject: [wp-edu] WordPress-friendly vendors
+Message-ID: <00e301cebee0$45b562b0$d1202810$@tusculum.edu>
+
+We currently use WordPress on approximately 60% of our site. In conjunction
+with a redesign effort, we want to roll out WordPress across  our entire
+site. We are looking for WordPress-friendly vendors who can assist us with
+this project. If you have had a good experience with a WP-focused vendor or
+consultant, I would appreciate hearing about it. Feel free to email me
+off-list if you'd prefer not responding to the full list.
+tcrabtree at tusculum.edu 
+
+ 
+
+Thanks,
+
+Travis Crabtree
+
+Webmaster
+
+Tusculum College
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131001/0c9da0b8/attachment.html>
+
+From anna.mule at wagner.edu  Wed Oct  2 13:41:22 2013
+From: anna.mule at wagner.edu (=?ISO-8859-1?Q?Anna_Mul=E9?=)
+Date: Wed, 2 Oct 2013 09:41:22 -0400
+Subject: [wp-edu] WordPress-friendly vendors
+In-Reply-To: <00e301cebee0$45b562b0$d1202810$@tusculum.edu>
+References: <00e301cebee0$45b562b0$d1202810$@tusculum.edu>
+Message-ID: <CANfoZb-8ws_5-4Wp=9U-ojRXHNLB7VVMLGf3EUn_M+EPd7dnCA@mail.gmail.com>
+
+We used 10up <http://10up.com/> for a major migration to WP last year, and
+were very satisfied with that relationship. Good managers, expert in WP,
+great at troubleshooting.
+
+Anna
+
+*Anna Mul? | Director of Digital & Social Media*
+Office of Communications & Marketing <http://wagner.edu/communications>
+wagner.edu | 718.420.4468 | @wagnercollege<http://twitter.com/wagnercollege>
+
+Connect with Wagner College! <http://wagner.edu/about/social>
+
+
+
+On Tue, Oct 1, 2013 at 3:56 PM, TCrabtree <tcrabtree at tusculum.edu> wrote:
+
+> We currently use WordPress on approximately 60% of our site. In
+> conjunction with a redesign effort, we want to roll out WordPress across
+> our entire site. We are looking for WordPress-friendly vendors who can
+> assist us with this project. If you have had a good experience with a
+> WP-focused vendor or consultant, I would appreciate hearing about it. Feel
+> free to email me off-list if you?d prefer not responding to the full list.
+> tcrabtree at tusculum.edu ****
+>
+> ** **
+>
+> Thanks,****
+>
+> Travis Crabtree****
+>
+> Webmaster****
+>
+> Tusculum College****
+>
+> ** **
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131002/cdab2030/attachment.html>
+
+From invite at eventbrite.com  Sun Oct  6 23:10:31 2013
+From: invite at eventbrite.com (Mike Noone)
+Date: Sun,  6 Oct 2013 16:10:31 -0700 (PDT)
+Subject: [wp-edu] You're invited to Earn your Angel Wings & Create Lasting
+	Memories This... (Oct 30, 2013)
+Message-ID: <20131006231031.5FDB44ADAC@prod-task-app2.evbops.com>
+
+Dear undercover angel, As the season of goodwill approaches you are probably inspired remind the special people in your life that they matter. You want to let them know how special they really are to you. ? For example, we all love our Mum and want her to know she is appreciated. We all want to let her know that every last one of her acts of love, has been remembered.??? ? ?? What if you were to...Share this event on Facebook
+          and Twitter
+          We hope you can make it!Cheers,Mike Noone
+
+------------------------------
+Event Summary:
+------------------------------
+
+Event: Earn your Angel Wings & Create Lasting Memories This Xmas
+Date: Wednesday, October 30, 2013 from 10:00 AM to 4:00 PM (PDT)
+Location: &lt;b&gt;St Andrews The Terrace&lt;/b&gt;&lt;br /&gt;The Terrace&lt;br /&gt;Wellington, 6011&lt;br /&gt;New Zealand&lt;br /&gt;
+
+------------------------------
+Event Details:
+------------------------------
+
+Dear undercover angel,
+As the season of goodwill approaches you are probably inspired to remind the special people in your life that they matter. You want to let them know how special they really are to you.
+?
+For example, we all love our Mum and want her to know she is appreciated. We all want to let her know that every last one of her acts of love, has been remembered.???
+?
+?? What if you were to write to her telling her about all of those things that mean so much to you. All of those memories. What if those events were recorded for future generations to treasure. All of those special days and the times you shared together, blended with pictures and images that you know are special to her. And to you as well.
+?
+Imagine the look on Mums face on Christmas morning as she unwraps her present. Think about how thrilled she will be to discover the book you wrote.? Just for her. All about her.
+?
+Now imagine how good you will feel as well. Knowing you've achieved what most other people often talk about but never get round to.
+?
+And it's a little bit like achieving immortality because once your book is published it exists forever.
+?
+Now you may be thinking you can't write and publish a book between now and Xmas. In fact you may be thinking you can't write and publish a book at all.
+?
+Perhaps it's something you have thought about but still feel clueless.
+?
+I say you can.
+
+Not only that I say you can write and publish a book easily. You will learn a proven simple system for writing and publishing your book that has been tested by over a million people, just like you. Most of them had never written a book before, either.
+
+In fact, if you can write an email you can do this. We'll show you the simple, technology we use to do this.
+
+You see, we are using a tested formula that you can tailor exactly, to tell the story that you want to tell, about your Mum... or your Dad, your sister or brother, a friend or a spouse, a teacher or mentor.
+
+To honour a colleague or team member; a milestone or an achievement; a significant breakthrough; a triumph or a victory? or anything else that deserves recognition.
+
+To mark a passing. To remember an iconic person in your life.
+
+For anyone and everyone else you want to appreciate, this festive season. Or any other time of the year as well.
+
+?? Join #1 International Best selling author and book writing authority, Mike Noone as he leads you step by step, through the proven recipe for writing the perfect gift that will last forever in your Mum's heart.It's simpler than cooking a Christmas pudding.
+
+This year, don't just give her a present. Give her a timeless heirloom.
+
+?? Book early because this hands on workshop will fill up fast. I am strictly limiting the number of places to just 20, so that you get the attention you need to learn how to do this, easily.
+
+We chose St Andrews on the Terrace as our venue because it is at the heart of Wellington with easy access by buses, trains and road. We priced the workshop so that you can save a fortune over the years using our secret recipe.
+
+How many landmark events happen every year in your life and in the lives of everyone you know ? Think about that.
+
+Now it's time for you to fly...
+
+Make, Mum's day. (Or anybody else's...)
+
+Reserve your place now by clicking on the Paypal button.
+
+Warm regards,
+Mike Noone
+?
+PS: Once you know this formula you can use it again and again, year after year. From here to eternity.
+
+PPS: This formula is also precision designed for marking other celebrations such as birthdays, weddings, christenings and engagements.? The possibilities are endless...
+
+------------------------------
+Hosted By:
+------------------------------
+Mike Noone
+
+
+------------------------------
+Register Online:
+------------------------------
+
+More information and online registration are available here:
+https://www.eventbrite.com/event/8576329031/?ref=enivtefor001&invite=NDM1MTc4Ny93cC1lZHVAbGlzdHMuYXV0b21hdHRpYy5jb20vMA%3D%3D
+
+----------------------------------------------------------------------
+
+Collect event fees online with Eventbrite
+http://www.eventbrite.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131006/804ba657/attachment.html>
+
+From hmeister at gsu.edu  Wed Oct  9 16:11:11 2013
+From: hmeister at gsu.edu (Hillary Meister)
+Date: Wed, 9 Oct 2013 16:11:11 +0000
+Subject: [wp-edu] WordPress-friendly vendors
+In-Reply-To: <CANfoZb-8ws_5-4Wp=9U-ojRXHNLB7VVMLGf3EUn_M+EPd7dnCA@mail.gmail.com>
+References: <00e301cebee0$45b562b0$d1202810$@tusculum.edu>
+ <CANfoZb-8ws_5-4Wp=9U-ojRXHNLB7VVMLGf3EUn_M+EPd7dnCA@mail.gmail.com>
+Message-ID: <72e6942b227d4db29326ac895fbd78d7@BLUPR05MB420.namprd05.prod.outlook.com>
+
+We are working with Enablus in building out all of Georgia State University's stuff in WordPress (www.gsu.edu). http://www.enablus.com/.
+h.
+
+Hillary Meister, M.Ed.
+Web Coordinator
+GSU College of Education
+30 Pryor Street
+Georgia State University
+Atlanta, GA 30303-3083
+hmeister at gsu.edu<mailto:hmeister at gsu.edu>
+http://education.gsu.edu/
+[telefono-icon-16px] 404-413-8112
+
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Anna Mul?
+Sent: Wednesday, October 02, 2013 9:41 AM
+To: Low-traffic list discussing WordPress in education.
+Subject: Re: [wp-edu] WordPress-friendly vendors
+
+We used 10up<http://10up.com/> for a major migration to WP last year, and were very satisfied with that relationship. Good managers, expert in WP, great at troubleshooting.
+
+Anna
+
+Anna Mul? | Director of Digital & Social Media
+Office of Communications & Marketing<http://wagner.edu/communications>
+wagner.edu<http://wagner.edu/> | 718.420.4468 | @wagnercollege<http://twitter.com/wagnercollege>
+
+Connect with Wagner College!<http://wagner.edu/about/social>
+
+
+On Tue, Oct 1, 2013 at 3:56 PM, TCrabtree <tcrabtree at tusculum.edu<mailto:tcrabtree at tusculum.edu>> wrote:
+We currently use WordPress on approximately 60% of our site. In conjunction with a redesign effort, we want to roll out WordPress across  our entire site. We are looking for WordPress-friendly vendors who can assist us with this project. If you have had a good experience with a WP-focused vendor or consultant, I would appreciate hearing about it. Feel free to email me off-list if you'd prefer not responding to the full list. tcrabtree at tusculum.edu<mailto:tcrabtree at tusculum.edu>
+
+Thanks,
+Travis Crabtree
+Webmaster
+Tusculum College
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131009/dcaef431/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: image001.png
+Type: image/png
+Size: 689 bytes
+Desc: image001.png
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131009/dcaef431/attachment.png>
+
+From anna.mule at wagner.edu  Wed Oct  9 20:51:24 2013
+From: anna.mule at wagner.edu (=?ISO-8859-1?Q?Anna_Mul=E9?=)
+Date: Wed, 9 Oct 2013 16:51:24 -0400
+Subject: [wp-edu] metadata on Facebook
+Message-ID: <CANfoZb9tV9WVWJ6wcCmqK_GH1xCJKS_2YFXFgiRWXuCjU6DV+Q@mail.gmail.com>
+
+Hi everyone,
+
+I'm having trouble with the metadata on one of my subsites ? when I paste a
+link into Facebook, I don't get a photo preview or excerpt. All I get is a
+boring link preview. The subsite is wagner.edu/hawktalk. Other subsites
+pull the appropriate previews. Any ideas for what I'm missing?
+
+Many thanks,
+
+*Anna Mul? | Director of Digital & Social Media*
+Office of Communications & Marketing <http://wagner.edu/communications>
+wagner.edu | 718.420.4468 | @wagnercollege<http://twitter.com/wagnercollege>
+
+Connect with Wagner College! <http://wagner.edu/about/social>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131009/4b064c8f/attachment.html>
+
+From dennen at gmail.com  Wed Oct  9 21:05:42 2013
+From: dennen at gmail.com (Bill Dennen)
+Date: Wed, 9 Oct 2013 17:05:42 -0400
+Subject: [wp-edu] metadata on Facebook
+In-Reply-To: <CANfoZb9tV9WVWJ6wcCmqK_GH1xCJKS_2YFXFgiRWXuCjU6DV+Q@mail.gmail.com>
+References: <CANfoZb9tV9WVWJ6wcCmqK_GH1xCJKS_2YFXFgiRWXuCjU6DV+Q@mail.gmail.com>
+Message-ID: <CAAFBVjg7vksk-mWqcDC15vmfxuv96sw0tMyUEgDmQW0fiWB+7w@mail.gmail.com>
+
+You can use the Facebook Linter tool to "reset" what FB knows about
+the page. It basically clears FB's cache of the page.
+
+I put your page in here and tested and I now get an image to show up
+when I share the link. I used this URL (with trailing slash):
+http://wagner.edu/hawktalk/
+
+https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2F
+
+Also, your og:image is commented out. You can use this to control
+which image it uses.
+
+<!--<meta property="og:image" content="http://www.myimage.jpg"/>-->
+
+On Wed, Oct 9, 2013 at 4:51 PM, Anna Mul? <anna.mule at wagner.edu> wrote:
+> Hi everyone,
+>
+> I'm having trouble with the metadata on one of my subsites ? when I paste a
+> link into Facebook, I don't get a photo preview or excerpt. All I get is a
+> boring link preview. The subsite is wagner.edu/hawktalk. Other subsites pull
+> the appropriate previews. Any ideas for what I'm missing?
+>
+> Many thanks,
+>
+> Anna Mul? | Director of Digital & Social Media
+> Office of Communications & Marketing
+> wagner.edu | 718.420.4468 | @wagnercollege
+>
+> Connect with Wagner College!
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+From anna.mule at wagner.edu  Thu Oct 10 13:14:12 2013
+From: anna.mule at wagner.edu (=?ISO-8859-1?Q?Anna_Mul=E9?=)
+Date: Thu, 10 Oct 2013 09:14:12 -0400
+Subject: [wp-edu] metadata on Facebook
+In-Reply-To: <CAAFBVjg7vksk-mWqcDC15vmfxuv96sw0tMyUEgDmQW0fiWB+7w@mail.gmail.com>
+References: <CANfoZb9tV9WVWJ6wcCmqK_GH1xCJKS_2YFXFgiRWXuCjU6DV+Q@mail.gmail.com>
+ <CAAFBVjg7vksk-mWqcDC15vmfxuv96sw0tMyUEgDmQW0fiWB+7w@mail.gmail.com>
+Message-ID: <CANfoZb9FrF_jw0cGu5yJhJhs1YdtRxgNz_vnGqvceCBkU6jSig@mail.gmail.com>
+
+Thanks, Bill. I guess the homepage of the blog works, but when I paste an
+individual post (for example, http://wagner.edu/hawktalk/archives/3316)
+into FB, I just get the link. When I use that FB tool (
+https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2Farchives%2F3316),
+it says that the "URL returned a bad HTTP response code" and that "the
+og:type property" is missing.  How do I fix that on my site? Is this
+somehow related to the way permalinks are set up on the blog?
+
+Many thanks,
+
+*Anna Mul? | Director of Digital & Social Media*
+Office of Communications & Marketing <http://wagner.edu/communications>
+wagner.edu | 718.420.4468 | @wagnercollege<http://twitter.com/wagnercollege>
+
+Connect with Wagner College! <http://wagner.edu/about/social>
+
+
+
+On Wed, Oct 9, 2013 at 5:05 PM, Bill Dennen <dennen at gmail.com> wrote:
+
+> You can use the Facebook Linter tool to "reset" what FB knows about
+> the page. It basically clears FB's cache of the page.
+>
+> I put your page in here and tested and I now get an image to show up
+> when I share the link. I used this URL (with trailing slash):
+> http://wagner.edu/hawktalk/
+>
+>
+> https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2F
+>
+> Also, your og:image is commented out. You can use this to control
+> which image it uses.
+>
+> <!--<meta property="og:image" content="http://www.myimage.jpg"/>-->
+>
+> On Wed, Oct 9, 2013 at 4:51 PM, Anna Mul? <anna.mule at wagner.edu> wrote:
+> > Hi everyone,
+> >
+> > I'm having trouble with the metadata on one of my subsites ? when I
+> paste a
+> > link into Facebook, I don't get a photo preview or excerpt. All I get is
+> a
+> > boring link preview. The subsite is wagner.edu/hawktalk. Other subsites
+> pull
+> > the appropriate previews. Any ideas for what I'm missing?
+> >
+> > Many thanks,
+> >
+> > Anna Mul? | Director of Digital & Social Media
+> > Office of Communications & Marketing
+> > wagner.edu | 718.420.4468 | @wagnercollege
+> >
+> > Connect with Wagner College!
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131010/fb986089/attachment.html>
+
+From bzumdahl at ourladyofhope.net  Thu Oct 10 13:31:05 2013
+From: bzumdahl at ourladyofhope.net (Ben Zumdahl)
+Date: Thu, 10 Oct 2013 09:31:05 -0400
+Subject: [wp-edu] metadata on Facebook
+In-Reply-To: <CANfoZb9FrF_jw0cGu5yJhJhs1YdtRxgNz_vnGqvceCBkU6jSig@mail.gmail.com>
+References: <CANfoZb9tV9WVWJ6wcCmqK_GH1xCJKS_2YFXFgiRWXuCjU6DV+Q@mail.gmail.com>
+ <CAAFBVjg7vksk-mWqcDC15vmfxuv96sw0tMyUEgDmQW0fiWB+7w@mail.gmail.com>
+ <CANfoZb9FrF_jw0cGu5yJhJhs1YdtRxgNz_vnGqvceCBkU6jSig@mail.gmail.com>
+Message-ID: <CAAKMGoaQChzqr_ojw34yQe+aspg3ya+ivAo4up_rAmsRbYxUiQ@mail.gmail.com>
+
+Hi Anna,
+
+It does appear that the issue is related to your permalink structure. As
+you can see in the Facebook debugger, it shows a 301 redirect from
+http://wagner.edu/hawktalk/archives/3316 to
+http://wagner.edu/hawktalk/archives.
+
+*Ben Zumdahl*
+Director of Technology
+Our Lady of Hope Church <http://ourladyofhope.net>&
+School<http://ourladyofhopeschool.net>
+703.433.6570
+
+
+On Thu, Oct 10, 2013 at 9:14 AM, Anna Mul? <anna.mule at wagner.edu> wrote:
+
+> Thanks, Bill. I guess the homepage of the blog works, but when I paste an
+> individual post (for example, http://wagner.edu/hawktalk/archives/3316)
+> into FB, I just get the link. When I use that FB tool (
+> https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2Farchives%2F3316),
+> it says that the "URL returned a bad HTTP response code" and that "the
+> og:type property" is missing.  How do I fix that on my site? Is this
+> somehow related to the way permalinks are set up on the blog?
+>
+> Many thanks,
+>
+> *Anna Mul? | Director of Digital & Social Media*
+> Office of Communications & Marketing <http://wagner.edu/communications>
+> wagner.edu | 718.420.4468 | @wagnercollege<http://twitter.com/wagnercollege>
+>
+> Connect with Wagner College! <http://wagner.edu/about/social>
+>
+>
+>
+> On Wed, Oct 9, 2013 at 5:05 PM, Bill Dennen <dennen at gmail.com> wrote:
+>
+>> You can use the Facebook Linter tool to "reset" what FB knows about
+>> the page. It basically clears FB's cache of the page.
+>>
+>> I put your page in here and tested and I now get an image to show up
+>> when I share the link. I used this URL (with trailing slash):
+>> http://wagner.edu/hawktalk/
+>>
+>>
+>> https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2F
+>>
+>> Also, your og:image is commented out. You can use this to control
+>> which image it uses.
+>>
+>> <!--<meta property="og:image" content="http://www.myimage.jpg"/>-->
+>>
+>> On Wed, Oct 9, 2013 at 4:51 PM, Anna Mul? <anna.mule at wagner.edu> wrote:
+>> > Hi everyone,
+>> >
+>> > I'm having trouble with the metadata on one of my subsites ? when I
+>> paste a
+>> > link into Facebook, I don't get a photo preview or excerpt. All I get
+>> is a
+>> > boring link preview. The subsite is wagner.edu/hawktalk. Other
+>> subsites pull
+>> > the appropriate previews. Any ideas for what I'm missing?
+>> >
+>> > Many thanks,
+>> >
+>> > Anna Mul? | Director of Digital & Social Media
+>> > Office of Communications & Marketing
+>> > wagner.edu | 718.420.4468 | @wagnercollege
+>> >
+>> > Connect with Wagner College!
+>> >
+>> >
+>> > _______________________________________________
+>> > wp-edu mailing list
+>> > wp-edu at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-edu
+>> >
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20131010/3348fbb6/attachment.html>
+
+From dennen at gmail.com  Thu Oct 10 13:43:02 2013
+From: dennen at gmail.com (Bill Dennen)
+Date: Thu, 10 Oct 2013 09:43:02 -0400
+Subject: [wp-edu] metadata on Facebook
+In-Reply-To: <CANfoZb9FrF_jw0cGu5yJhJhs1YdtRxgNz_vnGqvceCBkU6jSig@mail.gmail.com>
+References: <CANfoZb9tV9WVWJ6wcCmqK_GH1xCJKS_2YFXFgiRWXuCjU6DV+Q@mail.gmail.com>
+ <CAAFBVjg7vksk-mWqcDC15vmfxuv96sw0tMyUEgDmQW0fiWB+7w@mail.gmail.com>
+ <CANfoZb9FrF_jw0cGu5yJhJhs1YdtRxgNz_vnGqvceCBkU6jSig@mail.gmail.com>
+Message-ID: <CAAFBVjjEKUF-2q2DBj+h2jhG+TQUhKSinZa9yfeRMaBE1wXbeA@mail.gmail.com>
+
+Another great tool:
+
+http://redbot.org/?uri=http%3A%2F%2Fwagner.edu%2Fhawktalk%2Farchives%2F3316
+
+As Ben said, your server is returning a 301 redirect for that URL.
+
+I'm not sure why a regular browser would ignore the redirect, though.
+
+
+
+On Thu, Oct 10, 2013 at 9:14 AM, Anna Mul? <anna.mule at wagner.edu> wrote:
+> Thanks, Bill. I guess the homepage of the blog works, but when I paste an
+> individual post (for example, http://wagner.edu/hawktalk/archives/3316) into
+> FB, I just get the link. When I use that FB tool
+> (https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2Farchives%2F3316),
+> it says that the "URL returned a bad HTTP response code" and that "the
+> og:type property" is missing.  How do I fix that on my site? Is this somehow
+> related to the way permalinks are set up on the blog?
+>
+> Many thanks,
+>
+> Anna Mul? | Director of Digital & Social Media
+> Office of Communications & Marketing
+> wagner.edu | 718.420.4468 | @wagnercollege
+>
+> Connect with Wagner College!
+>
+>
+>
+> On Wed, Oct 9, 2013 at 5:05 PM, Bill Dennen <dennen at gmail.com> wrote:
+>>
+>> You can use the Facebook Linter tool to "reset" what FB knows about
+>> the page. It basically clears FB's cache of the page.
+>>
+>> I put your page in here and tested and I now get an image to show up
+>> when I share the link. I used this URL (with trailing slash):
+>> http://wagner.edu/hawktalk/
+>>
+>>
+>> https://developers.facebook.com/tools/debug/og/object?q=http%3A%2F%2Fwagner.edu%2Fhawktalk%2F
+>>
+>> Also, your og:image is commented out. You can use this to control
+>> which image it uses.
+>>
+>> <!--<meta property="og:image" content="http://www.myimage.jpg"/>-->
+>>
+>> On Wed, Oct 9, 2013 at 4:51 PM, Anna Mul? <anna.mule at wagner.edu> wrote:
+>> > Hi everyone,
+>> >
+>> > I'm having trouble with the metadata on one of my subsites ? when I
+>> > paste a
+>> > link into Facebook, I don't get a photo preview or excerpt. All I get is
+>> > a
+>> > boring link preview. The subsite is wagner.edu/hawktalk. Other subsites
+>> > pull
+>> > the appropriate previews. Any ideas for what I'm missing?
+>> >
+>> > Many thanks,
+>> >
+>> > Anna Mul? | Director of Digital & Social Media
+>> > Office of Communications & Marketing
+>> > wagner.edu | 718.420.4468 | @wagnercollege
+>> >
+>> > Connect with Wagner College!
+>> >
+>> >
+>> > _______________________________________________
+>> > wp-edu mailing list
+>> > wp-edu at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-edu
+>> >
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+

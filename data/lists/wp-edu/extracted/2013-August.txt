@@ -1,0 +1,2870 @@
+From jperry02 at brynmawr.edu  Wed Aug  7 14:24:08 2013
+From: jperry02 at brynmawr.edu (Juliana Perry)
+Date: Wed, 7 Aug 2013 10:24:08 -0400 (EDT)
+Subject: [wp-edu] WordPress for iOS app-- does it work with multisite?
+In-Reply-To: <1498151739.96185.1375884859846.JavaMail.root@ganesh.brynmawr.edu>
+Message-ID: <62656633.101967.1375885448049.JavaMail.root@ganesh.brynmawr.edu>
+
+
+Dear all, 
+Have any of your users had luck using the WordPress for iOS app with your multisite installs? Ours have been having some problems. I tried to post a question to the WordPress for iOS forums first, but get an error any time I try to post, so I am hoping some of you have experience with this app, particularly since wp-edu users are more likely to have similarly large multisite installs. 
+
+Whenever any of our iOS device users try to add a second blog within our multisite install (blogs.brynmawr.edu), the app gets stuck at "Reading blog options" and fails to add the blog. 
+
+
+We're on WordPress 3.5.1 and trying this with the latest version of the iOS app (tried on a couple of different iPads and an iPhone 5 with the same result). 
+
+
+What happens: 
+- I can add one blog (say, techbar.blogs.brynmawr.edu) just fine. 
+- That one blog appears correctly, except for the Site Title, which is always the title of the first blog in the user's list of sites, regardless of which blog I add. 
+- If I try to add a second blog within the same multisite install (say, facultypublications.blogs.brynmawr.edu) , it hangs on "reading blog options" forever. 
+- Adding the main blog (just blogs.brynmawr.edu) first doesn't seem to help. 
+
+
+What we've tried: 
+- This looks similar to some older forum posts such as http://ios.forums.wordpress.org/topic/iphone-app-crashes-when-adding-a-blog?replies=32 but that's not quite our setup and the post implies that that particular issue has been patched...? 
+- Our XMLRPC settings appear to be correct per the app FAQ 
+- The debugger http://dev.ios.wordpress.org/extra-debug/ log files don't seem to reveal an error or crash. 
+
+
+It looks like the app is intended to work with multisite, but I'm not sure if we have something oddly configured (our install is certainly old enough to have some quirks), or if the app isn't currently playing well with multisite (or larger multisite installs)? 
+
+
+
+
+Thank you, 
+Juliana 
+
+--- 
+Juliana Perry 
+Web Services Project Manager 
+Bryn Mawr College 
+610-526-7554 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130807/d3311b46/attachment.html>
+
+From joseph.ugoretz at mhc.cuny.edu  Wed Aug  7 14:37:23 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Wed, 7 Aug 2013 14:37:23 +0000
+Subject: [wp-edu] WordPress for iOS app-- does it work with multisite?
+In-Reply-To: <62656633.101967.1375885448049.JavaMail.root@ganesh.brynmawr.edu>
+References: <62656633.101967.1375885448049.JavaMail.root@ganesh.brynmawr.edu>
+Message-ID: <6F3FD386-4892-41D6-8C3B-5764BD2081AA@mhc.cuny.edu>
+
+I don't have very many users working with the iOS app, but it definitely does work with our multisite install.  Adding the first blog works (and the title is correct) and adding additional blogs is also fine.  We're on 3.6, if that matters. (latest version of the app).
+
+The only hint I can give in what is basically a "works for me" response (don't you hate those?), is that we are on a subdirectory, not a subdomain, multisite install.  (largish install with +3000 users and sites).
+
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920
+FAX 212-580-8130
+joseph.ugoretz at mhc.cuny.edu
+macaulay.cuny.edu
+
+
+
+
+
+
+
+
+
+On Aug 7, 2013, at 10:24 AM, Juliana Perry <jperry02 at brynmawr.edu>
+ wrote:
+
+> Dear all, 
+> Have any of your users had luck using the WordPress for iOS app with your multisite installs? Ours have been having some problems. I tried to post a question to the WordPress for iOS forums first, but get an error any time I try to post, so I am hoping some of you have experience with this app, particularly since wp-edu users are more likely to have similarly large multisite installs. 
+>  
+> Whenever any of our iOS device users try to add a second blog within our multisite install (blogs.brynmawr.edu), the app gets stuck at "Reading blog options" and fails to add the blog. 
+> 
+> We're on WordPress 3.5.1 and trying this with the latest version of the iOS app (tried on a couple of different iPads and an iPhone 5 with the same result). 
+> 
+> What happens: 
+> - I can add one blog (say, techbar.blogs.brynmawr.edu) just fine. 
+> - That one blog appears correctly, except for the Site Title, which is always the title of the first blog in the user's list of sites, regardless of which blog I add. 
+> - If I try to add a second blog within the same multisite install (say, facultypublications.blogs.brynmawr.edu) , it hangs on "reading blog options" forever. 
+> - Adding the main blog (just blogs.brynmawr.edu) first doesn't seem to help. 
+> 
+> What we've tried: 
+> - This looks similar to some older forum posts such as http://ios.forums.wordpress.org/topic/iphone-app-crashes-when-adding-a-blog?replies=32 but that's not quite our setup and the post implies that that particular issue has been patched...? 
+> - Our XMLRPC settings appear to be correct per the app FAQ 
+> - The debugger http://dev.ios.wordpress.org/extra-debug/ log files don't seem to reveal an error or crash. 
+> 
+> It looks like the app is intended to work with multisite, but I'm not sure if we have something oddly configured (our install is certainly old enough to have some quirks), or if the app isn't currently playing well with multisite (or larger multisite installs)? 
+> 
+> 
+> Thank you, 
+> Juliana
+> 
+> ---
+> Juliana Perry
+> Web Services Project Manager
+> Bryn Mawr College
+> 610-526-7554
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From joseph.ugoretz at mhc.cuny.edu  Sat Aug 10 20:43:55 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Sat, 10 Aug 2013 20:43:55 +0000
+Subject: [wp-edu] protecting uploaded files from direct download (multisite)
+Message-ID: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+
+Has anyone found a good solution for this?
+
+Here's the basic scenario.  A class site wants to post links to class readings (as PDFs) for the students to download and read.  The instructor has copyright permission (or fair use exemption) to copy and distribute these readings to the class--but not to share them with the whole wide internet.
+
+So she uploads the files, puts the links on a separate page, and password-protects that page.  Then she gives the password for that page to the class, so the students can all get the files. 
+
+So far, so good, but the problem is that even though the page is password-protected, the uploaded files are not.  So anyone who has the direct link can download those files without knowing the password. And google does index the content of pdf files, so it's very possible, in fact likely, that someone googling (for example) the author's name or some terms in the document will come across that direct link.
+
+I've tried as many of the .htaccess tricks for preventing this as I can find.  This looked like the best guide http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-strategy/ but I tried many others.
+
+None of them seem to work at all for multisite.  They don't stop the problem in any way.
+
+If you've got a tip or trick, I'd love to hear about it!  I'd be happy with a solution that would work for the enitre network...or just for specific sites.  I'm OK with just about anything that will work!
+
+Thanks!
+
+Joe
+
+
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920
+FAX 212-580-8130
+macaulay.cuny.edu
+
+
+From d at danielbachhuber.com  Sat Aug 10 20:45:46 2013
+From: d at danielbachhuber.com (Daniel Bachhuber)
+Date: Sat, 10 Aug 2013 13:45:46 -0700
+Subject: [wp-edu] protecting uploaded files from direct download
+	(multisite)
+In-Reply-To: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+Message-ID: <CAA2UhPSLk-m3G0yMYZQPCFC5tdmNfLd1oN9+4c_34z5GA_OP+Q@mail.gmail.com>
+
+Hey Joseph,
+
+You might want to check out Ben Balter's Document Revisions, which has
+support for storing files outside of the web root:
+
+http://wordpress.org/plugins/wp-document-revisions/
+
+Regards,
+
+Daniel
+
+
+On Sat, Aug 10, 2013 at 1:43 PM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu
+> wrote:
+
+> Has anyone found a good solution for this?
+>
+> Here's the basic scenario.  A class site wants to post links to class
+> readings (as PDFs) for the students to download and read.  The instructor
+> has copyright permission (or fair use exemption) to copy and distribute
+> these readings to the class--but not to share them with the whole wide
+> internet.
+>
+> So she uploads the files, puts the links on a separate page, and
+> password-protects that page.  Then she gives the password for that page to
+> the class, so the students can all get the files.
+>
+> So far, so good, but the problem is that even though the page is
+> password-protected, the uploaded files are not.  So anyone who has the
+> direct link can download those files without knowing the password. And
+> google does index the content of pdf files, so it's very possible, in fact
+> likely, that someone googling (for example) the author's name or some terms
+> in the document will come across that direct link.
+>
+> I've tried as many of the .htaccess tricks for preventing this as I can
+> find.  This looked like the best guide
+> http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-strategy/but I tried many others.
+>
+> None of them seem to work at all for multisite.  They don't stop the
+> problem in any way.
+>
+> If you've got a tip or trick, I'd love to hear about it!  I'd be happy
+> with a solution that would work for the enitre network...or just for
+> specific sites.  I'm OK with just about anything that will work!
+>
+> Thanks!
+>
+> Joe
+>
+>
+>
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean
+> Teaching, Learning and Technology
+> Macaulay Honors College
+> The City University of New York
+> 35 West 67th St.
+> New York, New York 10023
+> TEL 212-729-2920
+> FAX 212-580-8130
+> macaulay.cuny.edu
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130810/21ce3622/attachment.html>
+
+From joseph.ugoretz at mhc.cuny.edu  Sat Aug 10 20:57:37 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Sat, 10 Aug 2013 20:57:37 +0000
+Subject: [wp-edu] protecting uploaded files from direct
+	download	(multisite)
+In-Reply-To: <CAA2UhPSLk-m3G0yMYZQPCFC5tdmNfLd1oN9+4c_34z5GA_OP+Q@mail.gmail.com>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>,
+ <CAA2UhPSLk-m3G0yMYZQPCFC5tdmNfLd1oN9+4c_34z5GA_OP+Q@mail.gmail.com>
+Message-ID: <A70D6AF6-C43E-4CC0-9FCF-661EDB2C64E5@mhc.cuny.edu>
+
+Wow thanks! That does look promising.
+
+
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+Macaulay Honors College
+City University of New York
+macaulay.cuny.edu<http://macaulay.cuny.edu>
+
+On Aug 10, 2013, at 4:45 PM, "Daniel Bachhuber" <d at danielbachhuber.com<mailto:d at danielbachhuber.com>> wrote:
+
+Hey Joseph,
+
+You might want to check out Ben Balter's Document Revisions, which has support for storing files outside of the web root:
+
+http://wordpress.org/plugins/wp-document-revisions/
+
+Regards,
+
+Daniel
+
+
+On Sat, Aug 10, 2013 at 1:43 PM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu<mailto:joseph.ugoretz at mhc.cuny.edu>> wrote:
+Has anyone found a good solution for this?
+
+Here's the basic scenario.  A class site wants to post links to class readings (as PDFs) for the students to download and read.  The instructor has copyright permission (or fair use exemption) to copy and distribute these readings to the class--but not to share them with the whole wide internet.
+
+So she uploads the files, puts the links on a separate page, and password-protects that page.  Then she gives the password for that page to the class, so the students can all get the files.
+
+So far, so good, but the problem is that even though the page is password-protected, the uploaded files are not.  So anyone who has the direct link can download those files without knowing the password. And google does index the content of pdf files, so it's very possible, in fact likely, that someone googling (for example) the author's name or some terms in the document will come across that direct link.
+
+I've tried as many of the .htaccess tricks for preventing this as I can find.  This looked like the best guide http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-strategy/ but I tried many others.
+
+None of them seem to work at all for multisite.  They don't stop the problem in any way.
+
+If you've got a tip or trick, I'd love to hear about it!  I'd be happy with a solution that would work for the enitre network...or just for specific sites.  I'm OK with just about anything that will work!
+
+Thanks!
+
+Joe
+
+
+
+--
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920<tel:212-729-2920>
+FAX 212-580-8130<tel:212-580-8130>
+macaulay.cuny.edu<http://macaulay.cuny.edu>
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130810/c1ed8c36/attachment.html>
+
+From grant.swaim at gmail.com  Sat Aug 10 21:22:24 2013
+From: grant.swaim at gmail.com (Grant Swaim)
+Date: Sat, 10 Aug 2013 17:22:24 -0400
+Subject: [wp-edu] protecting uploaded files from direct download
+	(multisite)
+In-Reply-To: <A70D6AF6-C43E-4CC0-9FCF-661EDB2C64E5@mhc.cuny.edu>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CAA2UhPSLk-m3G0yMYZQPCFC5tdmNfLd1oN9+4c_34z5GA_OP+Q@mail.gmail.com>
+ <A70D6AF6-C43E-4CC0-9FCF-661EDB2C64E5@mhc.cuny.edu>
+Message-ID: <CANWWzw=gzrLzHVSiRySiNmH7X+6JCTqoarbeiKdtMS7LNFEzBQ@mail.gmail.com>
+
+Joseph,
+
+Protecting the link on a page is a common problem in membership solutions.
+The best way to so this is to use a plugin that generates an expiring URL
+and pulls the files from Amazon's S3 service <http://aws.amazon.com/> . S3
+is really cheap and the plugins are relatively cheap. There are a lot of
+them on the market; however, I would use S3 Media
+Maestro<http://www.s3mediamaestro.com/>($27 for a single site)
+
+Also note you can deliver, and protect audio and video with these plugins
+(players are built-in).
+
+Grant
+
+
+On Sat, Aug 10, 2013 at 4:57 PM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu
+> wrote:
+
+>  Wow thanks! That does look promising.
+>
+>
+>  Joseph Ugoretz, PhD
+> Associate Dean
+> Teaching, Learning and Technology
+> Macaulay Honors College
+> City University of New York
+> macaulay.cuny.edu
+>
+> On Aug 10, 2013, at 4:45 PM, "Daniel Bachhuber" <d at danielbachhuber.com>
+> wrote:
+>
+>   Hey Joseph,
+>
+>  You might want to check out Ben Balter's Document Revisions, which has
+> support for storing files outside of the web root:
+>
+>  http://wordpress.org/plugins/wp-document-revisions/
+>
+>  Regards,
+>
+>  Daniel
+>
+>
+> On Sat, Aug 10, 2013 at 1:43 PM, Joseph Ugoretz <
+> joseph.ugoretz at mhc.cuny.edu> wrote:
+>
+>> Has anyone found a good solution for this?
+>>
+>> Here's the basic scenario.  A class site wants to post links to class
+>> readings (as PDFs) for the students to download and read.  The instructor
+>> has copyright permission (or fair use exemption) to copy and distribute
+>> these readings to the class--but not to share them with the whole wide
+>> internet.
+>>
+>> So she uploads the files, puts the links on a separate page, and
+>> password-protects that page.  Then she gives the password for that page to
+>> the class, so the students can all get the files.
+>>
+>> So far, so good, but the problem is that even though the page is
+>> password-protected, the uploaded files are not.  So anyone who has the
+>> direct link can download those files without knowing the password. And
+>> google does index the content of pdf files, so it's very possible, in fact
+>> likely, that someone googling (for example) the author's name or some terms
+>> in the document will come across that direct link.
+>>
+>> I've tried as many of the .htaccess tricks for preventing this as I can
+>> find.  This looked like the best guide
+>> http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-strategy/but I tried many others.
+>>
+>> None of them seem to work at all for multisite.  They don't stop the
+>> problem in any way.
+>>
+>> If you've got a tip or trick, I'd love to hear about it!  I'd be happy
+>> with a solution that would work for the enitre network...or just for
+>> specific sites.  I'm OK with just about anything that will work!
+>>
+>> Thanks!
+>>
+>> Joe
+>>
+>>
+>>
+>> --
+>> Joseph Ugoretz, PhD
+>> Associate Dean
+>> Teaching, Learning and Technology
+>> Macaulay Honors College
+>> The City University of New York
+>> 35 West 67th St.
+>> New York, New York 10023
+>> TEL 212-729-2920
+>> FAX 212-580-8130
+>> macaulay.cuny.edu
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>
+>   _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+
+-- 
+Grant Swaim
+Site Admin
+http://digitalliteracyproject.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130810/7669de1d/attachment-0001.html>
+
+From joseph.ugoretz at mhc.cuny.edu  Sat Aug 10 21:44:32 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Sat, 10 Aug 2013 21:44:32 +0000
+Subject: [wp-edu] protecting uploaded files from direct
+	download	(multisite)
+In-Reply-To: <CANWWzw=gzrLzHVSiRySiNmH7X+6JCTqoarbeiKdtMS7LNFEzBQ@mail.gmail.com>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CAA2UhPSLk-m3G0yMYZQPCFC5tdmNfLd1oN9+4c_34z5GA_OP+Q@mail.gmail.com>
+ <A70D6AF6-C43E-4CC0-9FCF-661EDB2C64E5@mhc.cuny.edu>
+ <CANWWzw=gzrLzHVSiRySiNmH7X+6JCTqoarbeiKdtMS7LNFEzBQ@mail.gmail.com>
+Message-ID: <AC9EFDFA-6CB1-44D6-B984-101407F94C23@mhc.cuny.edu>
+
+I'll take a look at that, too, thanks!
+-- 
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920
+FAX 212-580-8130
+macaulay.cuny.edu
+
+On Aug 10, 2013, at 5:22 PM, Grant Swaim <grant.swaim at gmail.com>
+ wrote:
+
+> Joseph,
+> 
+> Protecting the link on a page is a common problem in membership solutions. The best way to so this is to use a plugin that generates an expiring URL and pulls the files from Amazon's S3 service . S3 is really cheap and the plugins are relatively cheap. There are a lot of them on the market; however, I would use S3 Media Maestro ($27 for a single site)
+> 
+> Also note you can deliver, and protect audio and video with these plugins (players are built-in).
+> 
+> Grant
+> 
+> 
+> On Sat, Aug 10, 2013 at 4:57 PM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu> wrote:
+> Wow thanks! That does look promising. 
+> 
+> 
+> Joseph Ugoretz, PhD
+> Associate Dean
+> Teaching, Learning and Technology
+> Macaulay Honors College
+> City University of New York
+> macaulay.cuny.edu
+> 
+> On Aug 10, 2013, at 4:45 PM, "Daniel Bachhuber" <d at danielbachhuber.com> wrote:
+> 
+>> Hey Joseph,
+>> 
+>> You might want to check out Ben Balter's Document Revisions, which has support for storing files outside of the web root:
+>> 
+>> http://wordpress.org/plugins/wp-document-revisions/
+>> 
+>> Regards,
+>> 
+>> Daniel
+>> 
+>> 
+>> On Sat, Aug 10, 2013 at 1:43 PM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu> wrote:
+>> Has anyone found a good solution for this?
+>> 
+>> Here's the basic scenario.  A class site wants to post links to class readings (as PDFs) for the students to download and read.  The instructor has copyright permission (or fair use exemption) to copy and distribute these readings to the class--but not to share them with the whole wide internet.
+>> 
+>> So she uploads the files, puts the links on a separate page, and password-protects that page.  Then she gives the password for that page to the class, so the students can all get the files.
+>> 
+>> So far, so good, but the problem is that even though the page is password-protected, the uploaded files are not.  So anyone who has the direct link can download those files without knowing the password. And google does index the content of pdf files, so it's very possible, in fact likely, that someone googling (for example) the author's name or some terms in the document will come across that direct link.
+>> 
+>> I've tried as many of the .htaccess tricks for preventing this as I can find.  This looked like the best guide http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-strategy/ but I tried many others.
+>> 
+>> None of them seem to work at all for multisite.  They don't stop the problem in any way.
+>> 
+>> If you've got a tip or trick, I'd love to hear about it!  I'd be happy with a solution that would work for the enitre network...or just for specific sites.  I'm OK with just about anything that will work!
+>> 
+>> Thanks!
+>> 
+>> Joe
+>> 
+>> 
+>> 
+>> --
+>> Joseph Ugoretz, PhD
+>> Associate Dean
+>> Teaching, Learning and Technology
+>> Macaulay Honors College
+>> The City University of New York
+>> 35 West 67th St.
+>> New York, New York 10023
+>> TEL 212-729-2920
+>> FAX 212-580-8130
+>> macaulay.cuny.edu
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> 
+> 
+> -- 
+> Grant Swaim
+> Site Admin
+> http://digitalliteracyproject.com
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From Steve.Covello at granite.edu  Mon Aug 12 12:49:03 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Mon, 12 Aug 2013 12:49:03 +0000
+Subject: [wp-edu] protecting uploaded files from direct download
+ (multisite)
+In-Reply-To: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+Message-ID: <CE2E51A9.175A7%steve.covello@granite.edu>
+
+Wordpress Download Manager includes password protection and other user
+restrictions.
+
+http://wordpress.org/plugins/download-manager/
+
+
+- Steve
+
+-- 
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+
+
+
+On 8/10/13 4:43 PM, "Joseph Ugoretz" <joseph.ugoretz at mhc.cuny.edu> wrote:
+
+>Has anyone found a good solution for this?
+>
+>Here's the basic scenario.  A class site wants to post links to class
+>readings (as PDFs) for the students to download and read.  The instructor
+>has copyright permission (or fair use exemption) to copy and distribute
+>these readings to the class--but not to share them with the whole wide
+>internet.
+>
+>So she uploads the files, puts the links on a separate page, and
+>password-protects that page.  Then she gives the password for that page
+>to the class, so the students can all get the files.
+>
+>So far, so good, but the problem is that even though the page is
+>password-protected, the uploaded files are not.  So anyone who has the
+>direct link can download those files without knowing the password. And
+>google does index the content of pdf files, so it's very possible, in
+>fact likely, that someone googling (for example) the author's name or
+>some terms in the document will come across that direct link.
+>
+>I've tried as many of the .htaccess tricks for preventing this as I can
+>find.  This looked like the best guide
+>http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-
+>strategy/ but I tried many others.
+>
+>None of them seem to work at all for multisite.  They don't stop the
+>problem in any way.
+>
+>If you've got a tip or trick, I'd love to hear about it!  I'd be happy
+>with a solution that would work for the enitre network...or just for
+>specific sites.  I'm OK with just about anything that will work!
+>
+>Thanks!
+>
+>Joe
+>
+>
+>
+>-- 
+>Joseph Ugoretz, PhD
+>Associate Dean
+>Teaching, Learning and Technology
+>Macaulay Honors College
+>The City University of New York
+>35 West 67th St.
+>New York, New York 10023
+>TEL 212-729-2920
+>FAX 212-580-8130
+>macaulay.cuny.edu
+>
+>_______________________________________________
+>wp-edu mailing list
+>wp-edu at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From Steve.Covello at granite.edu  Mon Aug 12 12:57:04 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Mon, 12 Aug 2013 12:57:04 +0000
+Subject: [wp-edu] protecting uploaded files from direct download
+ (multisite)
+In-Reply-To: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+Message-ID: <CE2E53BA.175BE%steve.covello@granite.edu>
+
+Also: Download Monitor
+
+http://wordpress.org/plugins/download-monitor/
+
+
+- Steve
+
+-- 
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+
+
+
+On 8/10/13 4:43 PM, "Joseph Ugoretz" <joseph.ugoretz at mhc.cuny.edu> wrote:
+
+>Has anyone found a good solution for this?
+>
+>Here's the basic scenario.  A class site wants to post links to class
+>readings (as PDFs) for the students to download and read.  The instructor
+>has copyright permission (or fair use exemption) to copy and distribute
+>these readings to the class--but not to share them with the whole wide
+>internet.
+>
+>So she uploads the files, puts the links on a separate page, and
+>password-protects that page.  Then she gives the password for that page
+>to the class, so the students can all get the files.
+>
+>So far, so good, but the problem is that even though the page is
+>password-protected, the uploaded files are not.  So anyone who has the
+>direct link can download those files without knowing the password. And
+>google does index the content of pdf files, so it's very possible, in
+>fact likely, that someone googling (for example) the author's name or
+>some terms in the document will come across that direct link.
+>
+>I've tried as many of the .htaccess tricks for preventing this as I can
+>find.  This looked like the best guide
+>http://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-
+>strategy/ but I tried many others.
+>
+>None of them seem to work at all for multisite.  They don't stop the
+>problem in any way.
+>
+>If you've got a tip or trick, I'd love to hear about it!  I'd be happy
+>with a solution that would work for the enitre network...or just for
+>specific sites.  I'm OK with just about anything that will work!
+>
+>Thanks!
+>
+>Joe
+>
+>
+>
+>-- 
+>Joseph Ugoretz, PhD
+>Associate Dean
+>Teaching, Learning and Technology
+>Macaulay Honors College
+>The City University of New York
+>35 West 67th St.
+>New York, New York 10023
+>TEL 212-729-2920
+>FAX 212-580-8130
+>macaulay.cuny.edu
+>
+>_______________________________________________
+>wp-edu mailing list
+>wp-edu at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From matthew at patulski.is  Mon Aug 12 12:59:42 2013
+From: matthew at patulski.is (Matthew Patulski)
+Date: Mon, 12 Aug 2013 08:59:42 -0400
+Subject: [wp-edu] protecting uploaded files from direct download
+	(multisite)
+In-Reply-To: <CE2E53BA.175BE%steve.covello@granite.edu>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+Message-ID: <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+
++1 to download monitor.
+
+Matthew Patulski
+PTA volunteer
+www.northparkschools.org
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130812/7284624d/attachment.html>
+
+From anna.mule at wagner.edu  Mon Aug 12 13:44:09 2013
+From: anna.mule at wagner.edu (=?ISO-8859-1?Q?Anna_Mul=E9?=)
+Date: Mon, 12 Aug 2013 09:44:09 -0400
+Subject: [wp-edu] protecting uploaded files from direct download
+	(multisite)
+In-Reply-To: <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+ <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+Message-ID: <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+
+We are using the "User Access
+Manager<http://www.gm-alex.de/projects/wordpress/plugins/user-access-manager/>"
+plugin to limit access to pages, posts, and files to specific user groups.
+
+*Anna Mul? | Director of Digital & Social Media*
+Office of Communications & Marketing <http://wagner.edu/communications>
+wagner.edu | 718.420.4468 | @wagnercollege<http://twitter.com/wagnercollege>
+
+Connect with Wagner College! <http://wagner.edu/about/social>
+
+
+
+On Mon, Aug 12, 2013 at 8:59 AM, Matthew Patulski <matthew at patulski.is>wrote:
+
+> +1 to download monitor.
+>
+> Matthew Patulski
+> PTA volunteer
+> www.northparkschools.org
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130812/f339dd37/attachment.html>
+
+From joseph.ugoretz at mhc.cuny.edu  Mon Aug 12 14:21:28 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Mon, 12 Aug 2013 14:21:28 +0000
+Subject: [wp-edu] protecting uploaded files from direct
+	download	(multisite)
+In-Reply-To: <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+ <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+ <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+Message-ID: <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+
+Thanks to all!  Daniel's solution (wp-document-revisions) looks perfect for all needs.  If others are exploring the other options, here's some of what I've determined in my testing of the other plugins and suggestions.
+
+WordPress Download Manager--two major drawbacks.  First, it exposes ALL files on the entire server to every user.  I was able to edit that feature out of the admin panel, but would have to do so again on every update.  Second (and worse from my perspective), it really does not protect the uploaded files.  It hashes the filename for the download link, but anyone who has that direct link can still download without knowing the password.
+
+Download Monitor--Limits downloads to logged in members (of specific user groups if wanted).  But has no provision for allowing non-logged in users with a password to download the files.  We sometimes want to give people access to downloading the files, but don't want to create accounts for them on our system.
+
+User Access Manager--works by rewriting the htaccess file on the uploads directory.  In my earlier testing, this method did not work at all for multisite installs.  Might be that the plugin does it better, but using it post facto (as we would have to) would eliminate all usable links from previously available downloads.  That warning, and the fact that it asks to rewrite databases upon install, made me nervous.
+
+WP-Document-Revisions looks like the best bet, for us.  The combination of a large (3000+ sites/users) multisite install and the need for real secure protection, not just obscurity, seems to be best filled by this plugin.  It also does much more, and the name "Document Revisions" doesn't include the main feature we're using it for, but that's something we can explain to users.
+
+It's interesting that this isn't something included in WordPress at this point.  And it's also interesting that so many of the proposed solutions don't work at all in multisite.  I think most people assume that a link on a password-protected page is also protected, or at least not indexed by google. Especially if they're using a plugin which is supposed to manage downloads. Testing with a direct link in a separate (not-logged-in, no password entered, no cache existing) browser will almost always allow direct download of those "protected" files.
+
+Somewhat troubling!
+
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920
+FAX 212-580-8130
+joseph.ugoretz at mhc.cuny.edu
+macaulay.cuny.edu
+
+
+
+
+
+
+
+
+
+On Aug 12, 2013, at 9:44 AM, Anna Mul? <anna.mule at wagner.edu>
+ wrote:
+
+> We are using the "User Access Manager" plugin to limit access to pages, posts, and files to specific user groups.
+> 
+> Anna Mul? | Director of Digital & Social Media
+> Office of Communications & Marketing
+> wagner.edu | 718.420.4468 | @wagnercollege
+> 
+> Connect with Wagner College!
+> 
+> 
+> 
+> On Mon, Aug 12, 2013 at 8:59 AM, Matthew Patulski <matthew at patulski.is> wrote:
+> +1 to download monitor. 
+> 
+> Matthew Patulski
+> PTA volunteer
+> www.northparkschools.org
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From stas at nerd.ro  Mon Aug 12 15:49:31 2013
+From: stas at nerd.ro (=?utf-8?B?U3RhcyBTdciZY292?=)
+Date: Mon, 12 Aug 2013 18:49:31 +0300
+Subject: [wp-edu] protecting uploaded files from direct download
+ (multisite)
+In-Reply-To: <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+ <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+ <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+ <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+Message-ID: <op.w1pnkt0r5x5v0b@rivalry>
+
+?n data de Mon, 12 Aug 2013 17:21:28 +0300, Joseph Ugoretz  
+<joseph.ugoretz at mhc.cuny.edu> a scris:
+
+> It's interesting that this isn't something included in WordPress at this  
+> point.  And it's also interesting that so many of the proposed solutions  
+> don't work at all in multisite.  I think most people assume that a link  
+> on a password-protected page is also protected, or at least not indexed  
+> by google. Especially if they're using a plugin which is supposed to  
+> manage downloads. Testing with a direct link in a separate  
+> (not-logged-in, no password entered, no cache existing) browser will  
+> almost always allow direct download of those "protected" files.
+
+Hey Joseph,
+do you mind taking a look at?
+http://wordpress.org/plugins/uploads/
+
+Thanks.
+
+From Steve.Covello at granite.edu  Mon Aug 12 15:51:42 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Mon, 12 Aug 2013 15:51:42 +0000
+Subject: [wp-edu] protecting uploaded files from direct download
+ (multisite)
+In-Reply-To: <op.w1pnkt0r5x5v0b@rivalry>
+Message-ID: <CE2E7CA8.17601%steve.covello@granite.edu>
+
+Not much to look at in this plugin documentation. Can't say much on behalf
+of myself.
+
+- Steve
+
+-- 
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+
+
+
+On 8/12/13 11:49 AM, "Stas Su?cov" <stas at nerd.ro> wrote:
+
+>?n data de Mon, 12 Aug 2013 17:21:28 +0300, Joseph Ugoretz
+><joseph.ugoretz at mhc.cuny.edu> a scris:
+>
+>> It's interesting that this isn't something included in WordPress at
+>>this  
+>> point.  And it's also interesting that so many of the proposed
+>>solutions  
+>> don't work at all in multisite.  I think most people assume that a link
+>> 
+>> on a password-protected page is also protected, or at least not indexed
+>> 
+>> by google. Especially if they're using a plugin which is supposed to
+>> manage downloads. Testing with a direct link in a separate
+>> (not-logged-in, no password entered, no cache existing) browser will
+>> almost always allow direct download of those "protected" files.
+>
+>Hey Joseph,
+>do you mind taking a look at?
+>http://wordpress.org/plugins/uploads/
+>
+>Thanks.
+>_______________________________________________
+>wp-edu mailing list
+>wp-edu at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From albah at law.stanford.edu  Mon Aug 12 16:23:36 2013
+From: albah at law.stanford.edu (Alba Holgado)
+Date: Mon, 12 Aug 2013 09:23:36 -0700
+Subject: [wp-edu] protecting uploaded files from direct download
+	(multisite)
+In-Reply-To: <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+ <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+ <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+ <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+Message-ID: <CAGkje=K-+24eVZ37rqS64rwFFM3Qcw9KdG3oa=cYxxWJyNpsgg@mail.gmail.com>
+
+Hi Joseph,
+
+Have you considered using the http-authentication plugin at:
+http://wordpress.org/plugins/http-authentication/ ?
+
+Best-
+Alba
+
+
+On Mon, Aug 12, 2013 at 7:21 AM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu
+> wrote:
+
+> Thanks to all!  Daniel's solution (wp-document-revisions) looks perfect
+> for all needs.  If others are exploring the other options, here's some of
+> what I've determined in my testing of the other plugins and suggestions.
+>
+> WordPress Download Manager--two major drawbacks.  First, it exposes ALL
+> files on the entire server to every user.  I was able to edit that feature
+> out of the admin panel, but would have to do so again on every update.
+>  Second (and worse from my perspective), it really does not protect the
+> uploaded files.  It hashes the filename for the download link, but anyone
+> who has that direct link can still download without knowing the password.
+>
+> Download Monitor--Limits downloads to logged in members (of specific user
+> groups if wanted).  But has no provision for allowing non-logged in users
+> with a password to download the files.  We sometimes want to give people
+> access to downloading the files, but don't want to create accounts for them
+> on our system.
+>
+> User Access Manager--works by rewriting the htaccess file on the uploads
+> directory.  In my earlier testing, this method did not work at all for
+> multisite installs.  Might be that the plugin does it better, but using it
+> post facto (as we would have to) would eliminate all usable links from
+> previously available downloads.  That warning, and the fact that it asks to
+> rewrite databases upon install, made me nervous.
+>
+> WP-Document-Revisions looks like the best bet, for us.  The combination of
+> a large (3000+ sites/users) multisite install and the need for real secure
+> protection, not just obscurity, seems to be best filled by this plugin.  It
+> also does much more, and the name "Document Revisions" doesn't include the
+> main feature we're using it for, but that's something we can explain to
+> users.
+>
+> It's interesting that this isn't something included in WordPress at this
+> point.  And it's also interesting that so many of the proposed solutions
+> don't work at all in multisite.  I think most people assume that a link on
+> a password-protected page is also protected, or at least not indexed by
+> google. Especially if they're using a plugin which is supposed to manage
+> downloads. Testing with a direct link in a separate (not-logged-in, no
+> password entered, no cache existing) browser will almost always allow
+> direct download of those "protected" files.
+>
+> Somewhat troubling!
+>
+>
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean
+> Teaching, Learning and Technology
+>
+> Macaulay Honors College
+> The City University of New York
+> 35 West 67th St.
+> New York, New York 10023
+> TEL 212-729-2920
+> FAX 212-580-8130
+> joseph.ugoretz at mhc.cuny.edu
+> macaulay.cuny.edu
+>
+>
+>
+>
+>
+>
+>
+>
+>
+> On Aug 12, 2013, at 9:44 AM, Anna Mul? <anna.mule at wagner.edu>
+>  wrote:
+>
+> > We are using the "User Access Manager" plugin to limit access to pages,
+> posts, and files to specific user groups.
+> >
+> > Anna Mul? | Director of Digital & Social Media
+> > Office of Communications & Marketing
+> > wagner.edu | 718.420.4468 | @wagnercollege
+> >
+> > Connect with Wagner College!
+> >
+> >
+> >
+> > On Mon, Aug 12, 2013 at 8:59 AM, Matthew Patulski <matthew at patulski.is>
+> wrote:
+> > +1 to download monitor.
+> >
+> > Matthew Patulski
+> > PTA volunteer
+> > www.northparkschools.org
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130812/897b9152/attachment.html>
+
+From joseph.ugoretz at mhc.cuny.edu  Mon Aug 12 16:29:51 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Mon, 12 Aug 2013 16:29:51 +0000
+Subject: [wp-edu] protecting uploaded files from direct
+	download	(multisite)
+In-Reply-To: <CAGkje=K-+24eVZ37rqS64rwFFM3Qcw9KdG3oa=cYxxWJyNpsgg@mail.gmail.com>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+ <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+ <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+ <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+ <CAGkje=K-+24eVZ37rqS64rwFFM3Qcw9KdG3oa=cYxxWJyNpsgg@mail.gmail.com>
+Message-ID: <16C06409-A38E-45A5-837D-8527A18AFDC2@mhc.cuny.edu>
+
+Haven't considered it, but it looks like won't really do what we're looking for.  We want the sites to be public and open in most cases, just to protect certain files that are uploaded to the sites.  Thanks for the suggestion, though!
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920
+FAX 212-580-8130
+joseph.ugoretz at mhc.cuny.edu
+macaulay.cuny.edu
+
+
+
+
+
+
+
+
+
+On Aug 12, 2013, at 12:23 PM, Alba Holgado <albah at law.stanford.edu>
+ wrote:
+
+> Hi Joseph,
+> 
+> Have you considered using the http-authentication plugin at: http://wordpress.org/plugins/http-authentication/ ?
+> 
+> Best-
+> Alba
+> 
+> 
+> On Mon, Aug 12, 2013 at 7:21 AM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu> wrote:
+> Thanks to all!  Daniel's solution (wp-document-revisions) looks perfect for all needs.  If others are exploring the other options, here's some of what I've determined in my testing of the other plugins and suggestions.
+> 
+> WordPress Download Manager--two major drawbacks.  First, it exposes ALL files on the entire server to every user.  I was able to edit that feature out of the admin panel, but would have to do so again on every update.  Second (and worse from my perspective), it really does not protect the uploaded files.  It hashes the filename for the download link, but anyone who has that direct link can still download without knowing the password.
+> 
+> Download Monitor--Limits downloads to logged in members (of specific user groups if wanted).  But has no provision for allowing non-logged in users with a password to download the files.  We sometimes want to give people access to downloading the files, but don't want to create accounts for them on our system.
+> 
+> User Access Manager--works by rewriting the htaccess file on the uploads directory.  In my earlier testing, this method did not work at all for multisite installs.  Might be that the plugin does it better, but using it post facto (as we would have to) would eliminate all usable links from previously available downloads.  That warning, and the fact that it asks to rewrite databases upon install, made me nervous.
+> 
+> WP-Document-Revisions looks like the best bet, for us.  The combination of a large (3000+ sites/users) multisite install and the need for real secure protection, not just obscurity, seems to be best filled by this plugin.  It also does much more, and the name "Document Revisions" doesn't include the main feature we're using it for, but that's something we can explain to users.
+> 
+> It's interesting that this isn't something included in WordPress at this point.  And it's also interesting that so many of the proposed solutions don't work at all in multisite.  I think most people assume that a link on a password-protected page is also protected, or at least not indexed by google. Especially if they're using a plugin which is supposed to manage downloads. Testing with a direct link in a separate (not-logged-in, no password entered, no cache existing) browser will almost always allow direct download of those "protected" files.
+> 
+> Somewhat troubling!
+> 
+> 
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean
+> Teaching, Learning and Technology
+> 
+> Macaulay Honors College
+> The City University of New York
+> 35 West 67th St.
+> New York, New York 10023
+> TEL 212-729-2920
+> FAX 212-580-8130
+> joseph.ugoretz at mhc.cuny.edu
+> macaulay.cuny.edu
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> On Aug 12, 2013, at 9:44 AM, Anna Mul? <anna.mule at wagner.edu>
+>  wrote:
+> 
+> > We are using the "User Access Manager" plugin to limit access to pages, posts, and files to specific user groups.
+> >
+> > Anna Mul? | Director of Digital & Social Media
+> > Office of Communications & Marketing
+> > wagner.edu | 718.420.4468 | @wagnercollege
+> >
+> > Connect with Wagner College!
+> >
+> >
+> >
+> > On Mon, Aug 12, 2013 at 8:59 AM, Matthew Patulski <matthew at patulski.is> wrote:
+> > +1 to download monitor.
+> >
+> > Matthew Patulski
+> > PTA volunteer
+> > www.northparkschools.org
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From stas at nerd.ro  Mon Aug 12 16:43:44 2013
+From: stas at nerd.ro (=?utf-8?B?U3RhcyBTdciZY292?=)
+Date: Mon, 12 Aug 2013 19:43:44 +0300
+Subject: [wp-edu] protecting uploaded files from direct download
+ (multisite)
+In-Reply-To: <16C06409-A38E-45A5-837D-8527A18AFDC2@mhc.cuny.edu>
+References: <08F5A706-184D-4EB4-B748-44A92CDCEA1E@mhc.cuny.edu>
+ <CE2E53BA.175BE%steve.covello@granite.edu>
+ <CAJiJ=pXz+XN39iN-8k6HF_euFiUV6GmGYBFJxdHDyFUXPtxJaw@mail.gmail.com>
+ <CANfoZb8dL6253B0RtOSncgaZh=rYW9pUMJoBw=KeFcJs5d0v7A@mail.gmail.com>
+ <C766229A-E472-4418-AF53-8236FA0444CB@mhc.cuny.edu>
+ <CAGkje=K-+24eVZ37rqS64rwFFM3Qcw9KdG3oa=cYxxWJyNpsgg@mail.gmail.com>
+ <16C06409-A38E-45A5-837D-8527A18AFDC2@mhc.cuny.edu>
+Message-ID: <op.w1pp26fb5x5v0b@rivalry>
+
+?n data de Mon, 12 Aug 2013 19:29:51 +0300, Joseph Ugoretz  
+<joseph.ugoretz at mhc.cuny.edu> a scris:
+
+> Haven't considered it, but it looks like won't really do what we're  
+> looking for.  We want the sites to be public and open in most cases,  
+> just to protect certain files that are uploaded to the sites.  Thanks  
+> for the suggestion, though!
+
+Always happy to help!
+
+From David.Tatem at trincoll.edu  Fri Aug 16 14:31:03 2013
+From: David.Tatem at trincoll.edu (Tatem, David)
+Date: Fri, 16 Aug 2013 14:31:03 +0000
+Subject: [wp-edu] Alternatives to post indexer (WPMU-DEV) for multisite
+Message-ID: <B5E1D1DF8BFBDF49847A5A38C86C4BBF2F86D1@exmb2>
+
+Hi all,
+I am finally doing an overdue update of our WordPress multisite install (http://commons.trincoll.edu) and realize our old version of Post Indexer (comment indexer as well) is no longer working.
+This is a paid plugin from WPMU-DEV. WPMU-DEV only offers a $99 month subscription which is a bit steep. We do use a number of their plugins and themes though.
+2 questions for the list:
+
+1.       Do you subscribe to WPMU-DEV and do you feel it is worth the cost?
+
+2.       Do you know of any free or cheap alternatives to Post Indexer to create a stream of recent posts across your network?
+Thanks
+dave
+
+_______________________________
+David Tatem
+Instructional Technologist
+Trinity College
+300 Summit Street
+Hartford, CT 06106
+860-297-2124
+AOL-IM: tatemdm
+GoogleTalk: davidtatem
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130816/ca839309/attachment.html>
+
+From dennen at gmail.com  Fri Aug 16 14:48:19 2013
+From: dennen at gmail.com (Bill Dennen)
+Date: Fri, 16 Aug 2013 10:48:19 -0400
+Subject: [wp-edu] Alternatives to post indexer (WPMU-DEV) for multisite
+In-Reply-To: <B5E1D1DF8BFBDF49847A5A38C86C4BBF2F86D1@exmb2>
+References: <B5E1D1DF8BFBDF49847A5A38C86C4BBF2F86D1@exmb2>
+Message-ID: <CAAFBVjhd5taGZJXgsn62g4VaM0ZFgNcH4n1iOyDmPq8DYUKOFg@mail.gmail.com>
+
+David,
+
+We're using this:
+
+http://wordpress.org/plugins/wordpress-mu-sitewide-tags/
+
+It's free? and works pretty well. I'm not sure it does comments, though.
+
+-Bill
+
+
+On Fri, Aug 16, 2013 at 10:31 AM, Tatem, David <David.Tatem at trincoll.edu> wrote:
+> Hi all,
+>
+> I am finally doing an overdue update of our WordPress multisite install
+> (http://commons.trincoll.edu) and realize our old version of Post Indexer
+> (comment indexer as well) is no longer working.
+>
+> This is a paid plugin from WPMU-DEV. WPMU-DEV only offers a $99 month
+> subscription which is a bit steep. We do use a number of their plugins and
+> themes though.
+>
+> 2 questions for the list:
+>
+> 1.       Do you subscribe to WPMU-DEV and do you feel it is worth the cost?
+>
+> 2.       Do you know of any free or cheap alternatives to Post Indexer to
+> create a stream of recent posts across your network?
+>
+> Thanks
+>
+> dave
+>
+>
+>
+> _______________________________
+>
+> David Tatem
+>
+> Instructional Technologist
+>
+> Trinity College
+>
+> 300 Summit Street
+>
+> Hartford, CT 06106
+>
+> 860-297-2124
+>
+> AOL-IM: tatemdm
+>
+> GoogleTalk: davidtatem
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+From burtrw at gmail.com  Fri Aug 16 15:47:05 2013
+From: burtrw at gmail.com (Ronnie Burt)
+Date: Fri, 16 Aug 2013 10:47:05 -0500
+Subject: [wp-edu] Alternatives to post indexer (WPMU-DEV) for multisite
+In-Reply-To: <CAAFBVjhd5taGZJXgsn62g4VaM0ZFgNcH4n1iOyDmPq8DYUKOFg@mail.gmail.com>
+References: <B5E1D1DF8BFBDF49847A5A38C86C4BBF2F86D1@exmb2>
+ <CAAFBVjhd5taGZJXgsn62g4VaM0ZFgNcH4n1iOyDmPq8DYUKOFg@mail.gmail.com>
+Message-ID: <CAAiktx=-xcJeNi8D8d0G-q98HeaT_A4tRFRNtzGdtpiafGY65Q@mail.gmail.com>
+
+Hi Dave,
+
+I work for WPMU DEV (and sister company Edublogs) and we're happy to help
+here.
+
+We do have a yearly option, though it may be harder to find as we're in the
+middle of changing our pricing structure.
+
+For any university or school interested, one year is $419 and you'd be
+grandfathered in forever at this pricing. This includes all 100+ of our
+premium plugins, access to our support team, and community (where quite a
+few folks from universities hang out).
+
+If interested, feel free to let me know and I'll get you all setup. We can
+handle it through PO's/checks offline so you don't have to use the
+automated system if that helps you out.
+
+Thanks!
+
+Ronnie Burt
+Director of Operations
+Edublogs | WPMU DEV | Incsub
+
+Timezone: Austin, TX (UTC/GMT -6 hours)
+Twitter: @ronnieburt
+
+
+On Fri, Aug 16, 2013 at 9:48 AM, Bill Dennen <dennen at gmail.com> wrote:
+
+> David,
+>
+> We're using this:
+>
+> http://wordpress.org/plugins/wordpress-mu-sitewide-tags/
+>
+> It's free? and works pretty well. I'm not sure it does comments, though.
+>
+> -Bill
+>
+>
+> On Fri, Aug 16, 2013 at 10:31 AM, Tatem, David <David.Tatem at trincoll.edu>
+> wrote:
+> > Hi all,
+> >
+> > I am finally doing an overdue update of our WordPress multisite install
+> > (http://commons.trincoll.edu) and realize our old version of Post
+> Indexer
+> > (comment indexer as well) is no longer working.
+> >
+> > This is a paid plugin from WPMU-DEV. WPMU-DEV only offers a $99 month
+> > subscription which is a bit steep. We do use a number of their plugins
+> and
+> > themes though.
+> >
+> > 2 questions for the list:
+> >
+> > 1.       Do you subscribe to WPMU-DEV and do you feel it is worth the
+> cost?
+> >
+> > 2.       Do you know of any free or cheap alternatives to Post Indexer to
+> > create a stream of recent posts across your network?
+> >
+> > Thanks
+> >
+> > dave
+> >
+> >
+> >
+> > _______________________________
+> >
+> > David Tatem
+> >
+> > Instructional Technologist
+> >
+> > Trinity College
+> >
+> > 300 Summit Street
+> >
+> > Hartford, CT 06106
+> >
+> > 860-297-2124
+> >
+> > AOL-IM: tatemdm
+> >
+> > GoogleTalk: davidtatem
+> >
+> >
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130816/6c0e901e/attachment.html>
+
+From Steve.Covello at granite.edu  Fri Aug 16 16:46:03 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Fri, 16 Aug 2013 16:46:03 +0000
+Subject: [wp-edu] Alternatives to post indexer (WPMU-DEV) for multisite
+In-Reply-To: <CAAiktx=-xcJeNi8D8d0G-q98HeaT_A4tRFRNtzGdtpiafGY65Q@mail.gmail.com>
+Message-ID: <CE33CC54.17A20%steve.covello@granite.edu>
+
+Ronnie -
+
+I am glad to hear that you are reconsidering your pricing model.
+
+I have had a number of heated exchanges with individuals at WPMU about the quandary you put small independent WP developers like myself in by forcing me (and by association, my small clients) to subscribe to blanket access to all of your products in order to access just ONE plugin. Specifically, I needed a plugin to clone template blogs in a multisite environment and I ended up going to a competitor of yours because their pricing model was in alignment with every other commercial plugin vendor. Yes, I am aware of the support component, but I have never had a problem with support with other commercial vendors.
+
+I feel very strongly about WPMU making their plugins available a la carte. WPMU benefits from the opensource culture of improvement, feedback, innovation, and instant implementation in the market. Your pricing model, however, is more like a cable TV system (which has its plusses and minuses, depending on whether you want ESPN or not). This is fine if there are no other alternatives with different pricing models. Unfortunately for WPMU, there are a slew of alternatives and I suspect you may get drowned out of the market in the long run much like SONY did with Betamax vs. VHS, event though Betamax was a far superior product.
+
+Thank you for listening.
+
+Thx ? Steve
+
+--
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+
+
+From: Ronnie Burt <burtrw at gmail.com<mailto:burtrw at gmail.com>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Friday, August 16, 2013 11:47 AM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] Alternatives to post indexer (WPMU-DEV) for multisite
+
+Hi Dave,
+
+I work for WPMU DEV (and sister company Edublogs) and we're happy to help here.
+
+We do have a yearly option, though it may be harder to find as we're in the middle of changing our pricing structure.
+
+For any university or school interested, one year is $419 and you'd be grandfathered in forever at this pricing. This includes all 100+ of our premium plugins, access to our support team, and community (where quite a few folks from universities hang out).
+
+If interested, feel free to let me know and I'll get you all setup. We can handle it through PO's/checks offline so you don't have to use the automated system if that helps you out.
+
+Thanks!
+
+Ronnie Burt
+Director of Operations
+Edublogs | WPMU DEV | Incsub
+
+Timezone: Austin, TX (UTC/GMT -6 hours)
+Twitter: @ronnieburt
+
+
+On Fri, Aug 16, 2013 at 9:48 AM, Bill Dennen <dennen at gmail.com<mailto:dennen at gmail.com>> wrote:
+David,
+
+We're using this:
+
+http://wordpress.org/plugins/wordpress-mu-sitewide-tags/
+
+It's free? and works pretty well. I'm not sure it does comments, though.
+
+-Bill
+
+
+On Fri, Aug 16, 2013 at 10:31 AM, Tatem, David <David.Tatem at trincoll.edu<mailto:David.Tatem at trincoll.edu>> wrote:
+> Hi all,
+>
+> I am finally doing an overdue update of our WordPress multisite install
+> (http://commons.trincoll.edu) and realize our old version of Post Indexer
+> (comment indexer as well) is no longer working.
+>
+> This is a paid plugin from WPMU-DEV. WPMU-DEV only offers a $99 month
+> subscription which is a bit steep. We do use a number of their plugins and
+> themes though.
+>
+> 2 questions for the list:
+>
+> 1.       Do you subscribe to WPMU-DEV and do you feel it is worth the cost?
+>
+> 2.       Do you know of any free or cheap alternatives to Post Indexer to
+> create a stream of recent posts across your network?
+>
+> Thanks
+>
+> dave
+>
+>
+>
+> _______________________________
+>
+> David Tatem
+>
+> Instructional Technologist
+>
+> Trinity College
+>
+> 300 Summit Street
+>
+> Hartford, CT 06106
+>
+> 860-297-2124<tel:860-297-2124>
+>
+> AOL-IM: tatemdm
+>
+> GoogleTalk: davidtatem
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130816/77916032/attachment-0001.html>
+
+From Annettep at hum.ku.dk  Mon Aug 19 11:16:19 2013
+From: Annettep at hum.ku.dk (Annette Pedersen)
+Date: Mon, 19 Aug 2013 13:16:19 +0200
+Subject: [wp-edu] Alternatives to post indexer (WPMU-DEV) for multisite
+In-Reply-To: <B5E1D1DF8BFBDF49847A5A38C86C4BBF2F86D1@exmb2>
+References: <B5E1D1DF8BFBDF49847A5A38C86C4BBF2F86D1@exmb2>
+Message-ID: <99BBB2B4-1F2B-4DB0-A33D-4EEF82BDA6A6@hum.ku.dk>
+
+Hi David (et all)
+
+I've just gone through the exact same change for University of Copenhagen's Multisite install.
+You're really looking for a replacement for the plugin "recent posts" - which in WPMU dev's version uses Post Indexer to run.
+
+I've replaced Recent posts with the free plugin "Network Latest Posts" which does the job. It has a settings widget to fiddle with options:
+http://en.8elite.com/network-latest-posts/
+
+Background: I wanted to leave WPMUdevs service, as I was only using 3 plugins (the 2 above and privacy) - And I had an unfortunate incident with Privacy being updated, suddenly NOT keeping things private - and got fairly useless response from WPMUdev - and ended up simply downgrading. For something that a pricey - not good enough...
+
+
+Best regards
+Annette
+
+E-learning Consultant Annette Pedersen
+
+ITMEDIA
+http://itmedia.hum.ku.dk/english/
+University of Copenhagen,
+Humanities department
+Karen Blixens Vej 4, 16.0.36 (KUA 2)
+DK-2300 K?benhavn S
+Tlf: (+45) 51 30 06 25
+Mail: annettep at hum.ku.dk<mailto:annettep at hum.ku.dk>
+LinkedIn: http://www.linkedin.com/in/annetteq
+
+Teaching is not rocket science. It is, in fact, far more complex and demanding work than rocket science. (Richard F. Elmore)
+
+
+[cid:80D95F57-229D-4FB8-910A-788AC1A94E6E at sc.ku.dk]
+
+Den 16/08/2013 kl. 16.31 skrev "Tatem, David" <David.Tatem at trincoll.edu<mailto:David.Tatem at trincoll.edu>>:
+
+Hi all,
+I am finally doing an overdue update of our WordPress multisite install (http://commons.trincoll.edu<http://commons.trincoll.edu/>) and realize our old version of Post Indexer (comment indexer as well) is no longer working.
+This is a paid plugin from WPMU-DEV. WPMU-DEV only offers a $99 month subscription which is a bit steep. We do use a number of their plugins and themes though.
+2 questions for the list:
+1.       Do you subscribe to WPMU-DEV and do you feel it is worth the cost?
+2.       Do you know of any free or cheap alternatives to Post Indexer to create a stream of recent posts across your network?
+Thanks
+dave
+
+_______________________________
+David Tatem
+Instructional Technologist
+Trinity College
+300 Summit Street
+Hartford, CT 06106
+860-297-2124
+AOL-IM: tatemdm
+GoogleTalk: davidtatem
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130819/4ec87568/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: HUMlogo.png
+Type: image/png
+Size: 9987 bytes
+Desc: HUMlogo.png
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130819/4ec87568/attachment.png>
+
+From bharwood at skidmore.edu  Wed Aug 28 16:03:26 2013
+From: bharwood at skidmore.edu (Benjamin Harwood)
+Date: Wed, 28 Aug 2013 16:03:26 +0000
+Subject: [wp-edu] WordPress standalone html websites
+Message-ID: <CE439789.12F50%bharwood@skidmore.edu>
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/3e727d31/attachment.html>
+
+From dennen at gmail.com  Wed Aug 28 16:06:45 2013
+From: dennen at gmail.com (Bill Dennen)
+Date: Wed, 28 Aug 2013 09:06:45 -0700 (PDT)
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CE439789.12F50%bharwood@skidmore.edu>
+References: <CE439789.12F50%bharwood@skidmore.edu>
+Message-ID: <1377706004152.a6087832@Nodemailer>
+
+The unix tool wget has an archive option, which you can use for this sort of thing. It may not produce a perfect site but it will help get you there.?
+
+    
+      
+
+
+    
+      https://www.google.com/search?q=wget+archive+website&ie=UTF-8&oe=UTF-8&hl=en&client=safari
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu>
+wrote:
+
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+> Best,
+> Ben
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/3050c54b/attachment.html>
+
+From parkerj at 7mediaws.org  Wed Aug 28 16:07:04 2013
+From: parkerj at 7mediaws.org (Parker, Joshua)
+Date: Wed, 28 Aug 2013 12:07:04 -0400
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CE439789.12F50%bharwood@skidmore.edu>
+References: <CE439789.12F50%bharwood@skidmore.edu>
+Message-ID: <CABSBpH46GkOPAWD+e-=uO8Thu-adri_S6+fyDC7rs1zsCpb78Q@mail.gmail.com>
+
+I have not, but I have used the really static plugin, and I think it can
+help in this instance: http://wordpress.org/plugins/really-static/
+
+Just use it to create static html of the website while still keeping the
+structure, and then move the static files to the root of the domain.
+
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu>wrote:
+
+>  Has anyone ever created an offline copy of a WordPress site that can be
+> viewed as a standalone html website? A colleague has some beautiful sites
+> that she'd like to take down yet preserve for offline viewing independent
+> of WordPress. Short of printing all the materials out, it doesn't seem
+> possible. Years ago, I used the free version of WinHTTrack website copier
+> to create static copies of MovableType blogs. That solution worked great
+> then but not so on WordPress multisite. Even when the sites are made
+> public. Couldn't find any plugins that do this successfully either.  Thanks
+> for any suggestions.
+>
+>  Best,
+> Ben
+>
+>  Ben Harwood
+> Academic Technologies
+> Skidmore College
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+
+-- 
+Press Release: 7 Media Web Solutions Launches Crowdfund Campaign to Fund
+New Open Source Student Information
+System<http://www.7mediaws.org/company/news/press/7_media_web_solutions_launches_crowdfund_campaign_to_fund_new_open_source_student_information_system/>
+
+[image: Josh Parker WordPress Consultant] <http://www.7mediaws.org>
+Joshua Parker
+PHP Developer & Consultant for Education
+(857) 600-0579
+
+7 Media Web Solutions, LLC
+www.7mediaws.org
+[image: Twitter] <http://twitter.com/#!/7mediaws>[image:
+Linkedin]<http://www.linkedin.com/in/joshmac>[image:
+Josh Parker :: WordPress Consultant] <http://feeds.feedburner.com/7mws/>[image:
+Skype][image: Google+] <https://plus.google.com/106009893211550086777/>[image:
+WordPress Profile] <http://wordpress.org/extend/plugins/profile/parkerj>[image:
+About.me] <http://about.me/joshuaparker>[image:
+Gravatar]<http://en.gravatar.com/joshmac3>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/652b08fc/attachment.html>
+
+From Steve.Covello at granite.edu  Wed Aug 28 16:24:09 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Wed, 28 Aug 2013 16:24:09 +0000
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <1377706004152.a6087832@Nodemailer>
+Message-ID: <CE439A3B.189C8%steve.covello@granite.edu>
+
+I recommend that your colleague install WAMP<http://www.wampserver.com/en/> (Windows) or MAMP<http://www.mamp.info/en/index.html> (Mac), which are Windows/Mac + Apache + MySQL + PHP. The Mac version is pretty easy to install. The Windows version less so from what I have seen.
+
+WAMP/MAMP produces the same hosted environment that WP websites run on except off of your laptop. This is the conventional sandbox setup for development, and it is not taxing on your computer. It does not run unless you launch it.
+
+Once you configure the settings, just drop the entire original website directory into the designated site location parent directory. You will have to do some changes to the database to point everything locally instead of the original hosting location, but it does not require any major coding skills (mostly a wholesale search & replace).
+
+It is not dirt simple to do, but once you have it setup and the routine figured out, you can run a WP website locally for demonstrations or archival purposes as though it were live. Your browser URL would simply go from http://schmo.college.edu (or whatever) to http://localhost/schmo
+
+This method preserves the fundamental WP "guts" (avoiding HTML translation), and allows you to modify it for whatever needs you might have using the WP dashboard as usual.
+
+Thx ? Steve
+
+--
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+From: Bill Dennen <dennen at gmail.com<mailto:dennen at gmail.com>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, August 28, 2013 12:06 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Cc: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+
+The unix tool wget has an archive option, which you can use for this sort of thing. It may not produce a perfect site but it will help get you there.
+
+https://www.google.com/search?q=wget+archive+website&ie=UTF-8&oe=UTF-8&hl=en&client=safari
+
+
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>> wrote:
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/6313d7b3/attachment-0001.html>
+
+From jennifer_stevens at emerson.edu  Wed Aug 28 16:33:36 2013
+From: jennifer_stevens at emerson.edu (Jennifer Stevens)
+Date: Wed, 28 Aug 2013 12:33:36 -0400
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <mailman.16822.1377707058.2518.wp-edu@lists.automattic.com>
+Message-ID: <CE439D48.4A7F0%jennifer_stevens@emerson.edu>
+
+We were using GetLeft<http://sourceforge.net/projects/getleftdown/>, but have switched to
+
+wget -m -p -E -k -w 2 -erobots=off -Dword.emerson.edu <<blog url goes here>>
+
+That may not be the final command ? I think our guy is still tinkering with it. He is also writing us a program that will let us dump in a list of the urls of the blogs we want to archive, runs wget on them automatically, and stores the html files in folders on our internal storage.
+
+Jenn Stevens
+
+Director | Instructional Technology Group | 403A Walker Building  |  Emerson College  |  120 Boylston St  |  Boston MA 02116  |  (617) 824-3093
+
+On 8/28/13 12:24 PM, "wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>" <wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>> wrote:
+
+Send wp-edu mailing list submissions to
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+
+To subscribe or unsubscribe via the World Wide Web, visit
+http://lists.automattic.com/mailman/listinfo/wp-edu
+or, via email, send a message with subject or body 'help' to
+wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>
+
+You can reach the person managing the list at
+wp-edu-owner at lists.automattic.com<mailto:wp-edu-owner at lists.automattic.com>
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of wp-edu digest..."
+
+
+Today's Topics:
+
+   1. WordPress standalone html websites (Benjamin Harwood)
+   2. Re: WordPress standalone html websites (Bill Dennen)
+   3. Re: WordPress standalone html websites (Parker, Joshua)
+   4. Re: WordPress standalone html websites (Covello, Steve)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Wed, 28 Aug 2013 16:03:26 +0000
+From: Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>>
+To: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: [wp-edu] WordPress standalone html websites
+Message-ID: <CE439789.12F50%bharwood at skidmore.edu<mailto:CE439789.12F50%bharwood at skidmore.edu>>
+Content-Type: text/plain; charset="us-ascii"
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/3e727d31/attachment-0001.html>
+
+------------------------------
+
+Message: 2
+Date: Wed, 28 Aug 2013 09:06:45 -0700 (PDT)
+From: "Bill Dennen" <dennen at gmail.com<mailto:dennen at gmail.com>>
+To: "Low-traffic list discussing WordPress in education."
+<wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Cc: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] WordPress standalone html websites
+Message-ID: <1377706004152.a6087832 at Nodemailer>
+Content-Type: text/plain; charset="utf-8"
+
+The unix tool wget has an archive option, which you can use for this sort of thing. It may not produce a perfect site but it will help get you there.?
+
+
+
+
+
+
+      https://www.google.com/search?q=wget+archive+website&ie=UTF-8&oe=UTF-8&hl=en&client=safari
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>>
+wrote:
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+Best,
+Ben
+Ben Harwood
+Academic Technologies
+Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/3050c54b/attachment-0001.html>
+
+------------------------------
+
+Message: 3
+Date: Wed, 28 Aug 2013 12:07:04 -0400
+From: "Parker, Joshua" <parkerj at 7mediaws.org<mailto:parkerj at 7mediaws.org>>
+To: "Low-traffic list discussing WordPress in education."
+<wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+Message-ID:
+<CABSBpH46GkOPAWD+e-=uO8Thu-adri_S6+fyDC7rs1zsCpb78Q at mail.gmail.com<mailto:CABSBpH46GkOPAWD+e-=uO8Thu-adri_S6+fyDC7rs1zsCpb78Q at mail.gmail.com>>
+Content-Type: text/plain; charset="utf-8"
+
+I have not, but I have used the really static plugin, and I think it can
+help in this instance: http://wordpress.org/plugins/really-static/
+
+Just use it to create static html of the website while still keeping the
+structure, and then move the static files to the root of the domain.
+
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>>wrote:
+
+  Has anyone ever created an offline copy of a WordPress site that can be
+viewed as a standalone html website? A colleague has some beautiful sites
+that she'd like to take down yet preserve for offline viewing independent
+of WordPress. Short of printing all the materials out, it doesn't seem
+possible. Years ago, I used the free version of WinHTTrack website copier
+to create static copies of MovableType blogs. That solution worked great
+then but not so on WordPress multisite. Even when the sites are made
+public. Couldn't find any plugins that do this successfully either.  Thanks
+for any suggestions.
+
+  Best,
+Ben
+
+  Ben Harwood
+Academic Technologies
+Skidmore College
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+
+
+--
+Press Release: 7 Media Web Solutions Launches Crowdfund Campaign to Fund
+New Open Source Student Information
+System<http://www.7mediaws.org/company/news/press/7_media_web_solutions_launches_crowdfund_campaign_to_fund_new_open_source_student_information_system/>
+
+[image: Josh Parker WordPress Consultant] <http://www.7mediaws.org>
+Joshua Parker
+PHP Developer & Consultant for Education
+(857) 600-0579
+
+7 Media Web Solutions, LLC
+www.7mediaws.org
+[image: Twitter] <http://twitter.com/#!/7mediaws>[image:
+Linkedin]<http://www.linkedin.com/in/joshmac>[image:
+Josh Parker :: WordPress Consultant] <http://feeds.feedburner.com/7mws/>[image:
+Skype][image: Google+] <https://plus.google.com/106009893211550086777/>[image:
+WordPress Profile] <http://wordpress.org/extend/plugins/profile/parkerj>[image:
+About.me] <http://about.me/joshuaparker>[image:
+Gravatar]<http://en.gravatar.com/joshmac3>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/652b08fc/attachment-0001.html>
+
+------------------------------
+
+Message: 4
+Date: Wed, 28 Aug 2013 16:24:09 +0000
+From: "Covello, Steve" <Steve.Covello at granite.edu<mailto:Steve.Covello at granite.edu>>
+To: "Low-traffic list discussing WordPress in education."
+<wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+Message-ID: <CE439A3B.189C8%steve.covello at granite.edu<mailto:CE439A3B.189C8%steve.covello at granite.edu>>
+Content-Type: text/plain; charset="windows-1252"
+
+I recommend that your colleague install WAMP<http://www.wampserver.com/en/> (Windows) or MAMP<http://www.mamp.info/en/index.html> (Mac), which are Windows/Mac + Apache + MySQL + PHP. The Mac version is pretty easy to install. The Windows version less so from what I have seen.
+
+WAMP/MAMP produces the same hosted environment that WP websites run on except off of your laptop. This is the conventional sandbox setup for development, and it is not taxing on your computer. It does not run unless you launch it.
+
+Once you configure the settings, just drop the entire original website directory into the designated site location parent directory. You will have to do some changes to the database to point everything locally instead of the original hosting location, but it does not require any major coding skills (mostly a wholesale search & replace).
+
+It is not dirt simple to do, but once you have it setup and the routine figured out, you can run a WP website locally for demonstrations or archival purposes as though it were live. Your browser URL would simply go from http://schmo.college.edu (or whatever) to http://localhost/schmo
+
+This method preserves the fundamental WP "guts" (avoiding HTML translation), and allows you to modify it for whatever needs you might have using the WP dashboard as usual.
+
+Thx ? Steve
+
+--
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+From: Bill Dennen <dennen at gmail.com<mailto:dennen at gmail.com><mailto:dennen at gmail.com>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, August 28, 2013 12:06 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>>
+Cc: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+
+The unix tool wget has an archive option, which you can use for this sort of thing. It may not produce a perfect site but it will help get you there.
+
+https://www.google.com/search?q=wget+archive+website&ie=UTF-8&oe=UTF-8&hl=en&client=safari
+
+
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu><mailto:bharwood at skidmore.edu>> wrote:
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/6313d7b3/attachment.html>
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+------------------------------
+
+End of wp-edu Digest, Vol 46, Issue 8
+*************************************
+
+
+From rap42 at georgetown.edu  Wed Aug 28 16:50:45 2013
+From: rap42 at georgetown.edu (Rob Pongsajapan)
+Date: Wed, 28 Aug 2013 12:50:45 -0400
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CE439789.12F50%bharwood@skidmore.edu>
+References: <CE439789.12F50%bharwood@skidmore.edu>
+Message-ID: <CAHvOPj0nU7eK_Tm62-WU+7jahdkOj7jULevuVMBebMYZDBii7w@mail.gmail.com>
+
+We've been using SiteSucker, a Mac app that can crawl a website, download
+supporting media files, and localize links and media references within HTML
+files. You can limit the crawler to a specific subdirectory or subdomain,
+too.
+
+http://sitesucker.us/home.html
+
+Best,
+Rob
+
+
+On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu>wrote:
+
+>  Has anyone ever created an offline copy of a WordPress site that can be
+> viewed as a standalone html website? A colleague has some beautiful sites
+> that she'd like to take down yet preserve for offline viewing independent
+> of WordPress. Short of printing all the materials out, it doesn't seem
+> possible. Years ago, I used the free version of WinHTTrack website copier
+> to create static copies of MovableType blogs. That solution worked great
+> then but not so on WordPress multisite. Even when the sites are made
+> public. Couldn't find any plugins that do this successfully either.  Thanks
+> for any suggestions.
+>
+>  Best,
+> Ben
+>
+>  Ben Harwood
+> Academic Technologies
+> Skidmore College
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/628ecd53/attachment.html>
+
+From daniel.stout at uwex.uwc.edu  Wed Aug 28 16:51:20 2013
+From: daniel.stout at uwex.uwc.edu (Stout, Daniel)
+Date: Wed, 28 Aug 2013 11:51:20 -0500
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CE439789.12F50%bharwood@skidmore.edu>
+References: <CE439789.12F50%bharwood@skidmore.edu>
+Message-ID: <BBA8497B333A60478657D216BE5D56E3436F82A24F@CITPXMB002V.uwcx.net>
+
+What issue are you having with HTTrack? Some plugins like Better WP Security can block HTTrack and other bots (including wget) in the .htaccess from even accessing your site. But HTTrack will only spider what it knows about - that is, there needs to be a link to a specific subsite. Otherwise it won't find it.
+
+Daniel
+
+Daniel Stout
+CITS / University of Wisconsin-Extension
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Benjamin Harwood
+Sent: Wednesday, August 28, 2013 11:03 AM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] WordPress standalone html websites
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/9709f4b9/attachment.html>
+
+From bharwood at skidmore.edu  Wed Aug 28 16:56:20 2013
+From: bharwood at skidmore.edu (Benjamin Harwood)
+Date: Wed, 28 Aug 2013 16:56:20 +0000
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <BBA8497B333A60478657D216BE5D56E3436F82A24F@CITPXMB002V.uwcx.net>
+Message-ID: <CE43A33C.12FD5%bharwood@skidmore.edu>
+
+It's only capturing the site index page but not subpages with images and other files like pdfs. I'm setting it to index the whole site. HTTrack should be able to crawl and index everything as these sites are publicly viewable.
+
+Ben
+
+Ben Harwood
+Skidmore College
+
+From: <Stout>, Daniel <daniel.stout at uwex.uwc.edu<mailto:daniel.stout at uwex.uwc.edu>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, August 28, 2013 12:51 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+
+What issue are you having with HTTrack? Some plugins like Better WP Security can block HTTrack and other bots (including wget) in the .htaccess from even accessing your site. But HTTrack will only spider what it knows about - that is, there needs to be a link to a specific subsite. Otherwise it won't find it.
+
+Daniel
+
+Daniel Stout
+CITS / University of Wisconsin-Extension
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Benjamin Harwood
+Sent: Wednesday, August 28, 2013 11:03 AM
+To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Subject: [wp-edu] WordPress standalone html websites
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/c6bb0bf7/attachment-0001.html>
+
+From tenbargec2 at k12tn.net  Wed Aug 28 16:59:17 2013
+From: tenbargec2 at k12tn.net (Tenbarge Chris)
+Date: Wed, 28 Aug 2013 11:59:17 -0500
+Subject: [wp-edu] wp-edu Digest, Vol 46, Issue 9
+In-Reply-To: <mailman.16828.1377708991.2518.wp-edu@lists.automattic.com>
+References: <mailman.16828.1377708991.2518.wp-edu@lists.automattic.com>
+Message-ID: <5794F776-56AB-4892-803A-01F057FF9903@k12tn.net>
+
+Sitesucker is a mac app that I used when I had a server issue that crashed php every few hours. I pulled down a static copy, pointed the server to the folder it was in, and was able to troubleshoot the Wordpress Install on the side.  Very easy
+
+
+On Aug 28, 2013, at 11:56 AM, wp-edu-request at lists.automattic.com wrote:
+
+> Send wp-edu mailing list submissions to
+> 	wp-edu at lists.automattic.com
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+> 	wp-edu-request at lists.automattic.com
+> 
+> You can reach the person managing the list at
+> 	wp-edu-owner at lists.automattic.com
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+> 
+> 
+> Today's Topics:
+> 
+>   1. Re: WordPress standalone html websites (Jennifer Stevens)
+>   2. Re: WordPress standalone html websites (Rob Pongsajapan)
+>   3. Re: WordPress standalone html websites (Stout, Daniel)
+>   4. Re: WordPress standalone html websites (Benjamin Harwood)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Wed, 28 Aug 2013 12:33:36 -0400
+> From: Jennifer Stevens <jennifer_stevens at emerson.edu>
+> To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID: <CE439D48.4A7F0%jennifer_stevens at emerson.edu>
+> Content-Type: text/plain; charset="Windows-1252"
+> 
+> We were using GetLeft<http://sourceforge.net/projects/getleftdown/>, but have switched to
+> 
+> wget -m -p -E -k -w 2 -erobots=off -Dword.emerson.edu <<blog url goes here>>
+> 
+> That may not be the final command ? I think our guy is still tinkering with it. He is also writing us a program that will let us dump in a list of the urls of the blogs we want to archive, runs wget on them automatically, and stores the html files in folders on our internal storage.
+> 
+> Jenn Stevens
+> 
+> Director | Instructional Technology Group | 403A Walker Building  |  Emerson College  |  120 Boylston St  |  Boston MA 02116  |  (617) 824-3093
+> 
+> On 8/28/13 12:24 PM, "wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>" <wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>> wrote:
+> 
+> Send wp-edu mailing list submissions to
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+> wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>
+> 
+> You can reach the person managing the list at
+> wp-edu-owner at lists.automattic.com<mailto:wp-edu-owner at lists.automattic.com>
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+> 
+> 
+> Today's Topics:
+> 
+>   1. WordPress standalone html websites (Benjamin Harwood)
+>   2. Re: WordPress standalone html websites (Bill Dennen)
+>   3. Re: WordPress standalone html websites (Parker, Joshua)
+>   4. Re: WordPress standalone html websites (Covello, Steve)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Wed, 28 Aug 2013 16:03:26 +0000
+> From: Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>>
+> To: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+> Subject: [wp-edu] WordPress standalone html websites
+> Message-ID: <CE439789.12F50%bharwood at skidmore.edu<mailto:CE439789.12F50%bharwood at skidmore.edu>>
+> Content-Type: text/plain; charset="us-ascii"
+> 
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+> 
+> Best,
+> Ben
+> 
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/3e727d31/attachment-0001.html>
+> 
+> ------------------------------
+> 
+> Message: 2
+> Date: Wed, 28 Aug 2013 09:06:45 -0700 (PDT)
+> From: "Bill Dennen" <dennen at gmail.com<mailto:dennen at gmail.com>>
+> To: "Low-traffic list discussing WordPress in education."
+> <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+> Cc: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID: <1377706004152.a6087832 at Nodemailer>
+> Content-Type: text/plain; charset="utf-8"
+> 
+> The unix tool wget has an archive option, which you can use for this sort of thing. It may not produce a perfect site but it will help get you there.?
+> 
+> 
+> 
+> 
+> 
+> 
+>      https://www.google.com/search?q=wget+archive+website&ie=UTF-8&oe=UTF-8&hl=en&client=safari
+> 
+> On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>>
+> wrote:
+> 
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+> Best,
+> Ben
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/3050c54b/attachment-0001.html>
+> 
+> ------------------------------
+> 
+> Message: 3
+> Date: Wed, 28 Aug 2013 12:07:04 -0400
+> From: "Parker, Joshua" <parkerj at 7mediaws.org<mailto:parkerj at 7mediaws.org>>
+> To: "Low-traffic list discussing WordPress in education."
+> <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID:
+> <CABSBpH46GkOPAWD+e-=uO8Thu-adri_S6+fyDC7rs1zsCpb78Q at mail.gmail.com<mailto:CABSBpH46GkOPAWD+e-=uO8Thu-adri_S6+fyDC7rs1zsCpb78Q at mail.gmail.com>>
+> Content-Type: text/plain; charset="utf-8"
+> 
+> I have not, but I have used the really static plugin, and I think it can
+> help in this instance: http://wordpress.org/plugins/really-static/
+> 
+> Just use it to create static html of the website while still keeping the
+> structure, and then move the static files to the root of the domain.
+> 
+> 
+> On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>>wrote:
+> 
+>  Has anyone ever created an offline copy of a WordPress site that can be
+> viewed as a standalone html website? A colleague has some beautiful sites
+> that she'd like to take down yet preserve for offline viewing independent
+> of WordPress. Short of printing all the materials out, it doesn't seem
+> possible. Years ago, I used the free version of WinHTTrack website copier
+> to create static copies of MovableType blogs. That solution worked great
+> then but not so on WordPress multisite. Even when the sites are made
+> public. Couldn't find any plugins that do this successfully either.  Thanks
+> for any suggestions.
+> 
+>  Best,
+> Ben
+> 
+>  Ben Harwood
+> Academic Technologies
+> Skidmore College
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> 
+> 
+> --
+> Press Release: 7 Media Web Solutions Launches Crowdfund Campaign to Fund
+> New Open Source Student Information
+> System<http://www.7mediaws.org/company/news/press/7_media_web_solutions_launches_crowdfund_campaign_to_fund_new_open_source_student_information_system/>
+> 
+> [image: Josh Parker WordPress Consultant] <http://www.7mediaws.org>
+> Joshua Parker
+> PHP Developer & Consultant for Education
+> (857) 600-0579
+> 
+> 7 Media Web Solutions, LLC
+> www.7mediaws.org
+> [image: Twitter] <http://twitter.com/#!/7mediaws>[image:
+> Linkedin]<http://www.linkedin.com/in/joshmac>[image:
+> Josh Parker :: WordPress Consultant] <http://feeds.feedburner.com/7mws/>[image:
+> Skype][image: Google+] <https://plus.google.com/106009893211550086777/>[image:
+> WordPress Profile] <http://wordpress.org/extend/plugins/profile/parkerj>[image:
+> About.me] <http://about.me/joshuaparker>[image:
+> Gravatar]<http://en.gravatar.com/joshmac3>
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/652b08fc/attachment-0001.html>
+> 
+> ------------------------------
+> 
+> Message: 4
+> Date: Wed, 28 Aug 2013 16:24:09 +0000
+> From: "Covello, Steve" <Steve.Covello at granite.edu<mailto:Steve.Covello at granite.edu>>
+> To: "Low-traffic list discussing WordPress in education."
+> <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID: <CE439A3B.189C8%steve.covello at granite.edu<mailto:CE439A3B.189C8%steve.covello at granite.edu>>
+> Content-Type: text/plain; charset="windows-1252"
+> 
+> I recommend that your colleague install WAMP<http://www.wampserver.com/en/> (Windows) or MAMP<http://www.mamp.info/en/index.html> (Mac), which are Windows/Mac + Apache + MySQL + PHP. The Mac version is pretty easy to install. The Windows version less so from what I have seen.
+> 
+> WAMP/MAMP produces the same hosted environment that WP websites run on except off of your laptop. This is the conventional sandbox setup for development, and it is not taxing on your computer. It does not run unless you launch it.
+> 
+> Once you configure the settings, just drop the entire original website directory into the designated site location parent directory. You will have to do some changes to the database to point everything locally instead of the original hosting location, but it does not require any major coding skills (mostly a wholesale search & replace).
+> 
+> It is not dirt simple to do, but once you have it setup and the routine figured out, you can run a WP website locally for demonstrations or archival purposes as though it were live. Your browser URL would simply go from http://schmo.college.edu (or whatever) to http://localhost/schmo
+> 
+> This method preserves the fundamental WP "guts" (avoiding HTML translation), and allows you to modify it for whatever needs you might have using the WP dashboard as usual.
+> 
+> Thx ? Steve
+> 
+> --
+> Steve Covello
+> Rich Media Specialist/Online Instructor
+> Granite State College
+> 603-513-1346
+> Skype: steve.granitestate
+> Scheduling: http://meetme.so/stevecovello
+> 
+> 
+> From: Bill Dennen <dennen at gmail.com<mailto:dennen at gmail.com><mailto:dennen at gmail.com>>
+> Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>>
+> Date: Wednesday, August 28, 2013 12:06 PM
+> To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>>
+> Cc: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com><mailto:wp-edu at lists.automattic.com>>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> 
+> The unix tool wget has an archive option, which you can use for this sort of thing. It may not produce a perfect site but it will help get you there.
+> 
+> https://www.google.com/search?q=wget+archive+website&ie=UTF-8&oe=UTF-8&hl=en&client=safari
+> 
+> 
+> 
+> On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu><mailto:bharwood at skidmore.edu>> wrote:
+> 
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+> 
+> Best,
+> Ben
+> 
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> 
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/6313d7b3/attachment.html>
+> 
+> ------------------------------
+> 
+> Subject: Digest Footer
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> ------------------------------
+> 
+> End of wp-edu Digest, Vol 46, Issue 8
+> *************************************
+> 
+> 
+> 
+> ------------------------------
+> 
+> Message: 2
+> Date: Wed, 28 Aug 2013 12:50:45 -0400
+> From: Rob Pongsajapan <rap42 at georgetown.edu>
+> To: "Low-traffic list discussing WordPress in education."
+> 	<wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID:
+> 	<CAHvOPj0nU7eK_Tm62-WU+7jahdkOj7jULevuVMBebMYZDBii7w at mail.gmail.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+> 
+> We've been using SiteSucker, a Mac app that can crawl a website, download
+> supporting media files, and localize links and media references within HTML
+> files. You can limit the crawler to a specific subdirectory or subdomain,
+> too.
+> 
+> http://sitesucker.us/home.html
+> 
+> Best,
+> Rob
+> 
+> 
+> On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu>wrote:
+> 
+>> Has anyone ever created an offline copy of a WordPress site that can be
+>> viewed as a standalone html website? A colleague has some beautiful sites
+>> that she'd like to take down yet preserve for offline viewing independent
+>> of WordPress. Short of printing all the materials out, it doesn't seem
+>> possible. Years ago, I used the free version of WinHTTrack website copier
+>> to create static copies of MovableType blogs. That solution worked great
+>> then but not so on WordPress multisite. Even when the sites are made
+>> public. Couldn't find any plugins that do this successfully either.  Thanks
+>> for any suggestions.
+>> 
+>> Best,
+>> Ben
+>> 
+>> Ben Harwood
+>> Academic Technologies
+>> Skidmore College
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+>> 
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/628ecd53/attachment-0001.html>
+> 
+> ------------------------------
+> 
+> Message: 3
+> Date: Wed, 28 Aug 2013 11:51:20 -0500
+> From: "Stout, Daniel" <daniel.stout at uwex.uwc.edu>
+> To: Low-traffic list discussing WordPress in education.
+> 	<wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID:
+> 	<BBA8497B333A60478657D216BE5D56E3436F82A24F at CITPXMB002V.uwcx.net>
+> Content-Type: text/plain; charset="us-ascii"
+> 
+> What issue are you having with HTTrack? Some plugins like Better WP Security can block HTTrack and other bots (including wget) in the .htaccess from even accessing your site. But HTTrack will only spider what it knows about - that is, there needs to be a link to a specific subsite. Otherwise it won't find it.
+> 
+> Daniel
+> 
+> Daniel Stout
+> CITS / University of Wisconsin-Extension
+> 
+> From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Benjamin Harwood
+> Sent: Wednesday, August 28, 2013 11:03 AM
+> To: wp-edu at lists.automattic.com
+> Subject: [wp-edu] WordPress standalone html websites
+> 
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+> 
+> Best,
+> Ben
+> 
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/9709f4b9/attachment-0001.html>
+> 
+> ------------------------------
+> 
+> Message: 4
+> Date: Wed, 28 Aug 2013 16:56:20 +0000
+> From: Benjamin Harwood <bharwood at skidmore.edu>
+> To: Low-traffic list discussing WordPress in education.
+> 	<wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> Message-ID: <CE43A33C.12FD5%bharwood at skidmore.edu>
+> Content-Type: text/plain; charset="iso-8859-1"
+> 
+> It's only capturing the site index page but not subpages with images and other files like pdfs. I'm setting it to index the whole site. HTTrack should be able to crawl and index everything as these sites are publicly viewable.
+> 
+> Ben
+> 
+> Ben Harwood
+> Skidmore College
+> 
+> From: <Stout>, Daniel <daniel.stout at uwex.uwc.edu<mailto:daniel.stout at uwex.uwc.edu>>
+> Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+> Date: Wednesday, August 28, 2013 12:51 PM
+> To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+> Subject: Re: [wp-edu] WordPress standalone html websites
+> 
+> What issue are you having with HTTrack? Some plugins like Better WP Security can block HTTrack and other bots (including wget) in the .htaccess from even accessing your site. But HTTrack will only spider what it knows about - that is, there needs to be a link to a specific subsite. Otherwise it won't find it.
+> 
+> Daniel
+> 
+> Daniel Stout
+> CITS / University of Wisconsin-Extension
+> 
+> From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Benjamin Harwood
+> Sent: Wednesday, August 28, 2013 11:03 AM
+> To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> Subject: [wp-edu] WordPress standalone html websites
+> 
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+> 
+> Best,
+> Ben
+> 
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/c6bb0bf7/attachment.html>
+> 
+> ------------------------------
+> 
+> Subject: Digest Footer
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> ------------------------------
+> 
+> End of wp-edu Digest, Vol 46, Issue 9
+> *************************************
+
+
+From joseph.ugoretz at mhc.cuny.edu  Wed Aug 28 17:01:00 2013
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Wed, 28 Aug 2013 17:01:00 +0000
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CAHvOPj0nU7eK_Tm62-WU+7jahdkOj7jULevuVMBebMYZDBii7w@mail.gmail.com>
+References: <CE439789.12F50%bharwood@skidmore.edu>
+ <CAHvOPj0nU7eK_Tm62-WU+7jahdkOj7jULevuVMBebMYZDBii7w@mail.gmail.com>
+Message-ID: <BFA51154-5423-4429-A87B-4FA85BDC9E26@mhc.cuny.edu>
+
++1 for SiteSucker.  (Hi, Rob!)
+
+I used it recently to archive a whole bunch of old sites (some WP, some drupal, some mediawiki).  In some cases there were little gaps and holes (usually in sites that included very complicated navigation with external links and in some sites that included flash media).  But overall it worked really well.
+
+The overall archive is here if you want to browse how things turned out.
+
+http://macaulay.cuny.edu/seminars/
+
+(the process did memorialize some database errors from sites that had not been updated in a long time.  But that's a separate issue.  If I had fixed those errors or upgraded those sites before sucking them down, that problem wouldn't have arisen)
+
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+
+Macaulay Honors College
+The City University of New York
+35 West 67th St.
+New York, New York 10023
+TEL 212-729-2920
+FAX 212-580-8130
+joseph.ugoretz at mhc.cuny.edu
+macaulay.cuny.edu
+
+
+
+
+
+
+
+
+
+On Aug 28, 2013, at 12:50 PM, Rob Pongsajapan <rap42 at georgetown.edu>
+ wrote:
+
+> We've been using SiteSucker, a Mac app that can crawl a website, download supporting media files, and localize links and media references within HTML files. You can limit the crawler to a specific subdirectory or subdomain, too.
+> 
+> http://sitesucker.us/home.html
+> 
+> Best,
+> Rob
+> 
+> 
+> On Wed, Aug 28, 2013 at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu> wrote:
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions. 
+> 
+> Best,
+> Ben 
+> 
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From daniel.stout at uwex.uwc.edu  Wed Aug 28 17:04:50 2013
+From: daniel.stout at uwex.uwc.edu (Stout, Daniel)
+Date: Wed, 28 Aug 2013 12:04:50 -0500
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CE43A33C.12FD5%bharwood@skidmore.edu>
+References: <BBA8497B333A60478657D216BE5D56E3436F82A24F@CITPXMB002V.uwcx.net>
+ <CE43A33C.12FD5%bharwood@skidmore.edu>
+Message-ID: <BBA8497B333A60478657D216BE5D56E3436F82A257@CITPXMB002V.uwcx.net>
+
+HTTrack, and other tools like it, work by following links on a site. If there isn't a link to a specific page or area of the site, HTTrack won't find it, even if it's publically accessible. But if there are links, then it may be a settings issue. You might check the HTTrack forum ( http://forum.httrack.com/ ) as there's nothing particular about WordPress in this regard.
+
+Daniel
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Benjamin Harwood
+Sent: Wednesday, August 28, 2013 11:56 AM
+To: Low-traffic list discussing WordPress in education.
+Subject: Re: [wp-edu] WordPress standalone html websites
+
+It's only capturing the site index page but not subpages with images and other files like pdfs. I'm setting it to index the whole site. HTTrack should be able to crawl and index everything as these sites are publicly viewable.
+
+Ben
+
+Ben Harwood
+Skidmore College
+
+From: <Stout>, Daniel <daniel.stout at uwex.uwc.edu<mailto:daniel.stout at uwex.uwc.edu>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, August 28, 2013 12:51 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+
+What issue are you having with HTTrack? Some plugins like Better WP Security can block HTTrack and other bots (including wget) in the .htaccess from even accessing your site. But HTTrack will only spider what it knows about - that is, there needs to be a link to a specific subsite. Otherwise it won't find it.
+
+Daniel
+
+Daniel Stout
+CITS / University of Wisconsin-Extension
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Benjamin Harwood
+Sent: Wednesday, August 28, 2013 11:03 AM
+To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Subject: [wp-edu] WordPress standalone html websites
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/cb205946/attachment-0001.html>
+
+From jay.collier at thecompass.com  Wed Aug 28 21:17:53 2013
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Wed, 28 Aug 2013 17:17:53 -0400
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <CE439789.12F50%bharwood@skidmore.edu>
+References: <CE439789.12F50%bharwood@skidmore.edu>
+Message-ID: <F939A37A-ABAC-4893-949C-937B62DD5625@thecompass.com>
+
+Sitesucker: <http://sitesucker.us/mac/mac.html>
+
+Select the directory, how deep you want to go, how many links to follow. And, localizes all internal links.
+
+-Jay
+
+
+On Aug 28, 2013, at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu> wrote:
+
+> Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions. 
+> 
+> Best,
+> Ben 
+> 
+> Ben Harwood
+> Academic Technologies
+> Skidmore College
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130828/e7fd3917/attachment.html>
+
+From bharwood at skidmore.edu  Thu Aug 29 13:59:46 2013
+From: bharwood at skidmore.edu (Benjamin Harwood)
+Date: Thu, 29 Aug 2013 13:59:46 +0000
+Subject: [wp-edu] WordPress standalone html websites
+In-Reply-To: <F939A37A-ABAC-4893-949C-937B62DD5625@thecompass.com>
+Message-ID: <CE44CBE7.1341A%bharwood@skidmore.edu>
+
+Hi, Jay. Sitesucker worked GREAT!
+
+Thanks,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+
+From: Jay Collier <jay.collier at thecompass.com<mailto:jay.collier at thecompass.com>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, August 28, 2013 5:17 PM
+To: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WordPress standalone html websites
+
+Sitesucker: <http://sitesucker.us/mac/mac.html>
+
+Select the directory, how deep you want to go, how many links to follow. And, localizes all internal links.
+
+-Jay
+
+
+On Aug 28, 2013, at 12:03 PM, Benjamin Harwood <bharwood at skidmore.edu<mailto:bharwood at skidmore.edu>> wrote:
+
+Has anyone ever created an offline copy of a WordPress site that can be viewed as a standalone html website? A colleague has some beautiful sites that she'd like to take down yet preserve for offline viewing independent of WordPress. Short of printing all the materials out, it doesn't seem possible. Years ago, I used the free version of WinHTTrack website copier to create static copies of MovableType blogs. That solution worked great then but not so on WordPress multisite. Even when the sites are made public. Couldn't find any plugins that do this successfully either.  Thanks for any suggestions.
+
+Best,
+Ben
+
+Ben Harwood
+Academic Technologies
+Skidmore College
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130829/a5027e95/attachment.html>
+
+From gsemb at np-education.ca  Fri Aug 30 12:00:10 2013
+From: gsemb at np-education.ca (gsemb at np-education.ca)
+Date: Fri, 30 Aug 2013 08:00:10 -0400 (EDT)
+Subject: [wp-edu] wp-edu Digest, Vol 46, Issue 12
+Message-ID: <20130830120010.AB99D21800A@cert.np-education.ca>
+
+Your message has been delivered. However, please note that I am currently out of the office. 
+
+I will respond to your e-mail upon my return on Tuesday, September 3rd, 2013.
+
+For any request related to the PHCNP Program, please contact Rita McCann at rmccann at cou.on.ca
+
+For technical support please contact Claude Morin ? cmorin at np-education.ca.
+

@@ -1,0 +1,230 @@
+From aero.maxx.d at gmail.com  Tue Aug  1 07:57:36 2017
+From: aero.maxx.d at gmail.com (Aero Maxx D)
+Date: Tue, 1 Aug 2017 08:57:36 +0100
+Subject: [wp-hackers] Plugin translations
+Message-ID: <642BF965-7344-4ACE-A39F-5B609232E177@gmail.com>
+
+Hi Everyone,
+
+How do plugin translations and translate.wordpress.org work?
+
+Should I be doing what I have been doing and including the .po and .mo files with my plugin or should I be expecting people to download them themselves from the translate.wordpress.org website?
+
+Also some translations are categorised as waiting and have been for over a year! Is there anything I can do to speed up the approval?
+
+Thanks,
+Daniel
+
+From jdg at codesymphony.co  Tue Aug  1 13:26:31 2017
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Tue, 1 Aug 2017 09:26:31 -0400
+Subject: [wp-hackers] Plugin translations
+In-Reply-To: <642BF965-7344-4ACE-A39F-5B609232E177@gmail.com>
+References: <642BF965-7344-4ACE-A39F-5B609232E177@gmail.com>
+Message-ID: <3DA84BB4-3C14-4F03-B098-46773AB5D0B9@codesymphony.co>
+
+Hi Daniel,
+
+Once a translation is available through translate.wordpress.org <http://translate.wordpress.org/>, you no longer need to bundle it in your plugin. 
+
+People do not have to download the translations manually, WordPress core actually detects and installs translations automatically.
+
+Translations have to be approved by a translation editor, I think. You can request for the polyglots team to make some of your translators editors, if you trust their translation ability. See https://make.wordpress.org/plugins/2015/12/06/plugin-translations-for-all-plugins/ <https://make.wordpress.org/plugins/2015/12/06/plugin-translations-for-all-plugins/>
+
+-J.D.
+
+> On Aug 1, 2017, at 3:57 AM, Aero Maxx D <aero.maxx.d at gmail.com> wrote:
+> 
+> Hi Everyone,
+> 
+> How do plugin translations and translate.wordpress.org work?
+> 
+> Should I be doing what I have been doing and including the .po and .mo files with my plugin or should I be expecting people to download them themselves from the translate.wordpress.org website?
+> 
+> Also some translations are categorised as waiting and have been for over a year! Is there anything I can do to speed up the approval?
+> 
+> Thanks,
+> Daniel
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From markandrewslade at gmail.com  Thu Aug 10 15:20:49 2017
+From: markandrewslade at gmail.com (Mark Slade)
+Date: Thu, 10 Aug 2017 11:20:49 -0400
+Subject: [wp-hackers] Setting the wp_users.deleted flag
+Message-ID: <CAPdxqKmyBFNcbVQZvvO7NKToFEhTXe1Jsj=ZdhL4e_wvsuA44w@mail.gmail.com>
+
+I'm trying to understand how the wp_users.deleted column is used by core.
+It looks like it only exists for multisite installs, but wpmu_delete_user()
+doesn't use it (it will delete the row and associated metadata).
+get_user_by() doesn't take it into account, either. If I turn that flag on
+for a user, their row gets highlighted in the Network > Users table, but I
+don't see a way to get that state without updating the DB by hand.
+
+This is mostly just curiosity as I couldn't find any documentation on it
+other than that it exists.
+
+From jj5 at jj5.net  Tue Aug 29 13:36:24 2017
+From: jj5 at jj5.net (John Elliot V)
+Date: Tue, 29 Aug 2017 23:36:24 +1000
+Subject: [wp-hackers] Thoughts for handy features
+Message-ID: <bc8bfbea-5b20-c2f6-0194-c3a8c3596511@jj5.net>
+
+Hey there.
+
+I love MediaWiki and have been using it everywhere for years. Recently
+I've been doing some rather major documentation and I realised there
+were two features which would be really handy for me (if these or
+similar already exist I would love to know!):
+
+1. For links to articles in sections on the same page it would be really
+handy if we had syntax like: [[#unity|]] which would auto-complete to
+[[#unity|unity]] for you.
+
+2. For duplicated content it would be handy if you could define a bunch
+of "variables" down the bottom of a page and then reference them from
+elsewhere. I am aware of templates, but those are overkill and difficult
+to maintain per my use case (my use case is documenting the "purpose" of
+a computer, I duplicate this in various places, but don't want to
+maintain templates for that).
+
+Since I'm here, quick thanks to the MediaWiki community for creating
+such wonderful wiki software!
+
+Regards,
+John Elliot V
+-- 
+E: jj5 at jj5.net
+P: +61 4 3505 7839
+W: https://www.jj5.net/
+
+From jdg at codesymphony.co  Tue Aug 29 13:52:18 2017
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Tue, 29 Aug 2017 09:52:18 -0400
+Subject: [wp-hackers] Thoughts for handy features
+In-Reply-To: <bc8bfbea-5b20-c2f6-0194-c3a8c3596511@jj5.net>
+References: <bc8bfbea-5b20-c2f6-0194-c3a8c3596511@jj5.net>
+Message-ID: <017E59F0-B7F9-4EDB-B2A9-BC7F799AA643@codesymphony.co>
+
+Hi John,
+
+This list is actually for WordPress developers, but we do use MediawWiki for the docs on the WP Codex, so that's probably where things got confusing. :-) These sound like good ideas though, and things that would have been useful in our own docs, which I've contributed to quite a bit.
+
+I'm not familiar with the MediaWiki mailing lists (if there are any), so I'm afraid I don't know where to direct you from here. Good luck on getting in touch with them though, and hopefully they'll use your suggestions.
+
+-J.D.
+
+> On Aug 29, 2017, at 9:36 AM, John Elliot V <jj5 at jj5.net> wrote:
+> 
+> Hey there.
+> 
+> I love MediaWiki and have been using it everywhere for years. Recently
+> I've been doing some rather major documentation and I realised there
+> were two features which would be really handy for me (if these or
+> similar already exist I would love to know!):
+> 
+> 1. For links to articles in sections on the same page it would be really
+> handy if we had syntax like: [[#unity|]] which would auto-complete to
+> [[#unity|unity]] for you.
+> 
+> 2. For duplicated content it would be handy if you could define a bunch
+> of "variables" down the bottom of a page and then reference them from
+> elsewhere. I am aware of templates, but those are overkill and difficult
+> to maintain per my use case (my use case is documenting the "purpose" of
+> a computer, I duplicate this in various places, but don't want to
+> maintain templates for that).
+> 
+> Since I'm here, quick thanks to the MediaWiki community for creating
+> such wonderful wiki software!
+> 
+> Regards,
+> John Elliot V
+> -- 
+> E: jj5 at jj5.net
+> P: +61 4 3505 7839
+> W: https://www.jj5.net/
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jj5 at jj5.net  Tue Aug 29 14:07:14 2017
+From: jj5 at jj5.net (John Elliot V)
+Date: Wed, 30 Aug 2017 00:07:14 +1000
+Subject: [wp-hackers] Thoughts for handy features
+In-Reply-To: <017E59F0-B7F9-4EDB-B2A9-BC7F799AA643@codesymphony.co>
+References: <bc8bfbea-5b20-c2f6-0194-c3a8c3596511@jj5.net>
+ <017E59F0-B7F9-4EDB-B2A9-BC7F799AA643@codesymphony.co>
+Message-ID: <9e537b12-a51f-63e0-9d61-2e6a47028a15@jj5.net>
+
+Heya J.D.
+
+Oh my! Imagine making that mistake! :)
+
+Thanks, I'll see if I can track down the right list for my suggestions...
+
+And, well, since I'm here, I've been using WordPress for years too, so
+thanks to the WordPress community for creating such wonderful blogging
+software! :)
+
+Regards,
+John Elliot V
+
+On 29/08/17 23:52, J.D. Grimes wrote:
+> Hi John,
+> 
+> This list is actually for WordPress developers, but we do use MediawWiki for the docs on the WP Codex, so that's probably where things got confusing. :-) These sound like good ideas though, and things that would have been useful in our own docs, which I've contributed to quite a bit.
+> 
+> I'm not familiar with the MediaWiki mailing lists (if there are any), so I'm afraid I don't know where to direct you from here. Good luck on getting in touch with them though, and hopefully they'll use your suggestions.
+> 
+> -J.D.
+> 
+>> On Aug 29, 2017, at 9:36 AM, John Elliot V <jj5 at jj5.net> wrote:
+>>
+>> Hey there.
+>>
+>> I love MediaWiki and have been using it everywhere for years. Recently
+>> I've been doing some rather major documentation and I realised there
+>> were two features which would be really handy for me (if these or
+>> similar already exist I would love to know!):
+>>
+>> 1. For links to articles in sections on the same page it would be really
+>> handy if we had syntax like: [[#unity|]] which would auto-complete to
+>> [[#unity|unity]] for you.
+>>
+>> 2. For duplicated content it would be handy if you could define a bunch
+>> of "variables" down the bottom of a page and then reference them from
+>> elsewhere. I am aware of templates, but those are overkill and difficult
+>> to maintain per my use case (my use case is documenting the "purpose" of
+>> a computer, I duplicate this in various places, but don't want to
+>> maintain templates for that).
+>>
+>> Since I'm here, quick thanks to the MediaWiki community for creating
+>> such wonderful wiki software!
+>>
+>> Regards,
+>> John Elliot V
+>> -- 
+>> E: jj5 at jj5.net
+>> P: +61 4 3505 7839
+>> W: https://www.jj5.net/
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+
+-- 
+E: jj5 at jj5.net
+P: +61 4 3505 7839
+W: https://www.jj5.net/
+

@@ -1,0 +1,107 @@
+From lukebryan at sharefaith.com  Wed Aug  5 06:19:18 2015
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Tue, 4 Aug 2015 23:19:18 -0700
+Subject: [wp-hackers] TinyMCE 4.2 with Image-edit
+Message-ID: <CAFnKAk31YkKctSHP4Cc2-pjkAqqqOCGjzdCq-PmGiH-+rsBuzg@mail.gmail.com>
+
+Greetings,
+
+I see there are a good number of changes in Wordpress 4.3, and one seems
+particularly interesting - The latest new version of TinyMCE installed now
+has its own image editor:
+http://blog.tinymce.com/2015/06/25/tinymce-4-2-with-image-tools/
+
+I'm curious what the long-term plan is for this, since there has been a
+basic image editor in Wordpress for media items for some time. Do you think
+it could be replaced with MCE's eventually? Or will MCE's editor be
+ignored/removed in 4.3 or another soon release?
+
+Best regards,
+Luke
+
+From security at dxw.com  Wed Aug 12 13:48:01 2015
+From: security at dxw.com (dxw Security)
+Date: Wed, 12 Aug 2015 13:48:01 +0000
+Subject: [wp-hackers] The OAuth2 Complete plugin for WordPress uses a
+	pseudorandom number generator which is non-cryptographically
+	secure (WordPress plugin)
+Message-ID: <fb36f9943f674f3981e163021d03cd8c@security.dxw.com>
+
+Details
+================
+Software: OAuth2 Complete For WordPress
+Version: 3.1.3
+Homepage: http://wordpress.org/plugins/oauth2-provider/
+Advisory report: https://security.dxw.com/advisories/the-oauth2-complete-plugin-for-wordpress-uses-a-pseudorandom-number-generator-which-is-non-cryptographically-secure/
+CVE: Awaiting assignment
+CVSS: 10 (High; AV:N/AC:L/Au:N/C:C/I:C/A:C)
+
+Description
+================
+The OAuth2 Complete plugin for WordPress uses a pseudorandom number generator which is non-cryptographically secure
+
+Vulnerability
+================
+The following refer to the generateAccessToken() function in library/OAuth2/ResponseType/AccessToken.php, and?the?generateAuthorizationCode() function in library/OAuth2/ResponseType/AuthorizationCode.php.
+
+These functions attempt to generate secure auth tokens, but do not use the WordPress random number generator. Instead they use a series of fallback calculations depending on which PHP version is being used. Some?of these calculations?are not crypographically secure:
+The first is mcrypt_create_iv(100, MCRYPT_DEV_URANDOM). MCRYPT_DEV_URANDOM is expected to change to a different random value whenever it is called, but on Windows, on older versions of php it is known to be a constant value
+if no other functions (e.g. /dev/urandom) are?available then the access token is generated solely using mt_rand(), microtime(), and uniqid().
+mt_rand() (Mersenne twister) is not a cryptographically secure pseudorandom number generator.
+According to the documentation mt_rand() is also biassed towards even return values in some circumstances.
+According to the documentation uniqid() is as secure a PRNG as microtime().
+
+
+Proof of concept
+================
+See the documentation:
+http://www.php.net/manual/en/function.uniqid.php
+http://www.php.net/manual/en/function.mt-rand.php
+
+Mitigations
+================
+Upgrade to version 3.1.5 or later.
+If this is not possible then ensure that you are using a recent version of php (at least 5.3), or?disable the plugin.
+
+Disclosure policy
+================
+dxw believes in responsible disclosure. Your attention is drawn to our disclosure policy: https://security.dxw.com/disclosure/
+
+Please contact us on security at dxw.com to acknowledge this report if you received it via a third party (for example, plugins at wordpress.org) as they generally cannot communicate with us on your behalf.
+
+This vulnerability will be published if we do not receive a response to this report with 14 days.
+
+Timeline
+================
+
+2014-04-16: Discovered
+2015-07-21: Reported to vendor by email
+2015-07-21: Requested CVE
+2015-08-10: Vendor responded
+2015-08-11: Vendor confirmed fixed in version?3.1.5
+2015-08-12:?Published
+
+
+
+Discovered by dxw:
+================
+Tom Adams
+Please visit security.dxw.com for more information.
+          
+
+
+From chrismccoy at cogeco.ca  Sun Aug 23 15:44:23 2015
+From: chrismccoy at cogeco.ca (Chris McCoy)
+Date: Sun, 23 Aug 2015 11:44:23 -0400
+Subject: [wp-hackers] fetch_feed and feed include
+Message-ID: <37107D5B-95BA-4EF0-88AB-13FFA07949C7@cogeco.ca>
+
+is the include_once( ABSPATH . WPINC . '/feed.php' ); 
+
+needed when using fetch_feed inside a plugin?
+
+i see its loaded in wp-settings.php, on the codex page in the example it shows the include, curious if i need it.
+
+
+
+

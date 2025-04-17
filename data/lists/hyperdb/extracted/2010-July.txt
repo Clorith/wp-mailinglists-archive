@@ -1,0 +1,83 @@
+From astina at landofshadow.net  Sun Jul 25 01:26:07 2010
+From: astina at landofshadow.net (astina at landofshadow.net)
+Date: Sat, 24 Jul 2010 20:26:07 -0500
+Subject: [HyperDB] Two Database Configuration
+Message-ID: <20100724202607.12566u9e691nepc8@www.landofshadow.net>
+
+I seem to have gotten things connected to allow the site to 'work'.   
+However, I'm trying to use the HyperDB functionality to connect to a  
+second database on the same server with the intent of pulling data for  
+a plug-in from it.
+
+$wpdb->add_database(array(
+         'host'     => 'localhost',
+         'user'     => 'username',
+         'password' => 'password',
+         'name'     => 'wp_database',
+));
+$wpdb->add_database(array(
+         'host'     => 'localhost',
+         'user'     => 'username',
+         'password' => 'password',
+         'name'     => 'plugin_database',
+         'dataset'  => 'plugin_dataset',
+));
+
+Whenever I try to do:
+
+$myrows = $wpdb->get_results( "SELECT * FROM account" );
+
+Account is a table in the plugin_database.  I get the following error:
+
+Fatal error: Call to a member function get_results() on a non-object  
+in  
+/srv/web/www.landofshadow.net/public_html/wp-content/plugins/eden/eden.php on  
+line 15
+
+Any tips as to how I actually configure or utilize this correctly?   
+Assistance with this would be "greatly" appreciated.
+
+Astina
+astina at landofshadow.net
+
+From skeltoac at gmail.com  Sun Jul 25 04:09:14 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Sat, 24 Jul 2010 23:09:14 -0500
+Subject: [HyperDB] Two Database Configuration
+In-Reply-To: <20100724202607.12566u9e691nepc8@www.landofshadow.net>
+References: <20100724202607.12566u9e691nepc8@www.landofshadow.net>
+Message-ID: <AANLkTimsnzQCUi7HFkN9Vm--g_4_azT4WpbYH+J9btE2@mail.gmail.com>
+
+> Fatal error: Call to a member function get_results() on a non-object in
+> /srv/web/www.landofshadow.net/public_html/wp-content/plugins/eden/eden.php
+> on line 15
+
+My guess: you forgot "global $wpdb;".
+
+Cheers,
+Andy
+
+From gkoen at corp.mail.com  Fri Jul 30 17:14:28 2010
+From: gkoen at corp.mail.com (Gabriel Koen)
+Date: Fri, 30 Jul 2010 10:14:28 -0700
+Subject: [HyperDB] is_write_query too strict
+Message-ID: <AANLkTi=DWgzSMdKsfXMFU0ds1c6_5yGGVfDpFAACMVVj@mail.gmail.com>
+
+Came across an issue where only the first query (autoload options) was being
+sent to the read slave(s). Turns out a couple plugins had the syntax 'SHOW
+TABLES LIKE...' which HyperDB thought was a read query, since it didn't
+match 'SELECT' as the first word. Made a quick fix for what I think are some
+common read statements to db.php:
+
+function is_write_query( $q ) {
+		$pattern = '/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)\s+/i';
+		return (preg_match($pattern, $q)) ? false : true;
+	}
+
+As you can see my regex-fu is weak, I spent a good 40 minutes trying to
+negatively match those words. Gave up, instead positively match them and
+then return true if there's *not* a match.
+
+
+Gabriel
+

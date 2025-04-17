@@ -1,0 +1,499 @@
+From m at mullenweg.com  Mon Jun  2 08:17:42 2008
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon Jun  2 08:48:47 2008
+Subject: [HyperDB] started playing
+In-Reply-To: <f2b95fa50805291115s3c2a1d2y6d70e6830154b59f@mail.gmail.com>
+References: <f2b95fa50805291115s3c2a1d2y6d70e6830154b59f@mail.gmail.com>
+Message-ID: <4843ACA6.6000400@mullenweg.com>
+
+Lee Newton wrote:
+> So I've started playing with the hyperdb class, but it looks at first pass
+> like the code available via svn is aimed at a db structure predating the
+> 2.3.3 (soon to be 2.5) I'm currently working with. Is there updated code
+> available or will it be up to the user to integrate the class to a specific
+> version of wp?
+
+It should be version agnostic - could you be a bit more specific about 
+what's 2.3-specific?
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://automattic.com
+
+From ari at filtrbox.com  Tue Jun 10 22:37:42 2008
+From: ari at filtrbox.com (Ari Newman)
+Date: Tue Jun 10 22:38:18 2008
+Subject: [HyperDB] setup help
+Message-ID: <CEFDC945-6D33-40F4-8CE1-B4929BE4FC46@filtrbox.com>
+
+Has there been any documentation written on how to setup HyperDB or  
+troubleshoot issues? I'm trying to get it going but am not a php dev  
+really.
+
+I added the contents of db-settings.php to my wp-config.php and  
+replaced wp-db.php in ~/wp-includes/ with the HyperDB db.php.
+
+getting this:
+
+Warning: array_key_exists() [function.array-key-exists]: The second  
+argument should be either an array or an object in /usr/local/filtrbox/ 
+apache2/htdocs/www/blog/wp-includes/wp-db.php on line 266
+
+Warning: mysql_affected_rows(): supplied argument is not a valid MySQL- 
+Link resource in /usr/local/filtrbox/apache2/htdocs/www/blog/wp- 
+includes/wp-db.php on line 429
+
+Fatal error: Call to undefined method wpdb::set_prefix() in /usr/local/ 
+filtrbox/apache2/htdocs/www/blog/wp-settings.php on line 211
+
+All I'm trying to do is use HyperDB to get WP to work in a master- 
+slave environment (both DB servers are local). I don't have multiple  
+locations. My assumption is that the problem is with the database  
+definition since we aren't not supposed to need to touch the db.php  
+file? Here's my string. (I have replaced my real username and passwords)
+
+add_db_server('global', 0, 'iad', 1, 0,  '10.101.242.23:3306',   
+'10.101.242.23:3306', 'fbox_blog', 'dbusername',        'dbpassword');
+
+any help would be great - this is time sensitive...
+
+-Ari
+
+
+From skeltoac at gmail.com  Wed Jun 11 04:02:29 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed Jun 11 04:02:40 2008
+Subject: [HyperDB] setup help
+In-Reply-To: <CEFDC945-6D33-40F4-8CE1-B4929BE4FC46@filtrbox.com>
+References: <CEFDC945-6D33-40F4-8CE1-B4929BE4FC46@filtrbox.com>
+Message-ID: <e6ec604d0806102102m75698940y582cb54f5553a760@mail.gmail.com>
+
+> Fatal error: Call to undefined method wpdb::set_prefix() in
+> /usr/local/filtrbox/apache2/htdocs/www/blog/wp-settings.php on line 211
+
+HyperDB is not compatible with your version of WordPress.
+
+I haven't tried it, but you might be able to make it work by copying
+the new vars and methods from WPDB into HyperDB.
+
+Andy
+From irockst4r at yahoo.com  Wed Jun 11 15:09:51 2008
+From: irockst4r at yahoo.com (Anthony Dobbs)
+Date: Wed Jun 11 15:10:06 2008
+Subject: [HyperDB] Questions regarding HyperDB
+Message-ID: <982743.78270.qm@web45815.mail.sp1.yahoo.com>
+
+I have not taken a good look at HyperDB yet, so I have just a few quick questions regarding it. 
+1) Would it be very difficult to implement HyperDB in a non-wordpress PHP application. Is it too tightly integrated into wordpress for a port?
+2) What advantages does HyperDB have over a custom solution that divides the database into 4096 smaller databases?
+3) Where can I find documentation regarding HyperDB?
+Thanks guys.
+
+
+      
+
+From ari at filtrbox.com  Wed Jun 11 20:11:16 2008
+From: ari at filtrbox.com (Ari Newman)
+Date: Wed Jun 11 20:11:29 2008
+Subject: [HyperDB] Re: setup help
+Message-ID: <F153F381-0596-45F6-8C94-B9CD4A893328@filtrbox.com>
+
+Thanks Andy,
+I had just upgraded that blog to 2.5.1. I can downgrade to 2.3.3 if  
+you think that would work (that's what we still have in production).
+
+Best,
+Ari
+
+--
+Ari Newman
+Founder and President
+ari@filtrbox.com
+303-945-3852 : phone
+arinewman : aim/skype
+
+
+
+From jeremy.visser at gmail.com  Wed Jun 11 21:28:26 2008
+From: jeremy.visser at gmail.com (Jeremy Visser)
+Date: Wed Jun 11 21:27:48 2008
+Subject: [HyperDB] Re: setup help
+In-Reply-To: <F153F381-0596-45F6-8C94-B9CD4A893328@filtrbox.com>
+References: <F153F381-0596-45F6-8C94-B9CD4A893328@filtrbox.com>
+Message-ID: <1213219706.6849.1.camel@rillian>
+
+On Wed, 2008-06-11 at 14:11 -0600, Ari Newman wrote:
+> I had just upgraded that blog to 2.5.1. I can downgrade to 2.3.3 if  
+> you think that would work (that's what we still have in production).
+
+What? HyperDB is not compatible with 2.5.1? How the heck does
+WordPress.com run on it?
+
+I guess it's not as open source as we thought it was.
+
+-- 
+Jeremy Visser                                 http://jeremy.visser.name/
+
+()                           ascii ribbon campaign ? against HTML e-mail
+/\                                               http://asciiribbon.org/
+
+From skeltoac at gmail.com  Mon Jun 16 17:45:13 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Mon Jun 16 17:45:24 2008
+Subject: [HyperDB] HyperDB compatibility
+Message-ID: <e6ec604d0806161045va2d5a78y395efb6da7849bdb@mail.gmail.com>
+
+I just updated HyperDB for compatibility with WordPress trunk at
+revision 8094. No other compatibility is implied.
+
+http://svn.wp-plugins.org/hyperdb/trunk/
+
+db.php:
+Put it in wp-content. It will function the same as core WPDB, using
+the DB definitions in wp-config.php until you set up db-config.php.
+
+db-settings.php:
+Put it wherever wp-config.php lives and require it in wp-config.php
+after the prefix is assigned. Follow the directions to replace the
+default with your multi-db configuration.
+
+Cheers,
+Andy
+From Brian at b5media.com  Mon Jun 16 17:49:40 2008
+From: Brian at b5media.com (Brian Layman)
+Date: Mon Jun 16 17:50:07 2008
+Subject: [HyperDB] HyperDB compatibility
+In-Reply-To: <e6ec604d0806161045va2d5a78y395efb6da7849bdb@mail.gmail.com>
+References: <e6ec604d0806161045va2d5a78y395efb6da7849bdb@mail.gmail.com>
+Message-ID: <000301c8cfd9$5ec74670$1c55d350$@com>
+
+SWEET! Thanks Andy!
+
+______________________________________________
+Brian Layman
+b5media Inc.
+www.b5Media.com?/ www.TheCodeCave.com / www.rhettandlink.com/live
+Skype: BrianLayman
+Twitter: http://www.twitter.com/brianlayman
+
+-----Original Message-----
+From: hyperdb-bounces@lists.automattic.com
+[mailto:hyperdb-bounces@lists.automattic.com] On Behalf Of Andy Skelton
+Sent: Monday, June 16, 2008 1:45 PM
+To: hyperdb@lists.automattic.com
+Subject: [HyperDB] HyperDB compatibility
+
+I just updated HyperDB for compatibility with WordPress trunk at
+revision 8094. No other compatibility is implied.
+
+http://svn.wp-plugins.org/hyperdb/trunk/
+
+db.php:
+Put it in wp-content. It will function the same as core WPDB, using
+the DB definitions in wp-config.php until you set up db-config.php.
+
+db-settings.php:
+Put it wherever wp-config.php lives and require it in wp-config.php
+after the prefix is assigned. Follow the directions to replace the
+default with your multi-db configuration.
+
+Cheers,
+Andy
+_______________________________________________
+HyperDB mailing list
+HyperDB@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From cogilvie at plus.net  Wed Jun 25 12:18:50 2008
+From: cogilvie at plus.net (Colin Ogilvie)
+Date: Wed Jun 25 12:20:59 2008
+Subject: [HyperDB] HyperDB and strange characters
+Message-ID: <486237AA.1090901@plus.net>
+
+Hi All
+
+I've just been looking at using HyperDB on our Wordpress powered website 
+(http://community.plus.net/) and have run in to an interesting issue in 
+our testing environment.
+
+If I define WP_USE_MULTIPLE_DB as true, then I appear to get some 
+strange characters appearing in the Blog posts, but if i leave it set to 
+false, then these characters disappear. They appear (in Firefox) to be 
+white question marks in black diamonds.
+
+Any ideas as to why this would appear with HyperDB and not appear 
+without HyperDB?
+
+Thanks
+
+Colin
+
+-- 
+| Colin Ogilvie                                 Broadband Solutions for
+| Web Developer                                     Home and Business @
+| PlusNet PLC                                              www.plus.net
+| Registered Office: Internet House, 2 Tenter Street, Sheffield, S1 4BY
+| Registered in England no: 3279013
++ ------------ PlusNet - The smarter way to broadband ----------------+
+
+From skeltoac at gmail.com  Wed Jun 25 12:39:10 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed Jun 25 12:39:46 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <486237AA.1090901@plus.net>
+References: <486237AA.1090901@plus.net>
+Message-ID: <e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+
+On Wed, Jun 25, 2008 at 7:18 AM, Colin Ogilvie <cogilvie@plus.net> wrote:
+> If I define WP_USE_MULTIPLE_DB as true, then I appear to get some strange
+> characters appearing in the Blog posts, but if i leave it set to false, then
+> these characters disappear. They appear (in Firefox) to be white question
+> marks in black diamonds.
+>
+> Any ideas as to why this would appear with HyperDB and not appear without
+> HyperDB?
+
+Yes, my idea is that HyperDB isn't doing SET NAMES in multiple-db
+mode. I'm working on an update that includes a fix for this.
+
+Andy
+From cogilvie at plus.net  Wed Jun 25 12:56:55 2008
+From: cogilvie at plus.net (Colin Ogilvie)
+Date: Wed Jun 25 12:59:54 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+References: <486237AA.1090901@plus.net>
+	<e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+Message-ID: <48624097.2060506@plus.net>
+
+Andy Skelton wrote:
+> Yes, my idea is that HyperDB isn't doing SET NAMES in multiple-db
+> mode. I'm working on an update that includes a fix for this.
+>   
+Cool, cheers Andy.
+
+Although that was my initial thoughts too, I did try testing calling the 
+SET NAMES query, but it didn't seem to do much, but then I've just 
+realised that was me being a bit silly ($this->charset wasn't defined 
+becuase that's done after the MULTIPLE_DB bit :))
+
+However, just copying the code doesn't work, because $this->query tries 
+to connect to the database in mutliple mode.
+
+I've thought of just doing a straight "mysql_query" on it which may work?
+
+If you come up with a better way and want me to test it please drop me 
+an email (unfortunately, the platform I'm testing on is not available to 
+the internet at large).
+
+Cheers
+Colin
+
+-- 
+| Colin Ogilvie                                 Broadband Solutions for
+| Web Developer                                     Home and Business @
+| PlusNet PLC                                              www.plus.net
+| Registered Office: Internet House, 2 Tenter Street, Sheffield, S1 4BY
+| Registered in England no: 3279013
++ ------------ PlusNet - The smarter way to broadband ----------------+
+
+From skeltoac at gmail.com  Wed Jun 25 13:05:16 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed Jun 25 13:06:10 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <48624097.2060506@plus.net>
+References: <486237AA.1090901@plus.net>
+	<e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+	<48624097.2060506@plus.net>
+Message-ID: <e6ec604d0806250605x56e6f67jf72c96e710a741ae@mail.gmail.com>
+
+On Wed, Jun 25, 2008 at 7:56 AM, Colin Ogilvie <cogilvie@plus.net> wrote:
+> I've thought of just doing a straight "mysql_query" on it which may work?
+
+My solution is to do mysql_query( SET NAMES... ) immediately after
+successful mysql_connect in the db_connect method. Try that and let me
+know whether it works for you.
+
+Andy
+From cogilvie at plus.net  Wed Jun 25 13:31:50 2008
+From: cogilvie at plus.net (Colin Ogilvie)
+Date: Wed Jun 25 13:33:59 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <e6ec604d0806250605x56e6f67jf72c96e710a741ae@mail.gmail.com>
+References: <486237AA.1090901@plus.net>
+	<e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+	<48624097.2060506@plus.net>
+	<e6ec604d0806250605x56e6f67jf72c96e710a741ae@mail.gmail.com>
+Message-ID: <486248C6.40303@plus.net>
+
+Andy Skelton wrote:
+> My solution is to do mysql_query( SET NAMES... ) immediately after
+> successful mysql_connect in the db_connect method. Try that and let me
+> know whether it works for you.
+
+Yep, that seems to have worked for me.
+
+I've attached the patch I used to this email (it also includes another 
+change to the query log just to include the hostname too :))
+
+Colin
+
+-- 
+| Colin Ogilvie                                 Broadband Solutions for
+| Web Developer                                     Home and Business @
+| PlusNet PLC                                              www.plus.net
+| Registered Office: Internet House, 2 Tenter Street, Sheffield, S1 4BY
+| Registered in England no: 3279013
++ ------------ PlusNet - The smarter way to broadband ----------------+
+
+-------------- next part --------------
+Index: db.php
+===================================================================
+--- db.php	(revision 51737)
++++ db.php	(working copy)
+@@ -57,14 +57,9 @@
+ 
+ 	function __construct($dbuser, $dbpassword, $dbname, $dbhost) {
+ 		register_shutdown_function(array(&$this, "__destruct"));
+-
+ 		if ( defined('WP_DEBUG') and WP_DEBUG == true )
+ 			$this->show_errors();
+ 
+-		if( defined( "WP_USE_MULTIPLE_DB" ) && CONSTANT( "WP_USE_MULTIPLE_DB" ) == true ) {
+-			$this->multiple_db = true;
+-			return true;
+-		}
+ 
+ 		if ( defined('DB_CHARSET') )
+ 			$this->charset = DB_CHARSET;
+@@ -72,6 +67,11 @@
+ 		if ( defined('DB_COLLATE') )
+ 			$this->collate = DB_COLLATE;
+ 
++		if( defined( "WP_USE_MULTIPLE_DB" ) && CONSTANT( "WP_USE_MULTIPLE_DB" ) == true ) {
++			$this->multiple_db = true;
++			return true;
++		}
++
+ 		$this->dbh = @mysql_connect($dbhost, $dbuser, $dbpassword);
+ 		if (!$this->dbh) {
+ 			$this->print_error( "Can't connect " . $dbhost );
+@@ -473,11 +473,11 @@
+ 			} else {
+ 				$this->$dbhname = false;
+ 			}
+-
+ 			$this->connections[] = "{$server['user']}@$host";
+ 
+ 			if ( $this->$dbhname && is_resource($this->$dbhname) )  {
+ 				$current_connection .= " connected to $host in " . number_format( ( $this->timer_stop() * 1000 ), 2) . 'ms';
++				@mysql_query("SET NAMES '$this->charset'", $this->$dbhname);
+ 				$this->connection_array[] = array( $host, number_format( ( $this->timer_stop() ), 7) );
+ 				$this->current_host = $host;
+ 				$this->open_connections[] = $dbhname;
+@@ -580,7 +580,7 @@
+ 		++$this->num_queries;
+ 
+ 		if (SAVEQUERIES)
+-			$this->queries[] = array( $query, $this->timer_stop(), $this->get_caller() );
++			$this->queries[] = array( $query, $this->timer_stop(), $this->get_caller(), $this->current_host );
+ 
+ 		// If there is an error then take note of it
+ 		if ( $this->last_error = mysql_error($this->dbh) ) {
+@@ -921,4 +921,4 @@
+ 
+ if ( ! isset($wpdb) )
+ 	$wpdb = new wpdb(DB_USER, DB_PASSWORD, DB_NAME, DB_HOST);
+-?>
+\ No newline at end of file
++?>
+From skeltoac at gmail.com  Wed Jun 25 13:36:45 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed Jun 25 13:36:55 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <486248C6.40303@plus.net>
+References: <486237AA.1090901@plus.net>
+	<e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+	<48624097.2060506@plus.net>
+	<e6ec604d0806250605x56e6f67jf72c96e710a741ae@mail.gmail.com>
+	<486248C6.40303@plus.net>
+Message-ID: <e6ec604d0806250636k7711cdfaq49d595c4ce8c4125@mail.gmail.com>
+
+On Wed, Jun 25, 2008 at 8:31 AM, Colin Ogilvie <cogilvie@plus.net> wrote:
+> Yep, that seems to have worked for me.
+
+Great, thanks for testing that.
+
+Andy
+From cogilvie at plus.net  Thu Jun 26 12:30:41 2008
+From: cogilvie at plus.net (Colin Ogilvie)
+Date: Thu Jun 26 12:32:52 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <e6ec604d0806250636k7711cdfaq49d595c4ce8c4125@mail.gmail.com>
+References: <486237AA.1090901@plus.net>
+	<e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+	<48624097.2060506@plus.net>
+	<e6ec604d0806250605x56e6f67jf72c96e710a741ae@mail.gmail.com>
+	<486248C6.40303@plus.net>
+	<e6ec604d0806250636k7711cdfaq49d595c4ce8c4125@mail.gmail.com>
+Message-ID: <48638BF1.2010001@plus.net>
+
+Andy Skelton wrote:
+> Great, thanks for testing that.
+>   
+Any ideas when it might make it in to the SVN repository?
+
+Colin
+
+-- 
+| Colin Ogilvie                                 Broadband Solutions for
+| Web Developer                                     Home and Business @
+| PlusNet PLC                                              www.plus.net
+| Registered Office: Internet House, 2 Tenter Street, Sheffield, S1 4BY
+| Registered in England no: 3279013
++ ------------ PlusNet - The smarter way to broadband ----------------+
+
+From skeltoac at gmail.com  Thu Jun 26 17:39:06 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Jun 26 18:03:45 2008
+Subject: [HyperDB] HyperDB and strange characters
+In-Reply-To: <48638BF1.2010001@plus.net>
+References: <486237AA.1090901@plus.net>
+	<e6ec604d0806250539ocd38357h60c2ab833f871e76@mail.gmail.com>
+	<48624097.2060506@plus.net>
+	<e6ec604d0806250605x56e6f67jf72c96e710a741ae@mail.gmail.com>
+	<486248C6.40303@plus.net>
+	<e6ec604d0806250636k7711cdfaq49d595c4ce8c4125@mail.gmail.com>
+	<48638BF1.2010001@plus.net>
+Message-ID: <e6ec604d0806261039i2cc80234gcf01025237ee76a@mail.gmail.com>
+
+On Thu, Jun 26, 2008 at 7:30 AM, Colin Ogilvie <cogilvie@plus.net> wrote:
+> Any ideas when it might make it in to the SVN repository?
+
+Just did.
+
+Andy
+From skeltoac at gmail.com  Thu Jun 26 17:56:50 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Jun 26 18:19:53 2008
+Subject: [HyperDB] Big update in SVN
+Message-ID: <e6ec604d0806261056h28673b77m116875e303d4ff58@mail.gmail.com>
+
+I just committed a major update. HyperDB now works with WP trunk by
+default, and it works with WPMU trunk with only a minor config change.
+The installation directions have been updated.
+
+The common stuff is abstracted into a class named "db". The "wpdb"
+class extends the "db" class, adding the appropriate methods for WP or
+WPMU. This was done because of differences in the way WPMU prefixes
+table names.
+
+There are still problems with the get_ds_part_from_table method using
+prefixes. If you use that feature, tread carefully.
+
+My tests were run on fresh trunk checkouts with a single database
+server. Advances features haven't been tested. As always, test this on
+a development platform before deploying to a production site. No
+warranty, remember? :-)
+
+Andy

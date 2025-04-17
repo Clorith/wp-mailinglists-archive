@@ -1,0 +1,253 @@
+From davinian at mac.com  Sat Dec  3 12:40:14 2011
+From: davinian at mac.com (Dave Churchill)
+Date: Sat, 03 Dec 2011 12:40:14 +0000
+Subject: [wp-xmlrpc] Custom post types support in XML-RPC (ticket #16476)
+Message-ID: <0226A284-6A04-4B92-8FFF-2727C128BEBD@mac.com>
+
+Hi, I know 3.3 is hot topic at the moment, but just wondering if there was any news or thoughts on ticket #16476 - Custom post types support in XML-RPC?
+
+Or if anybody could point me in the right direct to add support, I believe it's possible with a plugin or via the themes functions file?
+
+Regards,
+David
+
+From n.prasath.002 at gmail.com  Sat Dec  3 12:56:46 2011
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sat, 3 Dec 2011 18:26:46 +0530
+Subject: [wp-xmlrpc] Custom post types support in XML-RPC (ticket #16476)
+In-Reply-To: <0226A284-6A04-4B92-8FFF-2727C128BEBD@mac.com>
+References: <0226A284-6A04-4B92-8FFF-2727C128BEBD@mac.com>
+Message-ID: <CAMnz2tYdGKpMyDb9YsYevXZs5XBi7=-HGVeyAKYq9Lg0LbSaYw@mail.gmail.com>
+
+Hi dave
+There is already a plugin that supports custom post types
+http://wordpress.org/extend/plugins/wp-webservices/
+
+Also i have added patches to the core
+http://core.trac.wordpress.org/ticket/1842<http://core.trac.wordpress.org/ticket/18429>
+9
+
+On Sat, Dec 3, 2011 at 6:10 PM, Dave Churchill <davinian at mac.com> wrote:
+
+> Hi, I know 3.3 is hot topic at the moment, but just wondering if there was
+> any news or thoughts on ticket #16476 - Custom post types support in
+> XML-RPC?
+>
+> Or if anybody could point me in the right direct to add support, I believe
+> it's possible with a plugin or via the themes functions file?
+>
+> Regards,
+> David
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20111203/135ac251/attachment.htm>
+
+From jalkut at red-sweater.com  Thu Dec 15 18:43:06 2011
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Thu, 15 Dec 2011 13:43:06 -0500
+Subject: [wp-xmlrpc] WordPress.com images can't be loaded for "Private" blogs
+Message-ID: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+
+
+I think this only applies to WordPress.com blogs, which makes it a little tougher for me to thoroughly investigate and figure out what all the options are, but I wanted to raise the question here as I know this list has a readership that spans both the .org and .com developer communities.
+
+A WordPress.com customer observed an awkward behavior in MarsEdit when editing a post from a private blog: although MarsEdit is able to authenticate and download, via the XMLRPC API, the content of the post for editing, any referenced images fail to load because they are loaded outside the scope of the API, and because no "logged in" cookie is set when you connect via the API.
+
+I can imagine WordPress doesn't want to open up to the security risks of setting the LOGGED_IN_COOKIE on behalf of any authenticated XMLRPC request, but I want to raise a question about related content from posts, and how access to them might be opened up for API clients:
+
+Would it make sense to introduce a new cookie, like READ_ACCESS_COOKIE, or something, that gives a client the privilege to access content over HTTP as if they were logged in, but doesn't give any further credentials to e.g. manipulate the blog via wp-admin URLs? If any authenticated XMLRPC request issued a READ_ACCESS_COOKIE, then clients such as MarsEdit could perpetuate that cookie in any requests for referenced resources, such as images.
+
+Currently the ugly workaround from my end would be to simulate a web admin login (since the credentials are the same), to get a LOGGED_IN_COOKIE that I could use for the image requests. This is something I could do carefully to avoid any security compromise, but obviously it would be better to keep the user's blog as secure as possible by sticking to the appropriate API.
+
+Thanks for your consideration of this issue and how it might be best addressed on WordPress.com and possibly in future updates of the open source product.
+
+Daniel
+
+
+From joseph at josephscott.org  Thu Dec 15 20:46:01 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu, 15 Dec 2011 13:46:01 -0700
+Subject: [wp-xmlrpc] WordPress.com images can't be loaded for "Private"
+	blogs
+In-Reply-To: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+References: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+Message-ID: <CAE81+yaJMW0V5QhKxcca_okS3oQEZhOW9utbFkd8ydgXbGbGUg@mail.gmail.com>
+
+I think you could reproduce this using a WordPress.org install with
+network feature enabled.
+
+A read only cookie could be a reasonable option.  For a private site
+though, even read only access could be dangerous (exposing data they
+don't want exposed).  The weekly dev chat may be a good place to bring
+this up, see what the core devs think of it.
+
+On Thu, Dec 15, 2011 at 11:43 AM, Daniel Jalkut <jalkut at red-sweater.com> wrote:
+>
+> I think this only applies to WordPress.com blogs, which makes it a little tougher for me to thoroughly investigate and figure out what all the options are, but I wanted to raise the question here as I know this list has a readership that spans both the .org and .com developer communities.
+>
+> A WordPress.com customer observed an awkward behavior in MarsEdit when editing a post from a private blog: although MarsEdit is able to authenticate and download, via the XMLRPC API, the content of the post for editing, any referenced images fail to load because they are loaded outside the scope of the API, and because no "logged in" cookie is set when you connect via the API.
+>
+> I can imagine WordPress doesn't want to open up to the security risks of setting the LOGGED_IN_COOKIE on behalf of any authenticated XMLRPC request, but I want to raise a question about related content from posts, and how access to them might be opened up for API clients:
+>
+> Would it make sense to introduce a new cookie, like READ_ACCESS_COOKIE, or something, that gives a client the privilege to access content over HTTP as if they were logged in, but doesn't give any further credentials to e.g. manipulate the blog via wp-admin URLs? If any authenticated XMLRPC request issued a READ_ACCESS_COOKIE, then clients such as MarsEdit could perpetuate that cookie in any requests for referenced resources, such as images.
+>
+> Currently the ugly workaround from my end would be to simulate a web admin login (since the credentials are the same), to get a LOGGED_IN_COOKIE that I could use for the image requests. This is something I could do carefully to avoid any security compromise, but obviously it would be better to keep the user's blog as secure as possible by sticking to the appropriate API.
+>
+> Thanks for your consideration of this issue and how it might be best addressed on WordPress.com and possibly in future updates of the open source product.
+>
+> Daniel
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From ercoli at gmail.com  Fri Dec 16 09:14:01 2011
+From: ercoli at gmail.com (Danilo Ercoli)
+Date: Fri, 16 Dec 2011 10:14:01 +0100
+Subject: [wp-xmlrpc] WordPress.com images can't be loaded for "Private"
+	blogs
+In-Reply-To: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+References: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+Message-ID: <CAAXH4BomSQZo88Hozz0KE4EoQ4iWwynTsFXNDa3hP+4crw5AUg@mail.gmail.com>
+
+Hi Daniel,
+
+If the post is already published you can use the WordPress login form
+with the redirect_to parameter set to the permaLink of the post.
+WordPress for ( BlackBerry | iOS | webOS | Android ) already use this
+"workaround" to access the preview of private and draft posts.
+
+Danilo.
+
+2011/12/15 Daniel Jalkut <jalkut at red-sweater.com>:
+>
+> I think this only applies to WordPress.com blogs, which makes it a little tougher for me to thoroughly investigate and figure out what all the options are, but I wanted to raise the question here as I know this list has a readership that spans both the .org and .com developer communities.
+>
+> A WordPress.com customer observed an awkward behavior in MarsEdit when editing a post from a private blog: although MarsEdit is able to authenticate and download, via the XMLRPC API, the content of the post for editing, any referenced images fail to load because they are loaded outside the scope of the API, and because no "logged in" cookie is set when you connect via the API.
+>
+> I can imagine WordPress doesn't want to open up to the security risks of setting the LOGGED_IN_COOKIE on behalf of any authenticated XMLRPC request, but I want to raise a question about related content from posts, and how access to them might be opened up for API clients:
+>
+> Would it make sense to introduce a new cookie, like READ_ACCESS_COOKIE, or something, that gives a client the privilege to access content over HTTP as if they were logged in, but doesn't give any further credentials to e.g. manipulate the blog via wp-admin URLs? If any authenticated XMLRPC request issued a READ_ACCESS_COOKIE, then clients such as MarsEdit could perpetuate that cookie in any requests for referenced resources, such as images.
+>
+> Currently the ugly workaround from my end would be to simulate a web admin login (since the credentials are the same), to get a LOGGED_IN_COOKIE that I could use for the image requests. This is something I could do carefully to avoid any security compromise, but obviously it would be better to keep the user's blog as secure as possible by sticking to the appropriate API.
+>
+> Thanks for your consideration of this issue and how it might be best addressed on WordPress.com and possibly in future updates of the open source product.
+>
+> Daniel
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+
+-- 
+Danilo Ercoli
+http://about.me/daniloercoli
+Mobile +39 349-3126350
+Email: ercoli at gmail.com
+Skype: danilo.ercoli
+Twitter: daniloercoli
+------------------------------------
+
+From jalkut at red-sweater.com  Sun Dec 18 17:48:09 2011
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun, 18 Dec 2011 12:48:09 -0500
+Subject: [wp-xmlrpc] WordPress.com images can't be loaded for "Private"
+	blogs
+In-Reply-To: <CAAXH4BomSQZo88Hozz0KE4EoQ4iWwynTsFXNDa3hP+4crw5AUg@mail.gmail.com>
+References: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+	<CAAXH4BomSQZo88Hozz0KE4EoQ4iWwynTsFXNDa3hP+4crw5AUg@mail.gmail.com>
+Message-ID: <F8A29509-29B9-4A9E-A0E3-2E142547D3F7@red-sweater.com>
+
+Thanks, Danilo! Unfortunately this workaround still opens up access to the whole site though, right? I.e. there is no granularity to the cookie that you receive after logging in, even though you have specified a redirect link.
+
+It's good to know you are using this workaround in the official apps, because it will make a good point of reference for discussing the possibility of a more secure solution.
+
+Daniel
+
+On Dec 16, 2011, at 4:14 AM, Danilo Ercoli wrote:
+
+> Hi Daniel,
+> 
+> If the post is already published you can use the WordPress login form
+> with the redirect_to parameter set to the permaLink of the post.
+> WordPress for ( BlackBerry | iOS | webOS | Android ) already use this
+> "workaround" to access the preview of private and draft posts.
+> 
+> Danilo.
+> 
+> 2011/12/15 Daniel Jalkut <jalkut at red-sweater.com>:
+>> 
+>> I think this only applies to WordPress.com blogs, which makes it a little tougher for me to thoroughly investigate and figure out what all the options are, but I wanted to raise the question here as I know this list has a readership that spans both the .org and .com developer communities.
+>> 
+>> A WordPress.com customer observed an awkward behavior in MarsEdit when editing a post from a private blog: although MarsEdit is able to authenticate and download, via the XMLRPC API, the content of the post for editing, any referenced images fail to load because they are loaded outside the scope of the API, and because no "logged in" cookie is set when you connect via the API.
+>> 
+>> I can imagine WordPress doesn't want to open up to the security risks of setting the LOGGED_IN_COOKIE on behalf of any authenticated XMLRPC request, but I want to raise a question about related content from posts, and how access to them might be opened up for API clients:
+>> 
+>> Would it make sense to introduce a new cookie, like READ_ACCESS_COOKIE, or something, that gives a client the privilege to access content over HTTP as if they were logged in, but doesn't give any further credentials to e.g. manipulate the blog via wp-admin URLs? If any authenticated XMLRPC request issued a READ_ACCESS_COOKIE, then clients such as MarsEdit could perpetuate that cookie in any requests for referenced resources, such as images.
+>> 
+>> Currently the ugly workaround from my end would be to simulate a web admin login (since the credentials are the same), to get a LOGGED_IN_COOKIE that I could use for the image requests. This is something I could do carefully to avoid any security compromise, but obviously it would be better to keep the user's blog as secure as possible by sticking to the appropriate API.
+>> 
+>> Thanks for your consideration of this issue and how it might be best addressed on WordPress.com and possibly in future updates of the open source product.
+>> 
+>> Daniel
+>> 
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> 
+> 
+> 
+> -- 
+> Danilo Ercoli
+> http://about.me/daniloercoli
+> Mobile +39 349-3126350
+> Email: ercoli at gmail.com
+> Skype: danilo.ercoli
+> Twitter: daniloercoli
+> ------------------------------------
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From ercoli at gmail.com  Wed Dec 21 22:54:44 2011
+From: ercoli at gmail.com (Danilo Ercoli)
+Date: Wed, 21 Dec 2011 23:54:44 +0100
+Subject: [wp-xmlrpc] WordPress.com images can't be loaded for "Private"
+	blogs
+In-Reply-To: <F8A29509-29B9-4A9E-A0E3-2E142547D3F7@red-sweater.com>
+References: <D95E1B5A-74C1-4305-88BD-FB7CB37219EF@red-sweater.com>
+	<CAAXH4BomSQZo88Hozz0KE4EoQ4iWwynTsFXNDa3hP+4crw5AUg@mail.gmail.com>
+	<F8A29509-29B9-4A9E-A0E3-2E142547D3F7@red-sweater.com>
+Message-ID: <CAAXH4BpWuDB9tZHZoOWywyFV9xrgFXP9ZKDE_u4bONpf0ne9PQ@mail.gmail.com>
+
+2011/12/18 Daniel Jalkut <jalkut at red-sweater.com>:
+> Thanks, Danilo! Unfortunately this workaround still opens up access to the whole site though, right? I.e. there is no granularity to the cookie that you receive after logging in, even though you have specified a redirect link.
+>
+
+The app should loads the content from the site/blog by using the same
+credentials of the XML-RPC calls, so you can access only your
+posts/pages, but yes all of your posts/pages. Note that you can load
+all images/video/files on the blog.
+
+Regards,
+Danilo.
+

@@ -1,0 +1,1755 @@
+From melvin at bard.edu  Mon Sep  9 22:18:03 2013
+From: melvin at bard.edu (Leslie Melvin)
+Date: Mon, 9 Sep 2013 18:18:03 -0400
+Subject: [wp-edu] WP - security concerns?
+In-Reply-To: <mailman.1.1377864002.6922.wp-edu@lists.automattic.com>
+References: <mailman.1.1377864002.6922.wp-edu@lists.automattic.com>
+Message-ID: <58EFA6C7-93F1-4900-91F5-A70FD77E7E5A@bard.edu>
+
+Hi Folks,
+
+We have been hosting WP Multisite (for course blogs and as a blog supplement to our program websites) for a few years, with mixed results. Our community (users) love the flexibility of WP, but it has proven to be an unexpected support burden for IT...it seems that all of our website/network hacks have been introduced via WP. 
+
+I haven't seen the topic addressed by this group, so it appears our experience is isolated, which would lead me to suspect we are missing some simple safe-guards.  Have any of your institutions dealt with WP-related security issues?  Have you found any successful, secure configurations, and if so, would you be willing to share your experiences with us?  WP is proving to be such a valuable tool...
+
+If so, I will bring our Networks and Systems folks into the conversation, as they could answer specific questions related to our configuration and protocols.
+
+Many thanks in advance!
+
+Best,
+Leslie
+
+---
+Leslie A. Melvin  |  Manager, Academic Technology Services
+
+BARD COLLEGE
+PO Box 5000 | 204 Old Henderson | 
+Annandale-on-Hudson, NY 12504
+office: 845.758.7496 | http://www.bard.edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130909/33b07ca8/attachment.html>
+
+From dennen at gmail.com  Mon Sep  9 22:21:56 2013
+From: dennen at gmail.com (Bill Dennen)
+Date: Mon, 09 Sep 2013 15:21:56 -0700 (PDT)
+Subject: [wp-edu] WP - security concerns?
+In-Reply-To: <58EFA6C7-93F1-4900-91F5-A70FD77E7E5A@bard.edu>
+References: <58EFA6C7-93F1-4900-91F5-A70FD77E7E5A@bard.edu>
+Message-ID: <1378765315640.5804e06d@Nodemailer>
+
+It would help to know more about the hacks you are seeing. Is it via plugins?
+
+    
+      
+
+
+    We put wp-admin behind a firewall. You have to be on campus or using VPN to log into WordPress. It's a pain at times, but keeps certain malicious people out.
+
+On Mon, Sep 9, 2013 at 6:18 PM, Leslie Melvin <melvin at bard.edu> wrote:
+
+> Hi Folks,
+> We have been hosting WP Multisite (for course blogs and as a blog supplement to our program websites) for a few years, with mixed results. Our community (users) love the flexibility of WP, but it has proven to be an unexpected support burden for IT...it seems that all of our website/network hacks have been introduced via WP. 
+> I haven't seen the topic addressed by this group, so it appears our experience is isolated, which would lead me to suspect we are missing some simple safe-guards.  Have any of your institutions dealt with WP-related security issues?  Have you found any successful, secure configurations, and if so, would you be willing to share your experiences with us?  WP is proving to be such a valuable tool...
+> If so, I will bring our Networks and Systems folks into the conversation, as they could answer specific questions related to our configuration and protocols.
+> Many thanks in advance!
+> Best,
+> Leslie
+> ---
+> Leslie A. Melvin  |  Manager, Academic Technology Services
+> BARD COLLEGE
+> PO Box 5000 | 204 Old Henderson | 
+> Annandale-on-Hudson, NY 12504
+> office: 845.758.7496 | http://www.bard.edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130909/49ec8113/attachment.html>
+
+From Steve.Covello at granite.edu  Tue Sep 10 01:19:38 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Tue, 10 Sep 2013 01:19:38 +0000
+Subject: [wp-edu] WP - security concerns?
+In-Reply-To: <58EFA6C7-93F1-4900-91F5-A70FD77E7E5A@bard.edu>
+References: <mailman.1.1377864002.6922.wp-edu@lists.automattic.com>,
+ <58EFA6C7-93F1-4900-91F5-A70FD77E7E5A@bard.edu>
+Message-ID: <08EB1998F51F154CA9A49B60BBAEF5F2C6C78831@akers.ad.unh.edu>
+
+Geez - I have had ZERO infections via WordPress in 4 years.
+
+Plugins:
+
+Wordfence Security
+WP Firewall 2
+Secure WordPress
+WP Secure Scan
+WordPress HTTPS
+WP Ban
+
+Best Practice:
+
+NO accounts named "admin"
+htaccess file in wp-admin
+NO default table prefixes in wp-config, such as "wp_". Change it to "wp_xRwFG_" or whatever.
+original salt data in wp-config: https://api.wordpress.org/secret-key/1.1/salt/
+Secure high quality passwords
+Updated malware scans on user devices
+Gravity Forms used on all forms, with CAPTCHA
+SFTP on FTP accounts
+
+Occasionally check on Sucuri.net. If you want to be on top of it, subscribe to their scan service.
+
+There are other hardening plugins out there.
+
+- Steve
+
+
+
+________________________________
+From: wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of Leslie Melvin [melvin at bard.edu]
+Sent: Monday, September 09, 2013 6:18 PM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] WP - security concerns?
+
+Hi Folks,
+
+We have been hosting WP Multisite (for course blogs and as a blog supplement to our program websites) for a few years, with mixed results. Our community (users) love the flexibility of WP, but it has proven to be an unexpected support burden for IT...it seems that all of our website/network hacks have been introduced via WP.
+
+I haven't seen the topic addressed by this group, so it appears our experience is isolated, which would lead me to suspect we are missing some simple safe-guards.  Have any of your institutions dealt with WP-related security issues?  Have you found any successful, secure configurations, and if so, would you be willing to share your experiences with us?  WP is proving to be such a valuable tool...
+
+If so, I will bring our Networks and Systems folks into the conversation, as they could answer specific questions related to our configuration and protocols.
+
+Many thanks in advance!
+
+Best,
+Leslie
+
+---
+Leslie A. Melvin  |  Manager, Academic Technology Services
+
+BARD COLLEGE
+PO Box 5000 | 204 Old Henderson |
+Annandale-on-Hudson, NY 12504
+office: 845.758.7496 | http://www.bard.edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130910/6a8504ac/attachment-0001.html>
+
+From bbgoldkey at gmail.com  Tue Sep 10 11:03:47 2013
+From: bbgoldkey at gmail.com (Brianne Binelli)
+Date: Tue, 10 Sep 2013 06:03:47 -0500
+Subject: [wp-edu] WP - security concerns?
+In-Reply-To: <08EB1998F51F154CA9A49B60BBAEF5F2C6C78831@akers.ad.unh.edu>
+References: <mailman.1.1377864002.6922.wp-edu@lists.automattic.com>
+ <58EFA6C7-93F1-4900-91F5-A70FD77E7E5A@bard.edu>
+ <08EB1998F51F154CA9A49B60BBAEF5F2C6C78831@akers.ad.unh.edu>
+Message-ID: <CA+s3GNY_-uuv2WuEChDhTMK6c96d6jbr=AWnBrMoHeBRxen69A@mail.gmail.com>
+
+I receive a lot of security alerts on wp.  I do have a Admin user name to
+get into the dashboard do you think this may be causing the problem.  I
+thought you need to create a admin user name.
+
+thanks
+have a great day
+
+
+
+On Mon, Sep 9, 2013 at 8:19 PM, Covello, Steve <Steve.Covello at granite.edu>wrote:
+
+>  Geez - I have had ZERO infections via WordPress in 4 years.
+>
+>  Plugins:
+>
+>  Wordfence Security
+> WP Firewall 2
+> Secure WordPress
+> WP Secure Scan
+> WordPress HTTPS
+> WP Ban
+>
+>  Best Practice:
+>
+>  NO accounts named "admin"
+> htaccess file in wp-admin
+> NO default table prefixes in wp-config, such as "wp_". Change it to
+> "wp_xRwFG_" or whatever.
+> original salt data in wp-config:
+> https://api.wordpress.org/secret-key/1.1/salt/
+> Secure high quality passwords
+> Updated malware scans on user devices
+> Gravity Forms used on all forms, with CAPTCHA
+> SFTP on FTP accounts
+>
+>  Occasionally check on Sucuri.net. If you want to be on top of it,
+> subscribe to their scan service.
+>
+>  There are other hardening plugins out there.
+>
+>  - Steve
+>
+>
+>
+>  ------------------------------
+> *From:* wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of Leslie
+> Melvin [melvin at bard.edu]
+> *Sent:* Monday, September 09, 2013 6:18 PM
+> *To:* wp-edu at lists.automattic.com
+> *Subject:* [wp-edu] WP - security concerns?
+>
+>  Hi Folks,
+>
+>  We have been hosting WP Multisite (for course blogs and as a blog
+> supplement to our program websites) for a few years, with mixed results.
+> Our community (users) love the flexibility of WP, but it has proven to be
+> an unexpected support burden for IT...it seems that all of our
+> website/network hacks have been introduced via WP.
+>
+>  I haven't seen the topic addressed by this group, so it appears our
+> experience is isolated, which would lead me to suspect we are missing some
+> simple safe-guards.  Have any of your institutions dealt with WP-related
+> security issues?  Have you found any successful, secure configurations, and
+> if so, would you be willing to share your experiences with us?  WP is
+> proving to be such a valuable tool...
+>
+>  If so, I will bring our Networks and Systems folks into the
+> conversation, as they could answer specific questions related to our
+> configuration and protocols.
+>
+>  Many thanks in advance!
+>
+>  Best,
+> Leslie
+>
+>     *---*
+> *Leslie A. Melvin  |  Manager, Academic Technology Services
+>
+>  BARD COLLEGE
+> PO Box 5000 | 204 Old Henderson |
+> Annandale-on-Hudson, NY 12504
+> office: 845.758.7496 | http://www.bard.edu
+> *
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130910/9c502a45/attachment.html>
+
+From SkriloffN at darden.virginia.edu  Tue Sep 10 12:49:26 2013
+From: SkriloffN at darden.virginia.edu (Skriloff, Nicholas)
+Date: Tue, 10 Sep 2013 12:49:26 +0000
+Subject: [wp-edu] FW: wp-edu Digest, Vol 47, Issue 2
+In-Reply-To: <mailman.1.1378814401.3737.wp-edu@lists.automattic.com>
+Message-ID: <CE548C6E.4CDD%skriloffn@darden.virginia.edu>
+
+ Believe it or not, managing wordpress security, backups, the right
+plugins that do not clash AND  production, staging and dev environments
+can be a lot. 
+I am considering moving our stuff to wp-engine.com to turn this stuff over
+to them.  What should I consider?
+
+On 9/10/13 8:00 AM, "wp-edu-request at lists.automattic.com"
+<wp-edu-request at lists.automattic.com> wrote:
+
+>Send wp-edu mailing list submissions to
+>	wp-edu at lists.automattic.com
+>
+>To subscribe or unsubscribe via the World Wide Web, visit
+>	http://lists.automattic.com/mailman/listinfo/wp-edu
+>or, via email, send a message with subject or body 'help' to
+>	wp-edu-request at lists.automattic.com
+>
+>You can reach the person managing the list at
+>	wp-edu-owner at lists.automattic.com
+>
+>When replying, please edit your Subject line so it is more specific
+>than "Re: Contents of wp-edu digest..."
+>
+>
+>Today's Topics:
+>
+>   1. Re: WP - security concerns? (Brianne Binelli)
+>
+>
+>----------------------------------------------------------------------
+>
+>Message: 1
+>Date: Tue, 10 Sep 2013 06:03:47 -0500
+>From: Brianne Binelli <bbgoldkey at gmail.com>
+>To: "Low-traffic list discussing WordPress in education."
+>	<wp-edu at lists.automattic.com>
+>Subject: Re: [wp-edu] WP - security concerns?
+>Message-ID:
+>	<CA+s3GNY_-uuv2WuEChDhTMK6c96d6jbr=AWnBrMoHeBRxen69A at mail.gmail.com>
+>Content-Type: text/plain; charset="iso-8859-1"
+>
+>I receive a lot of security alerts on wp.  I do have a Admin user name to
+>get into the dashboard do you think this may be causing the problem.  I
+>thought you need to create a admin user name.
+>
+>thanks
+>have a great day
+>
+>
+>
+>On Mon, Sep 9, 2013 at 8:19 PM, Covello, Steve
+><Steve.Covello at granite.edu>wrote:
+>
+>>  Geez - I have had ZERO infections via WordPress in 4 years.
+>>
+>>  Plugins:
+>>
+>>  Wordfence Security
+>> WP Firewall 2
+>> Secure WordPress
+>> WP Secure Scan
+>> WordPress HTTPS
+>> WP Ban
+>>
+>>  Best Practice:
+>>
+>>  NO accounts named "admin"
+>> htaccess file in wp-admin
+>> NO default table prefixes in wp-config, such as "wp_". Change it to
+>> "wp_xRwFG_" or whatever.
+>> original salt data in wp-config:
+>> https://api.wordpress.org/secret-key/1.1/salt/
+>> Secure high quality passwords
+>> Updated malware scans on user devices
+>> Gravity Forms used on all forms, with CAPTCHA
+>> SFTP on FTP accounts
+>>
+>>  Occasionally check on Sucuri.net. If you want to be on top of it,
+>> subscribe to their scan service.
+>>
+>>  There are other hardening plugins out there.
+>>
+>>  - Steve
+>>
+>>
+>>
+>>  ------------------------------
+>> *From:* wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of Leslie
+>> Melvin [melvin at bard.edu]
+>> *Sent:* Monday, September 09, 2013 6:18 PM
+>> *To:* wp-edu at lists.automattic.com
+>> *Subject:* [wp-edu] WP - security concerns?
+>>
+>>  Hi Folks,
+>>
+>>  We have been hosting WP Multisite (for course blogs and as a blog
+>> supplement to our program websites) for a few years, with mixed results.
+>> Our community (users) love the flexibility of WP, but it has proven to
+>>be
+>> an unexpected support burden for IT...it seems that all of our
+>> website/network hacks have been introduced via WP.
+>>
+>>  I haven't seen the topic addressed by this group, so it appears our
+>> experience is isolated, which would lead me to suspect we are missing
+>>some
+>> simple safe-guards.  Have any of your institutions dealt with WP-related
+>> security issues?  Have you found any successful, secure configurations,
+>>and
+>> if so, would you be willing to share your experiences with us?  WP is
+>> proving to be such a valuable tool...
+>>
+>>  If so, I will bring our Networks and Systems folks into the
+>> conversation, as they could answer specific questions related to our
+>> configuration and protocols.
+>>
+>>  Many thanks in advance!
+>>
+>>  Best,
+>> Leslie
+>>
+>>     *---*
+>> *Leslie A. Melvin  |  Manager, Academic Technology Services
+>>
+>>  BARD COLLEGE
+>> PO Box 5000 | 204 Old Henderson |
+>> Annandale-on-Hudson, NY 12504
+>> office: 845.758.7496 | http://www.bard.edu
+>> *
+>>
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>>
+>-------------- next part --------------
+>An HTML attachment was scrubbed...
+>URL: 
+><http://lists.automattic.com/pipermail/wp-edu/attachments/20130910/9c502a4
+>5/attachment-0001.html>
+>
+>------------------------------
+>
+>Subject: Digest Footer
+>
+>_______________________________________________
+>wp-edu mailing list
+>wp-edu at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>------------------------------
+>
+>End of wp-edu Digest, Vol 47, Issue 2
+>*************************************
+>
+
+
+From Steve.Covello at granite.edu  Tue Sep 10 12:55:50 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Tue, 10 Sep 2013 12:55:50 +0000
+Subject: [wp-edu] WP - security concerns?
+In-Reply-To: <CA+s3GNY_-uuv2WuEChDhTMK6c96d6jbr=AWnBrMoHeBRxen69A@mail.gmail.com>
+Message-ID: <CE548D4B.18FDE%steve.covello@granite.edu>
+
+1 ? Security alerts are good thing. It means the hardening strategies are actually working. I get TONS of alerts from my firewall ? all of which report that the robotic efforts of hackers are being repelled. Security alerts do not mean WP is "bad" for security. Your domain will be hacked no matter which platform you use, or even if you use plain HTML. There are certain vulnerabilities in WP that hackers know about, but these are accounted for in the hardening plugins I mentioned.
+
+2 ? You do not need a username named "admin". It happens to be the default username WP gives on install, but NEVER use it. Any user can be given Administrator privileges. This is how you solve your problem (assuming you are "admin"):
+
+  *   In your "admin"user acct, change the email address to something different (doesn't matter ? it's going to be deleted)
+  *   Create a new user with "admin's" old email address.
+  *   Delete the "admin" user and ascribe all of "admin's" posts/pages to the new user.
+
+That's it.
+
+--
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+From: Brianne Binelli <bbgoldkey at gmail.com<mailto:bbgoldkey at gmail.com>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Tuesday, September 10, 2013 7:03 AM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] WP - security concerns?
+
+I receive a lot of security alerts on wp.  I do have a Admin user name to get into the dashboard do you think this may be causing the problem.  I thought you need to create a admin user name.
+
+thanks
+have a great day
+
+
+
+On Mon, Sep 9, 2013 at 8:19 PM, Covello, Steve <Steve.Covello at granite.edu<mailto:Steve.Covello at granite.edu>> wrote:
+Geez - I have had ZERO infections via WordPress in 4 years.
+
+Plugins:
+
+Wordfence Security
+WP Firewall 2
+Secure WordPress
+WP Secure Scan
+WordPress HTTPS
+WP Ban
+
+Best Practice:
+
+NO accounts named "admin"
+htaccess file in wp-admin
+NO default table prefixes in wp-config, such as "wp_". Change it to "wp_xRwFG_" or whatever.
+original salt data in wp-config: https://api.wordpress.org/secret-key/1.1/salt/
+Secure high quality passwords
+Updated malware scans on user devices
+Gravity Forms used on all forms, with CAPTCHA
+SFTP on FTP accounts
+
+Occasionally check on Sucuri.net. If you want to be on top of it, subscribe to their scan service.
+
+There are other hardening plugins out there.
+
+- Steve
+
+
+
+________________________________
+From: wp-edu [wp-edu-bounces at lists.automattic.com<mailto:wp-edu-bounces at lists.automattic.com>] on behalf of Leslie Melvin [melvin at bard.edu<mailto:melvin at bard.edu>]
+Sent: Monday, September 09, 2013 6:18 PM
+To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Subject: [wp-edu] WP - security concerns?
+
+Hi Folks,
+
+We have been hosting WP Multisite (for course blogs and as a blog supplement to our program websites) for a few years, with mixed results. Our community (users) love the flexibility of WP, but it has proven to be an unexpected support burden for IT...it seems that all of our website/network hacks have been introduced via WP.
+
+I haven't seen the topic addressed by this group, so it appears our experience is isolated, which would lead me to suspect we are missing some simple safe-guards.  Have any of your institutions dealt with WP-related security issues?  Have you found any successful, secure configurations, and if so, would you be willing to share your experiences with us?  WP is proving to be such a valuable tool...
+
+If so, I will bring our Networks and Systems folks into the conversation, as they could answer specific questions related to our configuration and protocols.
+
+Many thanks in advance!
+
+Best,
+Leslie
+
+---
+Leslie A. Melvin  |  Manager, Academic Technology Services
+
+BARD COLLEGE
+PO Box 5000 | 204 Old Henderson |
+Annandale-on-Hudson, NY 12504
+office: 845.758.7496<tel:845.758.7496> | http://www.bard.edu
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130910/04419830/attachment.html>
+
+From Steve.Covello at granite.edu  Tue Sep 10 13:12:04 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Tue, 10 Sep 2013 13:12:04 +0000
+Subject: [wp-edu] FW: wp-edu Digest, Vol 47, Issue 2
+In-Reply-To: <CE548C6E.4CDD%skriloffn@darden.virginia.edu>
+Message-ID: <CE548F29.18FEF%steve.covello@granite.edu>
+
+Use Backup Buddy and WP db Manager for your backups. Automated.
+
+Set your security plugins, follow best practices for configuration and
+keep them updated. Very low maintenance.
+
+Prior to launch, be sure to put the website into DUBUG mode to see which
+plugins are causing errors or that have deprecated terms in them. Fix the
+problems or find alternative plugins.
+
+NEVER use anything but premium themes from known developers that update
+their themes periodically.
+
+Never do design/development work from master themes - always make a child
+theme so you can apply master theme updates without deleting your
+customizations.
+
+Keep local versions of your sites available for testing major plugin
+updates. Unless there is a significant security vulnerability (like a
+timthumb.php kind of thing) or a major capability update, there is no rush
+to update plugins that work cleanly. NextGen Gallery 2.x has weird bugs,
+so I use the last stable version before the major update (1.9). No biggie.
+
+Once these are set, these issues shouldn't bother you day-to-day.
+
+Still, if you have a gazillion other responsibilities, outsourcing it all
+might be a good thing, provided you can still hack at your code to make
+adjustments.
+
+- Steve
+
+-- 
+Steve Covello
+Rich Media Specialist/Online Instructor
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+
+
+
+On 9/10/13 8:49 AM, "Skriloff, Nicholas" <SkriloffN at darden.virginia.edu>
+wrote:
+
+> Believe it or not, managing wordpress security, backups, the right
+>plugins that do not clash AND  production, staging and dev environments
+>can be a lot. 
+>I am considering moving our stuff to wp-engine.com to turn this stuff over
+>to them.  What should I consider?
+>
+>On 9/10/13 8:00 AM, "wp-edu-request at lists.automattic.com"
+><wp-edu-request at lists.automattic.com> wrote:
+>
+>>Send wp-edu mailing list submissions to
+>>	wp-edu at lists.automattic.com
+>>
+>>To subscribe or unsubscribe via the World Wide Web, visit
+>>	http://lists.automattic.com/mailman/listinfo/wp-edu
+>>or, via email, send a message with subject or body 'help' to
+>>	wp-edu-request at lists.automattic.com
+>>
+>>You can reach the person managing the list at
+>>	wp-edu-owner at lists.automattic.com
+>>
+>>When replying, please edit your Subject line so it is more specific
+>>than "Re: Contents of wp-edu digest..."
+>>
+>>
+>>Today's Topics:
+>>
+>>   1. Re: WP - security concerns? (Brianne Binelli)
+>>
+>>
+>>----------------------------------------------------------------------
+>>
+>>Message: 1
+>>Date: Tue, 10 Sep 2013 06:03:47 -0500
+>>From: Brianne Binelli <bbgoldkey at gmail.com>
+>>To: "Low-traffic list discussing WordPress in education."
+>>	<wp-edu at lists.automattic.com>
+>>Subject: Re: [wp-edu] WP - security concerns?
+>>Message-ID:
+>>	<CA+s3GNY_-uuv2WuEChDhTMK6c96d6jbr=AWnBrMoHeBRxen69A at mail.gmail.com>
+>>Content-Type: text/plain; charset="iso-8859-1"
+>>
+>>I receive a lot of security alerts on wp.  I do have a Admin user name to
+>>get into the dashboard do you think this may be causing the problem.  I
+>>thought you need to create a admin user name.
+>>
+>>thanks
+>>have a great day
+>>
+>>
+>>
+>>On Mon, Sep 9, 2013 at 8:19 PM, Covello, Steve
+>><Steve.Covello at granite.edu>wrote:
+>>
+>>>  Geez - I have had ZERO infections via WordPress in 4 years.
+>>>
+>>>  Plugins:
+>>>
+>>>  Wordfence Security
+>>> WP Firewall 2
+>>> Secure WordPress
+>>> WP Secure Scan
+>>> WordPress HTTPS
+>>> WP Ban
+>>>
+>>>  Best Practice:
+>>>
+>>>  NO accounts named "admin"
+>>> htaccess file in wp-admin
+>>> NO default table prefixes in wp-config, such as "wp_". Change it to
+>>> "wp_xRwFG_" or whatever.
+>>> original salt data in wp-config:
+>>> https://api.wordpress.org/secret-key/1.1/salt/
+>>> Secure high quality passwords
+>>> Updated malware scans on user devices
+>>> Gravity Forms used on all forms, with CAPTCHA
+>>> SFTP on FTP accounts
+>>>
+>>>  Occasionally check on Sucuri.net. If you want to be on top of it,
+>>> subscribe to their scan service.
+>>>
+>>>  There are other hardening plugins out there.
+>>>
+>>>  - Steve
+>>>
+>>>
+>>>
+>>>  ------------------------------
+>>> *From:* wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of
+>>>Leslie
+>>> Melvin [melvin at bard.edu]
+>>> *Sent:* Monday, September 09, 2013 6:18 PM
+>>> *To:* wp-edu at lists.automattic.com
+>>> *Subject:* [wp-edu] WP - security concerns?
+>>>
+>>>  Hi Folks,
+>>>
+>>>  We have been hosting WP Multisite (for course blogs and as a blog
+>>> supplement to our program websites) for a few years, with mixed
+>>>results.
+>>> Our community (users) love the flexibility of WP, but it has proven to
+>>>be
+>>> an unexpected support burden for IT...it seems that all of our
+>>> website/network hacks have been introduced via WP.
+>>>
+>>>  I haven't seen the topic addressed by this group, so it appears our
+>>> experience is isolated, which would lead me to suspect we are missing
+>>>some
+>>> simple safe-guards.  Have any of your institutions dealt with
+>>>WP-related
+>>> security issues?  Have you found any successful, secure configurations,
+>>>and
+>>> if so, would you be willing to share your experiences with us?  WP is
+>>> proving to be such a valuable tool...
+>>>
+>>>  If so, I will bring our Networks and Systems folks into the
+>>> conversation, as they could answer specific questions related to our
+>>> configuration and protocols.
+>>>
+>>>  Many thanks in advance!
+>>>
+>>>  Best,
+>>> Leslie
+>>>
+>>>     *---*
+>>> *Leslie A. Melvin  |  Manager, Academic Technology Services
+>>>
+>>>  BARD COLLEGE
+>>> PO Box 5000 | 204 Old Henderson |
+>>> Annandale-on-Hudson, NY 12504
+>>> office: 845.758.7496 | http://www.bard.edu
+>>> *
+>>>
+>>>
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>>
+>>>
+>>-------------- next part --------------
+>>An HTML attachment was scrubbed...
+>>URL: 
+>><http://lists.automattic.com/pipermail/wp-edu/attachments/20130910/9c502a
+>>4
+>>5/attachment-0001.html>
+>>
+>>------------------------------
+>>
+>>Subject: Digest Footer
+>>
+>>_______________________________________________
+>>wp-edu mailing list
+>>wp-edu at lists.automattic.com
+>>http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>>
+>>------------------------------
+>>
+>>End of wp-edu Digest, Vol 47, Issue 2
+>>*************************************
+>>
+>
+>_______________________________________________
+>wp-edu mailing list
+>wp-edu at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From bbgoldkey at gmail.com  Tue Sep 10 14:08:19 2013
+From: bbgoldkey at gmail.com (Brianne Binelli)
+Date: Tue, 10 Sep 2013 09:08:19 -0500
+Subject: [wp-edu] WP - security concerns?
+In-Reply-To: <CE548D4B.18FDE%steve.covello@granite.edu>
+References: <CA+s3GNY_-uuv2WuEChDhTMK6c96d6jbr=AWnBrMoHeBRxen69A@mail.gmail.com>
+ <CE548D4B.18FDE%steve.covello@granite.edu>
+Message-ID: <CA+s3GNa2GNk7pfD70uh0vn=gmgVFYpR-XrQ-jg4SyQWD0O9CAQ@mail.gmail.com>
+
+Thank you very much, appreciate your response
+
+
+
+On Tue, Sep 10, 2013 at 7:55 AM, Covello, Steve
+<Steve.Covello at granite.edu>wrote:
+
+>  1 ? Security alerts are* good* thing. It means the hardening strategies
+> are actually working. I get TONS of alerts from my firewall ? all of which
+> report that the robotic efforts of hackers are being repelled. Security
+> alerts do not mean WP is "bad" for security. Your domain will be hacked no
+> matter which platform you use, or even if you use plain HTML. There are
+> certain vulnerabilities in WP that hackers know about, but these are
+> accounted for in the hardening plugins I mentioned.
+>
+>  2 ? You do not need a username named "admin". It happens to be the
+> default username WP gives on install, but NEVER use it. Any user can be
+> given Administrator privileges. This is how you solve your problem
+> (assuming you are "admin"):
+>
+>    - In your "admin"user acct, change the email address to something
+>    different (doesn't matter ? it's going to be deleted)
+>    - Create a new user with "admin's" old email address.
+>    - Delete the "admin" user and ascribe all of "admin's" posts/pages to
+>    the new user.
+>
+> That's it.
+>
+>   --
+> *Steve Covello*
+> Rich Media Specialist/Online Instructor
+> Granite State College
+> 603-513-1346
+> Skype: steve.granitestate
+> Scheduling: http://meetme.so/stevecovello
+>
+>
+>   From: Brianne Binelli <bbgoldkey at gmail.com>
+> Reply-To: "Low-traffic list discussing WordPress in education." <
+> wp-edu at lists.automattic.com>
+> Date: Tuesday, September 10, 2013 7:03 AM
+> To: "Low-traffic list discussing WordPress in education." <
+> wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] WP - security concerns?
+>
+>   I receive a lot of security alerts on wp.  I do have a Admin user name
+> to get into the dashboard do you think this may be causing the problem.  I
+> thought you need to create a admin user name.
+>
+> thanks
+> have a great day
+>
+>
+>
+> On Mon, Sep 9, 2013 at 8:19 PM, Covello, Steve <Steve.Covello at granite.edu>wrote:
+>
+>>  Geez - I have had ZERO infections via WordPress in 4 years.
+>>
+>>  Plugins:
+>>
+>>  Wordfence Security
+>> WP Firewall 2
+>> Secure WordPress
+>> WP Secure Scan
+>> WordPress HTTPS
+>> WP Ban
+>>
+>>  Best Practice:
+>>
+>>  NO accounts named "admin"
+>> htaccess file in wp-admin
+>> NO default table prefixes in wp-config, such as "wp_". Change it to
+>> "wp_xRwFG_" or whatever.
+>> original salt data in wp-config:
+>> https://api.wordpress.org/secret-key/1.1/salt/
+>> Secure high quality passwords
+>> Updated malware scans on user devices
+>> Gravity Forms used on all forms, with CAPTCHA
+>> SFTP on FTP accounts
+>>
+>>  Occasionally check on Sucuri.net. If you want to be on top of it,
+>> subscribe to their scan service.
+>>
+>>  There are other hardening plugins out there.
+>>
+>>  - Steve
+>>
+>>
+>>
+>>  ------------------------------
+>> *From:* wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of Leslie
+>> Melvin [melvin at bard.edu]
+>> *Sent:* Monday, September 09, 2013 6:18 PM
+>> *To:* wp-edu at lists.automattic.com
+>> *Subject:* [wp-edu] WP - security concerns?
+>>
+>>   Hi Folks,
+>>
+>>  We have been hosting WP Multisite (for course blogs and as a blog
+>> supplement to our program websites) for a few years, with mixed results.
+>> Our community (users) love the flexibility of WP, but it has proven to be
+>> an unexpected support burden for IT...it seems that all of our
+>> website/network hacks have been introduced via WP.
+>>
+>>  I haven't seen the topic addressed by this group, so it appears our
+>> experience is isolated, which would lead me to suspect we are missing some
+>> simple safe-guards.  Have any of your institutions dealt with WP-related
+>> security issues?  Have you found any successful, secure configurations, and
+>> if so, would you be willing to share your experiences with us?  WP is
+>> proving to be such a valuable tool...
+>>
+>>  If so, I will bring our Networks and Systems folks into the
+>> conversation, as they could answer specific questions related to our
+>> configuration and protocols.
+>>
+>>  Many thanks in advance!
+>>
+>>  Best,
+>> Leslie
+>>
+>>     *---*
+>> *Leslie A. Melvin  |  Manager, Academic Technology Services
+>>
+>>  BARD COLLEGE
+>> PO Box 5000 | 204 Old Henderson |
+>> Annandale-on-Hudson, NY 12504
+>> office: 845.758.7496 | http://www.bard.edu
+>> *
+>>
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130910/360f7f6a/attachment.html>
+
+From kbaxa at uic.edu  Tue Sep 24 20:32:17 2013
+From: kbaxa at uic.edu (Charles, Kimberly)
+Date: Tue, 24 Sep 2013 20:32:17 +0000
+Subject: [wp-edu] Need help with code to select right image
+Message-ID: <E65CB34D9BCB134CA46E140ABAE6142767EC2A@CC-X10MBX1.ad.uic.edu>
+
+Hello --
+
+I need help with some custom code for my WordPress site. I have a site that has 2 multimedia post types:
+$media_type = 'audio';
+$media_type = 'video';
+and the site should pull the youtube thumbnail for the 'video' type and the post thumbnail for the 'audio' type, however, there isn't any if/else statement to distinguish between the two types for what image to use (this was built by someone else and I'm trying to fix it).
+
+I'm not sure (a.) if I should have the function inside functions.php do this or if (b.) it should be at the page template level.
+
+This is what I have in functions.php -- which tells WP to get one thing for 'video' but doesn't tell it what to do for 'audio'
+
+function abc_media_thumbnail() { ?>
+<div class="thumb">
+ <!-- RUN TIME, CAST, etc... -->
+ <a>">
+   <?php $media_type = 'video';
+       get_youtube_thumbnail(get_field('media_url'));
+       $runtime = get_field('length');
+   ?>
+ </a>
+
+ <?php if (!empty($runtime)): ?>
+  <div class="runtime"><?php echo $runtime; ?></div>
+ <?php endif; ?>
+ <div class='media-info'>
+   <p class='title'><a>"> <?php the_title(); ?></a></p>
+   <p class="date grayed"><?php the_time('F j, Y'); ?></p>
+ </div>
+</div>
+<?php
+}
+
+This is what the page template has:
+
+<?php get_header();
+$url = get_bloginfo('url'); ?>
+
+<div id="content">
+  <?php if ( have_posts() ) while ( have_posts() ): the_post(); ?>
+ <?php
+  $media_terms = get_the_terms($post->ID, 'media-type');
+
+  if (is_array($media_terms)) {
+  $media_type = array_pop($media_terms);
+  }
+ ?>
+
+ <?php if (isset($media_type)): ?>
+   <div class="labels">
+     <a>slug; ?>"><?php echo $media_type->name; ?></a>
+   </div>
+   <div id="media" class="clearfix">
+     <?php
+       if ($media_type->slug == 'video') {
+         abc_video_post();
+       } else {
+         abc_audio_post();
+       }
+     ?>
+   </div>
+ <?php endif; ?>
+  <?php endwhile;
+    wp_reset_postdata();
+  ?>
+
+  <?php if (isset($media_type)): ?>
+ <h2 class="recent">Recently Featured</h2>
+ <?php
+   $args = array(
+     'posts_per_page' => 4,
+     'post__not_in' => array($post->ID),
+     'tax_query' => array(
+       array(
+         'taxonomy' => 'media-type',
+         'field' => 'slug',
+         'terms' => $media_type->slug
+       )
+     )
+   );
+   $recent_posts = new WP_Query( $args );
+   if ( $recent_posts->have_posts() ) while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+     abc_media_thumbnail();
+   endwhile; ?>
+  <?php endif; ?>
+</div>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
+
+Any help is much appreciated!
+Kim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130924/bbb759d1/attachment.html>
+
+From Steve.Covello at granite.edu  Tue Sep 24 20:44:51 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Tue, 24 Sep 2013 20:44:51 +0000
+Subject: [wp-edu] Need help with code to select right image
+In-Reply-To: <E65CB34D9BCB134CA46E140ABAE6142767EC2A@CC-X10MBX1.ad.uic.edu>
+Message-ID: <CE67717E.19BF0%steve.covello@granite.edu>
+
+Sorry I can't help, but you might also get a good response from Stackexchange.com's wordpress thread.
+
+http://wordpress.stackexchange.com/
+
+That way, your answer will be preserved for the rest of the WP community to draw from as well ? not just the weasels in this group  ;-)
+
+Thx ? Steve
+
+--
+Steve Covello
+Rich Media Specialist/Online Instructor
+Chalk & Wire Administrator
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+From: <Charles>, Kimberly <kbaxa at uic.edu<mailto:kbaxa at uic.edu>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Tuesday, September 24, 2013 4:32 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: [wp-edu] Need help with code to select right image
+
+Hello --
+
+I need help with some custom code for my WordPress site. I have a site that has 2 multimedia post types:
+$media_type = 'audio';
+$media_type = 'video';
+and the site should pull the youtube thumbnail for the 'video' type and the post thumbnail for the 'audio' type, however, there isn't any if/else statement to distinguish between the two types for what image to use (this was built by someone else and I'm trying to fix it).
+
+I'm not sure (a.) if I should have the function inside functions.php do this or if (b.) it should be at the page template level.
+
+This is what I have in functions.php -- which tells WP to get one thing for 'video' but doesn't tell it what to do for 'audio'
+
+function abc_media_thumbnail() { ?>
+<div class="thumb">
+ <!-- RUN TIME, CAST, etc... -->
+ <a>">
+   <?php $media_type = 'video';
+       get_youtube_thumbnail(get_field('media_url'));
+       $runtime = get_field('length');
+   ?>
+ </a>
+
+ <?php if (!empty($runtime)): ?>
+ <div class="runtime"><?php echo $runtime; ?></div>
+ <?php endif; ?>
+ <div class='media-info'>
+   <p class='title'><a>"> <?php the_title(); ?></a></p>
+   <p class="date grayed"><?php the_time('F j, Y'); ?></p>
+ </div>
+</div>
+<?php
+}
+
+This is what the page template has:
+
+<?php get_header();
+$url = get_bloginfo('url'); ?>
+
+<div id="content">
+  <?php if ( have_posts() ) while ( have_posts() ): the_post(); ?>
+ <?php
+ $media_terms = get_the_terms($post->ID, 'media-type');
+
+ if (is_array($media_terms)) {
+ $media_type = array_pop($media_terms);
+ }
+ ?>
+
+ <?php if (isset($media_type)): ?>
+   <div class="labels">
+     <a>slug; ?>"><?php echo $media_type->name; ?></a>
+   </div>
+   <div id="media" class="clearfix">
+     <?php
+       if ($media_type->slug == 'video') {
+         abc_video_post();
+       } else {
+         abc_audio_post();
+       }
+     ?>
+   </div>
+ <?php endif; ?>
+  <?php endwhile;
+    wp_reset_postdata();
+  ?>
+
+  <?php if (isset($media_type)): ?>
+ <h2 class="recent">Recently Featured</h2>
+ <?php
+   $args = array(
+     'posts_per_page' => 4,
+     'post__not_in' => array($post->ID),
+     'tax_query' => array(
+       array(
+         'taxonomy' => 'media-type',
+         'field' => 'slug',
+         'terms' => $media_type->slug
+       )
+     )
+   );
+   $recent_posts = new WP_Query( $args );
+   if ( $recent_posts->have_posts() ) while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+     abc_media_thumbnail();
+   endwhile; ?>
+  <?php endif; ?>
+</div>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
+
+Any help is much appreciated!
+Kim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130924/d6a34cef/attachment-0001.html>
+
+From cpeckens at jhu.edu  Wed Sep 25 11:57:20 2013
+From: cpeckens at jhu.edu (Cara Peckens)
+Date: Wed, 25 Sep 2013 11:57:20 +0000
+Subject: [wp-edu] Need help with code to select right image
+In-Reply-To: <E65CB34D9BCB134CA46E140ABAE6142767EC2A@CC-X10MBX1.ad.uic.edu>
+Message-ID: <CE684553.4571%cpeckens@jhu.edu>
+
+Kim ? It sounds like you'd be better off using Wordpress' built-in "post format" functionality.  http://codex.wordpress.org/Post_Formats
+
+To turn it on add this line to your functions.php file: add_theme_support( 'post-formats', array( 'video', 'audio' ) );
+
+Then you can use conditionals to display each post format type differently in the single.php file by either doing the layout there or calling other template files i.e.
+
+
+if ( has_post_format( 'video' )) {
+  echo 'this is the video format'; //this is how I want it displayed ORget_template_part( 'content', 'video' ); //This would call the content-video.php file
+
+}
+
+From: <Charles>, Kimberly <kbaxa at uic.edu<mailto:kbaxa at uic.edu>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Tuesday, September 24, 2013 4:32 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: [wp-edu] Need help with code to select right image
+
+Hello --
+
+I need help with some custom code for my WordPress site. I have a site that has 2 multimedia post types:
+$media_type = 'audio';
+$media_type = 'video';
+and the site should pull the youtube thumbnail for the 'video' type and the post thumbnail for the 'audio' type, however, there isn't any if/else statement to distinguish between the two types for what image to use (this was built by someone else and I'm trying to fix it).
+
+I'm not sure (a.) if I should have the function inside functions.php do this or if (b.) it should be at the page template level.
+
+This is what I have in functions.php -- which tells WP to get one thing for 'video' but doesn't tell it what to do for 'audio'
+
+function abc_media_thumbnail() { ?>
+<div class="thumb">
+ <!-- RUN TIME, CAST, etc... -->
+ <a>">
+   <?php $media_type = 'video';
+       get_youtube_thumbnail(get_field('media_url'));
+       $runtime = get_field('length');
+   ?>
+ </a>
+
+ <?php if (!empty($runtime)): ?>
+ <div class="runtime"><?php echo $runtime; ?></div>
+ <?php endif; ?>
+ <div class='media-info'>
+   <p class='title'><a>"> <?php the_title(); ?></a></p>
+   <p class="date grayed"><?php the_time('F j, Y'); ?></p>
+ </div>
+</div>
+<?php
+}
+
+This is what the page template has:
+
+<?php get_header();
+$url = get_bloginfo('url'); ?>
+
+<div id="content">
+  <?php if ( have_posts() ) while ( have_posts() ): the_post(); ?>
+ <?php
+ $media_terms = get_the_terms($post->ID, 'media-type');
+
+ if (is_array($media_terms)) {
+ $media_type = array_pop($media_terms);
+ }
+ ?>
+
+ <?php if (isset($media_type)): ?>
+   <div class="labels">
+     <a>slug; ?>"><?php echo $media_type->name; ?></a>
+   </div>
+   <div id="media" class="clearfix">
+     <?php
+       if ($media_type->slug == 'video') {
+         abc_video_post();
+       } else {
+         abc_audio_post();
+       }
+     ?>
+   </div>
+ <?php endif; ?>
+  <?php endwhile;
+    wp_reset_postdata();
+  ?>
+
+  <?php if (isset($media_type)): ?>
+ <h2 class="recent">Recently Featured</h2>
+ <?php
+   $args = array(
+     'posts_per_page' => 4,
+     'post__not_in' => array($post->ID),
+     'tax_query' => array(
+       array(
+         'taxonomy' => 'media-type',
+         'field' => 'slug',
+         'terms' => $media_type->slug
+       )
+     )
+   );
+   $recent_posts = new WP_Query( $args );
+   if ( $recent_posts->have_posts() ) while ( $recent_posts->have_posts() ): $recent_posts->the_post();
+     abc_media_thumbnail();
+   endwhile; ?>
+  <?php endif; ?>
+</div>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
+
+Any help is much appreciated!
+Kim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130925/aa431331/attachment.html>
+
+From timothy_thorp at brown.edu  Wed Sep 25 12:50:56 2013
+From: timothy_thorp at brown.edu (Thorp, Timothy)
+Date: Wed, 25 Sep 2013 08:50:56 -0400
+Subject: [wp-edu] Managing the WordPress System
+Message-ID: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+
+Hi. I am a bit new to this list but am writing to discuss methods of
+maintaining the system including its themes and plugins.
+
+We currently have everything (core, plugins, themes and local solutions)
+installed in one subversion repository of our own. However, upon
+discovering that Wordpress maintains its code in subversion, I have been
+considering rebuilding our system using the WP Subversion repos and using
+svn:externals to manage plugins and themes. reference:
+http://scott.yang.id.au/2006/04/svnexternal-wordpress-plugins/
+
+The one problem I have seen in this model is that (so far) when I switch WP
+versions, the WP svn externals file in wp-contents/plugins (which
+references Akismet) conflicts with my externals file and it is difficult to
+manage that conflict. It generally seems like a great way to go but it is a
+lot of work to rebuild the whole system in this way.
+
+Along the lines of ongoing maintenance, there is the question of whether to
+use JetPack or not and I also just discovered a neat wordpress command-line
+interface app at http://wp-cli.org/ and wonder if anyone out there has been
+using it.
+
+Tim Thorp | Web Developer
+Direct: 401.863.2798 | Fax: 401.863.7908
+Brown University Office of Continuing Education / CIS Web Services
+www.brown.edu/ce
+www.brown.edu/cis/webservices/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130925/b6bcfc8a/attachment.html>
+
+From Steve.Covello at granite.edu  Wed Sep 25 13:02:41 2013
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Wed, 25 Sep 2013 13:02:41 +0000
+Subject: [wp-edu] Managing the WordPress System
+In-Reply-To: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+Message-ID: <CE685640.19C2D%steve.covello@granite.edu>
+
+My skills may not be on-pr with what you are asking, but I have generally behaved conservatively about making certain updates (themes, plugins, core?) until I have tested them out in one form or another. I had some major problems with the NextGen Gallery major 2.0 update and had to revert back to 1.9, for example.
+
+So if your plan involves tying into updates in a way that manages these tasks automatically, then you may run into trouble.
+
+I apologize if I am misstating what I think your proposed configuration is intended to do, but just in case it does involved automating update processes, this is a word from the trenches.
+
+Thx ? Steve
+
+--
+Steve Covello
+Rich Media Specialist/Online Instructor
+Chalk & Wire Administrator
+Granite State College
+603-513-1346
+Skype: steve.granitestate
+Scheduling: http://meetme.so/stevecovello
+
+
+From: <Thorp>, Timothy <timothy_thorp at brown.edu<mailto:timothy_thorp at brown.edu>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, September 25, 2013 8:50 AM
+To: "wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>" <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: [wp-edu] Managing the WordPress System
+
+Hi. I am a bit new to this list but am writing to discuss methods of maintaining the system including its themes and plugins.
+
+We currently have everything (core, plugins, themes and local solutions) installed in one subversion repository of our own. However, upon discovering that Wordpress maintains its code in subversion, I have been considering rebuilding our system using the WP Subversion repos and using svn:externals to manage plugins and themes. reference: http://scott.yang.id.au/2006/04/svnexternal-wordpress-plugins/
+
+The one problem I have seen in this model is that (so far) when I switch WP versions, the WP svn externals file in wp-contents/plugins (which references Akismet) conflicts with my externals file and it is difficult to manage that conflict. It generally seems like a great way to go but it is a lot of work to rebuild the whole system in this way.
+
+Along the lines of ongoing maintenance, there is the question of whether to use JetPack or not and I also just discovered a neat wordpress command-line interface app at http://wp-cli.org/ and wonder if anyone out there has been using it.
+
+Tim Thorp | Web Developer
+Direct: 401.863.2798 | Fax: 401.863.7908
+Brown University Office of Continuing Education / CIS Web Services
+www.brown.edu/ce<http://www.brown.edu/ce>
+www.brown.edu/cis/webservices/<http://www.brown.edu/cis/webservices/>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130925/ccd7806c/attachment.html>
+
+From parkerj at 7mediaws.org  Wed Sep 25 13:20:17 2013
+From: parkerj at 7mediaws.org (Parker, Joshua)
+Date: Wed, 25 Sep 2013 09:20:17 -0400
+Subject: [wp-edu] Managing the WordPress System
+In-Reply-To: <CE685640.19C2D%steve.covello@granite.edu>
+References: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+ <CE685640.19C2D%steve.covello@granite.edu>
+Message-ID: <CABSBpH5cprnLJJJdO7noshVG3A5qm-MGP9VV-MsmVTHSVEhrWw@mail.gmail.com>
+
+@Timothy, I used to use wp-cli on a previous server that had no control
+panel and did not want to use the automatic upgrade in the backend. Never
+had any problems with it and it accomplished what I needed at the time.
+
+
+On Wed, Sep 25, 2013 at 9:02 AM, Covello, Steve
+<Steve.Covello at granite.edu>wrote:
+
+>  My skills may not be on-pr with what you are asking, but I have
+> generally behaved conservatively about making certain updates (themes,
+> plugins, core?) until I have tested them out in one form or another. I had
+> some major problems with the NextGen Gallery major 2.0 update and had to
+> revert back to 1.9, for example.
+>
+>  So if your plan involves tying into updates in a way that manages these
+> tasks automatically, then you may run into trouble.
+>
+>  I apologize if I am misstating what I think your proposed configuration
+> is intended to do, but just in case it does involved automating update
+> processes, this is a word from the trenches.
+>
+>  Thx ? Steve
+>
+>   --
+> *Steve Covello*
+> Rich Media Specialist/Online Instructor
+> Chalk & Wire Administrator
+> Granite State College
+> 603-513-1346
+> Skype: steve.granitestate
+> Scheduling: http://meetme.so/stevecovello
+>
+>
+>   From: <Thorp>, Timothy <timothy_thorp at brown.edu>
+> Reply-To: "Low-traffic list discussing WordPress in education." <
+> wp-edu at lists.automattic.com>
+> Date: Wednesday, September 25, 2013 8:50 AM
+> To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+> Subject: [wp-edu] Managing the WordPress System
+>
+>   Hi. I am a bit new to this list but am writing to discuss methods of
+> maintaining the system including its themes and plugins.
+>
+>  We currently have everything (core, plugins, themes and local solutions)
+> installed in one subversion repository of our own. However, upon
+> discovering that Wordpress maintains its code in subversion, I have been
+> considering rebuilding our system using the WP Subversion repos and using
+> svn:externals to manage plugins and themes. reference:
+> http://scott.yang.id.au/2006/04/svnexternal-wordpress-plugins/
+>
+>  The one problem I have seen in this model is that (so far) when I switch
+> WP versions, the WP svn externals file in wp-contents/plugins (which
+> references Akismet) conflicts with my externals file and it is difficult to
+> manage that conflict. It generally seems like a great way to go but it is a
+> lot of work to rebuild the whole system in this way.
+>
+> Along the lines of ongoing maintenance, there is the question of whether
+> to use JetPack or not and I also just discovered a neat wordpress
+> command-line interface app at http://wp-cli.org/ and wonder if anyone out
+> there has been using it.
+>
+> Tim Thorp | Web Developer
+> Direct: 401.863.2798 | Fax: 401.863.7908
+> Brown University Office of Continuing Education / CIS Web Services
+> www.brown.edu/ce
+> www.brown.edu/cis/webservices/
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+
+-- 
+Press Release: 7 Media Web Solutions Launches Crowdfund Campaign to Fund
+New Open Source Student Information
+System<http://www.7mediaws.org/company/news/press/7_media_web_solutions_launches_crowdfund_campaign_to_fund_new_open_source_student_information_system/>
+
+[image: Josh Parker WordPress Consultant] <http://www.7mediaws.org>
+Joshua Parker
+PHP Developer & Consultant for Education
+(857) 600-0579
+
+7 Media Web Solutions, LLC
+www.7mediaws.org
+[image: Twitter] <http://twitter.com/#!/7mediaws>[image:
+Linkedin]<http://www.linkedin.com/in/joshmac>[image:
+Josh Parker :: WordPress Consultant] <http://feeds.feedburner.com/7mws/>[image:
+Skype][image: Google+] <https://plus.google.com/106009893211550086777/>[image:
+WordPress Profile] <http://wordpress.org/extend/plugins/profile/parkerj>[image:
+About.me] <http://about.me/joshuaparker>[image:
+Gravatar]<http://en.gravatar.com/joshmac3>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130925/0be59578/attachment-0001.html>
+
+From newquisk at lafayette.edu  Thu Sep 26 14:20:44 2013
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Thu, 26 Sep 2013 10:20:44 -0400
+Subject: [wp-edu] Managing the WordPress System
+In-Reply-To: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+References: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+Message-ID: <10964DF3-467E-4F02-8CB7-1CF3F397A8F5@lafayette.edu>
+
+
+On Sep 25, 2013, at 8:50 AM, Thorp, Timothy wrote:
+
+> Hi. I am a bit new to this list but am writing to discuss methods of maintaining the system including its themes and plugins. 
+
+We're a git shop, so we import the SVN repos into git and then go from there. In git we use a main repo for the wordpress code, plus submodules for individual plugins and themes. It required some work to get the import set up, but we found it works very well for our purposes (especially since all of our custom code and themes is managed in git as well). It'd be happy to put you in touch with our git guru if you'd like to know more.
+
+> Along the lines of ongoing maintenance, there is the question of whether to use JetPack or not and I also just discovered a neat wordpress command-line interface app at http://wp-cli.org/ and wonder if anyone out there has been using it.
+
+We found the CLI to be very limited, but then again, we were hoping for something along the lines of Drupal's drush.
+
+
+Ken Newquist
+Director, Web Applications Development
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+
+
+From jnweaver at wisc.edu  Thu Sep 26 14:39:36 2013
+From: jnweaver at wisc.edu (Nick Weaver)
+Date: Thu, 26 Sep 2013 09:39:36 -0500
+Subject: [wp-edu] Managing the WordPress System
+In-Reply-To: <10964DF3-467E-4F02-8CB7-1CF3F397A8F5@lafayette.edu>
+References: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+ <10964DF3-467E-4F02-8CB7-1CF3F397A8F5@lafayette.edu>
+Message-ID: <2B5F3126-C105-40B9-BC2A-E505E822FCE8@wisc.edu>
+
+To add to this, we manage our Wordpress sites in Git as well. We include Wordpress's official Git repo (which syncs against their SVN every 15 minutes) as a submodule in our projects, referencing their version tags.
+
+Here's the Wordpress git repository: https://github.com/WordPress/WordPress
+
+
+_______________________________
+Nick Weaver
+Director, Web Services
+University Communications
+University of Wisconsin-Madison
+http://www.wisc.edu
+608-263-9141
+jnweaver at wisc.edu
+
+
+
+
+
+On Sep 26, 2013, at 9:20 AM, Ken Newquist <newquisk at lafayette.edu> wrote:
+
+> 
+> On Sep 25, 2013, at 8:50 AM, Thorp, Timothy wrote:
+> 
+>> Hi. I am a bit new to this list but am writing to discuss methods of maintaining the system including its themes and plugins. 
+> 
+> We're a git shop, so we import the SVN repos into git and then go from there. In git we use a main repo for the wordpress code, plus submodules for individual plugins and themes. It required some work to get the import set up, but we found it works very well for our purposes (especially since all of our custom code and themes is managed in git as well). It'd be happy to put you in touch with our git guru if you'd like to know more.
+> 
+>> Along the lines of ongoing maintenance, there is the question of whether to use JetPack or not and I also just discovered a neat wordpress command-line interface app at http://wp-cli.org/ and wonder if anyone out there has been using it.
+> 
+> We found the CLI to be very limited, but then again, we were hoping for something along the lines of Drupal's drush.
+> 
+> 
+> Ken Newquist
+> Director, Web Applications Development
+> Lafayette College
+> p: 610.330.5759
+> e: newquisk at lafayette.edu
+> web: http://sites.lafayette.edu/newquisk
+> podcast: http://sites.lafayette.edu/coffeebreak
+> cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+> 
+> 
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130926/711c1172/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/pkcs7-signature
+Size: 7309 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130926/711c1172/attachment.bin>
+
+From timothy_thorp at brown.edu  Thu Sep 26 14:43:50 2013
+From: timothy_thorp at brown.edu (Thorp, Timothy)
+Date: Thu, 26 Sep 2013 10:43:50 -0400
+Subject: [wp-edu] Managing the WordPress System
+In-Reply-To: <2B5F3126-C105-40B9-BC2A-E505E822FCE8@wisc.edu>
+References: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+ <10964DF3-467E-4F02-8CB7-1CF3F397A8F5@lafayette.edu>
+ <2B5F3126-C105-40B9-BC2A-E505E822FCE8@wisc.edu>
+Message-ID: <CADmrkRhzVKeS9gBCG7-9B0ZeNzH9WNSpBS98ejAjgQBPU7Nmuw@mail.gmail.com>
+
+Interesting...I thought more folks would be using SVN but it seems that
+many use WP's built-in updater and several use Git. Neat. I/we have been
+thinking of switching from SVN to Git. Perhaps this rebuild of the dev
+server is the time to get on with it.
+
+Thanks all for the feedback.
+
+-Tim
+
+Tim Thorp | Web Developer
+Direct: 401.863.2798 | Fax: 401.863.7908
+Brown University Office of Continuing Education / CIS Web Services
+www.brown.edu/ce
+www.brown.edu/cis/webservices/
+
+
+On Thu, Sep 26, 2013 at 10:39 AM, Nick Weaver <jnweaver at wisc.edu> wrote:
+
+> To add to this, we manage our Wordpress sites in Git as well. We include
+> Wordpress's official Git repo (which syncs against their SVN every 15
+> minutes) as a submodule in our projects, referencing their version tags.
+>
+> Here's the Wordpress git repository:
+> https://github.com/WordPress/WordPress
+>
+>
+> _______________________________
+>
+> Nick Weaver
+>
+> Director, Web Services
+>
+> University Communications
+>
+> University of Wisconsin-Madison
+>
+> http://www.wisc.edu
+>
+> 608-263-9141
+>
+> jnweaver at wisc.edu
+>
+>
+>
+>
+>
+> On Sep 26, 2013, at 9:20 AM, Ken Newquist <newquisk at lafayette.edu> wrote:
+>
+>
+> On Sep 25, 2013, at 8:50 AM, Thorp, Timothy wrote:
+>
+> Hi. I am a bit new to this list but am writing to discuss methods of
+> maintaining the system including its themes and plugins.
+>
+>
+> We're a git shop, so we import the SVN repos into git and then go from
+> there. In git we use a main repo for the wordpress code, plus submodules
+> for individual plugins and themes. It required some work to get the import
+> set up, but we found it works very well for our purposes (especially since
+> all of our custom code and themes is managed in git as well). It'd be happy
+> to put you in touch with our git guru if you'd like to know more.
+>
+> Along the lines of ongoing maintenance, there is the question of whether
+> to use JetPack or not and I also just discovered a neat wordpress
+> command-line interface app at http://wp-cli.org/ and wonder if anyone out
+> there has been using it.
+>
+>
+> We found the CLI to be very limited, but then again, we were hoping for
+> something along the lines of Drupal's drush.
+>
+>
+> Ken Newquist
+> Director, Web Applications Development
+> Lafayette College
+> p: 610.330.5759
+> e: newquisk at lafayette.edu
+> web: http://sites.lafayette.edu/newquisk
+> podcast: http://sites.lafayette.edu/coffeebreak
+> cal:
+> https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+>
+>
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130926/8c360a02/attachment-0001.html>
+
+From jnweaver at wisc.edu  Thu Sep 26 14:52:17 2013
+From: jnweaver at wisc.edu (Nick Weaver)
+Date: Thu, 26 Sep 2013 09:52:17 -0500
+Subject: [wp-edu] Managing the WordPress System
+In-Reply-To: <CADmrkRhzVKeS9gBCG7-9B0ZeNzH9WNSpBS98ejAjgQBPU7Nmuw@mail.gmail.com>
+References: <CADmrkRgOYqyg=mT0mp6=kN_nVXbSTC3Pwovb8cdFmcFwEuO3MA@mail.gmail.com>
+ <10964DF3-467E-4F02-8CB7-1CF3F397A8F5@lafayette.edu>
+ <2B5F3126-C105-40B9-BC2A-E505E822FCE8@wisc.edu>
+ <CADmrkRhzVKeS9gBCG7-9B0ZeNzH9WNSpBS98ejAjgQBPU7Nmuw@mail.gmail.com>
+Message-ID: <315C40C7-AD44-4C04-B1C2-15587FB632CA@wisc.edu>
+
+We forked the Wordpress Skeleton project by Mark Jaquith (one of Wordpress's lead developers) and created our own skeleton project based on it, which we then fork for every new site we develop.
+
+Here's Mark's skeleton: https://github.com/markjaquith/WordPress-Skeleton
+
+
+
+On Sep 26, 2013, at 9:43 AM, "Thorp, Timothy" <timothy_thorp at brown.edu> wrote:
+
+> Interesting...I thought more folks would be using SVN but it seems that many use WP's built-in updater and several use Git. Neat. I/we have been thinking of switching from SVN to Git. Perhaps this rebuild of the dev server is the time to get on with it.
+> 
+> Thanks all for the feedback.
+> 
+> -Tim
+> 
+> Tim Thorp | Web Developer
+> Direct: 401.863.2798 | Fax: 401.863.7908
+> Brown University Office of Continuing Education / CIS Web Services
+> www.brown.edu/ce
+> www.brown.edu/cis/webservices/
+> 
+> 
+> On Thu, Sep 26, 2013 at 10:39 AM, Nick Weaver <jnweaver at wisc.edu> wrote:
+> To add to this, we manage our Wordpress sites in Git as well. We include Wordpress's official Git repo (which syncs against their SVN every 15 minutes) as a submodule in our projects, referencing their version tags.
+> 
+> Here's the Wordpress git repository: https://github.com/WordPress/WordPress
+> 
+> 
+> _______________________________
+> Nick Weaver
+> Director, Web Services
+> University Communications
+> University of Wisconsin-Madison
+> http://www.wisc.edu
+> 608-263-9141
+> jnweaver at wisc.edu
+> 
+> 
+> 
+> 
+> 
+> On Sep 26, 2013, at 9:20 AM, Ken Newquist <newquisk at lafayette.edu> wrote:
+> 
+>> 
+>> On Sep 25, 2013, at 8:50 AM, Thorp, Timothy wrote:
+>> 
+>>> Hi. I am a bit new to this list but am writing to discuss methods of maintaining the system including its themes and plugins. 
+>> 
+>> We're a git shop, so we import the SVN repos into git and then go from there. In git we use a main repo for the wordpress code, plus submodules for individual plugins and themes. It required some work to get the import set up, but we found it works very well for our purposes (especially since all of our custom code and themes is managed in git as well). It'd be happy to put you in touch with our git guru if you'd like to know more.
+>> 
+>>> Along the lines of ongoing maintenance, there is the question of whether to use JetPack or not and I also just discovered a neat wordpress command-line interface app at http://wp-cli.org/ and wonder if anyone out there has been using it.
+>> 
+>> We found the CLI to be very limited, but then again, we were hoping for something along the lines of Drupal's drush.
+>> 
+>> 
+>> Ken Newquist
+>> Director, Web Applications Development
+>> Lafayette College
+>> p: 610.330.5759
+>> e: newquisk at lafayette.edu
+>> web: http://sites.lafayette.edu/newquisk
+>> podcast: http://sites.lafayette.edu/coffeebreak
+>> cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130926/a5d54d9f/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/pkcs7-signature
+Size: 7309 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130926/a5d54d9f/attachment.bin>
+

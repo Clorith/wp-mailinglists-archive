@@ -1,0 +1,655 @@
+From stas at nerd.ro  Wed Mar 30 22:33:25 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Thu, 31 Mar 2011 01:33:25 +0300
+Subject: [wp-edu] Courseware, what's next
+Message-ID: <1301524405.3152.30.camel@rivalry>
+
+Hi,
+I'm a student who wrote the BuddyPress Courseware tool during last year
+GSoC. I remember I asked about feedback last year before applying for
+it, and with this email I would like to bring some reports about how the
+project evolved and maybe get some feedback from this list teachers
+about next directions for such a project.
+
+Warning, long email!!!
+
+During last year Courseware got:
+* official ScholarPress family adoption [2]
+* 6 more releases from initial 0.1 version (last one in March)
+* 22 issues closed (5 feature requests/6 reports were invalid) [3]
+* 18 open issues (2 marked as defect, the rest are feature requests)
+* >4k downloads 
+* 12 reviews[4] (only two gave less than 5 stars)
+* 62 forums topics with 115 members [5] (most of the support is done
+there)
+* 15 github watchers and 5 forks
+* WordCamp Bucharest superstar!
+
+Some people showcased their websites here:
+http://buddypress.org/community/groups/buddypress-courseware/forum/topic/scholarpress-samples/
+
+It's features cover:
+* Class Dashboard
+* Courses
+  * Works for both learning models: European/United States
+* Bibliography
+  * Web API's integration with WorldCat/ISBNdb
+  * BibTex Import
+* Assignments
+  * Responses
+  * Forum integration
+  * Gradebook
+    * CSV Import
+* Schedules
+  * Calendar
+    * Month, Week, Day view
+    * Integrates with Assignment due dates
+    * iCal export
+* Customization using an external CSS
+
+Afaik, until now, this is the only LMS build on a social network
+platform.
+
+This year idea:
+BuddyPress Courseware lacks a good set of features without which it
+can't be called a complete alternative to some commercial apps or the
+same Moodle. Some of them are:
+* A well written and easy to use Quizes/Tests module (integrated with
+existing Gradebook)
+* Advanced reports with charts and progress details (per student/per
+class)
+* Native support for external authentication mechanism like LDAP/AD
+(with automatic roles mapping)
+* Attendance functionality
+* Class pages (not just Courseware description)
+* Make it even more modular (offer a screen to enable/disable components
+for every class)
+* Class cloning (create a new class based on an existing one by
+selecting it's content teacher wants)
+* Integration with other LMS like Moodle (users import/export or
+authentication at least)
+* Improved UI for Bibliography (tagging entries and using tags instead
+of manually adding the items)
+* Add a "Vimeo like save for later" functionality to generate "ToDo"
+lists/plans for students or allow teachers create "recommended stuff"
+lists for their students.
+
+Therefore I propose to implement the above listed features this summer.
+
+Also, following the last year feedback, a lot of teachers don't like the
+BuddyPress because it requires additional resources and knowledge from
+their side (maintaining and helping students easily adapt to it), and
+expressed a wish to see Courseware, a standalone WordPress plugin that
+can be used in a MultiSite environment with every teacher being able to
+setup his own classes.
+
+Unfortunately ScholarPress Courseware codebase is a bit old and requires
+work to get it up-to-date with the latest WordPress features (post
+types, post format... etc) and version compatibility. It lacks already
+available features in BuddyPress version (very important, like multiple
+classes, gradebook and responses). That's why to reduce the amount of
+work on making two projects work, I would like to merge both projects
+into one codebase (mostly BuddyPress Courseware will cover it's previous
+WordPress version).
+
+So to complete my idea I want to merge the WordPress and BuddyPress
+version making them able to work with or without BuddyPress. Basically
+this means I will write a "minimal BuddyPress" layer (the permalink
+handler part, a minimal groups component that will use post
+types/taxonomies, add a minimal profile page) that will activate if
+BuddyPress is missing. Current BuddyPress Courseware is very modular so
+the features available only in BuddyPress will use a fallback
+mechanism/solution (notification or another alternative I will offer).
+
+By the end of this summer, if the project gets accepted, WordPress will
+probably can be listed as one of the serious LMS tools provider too.
+
+I would like to get some feedback on all this stuff, or maybe I'm
+missing some important features and teachers can say something about
+that.
+Thanks in advance.
+
+[1]: http://buddypress.org/community/groups/buddypress-courseware/home/
+[2]: https://github.com/scholarpress
+[3]: https://github.com/scholarpress/buddypress-courseware/issues/closed
+[4]:
+http://buddypress.org/community/groups/buddypress-courseware/reviews/
+[5]: http://buddypress.org/community/groups/buddypress-courseware/forum/
+[6]: http://scholarpress.github.com/buddypress-courseware/
+
+
+
+From dkwhisle at uncc.edu  Thu Mar 31 20:10:37 2011
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Thu, 31 Mar 2011 16:10:37 -0400
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+Message-ID: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+
+I'm running a WordPress 3.0.1 multi-site network at my university where
+I work.   
+
+I need a way to easily change some of the new site "default" parameters
+that are used when I create a new site on the WP network. 
+
+While I want to do this, I want to do it safely without modifying core
+(for obvious reasons) or something else that might put the site at risk
+when upgrading, etc..
+
+It seems like this should be rather easy, but I have yet to figure out
+where to do this.
+
+ 
+
+Here's my preferences for a new site:
+
+1.       No posts
+
+2.       No pages
+
+3.       No links
+
+4.       Comments are disabled sitewide
+
+5.       timezone to "New York" (aka:  EST / UTC - 5 hrs)
+
+6.       set a certain header image of my choice
+
+7.       permalinks - Month and name
+
+8.       writing settings - size of the post "25" lines 
+
+9.       widgets - set which ones should be in any new sites
+
+ 
+
+I realize that likely some or all of these cannot easily be
+accomplished, but setting some up front as we need, would be better than
+none.
+
+As of right now each time I create a new site for someone, I either need
+to walk them thru setting up the defaults and deleting the "default"
+content off the new site OR do it myself, which either way is wasted
+time.
+
+ 
+
+Thanks,
+
+ 
+
+Dave Whisler
+
+University of North Carolina at Charlotte
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/4c2bdd4a/attachment.htm>
+
+From Lucas.Waltzer at baruch.cuny.edu  Thu Mar 31 20:16:45 2011
+From: Lucas.Waltzer at baruch.cuny.edu (Lucas Waltzer)
+Date: Thu, 31 Mar 2011 20:16:45 +0000
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+In-Reply-To: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+Message-ID: <C9BA5932.1021E%lucas.waltzer@baruch.cuny.edu>
+
+Have you tried this plugin?  http://wordpress.org/extend/plugins/wpmu-new-blog-defaults/
+
+Says it's broken, but it's working on a 3.05 that we have, so you might be in luck for a while?
+
+Luke Waltzer
+
+From: "Whisler, Dave" <dkwhisle at uncc.edu<mailto:dkwhisle at uncc.edu>>
+Reply-To: <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Thu, 31 Mar 2011 16:10:37 -0400
+To: <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+
+I?m running a WordPress 3.0.1 multi-site network at my university where I work.
+I need a way to easily change some of the new site ?default? parameters that are used when I create a new site on the WP network.
+While I want to do this, I want to do it safely without modifying core (for obvious reasons) or something else that might put the site at risk when upgrading, etc..
+It seems like this should be rather easy, but I have yet to figure out where to do this.
+
+Here?s my preferences for a new site:
+
+1.       No posts
+
+2.       No pages
+
+3.       No links
+
+4.       Comments are disabled sitewide
+
+5.       timezone to ?New York? (aka:  EST / UTC ? 5 hrs)
+
+6.       set a certain header image of my choice
+
+7.       permalinks ? Month and name
+
+8.       writing settings ? size of the post ?25? lines
+
+9.       widgets ? set which ones should be in any new sites
+
+I realize that likely some or all of these cannot easily be accomplished, but setting some up front as we need, would be better than none.
+As of right now each time I create a new site for someone, I either need to walk them thru setting up the defaults and deleting the ?default? content off the new site OR do it myself, which either way is wasted time.
+
+Thanks,
+
+Dave Whisler
+University of North Carolina at Charlotte
+_______________________________________________ wp-edu mailing list wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com> http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/4080aa64/attachment.htm>
+
+From jeffvand at unc.edu  Thu Mar 31 20:19:51 2011
+From: jeffvand at unc.edu (VanDrimmelen, Jeff)
+Date: Thu, 31 Mar 2011 20:19:51 +0000
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+In-Reply-To: <C9BA5932.1021E%lucas.waltzer@baruch.cuny.edu>
+References: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+	<C9BA5932.1021E%lucas.waltzer@baruch.cuny.edu>
+Message-ID: <AE8BE2E24729AE45A3B4448BAEA699001514A115@ITS-MSXMBS3M.ad.unc.edu>
+
+It works in 3.1 too, but just has not been moved to the network admin area.  Look for the settings on your main site logged in as super-admin under the tools area.  "New Blog Defaults."  It just needs the new Network Admin menu added to it.  Great plugin! :)
+
+~Jeff
+UNC-CH Web.unc.edu Admin
+
+-----------------------
+Jeff VanDrimmelen
+http://oasis.unc.edu/jeff
+
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Lucas Waltzer
+Sent: Thursday, March 31, 2011 4:17 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] how to set new site defaults on WordPress 3.x network
+
+Have you tried this plugin?  http://wordpress.org/extend/plugins/wpmu-new-blog-defaults/
+
+Says it's broken, but it's working on a 3.05 that we have, so you might be in luck for a while...
+
+Luke Waltzer
+
+From: "Whisler, Dave" <dkwhisle at uncc.edu<mailto:dkwhisle at uncc.edu>>
+Reply-To: <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Thu, 31 Mar 2011 16:10:37 -0400
+To: <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+
+I'm running a WordPress 3.0.1 multi-site network at my university where I work.
+I need a way to easily change some of the new site "default" parameters that are used when I create a new site on the WP network.
+While I want to do this, I want to do it safely without modifying core (for obvious reasons) or something else that might put the site at risk when upgrading, etc..
+It seems like this should be rather easy, but I have yet to figure out where to do this.
+
+Here's my preferences for a new site:
+
+1.       No posts
+
+2.       No pages
+
+3.       No links
+
+4.       Comments are disabled sitewide
+
+5.       timezone to "New York" (aka:  EST / UTC - 5 hrs)
+
+6.       set a certain header image of my choice
+
+7.       permalinks - Month and name
+
+8.       writing settings - size of the post "25" lines
+
+9.       widgets - set which ones should be in any new sites
+
+I realize that likely some or all of these cannot easily be accomplished, but setting some up front as we need, would be better than none.
+As of right now each time I create a new site for someone, I either need to walk them thru setting up the defaults and deleting the "default" content off the new site OR do it myself, which either way is wasted time.
+
+Thanks,
+
+Dave Whisler
+University of North Carolina at Charlotte
+_______________________________________________ wp-edu mailing list wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com> http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/f404fd30/attachment-0001.htm>
+
+From james at easilyamusedinc.com  Thu Mar 31 20:27:13 2011
+From: james at easilyamusedinc.com (James Tryon)
+Date: Thu, 31 Mar 2011 16:27:13 -0400
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+In-Reply-To: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+References: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+Message-ID: <AFADA02D-3A0C-421B-8FA3-AC36CE6636A0@easilyamusedinc.com>
+
+This sounds fun,
+
+This is going to be a quick replay, sorry for any typos ;c p
+
+I have done a couple sites like this in the past.
+
+I have used a couple plugins from wpmudev.org so yes you would need to signup but its worth it.
+
+1 - created an example site.
+2 - Use a child theme to keep a clean upgrade path. 
+	- Strip out things from the theme file that you do not want. Like the commit include in single.php
+3 - set all your settings and remove anything that you do not need or want.
+4 - set it as a template | http://premium.wpmudev.org/project/new-blog-template
+5 - set the template as the default theme on creation of new site.
+
+I have also taken this a step further for a network of site that where city based and added to more plugins 
+
+One for custom short codes  and the other was a post or page lock. 
+
+I went in and created the whole site.
+then swapped out things like 
+- emails
+- addresses
+- dates
+- names
+
+what ever the client wanted the sub-sites to change but not all the text on each page. 
+
+Then we set up the post/page lock on most of the pages. Left some unlocked, like the about pages. 
+Only the super admin can change the locked page status.
+
+And all the sub-sites can do what they want but cant brake or change anything.
+
+Thats a quick run down on how I have set something like this up in the past.
+
+James Tryon, Creative Director
+Easily Amused, Inc.
+
+
+On Mar 31, 2011, at 4:10 PM, Whisler, Dave wrote:
+
+> I?m running a WordPress 3.0.1 multi-site network at my university where I work.  
+> I need a way to easily change some of the new site ?default? parameters that are used when I create a new site on the WP network.
+> While I want to do this, I want to do it safely without modifying core (for obvious reasons) or something else that might put the site at risk when upgrading, etc..
+> It seems like this should be rather easy, but I have yet to figure out where to do this.
+>  
+> Here?s my preferences for a new site:
+> 1.       No posts
+> 2.       No pages
+> 3.       No links
+> 4.       Comments are disabled sitewide
+> 5.       timezone to ?New York? (aka:  EST / UTC ? 5 hrs)
+> 6.       set a certain header image of my choice
+> 7.       permalinks ? Month and name
+> 8.       writing settings ? size of the post ?25? lines
+> 9.       widgets ? set which ones should be in any new sites
+>  
+> I realize that likely some or all of these cannot easily be accomplished, but setting some up front as we need, would be better than none.
+> As of right now each time I create a new site for someone, I either need to walk them thru setting up the defaults and deleting the ?default? content off the new site OR do it myself, which either way is wasted time.
+>  
+> Thanks,
+>  
+> Dave Whisler
+> University of North Carolina at Charlotte
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/27b40242/attachment.htm>
+
+From joseph.ugoretz at mhc.cuny.edu  Thu Mar 31 20:31:32 2011
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Thu, 31 Mar 2011 16:31:32 -0400
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+In-Reply-To: <AFADA02D-3A0C-421B-8FA3-AC36CE6636A0@easilyamusedinc.com>
+References: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+	<AFADA02D-3A0C-421B-8FA3-AC36CE6636A0@easilyamusedinc.com>
+Message-ID: <C907F9DB-4B52-4E7C-8856-D4BDAED71208@mhc.cuny.edu>
+
+I highly recommend the plugin (not premium, available in WordPress repository) Site Template.
+
+Very nice that it allows for multiple templates (a feature we really really needed) so new sites can be given the option of being several different types from the point of inception.
+
+
+Joseph Ugoretz, Ph.D
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College
+City University of New York
+macaulay.cuny.edu<http://macaulay.cuny.edu>
+
+On Mar 31, 2011, at 4:27 PM, James Tryon <james at easilyamusedinc.com<mailto:james at easilyamusedinc.com>> wrote:
+
+This sounds fun,
+
+This is going to be a quick replay, sorry for any typos ;c p
+
+I have done a couple sites like this in the past.
+
+I have used a couple plugins from <http://wpmudev.org> wpmudev.org<http://wpmudev.org> so yes you would need to signup but its worth it.
+
+1 - created an example site.
+2 - Use a child theme to keep a clean upgrade path.
+- Strip out things from the theme file that you do not want. Like the commit include in single.php
+3 - set all your settings and remove anything that you do not need or want.
+4 - set it as a template | <http://premium.wpmudev.org/project/new-blog-template> http://premium.wpmudev.org/project/new-blog-template
+5 - set the template as the default theme on creation of new site.
+
+I have also taken this a step further for a network of site that where city based and added to more plugins
+
+One for custom short codes  and the other was a post or page lock.
+
+I went in and created the whole site.
+then swapped out things like
+- emails
+- addresses
+- dates
+- names
+
+what ever the client wanted the sub-sites to change but not all the text on each page.
+
+Then we set up the post/page lock on most of the pages. Left some unlocked, like the about pages.
+Only the super admin can change the locked page status.
+
+And all the sub-sites can do what they want but cant brake or change anything.
+
+Thats a quick run down on how I have set something like this up in the past.
+
+James Tryon, Creative Director
+Easily Amused, Inc.
+
+
+On Mar 31, 2011, at 4:10 PM, Whisler, Dave wrote:
+
+I?m running a WordPress 3.0.1 multi-site network at my university where I work.
+I need a way to easily change some of the new site ?default? parameters that are used when I create a new site on the WP network.
+While I want to do this, I want to do it safely without modifying core (for obvious reasons) or something else that might put the site at risk when upgrading, etc..
+It seems like this should be rather easy, but I have yet to figure out where to do this.
+
+Here?s my preferences for a new site:
+1.       No posts
+2.       No pages
+3.       No links
+4.       Comments are disabled sitewide
+5.       timezone to ?New York? (aka:  EST / UTC ? 5 hrs)
+6.       set a certain header image of my choice
+7.       permalinks ? Month and name
+8.       writing settings ? size of the post ?25? lines
+9.       widgets ? set which ones should be in any new sites
+
+I realize that likely some or all of these cannot easily be accomplished, but setting some up front as we need, would be better than none.
+As of right now each time I create a new site for someone, I either need to walk them thru setting up the defaults and deleting the ?default? content off the new site OR do it myself, which either way is wasted time.
+
+Thanks,
+
+Dave Whisler
+University of North Carolina at Charlotte
+_______________________________________________
+wp-edu mailing list
+<mailto:wp-edu at lists.automattic.com>wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+<http://lists.automattic.com/mailman/listinfo/wp-edu>http://lists.automattic.com/mailman/listinfo/wp-edu
+
+<ATT00002.c>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/073aadc7/attachment-0001.htm>
+
+From helen.y.hou at gmail.com  Thu Mar 31 20:35:41 2011
+From: helen.y.hou at gmail.com (Helen Hou-Sandi)
+Date: Thu, 31 Mar 2011 16:35:41 -0400
+Subject: [wp-edu] how to set new site defaults on WordPress 3.x network
+In-Reply-To: <AFADA02D-3A0C-421B-8FA3-AC36CE6636A0@easilyamusedinc.com>
+References: <41438143A28B884D90CE5148683268B202C411EF@EXEVS01.its.uncc.edu>
+	<AFADA02D-3A0C-421B-8FA3-AC36CE6636A0@easilyamusedinc.com>
+Message-ID: <AANLkTik7xPovd4+=jqARX5x9rWLQNjpGTViMaiDmENbB@mail.gmail.com>
+
+I just added a note on the .org forums about moving it to the network admin
+menu:
+http://wordpress.org/support/topic/new-blog-defaults-broken-in-wp-31-fix?replies=4
+
+Also, be warned that the From Email and From Email Name under Bonus Settings
+adds a filter for those options, which WILL override anything that gets sent
+using mail() or wp_mail() (e.g. Gravity Forms). Had a fun time finding that
+one.
+
+--
+Helen Hou-Sandi
+http://www.helenhousandi.com
+
+
+
+On Thu, Mar 31, 2011 at 4:27 PM, James Tryon <james at easilyamusedinc.com>wrote:
+
+> This sounds fun,
+>
+> This is going to be a quick replay, sorry for any typos ;c p
+>
+> I have done a couple sites like this in the past.
+>
+> I have used a couple plugins from wpmudev.org so yes you would need to
+> signup but its worth it.
+>
+> 1 - created an example site.
+> 2 - Use a child theme to keep a clean upgrade path.
+>  - Strip out things from the theme file that you do not want. Like the
+> commit include in single.php
+> 3 - set all your settings and remove anything that you do not need or want.
+> 4 - set it as a template |
+> http://premium.wpmudev.org/project/new-blog-template
+> 5 - set the template as the default theme on creation of new site.
+>
+> I have also taken this a step further for a network of site that where city
+> based and added to more plugins
+>
+> One for custom short codes  and the other was a post or page lock.
+>
+> I went in and created the whole site.
+> then swapped out things like
+> - emails
+> - addresses
+> - dates
+> - names
+>
+> what ever the client wanted the sub-sites to change but not all the text on
+> each page.
+>
+> Then we set up the post/page lock on most of the pages. Left some unlocked,
+> like the about pages.
+> Only the super admin can change the locked page status.
+>
+> And all the sub-sites can do what they want but cant brake or change
+> anything.
+>
+> Thats a quick run down on how I have set something like this up in the
+> past.
+>
+> James Tryon, Creative Director
+> Easily Amused, Inc.
+>
+>
+> On Mar 31, 2011, at 4:10 PM, Whisler, Dave wrote:
+>
+> I?m running a WordPress 3.0.1 multi-site network at my university where I
+> work.
+> I need a way to easily change some of the new site ?default? parameters
+> that are used when I create a new site on the WP network.
+> While I want to do this, I want to do it safely without modifying core (for
+> obvious reasons) or something else that might put the site at risk when
+> upgrading, etc..
+> It seems like this should be rather easy, but I have yet to figure out
+> where to do this.
+>
+> Here?s my preferences for a new site:
+> 1.       No posts
+> 2.       No pages
+> 3.       No links
+> 4.       Comments are disabled sitewide
+> 5.       timezone to ?New York? (aka:  EST / UTC ? 5 hrs)
+> 6.       set a certain header image of my choice
+> 7.       permalinks ? Month and name
+> 8.       writing settings ? size of the post ?25? lines
+> 9.       widgets ? set which ones should be in any new sites
+>
+> I realize that likely some or all of these cannot easily be accomplished,
+> but setting some up front as we need, would be better than none.
+> As of right now each time I create a new site for someone, I either need to
+> walk them thru setting up the defaults and deleting the ?default? content
+> off the new site OR do it myself, which either way is wasted time.
+>
+> Thanks,
+>
+> Dave Whisler
+> University of North Carolina at Charlotte
+> _______________________________________________
+>
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/d87dc86f/attachment.htm>
+
+From dkwhisle at uncc.edu  Thu Mar 31 21:11:46 2011
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Thu, 31 Mar 2011 17:11:46 -0400
+Subject: [wp-edu] Put your WP network into "maintenance" mode without using
+	a plugin
+Message-ID: <41438143A28B884D90CE5148683268B202C411FA@EXEVS01.its.uncc.edu>
+
+Being an administrator, I had always wanted an easy way to take my whole
+network off-line (safely as well as friendly to the end-user).
+
+ 
+
+I believe I just found a very simple but effective solution.   You just
+need to create two text-based files per instructions below.
+
+ 
+
+http://sivel.net/2009/10/wordpress-maintenance-mode-without-a-plugin-par
+t-3/
+
+http://sivel.net/2009/06/wordpress-maintenance-mode-without-a-plugin-par
+t-2/
+
+ 
+
+Thanks,
+
+ 
+
+Dave Whisler 
+
+UNC Charlotte
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110331/01754452/attachment.htm>
+

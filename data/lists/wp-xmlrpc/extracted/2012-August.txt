@@ -1,0 +1,128 @@
+From rbaldock at tiscali.co.uk  Fri Aug 17 19:16:14 2012
+From: rbaldock at tiscali.co.uk (Robert Baldock)
+Date: Fri, 17 Aug 2012 20:16:14 +0100
+Subject: [wp-xmlrpc] XML-RPC method for searching WP blog posts?
+Message-ID: <502E987E.1060606@tiscali.co.uk>
+
+This is my first post to the wp-xmlrpc mailing list.
+
+I have a pretty simple question: is there an XML-RPC method supported by 
+WordPress which allows you to search for blog posts?
+
+All of the APIs listed in the WordPress Codex only seem to have a 
+"getPost" method which requires you to know the ID of the post.
+
+I'd prefer to search for posts by text in the title or content.
+
+Any input would be much appreciated.
+
+
+Robert
+
+
+From mailing at markoheijnen.nl  Fri Aug 17 22:14:04 2012
+From: mailing at markoheijnen.nl (Marko Heijnen)
+Date: Sat, 18 Aug 2012 00:14:04 +0200
+Subject: [wp-xmlrpc] XML-RPC method for searching WP blog posts?
+In-Reply-To: <502E987E.1060606@tiscali.co.uk>
+References: <502E987E.1060606@tiscali.co.uk>
+Message-ID: <1853F227-C032-4BC7-9451-1A202FD69CAD@markoheijnen.nl>
+
+Hey Robert,
+
+There isn't a method for searching. There is btw a wp.getPosts for getting blog posts but it doesn't have a search parameter.
+I created a ticket for it: http://core.trac.wordpress.org/ticket/21623 but to get into WordPress it will take at least till the end of this year when 3.5 will be released.
+
+Only thing you can do now is create your own method.
+
+Marko
+
+On Aug 17, 2012, at 9:16 PM, Robert Baldock <rbaldock at tiscali.co.uk> wrote:
+
+> This is my first post to the wp-xmlrpc mailing list.
+> 
+> I have a pretty simple question: is there an XML-RPC method supported by WordPress which allows you to search for blog posts?
+> 
+> All of the APIs listed in the WordPress Codex only seem to have a "getPost" method which requires you to know the ID of the post.
+> 
+> I'd prefer to search for posts by text in the title or content.
+> 
+> Any input would be much appreciated.
+> 
+> 
+> Robert
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20120818/f272931c/attachment.htm>
+
+From rbaldock at tiscali.co.uk  Sat Aug 18 08:47:25 2012
+From: rbaldock at tiscali.co.uk (Robert Baldock)
+Date: Sat, 18 Aug 2012 09:47:25 +0100
+Subject: [wp-xmlrpc] XML-RPC method for searching WP blog posts?
+In-Reply-To: <1853F227-C032-4BC7-9451-1A202FD69CAD@markoheijnen.nl>
+References: <502E987E.1060606@tiscali.co.uk>
+	<1853F227-C032-4BC7-9451-1A202FD69CAD@markoheijnen.nl>
+Message-ID: <502F569D.2070601@tiscali.co.uk>
+
+Marko -
+
+Thanks for that.
+
+I decided to take another approach in the end which was to install the 
+JSON API plugin and then run searches via regular GET requests to WordPress.
+
+
+Robert
+
+On 17/08/2012 23:14, Marko Heijnen wrote:
+
+> Hey Robert,
+>
+> There isn't a method for searching. There is btw a wp.getPosts for
+> getting blog posts but it doesn't have a search parameter.
+> I created a ticket for it:
+> http://core.trac.wordpress.org/ticket/21623 but to get into WordPress it
+> will take at least till the end of this year when 3.5 will be released.
+>
+> Only thing you can do now is create your own method.
+>
+> Marko
+>
+> On Aug 17, 2012, at 9:16 PM, Robert Baldock <rbaldock at tiscali.co.uk
+> <mailto:rbaldock at tiscali.co.uk>> wrote:
+>
+>> This is my first post to the wp-xmlrpc mailing list.
+>>
+>> I have a pretty simple question: is there an XML-RPC method supported
+>> by WordPress which allows you to search for blog posts?
+>>
+>> All of the APIs listed in the WordPress Codex only seem to have a
+>> "getPost" method which requires you to know the ID of the post.
+>>
+>> I'd prefer to search for posts by text in the title or content.
+>>
+>> Any input would be much appreciated.
+>>
+>>
+>> Robert
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com <mailto:wp-xmlrpc at lists.automattic.com>
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+

@@ -1,0 +1,721 @@
+From joseph at randomnetworks.com  Wed Dec  5 19:57:33 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Dec  5 19:58:40 2007
+Subject: [wp-xmlrpc] post_status
+Message-ID: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+
+
+The post_status is now being exposed in metaWeblog.getPost and  
+metaWeblog.getRecentPosts:
+
+ticket: http://trac.wordpress.org/ticket/4982
+commit: http://trac.wordpress.org/changeset/6358
+
+I've confirmed that this change is in the 05-Dec-2007 nightly build,  
+if you don't want/can't use -trunk from subversion.
+
+If you have an interest in making use of this data please test it out  
+so that we can iron out any potential bugs before 2.4 comes in next  
+month.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sat Dec 15 13:45:10 2007
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sat Dec 15 13:45:26 2007
+Subject: [wp-xmlrpc] Tags via XML-RPC
+Message-ID: <1197726310.5272.10.camel@phoenix.whoi.edu>
+
+Hello,
+
+I'm in the process of writing a new desktop client for WP for Linux,
+using python + gtk. I'm trying to figure out a few things (like python,
+and gtk, and the wordpress api ;), but here is one question:
+
+I'd really, really like the client to support tags for posting and
+editing old posts. What is the status of mt_keywords or mt_tags or
+whatever the right one is (haven't figured that one out yet)
+
+I was also glad to see that the draft status of entries will be exposed
+from now on (http://trac.wordpress.org/ticket/4982). Is this definitely
+shipping with 2.4?
+
+Cheers,
+Carlos
+
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sat Dec 15 14:26:14 2007
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sat Dec 15 14:26:41 2007
+Subject: [wp-xmlrpc] Tags via XML-RPC
+In-Reply-To: <1197726310.5272.10.camel@phoenix.whoi.edu>
+References: <1197726310.5272.10.camel@phoenix.whoi.edu>
+Message-ID: <1197728774.5272.14.camel@phoenix.whoi.edu>
+
+
+On Sat, 2007-12-15 at 08:45 -0500, Carlos Moffat wrote:
+> Hello,
+> 
+> I'm in the process of writing a new desktop client for WP for Linux,
+> using python + gtk. I'm trying to figure out a few things (like python,
+> and gtk, and the wordpress api ;), but here is one question:
+> 
+> I'd really, really like the client to support tags for posting and
+> editing old posts. What is the status of mt_keywords or mt_tags or
+> whatever the right one is (haven't figured that one out yet)
+> 
+
+(Note to self: remember to keep you development wordpress installation
+up to date.)
+
+This seems to be working fine. 
+
+
+> I was also glad to see that the draft status of entries will be exposed
+> from now on (http://trac.wordpress.org/ticket/4982). Is this definitely
+> shipping with 2.4?
+> 
+> Cheers,
+> Carlos
+> 
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From jalkut at red-sweater.com  Sat Dec 15 15:57:58 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Dec 15 16:05:19 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+Message-ID: <64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+
+Hi Joseph - this looks great. Thanks for following up on this.  I  
+guess beggars *can* be choosers because it occurs to me that the main  
+downside here is that now the API reports more statuses than can be  
+set in the API. Before it let you set draft/publish, but didn't report  
+anything, now it reports everything but only lets you set draft/publish.
+
+Would it make sense to support the "post_status" field in incoming  
+posts, as well?
+
+What I'm mainly concerned by is that now we can get the exact status  
+of a post, but how do we represent this in a UI to the user? I can  
+only offer the user a choice between Draft and Publish. So when a  
+post's status is something else from those two states, how do I know  
+which state to indicate in the UI? Should I try to guess between which  
+of Draft and Publish the status is closest to?
+
+Ideally I'd be able to populate a popup menu with all the possible  
+states for a post, and the user could select from among any of them.
+
+Daniel
+
+On Dec 5, 2007, at 2:57 PM, Joseph Scott wrote:
+
+>
+> The post_status is now being exposed in metaWeblog.getPost and  
+> metaWeblog.getRecentPosts:
+>
+> ticket: http://trac.wordpress.org/ticket/4982
+> commit: http://trac.wordpress.org/changeset/6358
+>
+> I've confirmed that this change is in the 05-Dec-2007 nightly build,  
+> if you don't want/can't use -trunk from subversion.
+>
+> If you have an interest in making use of this data please test it  
+> out so that we can iron out any potential bugs before 2.4 comes in  
+> next month.
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From joseph at randomnetworks.com  Sat Dec 15 17:34:40 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Dec 15 17:34:53 2007
+Subject: [wp-xmlrpc] Tags via XML-RPC
+In-Reply-To: <1197728774.5272.14.camel@phoenix.whoi.edu>
+References: <1197726310.5272.10.camel@phoenix.whoi.edu>
+	<1197728774.5272.14.camel@phoenix.whoi.edu>
+Message-ID: <3325A414-676E-4FF6-B2DF-81DF7422F25D@randomnetworks.com>
+
+
+On Dec 15, 2007, at 7:26 AM, Carlos Moffat wrote:
+
+>
+> On Sat, 2007-12-15 at 08:45 -0500, Carlos Moffat wrote:
+>> Hello,
+>>
+>> I'm in the process of writing a new desktop client for WP for Linux,
+>> using python + gtk. I'm trying to figure out a few things (like  
+>> python,
+>> and gtk, and the wordpress api ;), but here is one question:
+>>
+>> I'd really, really like the client to support tags for posting and
+>> editing old posts. What is the status of mt_keywords or mt_tags or
+>> whatever the right one is (haven't figured that one out yet)
+>>
+>
+> (Note to self: remember to keep you development wordpress installation
+> up to date.)
+>
+> This seems to be working fine.
+
+
+When we added tags to WP mt_keywords looked like the most supported  
+way to implement them so that is what we went with.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sat Dec 15 17:35:48 2007
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sat Dec 15 17:36:01 2007
+Subject: [wp-xmlrpc] Tags via XML-RPC
+In-Reply-To: <3325A414-676E-4FF6-B2DF-81DF7422F25D@randomnetworks.com>
+References: <1197726310.5272.10.camel@phoenix.whoi.edu>
+	<1197728774.5272.14.camel@phoenix.whoi.edu>
+	<3325A414-676E-4FF6-B2DF-81DF7422F25D@randomnetworks.com>
+Message-ID: <1197740148.6177.0.camel@phoenix.whoi.edu>
+
+
+On Sat, 2007-12-15 at 10:34 -0700, Joseph Scott wrote:
+> On Dec 15, 2007, at 7:26 AM, Carlos Moffat wrote:
+> 
+> >
+> > On Sat, 2007-12-15 at 08:45 -0500, Carlos Moffat wrote:
+> >> Hello,
+> >>
+> >> I'm in the process of writing a new desktop client for WP for Linux,
+> >> using python + gtk. I'm trying to figure out a few things (like  
+> >> python,
+> >> and gtk, and the wordpress api ;), but here is one question:
+> >>
+> >> I'd really, really like the client to support tags for posting and
+> >> editing old posts. What is the status of mt_keywords or mt_tags or
+> >> whatever the right one is (haven't figured that one out yet)
+> >>
+> >
+> > (Note to self: remember to keep you development wordpress installation
+> > up to date.)
+> >
+> > This seems to be working fine.
+> 
+> 
+> When we added tags to WP mt_keywords looked like the most supported  
+> way to implement them so that is what we went with.
+> 
+
+Sounds good. From where I'm standing, the solution works great.
+
+Carlos
+
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Sat Dec 15 17:59:35 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Dec 15 17:59:49 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+Message-ID: <00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+
+
+On Dec 15, 2007, at 8:57 AM, Daniel Jalkut wrote:
+
+> Hi Joseph - this looks great. Thanks for following up on this.  I  
+> guess beggars *can* be choosers because it occurs to me that the  
+> main downside here is that now the API reports more statuses than  
+> can be set in the API. Before it let you set draft/publish, but  
+> didn't report anything, now it reports everything but only lets you  
+> set draft/publish.
+>
+> Would it make sense to support the "post_status" field in incoming  
+> posts, as well?
+
+This crossed my mind too and I think the answer is no.  I'll explain  
+below.
+
+
+> What I'm mainly concerned by is that now we can get the exact  
+> status of a post, but how do we represent this in a UI to the user?  
+> I can only offer the user a choice between Draft and Publish. So  
+> when a post's status is something else from those two states, how  
+> do I know which state to indicate in the UI? Should I try to guess  
+> between which of Draft and Publish the status is closest to?
+>
+> Ideally I'd be able to populate a popup menu with all the possible  
+> states for a post, and the user could select from among any of them.
+
+
+
+ From my list on the ticket (http://trac.wordpress.org/ticket/ 
+4982#comment:7) here are the following potential states a post can be  
+in and how they can be "set" via the current APIs:
+
+- draft : make publish false and you'll get a draft.
+
+- private : set a password on the post and you'll get a private post  
+(wp_password field)
+
+**** - pending : this is the one that I need to research a little bit  
+more.  The general idea here is for a user with the "Contributer"  
+role (http://codex.wordpress.org/Roles_and_Capabilities#Contributor)  
+can "publish" a post and it will get a status of pending, meaning  
+pending review.  Someone with the right to really publish posts can  
+then review and publish for real.  Right now there is no way for a  
+contributor user to add a post though.
+
+- publish : the post has been published.
+
+- future : this is a post that has been "published for a future  
+date", so setting a dateCreated in the future and publish to true  
+will get you here.
+
+
+That leaves just the issues for pending posts.  One thing we could do  
+is adjust the permissions check on contributor users so that if they  
+attempt to publish their posts will always get a post_status of  
+pending.  The flip side of this is that I can see that an editor  
+would potentially want a list of all pending posts so that they can  
+be reviewed.  We don't currently have a way to acquire that, perhaps  
+some sort of wp.getPendingPosts method is in order, returning an  
+array of post structs for all of the pending posts.
+
+ From the client side of things both future and pending are likely  
+new.  I'm not sure that it makes sense for a user to be able to  
+select a drop down and select all of these though, unless you  
+prompted them for the needed action to make that status possible.  So  
+if they selected private then you'd prompt them for a password.  If  
+they selected future you'd prompt them for a publish date/time.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Sat Dec 15 18:06:18 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Dec 15 18:06:36 2007
+Subject: [wp-xmlrpc] Tags via XML-RPC
+In-Reply-To: <1197740148.6177.0.camel@phoenix.whoi.edu>
+References: <1197726310.5272.10.camel@phoenix.whoi.edu>
+	<1197728774.5272.14.camel@phoenix.whoi.edu>
+	<3325A414-676E-4FF6-B2DF-81DF7422F25D@randomnetworks.com>
+	<1197740148.6177.0.camel@phoenix.whoi.edu>
+Message-ID: <934FE203-27A8-4F62-9D95-F1261936720F@randomnetworks.com>
+
+
+On Dec 15, 2007, at 10:35 AM, Carlos Moffat wrote:
+
+>>
+>> When we added tags to WP mt_keywords looked like the most supported
+>> way to implement them so that is what we went with.
+>>
+>
+> Sounds good. From where I'm standing, the solution works great.
+
+
+Excellent, and welcome to the list.  If there is anything else about  
+XML-RPC in WordPress that we can help with don't hesitate to ask.
+
+When changes go into WP XML-RPC I try to send a heads up here so that  
+client implementors know what's going on.  You can also see a list of  
+the current XML-RPC related tickets on Trac at:
+
+http://trac.wordpress.org/query? 
+status=new&status=assigned&status=reopened&groupdesc=1&group=component&c 
+omponent=XML-RPC&order=id
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sat Dec 15 18:08:58 2007
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sat Dec 15 18:09:15 2007
+Subject: [wp-xmlrpc] Tags via XML-RPC
+In-Reply-To: <934FE203-27A8-4F62-9D95-F1261936720F@randomnetworks.com>
+References: <1197726310.5272.10.camel@phoenix.whoi.edu>
+	<1197728774.5272.14.camel@phoenix.whoi.edu>
+	<3325A414-676E-4FF6-B2DF-81DF7422F25D@randomnetworks.com>
+	<1197740148.6177.0.camel@phoenix.whoi.edu>
+	<934FE203-27A8-4F62-9D95-F1261936720F@randomnetworks.com>
+Message-ID: <1197742138.6177.2.camel@phoenix.whoi.edu>
+
+
+On Sat, 2007-12-15 at 11:06 -0700, Joseph Scott wrote:
+> On Dec 15, 2007, at 10:35 AM, Carlos Moffat wrote:
+> 
+> >>
+> >> When we added tags to WP mt_keywords looked like the most supported
+> >> way to implement them so that is what we went with.
+> >>
+> >
+> > Sounds good. From where I'm standing, the solution works great.
+> 
+> 
+> Excellent, and welcome to the list.  If there is anything else about  
+> XML-RPC in WordPress that we can help with don't hesitate to ask.
+> 
+> When changes go into WP XML-RPC I try to send a heads up here so that  
+> client implementors know what's going on.  You can also see a list of  
+> the current XML-RPC related tickets on Trac at:
+> 
+> http://trac.wordpress.org/query? 
+> status=new&status=assigned&status=reopened&groupdesc=1&group=component&c 
+> omponent=XML-RPC&order=id
+> 
+
+Thanks. The archives have already been useful. 
+
+Cheers,
+Carlos
+
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From jalkut at red-sweater.com  Sat Dec 15 18:19:21 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Dec 15 18:19:45 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+Message-ID: <782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+
+Thanks, Joseph. You've obviously thought through it quite a bit. But  
+your analysis raises some more questions for me. It seems that there  
+isn't a clear "status" in some situations where there may be overlap.  
+For instance, what happens when a post is set draft, but also has a  
+password set on it? How do you tell the difference between a private  
+draft and a private published?
+
+Daniel
+
+On Dec 15, 2007, at 12:59 PM, Joseph Scott wrote:
+
+> From my list on the ticket (http://trac.wordpress.org/ticket/4982#comment 
+> :7) here are the following potential states a post can be in and how  
+> they can be "set" via the current APIs:
+From joseph at randomnetworks.com  Sat Dec 15 18:58:53 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Dec 15 18:59:52 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+	<782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+Message-ID: <A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+
+
+On Dec 15, 2007, at 11:19 AM, Daniel Jalkut wrote:
+
+> Thanks, Joseph. You've obviously thought through it quite a bit.  
+> But your analysis raises some more questions for me. It seems that  
+> there isn't a clear "status" in some situations where there may be  
+> overlap. For instance, what happens when a post is set draft, but  
+> also has a password set on it? How do you tell the difference  
+> between a private draft and a private published?
+
+Good question.  I tried that it out in wp-admin and found that draft  
++ private = draft.  I haven't confirmed this 100%, but I suspect that  
+publish/draft will always trump any other status.  So private and  
+future will only show for posts that have already been published.   
+This still leaves pending as a rather strange beast that is published  
+on one level, but not really on another.
+
+Having all of these different statuses in just one field does make  
+for some extra work.  So for a status of draft you'd still have to  
+look at the password field and see if it is empty in order to  
+determine if it is private draft (which might be a misleading term in  
+and of itself).
+
+That said I just tried this in wp-admin, take a draft that you've  
+saved with a password and select the post status of private, then  
+click on save and continue editing.  That will publish your post,  
+which probably isn't the most obvious thing to do.  I'll have to  
+write a ticket about that, allowing a user to directly set the post  
+status leads to some non-obvious events it looks like.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From lloydomattic at gmail.com  Sat Dec 15 19:04:13 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Sat Dec 15 20:27:33 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+	<782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+	<A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+Message-ID: <70ebb7140712151104k4202bb69ta537a441df1386a7@mail.gmail.com>
+
+I think there is some confusion of the terminology and the experience
+in this discussion. Password doesn't suggest private. It suggests
+password protected. Private is a separate property. The mutually
+explusive states are draft/private/pending/publish/(future)
+
+Hope that helps,
+Lloyd
+From joseph at randomnetworks.com  Sat Dec 15 20:48:48 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Dec 15 20:49:05 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <70ebb7140712151104k4202bb69ta537a441df1386a7@mail.gmail.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+	<782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+	<A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+	<70ebb7140712151104k4202bb69ta537a441df1386a7@mail.gmail.com>
+Message-ID: <925FBA4D-B7CC-4B30-BD79-B07759BEE4AF@randomnetworks.com>
+
+
+On Dec 15, 2007, at 12:04 PM, Lloyd Budd wrote:
+
+> I think there is some confusion of the terminology and the experience
+> in this discussion. Password doesn't suggest private. It suggests
+> password protected. Private is a separate property. The mutually
+> explusive states are draft/private/pending/publish/(future)
+
+Hmmm, I must have misunderstood private then.  This makes me wonder  
+how private and protected differ then.
+
+Perhaps Daniel was right then and we will need to a way to set post  
+status.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Mon Dec 17 20:16:30 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Dec 17 20:16:46 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <925FBA4D-B7CC-4B30-BD79-B07759BEE4AF@randomnetworks.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+	<782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+	<A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+	<70ebb7140712151104k4202bb69ta537a441df1386a7@mail.gmail.com>
+	<925FBA4D-B7CC-4B30-BD79-B07759BEE4AF@randomnetworks.com>
+Message-ID: <0199816F-DCAB-4452-BCE2-E4024BC65B9A@randomnetworks.com>
+
+
+On Dec 15, 2007, at 1:48 PM, Joseph Scott wrote:
+
+> On Dec 15, 2007, at 12:04 PM, Lloyd Budd wrote:
+>
+>> I think there is some confusion of the terminology and the experience
+>> in this discussion. Password doesn't suggest private. It suggests
+>> password protected. Private is a separate property. The mutually
+>> explusive states are draft/private/pending/publish/(future)
+
+
+I've asked for additional info and it looks like my understanding of  
+post_status was way off (open mouth, insert foot).
+
+Being able to set post_status via metaWeblog.newPost will be needed.
+
+To be clear, private posts have nothing to do with password protected  
+posts.  A private post will only show up for the author of the post.   
+We should be able to set a status of pending review as well, just  
+need add some more logic to the permission/capability checks so that  
+mw.newPost will accept a post that has publish set to true and the  
+status as pending.  In that case a user with the contributor role  
+would have their post adjusted so that the publish bit is changed to  
+false.  That should allow their post to be saved with the correct  
+publish state and post status.
+
+I apologize for the confusion from my earlier comments.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Mon Dec 17 20:24:26 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon Dec 17 20:24:54 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <0199816F-DCAB-4452-BCE2-E4024BC65B9A@randomnetworks.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+	<782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+	<A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+	<70ebb7140712151104k4202bb69ta537a441df1386a7@mail.gmail.com>
+	<925FBA4D-B7CC-4B30-BD79-B07759BEE4AF@randomnetworks.com>
+	<0199816F-DCAB-4452-BCE2-E4024BC65B9A@randomnetworks.com>
+Message-ID: <7677BC21-B5D6-4413-B9B4-E68B146F50C8@red-sweater.com>
+
+I'm glad that things are getting hashed out. While you're thinking  
+about adding an ability to specify post_status, can I also suggest  
+that there should be some mechanism for a client to ask for the list  
+of possible statuses?  I see something akin to  
+"supportedTextFilters" ... since the client can't reasonably display  
+the list of statuses without explicitly knowing based on the version  
+of WP, or by asking via protocol.
+
+It seems sensible to establish a precedent of requesting a list of  
+possible post statuses, and allowing the user to choose from among  
+those for any post. The guarantee would then be that any post from WP  
+should have a post-status that is from among that list.
+
+Daniel
+
+On Dec 17, 2007, at 3:16 PM, Joseph Scott wrote:
+
+> I've asked for additional info and it looks like my understanding of  
+> post_status was way off (open mouth, insert foot).
+>
+> Being able to set post_status via metaWeblog.newPost will be needed.
+From joseph at randomnetworks.com  Mon Dec 17 22:39:39 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Dec 17 22:40:03 2007
+Subject: [wp-xmlrpc] post_status
+In-Reply-To: <7677BC21-B5D6-4413-B9B4-E68B146F50C8@red-sweater.com>
+References: <E223D7D4-AE04-4F61-8644-49210B7272B5@randomnetworks.com>
+	<64953782-86B5-4113-9EBD-5C22BE1407C5@red-sweater.com>
+	<00E2CD6D-D45F-4216-82F7-B4848B8674BD@randomnetworks.com>
+	<782D2BBB-B2BD-401B-B6FB-111ABEBC89E5@red-sweater.com>
+	<A542BD7F-35D2-4623-B8C1-5BB292F0F5BF@randomnetworks.com>
+	<70ebb7140712151104k4202bb69ta537a441df1386a7@mail.gmail.com>
+	<925FBA4D-B7CC-4B30-BD79-B07759BEE4AF@randomnetworks.com>
+	<0199816F-DCAB-4452-BCE2-E4024BC65B9A@randomnetworks.com>
+	<7677BC21-B5D6-4413-B9B4-E68B146F50C8@red-sweater.com>
+Message-ID: <35865031-3AEC-4937-B21A-8875491D31D7@randomnetworks.com>
+
+
+On Dec 17, 2007, at 1:24 PM, Daniel Jalkut wrote:
+
+> I'm glad that things are getting hashed out. While you're thinking  
+> about adding an ability to specify post_status, can I also suggest  
+> that there should be some mechanism for a client to ask for the  
+> list of possible statuses?  I see something akin to  
+> "supportedTextFilters" ... since the client can't reasonably  
+> display the list of statuses without explicitly knowing based on  
+> the version of WP, or by asking via protocol.
+>
+> It seems sensible to establish a precedent of requesting a list of  
+> possible post statuses, and allowing the user to choose from among  
+> those for any post. The guarantee would then be that any post from  
+> WP should have a post-status that is from among that list.
+
+I like that idea.  Need a good method name.  wp.getPostStatuses ?   
+wp.getPossiblePostStatuses ? wp.getPostStatusList ?
+
+I'll hunt around and see where WordPress is keeping the list of valid  
+values for the post_status field.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Thu Dec 20 17:32:46 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Dec 20 17:33:00 2007
+Subject: [wp-xmlrpc] wp.deleteCategory & managing custom fields
+Message-ID: <623C7D45-5CB3-4028-87D6-C6E7F3BC3666@randomnetworks.com>
+
+
+The new wp.deleteCategory (ticket #4599) method and support for  
+managing custom fields (ticket #5148) have gone into -trunk.  I've  
+confirmed that these changes are also available in the nightly builds  
+(http://static.wordpress.org/builds/) starting at 20-Dec-2007.
+
+These will be included in the 2.4 release next month so please try  
+them out and let me know if you have any questions/comments/bugs/etc.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Fri Dec 28 17:18:42 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Dec 28 17:19:14 2007
+Subject: [wp-xmlrpc] additional capability checks
+Message-ID: <A08B231C-9797-400D-AB34-A88CEE26285B@randomnetworks.com>
+
+
+We've added some additional capability checks for the following methods:
+
+wp.getPage
+wp.getPages
+wp.getPageList
+wp.suggestCategories
+blogger.getPost
+blogger.getRecentPosts
+blogger.getUserInfo
+metaWeblog.getPost
+metaWeblog.getRecentPosts
+metaWeblog.getCategories
+mt.getRecentPostTitles
+mt.getCategoryList
+mt.getPostCategories
+
+and to some of the AtomPub requests.
+
+
+I tested these several times in an effort to make sure that they  
+don't impact legit users.  That said if you do find a problem please  
+let me know so we can make sure things work as expected in the releases.
+
+These changes are in -trunk, the 2.3 branch and live on  
+WordPress.com.  The next release will be 2.3.2 which will be coming  
+out soon, these changes are in the 2.3.2-RC1 which you can get at the  
+bottom of http://wordpress.org/download/release-archive/ and will be  
+in the 2.4 release coming out next month.
+
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+

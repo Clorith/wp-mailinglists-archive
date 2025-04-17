@@ -1,0 +1,301 @@
+From dvanliere at gmail.com  Wed Aug  4 01:31:17 2010
+From: dvanliere at gmail.com (Diederik van Liere)
+Date: Tue, 3 Aug 2010 21:31:17 -0400
+Subject: [wp-xmlrpc] Remove authorization for xmlrpc read-only functions?
+Message-ID: <AANLkTimQ32O-PmZfye2aBowdoYYdmZUbYDMh3jeruwh8@mail.gmail.com>
+
+Dear fellow wordpress users / devs,
+
+
+I have been playing a bit with the xmlrpc functionality of wordpress
+and I like it a lot! There is just one thing that I don't fully
+understand and that is the following:
+
+Why are the xmlrpc read-only functions (such as mt.getPostCategories,
+mt.getRecentPostTitles, mt.getRecentPosts, metaWeblog.getPost,
+wp.getComment, wp.getTags, wp.getAuthors, etc. etc.) protected by
+password / username?
+
+These functions expose the same data as is available on the blog
+itself and the functions are read only. So why not liberate this data
+and remove the authorization? For example, tumblr does the same, if
+you just add '/api/xml/' to a url of a post then you will receive the
+xml output of that particular post.
+
+Two benefits come to mind (and I am sure other people can come up with
+more benefits):
+1) It makes it easier for third-party developers to build tools to
+analyze Wordpress blogs / blogposts
+2) It's a (very) small step to make Wordpress ready for the semantic web
+
+Curious to hear your opinion about this and whether this should become
+a trac ticket.
+
+Best,
+
+
+Diederik
+
+From jalkut at red-sweater.com  Wed Aug  4 01:42:25 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue, 3 Aug 2010 21:42:25 -0400
+Subject: [wp-xmlrpc] Remove authorization for xmlrpc read-only functions?
+In-Reply-To: <AANLkTimQ32O-PmZfye2aBowdoYYdmZUbYDMh3jeruwh8@mail.gmail.com>
+References: <AANLkTimQ32O-PmZfye2aBowdoYYdmZUbYDMh3jeruwh8@mail.gmail.com>
+Message-ID: <ACE52CBE-0AF0-480D-AEA9-592780ED6F8E@red-sweater.com>
+
+Hi Diederik - what comes to mind for me is that it's a coincidence that most of the information in a typical blog configuration is publicly visible.  There are several scenarios in which the content of a blog may be protected:
+
+- The posts are password protected.
+- The posts are drafts.
+- The entire blog is only visible to registered users.
+- The posts contain metadata that is not exposed publicly by a given theme.
+
+I can see your reasoning for having the information be accessible when it just so happens that there isn't any private information among the results, but trying to determine with accuracy whether it was safe to expose a particular set of posts or not would be difficult. The XMLRPC API is just too blunt and its content may include a mish-mash of public and private content.
+
+If you want to get at the content of public posts in a programmatically parseable way, the existing RSS and Atom syndication interfaces are probably a good choice.
+
+Daniel
+
+On Aug 3, 2010, at 9:31pm, Diederik van Liere wrote:
+
+> Dear fellow wordpress users / devs,
+> 
+> 
+> I have been playing a bit with the xmlrpc functionality of wordpress
+> and I like it a lot! There is just one thing that I don't fully
+> understand and that is the following:
+> 
+> Why are the xmlrpc read-only functions (such as mt.getPostCategories,
+> mt.getRecentPostTitles, mt.getRecentPosts, metaWeblog.getPost,
+> wp.getComment, wp.getTags, wp.getAuthors, etc. etc.) protected by
+> password / username?
+> 
+> These functions expose the same data as is available on the blog
+> itself and the functions are read only. So why not liberate this data
+> and remove the authorization? For example, tumblr does the same, if
+> you just add '/api/xml/' to a url of a post then you will receive the
+> xml output of that particular post.
+> 
+> Two benefits come to mind (and I am sure other people can come up with
+> more benefits):
+> 1) It makes it easier for third-party developers to build tools to
+> analyze Wordpress blogs / blogposts
+> 2) It's a (very) small step to make Wordpress ready for the semantic web
+> 
+> Curious to hear your opinion about this and whether this should become
+> a trac ticket.
+> 
+> Best,
+> 
+> 
+> Diederik
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From dvanliere at gmail.com  Thu Aug  5 12:31:08 2010
+From: dvanliere at gmail.com (Diederik van Liere)
+Date: Thu, 5 Aug 2010 08:31:08 -0400
+Subject: [wp-xmlrpc] Remove authorization for xmlrpc read-only functions?
+Message-ID: <AANLkTinWzBDqj0GpMdnYzEmSnXqoL7P0W-90FmEPjjb7@mail.gmail.com>
+
+Hi Daniel,
+Thanks for  your reply. I see your point that not all posts on a blog
+are open to the public but this could potentially be alleviated by
+making it configurable: default setting could be to make xmlrpc
+readonly requests without authorization but if you don't want this
+then, using the admin, configure wp that it should ask authorization
+for readonly xmlrpc requests.
+
+I am definitely interested in a programmatically parseable way to
+access wp content but it seems that it really depends on the
+individual blog what is exposed and usually it's only the most recent
+comments so I i am looking for a way that exposes more data in a more
+structured way.
+
+Best,
+
+Diederik
+
+> Hi Diederik - what comes to mind for me is that it's a coincidence that most of the information in a typical blog configuration is publicly visible. ?There are several scenarios in which the content of a blog may be protected:
+>
+> - The posts are password protected.
+> - The posts are drafts.
+> - The entire blog is only visible to registered users.
+> - The posts contain metadata that is not exposed publicly by a given theme.
+>
+> I can see your reasoning for having the information be accessible when it just so happens that there isn't any private information among the results, but trying to determine with accuracy whether it was safe to expose a particular set of posts or not would be difficult. The XMLRPC API is just too blunt and its content may include a mish-mash of public and private content.
+>
+> If you want to get at the content of public posts in a programmatically parseable way, the existing RSS and Atom syndication interfaces are probably a good choice.
+>
+> Daniel
+
+From joseph at josephscott.org  Thu Aug  5 16:27:35 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu, 5 Aug 2010 10:27:35 -0600
+Subject: [wp-xmlrpc] Remove authorization for xmlrpc read-only functions?
+In-Reply-To: <AANLkTinWzBDqj0GpMdnYzEmSnXqoL7P0W-90FmEPjjb7@mail.gmail.com>
+References: <AANLkTinWzBDqj0GpMdnYzEmSnXqoL7P0W-90FmEPjjb7@mail.gmail.com>
+Message-ID: <AANLkTi=KacSAYGet1-J8qL2jK0KL2eZRM8yP4wwoKYpF@mail.gmail.com>
+
+On Thu, Aug 5, 2010 at 6:31 AM, Diederik van Liere <dvanliere at gmail.com> wrote:
+> Thanks for ?your reply. I see your point that not all posts on a blog
+> are open to the public but this could potentially be alleviated by
+> making it configurable: default setting could be to make xmlrpc
+> readonly requests without authorization but if you don't want this
+> then, using the admin, configure wp that it should ask authorization
+> for readonly xmlrpc requests.
+
+A plugin could potentially do that.
+
+
+> I am definitely interested in a programmatically parseable way to
+> access wp content but it seems that it really depends on the
+> individual blog what is exposed and usually it's only the most recent
+> comments so I i am looking for a way that exposes more data in a more
+> structured way.
+
+Along with the standard RSS and Atom feeds this plugin provides some
+interesting possibilities -
+http://wordpress.org/extend/plugins/json-api/
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From nsebban at gmail.com  Tue Aug 31 14:42:48 2010
+From: nsebban at gmail.com (nico)
+Date: Tue, 31 Aug 2010 16:42:48 +0200
+Subject: [wp-xmlrpc] XML-RPC in Wordpress 3.0
+Message-ID: <AANLkTi=kn5c6yQsSzogkGVyt9c2=dxMcN8hBf7jXi+Yg@mail.gmail.com>
+
+Hello,
+
+I've been playing with the XMLRPC API, and I have a few unanswered questions
+:
+
+--Is there a Codex page that lists every RPC method, with links to the
+corresponding help page ?
+I couldn't find any...I usually end up catenating the URL
+http://codex.wordpress.org/XML-RPC/ with the method name (ie.
+http://codex.wordpress.org/XML-RPC/wp.getComments), and it sometimes works.
+I'll gladly create a codex account and set this page up, if it doesn't exist
+already...I just wanted to be sure it's not redundant.
+
+--Are there plans for new RPC methods in the near future ?
+I realized that many of the WP3 new features (custom taxonomies, custom post
+types) don't have corresponding RPC methods...are there plans to add these ?
+Is the XMLRPC part of Wordpress still alive ?
+
+--Is it possible adding custom RPC methods through plugins code ? Do you
+recommend it ?
+I noticed the "xmlrpc_methods" filter, that can be used to add custom RPC
+methods programmatically in plugins. I think I read at some point that the
+whole Wordpress "engine" is not started when dealing with XMLRPC
+requests...In that context, would registering new methods through the filter
+and loading the corresponding callbacks work ? And would you do it that way
+?
+
+Thank you for your answers.
+
+Nicolas
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100831/15ad8955/attachment.htm>
+
+From eric at eamann.com  Tue Aug 31 15:22:46 2010
+From: eric at eamann.com (Eric Mann)
+Date: Tue, 31 Aug 2010 08:22:46 -0700 (PDT)
+Subject: [wp-xmlrpc] XML-RPC in Wordpress 3.0
+In-Reply-To: <AANLkTi=kn5c6yQsSzogkGVyt9c2=dxMcN8hBf7jXi+Yg@mail.gmail.com>
+References: <AANLkTi=kn5c6yQsSzogkGVyt9c2=dxMcN8hBf7jXi+Yg@mail.gmail.com>
+Message-ID: <1537760829.76800.1283268166432.JavaMail.open-xchange@oxusltgw08.schlund.de>
+
+There isn't a single resource for API documentation because XML-RPC supports
+multiple APIs. ?Here are a few references for you:
+?
+- WordPress API: http://codex.wordpress.org/XML-RPC_wp
+- Blogger API: http://www.blogger.com/developers/api/1_docs/
+- MetaWeblog API: http://www.xmlrpc.com/metaWeblogApi
+- Movable Type API: http://www.sixapart.com/developers/xmlrpc/movable_type_api/
+?
+It is possible to add custom RPC methods through plug-ins. ?It's fairly easy to
+do, and you can extend custom plug-in functionality this way (you can use
+WordPress as any kind of SOAP or REST service if you have the right kind of
+extensibility built-in).
+?
+To add your own function, you'll need to do the following:
+?
+function xml_add_method( $methods ) {
+$methods['myNamespace.myMethod'] = 'my_method_name';
+return $methods;
+}
+add_filter( 'xmlrpc_methods', 'xml_add_method');
+?
+The above code will add a new XML-RPC method to core. ?Any external service can
+now post a request to http://blogname.url/xmlrpc.php and call
+'myNamespace.myMethod'. ?Any arguments passed to that method call will be passed
+directly into a PHP function called 'my_method_name'. ?So you'll also need the
+following:
+?
+function my_method_name( $args ) {
+global $wpdb; // If you want to use this object to load, store, or manipulate
+data
+?
+$args = wp_parse_args( $args );
+extract( $args, EXTR_SKIP );
+?
+...
+}
+?
+Once your arguments are extracted and stored in variables, you can do whatever
+you want with them. ?If you want an example of how I'm using this for plug-in
+callbacks, I suggest looking through the code to my Elliot Server project on
+Google Code:?http://code.google.com/p/elliot-server/. ?This system adds an entry
+point that remote plug-ins can post error messages to so a developer can follow
+up. ?It's a work in progress, though, so expect it to gradually change over
+time.
+?
+~Eric
+?
+
+On August 31, 2010 at 2:42 PM nico <nsebban at gmail.com> wrote:
+
+
+> Hello,
+> 
+> I've been playing with the XMLRPC API, and I have a few unanswered questions :
+> 
+> --Is there a Codex page that lists every RPC method, with links to the
+> corresponding help page ?
+> I couldn't find any...I usually end up catenating the URL
+> http://codex.wordpress.org/XML-RPC/with the method name (ie.
+> http://codex.wordpress.org/XML-RPC/wp.getComments), and it sometimes works.
+> I'll gladly create a codex account and set this page up, if it doesn't exist
+> already...I just wanted to be sure it's not redundant.
+> 
+> --Are there plans for new RPC methods in the near future ?
+> I realized that many of the WP3 new features (custom taxonomies, custom post
+> types) don't have corresponding RPC methods...are there plans to add these ?
+> Is the XMLRPC part of Wordpress still alive ?
+> 
+> --Is it possible adding custom RPC methods through plugins code ? Do you
+> recommend it ?
+> I noticed the "xmlrpc_methods" filter, that can be used to add custom RPC
+> methods programmatically in plugins. I think I read at some point that the
+> whole Wordpress "engine" is not started when dealing with XMLRPC requests...In
+> that context, would registering new methods through the filter and loading the
+> corresponding callbacks work ? And would you do it that way ?
+> 
+> Thank you for your answers.
+> 
+> Nicolas
+> 
+> 
+>
+

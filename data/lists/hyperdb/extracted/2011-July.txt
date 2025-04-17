@@ -1,0 +1,198 @@
+From pkale.robinson at gmail.com  Sun Jul 10 01:27:16 2011
+From: pkale.robinson at gmail.com (Pkale Robinson)
+Date: Sat, 9 Jul 2011 21:27:16 -0400
+Subject: [HyperDB] testing hyperdb
+Message-ID: <CAH1Ts7xKV_eb0YTCxMgSxT52M4kYjTuG21PbXNN61PYuPG8hPw@mail.gmail.com>
+
+I have set up a WP site with one master and two slave dbs. The master is set
+to write, while the slaves are to read. Is there a method for testing,, or
+debuging this set up ?
+
+
+Best Regards
+
+From skeltoac at gmail.com  Sun Jul 10 03:09:08 2011
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Sat, 9 Jul 2011 22:09:08 -0500
+Subject: [HyperDB] testing hyperdb
+In-Reply-To: <CAH1Ts7xKV_eb0YTCxMgSxT52M4kYjTuG21PbXNN61PYuPG8hPw@mail.gmail.com>
+References: <CAH1Ts7xKV_eb0YTCxMgSxT52M4kYjTuG21PbXNN61PYuPG8hPw@mail.gmail.com>
+Message-ID: <CABVyDWXfGsaECQKRs0ENAENMLa8=Sg3noWMt0Upcx59OtYW34g@mail.gmail.com>
+
+On Sat, Jul 9, 2011 at 8:27 PM, Pkale Robinson <pkale.robinson at gmail.com> wrote:
+> I have set up a WP site with one master and two slave dbs. The master is set
+> to write, while the slaves are to read. Is there a method for testing,, or
+> debuging this set up ?
+
+You can install a callback that receives $query, $elapsed, $backtrace,
+and &$wpdb after every query. On WordPress.com we do this:
+
+$wpdb->save_queries = true;
+$wpdb->save_query_callback = 'wpcom_save_query_callback';
+
+function wpcom_save_query_callback($query, $elapsed, $backtrace, &$wpdb) {
+    // Here you can log stuff like:
+    //   $query
+    //   $wpdb->dbhname
+    //   $wpdb->dataset
+    //   $wpdb->last_connection
+}
+
+Andy
+
+From barry at automattic.com  Wed Jul 20 15:53:54 2011
+From: barry at automattic.com (Barry Abrahamson)
+Date: Wed, 20 Jul 2011 10:53:54 -0500
+Subject: [HyperDB] Replication Lag Detection
+Message-ID: <103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com>
+
+Replication lag detection is now in HyperDB trunk:
+
+http://barry.wordpress.com/2011/07/20/hyperdb-lag-detection/
+
+Enjoy!
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+
+From bulk at thecodecave.com  Wed Jul 20 16:02:54 2011
+From: bulk at thecodecave.com (Brian Layman)
+Date: Wed, 20 Jul 2011 12:02:54 -0400
+Subject: [HyperDB] Replication Lag Detection
+In-Reply-To: <103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com>
+References: <103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com>
+Message-ID: <4E26FC2E.4030808@thecodecave.com>
+
+On 7/20/2011 11:53 AM, Barry Abrahamson wrote:
+> Replication lag detection is now in HyperDB trunk:
+>
+> http://barry.wordpress.com/2011/07/20/hyperdb-lag-detection/
+>
+> Enjoy!
+> --
+> Barry Abrahamson | Systems Wrangler | Automattic
+> Blog: http://barry.wordpress.com
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+ooo Very nice Barry!
+
+It also sounds like object caching of sorts is now built into hyperdb 
+now.  What's the time out for that data? And am I correct in saying that 
+that cache only used when all slaves are lagging?
+
+How are you feeling on the stability and a point release with these changes?
+
+This sounds like a great change!
+
+-- 
+
+*Brian Layman *
+
+Founder and Developer
+brian at ehermitsInc.com <mailto:brian at ehermitsInc.com>
+twitter: @brianlayman
+
+*eHermits Inc.*
+
+http://eHermitsInc.com <http://ehermitsinc.com/>
+
+	
+
+Cell: 330-887-2283
+
+
+
+From barry at automattic.com  Wed Jul 20 16:18:24 2011
+From: barry at automattic.com (Barry Abrahamson)
+Date: Wed, 20 Jul 2011 11:18:24 -0500
+Subject: [HyperDB] Replication Lag Detection
+In-Reply-To: <4E26FC2E.4030808@thecodecave.com>
+References: <103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com>
+	<4E26FC2E.4030808@thecodecave.com>
+Message-ID: <D666B83C-A830-4D7D-9A01-0CA0DAB24D93@automattic.com>
+
+
+On Jul 20, 2011, at 11:02 AM, Brian Layman wrote:
+
+> It also sounds like object caching of sorts is now built into hyperdb now.  What's the time out for that data? And am I correct in saying that that cache only used when all slaves are lagging?
+
+No real object caching - we are only using the cache to store the states (lagged or not lagged) for the various servers because we don't want to query the lagged state before every query.
+> 
+> How are you feeling on the stability and a point release with these changes?
+
+Someone else needs to use it successfully in production before we make a point release :)
+
+
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+
+From bulk at thecodecave.com  Wed Jul 20 16:42:50 2011
+From: bulk at thecodecave.com (Brian Layman)
+Date: Wed, 20 Jul 2011 12:42:50 -0400
+Subject: [HyperDB] Replication Lag Detection
+In-Reply-To: <D666B83C-A830-4D7D-9A01-0CA0DAB24D93@automattic.com>
+References: <103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com>	<4E26FC2E.4030808@thecodecave.com>
+	<D666B83C-A830-4D7D-9A01-0CA0DAB24D93@automattic.com>
+Message-ID: <4E27058A.9030805@thecodecave.com>
+
+On 7/20/2011 12:18 PM, Barry Abrahamson wrote:
+> No real object caching - we are only using the cache to store the 
+> states (lagged or not lagged) for the various servers because we don't 
+> want to query the lagged state before every query.
+Ah, ok I was confused by "In case replication breaks on all slaves, we 
+would rather return old data then overload the master with read queries 
+and cause an outage." and I thought that meant it returned cached data, 
+but you simply mean you then query an existing slave even though it is 
+lagged, right?
+
+
+> Someone else needs to use it successfully in production before we make a point release :)
+I'll see what I can do.  One client will likely say no, another might 
+say maybe.
+
+-- 
+
+*Brian Layman *
+
+Founder and Developer
+brian at ehermitsInc.com <mailto:brian at ehermitsInc.com>
+twitter: @brianlayman
+
+*eHermits Inc.*
+
+http://eHermitsInc.com <http://ehermitsinc.com/>
+
+	
+
+Cell: 330-887-2283
+
+
+
+From barry at automattic.com  Wed Jul 20 17:03:21 2011
+From: barry at automattic.com (Barry Abrahamson)
+Date: Wed, 20 Jul 2011 12:03:21 -0500
+Subject: [HyperDB] Replication Lag Detection
+In-Reply-To: <4E27058A.9030805@thecodecave.com>
+References: <103B5BE1-F482-4D16-8CC7-1FA409C9910D@automattic.com>	<4E26FC2E.4030808@thecodecave.com>
+	<D666B83C-A830-4D7D-9A01-0CA0DAB24D93@automattic.com>
+	<4E27058A.9030805@thecodecave.com>
+Message-ID: <41A83D03-21DE-4C38-8ABB-95FBC5718620@automattic.com>
+
+
+On Jul 20, 2011, at 11:42 AM, Brian Layman wrote:
+
+> Ah, ok I was confused by "In case replication breaks on all slaves, we would rather return old data then overload the master with read queries and cause an outage." and I thought that meant it returned cached data, but you simply mean you then query an existing slave even though it is lagged, right?
+
+Yep - that's correct.
+
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+

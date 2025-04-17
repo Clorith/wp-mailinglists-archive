@@ -1,0 +1,503 @@
+From mofatr at gmail.com  Mon Feb  2 23:36:26 2009
+From: mofatr at gmail.com (Dave B)
+Date: Mon Feb  2 23:36:34 2009
+Subject: [wp-xmlrpc] Import support?
+Message-ID: <e2cf8d4c0902021536i4799670fy70cdd24f6d37762d@mail.gmail.com>
+
+Is it possible to use the import tool (wp-admin/import.php) via either
+xml-rpc or atompub? I think this would be a cool feature for a wp
+client to have.
+From joseph at josephscott.org  Tue Feb  3 00:32:30 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue Feb  3 00:32:48 2009
+Subject: [wp-xmlrpc] Import support?
+In-Reply-To: <e2cf8d4c0902021536i4799670fy70cdd24f6d37762d@mail.gmail.com>
+References: <e2cf8d4c0902021536i4799670fy70cdd24f6d37762d@mail.gmail.com>
+Message-ID: <95C97142-A3C6-4B80-92BE-095B612B74FD@josephscott.org>
+
+
+On Feb 2, 2009, at 4:36 PM, Dave B wrote:
+
+> Is it possible to use the import tool (wp-admin/import.php) via either
+> xml-rpc or atompub? I think this would be a cool feature for a wp
+> client to have.
+
+
+I don't think that anyone has written an importer that uses XML-RPC or  
+AtomPub.
+
+I suppose you could do that, though we really should provide a way to  
+tell WP that the new data is part of an import (some parts of WP  
+behave differently if an import is happening).
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From joseph at josephscott.org  Tue Feb 10 22:11:11 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue Feb 10 22:11:25 2009
+Subject: [wp-xmlrpc] WordPress 2.7.1 Released - XML-RPC and AtomPub Changes
+Message-ID: <bbd639f50902101411t6bf02158sef19e84e1058c4cc@mail.gmail.com>
+
+Ryan just tagged the 2.7.1 release of WordPress. This being a
+maintenance release there are only a few changes to XML-RPC:
+
+Fixed bugs in wp.newComment (ticket 8672)
+Fix break of metaWeblog.getCategories that was introduced in 2.7 (ticket 8494)
+Added the new categoryDescription field to metaWeblog.getCategories in
+light of the problems introduced in 2.7 as part of ticket 8494
+
+And there were no changes to AtomPub in 2.7.1.
+
+-- 
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/blog/
+From alan at verselogic.net  Fri Feb 13 12:58:11 2009
+From: alan at verselogic.net (Alan Castonguay)
+Date: Fri Feb 13 12:58:23 2009
+Subject: [wp-xmlrpc] AtomPUB Comment Moderation?
+References: <91AB2584-0096-4205-BF20-7EA4A60E07E9@verselogic.net>
+Message-ID: <DFCB8AF0-CFFE-4AEE-A977-41B6B4031DC6@verselogic.net>
+
+This was brought up on wp-hackers -- How can we make editable/ 
+moderatable Atom/AtomPUB feeds of comments available?
+
+-Alan
+
+Begin forwarded message:
+
+> From: Alan Castonguay <alan@verselogic.net>
+> Date: February 13, 2009 7:55:45 AM GMT-05:00
+> To: wp-hackers@lists.automattic.com
+> Subject: Re: [wp-hackers] Re: Getting comment feed for articles of  
+> specific author
+>
+> There is, afaik, no such feed yet.
+>
+> There really should be a way of fetching this data, at least for the  
+> Atom APP.  I've been considering recently where a Comment Collection  
+> should be placed, possibly at the top-level beside posts and media.  
+> If a subcollection / collection query / etc of Comments were  
+> available, then an Atom feed could be provided for both the  
+> requested use case (feed of all comments on posts by a given author)  
+> and others not yet discovered.
+>
+> The APP really needs to reach feature parity with the xmlrpc  
+> interface. Optimally, one or both should reach parity with the Admin  
+> interface as a whole.
+>
+> How can we manage (Post new, Put updates/moderate, Delete, Get feeds  
+> of) comments with AtomPUB?
+>
+> -Alan J Castonguay
+>
+>
+> On Feb 13, 2009, at 4:52 AM, Xavier Borderie wrote:
+>
+>> So, lemme guess: there's no way to make this work?
+>>
+>> Thanks for any help.
+>>
+>> -x.
+>>
+>>
+>> 2009/2/11 Xavier Borderie <xavier@borderie.net>:
+>>> Hey there, good people.
+>>>
+>>> In a standard install, we can:
+>>> - get the general feed > /blog/feed/
+>>> - get the comments feed > /blog/comments/feed/
+>>> - get a feed for each author's articles > /blog/author/AUTHOR_ID/ 
+>>> feed/
+>>>
+>>> How would I go about getting the next logical step: a feed of the
+>>> comments to a given author's articles.
+>>>
+>>> Basic idea: /blog/author/AUTHOR_ID/comments/feed/
+>>> What say you?
+>>>
+>>> --
+>>> Xavier Borderie
+>>>
+>>
+>>
+>>
+>> -- 
+>> Xavier Borderie
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20090213/32b0fa78/attachment.htm
+From joseph at josephscott.org  Sat Feb 14 18:45:12 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat Feb 14 18:45:27 2009
+Subject: [wp-xmlrpc] AtomPUB Comment Moderation?
+In-Reply-To: <DFCB8AF0-CFFE-4AEE-A977-41B6B4031DC6@verselogic.net>
+References: <91AB2584-0096-4205-BF20-7EA4A60E07E9@verselogic.net>
+	<DFCB8AF0-CFFE-4AEE-A977-41B6B4031DC6@verselogic.net>
+Message-ID: <93EA7EB8-DE23-497B-A80B-D30AE3E20320@josephscott.org>
+
+
+On Feb 13, 2009, at 5:58 AM, Alan Castonguay wrote:
+
+> This was brought up on wp-hackers -- How can we make editable/ 
+> moderatable Atom/AtomPUB feeds of comments available?
+
+
+I think we're going to have to bite the bullet and add a WordPress  
+specific namespace for our AtomPub support.  I've been hesitant to go  
+down that road because it seems to lead to some of the same problems  
+that I hear people complain about in XML-RPC, namely that instead of  
+being able to use the same APIs across multiple blogging platforms  
+each one has it's own specific details.
+
+Our next action item then is to come up with a good name space scheme  
+for AtomPub in WordPress.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From alan at verselogic.net  Sat Feb 14 21:30:50 2009
+From: alan at verselogic.net (Alan Castonguay)
+Date: Sat Feb 14 21:31:00 2009
+Subject: [wp-xmlrpc] AtomPUB Comment Moderation?
+In-Reply-To: <93EA7EB8-DE23-497B-A80B-D30AE3E20320@josephscott.org>
+References: <91AB2584-0096-4205-BF20-7EA4A60E07E9@verselogic.net>
+	<DFCB8AF0-CFFE-4AEE-A977-41B6B4031DC6@verselogic.net>
+	<93EA7EB8-DE23-497B-A80B-D30AE3E20320@josephscott.org>
+Message-ID: <72519C39-3E94-48B6-BBCA-4D97B3FCC56F@verselogic.net>
+
+I'm curious what additional Wordpress-specific namespace'd additions  
+would be required. The relationships between posts/pages/attachments  
+and their comments seem to be addressed by the Related extension. I  
+can see an app:control block being needed to specify the spam/ham/ 
+heldformoderation flag (like for Draft/Published), but apart from that  
+a comment is a (sparse) Entity, right?
+
+The only part I'm unsure of, which may be what you're aludeding to, is  
+how to fetch a Collection of children for a particular Entity.
+
+An OpenSearch implementation would go a long way to helping, but I'm  
+not sure if that's the Proper way.
+
+Alan J Castonguay
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Alan J Castonguay.vcf
+Type: text/directory
+Size: 618 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20090214/4748e85d/AlanJCastonguay.bin
+-------------- next part --------------
+
+
+On Feb 14, 2009, at 1:45 PM, Joseph Scott wrote:
+> I think we're going to have to bite the bullet and add a WordPress  
+> specific namespace for our AtomPub support.  I've been hesitant to  
+> go down that road because it seems to lead to some of the same  
+> problems that I hear people complain about in XML-RPC, namely that  
+> instead of being able to use the same APIs across multiple blogging  
+> platforms each one has it's own specific details.
+>
+> Our next action item then is to come up with a good name space  
+> scheme for AtomPub in WordPress.
+
+From peter.westwood at ftwr.co.uk  Sat Feb 14 22:00:00 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Sat Feb 14 22:01:23 2009
+Subject: [wp-xmlrpc] AtomPUB Comment Moderation?
+In-Reply-To: <93EA7EB8-DE23-497B-A80B-D30AE3E20320@josephscott.org>
+References: <91AB2584-0096-4205-BF20-7EA4A60E07E9@verselogic.net>
+	<DFCB8AF0-CFFE-4AEE-A977-41B6B4031DC6@verselogic.net>
+	<93EA7EB8-DE23-497B-A80B-D30AE3E20320@josephscott.org>
+Message-ID: <4B152C67-5FC3-45E1-983E-E47C9D5405CB@ftwr.co.uk>
+
+
+On 14 Feb 2009, at 18:45, Joseph Scott wrote:
+
+>
+> On Feb 13, 2009, at 5:58 AM, Alan Castonguay wrote:
+>
+>> This was brought up on wp-hackers -- How can we make editable/ 
+>> moderatable Atom/AtomPUB feeds of comments available?
+>
+>
+> I think we're going to have to bite the bullet and add a WordPress  
+> specific namespace for our AtomPub support.  I've been hesitant to  
+> go down that road because it seems to lead to some of the same  
+> problems that I hear people complain about in XML-RPC, namely that  
+> instead of being able to use the same APIs across multiple blogging  
+> platforms each one has it's own specific details.
+>
+
+Or try and address it with a spec that other APP providers could  
+implement - something generic for comment management.
+
+I know there will be other things that will be WP specific like say  
+Page Templates but for comments I'm sure a generic solution could be  
+envisaged.
+
+westi
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+From alan at verselogic.net  Sat Feb 14 22:01:24 2009
+From: alan at verselogic.net (Alan Castonguay)
+Date: Sat Feb 14 22:34:00 2009
+Subject: [wp-xmlrpc] AtomPUB Comment Moderation?
+In-Reply-To: <72519C39-3E94-48B6-BBCA-4D97B3FCC56F@verselogic.net>
+References: <91AB2584-0096-4205-BF20-7EA4A60E07E9@verselogic.net>
+	<DFCB8AF0-CFFE-4AEE-A977-41B6B4031DC6@verselogic.net>
+	<93EA7EB8-DE23-497B-A80B-D30AE3E20320@josephscott.org>
+	<72519C39-3E94-48B6-BBCA-4D97B3FCC56F@verselogic.net>
+Message-ID: <11B2003C-9377-4BB8-B02D-C435CF712592@verselogic.net>
+
+Linking back to parents is done with <thr:in-reply-to/> in the public  
+feed-atom-comments, following the comment_parent column;
+
+<thr:in-reply-to ref="guid-of-post" href="web-permalink-to-post"   
+type="text/html" />
+
+I don't see any method of discovering the inverse relationship,  
+however. The public feed-atom-comments has some elements of a  
+Searchable Collection, in that the search query is honored, so one  
+could ask for all comments on a given post easily enough.
+
+Alan J Castonguay
+
+
+On Feb 14, 2009, at 4:30 PM, Alan Castonguay wrote:
+
+> I'm curious what additional Wordpress-specific namespace'd additions  
+> would be required. The relationships between posts/pages/attachments  
+> and their comments seem to be addressed by the Related extension. I  
+> can see an app:control block being needed to specify the spam/ham/ 
+> heldformoderation flag (like for Draft/Published), but apart from  
+> that a comment is a (sparse) Entity, right?
+>
+> The only part I'm unsure of, which may be what you're aludeding to,  
+> is how to fetch a Collection of children for a particular Entity.
+>
+> An OpenSearch implementation would go a long way to helping, but I'm  
+> not sure if that's the Proper way.
+>
+> Alan J Castonguay
+>
+>
+> <Alan J Castonguay.vcf>
+>
+> On Feb 14, 2009, at 1:45 PM, Joseph Scott wrote:
+>> I think we're going to have to bite the bullet and add a WordPress  
+>> specific namespace for our AtomPub support.  I've been hesitant to  
+>> go down that road because it seems to lead to some of the same  
+>> problems that I hear people complain about in XML-RPC, namely that  
+>> instead of being able to use the same APIs across multiple blogging  
+>> platforms each one has it's own specific details.
+>>
+>> Our next action item then is to come up with a good name space  
+>> scheme for AtomPub in WordPress.
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From tim at timothyarmes.com  Sun Feb 15 14:09:44 2009
+From: tim at timothyarmes.com (Timothy Armes)
+Date: Sun Feb 15 14:09:59 2009
+Subject: [wp-xmlrpc] Uploading images - XML-RPC limitations and AtomPub bugs
+Message-ID: <854d78250902150609u292a353dt5d75336975acca59@mail.gmail.com>
+
+Hi,
+
+I'm writing a Wordpress client that uploads images to a Wordpress blog
+using XML-RPC and/or AtomPub.  I'm having lots of problems relating to
+the transfer of metadata (Title, caption & description) and I'm hoping
+that someone can help me.
+
+First of all, it seems that it's impossible for me to upload this
+information using XML-RPC - can you confirm that this is the case or
+am I just being totally blind?
+
+Since I came to a dead with that I've started to implement the AtomPub
+protocol.  There are a number of issues that I've come across:
+
+The 'edit' URL returned by Wordpress is incorrect.  POSTing the image
+will return something like this:
+
+ <link rel="edit-media"
+href="http://www.myblog.com/blog/wp-app.php/attachment/file/491" />
+ <link rel="edit" href="http://www. myblog.com/blog/wp-app.php/post/491" />
+
+The edit media URL is correct, however if I do a GET of the edit URL,
+to retrieve the metadata, the result is empty.   After looking at the
+source I realised that it should have been returning this:
+
+ <link rel="edit" href="http://www.
+myblog.com/blog/wp-app.php/attachment/491" />
+
+With this URL the GET works, with the exception that the description
+isn't returned in the <content> node.
+
+Now, if I PUT the returned XML with a new <title> and description
+(<content>) it works quites well except for the fact that the HTML
+entities aren't decoded.  Is there a workaround for this?
+
+Finally I note that the GET correctly returns the image caption in the
+<summary> tag, however the PUT ignores it, so I can't update the
+summary.
+
+Thanks for your help,
+
+Tim
+From joseph at josephscott.org  Tue Feb 17 04:02:44 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue Feb 17 04:03:03 2009
+Subject: [wp-xmlrpc] Uploading images - XML-RPC limitations and AtomPub
+	bugs
+In-Reply-To: <854d78250902150609u292a353dt5d75336975acca59@mail.gmail.com>
+References: <854d78250902150609u292a353dt5d75336975acca59@mail.gmail.com>
+Message-ID: <888BE00A-00E1-4E70-8E8D-5855D62BAD83@josephscott.org>
+
+
+On Feb 15, 2009, at 7:09 AM, Timothy Armes wrote:
+
+> Hi,
+>
+> I'm writing a Wordpress client that uploads images to a Wordpress blog
+> using XML-RPC and/or AtomPub.  I'm having lots of problems relating to
+> the transfer of metadata (Title, caption & description) and I'm hoping
+> that someone can help me.
+>
+> First of all, it seems that it's impossible for me to upload this
+> information using XML-RPC - can you confirm that this is the case or
+> am I just being totally blind?
+
+
+I presume you used the the metaWeblog.newMediaObject method or the  
+wp.uploadFile (which really just a wrapper around  
+metaWeblog.newMediaObject) method.  With those you really only get to  
+provide a the title ("name") of the file being uploaded.  Extending  
+those methods to support the caption and description fields would be a  
+good thing.
+
+
+
+> Since I came to a dead with that I've started to implement the AtomPub
+> protocol.  There are a number of issues that I've come across:
+>
+> The 'edit' URL returned by Wordpress is incorrect.  POSTing the image
+> will return something like this:
+>
+> <link rel="edit-media"
+> href="http://www.myblog.com/blog/wp-app.php/attachment/file/491" />
+> <link rel="edit" href="http://www. myblog.com/blog/wp-app.php/post/ 
+> 491" />
+>
+> The edit media URL is correct, however if I do a GET of the edit URL,
+> to retrieve the metadata, the result is empty.   After looking at the
+> source I realised that it should have been returning this:
+>
+> <link rel="edit" href="http://www.
+> myblog.com/blog/wp-app.php/attachment/491" />
+
+
+Initially my thought was that you were exactly right on the edit URL,  
+but after looking at the code, I'm not 100% sure.  In wp-app.php it  
+routes requests with:
+
+             '@/attachments/?(\d+)?$@' =>
+                 array('GET' => 'get_attachment',
+                         'POST' => 'create_attachment'),
+             '@/attachment/file/(\d+)$@' =>
+                 array('GET' => 'get_file',
+                         'PUT' => 'put_file',
+                         'DELETE' => 'delete_file'),
+             '@/attachment/(\d+)$@' =>
+                 array('GET' => 'get_attachment',
+                         'PUT' => 'put_attachment',
+                         'DELETE' => 'delete_attachment'),
+
+I've haven't looked through the rest, but I believe the that / 
+attachment/491 is the data about the file (title, caption,  
+description) and that /attachment/file/491 is the actual file itself.   
+That leaves us with edit URI using /post/491 though.  From what I've  
+looked at so far using /post/491 appears to be a bug, and needs to be / 
+attachment/491
+
+.... sometime later ....
+
+I've got a patch to fix it this so that both /wp-app.php/attachments  
+and /wp-app.php/attachment/491 requests use /attachment/491 instead  
+of /post/491.
+
+https://core.trac.wordpress.org/ticket/9147
+
+Did you write that ticket?
+
+
+> With this URL the GET works, with the exception that the description
+> isn't returned in the <content> node.
+
+Since the <content> element is being used to provide details about the  
+uploaded file (type="image/jpeg" in my tests) and providing a src  
+attribute, which according to the Atom spec means that <content> must  
+be empty:
+
+"atom:content MAY have a "src" attribute, whose value MUST be an IRI  
+reference [RFC3987]. If the "src" attribute is present, atom:content  
+MUST be empty."
+
+http://www.atompub.org/rfc4287.html#element.content
+
+If I've read that wrong then let me know.  Is there another "standard"  
+element that we could use to put the description in?  If not then I  
+think this ends up in the area of a WordPress specific namespace'd  
+element.
+
+
+> Now, if I PUT the returned XML with a new <title> and description
+> (<content>) it works quites well except for the fact that the HTML
+> entities aren't decoded.  Is there a workaround for this?
+
+Can you give a specific example that we can use to reproduce this?
+
+
+> Finally I note that the GET correctly returns the image caption in the
+> <summary> tag, however the PUT ignores it, so I can't update the
+> summary.
+
+
+Dealing with file management in WP is still pretty rough, so I'm going  
+to have to look at this in more detail to see what's happening.  I've  
+made a note of ticket http://core.trac.wordpress.org/ticket/9148 on  
+this issue.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+

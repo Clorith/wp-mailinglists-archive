@@ -1,0 +1,142 @@
+From joseph at josephscott.org  Thu Jun 11 05:59:17 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu Jun 11 05:59:35 2009
+Subject: [wp-xmlrpc] WordPress 2.8 released, XML-RPC and AtomPub changes
+Message-ID: <D3D75701-59A7-4F62-99F3-EC835B5DF9DC@josephscott.org>
+
+
+With WordPress 2.8 now released here are the XML-RPC and AtomPub  
+changes since 2.7.1:
+
+http://josephscott.org/archives/2009/06/wordpress-2-8-xml-rpc-and-atompub-changes/
+
+
+XML-RPC
+	? Fixed wp.getUsersBlogs and blogger.getUsersBlogs to return the  
+correct value for the ?xmlrpc? field when WordPress is installed in  
+separate directory ( ticket #9516 )
+	? Authentication is filterable now, allowing for alternative  
+authentication methods like OAuth ( ticket#8941 and #8938 )
+	? Provide sticky status of posts via ?sticky? field in  
+metaWeblog.newPost / metaWeblog.editPost / metaWeblog.getPost ( ticket  
+#8777 )
+	? Don?t duplicate post enclosures ( ticket #7773 )
+AtomPub
+	? Always use filterable authentication, allowing for alternative  
+authentication methods like OAuth ( ticket#9320 and #8938 )
+	? Update image captions (summary) correctly ( ticket #9148 )
+	? Hooks for extending AtomPub ( ticket #8827 )
+	? Fix file upload updates and image processing when uploading an  
+image ( ticket #9233 )
+	? Provide the correct edit URL for images ( ticket #9147 )
+
+A big thank you to everyone who submitted tickets and patches. With  
+2.8 out the door now is the time to bring up new features for  
+WordPress 2.9. If you?ve got a patch for a new feature, even better!  
+Go submit a ticket at http://core.trac.wordpress.org/.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From joseph at josephscott.org  Tue Jun 23 16:39:11 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue Jun 23 16:39:32 2009
+Subject: [wp-xmlrpc] metaWeblog.getPost date_created_gmt field for draft
+	posts
+Message-ID: <42A075D8-BF90-49E2-9BA5-4FD1419C5F14@josephscott.org>
+
+
+It was reported that the date_created_gmt field for draft posts  
+contained screwy data from metaWeblog.getPost.  I don't recall if this  
+had been brought up before, but either way it was something that  
+needed to get resolved.
+
+Here's the ticket with the details: http://core.trac.wordpress.org/ticket/10244
+
+I've already deployed this fix for WordPress.com blogs, and Ryan has  
+committed it to the WPORG -trunk and the 2.8 branch so it will be part  
+of the upcoming 2.8.1 release.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From marcelobarrosalmeida at gmail.com  Fri Jun 26 11:40:31 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Fri Jun 26 11:40:47 2009
+Subject: [wp-xmlrpc] Any support for minipost or similar
+Message-ID: <ca18f54e0906260440q4f52f857jb063224a077c2f5f@mail.gmail.com>
+
+Hi !
+
+After reading about miniposts
+(http://wordpress.org/extend/plugins/miniposts/) I got curious about
+this feature via XMLRPC.
+Checking newPost() I could not see this possibility when publishing new content.
+So, I would like to know if you have any plan to add such feature (or
+something similar) in the XMLRPC API. It seems interesting.
+
+Marcelo Barros
+Wordmobi devel
+From joseph at josephscott.org  Fri Jun 26 15:37:40 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri Jun 26 16:56:05 2009
+Subject: [wp-xmlrpc] Any support for minipost or similar
+In-Reply-To: <ca18f54e0906260440q4f52f857jb063224a077c2f5f@mail.gmail.com>
+References: <ca18f54e0906260440q4f52f857jb063224a077c2f5f@mail.gmail.com>
+Message-ID: <2241E248-3543-46CB-8B1D-363AF472E031@josephscott.org>
+
+
+On Jun 26, 2009, at 5:40 AM, Marcelo Jedi wrote:
+
+> After reading about miniposts
+> (http://wordpress.org/extend/plugins/miniposts/) I got curious about
+> this feature via XMLRPC.
+> Checking newPost() I could not see this possibility when publishing  
+> new content.
+> So, I would like to know if you have any plan to add such feature (or
+> something similar) in the XMLRPC API. It seems interesting.
+
+
+
+Since this done via a plugin it's not likely that we'll add XML-RPC  
+methods to the core of WP to support it.  It would be easy for the  
+plugin author to add XML-RPC methods though to provide access to these  
+miniposts: http://josephscott.org/archives/2008/11/adding-xml-rpc-methods-to-wordpress/
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From marcelobarrosalmeida at gmail.com  Fri Jun 26 17:06:20 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Fri Jun 26 17:06:36 2009
+Subject: [wp-xmlrpc] Any support for minipost or similar
+In-Reply-To: <2241E248-3543-46CB-8B1D-363AF472E031@josephscott.org>
+References: <ca18f54e0906260440q4f52f857jb063224a077c2f5f@mail.gmail.com>
+	<2241E248-3543-46CB-8B1D-363AF472E031@josephscott.org>
+Message-ID: <ca18f54e0906261006p61719ee6u669fdddd5088b90f@mail.gmail.com>
+
+Scott,
+
+> Since this done via a plugin it's not likely that we'll add XML-RPC methods
+> to the core of WP to support it. ?It would be easy for the plugin author to
+> add XML-RPC methods though to provide access to these miniposts:
+> http://josephscott.org/archives/2008/11/adding-xml-rpc-methods-to-wordpress/
+
+Thanks a lot ! I will suggest this solution to the author !
+
+Marcelo

@@ -1,0 +1,551 @@
+From aditya.ml at gmail.com  Tue Jan  3 07:56:21 2006
+From: aditya.ml at gmail.com (Aditya Mooley)
+Date: Tue, 3 Jan 2006 07:56:21 +0000
+Subject: [spam-stopper] Akismet retunring spam as ham
+In-Reply-To: <bbef3fa80512291047k34524295t4c5c0bdd1cdf32d5@mail.gmail.com>
+References: <bbef3fa80512290237j563307abu293fbba6bd1fc191@mail.gmail.com>
+	<43B42CA9.5070902@mullenweg.com>
+	<bbef3fa80512291047k34524295t4c5c0bdd1cdf32d5@mail.gmail.com>
+Message-ID: <bbef3fa80601022356s636a545eof9b3e0e22c864a5c@mail.gmail.com>
+
+Hello again,
+
+I created an addon for PixelPost to screen comments using Akismet. But now
+100% of my comments are being marked as spam.
+Yes, I have been reporting them as HAM.
+
+Anything more needs to be done? Is there a problem with Akismet?
+
+Can someone please answer?
+
+Regards,
+
+On 12/29/05, Aditya Mooley <aditya.ml at gmail.com> wrote:
+>
+> Hello Matt,
+> Thanks for the reply.
+> I understand that I should use API call to report it to Akismet but I
+> tried the string which is given on website "viagra-test-123" and still it
+> is returning " false" thats what concerned me.
+>
+> Any help on this will be appriciated.
+>
+> Wish you a all a very Happy New Year
+>
+>
+> On 12/29/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> >
+> > Aditya Mooley wrote:
+> > > I am trying to imeplement the Akismet API but it is returning "false"
+> > > for all the POSTS I pass to it even if they are spams.
+> > > You can see the working example here:
+> > > http://sanisoft-demo.com/akismet/akismetTest.php
+> > > The comment_author as well as comment_content both are hardcoded to
+> > spam
+> > > values. You can see the values on the browser.
+> >
+> > If Akismet is missing a spam, then it should be submitted using the
+> > submit-spam API call. Because of how Akismet works it can be hard to
+> > trigger spam in an artificial environment.
+> >
+> > --
+> > Matt Mullenweg
+> >   http://photomatt.net | http://wordpress.org
+> > http://pingomatic.com | http://akismet.com
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> >
+>
+>
+>
+> --
+> Aditya
+> =============================================================
+> PHP Applications for E-Biz: http://www.sanisoft.com
+> Coppermine Picture Gallery: http://coppermine.sf.net
+> =============================================================
+>
+
+
+
+--
+Aditya
+=============================================================
+PHP Applications for E-Biz: http://www.sanisoft.com
+Coppermine Picture Gallery: http://coppermine.sf.net
+=============================================================
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060103/0aee3b0d/attachment.htm>
+
+From m at mullenweg.com  Tue Jan  3 22:53:33 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 03 Jan 2006 17:53:33 -0500
+Subject: [spam-stopper] Has anyone seen this yet?
+In-Reply-To: <5aa3aa0512291657m631f2db7mc464159cee6fdd64@mail.gmail.com>
+References: <5aa3aa0512291657m631f2db7mc464159cee6fdd64@mail.gmail.com>
+Message-ID: <43BB006D.4000601@mullenweg.com>
+
+Craig wrote:
+> Is this a new tactic, or have any of you seen this already? Should I
+> be concerned about this?
+
+Don't worry about it, marking this as spam shouldn't effect your 
+standing. It's a fairly common tactic to stuff words or phrases from the 
+blog into the comment.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+
+From m at mullenweg.com  Tue Jan  3 22:54:42 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 03 Jan 2006 17:54:42 -0500
+Subject: [spam-stopper] Akismet retunring spam as ham
+In-Reply-To: <bbef3fa80601022356s636a545eof9b3e0e22c864a5c@mail.gmail.com>
+References: <bbef3fa80512290237j563307abu293fbba6bd1fc191@mail.gmail.com>	<43B42CA9.5070902@mullenweg.com>	<bbef3fa80512291047k34524295t4c5c0bdd1cdf32d5@mail.gmail.com>
+	<bbef3fa80601022356s636a545eof9b3e0e22c864a5c@mail.gmail.com>
+Message-ID: <43BB00B2.7090309@mullenweg.com>
+
+Aditya Mooley wrote:
+> I created an addon for PixelPost to screen comments using Akismet. But 
+> now 100% of my comments are being marked as spam.
+> Yes, I have been reporting them as HAM.
+> 
+> Anything more needs to be done? Is there a problem with Akismet?
+
+Offlist, send me your API key and the blog URL you're using to test 
+this. Also make sure you're interpreting the "true" and "false" messages 
+from Akismet correctly.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+
+From r at schestowitz.com  Thu Jan  5 17:45:43 2006
+From: r at schestowitz.com (Roy Schestowitz)
+Date: Thu, 05 Jan 2006 17:45:43 +0000
+Subject: [spam-stopper] Has anyone seen this yet?
+In-Reply-To: <5aa3aa0512291657m631f2db7mc464159cee6fdd64@mail.gmail.com>
+References: <5aa3aa0512291657m631f2db7mc464159cee6fdd64@mail.gmail.com>
+Message-ID: <20060105174543.pf0f8supz1w80w40@banana.catalyst2.com>
+
+_____/ On Fri 30 Dec 2005 00:57:10 GMT, [Craig] wrote : \_____
+
+> Today I received an email that was obviously spam, however, there was
+> an interesting twist to it that has me concerned.
+>
+> In the body of the message was my domain name, simply "Nuclearmoose"
+> but with no .com or similar. I'm concerned that Akismet and indeed,
+> any other spam-stopper might add that term to a blacklist or similar.
+>
+> Is this a new tactic, or have any of you seen this already? Should I
+> be concerned about this?
+>
+> BTW, I flagged the email as spam so Akismet would deal with it,
+> however, I did EDIT the post beforehand to delete "Nuclearmoose" from
+> the text body.
+>
+> Craig.
+> Nuclear Moose.
+
+These  are  attempts to make the comment assimilate to the content or  the
+theme  of the site. These are less likely to be removed. At worse  scenar-
+ios,  they  confuse the Webmaster that will leave it in tact, thereby  en-
+couraging more.
+
+Use of the page title is common, but someone whom I know runs a Perl-based
+comment  form  and is aware of the same spamming trend. Some spammers  are
+scarping  random bits from the site, then stitching them together. If  you
+don't  erase  these comments, you will get more, but filtering becomes  an
+issue.  Other spammers use cryptic link with poor anchor text. Even if you
+follow before deleting, they win. Similar to referrer spam...
+
+Roy
+
+
+
+From akismet at matt-good.net  Fri Jan  6 01:57:33 2006
+From: akismet at matt-good.net (Matthew Good)
+Date: Thu, 05 Jan 2006 20:57:33 -0500
+Subject: [spam-stopper] All messages flagged as spam
+Message-ID: <1136512653.21638.29.camel@localhost.localdomain>
+
+I tried both the Akismet Python APIs hoping to use one of them to build
+a spam-filtering plugin for the Trac Wiki
+(http://projects.edgewall.com/trac)
+
+Unfortunately every message I've sent has been flagged as spam.  I saw
+another thread where someone had 100% flagged as ham, then later 100%
+were being marked as spam.  Do I need to fill out more of the fields for
+the messages to be properly assessed, or is there some other problem?
+
+Here is the HTTP request for one of my tests:
+
+POST /1.1/comment-check HTTP/1.1
+Accept-Encoding: identity
+Content-length: 591
+Connection: close
+Content-type: application/x-www-form-urlencoded
+Host: <my real API key is here>.rest.akismet.com
+User-agent: Trac/0.9 | akismet.py/0.1.2
+
+HTTP_ACCEPT=&permalink=&SERVER_NAME=&comment_type=comment&referrer=unknown&comment_author_url=&SERVER_SOFTWARE=&SERVER_ADMIN=&SERVER_ADDR=&user_ip=206.106.238.41&SERVER_SIGNATURE=&user_agent=Mozilla%2F5.0+%28X11%3B+U%3B+Linux+i686%3B+en-US%3B+rv%3A1.8%29+Gecko%2F20051111+Firefox%2F1.5&SERVER_PORT=&comment_content=You%27ll+need+a+Wordpress+Key+to+use+it.+This+script+will+allow+you+to+plug+akismet+into+any+CGI+script+or+web+application.+It%27s+extremely+easy+to+use%2C+because+the+folks+at+akismet+have+implemented+a+nice+and+straightforward+REST+API.&comment_author=&comment_author_email=
+
+HTTP/1.1 200 OK
+X-Powered-By: PHP/4.4.0
+Content-type: text/html
+Content-Length: 4
+Server: LiteSpeed
+Date: Wed, 04 Jan 2006 19:36:04 GMT
+Connection: close
+
+true
+
+
+-- 
+Matthew Good <akismet at matt-good.net>
+
+
+
+From akismet at matt-good.net  Fri Jan  6 02:15:01 2006
+From: akismet at matt-good.net (Matthew Good)
+Date: Thu, 05 Jan 2006 21:15:01 -0500
+Subject: [spam-stopper] All messages flagged as spam
+In-Reply-To: <1136512653.21638.29.camel@localhost.localdomain>
+References: <1136512653.21638.29.camel@localhost.localdomain>
+Message-ID: <1136513701.21638.36.camel@localhost.localdomain>
+
+On Thu, 2006-01-05 at 20:57 -0500, Matthew Good wrote:
+> I tried both the Akismet Python APIs hoping to use one of them to build
+> a spam-filtering plugin for the Trac Wiki
+> (http://projects.edgewall.com/trac)
+> 
+> Unfortunately every message I've sent has been flagged as spam.  I saw
+> another thread where someone had 100% flagged as ham, then later 100%
+> were being marked as spam.  Do I need to fill out more of the fields for
+> the messages to be properly assessed, or is there some other problem?
+
+Hmm, well I originally tried to send this message last night when I was
+testing, but I wasn't subscribed.  I tried a couple more tests after I
+just resent the message and it seems to be working better now.  Are
+these type pf problems frequent, or is Akismet generally pretty
+well-behaved?
+
+Are there any things I should take into account using Akismet with wiki
+formatted text?  Would it be better to strip the formatting or convert
+it to HTML before submitting it?
+
+-- 
+Matthew Good <akismet at matt-good.net>
+
+
+
+From m at mullenweg.com  Fri Jan  6 08:55:40 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 06 Jan 2006 00:55:40 -0800
+Subject: [spam-stopper] All messages flagged as spam
+In-Reply-To: <1136513701.21638.36.camel@localhost.localdomain>
+References: <1136512653.21638.29.camel@localhost.localdomain>
+	<1136513701.21638.36.camel@localhost.localdomain>
+Message-ID: <43BE308C.3010300@mullenweg.com>
+
+Matthew Good wrote:
+> Are there any things I should take into account using Akismet with wiki
+> formatted text?  Would it be better to strip the formatting or convert
+> it to HTML before submitting it?
+
+Go ahead and send a comment_type of "wiki" and if at all possible 
+convert to HTML for sending it.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From david at blojsom.com  Fri Jan  6 21:55:21 2006
+From: david at blojsom.com (David Czarnecki)
+Date: Fri, 06 Jan 2006 16:55:21 -0500
+Subject: [spam-stopper] Akismet Java API update
+Message-ID: <BFE45179.279B%david@blojsom.com>
+
+I?ve created a project on SourceForge to host my Akismet Java API.
+
+http://sourceforge.net/projects/akismet-java/
+
+Matt, can you change the the link at http://akismet.com/development/ to
+point to the SF link instead of my blog entry for the Java API? Thanks.
+
+-- 
+David Czarnecki
+
+http://www.blojsom.com/blog/ | http://blojsom.sf.net
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060106/a455ab0d/attachment.htm>
+
+From david at blojsom.com  Mon Jan  9 23:36:13 2006
+From: david at blojsom.com (David Czarnecki)
+Date: Mon, 09 Jan 2006 18:36:13 -0500
+Subject: [spam-stopper] Akismet API key for non-wordpress.com systems?
+Message-ID: <BFE85D9D.2853%david@blojsom.com>
+
+Given the 6 or 7 other APIs that are available to interact with Akismet, how
+should people go about getting an Akismet API key for non-wordpress.com
+systems? 
+
+-- 
+David Czarnecki
+
+http://www.blojsom.com/blog/ | http://blojsom.sf.net
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060109/4f00d351/attachment.htm>
+
+From david at blojsom.com  Wed Jan 11 04:58:40 2006
+From: david at blojsom.com (David Czarnecki)
+Date: Tue, 10 Jan 2006 23:58:40 -0500
+Subject: [spam-stopper] Akismet Moderation Plugin for Blojsom
+Message-ID: <BFE9FAB0.28E3%david@blojsom.com>
+
+I?ve integrated my Akismet Java API into a plugin for blojsom to handle
+comment/trackback spam with Akismet.
+
+http://www.blojsom.com/blog/blojsom/2006/01/10/Akismet-Moderation-Plugin-for
+-Blojsom.html
+
+-- 
+David Czarnecki
+
+http://www.blojsom.com/blog/ | http://blojsom.sf.net
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20060110/f2bcc307/attachment.htm>
+
+From m at mullenweg.com  Wed Jan 11 19:32:17 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 11 Jan 2006 11:32:17 -0800
+Subject: [spam-stopper] Akismet Java API update
+In-Reply-To: <BFE45179.279B%david@blojsom.com>
+References: <BFE45179.279B%david@blojsom.com>
+Message-ID: <43C55D41.9010408@mullenweg.com>
+
+David Czarnecki wrote:
+> Matt, can you change the the link at http://akismet.com/development/ to 
+> point to the SF link instead of my blog entry for the Java API? Thanks.
+
+Updated!
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From m at mullenweg.com  Wed Jan 11 19:35:19 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 11 Jan 2006 11:35:19 -0800
+Subject: [spam-stopper] Akismet Moderation Plugin for Blojsom
+In-Reply-To: <BFE9FAB0.28E3%david@blojsom.com>
+References: <BFE9FAB0.28E3%david@blojsom.com>
+Message-ID: <43C55DF7.2080903@mullenweg.com>
+
+David Czarnecki wrote:
+> I?ve integrated my Akismet Java API into a plugin for blojsom to handle 
+> comment/trackback spam with Akismet.
+> 
+> http://www.blojsom.com/blog/blojsom/2006/01/10/Akismet-Moderation-Plugin-for-Blojsom.html
+
+I've added this to the development page as well.
+
+How has the system been performing for you? I'm curious what the 
+characteristics of spam Blojsom is attracting.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From david at blojsom.com  Wed Jan 11 19:51:10 2006
+From: david at blojsom.com (David Czarnecki)
+Date: Wed, 11 Jan 2006 14:51:10 -0500
+Subject: [spam-stopper] Akismet Moderation Plugin for Blojsom
+In-Reply-To: <43C55DF7.2080903@mullenweg.com>
+Message-ID: <BFEACBDE.292A%david@blojsom.com>
+
+I'll let you know how things progress.
+
+I just turned off automatic deletion of responses identified as spam. I had
+tested Akismet with a few linkspam comments I got over the past few days and
+it flagged them as spam.
+
+Not that I ever get any flood of responses to what I write anyway. I think
+the most I've ever had was around 12. That's life on the D-list :)
+
+
+On 1/11/06 2:35 PM, "Matt Mullenweg" <m at mullenweg.com> wrote:
+
+> David Czarnecki wrote:
+>> I?ve integrated my Akismet Java API into a plugin for blojsom to handle
+>> comment/trackback spam with Akismet.
+>> 
+>> http://www.blojsom.com/blog/blojsom/2006/01/10/Akismet-Moderation-Plugin-for-
+>> Blojsom.html
+> 
+> I've added this to the development page as well.
+> 
+> How has the system been performing for you? I'm curious what the
+> characteristics of spam Blojsom is attracting.
+
+-- 
+David Czarnecki
+
+http://www.blojsom.com/blog/ | http://blojsom.sf.net
+
+
+
+
+From nbachiyski at developer.bg  Thu Jan 12 09:38:19 2006
+From: nbachiyski at developer.bg (Nikolay Bachiyski)
+Date: Thu, 12 Jan 2006 11:38:19 +0200
+Subject: [spam-stopper] Akismet & Perl
+Message-ID: <43C6238B.7060804@developer.bg>
+
+Here is a small Perl module to intearct with Akismet.
+
+Net::Akismet 0.01
+
+http://search.cpan.org/~nikolay/Net-Akismet/lib/Net/Akismet.pm
+
+Have a nice day,
+Nikolay
+
+P.S. Happy birthday, Matt. You may take the module as a present if you 
+wish ;)
+
+
+From munnday at gmail.com  Fri Jan 13 02:15:52 2006
+From: munnday at gmail.com (David Munn)
+Date: Fri, 13 Jan 2006 12:15:52 +1000
+Subject: [spam-stopper] Akismet & Perl
+In-Reply-To: <43C6238B.7060804@developer.bg>
+References: <43C6238B.7060804@developer.bg>
+Message-ID: <43C70D58.7000701@gmail.com>
+
+This is what I have been waiting for, a prel Akismet module...THANK YOU!
+
+Nikolay Bachiyski wrote:
+> Here is a small Perl module to intearct with Akismet.
+> 
+> Net::Akismet 0.01
+> 
+> http://search.cpan.org/~nikolay/Net-Akismet/lib/Net/Akismet.pm
+> 
+> Have a nice day,
+> Nikolay
+> 
+> P.S. Happy birthday, Matt. You may take the module as a present if you 
+> wish ;)
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> 
+
+
+From alex at achingbrain.net  Mon Jan 16 12:33:00 2006
+From: alex at achingbrain.net (Alex)
+Date: Mon, 16 Jan 2006 12:33:00 +0000
+Subject: [spam-stopper] Akismet PHP5 class
+Message-ID: <43CB927C.9000809@achingbrain.net>
+
+I've written a little PHP5 class based on the Akismet WordPress plugin 
+to enable easy implementation of Akismet in generic web apps.
+
+http://www.achingbrain.net/stuff/akismet/
+
+Feel free to use it as you will.  Comments and suggestions are welcome.
+
+Akismet is great, thanks for making it so open.
+
+Alex
+
+
+
+From m at mullenweg.com  Thu Jan 26 00:46:54 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 25 Jan 2006 16:46:54 -0800
+Subject: [spam-stopper] Akismet PHP5 class
+In-Reply-To: <43CB927C.9000809@achingbrain.net>
+References: <43CB927C.9000809@achingbrain.net>
+Message-ID: <43D81BFE.902@mullenweg.com>
+
+Alex wrote:
+> I've written a little PHP5 class based on the Akismet WordPress plugin 
+> to enable easy implementation of Akismet in generic web apps.
+> 
+> http://www.achingbrain.net/stuff/akismet/
+
+Very groovy, sorry I'm a little late to this email. I've blogged about 
+this and added you link to the development page.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From newsletter at scytheman.net  Tue Jan 31 01:29:17 2006
+From: newsletter at scytheman.net (Sebastian Herp)
+Date: Tue, 31 Jan 2006 02:29:17 +0100
+Subject: [spam-stopper] Updated the Spam Karma 2 Akismet plugin
+Message-ID: <43DEBD6D.10201@scytheman.net>
+
+Hello list,
+
+I've updated the small Akismet plugin for Spam Karma 2, fixed some bugs 
+and changed some default values. And it left the beta state, because 
+permanent betas are baaaaad :)
+
+http://www.sebbi.de/archives/2006/01/31/spam-karma-2-akismet-plugin/
+
+Greetings,
+Sebastian
+
+
+From m at mullenweg.com  Tue Jan 31 23:42:26 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 31 Jan 2006 15:42:26 -0800
+Subject: [spam-stopper] Updated the Spam Karma 2 Akismet plugin
+In-Reply-To: <43DEBD6D.10201@scytheman.net>
+References: <43DEBD6D.10201@scytheman.net>
+Message-ID: <43DFF5E2.3020100@mullenweg.com>
+
+Sebastian Herp wrote:
+> I've updated the small Akismet plugin for Spam Karma 2, fixed some bugs 
+> and changed some default values. And it left the beta state, because 
+> permanent betas are baaaaad :)
+> 
+> http://www.sebbi.de/archives/2006/01/31/spam-karma-2-akismet-plugin/
+
+Looking good. :)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+

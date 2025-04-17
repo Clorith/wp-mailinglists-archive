@@ -1,0 +1,107 @@
+From wordpress at santosj.name  Wed Jun  4 03:17:06 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Wed Jun  4 03:32:00 2008
+Subject: [wp-docs] Testing WordPress Performance
+Message-ID: <48460932.8080306@santosj.name>
+
+I'm looking for some input on the "Testing WordPress Performance" [1] 
+page for the WordPress Optimizations category. I have a tendency to 
+ramble on and add irrelevant information. I was wondering if anyone 
+wanted to look over the page and give suggestions on possible 
+corrections or make corrections to finished portions.
+
+The specific purpose of the guide is to inform the developer how to best 
+go about testing the performance and walk the developer through the 
+steps to install two different PHP extensions in order to do so.
+
+The Xdebug section is finished, the MySQLnd section is not. The MySQLnd 
+section will be difficult, but it is built for PHP 5.3. PHP 5.3 hasn't 
+been released, the MySQLnd driver/library is incomplete and can be 
+considered unstable (alpha). It is also only (currently) for the mysqli 
+extension, which not supported by WordPress. PDO support is being added, 
+but that is even more unsupported by WordPress and unstable.
+
+The reason to discuss mysqlnd driver/library, is that it has useful 
+statistical data for MySQL. Sure you can use the MySQL utilities to get 
+the same information, but the goal is to discuss this all within the 
+context of WordPress and PHP. It would make better sense to discuss how 
+to get the statistical data to better track SQL query performance and 
+overhead. However, that is outside the scope of my knowledge. I do know 
+PHP and so that is what I'm going to discuss in the article.
+
+I think I will create a note for it for future inclusion, when I do more 
+research on the subject. I do mention WinCacheGrind for Xdebug profiling.
+
+Also, if you don't mind, I'll want to maintain the page for now. I'm 
+probably going to modify it during the Summer and will no longer 
+maintain the guide afterwards. That is if PHP 5.3 is released. There are 
+some notes in the guide about PHP 5.3 in the future tense and will need 
+to be changed to past/present tense after the PHP 5.3 release.
+
+
+[1] http://codex.wordpress.org/Testing_WordPress_Performance
+From wordpress at santosj.name  Wed Jun  4 03:34:18 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Wed Jun  4 03:47:54 2008
+Subject: [wp-docs] Testing WordPress Performance
+Message-ID: <48460D3A.3010100@santosj.name>
+
+I'm looking for some input on the "Testing WordPress Performance" [1] 
+page for the WordPress Optimizations category. I have a tendency to 
+ramble on and add irrelevant information. I was wondering if anyone 
+wanted to look over the page and give suggestions on possible 
+corrections or make corrections to finished portions.
+
+The specific purpose of the guide is to inform the developer how to best 
+go about testing the performance and walk the developer through the 
+steps to install two different PHP extensions in order to do so.
+
+The Xdebug section is finished, the MySQLnd section is not. The MySQLnd 
+section will be difficult, but it is built for PHP 5.3. PHP 5.3 hasn't 
+been released, the MySQLnd driver/library is incomplete and can be 
+considered unstable (alpha). It is also only (currently) for the mysqli 
+extension, which not supported by WordPress. PDO support is being added, 
+but that is even more unsupported by WordPress and unstable.
+
+The reason to discuss mysqlnd driver/library, is that it has useful 
+statistical data for MySQL. Sure you can use the MySQL utilities to get 
+the same information, but the goal is to discuss this all within the 
+context of WordPress and PHP. It would make better sense to discuss how 
+to get the statistical data to better track SQL query performance and 
+overhead. However, that is outside the scope of my knowledge. I do know 
+PHP and so that is what I'm going to discuss in the article.
+
+I think I will create a note for it for future inclusion, when I do more 
+research on the subject. I do mention WinCacheGrind for Xdebug profiling.
+
+Also, if you don't mind, I'll want to maintain the page for now. I'm 
+probably going to modify it during the Summer and will no longer 
+maintain the guide afterwards. That is if PHP 5.3 is released. There are 
+some notes in the guide about PHP 5.3 in the future tense and will need 
+to be changed to past/present tense after the PHP 5.3 release.
+
+
+[1] http://codex.wordpress.org/Testing_WordPress_Performance
+From lorellevan at gmail.com  Wed Jun  4 05:37:19 2008
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Wed Jun  4 05:37:27 2008
+Subject: [wp-docs] Testing WordPress Performance
+In-Reply-To: <48460932.8080306@santosj.name>
+References: <48460932.8080306@santosj.name>
+Message-ID: <fded39850806032237h6292c2f5s1f87e31c4e7aae82@mail.gmail.com>
+
+I took a quick glance and it looks great, Jacob. I moved the last paragraph
+of the first section, which describes the article intent, to the beginning
+so people will know from the top what the article is about, focusing on the
+technical nature. I also added a {{Draft}} template to the top as a note to
+others that you are still working on the article.
+
+Good luck with the Summer of Code Project, and if you have a link to the
+specific project this is associated with it, it would be a nice addition to
+the article. Great work. I'm really excited about what you are doing with
+this and WordPress. Thank you!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20080604/55c09e5e/attachment.htm

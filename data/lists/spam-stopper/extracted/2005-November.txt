@@ -1,0 +1,494 @@
+From derek at escalan.com  Thu Nov  3 18:37:18 2005
+From: derek at escalan.com (Derek Scruggs)
+Date: Thu, 3 Nov 2005 11:37:18 -0700
+Subject: [spam-stopper] Does Akismet work with trackbacks?
+Message-ID: <BAY0-SMTP07774AF33D81DE67F7E4B0F1610@phx.gbl>
+
+I've been getting hammered with trackback spam, and Akismet hasn't caught
+any of it. (It catches about half my comment spam.) Does Akismet now work
+with trackbacks?
+ 
+Thanks!
+-Derek
+
+303-543-1186 phone
+303-808-6614 cell
+425-920-6124 fax
+
+ <http://www.askderekscruggs.com/> My Latest Blog Entries
+
+ 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051103/febf85c2/attachment.htm>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/octet-stream
+Size: 9271 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051103/febf85c2/attachment.obj>
+
+From error10 at gmail.com  Thu Nov  3 21:24:51 2005
+From: error10 at gmail.com (Michael Hampton)
+Date: Thu, 3 Nov 2005 15:24:51 -0600
+Subject: [spam-stopper] Does Akismet work with trackbacks?
+In-Reply-To: <BAY0-SMTP07774AF33D81DE67F7E4B0F1610@phx.gbl>
+References: <BAY0-SMTP07774AF33D81DE67F7E4B0F1610@phx.gbl>
+Message-ID: <8c4adf580511031324u270a4056gaa5e60fa4261fc@mail.gmail.com>
+
+Akismet has always worked with trackbacks. Submit them as spam.
+
+On 11/3/05, Derek Scruggs <derek at escalan.com> wrote:
+>
+> I've been getting hammered with trackback spam, and Akismet hasn't caught
+> any of it. (It catches about half my comment spam.) Does Akismet now work
+> with trackbacks?
+>
+> Thanks!
+> -Derek
+>
+> 303-543-1186 phone
+> 303-808-6614 cell
+> 425-920-6124 fax
+>
+> [image: My Latest Blog Entries] <http://www.askderekscruggs.com/>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051103/73a44d7c/attachment.htm>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: AskDerekScruggs.gif?bb=o3y6
+Type: application/octet-stream
+Size: 9271 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051103/73a44d7c/attachment.obj>
+
+From m at mullenweg.com  Sun Nov 13 02:12:25 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat, 12 Nov 2005 18:12:25 -0800
+Subject: [spam-stopper] Akismet vs. Spamkarma2 (a solution)
+In-Reply-To: <4364171A.2070405@scytheman.net>
+References: <4364171A.2070405@scytheman.net>
+Message-ID: <4376A109.2000100@mullenweg.com>
+
+Sebastian Herp wrote:
+> Feel free to test it and I'm happy about every feedback I can get. If 
+> nothing bad comes up (the plugin being a server killer or something), 
+> I'll release that code to the public this week.
+
+I've seen a lot of good feedback on this integration, congrats.
+
+> @Matt: the original wordpress-plugin caries no license information. So 
+> I'd like to know if it is ok to borrow some of the code from it, because 
+> I have done so. Is it ok?
+
+Yep, it's all GPL.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From fuzzyman at voidspace.org.uk  Tue Nov 29 13:13:34 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Tue, 29 Nov 2005 13:13:34 +0000
+Subject: [spam-stopper] Python API
+Message-ID: <438C53FE.4020506@voidspace.org.uk>
+
+Hello,
+
+I have a problem with guestbook spam and I'd like to look at Akismet as
+a possible solution. I'm a Python programmer and happy to implement my
+own interface to Akismet given the details.
+
+Guestbook : http://www.voidspace.org.uk/cgi-bin/voidspace/guestbook2.py
+Blog entry on the problem :
+http://www.voidspace.org.uk/python/weblog/arch_d7_2005_11_26.shtml#e144
+
+I've already  have several solutions in place, and have just
+investigated adding a DNS blacklist lookup. Using three or four
+blacklists it would only stop around fifty percent of my spam. :-(
+
+Anyway, familiar problem. I've downloaded akismet and got myself a
+Wordpress API key.
+
+It turns out that Akismet is a php script... The development pages on
+the website point to this mailing list. :-)
+
+I'm happy to either implement a Python interface to the php script (?)
+*or* a Python interface direct to the Akismet API. (And make the result
+freely available under an open source license if you want...)
+
+Are you happy to give me the details to do this ?
+
+All the best,
+
+
+Fuzzyman
+http://www.voidsspace.org.uk/python/index.shtml
+
+
+From pp at myelin.co.nz  Tue Nov 29 20:54:55 2005
+From: pp at myelin.co.nz (Phillip Pearson)
+Date: Wed, 30 Nov 2005 09:54:55 +1300
+Subject: [spam-stopper] Python API
+In-Reply-To: <438C53FE.4020506@voidspace.org.uk>
+References: <438C53FE.4020506@voidspace.org.uk>
+Message-ID: <20051129205455.GA27987@myelin.co.nz>
+
+It shouldn't be too hard to write a Python interface directly to
+akismet; the details are all in the PHP code.
+
+
+Here are the functions you need to implement:
+
+- function akismet_verify_key($key)
+
+  This does an HTTP post to http://rest.akismet.com/1.1/verify-key
+  with arguments {'key': api_key, 'blog': blog_url}.  If the key is
+  valid, it will return 'valid'.
+
+- function ksd_auto_check_comment($comment)
+
+  This does an HTTP post to http://rest.akismet.com/1.1/comment-check
+  with the following things in the argument space:
+
+  - all $_SERVER vars (these are basically the CGI environment vars -
+    REMOTE_ADDR etc).  Run <?phpinfo()?> in PHP to see what these are.
+
+  - 'user_ip': ip address of caller
+    'user_agent': http user agent
+    'referrer': http referrer
+    'blog': blog url
+
+  - everything else in $comment
+
+  This returns 'true' if the comment is classified as spam.
+
+- function ksd_submit_nonspam_comment
+
+  This does an HTTP post to http://rest.akismet.com/1.1/submit-ham
+  with arguments {'blog': blog url} plus all the columns in the
+  wp_comments row for the particular comment.
+
+- function ksd_submit_spam_comment
+
+  As above, but submits a comment as spam, not ham.  (URL is
+  http://rest.akismet.com/1.1/submit-spam).
+
+
+That's about it...
+
+Cheers,
+Phil
+
+
+On Tue, Nov 29, 2005 at 01:13:34PM +0000, Fuzzyman wrote:
+> Hello,
+> 
+> I have a problem with guestbook spam and I'd like to look at Akismet as
+> a possible solution. I'm a Python programmer and happy to implement my
+> own interface to Akismet given the details.
+> 
+> Guestbook : http://www.voidspace.org.uk/cgi-bin/voidspace/guestbook2.py
+> Blog entry on the problem :
+> http://www.voidspace.org.uk/python/weblog/arch_d7_2005_11_26.shtml#e144
+> 
+> I've already  have several solutions in place, and have just
+> investigated adding a DNS blacklist lookup. Using three or four
+> blacklists it would only stop around fifty percent of my spam. :-(
+> 
+> Anyway, familiar problem. I've downloaded akismet and got myself a
+> Wordpress API key.
+> 
+> It turns out that Akismet is a php script... The development pages on
+> the website point to this mailing list. :-)
+> 
+> I'm happy to either implement a Python interface to the php script (?)
+> *or* a Python interface direct to the Akismet API. (And make the result
+> freely available under an open source license if you want...)
+> 
+> Are you happy to give me the details to do this ?
+> 
+> All the best,
+> 
+> 
+> Fuzzyman
+> http://www.voidsspace.org.uk/python/index.shtml
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From fuzzyman at voidspace.org.uk  Wed Nov 30 08:25:19 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Wed, 30 Nov 2005 08:25:19 +0000
+Subject: [spam-stopper] Python API
+In-Reply-To: <20051129205455.GA27987@myelin.co.nz>
+References: <438C53FE.4020506@voidspace.org.uk>
+	<20051129205455.GA27987@myelin.co.nz>
+Message-ID: <438D61EF.3080000@voidspace.org.uk>
+
+Phillip Pearson wrote:
+
+>It shouldn't be too hard to write a Python interface directly to
+>akismet; the details are all in the PHP code.
+>
+>  
+>
+>From the info below it looks very easy.
+
+>Here are the functions you need to implement:
+>
+>- function akismet_verify_key($key)
+>
+>  This does an HTTP post to http://rest.akismet.com/1.1/verify-key
+>  with arguments {'key': api_key, 'blog': blog_url}.  If the key is
+>  valid, it will return 'valid'.
+>
+>- function ksd_auto_check_comment($comment)
+>
+>  This does an HTTP post to http://rest.akismet.com/1.1/comment-check
+>  with the following things in the argument space:
+>
+>  - all $_SERVER vars (these are basically the CGI environment vars -
+>    REMOTE_ADDR etc).  Run <?phpinfo()?> in PHP to see what these are.
+>
+>  - 'user_ip': ip address of caller
+>    'user_agent': http user agent
+>    'referrer': http referrer
+>    'blog': blog url
+>
+>  
+>
+So to check a comment, you don't *actually* need to call
+akismet_verify_key ?
+
+All the best,
+
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+>  - everything else in $comment
+>
+>  This returns 'true' if the comment is classified as spam.
+>
+>- function ksd_submit_nonspam_comment
+>
+>  This does an HTTP post to http://rest.akismet.com/1.1/submit-ham
+>  with arguments {'blog': blog url} plus all the columns in the
+>  wp_comments row for the particular comment.
+>
+>- function ksd_submit_spam_comment
+>
+>  As above, but submits a comment as spam, not ham.  (URL is
+>  http://rest.akismet.com/1.1/submit-spam).
+>
+>
+>That's about it...
+>
+>Cheers,
+>Phil
+>
+>
+>On Tue, Nov 29, 2005 at 01:13:34PM +0000, Fuzzyman wrote:
+>  
+>
+>>Hello,
+>>
+>>I have a problem with guestbook spam and I'd like to look at Akismet as
+>>a possible solution. I'm a Python programmer and happy to implement my
+>>own interface to Akismet given the details.
+>>
+>>Guestbook : http://www.voidspace.org.uk/cgi-bin/voidspace/guestbook2.py
+>>Blog entry on the problem :
+>>http://www.voidspace.org.uk/python/weblog/arch_d7_2005_11_26.shtml#e144
+>>
+>>I've already  have several solutions in place, and have just
+>>investigated adding a DNS blacklist lookup. Using three or four
+>>blacklists it would only stop around fifty percent of my spam. :-(
+>>
+>>Anyway, familiar problem. I've downloaded akismet and got myself a
+>>Wordpress API key.
+>>
+>>It turns out that Akismet is a php script... The development pages on
+>>the website point to this mailing list. :-)
+>>
+>>I'm happy to either implement a Python interface to the php script (?)
+>>*or* a Python interface direct to the Akismet API. (And make the result
+>>freely available under an open source license if you want...)
+>>
+>>Are you happy to give me the details to do this ?
+>>
+>>All the best,
+>>
+>>
+>>Fuzzyman
+>>http://www.voidsspace.org.uk/python/index.shtml
+>>_______________________________________________
+>>spam-stopper mailing list
+>>spam-stopper at lists.automattic.com
+>>http://lists.automattic.com/mailman/listinfo/spam-stopper
+>>    
+>>
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>  
+>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051130/4bc2e2be/attachment.htm>
+
+From pp at myelin.co.nz  Wed Nov 30 10:24:15 2005
+From: pp at myelin.co.nz (Phillip Pearson)
+Date: Wed, 30 Nov 2005 23:24:15 +1300
+Subject: [spam-stopper] Python API
+In-Reply-To: <438D61EF.3080000@voidspace.org.uk>
+References: <438C53FE.4020506@voidspace.org.uk>
+	<20051129205455.GA27987@myelin.co.nz>
+	<438D61EF.3080000@voidspace.org.uk>
+Message-ID: <20051130102415.GA12999@myelin.co.nz>
+
+> So to check a comment, you don't *actually* need to call
+> akismet_verify_key ?
+
+akismet_verify_key is just for the UI - so Wordpress can tell the user
+that they typed their key in wrong.
+
+It seems odd, though, that comment-check, submit-spam and submit-ham
+don't seem to require the 'key' argument.  If akismet.com doesn't
+validate these calls in some other way, it would be possible to submit
+spam and ham to other people's blogs... a bit of a security hole.
+
+Matt?
+
+Cheers,
+Phil
+
+
+From rich at boakes.org  Wed Nov 30 10:43:05 2005
+From: rich at boakes.org (rich boakes)
+Date: Wed, 30 Nov 2005 10:43:05 +0000
+Subject: [spam-stopper] Python API
+In-Reply-To: <20051130102415.GA12999@myelin.co.nz>
+References: <438C53FE.4020506@voidspace.org.uk>	<20051129205455.GA27987@myelin.co.nz>	<438D61EF.3080000@voidspace.org.uk>
+	<20051130102415.GA12999@myelin.co.nz>
+Message-ID: <438D8239.808@boakes.org>
+
+Phillip Pearson wrote:
+
+> It seems odd, though, that comment-check, submit-spam and submit-ham
+> don't seem to require the 'key' argument.  
+
+Hi Phil,
+
+In the latest version of Akismet (1.11),
+line 72, which sets the akismet host, reads:
+
+$ksd_api_host = get('wordpress_api_key') . 
+'.rest.akismet.com';
+
+So they key is encoded into the connection 
+rather than being passed as a parameter, and is 
+therefore available for the server to check.
+
+Whether or not the key _is_ checked by the 
+server I'll have to leave to Matt to confirm.
+
+Rich
+--
+http://boakes.org/
+http://dsg.port.ac.uk/~rjb/
+
+
+
+From pp at myelin.co.nz  Wed Nov 30 19:18:18 2005
+From: pp at myelin.co.nz (Phillip Pearson)
+Date: Thu, 1 Dec 2005 08:18:18 +1300
+Subject: [spam-stopper] Python API
+In-Reply-To: <438D8239.808@boakes.org>
+References: <438C53FE.4020506@voidspace.org.uk>
+	<20051129205455.GA27987@myelin.co.nz>
+	<438D61EF.3080000@voidspace.org.uk>
+	<20051130102415.GA12999@myelin.co.nz> <438D8239.808@boakes.org>
+Message-ID: <20051130191818.GA24532@myelin.co.nz>
+
+Aha, I missed that bit :-)
+
+So THAT'S why the ksd_* functions use $ksd_api_host while verify-key
+goes straight to rest.akismet.com.
+
+That answers the question/concern nicely.  I'm sure the key is
+checked.
+
+(Just goes to show: you shouldn't implement something just by looking
+at the source, because you'll miss the important bits... you've gotta
+snoop the HTTP connections to see what's REALLY going on!)
+
+Cheers,
+Phil
+
+On Wed, Nov 30, 2005 at 10:43:05AM +0000, rich boakes wrote:
+> Phillip Pearson wrote:
+> 
+> >It seems odd, though, that comment-check, submit-spam and submit-ham
+> >don't seem to require the 'key' argument.  
+> 
+> Hi Phil,
+> 
+> In the latest version of Akismet (1.11),
+> line 72, which sets the akismet host, reads:
+> 
+> $ksd_api_host = get('wordpress_api_key') . 
+> '.rest.akismet.com';
+> 
+> So they key is encoded into the connection 
+> rather than being passed as a parameter, and is 
+> therefore available for the server to check.
+> 
+> Whether or not the key _is_ checked by the 
+> server I'll have to leave to Matt to confirm.
+> 
+> Rich
+> --
+> http://boakes.org/
+> http://dsg.port.ac.uk/~rjb/
+> 
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From m at mullenweg.com  Wed Nov 30 23:22:51 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 30 Nov 2005 15:22:51 -0800
+Subject: [spam-stopper] API documentation
+Message-ID: <438E344B.9060405@mullenweg.com>
+
+First draft:
+
+http://akismet.com/development/api/
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+

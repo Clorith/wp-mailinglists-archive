@@ -1,0 +1,351 @@
+From subscriptions at coldflower.com  Mon Apr  3 01:03:19 2006
+From: subscriptions at coldflower.com (Subscriptions)
+Date: Mon Apr  3 01:06:44 2006
+Subject: [wp-docs] folder creation issues
+Message-ID: <BAYC1-PASMTP105DA3F3919B82BF78FAEADAD50@CEZ.ICE>
+
+I just joined the list to tackle this issue, so forgive me if it's 
+already been attended to. I seem to be getting server errors when I 
+tick the box that allows WP to create year and month folders for 
+uploaded content if I try and upload an item for a new post.
+
+I encounter the same problem when attempting to upload content across 
+the XML-RPC interface to a new folder created by the client.
+
+In both cases, the folder is created and is ChModed correctly (777), 
+but no content can be written to it by WP or even by me personally via 
+an ftp. This may be a server issue on my part, but I'm led to believe a 
+small workaround in the code could fix the issue as  uploads work 
+seamlessly when the option of spawning year and month folders is turned 
+off.
+
+Can someone point me to the function set responsible for creating new 
+folders on the server?
+
+From miklb.online at gmail.com  Mon Apr  3 01:31:17 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Mon Apr  3 01:34:45 2006
+Subject: [wp-docs] folder creation issues
+In-Reply-To: <BAYC1-PASMTP105DA3F3919B82BF78FAEADAD50@CEZ.ICE>
+References: <BAYC1-PASMTP105DA3F3919B82BF78FAEADAD50@CEZ.ICE>
+Message-ID: <122d4b4d0604021831pc5cf169kbb96d6ef83ceee05@mail.gmail.com>
+
+Sorry, this list is strictly to discuss issues *related to* wordpress
+documentation development, not actual support.  you should direct your
+question to http://support.wordpress.org
+
+
+On 4/2/06, Subscriptions <subscriptions@coldflower.com> wrote:
+>
+> I just joined the list to tackle this issue, so forgive me if it's
+> already been attended to. I seem to be getting server errors when I
+> tick the box that allows WP to create year and month folders for
+> uploaded content if I try and upload an item for a new post.
+>
+> I encounter the same problem when attempting to upload content across
+> the XML-RPC interface to a new folder created by the client.
+>
+> In both cases, the folder is created and is ChModed correctly (777),
+> but no content can be written to it by WP or even by me personally via
+> an ftp. This may be a server issue on my part, but I'm led to believe a
+> small workaround in the code could fix the issue as  uploads work
+> seamlessly when the option of spawning year and month folders is turned
+> off.
+>
+> Can someone point me to the function set responsible for creating new
+> folders on the server?
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+--
+------------------------------------------------------------------
+~Michael Bishop
+
+http://www.miklb.com     http://www.wpstation.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060403/add24cb9/attachment.htm
+From lists at viper007bond.com  Mon Apr  3 04:15:51 2006
+From: lists at viper007bond.com (Viper007Bond)
+Date: Mon Apr  3 04:19:15 2006
+Subject: [wp-docs] folder creation issues
+In-Reply-To: <122d4b4d0604021831pc5cf169kbb96d6ef83ceee05@mail.gmail.com>
+References: <BAYC1-PASMTP105DA3F3919B82BF78FAEADAD50@CEZ.ICE>
+	<122d4b4d0604021831pc5cf169kbb96d6ef83ceee05@mail.gmail.com>
+Message-ID: <4430A177.2040404@viper007bond.com>
+
+http://wordpress.org/support/ actually. ;)
+
+-Viper
+
+Michael B wrote:
+> Sorry, this list is strictly to discuss issues *related to* wordpress 
+> documentation development, not actual support.  you should direct your 
+> question to http://support.wordpress.org
+> 
+> 
+> On 4/2/06, *Subscriptions* <subscriptions@coldflower.com 
+> <mailto:subscriptions@coldflower.com>> wrote:
+> 
+>     I just joined the list to tackle this issue, so forgive me if it's
+>     already been attended to. I seem to be getting server errors when I
+>     tick the box that allows WP to create year and month folders for
+>     uploaded content if I try and upload an item for a new post.
+> 
+>     I encounter the same problem when attempting to upload content across
+>     the XML-RPC interface to a new folder created by the client.
+> 
+>     In both cases, the folder is created and is ChModed correctly (777),
+>     but no content can be written to it by WP or even by me personally via
+>     an ftp. This may be a server issue on my part, but I'm led to believe a
+>     small workaround in the code could fix the issue as  uploads work
+>     seamlessly when the option of spawning year and month folders is turned
+>     off.
+> 
+>     Can someone point me to the function set responsible for creating new
+>     folders on the server?
+> 
+>     _______________________________________________
+>     wp-docs mailing list
+>     wp-docs@lists.automattic.com <mailto:wp-docs@lists.automattic.com>
+>     http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+> 
+> 
+> 
+> -- 
+> ------------------------------------------------------------------
+> ~Michael Bishop
+> 
+> http://www.miklb.com     http://www.wpstation.com
+> 
+> 
+> ------------------------------------------------------------------------
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+From dougal at gunters.org  Thu Apr  6 17:47:40 2006
+From: dougal at gunters.org (Dougal Campbell)
+Date: Thu Apr  6 17:54:15 2006
+Subject: [wp-docs] Functions that generate html tags?
+Message-ID: <4435543C.5080605@gunters.org>
+
+Many of the template functions that we use will return plain text (e.g., 
+  the_title, the_author, bloginfo, etc.). But some return HTML-tagged 
+content (e.g., wp_list_pages, wp_list_cats, wp_loginout, etc.)
+
+Has anyone documented which functions generate HTML, along with what tag 
+structure they use? I did a quick Codex search, but nothing came up. I 
+think this would be a very useful reference for theme developers to have.
+
+-- 
+Dougal Campbell <dougal@gunters.org>
+http://dougal.gunters.org/
+
+From bbooth at lucidgreen.net  Sat Apr 22 14:43:58 2006
+From: bbooth at lucidgreen.net (Brandon Booth)
+Date: Sat Apr 22 14:48:07 2006
+Subject: [wp-docs] Complete idiot's installation guide
+Message-ID: <F8891481-BACA-4729-9878-21F1A04F5554@lucidgreen.net>
+
+Hi,
+
+I've written a very comprehensive installation guide of WordPress in  
+a PDF e-book format. It covers (nearly) every topic and gives step-by- 
+step instructions, with screen shots. I have plans to continue with  
+this and write chapters on how to use wordpress and also how to  
+customizing wordpress but don't have a lot of time right now. So I  
+just thought this might be helpful for people who are really new to  
+all this stuff and prefer to have all their info in one place.
+
+Anyway I'm not sure where I should post this, can I just create a new  
+page in the codex for it or what?
+
+You can download it at www.lucidgreen.net/everymans_wp_install_guide.pdf
+From mhancock at us.net  Sat Apr 22 15:18:44 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Sat Apr 22 15:22:46 2006
+Subject: [wp-docs] Complete idiot's installation guide
+References: <F8891481-BACA-4729-9878-21F1A04F5554@lucidgreen.net>
+Message-ID: <1e0701c66620$0c0fda70$6402a8c0@DELL8600>
+
+From: "Brandon Booth" <bbooth@lucidgreen.net>
+> Anyway I'm not sure where I should post this, can I just create a new
+> page in the codex for it or what?
+
+Nice work!!!
+
+I added a link under the Installation section here:
+http://codex.wordpress.org/Getting_Started_with_WordPress
+
+I also added a Resources section with the link to your PDF here:
+http://codex.wordpress.org/Installing_WordPress#Resources
+
+Also you might want to update (or create) your User page in Codex and add
+that link there.
+
+Thanks for your hard work.
+
+
+MichaelH
+
+
+From kaf at szub.net  Sat Apr 22 15:51:04 2006
+From: kaf at szub.net (Kaf Oseo)
+Date: Sat Apr 22 15:55:06 2006
+Subject: [wp-docs] Complete idiot's installation guide
+In-Reply-To: <1e0701c66620$0c0fda70$6402a8c0@DELL8600>
+References: <F8891481-BACA-4729-9878-21F1A04F5554@lucidgreen.net>
+	<1e0701c66620$0c0fda70$6402a8c0@DELL8600>
+Message-ID: <444A50E8.5030007@szub.net>
+
+This is a nice doc (looks like a lot of time was spent on it), but as
+the initial focus is placed on setting up a wp.com blog, I have a wee
+problem linking it from the Codex. Brandon, could you split this into
+two documents, one for WordPress installation and one on wp.com?
+
+We constantly try to define where the line for support of WordPress
+(the software) ends and wp.com begins, and something like this will
+only help to blur it.
+
+-Kaf
+From bbooth at lucidgreen.net  Sun Apr 23 16:38:53 2006
+From: bbooth at lucidgreen.net (Brandon Booth)
+Date: Sun Apr 23 17:18:12 2006
+Subject: [wp-docs] Everyman's Guides
+Message-ID: <F4648F44-3B1A-4803-98EA-1AC201FC4FB9@lucidgreen.net>
+
+Thanks for the tips guys. I've edited the docs, split them into two  
+and posted links to them on my User page. You can see their links at:
+http://codex.wordpress.org/User:Anselm1109
+
+I've updated the link at
+http://codex.wordpress.org/Installing_WordPress to point to the  
+correct doc in its new location.
+
+I've also (re)added it in as a link in the installation section under
+http://codex.wordpress.org/Getting_Started_with_WordPress
+
+
+From kaf at szub.net  Sun Apr 23 20:32:37 2006
+From: kaf at szub.net (Kaf Oseo)
+Date: Sun Apr 23 20:36:39 2006
+Subject: [wp-docs] Everyman's Guides
+In-Reply-To: <F4648F44-3B1A-4803-98EA-1AC201FC4FB9@lucidgreen.net>
+References: <F4648F44-3B1A-4803-98EA-1AC201FC4FB9@lucidgreen.net>
+Message-ID: <444BE465.7080709@szub.net>
+
+Thanks for the extra work on this Brandon.
+
+-Kaf
+From miklb.online at gmail.com  Thu Apr 27 03:57:49 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Thu Apr 27 04:02:09 2006
+Subject: [wp-docs] server requirements
+Message-ID: <122d4b4d0604262057u4696ea43x5199111a141ae4f6@mail.gmail.com>
+
+This thread http://wordpress.org/support/topic/70152?replies=6
+points out some discrepancies.  Since I don't know the differences, perhaps
+someone who does can let me know what min requirements are for 1.2.x, 1.5.x,
+and 2.0.x.  I'll be glad to correct the info in the codex once I have
+confirmation.
+
+Thanks.
+
+
+miklb
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060427/0e1f777e/attachment.htm
+From carthik at gmail.com  Fri Apr 28 00:09:48 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Fri Apr 28 00:15:05 2006
+Subject: [wp-docs] server requirements
+In-Reply-To: <122d4b4d0604262057u4696ea43x5199111a141ae4f6@mail.gmail.com>
+References: <122d4b4d0604262057u4696ea43x5199111a141ae4f6@mail.gmail.com>
+Message-ID: <80f75db0604271709i149a4b1dneddc43331492a118@mail.gmail.com>
+
+On 4/26/06, Michael B <miklb.online@gmail.com> wrote:
+> This thread
+> http://wordpress.org/support/topic/70152?replies=6
+> points out some discrepancies.  Since I don't know the differences, perhaps
+> someone who does can let me know what min requirements are for 1.2.x, 1.5.x,
+> and 2.0.x.  I'll be glad to correct the info in the codex once I have
+> confirmation.
+>
+
+As far as I know, PHP 4.1 is still the minimum requirement. Any higher
+version, including PHP 5 is supported.
+
+The user at the forum seems to be confused between the fantastico
+installed WP and the manually installed WP. Removing all traces of the
+fantastico installed WP would be good. Following the non-fantastico
+install route with a new (or reset) set of database tables would be
+the prescribed medicine :)
+
+Regards,
+Carthik.
+From miklb.online at gmail.com  Fri Apr 28 07:28:58 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Fri Apr 28 07:33:22 2006
+Subject: [wp-docs] server requirements
+In-Reply-To: <80f75db0604271709i149a4b1dneddc43331492a118@mail.gmail.com>
+References: <122d4b4d0604262057u4696ea43x5199111a141ae4f6@mail.gmail.com>
+	<80f75db0604271709i149a4b1dneddc43331492a118@mail.gmail.com>
+Message-ID: <122d4b4d0604280028u46ba3aa7i62cde2695202cba0@mail.gmail.com>
+
+Thanks for the reply, but the issue is this:
+http://wordpress.org/about/requirements/
+says 4.2
+http://codex.wordpress.org/Hosting_WordPress
+says 4.1 as of 1.2.2
+regardless of the posters hosting issues, if 2.x needs PHP 4.2, but earlier
+versions support 4.1, then the codex page needs to be updated.  Which is
+what I'm trying to get to the root of.
+
+Michael
+
+
+On 4/27/06, Carthik Sharma <carthik@gmail.com> wrote:
+>
+> On 4/26/06, Michael B <miklb.online@gmail.com> wrote:
+> > This thread
+> > http://wordpress.org/support/topic/70152?replies=6
+> > points out some discrepancies.  Since I don't know the differences,
+> perhaps
+> > someone who does can let me know what min requirements are for 1.2.x,
+> 1.5.x,
+> > and 2.0.x.  I'll be glad to correct the info in the codex once I have
+> > confirmation.
+> >
+>
+> As far as I know, PHP 4.1 is still the minimum requirement. Any higher
+> version, including PHP 5 is supported.
+>
+> The user at the forum seems to be confused between the fantastico
+> installed WP and the manually installed WP. Removing all traces of the
+> fantastico installed WP would be good. Following the non-fantastico
+> install route with a new (or reset) set of database tables would be
+> the prescribed medicine :)
+>
+> Regards,
+> Carthik.
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060428/84d2c6ea/attachment.htm

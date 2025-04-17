@@ -1,0 +1,413 @@
+From joseph at randomnetworks.com  Fri Jul  6 22:04:26 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Jul  6 22:05:55 2007
+Subject: [wp-xmlrpc] wordpress.com, categories as tags
+Message-ID: <2922AA68-ED50-4A7D-9BDA-E1A13445BFAF@randomnetworks.com>
+
+
+Daniel Jalkut pointed out that posts made via XML-RPC to  
+WordPress.com blogs weren't being picked up by the tagging system.   
+(WordPress.com uses the categories of a post as global tags.)
+
+We figured out why they weren't part of the tagging system and I've  
+deployed the update to all WordPress.com blogs.
+
+I didn't see any breakage in my tests with this patch, but I wanted  
+make the list aware of this change just in case.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Fri Jul  6 23:01:36 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Jul  6 23:01:49 2007
+Subject: [wp-xmlrpc] wordpress.com, categories as tags
+In-Reply-To: <2922AA68-ED50-4A7D-9BDA-E1A13445BFAF@randomnetworks.com>
+References: <2922AA68-ED50-4A7D-9BDA-E1A13445BFAF@randomnetworks.com>
+Message-ID: <6E1AB65D-CAE3-4E09-AB4F-69ECFAEE0786@red-sweater.com>
+
+Thanks, Joseph! You're going to make one of my users very happy.
+
+On Jul 6, 2007, at 6:04 PM, Joseph Scott wrote:
+
+>
+> Daniel Jalkut pointed out that posts made via XML-RPC to  
+> WordPress.com blogs weren't being picked up by the tagging system.   
+> (WordPress.com uses the categories of a post as global tags.)
+>
+> We figured out why they weren't part of the tagging system and I've  
+> deployed the update to all WordPress.com blogs.
+>
+> I didn't see any breakage in my tests with this patch, but I wanted  
+> make the list aware of this change just in case.
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From jalkut at red-sweater.com  Sat Jul  7 00:19:48 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Jul  7 00:19:45 2007
+Subject: [wp-xmlrpc] Versioning the WP API post attribute extensions
+Message-ID: <09D68298-4B4C-4656-BB41-A33C89300854@red-sweater.com>
+
+
+I'd like to call list members' attention to a trac issue I opened:
+
+http://trac.wordpress.org/ticket/4590
+
+The gist is that we need some way to tell programatically whether a  
+server supports particular attributes on posts. For instance, WP has  
+added the "wp_slug" attribute to posts, but as of today, the only way  
+to know that it will be excepted is by assuming that the presence of a  
+"WordPress" API in the RSD for a site, implies that the "WP"  
+extensions to MovableType are all supported.
+
+I'd like to see something akin to the "supportedMethods" call  
+implemented in a way that allows us to check for  
+"supportedAttributes." But I haven't thought it out too well. I'm just  
+putting it into Trac to get it out there. What do you all think?
+
+Daniel
+From jalkut at red-sweater.com  Mon Jul  9 15:28:14 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon Jul  9 15:29:13 2007
+Subject: [wp-xmlrpc] Suggest an API for deleting categories
+Message-ID: <253E7389-FC03-4F20-A24E-21234BB6CD0E@red-sweater.com>
+
+
+Hey everybody - I've written a new request to suggest the addition of  
+an API for deleting categories:
+
+http://trac.wordpress.org/ticket/4599
+
+It seems only natural that the newCategory should have a counterpart  
+for deletion. I've also used the issue to raise the question of  
+whether these API should be plural-operators instead of singular. It  
+seems a little tedious to build separate net connections for every  
+manipulated category. And for instance there is precedence for mass  
+manipulation of categories for instance with mt.setPostCategories.
+
+Thoughts?
+
+Daniel
+From jalkut at red-sweater.com  Mon Jul  9 17:01:18 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon Jul  9 17:01:30 2007
+Subject: [wp-xmlrpc] Ticket 4603: wp.newCategory should prevent duplicate
+	categories 
+Message-ID: <E3AFC84C-BD62-4473-86FD-A8D6BCF26476@red-sweater.com>
+
+
+I just reported http://trac.wordpress.org/ticket/4603.
+
+My proposal is that newCategory should have the behavior "create OR  
+LOCATE a category with the specified attributes."
+
+It seems exceedingly unlikely that a client would want to produce a  
+category with exactly the same name, slug, and hierarchical location  
+(parent category) as another category in the system.
+
+Does anybody have a reason to think otherwise?
+
+Daniel
+From joseph at randomnetworks.com  Thu Jul 12 16:29:20 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Jul 12 16:29:37 2007
+Subject: [wp-xmlrpc] WP 2.2.1 breaks Ruby 1.8.2
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A177A7327DB@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <17596-17653@sneakemail.com>
+	<A6A7743E-4E15-4215-9542-641F13284090@red-sweater.com>
+	<10622-65514@sneakemail.com>
+	<A921B037-957C-4A04-A6F4-43ABCC33F036@red-sweater.com>
+	<9534-28958@sneakemail.com>
+	<2919E114-D199-48C1-9DCB-26CC0C4E2D83@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9848F8@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<275F4156-57B0-4587-871C-4FF33F284CC3@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984949@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<B9862987-E583-473D-B90C-6B1ACA68C4BA@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9849E3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4F1664EC-6E5C-4E77-A7F7-737E161EE042@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984A3D@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<F2E0874A-F62B-4C12-830B-145A1AB92085@red-sweater.com>
+	<8145D45B-0F3E-468B-86B0-8B303E7B70E4@randomnetworks.com>
+	<F05C0830-C3FB-40D3-B744-B4C7FDC81FC9@red-sweater.com>
+	<FD4B2E41-14EE-41E4-B000-85F9CA2EAA1E@randomnetwor ks.com>
+	<31559-42762@sneakemail.com>,
+	<7413BB1C-8F56-4C1B-A051-6CF4D0AB5249@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A7327DB@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+
+
+On Jun 29, 2007, at 12:11 PM, Joe Cheng wrote:
+
+>> I'm still a bit torn on what exactly the new field should contain.
+>> Allan's arguments for the new field to be an offset is attractive.
+>> No data is duplicated and it does a provide a way to determine the
+>> GMT date.
+>
+> I agree--the offset is more elegant, but just using the UTC date is  
+> likely more practical. I think the ship has long since sailed on  
+> making MetaWeblog being elegant, so I'd personally lean toward  
+> practical :)
+>
+> If we do the UTC date then no parsing at all will be required,  
+> given a reasonable XML-RPC library. That seems like a real benefit  
+> to me.
+
+I will be submitting patches to wordpress.org that will revert the  
+GMT changes and add a new GMT specific field, that does not have the  
+Z on the end, but will always contain a GMT date/time.
+
+I'll also make these changes to wordpress.com blogs.
+
+I will post here again with references to the tickets on  
+wordpress.org and when I've deployed the changes to wordpress.com.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Thu Jul 12 17:03:19 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Jul 12 17:03:29 2007
+Subject: [wp-xmlrpc] ticket for GMT undo
+Message-ID: <F3EB26C0-0BE9-4FFD-AED0-9A80E681D6B5@randomnetworks.com>
+
+
+Here is the ticket with patches for undoing the GMT date/times:
+
+http://trac.wordpress.org/ticket/4624
+
+Please give it try (on both 2.2 and trunk if you are able) and  
+confirm that this works as expected.
+
+Thanks.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From Joe.Cheng at microsoft.com  Thu Jul 12 18:33:44 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Thu Jul 12 18:33:51 2007
+Subject: [wp-xmlrpc] WP 2.2.1 breaks Ruby 1.8.2
+In-Reply-To: <7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+References: <17596-17653@sneakemail.com>
+	<A6A7743E-4E15-4215-9542-641F13284090@red-sweater.com>
+	<10622-65514@sneakemail.com>
+	<A921B037-957C-4A04-A6F4-43ABCC33F036@red-sweater.com>
+	<9534-28958@sneakemail.com>
+	<2919E114-D199-48C1-9DCB-26CC0C4E2D83@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9848F8@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<275F4156-57B0-4587-871C-4FF33F284CC3@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984949@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<B9862987-E583-473D-B90C-6B1ACA68C4BA@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9849E3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4F1664EC-6E5C-4E77-A7F7-737E161EE042@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984A3D@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<F2E0874A-F62B-4C12-830B-145A1AB92085@red-sweater.com>
+	<8145D45B-0F3E-468B-86B0-8B303E7B70E4@randomnetworks.com>
+	<F05C0830-C3FB-40D3-B744-B4C7FDC81FC9@red-sweater.com>
+	<FD4B2E41-14EE-41E4-B000-85F9CA2EAA1E@randomnetwor ks.com>
+	<31559-42762@sneakemail.com>,
+	<7413BB1C-8F56-4C1B-A051-6CF4D0AB5249@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A7327DB@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A177ABEDBCC@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Joseph Scott wrote:
+> I will be submitting patches to wordpress.org that will revert the
+> GMT changes and add a new GMT specific field, that does not have the
+> Z on the end, but will always contain a GMT date/time.
+>
+> I'll also make these changes to wordpress.com blogs.
+>
+> I will post here again with references to the tickets on
+> wordpress.org and when I've deployed the changes to wordpress.com.
+
+Awesome. I'm loving this mailing list. Are there any other blog server implementers lurking around--and if not, should we invite them to?
+From joseph at randomnetworks.com  Thu Jul 12 20:38:51 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Jul 12 20:39:05 2007
+Subject: [wp-xmlrpc] WP 2.2.1 breaks Ruby 1.8.2
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A177ABEDBCC@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <17596-17653@sneakemail.com>
+	<A6A7743E-4E15-4215-9542-641F13284090@red-sweater.com>
+	<10622-65514@sneakemail.com>
+	<A921B037-957C-4A04-A6F4-43ABCC33F036@red-sweater.com>
+	<9534-28958@sneakemail.com>
+	<2919E114-D199-48C1-9DCB-26CC0C4E2D83@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9848F8@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<275F4156-57B0-4587-871C-4FF33F284CC3@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984949@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<B9862987-E583-473D-B90C-6B1ACA68C4BA@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9849E3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4F1664EC-6E5C-4E77-A7F7-737E161EE042@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984A3D@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<F2E0874A-F62B-4C12-830B-145A1AB92085@red-sweater.com>
+	<8145D45B-0F3E-468B-86B0-8B303E7B70E4@randomnetworks.com>
+	<F05C0830-C3FB-40D3-B744-B4C7FDC81FC9@red-sweater.com>
+	<FD4B2E41-14EE-41E4-B000-85F9CA2EAA1E@randomnetwor ks.com>
+	<31559-42762@sneakemail.com>,
+	<7413BB1C-8F56-4C1B-A051-6CF4D0AB5249@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A7327DB@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A177ABEDBCC@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <30CD6B97-03B8-4A65-B1B5-6D5C2B09E147@randomnetworks.com>
+
+
+On Jul 12, 2007, at 12:33 PM, Joe Cheng wrote:
+
+> Awesome. I'm loving this mailing list. Are there any other blog  
+> server implementers lurking around--and if not, should we invite  
+> them to?
+
+I'm not aware of any other server-side folks on the list, but I've  
+been inviting every XML-RPC developer type person that I've  
+communicated with :-)
+
+I don't have any problem inviting server side folks.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From m123ixd02 at sneakemail.com  Sun Jul 15 17:15:34 2007
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Sun Jul 15 17:15:45 2007
+Subject: [wp-xmlrpc] WP 2.2.1 breaks Ruby 1.8.2
+In-Reply-To: <7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+References: <17596-17653@sneakemail.com>
+	<A6A7743E-4E15-4215-9542-641F13284090@red-sweater.com>
+	<10622-65514@sneakemail.com>
+	<A921B037-957C-4A04-A6F4-43ABCC33F036@red-sweater.com>
+	<9534-28958@sneakemail.com>
+	<2919E114-D199-48C1-9DCB-26CC0C4E2D83@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9848F8@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<275F4156-57B0-4587-871C-4FF33F284CC3@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984949@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<B9862987-E583-473D-B90C-6B1ACA68C4BA@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9849E3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4F1664EC-6E5C-4E77-A7F7-737E161EE042@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984A3D@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<F2E0874A-F62B-4C12-830B-145A1AB92085@red-sweater.com>
+	<8145D45B-0F3E-468B-86B0-8B303E7B70E4@randomnetworks.com>
+	<F05C0830-C3FB-40D3-B744-B4C7FDC81FC9@red-sweater.com>
+	<FD4B2E41-14EE-41E4-B000-85F9CA2EAA1E@randomnetwor
+	ks.com> <31559-42762@sneakemail.com>,
+	<7413BB1C-8F56-4C1B-A051-6CF4D0AB5249@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A7327DB@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+Message-ID: <29882-33018@sneakemail.com>
+
+On 12. Jul 2007, at 18:29, Joseph Scott wrote:
+
+> [...]
+> I will be submitting patches to wordpress.org that will revert the  
+> GMT changes and add a new GMT specific field, that does not have  
+> the Z on the end, but will always contain a GMT date/time.
+
+A new field? So this field needs to be populated when *sending* to  
+WP? And when receiving from WP the client should prefer this GMT- 
+specified field, and when absent, it?ll fallback on the old field  
+which time zone will remain unspecified / in the servers TZ (which  
+there is no way to obtain)?
+
+And for ?old? clients (not sending the new field you are about to  
+introduce), WP will interpret the received date as prior to 2.2 (i.e.  
+server time / configured time)?
+
+From joseph at randomnetworks.com  Mon Jul 16 14:40:36 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jul 16 14:40:50 2007
+Subject: [wp-xmlrpc] WP 2.2.1 breaks Ruby 1.8.2
+In-Reply-To: <29882-33018@sneakemail.com>
+References: <17596-17653@sneakemail.com>
+	<A6A7743E-4E15-4215-9542-641F13284090@red-sweater.com>
+	<10622-65514@sneakemail.com>
+	<A921B037-957C-4A04-A6F4-43ABCC33F036@red-sweater.com>
+	<9534-28958@sneakemail.com>
+	<2919E114-D199-48C1-9DCB-26CC0C4E2D83@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9848F8@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<275F4156-57B0-4587-871C-4FF33F284CC3@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984949@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<B9862987-E583-473D-B90C-6B1ACA68C4BA@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A9849E3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4F1664EC-6E5C-4E77-A7F7-737E161EE042@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A984A3D@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<F2E0874A-F62B-4C12-830B-145A1AB92085@red-sweater.com>
+	<8145D45B-0F3E-468B-86B0-8B303E7B70E4@randomnetworks.com>
+	<F05C0830-C3FB-40D3-B744-B4C7FDC81FC9@red-sweater.com>
+	<FD4B2E41-14EE-41E4-B000-85F9CA2EAA1E@randomnetwor ks.com>
+	<31559-42762@sneakemail.com>,
+	<7413BB1C-8F56-4C1B-A051-6CF4D0AB5249@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A177A7327DB@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<7BB1CB7C-F265-4DE8-A900-7702F9E38466@randomnetworks.com>
+	<29882-33018@sneakemail.com>
+Message-ID: <81DB405E-0EA4-4471-8BDC-8B2F4FF21639@randomnetworks.com>
+
+
+On Jul 15, 2007, at 11:15 AM, Allan Odgaard wrote:
+
+> On 12. Jul 2007, at 18:29, Joseph Scott wrote:
+>
+>> [...]
+>> I will be submitting patches to wordpress.org that will revert the  
+>> GMT changes and add a new GMT specific field, that does not have  
+>> the Z on the end, but will always contain a GMT date/time.
+>
+> A new field? So this field needs to be populated when *sending* to  
+> WP? And when receiving from WP the client should prefer this GMT- 
+> specified field, and when absent, it?ll fallback on the old field  
+> which time zone will remain unspecified / in the servers TZ (which  
+> there is no way to obtain)?
+
+I'd really seen this as something WP would send, but I don't see why  
+we couldn't do both.  What you describe above sounds reasonable.
+
+
+> And for ?old? clients (not sending the new field you are about to  
+> introduce), WP will interpret the received date as prior to 2.2  
+> (i.e. server time / configured time)?
+
+Yes.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From m at mullenweg.com  Tue Jul 17 09:13:12 2007
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue Jul 17 09:13:23 2007
+Subject: [wp-xmlrpc] Suggest an API for deleting categories
+In-Reply-To: <253E7389-FC03-4F20-A24E-21234BB6CD0E@red-sweater.com>
+References: <253E7389-FC03-4F20-A24E-21234BB6CD0E@red-sweater.com>
+Message-ID: <469C8828.70309@mullenweg.com>
+
+Daniel Jalkut wrote:
+> It seems only natural that the newCategory should have a counterpart for 
+> deletion. I've also used the issue to raise the question of whether 
+> these API should be plural-operators instead of singular. It seems a 
+> little tedious to build separate net connections for every manipulated 
+> category. And for instance there is precedence for mass manipulation of 
+> categories for instance with mt.setPostCategories.
+
+I like this, but I'll save my comments for the ticket.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com

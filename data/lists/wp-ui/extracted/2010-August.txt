@@ -1,0 +1,30 @@
+From Anatol  Sun Aug 15 15:47:30 2010
+From: Anatol (Anatol)
+Date: Sun, 15 Aug 2010 17:47:30 +0200
+Subject: [wp-ui] default_wp_die_handler
+Message-ID: <1281887250.1819.123.camel@bro-laptop>
+
+Hello world!
+
+Situation 1: The user tries to log in. The user gives a wrong password.
+A *pink* error message appears. End line. The user have to remember the
+password. No change ? no log in.
+
+Situation 2: The user tries to comment. The user forgets to fill the
+required email. A new window appears with a *white* message inside. End
+line. The user have to go back and fill the required field. No email ?
+no comment.
+
+You see, both situations are equal: no way. So we need the same message
+style.
+
+I like the solution 1: pink error message (<div
+id="login_error">Error</div>) In this case the class name cames from
+"wp-admin/css/login.css".
+
+So why don't we add the same class to the message in situation 2? It's
+all about "default_wp_die_handler" function.
+
+PS: Sorry for my bad English.
+
+

@@ -1,0 +1,584 @@
+From hessam at farsitel.com  Tue Jun  7 09:26:06 2011
+From: hessam at farsitel.com (Hessam Armandehi)
+Date: Tue, 7 Jun 2011 13:56:06 +0430
+Subject: [wp-xmlrpc] XML-RPC and Roles
+Message-ID: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+
+Dear all,
+
+We're developing an Android app for a wordpress.org blog. Since RSS only
+lists the most recent posts and we wanted to get access to the older ones we
+decided to use XML-RPC. Unfortunately I just found that subscriber role has
+no access to the XML-RPC features.
+
+We need a read-only account to access XML-RPC and we don't want to put admin
+password in the app. How should we proceed? Any suggestion?
+
+I found this myself:
+http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+
+No help though.
+
+Best,
+/Hessam
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110607/76d228a2/attachment.htm>
+
+From eric at eam.me  Tue Jun  7 13:52:05 2011
+From: eric at eam.me (Eric Mann)
+Date: Tue, 7 Jun 2011 06:52:05 -0700
+Subject: [wp-xmlrpc] XML-RPC and Roles
+In-Reply-To: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+References: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+Message-ID: <BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+
+My recommendation would be to use a plugin like Role Scoper (
+http://wordpress.org/extend/plugins/role-scoper/) to create a custom XML-RPC
+user role.  You can then explicitly grant users the ability to read content
+but not create content.
+
+On Tue, Jun 7, 2011 at 2:26 AM, Hessam Armandehi <hessam at farsitel.com>wrote:
+
+> Dear all,
+>
+> We're developing an Android app for a wordpress.org blog. Since RSS only
+> lists the most recent posts and we wanted to get access to the older ones we
+> decided to use XML-RPC. Unfortunately I just found that subscriber role has
+> no access to the XML-RPC features.
+>
+> We need a read-only account to access XML-RPC and we don't want to put
+> admin password in the app. How should we proceed? Any suggestion?
+>
+> I found this myself:
+> http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+>
+> No help though.
+>
+> Best,
+> /Hessam
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110607/d732a9e6/attachment.htm>
+
+From hessam at farsitel.com  Thu Jun  9 20:59:24 2011
+From: hessam at farsitel.com (Hessam Armandehi)
+Date: Fri, 10 Jun 2011 01:29:24 +0430
+Subject: [wp-xmlrpc] XML-RPC and Roles
+In-Reply-To: <BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+References: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+	<BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+Message-ID: <BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+
+Dear Eric,
+
+Thanks for the tip. I tried the Role Scoper. It seems the user needs to have
+"edit_published_posts" and "edit_others_posts" permissions to get access to
+XML-RPC responses. True? I tried it on the original Wordpress Android app. I
+couldn't fetch the posts with Author role since it has no
+"edit_others_posts" permission. If it's true, what do you suggest then?
+
+Best,
+/Hessam
+
+On Tue, Jun 7, 2011 at 6:22 PM, Eric Mann <eric at eam.me> wrote:
+
+> My recommendation would be to use a plugin like Role Scoper (
+> http://wordpress.org/extend/plugins/role-scoper/) to create a custom
+> XML-RPC user role.  You can then explicitly grant users the ability to read
+> content but not create content.
+>
+> On Tue, Jun 7, 2011 at 2:26 AM, Hessam Armandehi <hessam at farsitel.com>wrote:
+>
+>> Dear all,
+>>
+>> We're developing an Android app for a wordpress.org blog. Since RSS only
+>> lists the most recent posts and we wanted to get access to the older ones we
+>> decided to use XML-RPC. Unfortunately I just found that subscriber role has
+>> no access to the XML-RPC features.
+>>
+>> We need a read-only account to access XML-RPC and we don't want to put
+>> admin password in the app. How should we proceed? Any suggestion?
+>>
+>> I found this myself:
+>> http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+>>
+>> No help though.
+>>
+>> Best,
+>> /Hessam
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110610/a8da1a0b/attachment.htm>
+
+From mmuro at advance.ua.edu  Thu Jun  9 21:10:22 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Thu, 9 Jun 2011 16:10:22 -0500
+Subject: [wp-xmlrpc] XML-RPC and Roles
+In-Reply-To: <BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+References: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+	<BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+	<BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+Message-ID: <ED90470F-F454-4E54-9235-383539E0D23A@ur.ua.edu>
+
+XML-RPC is not for what you want to do.
+
+I would build a new page that outputs however many posts you want using either date ranges, paging, or some other factor to limit the results.
+
+Matthew Muro
+
+
+
+
+
+On Jun 9, 2011, at 3:59 PM, Hessam Armandehi wrote:
+
+Dear Eric,
+
+Thanks for the tip. I tried the Role Scoper. It seems the user needs to have "edit_published_posts" and "edit_others_posts" permissions to get access to XML-RPC responses. True? I tried it on the original Wordpress Android app. I couldn't fetch the posts with Author role since it has no "edit_others_posts" permission. If it's true, what do you suggest then?
+
+Best,
+/Hessam
+
+On Tue, Jun 7, 2011 at 6:22 PM, Eric Mann <eric at eam.me<mailto:eric at eam.me>> wrote:
+My recommendation would be to use a plugin like Role Scoper (http://wordpress.org/extend/plugins/role-scoper/) to create a custom XML-RPC user role.  You can then explicitly grant users the ability to read content but not create content.
+
+On Tue, Jun 7, 2011 at 2:26 AM, Hessam Armandehi <hessam at farsitel.com<mailto:hessam at farsitel.com>> wrote:
+Dear all,
+
+We're developing an Android app for a wordpress.org<http://wordpress.org/> blog. Since RSS only lists the most recent posts and we wanted to get access to the older ones we decided to use XML-RPC. Unfortunately I just found that subscriber role has no access to the XML-RPC features.
+
+We need a read-only account to access XML-RPC and we don't want to put admin password in the app. How should we proceed? Any suggestion?
+
+I found this myself:
+http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+
+No help though.
+
+Best,
+/Hessam
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+<ATT00001..txt>
+
+
+From alex at buayacorp.com  Thu Jun  9 21:14:55 2011
+From: alex at buayacorp.com (Alexander Concha)
+Date: Thu, 9 Jun 2011 23:14:55 +0200
+Subject: [wp-xmlrpc] XML-RPC and Roles
+In-Reply-To: <BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+References: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+	<BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+	<BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+Message-ID: <BANLkTikwZ97iKhmeSsLgsJPz4rakZkYNrQ@mail.gmail.com>
+
+Instead of modifying the user capabilities, why don't you add a new
+xmlrpc method that does a similar thing of get_recent_posts? You can
+easily add new xmlrpc methods.
+
+On Thursday, June 9, 2011, Hessam Armandehi <hessam at farsitel.com> wrote:
+> Dear Eric,
+>
+> Thanks for the tip. I tried the Role Scoper. It seems the user needs to have "edit_published_posts" and "edit_others_posts" permissions to get access to XML-RPC responses. True? I tried it on the original Wordpress Android app. I couldn't fetch the posts with Author role since it has no "edit_others_posts" permission. If it's true, what do you suggest then?
+>
+> Best,
+> /Hessam
+>
+> On Tue, Jun 7, 2011 at 6:22 PM, Eric Mann <eric at eam.me> wrote:
+>
+>
+> My recommendation would be to use a plugin like Role Scoper (http://wordpress.org/extend/plugins/role-scoper/) to create a custom XML-RPC user role. ?You can then explicitly grant users the ability to read content but not create content.
+>
+> On Tue, Jun 7, 2011 at 2:26 AM, Hessam Armandehi <hessam at farsitel.com> wrote:
+>
+> Dear all,
+>
+> We're developing an Android app for a wordpress.org blog. Since RSS only lists the most recent posts and we wanted to get access to the older ones we decided to use XML-RPC. Unfortunately I just found that subscriber role has no access to the XML-RPC features.
+>
+> We need a read-only account to access XML-RPC and we don't want to put admin password in the app. How should we proceed? Any suggestion?
+>
+> I found this myself:
+> http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+>
+> No help though.
+>
+> Best,
+> /Hessam
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>
+>
+
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From hessam at farsitel.com  Thu Jun  9 21:25:19 2011
+From: hessam at farsitel.com (Hessam Armandehi)
+Date: Fri, 10 Jun 2011 01:55:19 +0430
+Subject: [wp-xmlrpc] XML-RPC and Roles
+In-Reply-To: <BANLkTikwZ97iKhmeSsLgsJPz4rakZkYNrQ@mail.gmail.com>
+References: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+	<BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+	<BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+	<BANLkTikwZ97iKhmeSsLgsJPz4rakZkYNrQ@mail.gmail.com>
+Message-ID: <BANLkTimC7e6Y6PV7kTbxn_KD+ObpXMkBXQ@mail.gmail.com>
+
+Following you can find the code from the original Android app. The method
+only tries "getRecentPosts" and not any more. That fails without both
+"edit_published_posts" and "edit_others_posts" accesses.  result.length ==
+0.
+
+
+> XMLRPCMethod method = new XMLRPCMethod((isPage) ? "wp.getPageList"
+>                 : "blogger.getRecentPosts", new XMLRPCMethodCallback() {
+>             public void callFinished(Object [ ] result) {
+>
+>
+Do you mean anything different?
+
+P.S. Why I'm insisting on using xml-rpc is that the app is already done! We
+just don't want to use a user account with edit access in our source codes.
+We didn't know about the permissions from the beginning and we were testing
+with admin account. #FAIL
+
+On Fri, Jun 10, 2011 at 1:44 AM, Alexander Concha <alex at buayacorp.com>wrote:
+
+> Instead of modifying the user capabilities, why don't you add a new
+> xmlrpc method that does a similar thing of get_recent_posts? You can
+> easily add new xmlrpc methods.
+>
+> On Thursday, June 9, 2011, Hessam Armandehi <hessam at farsitel.com> wrote:
+> > Dear Eric,
+> >
+> > Thanks for the tip. I tried the Role Scoper. It seems the user needs to
+> have "edit_published_posts" and "edit_others_posts" permissions to get
+> access to XML-RPC responses. True? I tried it on the original Wordpress
+> Android app. I couldn't fetch the posts with Author role since it has no
+> "edit_others_posts" permission. If it's true, what do you suggest then?
+> >
+> > Best,
+> > /Hessam
+> >
+> > On Tue, Jun 7, 2011 at 6:22 PM, Eric Mann <eric at eam.me> wrote:
+> >
+> >
+> > My recommendation would be to use a plugin like Role Scoper (
+> http://wordpress.org/extend/plugins/role-scoper/) to create a custom
+> XML-RPC user role.  You can then explicitly grant users the ability to read
+> content but not create content.
+> >
+> > On Tue, Jun 7, 2011 at 2:26 AM, Hessam Armandehi <hessam at farsitel.com>
+> wrote:
+> >
+> > Dear all,
+> >
+> > We're developing an Android app for a wordpress.org blog. Since RSS only
+> lists the most recent posts and we wanted to get access to the older ones we
+> decided to use XML-RPC. Unfortunately I just found that subscriber role has
+> no access to the XML-RPC features.
+> >
+> > We need a read-only account to access XML-RPC and we don't want to put
+> admin password in the app. How should we proceed? Any suggestion?
+> >
+> > I found this myself:
+> >
+> http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+> >
+> > No help though.
+> >
+> > Best,
+> > /Hessam
+> >
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> >
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> >
+> >
+> >
+>
+> --
+> Alexander Concha
+> http://www.buayacorp.com
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110610/1a61856a/attachment.htm>
+
+From mmuro at advance.ua.edu  Thu Jun  9 21:33:50 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Thu, 9 Jun 2011 16:33:50 -0500
+Subject: [wp-xmlrpc] XML-RPC and Roles
+In-Reply-To: <BANLkTimC7e6Y6PV7kTbxn_KD+ObpXMkBXQ@mail.gmail.com>
+References: <BANLkTikurrtgXV0a2MytFDgxcEghWgXhNg@mail.gmail.com>
+	<BANLkTimONQpu05Xr_t05R3FKTnjvoNizjA@mail.gmail.com>
+	<BANLkTikiTDTCscc1z+j=wbAi9adbSjENkw@mail.gmail.com>
+	<BANLkTikwZ97iKhmeSsLgsJPz4rakZkYNrQ@mail.gmail.com>
+	<BANLkTimC7e6Y6PV7kTbxn_KD+ObpXMkBXQ@mail.gmail.com>
+Message-ID: <5C2B8653-B417-41A8-9C18-6DDC1FDAEC1F@ur.ua.edu>
+
+The purpose of XML-RPC is to be able to add and edit posts.  XML-RPC needs authentication because it has the ability to read posts which are not public.
+
+A custom RSS feed is your best bet at this point.
+
+Matthew Muro
+
+On Jun 9, 2011, at 4:25 PM, Hessam Armandehi wrote:
+
+Following you can find the code from the original Android app. The method only tries "getRecentPosts" and not any more. That fails without both "edit_published_posts" and "edit_others_posts" accesses.  result.length == 0.
+
+XMLRPCMethod method = new XMLRPCMethod((isPage) ? "wp.getPageList"
+                : "blogger.getRecentPosts", new XMLRPCMethodCallback() {
+            public void callFinished(Object [ ] result) {
+
+
+Do you mean anything different?
+
+P.S. Why I'm insisting on using xml-rpc is that the app is already done! We just don't want to use a user account with edit access in our source codes. We didn't know about the permissions from the beginning and we were testing with admin account. #FAIL
+
+On Fri, Jun 10, 2011 at 1:44 AM, Alexander Concha <alex at buayacorp.com<mailto:alex at buayacorp.com>> wrote:
+Instead of modifying the user capabilities, why don't you add a new
+xmlrpc method that does a similar thing of get_recent_posts? You can
+easily add new xmlrpc methods.
+
+On Thursday, June 9, 2011, Hessam Armandehi <hessam at farsitel.com<mailto:hessam at farsitel.com>> wrote:
+> Dear Eric,
+>
+> Thanks for the tip. I tried the Role Scoper. It seems the user needs to have "edit_published_posts" and "edit_others_posts" permissions to get access to XML-RPC responses. True? I tried it on the original Wordpress Android app. I couldn't fetch the posts with Author role since it has no "edit_others_posts" permission. If it's true, what do you suggest then?
+>
+> Best,
+> /Hessam
+>
+> On Tue, Jun 7, 2011 at 6:22 PM, Eric Mann <eric at eam.me<mailto:eric at eam.me>> wrote:
+>
+>
+> My recommendation would be to use a plugin like Role Scoper (http://wordpress.org/extend/plugins/role-scoper/) to create a custom XML-RPC user role.  You can then explicitly grant users the ability to read content but not create content.
+>
+> On Tue, Jun 7, 2011 at 2:26 AM, Hessam Armandehi <hessam at farsitel.com<mailto:hessam at farsitel.com>> wrote:
+>
+> Dear all,
+>
+> We're developing an Android app for a wordpress.org<http://wordpress.org/> blog. Since RSS only lists the most recent posts and we wanted to get access to the older ones we decided to use XML-RPC. Unfortunately I just found that subscriber role has no access to the XML-RPC features.
+>
+> We need a read-only account to access XML-RPC and we don't want to put admin password in the app. How should we proceed? Any suggestion?
+>
+> I found this myself:
+> http://wordpress.org/support/topic/xmlrpc-038-getrecentposts-038-user-role
+>
+> No help though.
+>
+> Best,
+> /Hessam
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>
+>
+
+--
+Alexander Concha
+http://www.buayacorp.com<http://www.buayacorp.com/>
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com<mailto:wp-xmlrpc at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+<ATT00001..txt>
+
+
+From jalkut at red-sweater.com  Sun Jun 19 19:36:38 2011
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun, 19 Jun 2011 15:36:38 -0400
+Subject: [wp-xmlrpc] Protected metadata impact on 3rd party plugins and API
+Message-ID: <93EDF43C-CB36-4CC5-93F4-5E0DD48A74C1@red-sweater.com>
+
+
+Hi everybody. A change that went in to 3.1.3 is having an effect on the API and how some of my customers use it to edit custom field values for e.g. the All In One SEO pack.
+
+http://core.trac.wordpress.org/changeset/17994
+
+This change altered the behavior of WordPress so that custom fields with a leading _ underscore cannot be edited by clients of the API. It seems that AIO SEO uses (or used? don't know if they've updated the plugin) custom field names like "_aioseop_title" and "_aioseop_keywords". Presumably this is because they don't want to have the custom fields show up in the standard custom field editing UI in WordPress.
+
+The net effect is some customers can no longer edit the pertinent custom field values for 3rd party plugins they have installed. 
+
+Does anybody know if the WordPress team stance on this is that 3rd party plugins should only use "non-protected" naming conventions for their custom field keys?
+
+If it is expected to be acceptable for 3rd party developers to continue using these "protected" custom field values, then I think the team should consider revising the changes in r17994 so that protected custom fields are still editable via the API.
+
+Daniel
+
+
+From wp at andrewnacin.com  Sun Jun 19 19:52:23 2011
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sun, 19 Jun 2011 15:52:23 -0400
+Subject: [wp-xmlrpc] Protected metadata impact on 3rd party plugins and
+	API
+In-Reply-To: <93EDF43C-CB36-4CC5-93F4-5E0DD48A74C1@red-sweater.com>
+References: <93EDF43C-CB36-4CC5-93F4-5E0DD48A74C1@red-sweater.com>
+Message-ID: <BANLkTimzw8Z5zaMweeQJd1qZZuVaWhZ=bA@mail.gmail.com>
+
+On Jun 19, 2011 3:36 PM, "Daniel Jalkut" <jalkut at red-sweater.com> wrote:
+>
+> This change altered the behavior of WordPress so that custom fields with a
+leading _ underscore cannot be edited by clients of the API.
+
+This doesn't seem like expected behavior. Affecting XML-RPC was not one of
+our goals.
+
+> Does anybody know if the WordPress team stance on this is that 3rd party
+plugins should only use "non-protected" naming conventions for their custom
+field keys?
+
+They should use underscores. Plugins do that not just to keep it out of the
+custom fields UI, but to indicate to WP that they will be handling the
+saving of that key.
+
+I brought it up with one of the other core developers. I'll post here
+probably tomorrow with an update.
+
+Nacin
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110619/c1fc3c41/attachment.htm>
+
+From jalkut at red-sweater.com  Sun Jun 19 19:58:04 2011
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun, 19 Jun 2011 15:58:04 -0400
+Subject: [wp-xmlrpc] Protected metadata impact on 3rd party plugins and
+	API
+In-Reply-To: <BANLkTimzw8Z5zaMweeQJd1qZZuVaWhZ=bA@mail.gmail.com>
+References: <93EDF43C-CB36-4CC5-93F4-5E0DD48A74C1@red-sweater.com>
+	<BANLkTimzw8Z5zaMweeQJd1qZZuVaWhZ=bA@mail.gmail.com>
+Message-ID: <D33AA2F0-604D-434B-AD0D-2186FF6EF5AA@red-sweater.com>
+
+
+On Jun 19, 2011, at 3:52pm, Andrew Nacin wrote:
+
+> I brought it up with one of the other core developers. I'll post here probably tomorrow with an update.
+
+Thanks! Would it be useful for me to log a bug on this, or just as well to wait and let it percolate through private channels?
+
+Daniel
+
+
+From wp at andrewnacin.com  Sun Jun 19 21:10:00 2011
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sun, 19 Jun 2011 17:10:00 -0400
+Subject: [wp-xmlrpc] Protected metadata impact on 3rd party plugins and
+	API
+In-Reply-To: <D33AA2F0-604D-434B-AD0D-2186FF6EF5AA@red-sweater.com>
+References: <93EDF43C-CB36-4CC5-93F4-5E0DD48A74C1@red-sweater.com>
+	<BANLkTimzw8Z5zaMweeQJd1qZZuVaWhZ=bA@mail.gmail.com>
+	<D33AA2F0-604D-434B-AD0D-2186FF6EF5AA@red-sweater.com>
+Message-ID: <BANLkTi=LZy4CqfX5+yJ1h+xGUjbwkC71zQ@mail.gmail.com>
+
+On Sun, Jun 19, 2011 at 3:58 PM, Daniel Jalkut <jalkut at red-sweater.com>wrote:
+
+> Thanks! Would it be useful for me to log a bug on this, or just as well to
+> wait and let it percolate through private channels?
+
+
+You can do that. I just wanted to make sure it got to the correct person
+right away.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110619/8aa119ab/attachment.htm>
+
+From jalkut at red-sweater.com  Mon Jun 20 03:01:04 2011
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun, 19 Jun 2011 23:01:04 -0400
+Subject: [wp-xmlrpc] Protected metadata impact on 3rd party plugins and
+	API
+In-Reply-To: <BANLkTi=LZy4CqfX5+yJ1h+xGUjbwkC71zQ@mail.gmail.com>
+References: <93EDF43C-CB36-4CC5-93F4-5E0DD48A74C1@red-sweater.com>
+	<BANLkTimzw8Z5zaMweeQJd1qZZuVaWhZ=bA@mail.gmail.com>
+	<D33AA2F0-604D-434B-AD0D-2186FF6EF5AA@red-sweater.com>
+	<BANLkTi=LZy4CqfX5+yJ1h+xGUjbwkC71zQ@mail.gmail.com>
+Message-ID: <7AA50958-CB8D-4BD1-AFB4-2074E258EC9E@red-sweater.com>
+
+Thanks, I just reported a bug: http://core.trac.wordpress.org/ticket/17850
+
+On Jun 19, 2011, at 5:10pm, Andrew Nacin wrote:
+
+> On Sun, Jun 19, 2011 at 3:58 PM, Daniel Jalkut <jalkut at red-sweater.com> wrote:
+> Thanks! Would it be useful for me to log a bug on this, or just as well to wait and let it percolate through private channels?
+> 
+> You can do that. I just wanted to make sure it got to the correct person right away.
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+

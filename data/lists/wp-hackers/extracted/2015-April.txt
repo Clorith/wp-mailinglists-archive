@@ -1,0 +1,1700 @@
+From help at comparingvitamins.com  Wed Apr 15 01:16:31 2015
+From: help at comparingvitamins.com (Greg Gibson)
+Date: Wed, 15 Apr 2015 09:16:31 +0800
+Subject: [wp-hackers] WP Backend "All Pages" Times Out From 6000+ Pages?
+Message-ID: <002f01d07719$cfad6740$6f0835c0$@comparingvitamins.com>
+
+Hi,
+
+ 
+
+Does anyone know if our problem below is due to Wordpress core?
+
+ 
+
+We have 6000+ pages. No problems on the frontend. And no
+
+problems on the backend, except "All Pages." When we try to access
+
+All Pages (leading to our 6000 pages) it often times out after several 
+
+minutes.
+
+ 
+
+Godaddy and Cloudflare said it wasn't their problem. Cloudflare 
+
+showed errors 504 and 520 which they explained.
+
+"This indicates a timeout after establishing a TCP connection and waiting
+for a response from your origin. If your origin does not return any data
+after about a minute or so, we will close the connection and serve an error.
+This can happen if your server is simply taking too long because it has too
+much work to do - e.g. a large data query, or because the server is
+struggling for resources and cannot return any data in time. You should
+check your server health metrics such as available CPU & RAM and if you're
+using a Database server that should be checked too for long running queries,
+for example. An Error 520 happens when your origin returns a response that
+is unexpected. Your web server or networking equipment (Firewall, Load
+Balancer) reset the TCP connection after it was established. Sometimes when
+a web server crashes it will reset the connection. Check your web server
+error log for the timescale that the error occurred in and look for any
+error messages.504 errors are normally caused by a 504 being presented on
+the origin server itself, we however send a branded CloudFlare page in order
+to hide any information that may be given away from the error page to
+attackers"
+
+Since then, I've paused Cloudflare. So I assume the problem has to 
+
+be Godaddy or Wordpress? Do you know if this is a Wordpress core 
+
+problem? If so, will Object Cache plugin(s) solve it? Which one(s)?
+
+ 
+
+Thank you,
+
+Greg Gibson
+
+www.ComparingVitamins.com 
+
+ 
+
+ 
+
+
+From johnbillion+wp at gmail.com  Wed Apr 15 02:53:53 2015
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Wed, 15 Apr 2015 03:53:53 +0100
+Subject: [wp-hackers] WP Backend "All Pages" Times Out From 6000+ Pages?
+In-Reply-To: <002f01d07719$cfad6740$6f0835c0$@comparingvitamins.com>
+References: <002f01d07719$cfad6740$6f0835c0$@comparingvitamins.com>
+Message-ID: <CAOqAKWCLOK75QrTW0pJK+jTk1pc9s=cNy8aaJpJSp+7vQah16g@mail.gmail.com>
+
+6,000 pages is going to cause you problems in the admin area in
+WordPress prior to the upcoming version 4.2, due to the way the page
+tree is constructed.
+
+In WordPress 4.2 the algorithm used on the Pages screen has been
+greatly improved (ref: https://core.trac.wordpress.org/ticket/15459),
+so it operates in less time and uses much less memory. You can try a
+beta from here if you like:
+https://wordpress.org/news/2015/04/wordpress-4-2-beta-4/, or wait a
+week or so for the actual release.
+
+John
+
+On 15 April 2015 at 02:16, Greg Gibson <help at comparingvitamins.com> wrote:
+> Hi,
+>
+>
+>
+> Does anyone know if our problem below is due to Wordpress core?
+>
+>
+>
+> We have 6000+ pages. No problems on the frontend. And no
+>
+> problems on the backend, except "All Pages." When we try to access
+>
+> All Pages (leading to our 6000 pages) it often times out after several
+>
+> minutes.
+>
+>
+>
+> Godaddy and Cloudflare said it wasn't their problem. Cloudflare
+>
+> showed errors 504 and 520 which they explained.
+>
+> "This indicates a timeout after establishing a TCP connection and waiting
+> for a response from your origin. If your origin does not return any data
+> after about a minute or so, we will close the connection and serve an error.
+> This can happen if your server is simply taking too long because it has too
+> much work to do - e.g. a large data query, or because the server is
+> struggling for resources and cannot return any data in time. You should
+> check your server health metrics such as available CPU & RAM and if you're
+> using a Database server that should be checked too for long running queries,
+> for example. An Error 520 happens when your origin returns a response that
+> is unexpected. Your web server or networking equipment (Firewall, Load
+> Balancer) reset the TCP connection after it was established. Sometimes when
+> a web server crashes it will reset the connection. Check your web server
+> error log for the timescale that the error occurred in and look for any
+> error messages.504 errors are normally caused by a 504 being presented on
+> the origin server itself, we however send a branded CloudFlare page in order
+> to hide any information that may be given away from the error page to
+> attackers"
+>
+> Since then, I've paused Cloudflare. So I assume the problem has to
+>
+> be Godaddy or Wordpress? Do you know if this is a Wordpress core
+>
+> problem? If so, will Object Cache plugin(s) solve it? Which one(s)?
+>
+>
+>
+> Thank you,
+>
+> Greg Gibson
+>
+> www.ComparingVitamins.com
+>
+>
+>
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From scott.a.herbert at googlemail.com  Wed Apr 15 05:39:36 2015
+From: scott.a.herbert at googlemail.com (scott.a.herbert)
+Date: Wed, 15 Apr 2015 06:39:36 +0100
+Subject: [wp-hackers] WP Backend "All Pages" Times Out From 6000+ Pages?
+Message-ID: <oqi4ufmddulwiunjh2t787mf.1429076376127@email.android.com>
+
+I'd say it was unlikely. We have north of 50,000 pages on our intranet and the backend runs fine. We did have an issues with speed for editors (as opposed to admins) but that was a plugin issue.
+
+i'd suggest that's where you start if you have a stage site start deactivating plugins and see if on of them is the issue.
+
+
+Sent from my Samsung Galaxy smartphone.
+
+
+-------- Original message --------
+From: Greg Gibson <help at comparingvitamins.com> 
+Date:15/04/2015  02:16  (GMT+00:00) 
+To: wp-hackers at lists.automattic.com 
+Subject: [wp-hackers] WP Backend "All Pages" Times Out From 6000+ Pages? 
+
+Hi,
+
+
+
+Does anyone know if our problem below is due to Wordpress core?
+
+
+
+We have 6000+ pages. No problems on the frontend. And no
+
+problems on the backend, except "All Pages." When we try to access
+
+All Pages (leading to our 6000 pages) it often times out after several 
+
+minutes.
+
+
+
+Godaddy and Cloudflare said it wasn't their problem. Cloudflare 
+
+showed errors 504 and 520 which they explained.
+
+"This indicates a timeout after establishing a TCP connection and waiting
+for a response from your origin. If your origin does not return any data
+after about a minute or so, we will close the connection and serve an error.
+This can happen if your server is simply taking too long because it has too
+much work to do - e.g. a large data query, or because the server is
+struggling for resources and cannot return any data in time. You should
+check your server health metrics such as available CPU & RAM and if you're
+using a Database server that should be checked too for long running queries,
+for example. An Error 520 happens when your origin returns a response that
+is unexpected. Your web server or networking equipment (Firewall, Load
+Balancer) reset the TCP connection after it was established. Sometimes when
+a web server crashes it will reset the connection. Check your web server
+error log for the timescale that the error occurred in and look for any
+error messages.504 errors are normally caused by a 504 being presented on
+the origin server itself, we however send a branded CloudFlare page in order
+to hide any information that may be given away from the error page to
+attackers"
+
+Since then, I've paused Cloudflare. So I assume the problem has to 
+
+be Godaddy or Wordpress? Do you know if this is a Wordpress core 
+
+problem? If so, will Object Cache plugin(s) solve it? Which one(s)?
+
+
+
+Thank you,
+
+Greg Gibson
+
+www.ComparingVitamins.com 
+
+
+
+
+
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From jnolte at getmoxied.net  Wed Apr 15 06:05:44 2015
+From: jnolte at getmoxied.net (Jeffrey Nolte)
+Date: Wed, 15 Apr 2015 02:05:44 -0400
+Subject: [wp-hackers] WP Backend "All Pages" Times Out From 6000+ Pages?
+In-Reply-To: <oqi4ufmddulwiunjh2t787mf.1429076376127@email.android.com>
+References: <oqi4ufmddulwiunjh2t787mf.1429076376127@email.android.com>
+Message-ID: <5A9B4EE8-6FDA-4475-98CC-A54E46DA0695@getmoxied.net>
+
+Move off of Godaddy and those problems will very likely clear up. It seems you are running a significant site, imho shared hosting is never an option if you are looking for any real performance / reliability.
+
+As a fail safe you should also install some debugging tools and check if any of your theme queries are taking an extreme amount of time.
+
+Jeffrey Nolte
+
+
+
+> On Apr 15, 2015, at 1:39 AM, scott.a.herbert <scott.a.herbert at googlemail.com> wrote:
+> 
+> I'd say it was unlikely. We have north of 50,000 pages on our intranet and the backend runs fine. We did have an issues with speed for editors (as opposed to admins) but that was a plugin issue.
+> 
+> i'd suggest that's where you start if you have a stage site start deactivating plugins and see if on of them is the issue.
+> 
+> 
+> Sent from my Samsung Galaxy smartphone.
+> 
+> 
+> -------- Original message --------
+> From: Greg Gibson <help at comparingvitamins.com> 
+> Date:15/04/2015  02:16  (GMT+00:00) 
+> To: wp-hackers at lists.automattic.com 
+> Subject: [wp-hackers] WP Backend "All Pages" Times Out From 6000+ Pages? 
+> 
+> Hi,
+> 
+> 
+> 
+> Does anyone know if our problem below is due to Wordpress core?
+> 
+> 
+> 
+> We have 6000+ pages. No problems on the frontend. And no
+> 
+> problems on the backend, except "All Pages." When we try to access
+> 
+> All Pages (leading to our 6000 pages) it often times out after several 
+> 
+> minutes.
+> 
+> 
+> 
+> Godaddy and Cloudflare said it wasn't their problem. Cloudflare 
+> 
+> showed errors 504 and 520 which they explained.
+> 
+> "This indicates a timeout after establishing a TCP connection and waiting
+> for a response from your origin. If your origin does not return any data
+> after about a minute or so, we will close the connection and serve an error.
+> This can happen if your server is simply taking too long because it has too
+> much work to do - e.g. a large data query, or because the server is
+> struggling for resources and cannot return any data in time. You should
+> check your server health metrics such as available CPU & RAM and if you're
+> using a Database server that should be checked too for long running queries,
+> for example. An Error 520 happens when your origin returns a response that
+> is unexpected. Your web server or networking equipment (Firewall, Load
+> Balancer) reset the TCP connection after it was established. Sometimes when
+> a web server crashes it will reset the connection. Check your web server
+> error log for the timescale that the error occurred in and look for any
+> error messages.504 errors are normally caused by a 504 being presented on
+> the origin server itself, we however send a branded CloudFlare page in order
+> to hide any information that may be given away from the error page to
+> attackers"
+> 
+> Since then, I've paused Cloudflare. So I assume the problem has to 
+> 
+> be Godaddy or Wordpress? Do you know if this is a Wordpress core 
+> 
+> problem? If so, will Object Cache plugin(s) solve it? Which one(s)?
+> 
+> 
+> 
+> Thank you,
+> 
+> Greg Gibson
+> 
+> www.ComparingVitamins.com 
+> 
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From halukkaramete at gmail.com  Fri Apr 17 12:25:43 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Fri, 17 Apr 2015 05:25:43 -0700
+Subject: [wp-hackers] WP_DEBUG TRUE
+Message-ID: <CAHERW=1fEE=SpJB6NzWQ6xwBzOHO6EXSWaEXZ3CXXAWpuZEg2A@mail.gmail.com>
+
+Even though this constant and all of its brothers (WP_DEBUG_DISPLAY etc.. )
+is set to FALSE at the wp-config, I'm getting a PHP notice on the admin
+dashboard - from one of the plugins installed.
+
+Notice: Undefined variable: img_width in
+...\wp-content\plugins\xxxxx\functions\xxxx.php on line 81
+
+Obviously, there is some poor coding on that plugin author's code (which I
+masked above )/ However, that's a different point. ( I will contact him to
+fix that error. )
+
+My question is..
+
+Why is it that while the WP_DEBUG gang is set to FALSE at the config, I
+still get a PHP notice on the dashboard?
+
+From otto at ottodestruct.com  Fri Apr 17 12:34:51 2015
+From: otto at ottodestruct.com (Otto)
+Date: Fri, 17 Apr 2015 07:34:51 -0500
+Subject: [wp-hackers] WP_DEBUG TRUE
+In-Reply-To: <CAHERW=1fEE=SpJB6NzWQ6xwBzOHO6EXSWaEXZ3CXXAWpuZEg2A@mail.gmail.com>
+References: <CAHERW=1fEE=SpJB6NzWQ6xwBzOHO6EXSWaEXZ3CXXAWpuZEg2A@mail.gmail.com>
+Message-ID: <CAD-FghwbBR24ssZNhtR4NW4tiiJrgukyujvkD+u7NEvQOvDp2g@mail.gmail.com>
+
+Setting WP_DEBUG to true will enable the PHP display_errors setting
+(if WP_DEBUG_DISPLAY
+is also true).
+
+However, setting WP_DEBUG to false will not disable the existing default
+PHP display_errors setting, which is usually obtained from the php.ini file.
+
+So, turn off display_errors on your hosting system. Most hosts have it on
+by default.
+
+For the logic involved: See the wp_debug_mode() function.
+
+-Otto
+
+
+
+On Fri, Apr 17, 2015 at 7:25 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Even though this constant and all of its brothers (WP_DEBUG_DISPLAY etc.. )
+> is set to FALSE at the wp-config, I'm getting a PHP notice on the admin
+> dashboard - from one of the plugins installed.
+>
+> Notice: Undefined variable: img_width in
+> ...\wp-content\plugins\xxxxx\functions\xxxx.php on line 81
+>
+> Obviously, there is some poor coding on that plugin author's code (which I
+> masked above )/ However, that's a different point. ( I will contact him to
+> fix that error. )
+>
+> My question is..
+>
+> Why is it that while the WP_DEBUG gang is set to FALSE at the config, I
+> still get a PHP notice on the dashboard?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From ljunior2005 at gmail.com  Fri Apr 17 12:43:50 2015
+From: ljunior2005 at gmail.com (Leo Baiano)
+Date: Fri, 17 Apr 2015 09:43:50 -0300
+Subject: [wp-hackers] WP_DEBUG TRUE
+In-Reply-To: <CAD-FghwbBR24ssZNhtR4NW4tiiJrgukyujvkD+u7NEvQOvDp2g@mail.gmail.com>
+References: <CAHERW=1fEE=SpJB6NzWQ6xwBzOHO6EXSWaEXZ3CXXAWpuZEg2A@mail.gmail.com>
+ <CAD-FghwbBR24ssZNhtR4NW4tiiJrgukyujvkD+u7NEvQOvDp2g@mail.gmail.com>
+Message-ID: <CAL1O-KUoCFF8gg8CBQXZf3A32avfmKY1FNvCvxh1m0Fx1wUtLA@mail.gmail.com>
+
+The WP_DEBUG setted to false makes the server settings as they are and
+their status as true it enables the display of errors, if not already
+enabled on the server. Your server is probably configured to display
+notifications of PHP.
+
+Take a test including the code below in your wp-config.php:
+
+ini_set ('log_errors', 'On');
+ini_set ('display_errors', 'Off');
+ini_set ('error_reporting', E_ALL);
+define ('WP_DEBUG', false);
+define ('WP_DEBUG_LOG', true);
+define ('WP_DEBUG_DISPLAY', false);
+
+2015-04-17 9:34 GMT-03:00 Otto <otto at ottodestruct.com>:
+
+> Setting WP_DEBUG to true will enable the PHP display_errors setting
+> (if WP_DEBUG_DISPLAY
+> is also true).
+>
+> However, setting WP_DEBUG to false will not disable the existing default
+> PHP display_errors setting, which is usually obtained from the php.ini
+> file.
+>
+> So, turn off display_errors on your hosting system. Most hosts have it on
+> by default.
+>
+> For the logic involved: See the wp_debug_mode() function.
+>
+> -Otto
+>
+>
+>
+> On Fri, Apr 17, 2015 at 7:25 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Even though this constant and all of its brothers (WP_DEBUG_DISPLAY
+> etc.. )
+> > is set to FALSE at the wp-config, I'm getting a PHP notice on the admin
+> > dashboard - from one of the plugins installed.
+> >
+> > Notice: Undefined variable: img_width in
+> > ...\wp-content\plugins\xxxxx\functions\xxxx.php on line 81
+> >
+> > Obviously, there is some poor coding on that plugin author's code (which
+> I
+> > masked above )/ However, that's a different point. ( I will contact him
+> to
+> > fix that error. )
+> >
+> > My question is..
+> >
+> > Why is it that while the WP_DEBUG gang is set to FALSE at the config, I
+> > still get a PHP notice on the dashboard?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+Amplexos,
+
+Leo Baiano
+Web Developer
+
+From halukkaramete at gmail.com  Fri Apr 17 13:00:16 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Fri, 17 Apr 2015 06:00:16 -0700
+Subject: [wp-hackers] WP_DEBUG TRUE
+In-Reply-To: <CAL1O-KUoCFF8gg8CBQXZf3A32avfmKY1FNvCvxh1m0Fx1wUtLA@mail.gmail.com>
+References: <CAHERW=1fEE=SpJB6NzWQ6xwBzOHO6EXSWaEXZ3CXXAWpuZEg2A@mail.gmail.com>
+ <CAD-FghwbBR24ssZNhtR4NW4tiiJrgukyujvkD+u7NEvQOvDp2g@mail.gmail.com>
+ <CAL1O-KUoCFF8gg8CBQXZf3A32avfmKY1FNvCvxh1m0Fx1wUtLA@mail.gmail.com>
+Message-ID: <CAHERW=14YqjWa8VtibPwH4qSfY9yCVLagsbRP_GR+N3SddWdiA@mail.gmail.com>
+
+Good insight. It's all clear now. Thank you.
+
+On Fri, Apr 17, 2015 at 5:43 AM, Leo Baiano <ljunior2005 at gmail.com> wrote:
+
+> The WP_DEBUG setted to false makes the server settings as they are and
+> their status as true it enables the display of errors, if not already
+> enabled on the server. Your server is probably configured to display
+> notifications of PHP.
+>
+> Take a test including the code below in your wp-config.php:
+>
+> ini_set ('log_errors', 'On');
+> ini_set ('display_errors', 'Off');
+> ini_set ('error_reporting', E_ALL);
+> define ('WP_DEBUG', false);
+> define ('WP_DEBUG_LOG', true);
+> define ('WP_DEBUG_DISPLAY', false);
+>
+> 2015-04-17 9:34 GMT-03:00 Otto <otto at ottodestruct.com>:
+>
+> > Setting WP_DEBUG to true will enable the PHP display_errors setting
+> > (if WP_DEBUG_DISPLAY
+> > is also true).
+> >
+> > However, setting WP_DEBUG to false will not disable the existing default
+> > PHP display_errors setting, which is usually obtained from the php.ini
+> > file.
+> >
+> > So, turn off display_errors on your hosting system. Most hosts have it on
+> > by default.
+> >
+> > For the logic involved: See the wp_debug_mode() function.
+> >
+> > -Otto
+> >
+> >
+> >
+> > On Fri, Apr 17, 2015 at 7:25 AM, Haluk Karamete <halukkaramete at gmail.com
+> >
+> > wrote:
+> >
+> > > Even though this constant and all of its brothers (WP_DEBUG_DISPLAY
+> > etc.. )
+> > > is set to FALSE at the wp-config, I'm getting a PHP notice on the admin
+> > > dashboard - from one of the plugins installed.
+> > >
+> > > Notice: Undefined variable: img_width in
+> > > ...\wp-content\plugins\xxxxx\functions\xxxx.php on line 81
+> > >
+> > > Obviously, there is some poor coding on that plugin author's code
+> (which
+> > I
+> > > masked above )/ However, that's a different point. ( I will contact him
+> > to
+> > > fix that error. )
+> > >
+> > > My question is..
+> > >
+> > > Why is it that while the WP_DEBUG gang is set to FALSE at the config, I
+> > > still get a PHP notice on the dashboard?
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+>
+>
+>
+> --
+> Amplexos,
+>
+> Leo Baiano
+> Web Developer
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From kchard at wpsnipp.com  Sat Apr 18 01:47:41 2015
+From: kchard at wpsnipp.com (kchard at wpsnipp.com)
+Date: Fri, 17 Apr 2015 18:47:41 -0700
+Subject: [wp-hackers] Page hierarchy
+Message-ID: <6f6726cc6d9229cb350a8f71e43e00fa90c91180@6nqp-thgl.accessdomain.com>
+
+By default WordPress displays pages within wp-admin / edit.php? in
+hierarchical order. Is it possible to disable this functionality to
+have pages displayed in order without hierarchy. I need to have pages
+support parent, child relationships however because I have 17,000
+hierarchical posts the pages section no longer functions. Any ideas
+would be great, 
+
+Cheers
+Kevin,
+
+
+From lists at alexking.org  Sat Apr 18 01:51:23 2015
+From: lists at alexking.org (Alex King)
+Date: Fri, 17 Apr 2015 19:51:23 -0600
+Subject: [wp-hackers] Page hierarchy
+In-Reply-To: <6f6726cc6d9229cb350a8f71e43e00fa90c91180@6nqp-thgl.accessdomain.com>
+References: <6f6726cc6d9229cb350a8f71e43e00fa90c91180@6nqp-thgl.accessdomain.com>
+Message-ID: <615D0261-1FFB-4386-9EE5-1B1B7324E9BA@alexking.org>
+
+Hi Kevin,
+
+This free plugin might be useful for you:
+
+https://wordpress.org/plugins/admin-column-view/
+
+Cheers,
+Alex
+
+http://alexking.org
+
+
+
+> On Apr 17, 2015, at 7:47 PM, kchard at wpsnipp.com wrote:
+> 
+> By default WordPress displays pages within wp-admin / edit.php  in
+> hierarchical order. Is it possible to disable this functionality to
+> have pages displayed in order without hierarchy. I need to have pages
+> support parent, child relationships however because I have 17,000
+> hierarchical posts the pages section no longer functions. Any ideas
+> would be great, 
+> 
+> Cheers
+> Kevin,
+
+
+From kchard at wpsnipp.com  Sat Apr 18 11:42:14 2015
+From: kchard at wpsnipp.com (Kevin)
+Date: Sat, 18 Apr 2015 07:42:14 -0400
+Subject: [wp-hackers] Page hierarchy
+In-Reply-To: <615D0261-1FFB-4386-9EE5-1B1B7324E9BA@alexking.org>
+References: <6f6726cc6d9229cb350a8f71e43e00fa90c91180@6nqp-thgl.accessdomain.com>
+ <615D0261-1FFB-4386-9EE5-1B1B7324E9BA@alexking.org>
+Message-ID: <C88D5A52-0348-4C66-9AD7-32C5DD02F647@wpsnipp.com>
+
+That's not going to work with 17,000 pages. Plus I only go one level deep. 
+
+Sincerely 
+Kevin chard
+
+
+> On Apr 17, 2015, at 9:51 PM, Alex King <lists at alexking.org> wrote:
+> 
+> Hi Kevin,
+> 
+> This free plugin might be useful for you:
+> 
+> https://wordpress.org/plugins/admin-column-view/
+> 
+> Cheers,
+> Alex
+> 
+> http://alexking.org
+> 
+> 
+> 
+>> On Apr 17, 2015, at 7:47 PM, kchard at wpsnipp.com wrote:
+>> 
+>> By default WordPress displays pages within wp-admin / edit.php  in
+>> hierarchical order. Is it possible to disable this functionality to
+>> have pages displayed in order without hierarchy. I need to have pages
+>> support parent, child relationships however because I have 17,000
+>> hierarchical posts the pages section no longer functions. Any ideas
+>> would be great, 
+>> 
+>> Cheers
+>> Kevin,
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From nicholas at iotecnologia.com.br  Mon Apr 20 02:25:13 2015
+From: nicholas at iotecnologia.com.br (=?UTF-8?B?TsOtY2hvbGFzIEFuZHLDqQ==?=)
+Date: Sun, 19 Apr 2015 23:25:13 -0300
+Subject: [wp-hackers] WP Central Posts Network a WordPress Multisite Plugin
+Message-ID: <CAKmGc2=9s_LQrtr5-HnV8HnvmUo3iEd_pqhY0boz2nbj47NPJw@mail.gmail.com>
+
+Hi guys, recently I develop a WordPress Plugin specifically for multisite.
+I always wanted to use WordPress Multisite to create interconected sites.
+And for a project I need to use Multisite in this way. So, I develop a
+WordPress Plugin to accomplish this. I called it WP Central Posts Network.
+
+It's a WordPress Multisite Plugin that let you choose any posts on any site
+in the network to display on the main site.
+
+Basically it allows you to define sections that will receive posts of any
+site of the Network, then you can shows the posts associated with that
+section on the main site.
+
+It's on the official repository:
+https://wordpress.org/plugins/wp-central-posts-network/
+
+Docs to use it, are in my github repo:
+https://github.com/nicholasio/wp-central-posts-network/blob/master/README.md
+
+I'm Brazillian Developer, sorry for any english mistakes.
+
+-- 
+N?cholas Andr?
+Desenvolvedor Web especialista em WordPress
+www.nicholasandre.com.br
+
+From mickey at infamia.com  Tue Apr 21 23:34:39 2015
+From: mickey at infamia.com (Mickey Panayiotakis)
+Date: Tue, 21 Apr 2015 19:34:39 -0400
+Subject: [wp-hackers] has anyone seen permalinks stop working with wp 4.1.2
+	update?
+Message-ID: <CAPZNwe1cDV0t-itbEtA2Ya_8NODni=w2c+xuwPgy5Xk-5QZ_-A@mail.gmail.com>
+
+Howdy.
+
+Some permalinks, esp. custom post types, stopped working on a few sites we
+manage today. Re-saving the permalink settings/structure fixes the problem.
+
+Has anyone experienced similar? I'm not sure if 4.1.2 is the issue or not.
+But I've had this happen on 3-4 sites in the past 2 days.
+
+mickey
+
+--
+
+Mickey Panayiotakis
+Managing Partner
+800.270.5170 x512
+<http://www.infamia.com>
+
+From jamie at wunderdojo.com  Tue Apr 21 23:51:07 2015
+From: jamie at wunderdojo.com (Jamie Currie)
+Date: Tue, 21 Apr 2015 23:51:07 +0000
+Subject: [wp-hackers] has anyone seen permalinks stop working with wp
+	4.1.2 update?
+In-Reply-To: <CAPZNwe1cDV0t-itbEtA2Ya_8NODni=w2c+xuwPgy5Xk-5QZ_-A@mail.gmail.com>
+Message-ID: <emdbd7bea3-437a-4ab7-8e6b-9a0042bf9d82@win8>
+
+Just had it happen with a client site today as well. They contacted me 
+thinking a plugin was broken and I tracked it down to permalinks. They 
+didn't know when the functionality had stopped working so I wasn't able 
+to narrow it down to an update or something else. Sounds like this might 
+be the culprit though.
+
+Jamie Currie
+Founder / CEO
+wunderdojo
+wunderdojo.com | twitter.com/wunderdojo
+tel: 949-734-0758
+3151 Airway Ave., Suite H-1
+Costa Mesa, CA 92626
+Master web & app developers
+
+
+
+
+------ Original Message ------
+From: "Mickey Panayiotakis" <mickey at infamia.com>
+To: wp-hackers at lists.automattic.com
+Sent: 4/21/2015 4:34:39 PM
+Subject: [wp-hackers] has anyone seen permalinks stop working with wp 
+4.1.2 update?
+
+>Howdy.
+>
+>Some permalinks, esp. custom post types, stopped working on a few sites 
+>we
+>manage today. Re-saving the permalink settings/structure fixes the 
+>problem.
+>
+>Has anyone experienced similar? I'm not sure if 4.1.2 is the issue or 
+>not.
+>But I've had this happen on 3-4 sites in the past 2 days.
+>
+>mickey
+>
+>--
+>
+>Mickey Panayiotakis
+>Managing Partner
+>800.270.5170 x512
+><http://www.infamia.com>
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From whsatterwhite at gmail.com  Tue Apr 21 23:52:07 2015
+From: whsatterwhite at gmail.com (William Satterwhite)
+Date: Tue, 21 Apr 2015 19:52:07 -0400
+Subject: [wp-hackers] has anyone seen permalinks stop working with wp
+ 4.1.2 update?
+In-Reply-To: <emdbd7bea3-437a-4ab7-8e6b-9a0042bf9d82@win8>
+References: <CAPZNwe1cDV0t-itbEtA2Ya_8NODni=w2c+xuwPgy5Xk-5QZ_-A@mail.gmail.com>
+ <emdbd7bea3-437a-4ab7-8e6b-9a0042bf9d82@win8>
+Message-ID: <CAGbA+ab0B3yn0gZ0XWo_LcJyp05PGqvmm3FboM_Spc_fZdX9Fw@mail.gmail.com>
+
+Updated over 15 sites today and have yet to see this issue.
+
+On Tue, Apr 21, 2015 at 7:51 PM, Jamie Currie <jamie at wunderdojo.com> wrote:
+
+> Just had it happen with a client site today as well. They contacted me
+> thinking a plugin was broken and I tracked it down to permalinks. They
+> didn't know when the functionality had stopped working so I wasn't able to
+> narrow it down to an update or something else. Sounds like this might be
+> the culprit though.
+>
+> Jamie Currie
+> Founder / CEO
+> wunderdojo
+> wunderdojo.com | twitter.com/wunderdojo
+> tel: 949-734-0758
+> 3151 Airway Ave., Suite H-1
+> Costa Mesa, CA 92626
+> Master web & app developers
+>
+>
+>
+>
+>
+> ------ Original Message ------
+> From: "Mickey Panayiotakis" <mickey at infamia.com>
+> To: wp-hackers at lists.automattic.com
+> Sent: 4/21/2015 4:34:39 PM
+> Subject: [wp-hackers] has anyone seen permalinks stop working with wp
+> 4.1.2 update?
+>
+>  Howdy.
+>>
+>> Some permalinks, esp. custom post types, stopped working on a few sites we
+>> manage today. Re-saving the permalink settings/structure fixes the
+>> problem.
+>>
+>> Has anyone experienced similar? I'm not sure if 4.1.2 is the issue or not.
+>> But I've had this happen on 3-4 sites in the past 2 days.
+>>
+>> mickey
+>>
+>> --
+>>
+>> Mickey Panayiotakis
+>> Managing Partner
+>> 800.270.5170 x512
+>> <http://www.infamia.com>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+Hunter Satterwhite
+http://linkedin.com/in/hsatterwhite
+(252) 762-5177
+
+From david at wordshell.net  Wed Apr 22 12:03:04 2015
+From: david at wordshell.net (David Anderson)
+Date: Wed, 22 Apr 2015 13:03:04 +0100
+Subject: [wp-hackers] has anyone seen permalinks stop working with wp
+	4.1.2 update
+In-Reply-To: <mailman.11.1429704002.26530.wp-hackers@lists.automattic.com>
+References: <mailman.11.1429704002.26530.wp-hackers@lists.automattic.com>
+Message-ID: <55378DF8.2080809@wordshell.net>
+
+
+On 22/04/15 13:00, Mickey Panayiotakis wrote:
+> Howdy.
+>
+> Some permalinks, esp. custom post types, stopped working on a few sites we
+> manage today. Re-saving the permalink settings/structure fixes the problem.
+>
+> Has anyone experienced similar? I'm not sure if 4.1.2 is the issue or not.
+> But I've had this happen on 3-4 sites in the past 2 days.
+>
+
+I think I may have done. bbPress forum permalinks stopped working on 
+updraftplus.com. I re-saved the permalinks, and all was well again. 
+However, there was a bbPress update (the XSS security issue) the day 
+before, and I can't remember the exact chronology.
+
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+
+From josh at josheaton.org  Wed Apr 22 18:07:39 2015
+From: josh at josheaton.org (Josh Eaton)
+Date: Wed, 22 Apr 2015 14:07:39 -0400
+Subject: [wp-hackers] has anyone seen permalinks stop working with wp
+ 4.1.2 update
+In-Reply-To: <55378DF8.2080809@wordshell.net>
+References: <mailman.11.1429704002.26530.wp-hackers@lists.automattic.com>
+ <55378DF8.2080809@wordshell.net>
+Message-ID: <CAAV3MXSTy=A20EtrN06-Br8LYaMQHhVS+R2vTC7wO4Mau34GHw@mail.gmail.com>
+
+ I had this happen with WordPress SEO. The sitemap URLs stopped working.
+WordPress SEO had been deactivated by an auto-update and upon reactivation,
+I had to re-save the permalinks again to get it to work. But I'm not sure
+if the issue was there due to the WordPress SEO auto-update or the 4.1.2
+update.
+
+  David Anderson <david at wordshell.net>
+ April 22, 2015 at 8:03 AM
+
+
+
+I think I may have done. bbPress forum permalinks stopped working on
+updraftplus.com. I re-saved the permalinks, and all was well again.
+However, there was a bbPress update (the XSS security issue) the day
+before, and I can't remember the exact chronology.
+
+David
+
+From halukkaramete at gmail.com  Thu Apr 23 00:59:11 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 22 Apr 2015 17:59:11 -0700
+Subject: [wp-hackers] esc_url or esc_attr or both
+Message-ID: <CAHERW=09uJr0pgUu+aPaK0H4BsQC15vG7te+7op6uixzEG_O_w@mail.gmail.com>
+
+Say, you're  retrieving a value from the SB and you expect that to be in
+the form of a URL
+
+Let's assume that that value has to go in an img tag as its src attribute;
+
+In this case, what's the recommended way to escape that from an XSS point
+of view.
+
+I provided 4 ways below;
+
+1: just do esc_url
+<img src="<?php esc_url($url_maybe);?>" >
+
+2: just do esc_attr
+<img src="<?php esc_attr($url_maybe);?>" >
+
+3: do both but run esc_attr first
+<img src="<?php esc_url(esc_attr($url_maybe));?>" >
+
+4: do both but run esc_url first
+<img src="<?php esc_attr(esc_url($url_maybe));?>" >
+
+
+Similar confusion may occur in deciding esc_js and so on.
+What simple guide can I use in situations like this?
+
+From morgan.estes at gmail.com  Thu Apr 23 01:30:35 2015
+From: morgan.estes at gmail.com (Morgan Estes)
+Date: Thu, 23 Apr 2015 01:30:35 +0000
+Subject: [wp-hackers] esc_url or esc_attr or both
+In-Reply-To: <CAHERW=09uJr0pgUu+aPaK0H4BsQC15vG7te+7op6uixzEG_O_w@mail.gmail.com>
+References: <CAHERW=09uJr0pgUu+aPaK0H4BsQC15vG7te+7op6uixzEG_O_w@mail.gmail.com>
+Message-ID: <CAEN3sehzeRgFArXt4445m2mRubQybaBqb2Hs0eAUcGHzSB-Xyg@mail.gmail.com>
+
+In this case, using esc_url() as in example 1 is the way to go. Because of
+the way the methods escape output, esc_attr() should be used for all other
+tag attributes, but src and href should be escaped with esc_url().
+
+On Wed, Apr 22, 2015, 7:59 PM Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Say, you're  retrieving a value from the SB and you expect that to be in
+> the form of a URL
+>
+> Let's assume that that value has to go in an img tag as its src attribute;
+>
+> In this case, what's the recommended way to escape that from an XSS point
+> of view.
+>
+> I provided 4 ways below;
+>
+> 1: just do esc_url
+> <img src="<?php esc_url($url_maybe);?>" >
+>
+> 2: just do esc_attr
+> <img src="<?php esc_attr($url_maybe);?>" >
+>
+> 3: do both but run esc_attr first
+> <img src="<?php esc_url(esc_attr($url_maybe));?>" >
+>
+> 4: do both but run esc_url first
+> <img src="<?php esc_attr(esc_url($url_maybe));?>" >
+>
+>
+> Similar confusion may occur in deciding esc_js and so on.
+> What simple guide can I use in situations like this?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Thu Apr 23 03:48:32 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 22 Apr 2015 20:48:32 -0700
+Subject: [wp-hackers] esc_url or esc_attr or both
+In-Reply-To: <CAEN3sehzeRgFArXt4445m2mRubQybaBqb2Hs0eAUcGHzSB-Xyg@mail.gmail.com>
+References: <CAHERW=09uJr0pgUu+aPaK0H4BsQC15vG7te+7op6uixzEG_O_w@mail.gmail.com>
+ <CAEN3sehzeRgFArXt4445m2mRubQybaBqb2Hs0eAUcGHzSB-Xyg@mail.gmail.com>
+Message-ID: <CAHERW=3x4Fws6CyequEPS29DNOnG8e_kegnis7ODG7Xe+X4MCw@mail.gmail.com>
+
+Thanks Morgan. After your reply, I checked with the codex and saw that it
+says the same exact thing as you said.
+I should not have asked my original question that way. That was too
+obvious.
+
+Maybe I should have asked the question in the following format and see if
+it is the right way or not
+
+document.write ('<img src="' + '<?php esc_js(esc_url($image_url_js));?>' +
+'">';
+
+Or if the 'esc_js' in there is necessary?
+
+I'm seeking an overall recipe/guidance that would work across the board so
+that I do not overlook some odd situation and get xss'ed.
+
+
+
+
+On Wed, Apr 22, 2015 at 6:30 PM, Morgan Estes <morgan.estes at gmail.com>
+wrote:
+
+> In this case, using esc_url() as in example 1 is the way to go. Because of
+> the way the methods escape output, esc_attr() should be used for all other
+> tag attributes, but src and href should be escaped with esc_url().
+>
+> On Wed, Apr 22, 2015, 7:59 PM Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Say, you're  retrieving a value from the SB and you expect that to be in
+> > the form of a URL
+> >
+> > Let's assume that that value has to go in an img tag as its src
+> attribute;
+> >
+> > In this case, what's the recommended way to escape that from an XSS point
+> > of view.
+> >
+> > I provided 4 ways below;
+> >
+> > 1: just do esc_url
+> > <img src="<?php esc_url($url_maybe);?>" >
+> >
+> > 2: just do esc_attr
+> > <img src="<?php esc_attr($url_maybe);?>" >
+> >
+> > 3: do both but run esc_attr first
+> > <img src="<?php esc_url(esc_attr($url_maybe));?>" >
+> >
+> > 4: do both but run esc_url first
+> > <img src="<?php esc_attr(esc_url($url_maybe));?>" >
+> >
+> >
+> > Similar confusion may occur in deciding esc_js and so on.
+> > What simple guide can I use in situations like this?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From morgan.estes at gmail.com  Thu Apr 23 15:50:16 2015
+From: morgan.estes at gmail.com (Morgan Estes)
+Date: Thu, 23 Apr 2015 10:50:16 -0500
+Subject: [wp-hackers] esc_url or esc_attr or both
+In-Reply-To: <CAHERW=3x4Fws6CyequEPS29DNOnG8e_kegnis7ODG7Xe+X4MCw@mail.gmail.com>
+References: <CAHERW=09uJr0pgUu+aPaK0H4BsQC15vG7te+7op6uixzEG_O_w@mail.gmail.com>
+ <CAEN3sehzeRgFArXt4445m2mRubQybaBqb2Hs0eAUcGHzSB-Xyg@mail.gmail.com>
+ <CAHERW=3x4Fws6CyequEPS29DNOnG8e_kegnis7ODG7Xe+X4MCw@mail.gmail.com>
+Message-ID: <CAEN3sehYAL95LYei2OUq8Ln1nkZS5HtSiwQTrfHQqXH4PvFzAQ@mail.gmail.com>
+
+In this case, esc_js() isn't used properly and is overkill; it's main use
+is for escaping inline handlers like onclick. Since you're escaping a URL
+that's used in the src attribute, esc_url() works just fine.
+
+If you're escaping JS values, use wp_json_encode() and avoid using esc_js()
+(and inline event handlers in general).
+
+On another note, if you can at all avoid document.write() for adding an
+element to the DOM, you'll be much happier for it. :)
+
+Morgan W. Estes
+http://morganestes.com <http://about.me/morganestes>
+
+On Wed, Apr 22, 2015 at 10:48 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Thanks Morgan. After your reply, I checked with the codex and saw that it
+> says the same exact thing as you said.
+> I should not have asked my original question that way. That was too
+> obvious.
+>
+> Maybe I should have asked the question in the following format and see if
+> it is the right way or not
+>
+> document.write ('<img src="' + '<?php esc_js(esc_url($image_url_js));?>' +
+> '">';
+>
+> Or if the 'esc_js' in there is necessary?
+>
+> I'm seeking an overall recipe/guidance that would work across the board so
+> that I do not overlook some odd situation and get xss'ed.
+>
+>
+>
+>
+> On Wed, Apr 22, 2015 at 6:30 PM, Morgan Estes <morgan.estes at gmail.com>
+> wrote:
+>
+> > In this case, using esc_url() as in example 1 is the way to go. Because
+> of
+> > the way the methods escape output, esc_attr() should be used for all
+> other
+> > tag attributes, but src and href should be escaped with esc_url().
+> >
+> > On Wed, Apr 22, 2015, 7:59 PM Haluk Karamete <halukkaramete at gmail.com>
+> > wrote:
+> >
+> > > Say, you're  retrieving a value from the SB and you expect that to be
+> in
+> > > the form of a URL
+> > >
+> > > Let's assume that that value has to go in an img tag as its src
+> > attribute;
+> > >
+> > > In this case, what's the recommended way to escape that from an XSS
+> point
+> > > of view.
+> > >
+> > > I provided 4 ways below;
+> > >
+> > > 1: just do esc_url
+> > > <img src="<?php esc_url($url_maybe);?>" >
+> > >
+> > > 2: just do esc_attr
+> > > <img src="<?php esc_attr($url_maybe);?>" >
+> > >
+> > > 3: do both but run esc_attr first
+> > > <img src="<?php esc_url(esc_attr($url_maybe));?>" >
+> > >
+> > > 4: do both but run esc_url first
+> > > <img src="<?php esc_attr(esc_url($url_maybe));?>" >
+> > >
+> > >
+> > > Similar confusion may occur in deciding esc_js and so on.
+> > > What simple guide can I use in situations like this?
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From chris at 314media.com  Wed Apr 29 21:01:26 2015
+From: chris at 314media.com (chris at 314media.com)
+Date: Wed, 29 Apr 2015 16:01:26 -0500
+Subject: [wp-hackers] Block Specific Plugins
+Message-ID: <-430000582735002384@unknownmsgid>
+
+Any function to block a specific plugins based on its repository name?
+
+From malkir at gmail.com  Wed Apr 29 21:03:16 2015
+From: malkir at gmail.com (Daniel)
+Date: Wed, 29 Apr 2015 14:03:16 -0700
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <-430000582735002384@unknownmsgid>
+References: <-430000582735002384@unknownmsgid>
+Message-ID: <CA+BSZUSSDoAdrNioLyDSfaGZF8O0QzDZdqcOmd2XV3ESZs4aTg@mail.gmail.com>
+
+You may be able to swing something with WPCLI and a cron to search for
+specific plugins, or only allow specific plugins. That's how some major
+WPaaS places do it.
+On Apr 29, 2015 2:01 PM, <chris at 314media.com> wrote:
+
+> Any function to block a specific plugins based on its repository name?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From chris at 314media.com  Wed Apr 29 21:09:02 2015
+From: chris at 314media.com (chris at 314media.com)
+Date: Wed, 29 Apr 2015 16:09:02 -0500
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <CA+BSZUSSDoAdrNioLyDSfaGZF8O0QzDZdqcOmd2XV3ESZs4aTg@mail.gmail.com>
+References: <-430000582735002384@unknownmsgid>
+ <CA+BSZUSSDoAdrNioLyDSfaGZF8O0QzDZdqcOmd2XV3ESZs4aTg@mail.gmail.com>
+Message-ID: <-684459552874411528@unknownmsgid>
+
+Thanks - the setup is above my pay grade but very informative though..
+
+I was thinking smaller -- use case is on dev server working as a 3rd
+party developer - I don't want client to install theme downloader or
+some csv exporting thing but they need admin access.. - and someone in
+their org is probably smart enough to figure out - hey let's not pay
+em...
+
+I'm lazy enough to disable the editors but thinking would be nice to
+have as a function I could drop in for a little more security...
+
+Editing user roles I guess...  Back to work :)
+
+> On Apr 29, 2015, at 4:03 PM, Daniel <malkir at gmail.com> wrote:
+>
+> You may be able to swing something with WPCLI and a cron to search for
+> specific plugins, or only allow specific plugins. That's how some major
+> WPaaS places do it.
+>> On Apr 29, 2015 2:01 PM, <chris at 314media.com> wrote:
+>>
+>> Any function to block a specific plugins based on its repository name?
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From andrew.bartel at gmail.com  Wed Apr 29 21:15:55 2015
+From: andrew.bartel at gmail.com (Andrew Bartel)
+Date: Wed, 29 Apr 2015 14:15:55 -0700
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <-684459552874411528@unknownmsgid>
+References: <-430000582735002384@unknownmsgid>
+ <CA+BSZUSSDoAdrNioLyDSfaGZF8O0QzDZdqcOmd2XV3ESZs4aTg@mail.gmail.com>
+ <-684459552874411528@unknownmsgid>
+Message-ID: <CAJnHr4j2kuagCCZYvrUPqjqsooHwuqmjTCdn39vnVB97K73caQ@mail.gmail.com>
+
+Really would recommend you start working with proper contracts if you have
+those kind of concerns.  The cost of a lawyer to write up and review
+contracts is trivial compared to headaches it will prevent.
+
+On that note: https://www.youtube.com/watch?v=jVkLVRt6c1U (good talk at
+creative mornings, but contains nsfw language)
+
+Thanks,
+
+Andrew Bartel
+
+On Wed, Apr 29, 2015 at 2:09 PM, <chris at 314media.com> wrote:
+
+> Thanks - the setup is above my pay grade but very informative though..
+>
+> I was thinking smaller -- use case is on dev server working as a 3rd
+> party developer - I don't want client to install theme downloader or
+> some csv exporting thing but they need admin access.. - and someone in
+> their org is probably smart enough to figure out - hey let's not pay
+> em...
+>
+> I'm lazy enough to disable the editors but thinking would be nice to
+> have as a function I could drop in for a little more security...
+>
+> Editing user roles I guess...  Back to work :)
+>
+> > On Apr 29, 2015, at 4:03 PM, Daniel <malkir at gmail.com> wrote:
+> >
+> > You may be able to swing something with WPCLI and a cron to search for
+> > specific plugins, or only allow specific plugins. That's how some major
+> > WPaaS places do it.
+> >> On Apr 29, 2015 2:01 PM, <chris at 314media.com> wrote:
+> >>
+> >> Any function to block a specific plugins based on its repository name?
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From Bobby.Henry at expedient.com  Wed Apr 29 22:51:19 2015
+From: Bobby.Henry at expedient.com (Henry, Bobby)
+Date: Wed, 29 Apr 2015 22:51:19 +0000
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <CAJnHr4j2kuagCCZYvrUPqjqsooHwuqmjTCdn39vnVB97K73caQ@mail.gmail.com>
+References: <-430000582735002384@unknownmsgid>
+ <CA+BSZUSSDoAdrNioLyDSfaGZF8O0QzDZdqcOmd2XV3ESZs4aTg@mail.gmail.com>
+ <-684459552874411528@unknownmsgid>
+ <CAJnHr4j2kuagCCZYvrUPqjqsooHwuqmjTCdn39vnVB97K73caQ@mail.gmail.com>
+Message-ID: <8E89095AEEE73C4A94D5DDD2B92DEF72337B92AB@810-EXCHANGE03.cbb.local>
+
+You could always just set up a file that has a list of the plugin names or directories you approve and then set the cronjob to run every 5 minutes or something. Assuming you're using linux here's a quick and dirty script that'll achieve it. 
+This doesn't remove the files, but turns the bits off, and makes it immutable so it can't be altered by another script.
+This outputs to a log file, so you can review them at a later date.
+Also, keep in mind this isn't a fix, just a dirty script I made a few years ago to do something similar. I'm sure there's a plugin out there, or a plugin you could make that does something similar to this.
+Make sure the first argument in this file is always -iname plugins, there are several ways to go about this, and mine isn't very clean but it works.
+Example:
+listfile:
+-iname plugins -iname Plugin-dir-1 -iname  Plugin-dir-2 -iname  Plugin-dir-3
+
+
+
+Script:
+#!/bin/bash
+blockdir=${/var/www/domain/wp-content/blocked-plugins}
+If [ ! -d "${blockdir}" ]; then
+mkdir ${blockdir}
+fi
+approved=$(cat /path/to/listfile)
+logtime=$(date +"%b %a %I:%M:%S %m/%d/%Y")
+for unapproved  in $(find /var/www/domain/public_html/wp-content/plugins/ -maxdepth 1 -type d ! -perm 000  \( ! ${approved} \));
+do
+#Count how many '/' your path has, then add +1 and change the numerical awk value to that.
+dirname=$( echo ${unapproved} | awk -F '/' '{print $8}' )
+mv ${unapproved} ${blockdir}
+chmod -R 000 ${blockdir}/${dirname}
+chattr +i ${blockdir}/${dirname}
+echo "${logtime} ${unapproved}  has been moved to ${blockdir}/${dirname}" >>/var/log/unapproved.log 
+done
+
+
+Bobby Henry, LFCS
+Tier 2 Technician | LPIC-1 | Linux+
+Expedient Data Centers |?bobby.henry at expedient.com
+P: 614-246-0147  | C:?877.570.7827? 
+
+
+
+-----Original Message-----
+From: wp-hackers [mailto:wp-hackers-bounces at lists.automattic.com] On Behalf Of Andrew Bartel
+Sent: Wednesday, April 29, 2015 5:16 PM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] Block Specific Plugins
+
+Really would recommend you start working with proper contracts if you have those kind of concerns.  The cost of a lawyer to write up and review contracts is trivial compared to headaches it will prevent.
+
+On that note: https://www.youtube.com/watch?v=jVkLVRt6c1U (good talk at creative mornings, but contains nsfw language)
+
+Thanks,
+
+Andrew Bartel
+
+On Wed, Apr 29, 2015 at 2:09 PM, <chris at 314media.com> wrote:
+
+> Thanks - the setup is above my pay grade but very informative though..
+>
+> I was thinking smaller -- use case is on dev server working as a 3rd 
+> party developer - I don't want client to install theme downloader or 
+> some csv exporting thing but they need admin access.. - and someone in 
+> their org is probably smart enough to figure out - hey let's not pay 
+> em...
+>
+> I'm lazy enough to disable the editors but thinking would be nice to 
+> have as a function I could drop in for a little more security...
+>
+> Editing user roles I guess...  Back to work :)
+>
+> > On Apr 29, 2015, at 4:03 PM, Daniel <malkir at gmail.com> wrote:
+> >
+> > You may be able to swing something with WPCLI and a cron to search 
+> > for specific plugins, or only allow specific plugins. That's how 
+> > some major WPaaS places do it.
+> >> On Apr 29, 2015 2:01 PM, <chris at 314media.com> wrote:
+> >>
+> >> Any function to block a specific plugins based on its repository name?
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From chris at 314media.com  Thu Apr 30 03:42:32 2015
+From: chris at 314media.com (Chris Carter)
+Date: Wed, 29 Apr 2015 22:42:32 -0500
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <CAJnHr4j2kuagCCZYvrUPqjqsooHwuqmjTCdn39vnVB97K73caQ@mail.gmail.com>
+References: <-430000582735002384@unknownmsgid>
+ <CA+BSZUSSDoAdrNioLyDSfaGZF8O0QzDZdqcOmd2XV3ESZs4aTg@mail.gmail.com>
+ <-684459552874411528@unknownmsgid>
+ <CAJnHr4j2kuagCCZYvrUPqjqsooHwuqmjTCdn39vnVB97K73caQ@mail.gmail.com>
+Message-ID: <CADm0eFo8RULdtF9nod19pWO3UsCjTuPh5kumB52MwSCCr2Z7Yw@mail.gmail.com>
+
+agreed - and appreciate your input. is a good video!
+
+not necessarily concerned as we do use them.
+
+my intentions were a simple padlock for those with even the best intentions.
+
+Chris Carter
+Founder
+http://www.314media.com
+chris at 314media.com
+
+On Wed, Apr 29, 2015 at 4:15 PM, Andrew Bartel <andrew.bartel at gmail.com>
+wrote:
+
+> Really would recommend you start working with proper contracts if you have
+> those kind of concerns.  The cost of a lawyer to write up and review
+> contracts is trivial compared to headaches it will prevent.
+>
+> On that note: https://www.youtube.com/watch?v=jVkLVRt6c1U (good talk at
+> creative mornings, but contains nsfw language)
+>
+> Thanks,
+>
+> Andrew Bartel
+>
+> On Wed, Apr 29, 2015 at 2:09 PM, <chris at 314media.com> wrote:
+>
+> > Thanks - the setup is above my pay grade but very informative though..
+> >
+> > I was thinking smaller -- use case is on dev server working as a 3rd
+> > party developer - I don't want client to install theme downloader or
+> > some csv exporting thing but they need admin access.. - and someone in
+> > their org is probably smart enough to figure out - hey let's not pay
+> > em...
+> >
+> > I'm lazy enough to disable the editors but thinking would be nice to
+> > have as a function I could drop in for a little more security...
+> >
+> > Editing user roles I guess...  Back to work :)
+> >
+> > > On Apr 29, 2015, at 4:03 PM, Daniel <malkir at gmail.com> wrote:
+> > >
+> > > You may be able to swing something with WPCLI and a cron to search for
+> > > specific plugins, or only allow specific plugins. That's how some major
+> > > WPaaS places do it.
+> > >> On Apr 29, 2015 2:01 PM, <chris at 314media.com> wrote:
+> > >>
+> > >> Any function to block a specific plugins based on its repository name?
+> > >> _______________________________________________
+> > >> wp-hackers mailing list
+> > >> wp-hackers at lists.automattic.com
+> > >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wp-hackers at striderweb.com  Thu Apr 30 04:45:54 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Wed, 29 Apr 2015 23:45:54 -0500
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <-430000582735002384@unknownmsgid>
+References: <-430000582735002384@unknownmsgid>
+Message-ID: <B8987510-7159-477B-8ABA-1E5A19A99C68@striderweb.com>
+
+Something like this will remove specific plugins any time WP calls the list of actives:
+
+add_filter( 'option_active_plugins', 'filter_get_active_plugins' );
+add_filter( 'transient_active_plugins', 'filter_get_active_plugins' );
+
+function filter_get_active_plugins( $data ) {
+	$blocked = array( <plugins you don?t want to allow> );
+	foreach ($blocked as $plugin) {
+		unset( $data[$plugin] );
+	}
+	sort( $data );
+	return $data;
+}
+
+Some pseudo code there, but you get the idea.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+
+> On Apr 29, 2015, at 4:01 PM, chris at 314media.com wrote:
+> 
+> Any function to block a specific plugins based on its repository name?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From nikolov.tmw at gmail.com  Thu Apr 30 11:34:43 2015
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 30 Apr 2015 14:34:43 +0300
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <B8987510-7159-477B-8ABA-1E5A19A99C68@striderweb.com>
+References: <-430000582735002384@unknownmsgid>
+ <B8987510-7159-477B-8ABA-1E5A19A99C68@striderweb.com>
+Message-ID: <CAOwx47e2UFchSWLqnQB2-w2J1g-OjLLmdXKkJsZ5P6bJmg2Owg@mail.gmail.com>
+
+Stephen Rider's solution is the best IMO - cron job is not the best way,
+because they might be able to start the export in even under 1
+minute(that'd be hell of tricky and take some trial and error, but not
+impossible).
+
+The code must go in a mu-plugin. My suggestion is to symlink the mu-plugins
+folder in all of your projects to a single directory on your hosting.
+
+Now, here comes another question though - having a blacklist is more
+difficult(and much longer), than having a white-list. The white-list is
+some extra work on a per-project basis, but protects you from tricks(like
+renaming the directory of the plugin, zip-ing it and uploading it as a new
+plugin - which your blacklist will never catch). I think you can manually
+create an option in the DB(maybe some code in functions.php if you're going
+to disable the editors anyway) that lists all plugins that are needed for
+the site to function - this will be your whitelist. Just grab that option
+from the DB in the filtering function and return it's value.
+
+Andrew Bartel's advice is good too - if you're afraid that your clients
+will leave you high and dry, then ask them to sign a contract. If they have
+some doubts, point out that having a contract protects them too. If they
+still refuse, just get up and leave - there's something fishy with them and
+you don't want to have them as clients.
+
+I use a modified version of the "Contract Killer
+<https://gist.github.com/malarkey/4031110>", which you can find here
+<https://drive.google.com/file/d/0B1SFrFarWWXqbmcwQWlfbDdzOVU/view?usp=sharing>.
+Obviously you would want to add your own clauses and adjust the existing
+ones. I like that contract because it's written in an easy to understand
+language(well, unless you make it complicated). I usually discuss the
+contract with the clients and if they have any concerns I adjusted in a way
+that works for both of us.
+
+Note the Copyrights section - I preserve the ownership of the source code
+and license it's use to the client. This way I can later re-use any parts
+of the code in the case of something complex being created that could be
+useful in another project.
+
+On Thu, Apr 30, 2015 at 7:45 AM, Stephen Rider <wp-hackers at striderweb.com>
+wrote:
+
+> Something like this will remove specific plugins any time WP calls the
+> list of actives:
+>
+> add_filter( 'option_active_plugins', 'filter_get_active_plugins' );
+> add_filter( 'transient_active_plugins', 'filter_get_active_plugins' );
+>
+> function filter_get_active_plugins( $data ) {
+>         $blocked = array( <plugins you don?t want to allow> );
+>         foreach ($blocked as $plugin) {
+>                 unset( $data[$plugin] );
+>         }
+>         sort( $data );
+>         return $data;
+> }
+>
+> Some pseudo code there, but you get the idea.
+>
+> --
+> Stephen Rider
+>
+> wp-hackers at striderweb.com
+> http://striderweb.com/nerdaphernalia
+>
+>
+>
+> > On Apr 29, 2015, at 4:01 PM, chris at 314media.com wrote:
+> >
+> > Any function to block a specific plugins based on its repository name?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wp-hackers at striderweb.com  Thu Apr 30 17:51:17 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Thu, 30 Apr 2015 12:51:17 -0500
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <CAOwx47e2UFchSWLqnQB2-w2J1g-OjLLmdXKkJsZ5P6bJmg2Owg@mail.gmail.com>
+References: <-430000582735002384@unknownmsgid>
+ <B8987510-7159-477B-8ABA-1E5A19A99C68@striderweb.com>
+ <CAOwx47e2UFchSWLqnQB2-w2J1g-OjLLmdXKkJsZ5P6bJmg2Owg@mail.gmail.com>
+Message-ID: <4CB9C6D8-7D47-4537-9CE4-B6CBBC48107C@striderweb.com>
+
+IF you really KNOW what plugins you want, you can do this:
+
+add_filter( 'option_active_plugins', ?filter_get_active_plugins?, 100 );
+add_filter( 'transient_active_plugins', ?filter_get_active_plugins?, 100 );
+
+function filter_get_active_plugins( $data ) {
+	$data = array( <plugins you want to allow> );
+	sort( $data );
+	return $data;
+}
+
+This won?t merely **allow** them; it will completely replace the list of active plugins with your list. If one of those plugins are not present, however, you?ll get ?not found? errors.
+
+For a whitelist solution of permitted (but not necessarily present) plugins, you?d do a loop and remove anything from $data that?s not on the whitelist.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+From wp-hackers at striderweb.com  Thu Apr 30 18:00:27 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Thu, 30 Apr 2015 13:00:27 -0500
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <4CB9C6D8-7D47-4537-9CE4-B6CBBC48107C@striderweb.com>
+References: <-430000582735002384@unknownmsgid>
+ <B8987510-7159-477B-8ABA-1E5A19A99C68@striderweb.com>
+ <CAOwx47e2UFchSWLqnQB2-w2J1g-OjLLmdXKkJsZ5P6bJmg2Owg@mail.gmail.com>
+ <4CB9C6D8-7D47-4537-9CE4-B6CBBC48107C@striderweb.com>
+Message-ID: <83BF3835-DA4B-4D6D-9D23-5A7D476DD023@striderweb.com>
+
+And yes, Nikola is correct.  Such a filter would have to be an mu-plugin, or perhaps go in functions.php.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+From chris at 314media.com  Thu Apr 30 19:39:12 2015
+From: chris at 314media.com (Chris Carter)
+Date: Thu, 30 Apr 2015 14:39:12 -0500
+Subject: [wp-hackers] Block Specific Plugins
+In-Reply-To: <83BF3835-DA4B-4D6D-9D23-5A7D476DD023@striderweb.com>
+References: <-430000582735002384@unknownmsgid>
+ <B8987510-7159-477B-8ABA-1E5A19A99C68@striderweb.com>
+ <CAOwx47e2UFchSWLqnQB2-w2J1g-OjLLmdXKkJsZ5P6bJmg2Owg@mail.gmail.com>
+ <4CB9C6D8-7D47-4537-9CE4-B6CBBC48107C@striderweb.com>
+ <83BF3835-DA4B-4D6D-9D23-5A7D476DD023@striderweb.com>
+Message-ID: <CADm0eFpgM3-VOrb+2hm7yH9AuTvBgg_DHsjGz4nmFmMv-9emJg@mail.gmail.com>
+
+exactly what I was looking for - you guys are the best.
+
+-Chris
+
+On Thu, Apr 30, 2015 at 1:00 PM, Stephen Rider <wp-hackers at striderweb.com>
+wrote:
+
+> And yes, Nikola is correct.  Such a filter would have to be an mu-plugin,
+> or perhaps go in functions.php.
+>
+> --
+> Stephen Rider
+>
+> wp-hackers at striderweb.com
+> http://striderweb.com/nerdaphernalia
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+

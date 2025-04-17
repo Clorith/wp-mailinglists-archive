@@ -1,0 +1,994 @@
+From andypeatling at automattic.com  Tue May  5 09:46:16 2009
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May  5 09:46:42 2009
+Subject: [buddypress-dev] Re-activation
+Message-ID: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+
+It's about time I started the discussion back up on this mailing list.  
+Pre-1.0 most of the development discussion was going on in the forums  
+(and here prior to the forums). Now that 1.0 is out of the door, the  
+forums are mostly going to be end-user discussions.
+
+I'd like to get this going again for development discussions.  
+Discussions around component and theme development, bugs, enhancements  
+- just about anything code related.
+
+Eventually, as work on buddypress.org progresses, I'd like to move  
+discussions onto the site, possibly via groups and group forums. For  
+now though, let's kick up some discussions on here as it's up and  
+ready to go.
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From sam at automattic.com  Tue May  5 10:10:20 2009
+From: sam at automattic.com (Sam Bauers)
+Date: Tue May  5 10:10:20 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+Message-ID: <4A00108C.3050007@automattic.com>
+
+Andy Peatling wrote:
+> I'd like to get this going again for development discussions. 
+> Discussions around component and theme development, bugs, enhancements 
+> - just about anything code related.
+I'm interested in getting bbPress working a little more seamlessly with 
+BuddyPress. If anyone wants to provide some feedback about how we can 
+better do this or what isn't working, please start that discussion here.
+
+Sam
+From andypeatling at automattic.com  Tue May  5 10:27:19 2009
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May  5 10:27:42 2009
+Subject: [buddypress-dev] JIT Inclusions
+Message-ID: <FDFA9EE3-0888-4D56-A7E8-F646F9C6C4CE@automattic.com>
+
+Something I've been looking into over the last few weeks is something  
+I like to call "JIT inclusions" or "Just In Time" inclusions. I  
+thought it would be a nice topic to re-open up this mailing list with.
+
+Here's the challenge BuddyPress faces with the way it works right now.
+
+Each component needs to set up its own environment. It needs its own  
+template tags, filters, DB access classes and so on. As it stands in  
+BuddyPress, each component loads these in as soon as the component is  
+initialized. When you multiply this by 8 components, you're loading a  
+lot of code into memory on each page load. This means BuddyPress has a  
+fairly large memory footprint, even if you're doing nothing.
+
+What I think needs to happen is this JIT idea, where a file that  
+contains code that is needed for a function is only included right  
+before it is *actually* needed.
+
+Some of this could be handled by adding require_once() calls within  
+functions, so they are only loaded when that function is called. This  
+won't make a huge difference overall though, and I don't think  
+littering the code with require_once() calls is a solid approach.
+
+What really needs to happen is some sort of system where when a  
+function is called, a check is done to see if this function exists, if  
+not, the correct file is included so the function can be loaded.
+
+Think about this scenario:
+
+Template tags for components can be used anywhere, on any page, under  
+any slug. How do we make those template tags available for use without  
+loading all component template tag files on every page?
+
+With the system I envision, when you call the bp_has_site_members()  
+loop, an action would fire that would automatically include the 'bp- 
+core/bp-core-templatetags.php' file that this template loop resides  
+in. That way we are only including the files we need just in time for  
+the functions within them to run.
+
+Is any of this possible? Possibly, but possibly not. The system would  
+have to maintain a list of all functions, and in which files they  
+reside in. This in itself may be too inefficient. It would also have  
+to handle some sort of function_exists() call, so that PHP doesn't  
+trigger a fatal error before we even have a chance to fetch the  
+correct file.
+
+I know that some PHP frameworks use naming conventions to handle at  
+least some of this. In PHP5 there is also autoload for classes (http://www.php.net/manual/en/language.oop5.autoload.php 
+) which would be great for DB access, but we need to stick to  
+supporting PHP4 for now. Perhaps there is a way we can mimic this  
+functionality though?
+
+My question is, does anyone have any experience, or smart ideas  
+surrounding this?
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+From buzz_lightyear at buzzdev.net  Tue May  5 10:53:07 2009
+From: buzz_lightyear at buzzdev.net (Buzz Lightyear)
+Date: Tue May  5 10:55:47 2009
+Subject: [buddypress-dev] Re-activation
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<4A00108C.3050007@automattic.com>
+Message-ID: <0B32E2951404414E897A3E5F807F34E5@atwork.local>
+
+Hi Andy & Sam & all,
+i'd love to see BBpress kind of "sucked in" to Buddypress and wpmu.
+Something like http://phorum.org can do.
+
+thanx
+buzz
+
+----- Original Message ----- 
+From: "Sam Bauers" <sam@automattic.com>
+To: <buddypress-dev@lists.automattic.com>
+Sent: Tuesday, May 05, 2009 12:10 PM
+Subject: Re: [buddypress-dev] Re-activation
+
+
+> Andy Peatling wrote:
+>> I'd like to get this going again for development discussions. 
+>> Discussions around component and theme development, bugs, enhancements 
+>> - just about anything code related.
+> I'm interested in getting bbPress working a little more seamlessly with 
+> BuddyPress. If anyone wants to provide some feedback about how we can 
+> better do this or what isn't working, please start that discussion here.
+> 
+> Sam
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From casey.bisson at gmail.com  Tue May  5 12:21:31 2009
+From: casey.bisson at gmail.com (Casey Bisson)
+Date: Tue May  5 12:21:51 2009
+Subject: [buddypress-dev] Common Ticketing/Action API?
+Message-ID: <DD2378A5-4904-4499-9A3F-00351D00E1EB@gmail.com>
+
+
+WP and WPMU both have a couple different ways they generate tickets  
+(for password resets, email confirmation, etc) that are later  
+confirmed by the user (usually by clicking a one time link).
+
+The BuddyPress forums, meanwhile, have hosted a bit of discussion  
+about invitation systems which would probably also work similarly in  
+that an email would be sent to the invitee with a one time link of  
+some sort.
+
+And a site I'm working on has needs like that, plus the need to  
+confirm phone numbers (via text messages), allow password resets by  
+phone (again, via text messages), invite people with different kinds  
+of relationships (friend, family, teacher, student), and other such.
+
+Wouldn't it be a bit easier if there were a common way of tracking the  
+one-time "tickets" that are used for these different actions?
+
+I've put together some code as a plugin that does pretty much what I'm  
+talking about:
+
+http://maisonbisson.com/blog/post/13862/wordpress-action-ticketing-api/
+http://plugins.trac.wordpress.org/browser/wp-ticket-framework/trunk/ticket-framework.php
+
+I'll soon be posting another plugin that uses the API to confirm email  
+address changes, allow people to enter (and confirm) a secondary email  
+address, and does the same for phone numbers.
+
+The simple idea is that a ticket is a unique string associated with an  
+action (in the do_action() sense) and some data that is sent to that  
+action. The API could be used to keep track of short URLs (the ticket  
+doesn't have to be deleted after the first use), or nuclear launch  
+codes (where deleting the ticket is kind of redundant).
+
+Is this useful to anybody else?
+
+--Casey
+
+http://maisonbisson.com/
+http://www.plymouth.edu/
+http://about.scriblio.net/
+From if.website at gmail.com  Tue May  5 14:20:36 2009
+From: if.website at gmail.com (Austin Matzko)
+Date: Tue May  5 14:20:46 2009
+Subject: [buddypress-dev] JIT Inclusions
+In-Reply-To: <FDFA9EE3-0888-4D56-A7E8-F646F9C6C4CE@automattic.com>
+References: <FDFA9EE3-0888-4D56-A7E8-F646F9C6C4CE@automattic.com>
+Message-ID: <674b4a3b0905050720s142b9339oad4908f12a31bda3@mail.gmail.com>
+
+On Tue, May 5, 2009 at 5:27 AM, Andy Peatling
+<andypeatling@automattic.com> wrote:
+> Each component needs to set up its own environment. It needs its own
+> template tags, filters, DB access classes and so on. As it stands in
+> BuddyPress, each component loads these in as soon as the component is
+> initialized. When you multiply this by 8 components, you're loading a lot of
+> code into memory on each page load. This means BuddyPress has a fairly large
+> memory footprint, even if you're doing nothing.
+>
+> What I think needs to happen is this JIT idea, where a file that contains
+> code that is needed for a function is only included right before it is
+> *actually* needed.
+
+I'm skeptical that this would be of any performance benefit on the
+kind of server most likely to host BuddyPress: something with opcode
+caching and a decent amount of memory. Especially with a good number
+of users, in which case the net result will be the same of loading all
+the components into memory, but a result the server arrives at less
+efficiently.
+From mkjonesuk at gmail.com  Tue May  5 14:31:33 2009
+From: mkjonesuk at gmail.com (Michael Kimb Jones (gmail))
+Date: Tue May  5 14:32:07 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+Message-ID: <45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com>
+
+Indeed, congrats on the v1, I'm just in the process of finding time to
+add a basic install to my web host.
+
+Theme development is the area I'm probably going to fall into as
+coding isn't my forte. I will be back with questions/queries once my
+head is filled.
+
+Michael Kimb Jones
+_________________
+www.mkjones.co.uk
+
+
+
+On Tue, May 5, 2009 at 10:46 AM, Andy Peatling
+<andypeatling@automattic.com> wrote:
+> It's about time I started the discussion back up on this mailing list.
+> Pre-1.0 most of the development discussion was going on in the forums (and
+> here prior to the forums). Now that 1.0 is out of the door, the forums are
+> mostly going to be end-user discussions.
+>
+> I'd like to get this going again for development discussions. Discussions
+> around component and theme development, bugs, enhancements - just about
+> anything code related.
+>
+> Eventually, as work on buddypress.org progresses, I'd like to move
+> discussions onto the site, possibly via groups and group forums. For now
+> though, let's kick up some discussions on here as it's up and ready to go.
+>
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://apeatling.wordpress.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From buckfastmonk at googlemail.com  Tue May  5 15:23:22 2009
+From: buckfastmonk at googlemail.com (buckfastmonk)
+Date: Tue May  5 15:23:38 2009
+Subject: [buddypress-dev] Common Ticketing/Action API?
+In-Reply-To: <DD2378A5-4904-4499-9A3F-00351D00E1EB@gmail.com>
+References: <DD2378A5-4904-4499-9A3F-00351D00E1EB@gmail.com>
+Message-ID: <ae2a454d0905050823i56828fc3rfde5456f7f6d6af0@mail.gmail.com>
+
+This is excellent!  I will have a play around with this since it is
+definately something that will be useful to any community website
+
+On 5/5/09, Casey Bisson <casey.bisson@gmail.com> wrote:
+>
+>
+> WP and WPMU both have a couple different ways they generate tickets (for
+> password resets, email confirmation, etc) that are later confirmed by the
+> user (usually by clicking a one time link).
+>
+> The BuddyPress forums, meanwhile, have hosted a bit of discussion about
+> invitation systems which would probably also work similarly in that an email
+> would be sent to the invitee with a one time link of some sort.
+>
+> And a site I'm working on has needs like that, plus the need to confirm
+> phone numbers (via text messages), allow password resets by phone (again,
+> via text messages), invite people with different kinds of relationships
+> (friend, family, teacher, student), and other such.
+>
+> Wouldn't it be a bit easier if there were a common way of tracking the
+> one-time "tickets" that are used for these different actions?
+>
+> I've put together some code as a plugin that does pretty much what I'm
+> talking about:
+>
+> http://maisonbisson.com/blog/post/13862/wordpress-action-ticketing-api/
+>
+> http://plugins.trac.wordpress.org/browser/wp-ticket-framework/trunk/ticket-framework.php
+>
+> I'll soon be posting another plugin that uses the API to confirm email
+> address changes, allow people to enter (and confirm) a secondary email
+> address, and does the same for phone numbers.
+>
+> The simple idea is that a ticket is a unique string associated with an
+> action (in the do_action() sense) and some data that is sent to that action.
+> The API could be used to keep track of short URLs (the ticket doesn't have
+> to be deleted after the first use), or nuclear launch codes (where deleting
+> the ticket is kind of redundant).
+>
+> Is this useful to anybody else?
+>
+> --Casey
+>
+> http://maisonbisson.com/
+> http://www.plymouth.edu/
+> http://about.scriblio.net/
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20090505/8f4afa2b/attachment.htm
+From andypeatling at automattic.com  Tue May  5 15:36:52 2009
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May  5 15:37:19 2009
+Subject: [buddypress-dev] JIT Inclusions
+In-Reply-To: <674b4a3b0905050720s142b9339oad4908f12a31bda3@mail.gmail.com>
+References: <FDFA9EE3-0888-4D56-A7E8-F646F9C6C4CE@automattic.com>
+	<674b4a3b0905050720s142b9339oad4908f12a31bda3@mail.gmail.com>
+Message-ID: <8414D697-2295-4B2C-A425-F601EB1A03CD@automattic.com>
+
+On 5-May-09, at 4:20 PM, Austin Matzko wrote:
+> On Tue, May 5, 2009 at 5:27 AM, Andy Peatling
+> <andypeatling@automattic.com> wrote:
+>>
+>> What I think needs to happen is this JIT idea, where a file that  
+>> contains
+>> code that is needed for a function is only included right before it  
+>> is
+>> *actually* needed.
+>
+> I'm skeptical that this would be of any performance benefit on the
+> kind of server most likely to host BuddyPress: something with opcode
+> caching and a decent amount of memory. Especially with a good number
+> of users, in which case the net result will be the same of loading all
+> the components into memory, but a result the server arrives at less
+> efficiently.
+
+As much as many sites heavily using BuddyPress will use a finely tuned  
+server setup, I'd like BuddyPress to be as accessible as possible.
+
+BP will be launching for standard WP in the near future and I'd like  
+it to work under reasonable load on shared servers. The memory limits  
+on those servers will be far more strict and will not make use of  
+caching or have ample memory.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+From mrwiblog at gmail.com  Wed May  6 21:41:56 2009
+From: mrwiblog at gmail.com (Chris Taylor - stillbreathing.co.uk)
+Date: Wed May  6 21:42:19 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com>
+Message-ID: <60fe160a0905061441o4c5fd1ah2e96088fe9ec2dd5@mail.gmail.com>
+
+Hi,
+
+Good to see this back in use. Well done on reaching version 1, Andy.
+
+I'd love to see easier integration of bbPress, in fact I've only
+successfully got it to share cookie with a WPMU installation once -
+and I'm not sure how I did that. Every other time has failed. A
+click-once integration would be fantastic, not just for BuddyPress,
+but for WPMU generally.
+
+Regarding themes, it may be an idea to make it even easier for people
+to integrate BP with their existing WPMU installs though the use of
+BP-specific template tags. You may have this already, but something
+like bp_users_online() that spits out HTML with user icons. Or
+bp_latest_groups(), which is pretty obvious what that does. That way
+people don't have to recode their WPMU themes using the BP skeleton
+theme (as I am currently doing for http://beatsbase.com).
+
+The problem then is the members profile page, groups page etc. Perhaps
+some larger-scale template tags could be created which output standard
+HTML layouts for those features. Again, that's so people just have to
+add in one line of code where they want the stuff to be. It may be
+tricky to make that work, but I do think saying to existing WPMU
+webmasters "just drop these plugins into a directory, then add one
+line of code for groups, member profiles and other stuff" would be
+really powerful.
+
+I'll no doubt have more ideas when I get BP up and running on a live site.
+
+By the way, I'm working on a few plugins for WPMU at the moment
+including a statistics system, secure invites (already released:
+http://wpmudev.org/project/secure-invitations), events, a newsletter
+system for each blog, and most usefully for MU developers a plugin
+that will automatically create demo users and blogs based on some
+parameters.
+
+Chris
+From mrwiblog at gmail.com  Wed May  6 22:29:21 2009
+From: mrwiblog at gmail.com (Chris Taylor - stillbreathing.co.uk)
+Date: Wed May  6 22:29:33 2009
+Subject: [buddypress-dev] JIT Inclusions
+In-Reply-To: <8414D697-2295-4B2C-A425-F601EB1A03CD@automattic.com>
+References: <FDFA9EE3-0888-4D56-A7E8-F646F9C6C4CE@automattic.com>
+	<674b4a3b0905050720s142b9339oad4908f12a31bda3@mail.gmail.com>
+	<8414D697-2295-4B2C-A425-F601EB1A03CD@automattic.com>
+Message-ID: <60fe160a0905061529o5562f72u8d40c4b110ca8745@mail.gmail.com>
+
+Hey,
+
+I think I have to agree with Austin about this. If several components
+are in use on one page (which is certainly true for the member profile
+page) then all that code is loaded into memory whether we like it or
+not. However if you really want to load components just in time then
+you need two things:
+
+1) A way for each component to register itself with a central system
+2) A simple call to initialise that component and pull in the relevent files
+
+In psuedo-code this would be something like:
+
+bp_register_component("groups", array("groups_file_1", groups_file_2"));
+
+Parameter one is the unique name of the component, and the name of the
+folder in which resides the files needed to run that component.
+Parameter 2 is a list of the files needed. The good thing about this
+is BP can check for the existence of each component file, and if there
+is anything missing the whole lot can stop being loaded.
+
+On a page you want to use that compnent you'd do something like:
+
+bp_initialise_component("groups")
+
+I guess you've already thought of this and found the holes in it, yes?
+
+Chris
+From burt at ourcommoninterest.org  Wed May  6 23:59:32 2009
+From: burt at ourcommoninterest.org (Burt Adsit)
+Date: Wed May  6 23:59:54 2009
+Subject: [buddypress-dev] JIT Inclusions
+In-Reply-To: <60fe160a0905061529o5562f72u8d40c4b110ca8745@mail.gmail.com>
+References: <FDFA9EE3-0888-4D56-A7E8-F646F9C6C4CE@automattic.com>	<674b4a3b0905050720s142b9339oad4908f12a31bda3@mail.gmail.com>	<8414D697-2295-4B2C-A425-F601EB1A03CD@automattic.com>
+	<60fe160a0905061529o5562f72u8d40c4b110ca8745@mail.gmail.com>
+Message-ID: <4A022464.4020700@ourcommoninterest.org>
+
+
+> bp_register_component("groups", array("groups_file_1", groups_file_2"));
+>   
+I'm all for this component registration concept. It sure would help in a 
+situation like this:
+
+http://trac.buddypress.org/ticket/723
+
+-- 
+Code Is Freedom
+Burt Adsit
+
+From buzz_lightyear at buzzdev.net  Thu May  7 05:32:44 2009
+From: buzz_lightyear at buzzdev.net (Buzz Lightyear)
+Date: Thu May  7 05:32:28 2009
+Subject: [buddypress-dev] Re-activation
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com><45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com>
+	<60fe160a0905061441o4c5fd1ah2e96088fe9ec2dd5@mail.gmail.com>
+Message-ID: <269BDE4810A04E34B9956FC18BAEC303@atwork.local>
+
+Hi Chris,
+i like the idea of BP template tags... That'd make things lot easier
+
+BTW. great site of yours at beatbase ;) Let me register and upload my 
+stuff..
+
+buzz
+
+----- Original Message ----- 
+From: "Chris Taylor - stillbreathing.co.uk" <mrwiblog@gmail.com>
+To: <buddypress-dev@lists.automattic.com>
+Sent: Wednesday, May 06, 2009 11:41 PM
+Subject: Re: [buddypress-dev] Re-activation
+
+
+> Hi,
+>
+> Good to see this back in use. Well done on reaching version 1, Andy.
+>
+> I'd love to see easier integration of bbPress, in fact I've only
+> successfully got it to share cookie with a WPMU installation once -
+> and I'm not sure how I did that. Every other time has failed. A
+> click-once integration would be fantastic, not just for BuddyPress,
+> but for WPMU generally.
+>
+> Regarding themes, it may be an idea to make it even easier for people
+> to integrate BP with their existing WPMU installs though the use of
+> BP-specific template tags. You may have this already, but something
+> like bp_users_online() that spits out HTML with user icons. Or
+> bp_latest_groups(), which is pretty obvious what that does. That way
+> people don't have to recode their WPMU themes using the BP skeleton
+> theme (as I am currently doing for http://beatsbase.com).
+>
+> The problem then is the members profile page, groups page etc. Perhaps
+> some larger-scale template tags could be created which output standard
+> HTML layouts for those features. Again, that's so people just have to
+> add in one line of code where they want the stuff to be. It may be
+> tricky to make that work, but I do think saying to existing WPMU
+> webmasters "just drop these plugins into a directory, then add one
+> line of code for groups, member profiles and other stuff" would be
+> really powerful.
+>
+> I'll no doubt have more ideas when I get BP up and running on a live site.
+>
+> By the way, I'm working on a few plugins for WPMU at the moment
+> including a statistics system, secure invites (already released:
+> http://wpmudev.org/project/secure-invitations), events, a newsletter
+> system for each blog, and most usefully for MU developers a plugin
+> that will automatically create demo users and blogs based on some
+> parameters.
+>
+> Chris
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> 
+
+From andypeatling at automattic.com  Thu May  7 07:32:41 2009
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu May  7 07:33:06 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <60fe160a0905061441o4c5fd1ah2e96088fe9ec2dd5@mail.gmail.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com>
+	<60fe160a0905061441o4c5fd1ah2e96088fe9ec2dd5@mail.gmail.com>
+Message-ID: <62510BF5-AD92-4D12-9BA1-11DC9AF5B432@automattic.com>
+
+On 6-May-09, at 11:41 PM, Chris Taylor - stillbreathing.co.uk wrote:
+> Regarding themes, it may be an idea to make it even easier for people
+> to integrate BP with their existing WPMU installs though the use of
+> BP-specific template tags. You may have this already, but something
+> like bp_users_online() that spits out HTML with user icons. Or
+> bp_latest_groups(), which is pretty obvious what that does. That way
+> people don't have to recode their WPMU themes using the BP skeleton
+> theme (as I am currently doing for http://beatsbase.com).
+
+I'm happy to say this is already possible:
+http://codex.buddypress.org/developer-docs/custom-buddypress-loops/
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From buzz_lightyear at buzzdev.net  Thu May  7 08:13:39 2009
+From: buzz_lightyear at buzzdev.net (Buzz Lightyear)
+Date: Thu May  7 08:13:17 2009
+Subject: [buddypress-dev] Re-activation
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com><45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com><60fe160a0905061441o4c5fd1ah2e96088fe9ec2dd5@mail.gmail.com>
+	<62510BF5-AD92-4D12-9BA1-11DC9AF5B432@automattic.com>
+Message-ID: <240E59E1BE4742BE8FECFF5EC22585A6@atwork.local>
+
+Hi Andy,
+that is for sure great, but what's on my mind is (and probably on Chris's 
+mind too), that it'd be nicer to have some kind of "wrapper" for it.
+
+So one would say in theme:
+    bl_latest_activity('timeframe=-24 Hours');
+
+instead of:
+
+<?php if ( bp_has_activities() ) ) : ?>
+
+  <div class="pag-count" id="activity-count">
+    <?php bp_activity_pagination_count() ?>
+  </div>
+
+  <div class="pagination-links" id="activity-pag">
+    <?php bp_activity_pagination_links() ?>
+  </div>
+
+  <ul id="activity-list">
+  <?php while ( bp_activities() ) : bp_the_activity(); ?>
+
+    <li class="<?php bp_activity_css_class() ?>">
+      <?php bp_activity_content() ?>
+    </li>
+
+  <?php endwhile; ?>
+  </ul>
+
+<?php else: ?>
+
+  <div id="message" class="info">
+    <p>No activity to display.</p>
+  </div>
+
+<?php endif;?>
+
+
+----- Original Message ----- 
+From: "Andy Peatling" <andypeatling@automattic.com>
+To: <buddypress-dev@lists.automattic.com>
+Sent: Thursday, May 07, 2009 9:32 AM
+Subject: Re: [buddypress-dev] Re-activation
+
+
+> On 6-May-09, at 11:41 PM, Chris Taylor - stillbreathing.co.uk wrote:
+>> Regarding themes, it may be an idea to make it even easier for people
+>> to integrate BP with their existing WPMU installs though the use of
+>> BP-specific template tags. You may have this already, but something
+>> like bp_users_online() that spits out HTML with user icons. Or
+>> bp_latest_groups(), which is pretty obvious what that does. That way
+>> people don't have to recode their WPMU themes using the BP skeleton
+>> theme (as I am currently doing for http://beatsbase.com).
+>
+> I'm happy to say this is already possible:
+> http://codex.buddypress.org/developer-docs/custom-buddypress-loops/
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://apeatling.wordpress.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> 
+
+From mrwiblog at gmail.com  Thu May  7 12:10:34 2009
+From: mrwiblog at gmail.com (Chris Taylor - stillbreathing.co.uk)
+Date: Thu May  7 12:10:47 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <240E59E1BE4742BE8FECFF5EC22585A6@atwork.local>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<45bc5ae00905050731k1d4a79cw5d04e130e209e648@mail.gmail.com>
+	<60fe160a0905061441o4c5fd1ah2e96088fe9ec2dd5@mail.gmail.com>
+	<62510BF5-AD92-4D12-9BA1-11DC9AF5B432@automattic.com>
+	<240E59E1BE4742BE8FECFF5EC22585A6@atwork.local>
+Message-ID: <60fe160a0905070510j757fcbf7m14b7a965073d26fe@mail.gmail.com>
+
+On Thu, May 7, 2009 at 9:13 AM, Buzz Lightyear
+<buzz_lightyear@buzzdev.net> wrote:
+> So one would say in theme:
+> ? bp_latest_activity('timeframe=-24 Hours');
+>
+> instead of:
+>
+> <?php if ( bp_has_activities() ) ) : ?> ...
+
+Yep, that would be cool. The bp_latest_activity could accept the same
+parameters as bp_has_activities(), plus a few others to help style the
+output - for example return a <ul> or <ol> list.
+
+Personally I'd find it much easier to add some BP-specific classes to
+my CSS stylesheet and one line of PHP where I want certain things to
+go in my template, than do quite a lot more code for what is
+essentially not going to change very often.
+
+The custom template tags are fantastic if you want to go to the next
+level. My guess is a lot of people won't want to, they'll just want to
+drop stuff in their templates - like you can do with widgets.
+
+Chris
+From mel at relogical.com  Sat May  9 15:13:54 2009
+From: mel at relogical.com (Mel Borin)
+Date: Sat May  9 15:14:08 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+Message-ID: <1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>
+
+I need to report a bug but can't figure out where, so please forgive me if
+this is not appropriate here. There is a bug with the BP home theme. I
+installed WP-Wall plugin that works perfect in Firefox but in IE it does
+not.
+
+
+
+On Tue, May 5, 2009 at 4:46 AM, Andy Peatling
+<andypeatling@automattic.com>wrote:
+
+> It's about time I started the discussion back up on this mailing list.
+> Pre-1.0 most of the development discussion was going on in the forums (and
+> here prior to the forums). Now that 1.0 is out of the door, the forums are
+> mostly going to be end-user discussions.
+>
+> I'd like to get this going again for development discussions. Discussions
+> around component and theme development, bugs, enhancements - just about
+> anything code related.
+>
+> Eventually, as work on buddypress.org progresses, I'd like to move
+> discussions onto the site, possibly via groups and group forums. For now
+> though, let's kick up some discussions on here as it's up and ready to go.
+>
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://apeatling.wordpress.com
+>
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20090509/21ada932/attachment.htm
+From burt at ourcommoninterest.org  Sat May  9 18:09:52 2009
+From: burt at ourcommoninterest.org (Burt Adsit)
+Date: Sat May  9 18:38:46 2009
+Subject: [buddypress-dev] Re-activation
+In-Reply-To: <1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>
+Message-ID: <4A05C6F0.5030600@ourcommoninterest.org>
+
+Mel Borin wrote:
+> I need to report a bug but can't figure out where, so please forgive 
+> me if this is not appropriate here. There is a bug with the BP home 
+> theme. I installed WP-Wall plugin that works perfect in Firefox but in 
+> IE it does not.
+Mel, bugs can be reported here in trac: http://trac.buddypress.org/
+Tech support for bp itself is: http://buddypress.org/forums/
+Support for specific plugins should be directed to the plugin author's 
+support forum: http://wordpress.org/tags/wp-wall
+
+-- 
+Code Is Freedom
+Burt Adsit
+
+From cerbero at gmail.com  Sat May  9 18:54:04 2009
+From: cerbero at gmail.com (Arturo)
+Date: Sat May  9 18:54:41 2009
+Subject: [buddypress-dev] subversion access
+In-Reply-To: <4A05C6F0.5030600@ourcommoninterest.org>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>
+	<4A05C6F0.5030600@ourcommoninterest.org>
+Message-ID: <9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>
+
+Now we have the 1.0, any idea to have the BuddyPress i18n on subversion?
+
+Arturo
+
+BuddyPress Italy Staff
+http://www.buddypress-it.it
+From remi at exomel.com  Mon May 11 11:43:34 2009
+From: remi at exomel.com (=?ISO-8859-1?Q?R=E9mi_Pr=E9vost?=)
+Date: Mon May 11 11:43:52 2009
+Subject: [buddypress-dev] subversion access
+In-Reply-To: <9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>	<4A05C6F0.5030600@ourcommoninterest.org>
+	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>
+Message-ID: <4A080F66.9020604@exomel.com>
+
+Arturo wrote:
+> Now we have the 1.0, any idea to have the BuddyPress i18n on subversion?
+
++1 for that idea. It would be nice to have all .mo and .po files in one 
+place.
+
+-- 
+Name : R?mi Pr?vost
+Job : D?veloppeur web
+Work : http://exomel.com
+Blog : http://remiprevost.com
+Mobi : +14189343019
+From andypeatling at automattic.com  Tue May 12 21:01:02 2009
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue May 12 21:01:36 2009
+Subject: [buddypress-dev] subversion access
+In-Reply-To: <4A080F66.9020604@exomel.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>	<4A05C6F0.5030600@ourcommoninterest.org>
+	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>
+	<4A080F66.9020604@exomel.com>
+Message-ID: <F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>
+
+On 11-May-09, at 4:43 AM, R?mi Pr?vost wrote:
+
+> Arturo wrote:
+>> Now we have the 1.0, any idea to have the BuddyPress i18n on  
+>> subversion?
+>
+> +1 for that idea. It would be nice to have all .mo and .po files in  
+> one place.
+
+I'm getting the wheels rolling on this one, I will post more soon.
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://apeatling.wordpress.com
+
+
+
+
+From cerbero at gmail.com  Tue May 12 21:04:29 2009
+From: cerbero at gmail.com (Arturo)
+Date: Tue May 12 21:04:52 2009
+Subject: [buddypress-dev] subversion access
+In-Reply-To: <F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>	<4A05C6F0.5030600@ourcommoninterest.org>
+	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>
+	<4A080F66.9020604@exomel.com>
+	<F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>
+Message-ID: <5F14B132-DCDF-49D9-8AA6-B3EEF3BD1D46@gmail.com>
+
+ok Andy no problem we waiting information.
+
+
+
+Il giorno 12/mag/09, alle ore 23:01, Andy Peatling ha scritto:
+
+> I'm getting the wheels rolling on this one, I will post more soon.
+
+
+
+Arturo Uggini
+BuddyPress Italy Staff
+http://www.buddypress-it.it
+From burt at ourcommoninterest.org  Mon May 25 22:52:19 2009
+From: burt at ourcommoninterest.org (Burt Adsit)
+Date: Mon May 25 22:52:39 2009
+Subject: [buddypress-dev] bpcontents 1.0 alpha 1 using MPTT
+In-Reply-To: <5F14B132-DCDF-49D9-8AA6-B3EEF3BD1D46@gmail.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>	<4A05C6F0.5030600@ourcommoninterest.org>	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>	<4A080F66.9020604@exomel.com>	<F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>
+	<5F14B132-DCDF-49D9-8AA6-B3EEF3BD1D46@gmail.com>
+Message-ID: <4A1B2123.3070606@ourcommoninterest.org>
+
+Howdy all. I've released a plugin for bp that does Member, Group and 
+Blog tagging. That's nothing earth shaking but the core mechanism for 
+storing the hierarchical relationships in the project is Modified 
+Pre-Order Tree Traversal, MPTT.
+
+I ran across this when doing research for the project. This is not the 
+normal Adjacency list, parent/child hierarchical storage mechanism. It's 
+a great deal of fun to work with and is wildly fast when it comes to 
+getting an entire tree of data in just a couple of sql queries.
+
+There's a download link in this post:
+
+http://code.ourcommoninterest.org/2009/05/25/bpcontents-10-alpha-1-member-group-and-blog-tagging-for-buddypress/
+
+Ya, I know, hell of a slug 'eh?
+
+-- 
+Code Is Freedom
+Burt Adsit
+
+From omo at moonrank.com  Mon May 25 23:13:34 2009
+From: omo at moonrank.com (Omo)
+Date: Mon May 25 23:13:50 2009
+Subject: [buddypress-dev] bpcontents 1.0 alpha 1 using MPTT
+In-Reply-To: <4A1B2123.3070606@ourcommoninterest.org>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>
+	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>
+	<4A05C6F0.5030600@ourcommoninterest.org>
+	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>
+	<4A080F66.9020604@exomel.com>
+	<F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>
+	<5F14B132-DCDF-49D9-8AA6-B3EEF3BD1D46@gmail.com>
+	<4A1B2123.3070606@ourcommoninterest.org>
+Message-ID: <5b311c1f0905251613q2a658da3ka6a84a91a781df21@mail.gmail.com>
+
+That's cool! Were working with site wide tagging. Let me test yours ;D
+
+
+
+Omo
+
+
+On Tue, May 26, 2009 at 4:52 AM, Burt Adsit <burt@ourcommoninterest.org>wrote:
+
+> Howdy all. I've released a plugin for bp that does Member, Group and Blog
+> tagging. That's nothing earth shaking but the core mechanism for storing the
+> hierarchical relationships in the project is Modified Pre-Order Tree
+> Traversal, MPTT.
+>
+> I ran across this when doing research for the project. This is not the
+> normal Adjacency list, parent/child hierarchical storage mechanism. It's a
+> great deal of fun to work with and is wildly fast when it comes to getting
+> an entire tree of data in just a couple of sql queries.
+>
+> There's a download link in this post:
+>
+>
+> http://code.ourcommoninterest.org/2009/05/25/bpcontents-10-alpha-1-member-group-and-blog-tagging-for-buddypress/
+>
+> Ya, I know, hell of a slug 'eh?
+>
+> --
+> Code Is Freedom
+> Burt Adsit
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20090525/d929c179/attachment.htm
+From burt at ourcommoninterest.org  Mon May 25 23:59:57 2009
+From: burt at ourcommoninterest.org (Burt Adsit)
+Date: Tue May 26 00:00:34 2009
+Subject: [buddypress-dev] bpcontents 1.0 alpha 1 using MPTT
+In-Reply-To: <5b311c1f0905251613q2a658da3ka6a84a91a781df21@mail.gmail.com>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>	<4A05C6F0.5030600@ourcommoninterest.org>	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>	<4A080F66.9020604@exomel.com>	<F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>	<5F14B132-DCDF-49D9-8AA6-B3EEF3BD1D46@gmail.com>	<4A1B2123.3070606@ourcommoninterest.org>
+	<5b311c1f0905251613q2a658da3ka6a84a91a781df21@mail.gmail.com>
+Message-ID: <4A1B30FD.4080200@ourcommoninterest.org>
+
+The official site wide content tagging part of bpc is still waiting in 
+the wings. I need to be fairly certain that is is stable first. There 
+are bits and pieces that I held back.
+
+Omo wrote:
+> That's cool! Were working with site wide tagging. Let me test yours ;D
+>
+>
+>
+> Omo
+
+-- 
+Code Is Freedom
+Burt Adsit
+
+From burt at ourcommoninterest.org  Tue May 26 02:20:33 2009
+From: burt at ourcommoninterest.org (Burt Adsit)
+Date: Tue May 26 02:20:52 2009
+Subject: [buddypress-dev] bpcontents 1.0 alpha 1 using MPTT
+In-Reply-To: <4A1B2123.3070606@ourcommoninterest.org>
+References: <0D263DA9-82B4-4D1D-9830-AB7C3ADE294A@automattic.com>	<1621489d0905090813o4956488ate8598db698caa810@mail.gmail.com>	<4A05C6F0.5030600@ourcommoninterest.org>	<9DEBAB56-0F7C-49D4-9D90-6FAC95FC30DC@gmail.com>	<4A080F66.9020604@exomel.com>	<F9178A50-AE3F-4162-A077-CC53FC3AE238@automattic.com>	<5F14B132-DCDF-49D9-8AA6-B3EEF3BD1D46@gmail.com>
+	<4A1B2123.3070606@ourcommoninterest.org>
+Message-ID: <4A1B51F1.90306@ourcommoninterest.org>
+
+bpc uses a mechanism called Modifed Pre-Order Tree Traversal (MPTT) that 
+was specifically designed to track tree like structures in SQL tables. I 
+need to find out if that part of the core is working properly.
+
+When you look at the properties for a node, in the class OCI_Node, 
+you'll notice two vars $this->lft and $this->rgt. These are MPTT specfic 
+vars that represent the parent/child relationships of all nodes in the 
+tree. . See these for info about MPTT:
+
+http://www.sitepoint.com/article/hierarchical-data-database/
+http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
+http://www.dbmsmag.com/9604d06.html
+
+A simple node insert or delete operation in the tree has a good chance 
+of changing 50% of the lft/rgt values in the entire tree.
+
+Any sql operation that changes these values must:
+
+1) lock the table
+2) get the node and it's valid lft/rgt values
+3) do the operation
+4) unlock the tree
+
+The only reliable property for a node in the tree is the $this->id which 
+is the record id in the table.
+
+There is also a $this->parent_id in each node that represents the 
+immediate parent record id of that child node. There are times where 
+it's just more convenient to do things the Adjacency List way.
+
+-- 
+Code Is Freedom
+Burt Adsit
+

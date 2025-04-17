@@ -1,0 +1,204 @@
+From halukkaramete at gmail.com  Sun Dec  4 05:58:40 2016
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 4 Dec 2016 07:58:40 +0200
+Subject: [wp-hackers] Building advanced taxonomy urls
+Message-ID: <CAHERW=3L=dVB0b5MhhSAcMCph0-UsM6EL78ZHiFKhRrrNEMPpA@mail.gmail.com>
+
+What does it take to make this general querying format work?
+
+?tax-1=term-a&tax-2=term-y
+
+This URL is expected to get the posts meeting the following criteria:
+ * the post matches term-x under tax-1
+   AND
+ * the post also matches term-y under tax-2
+
+where tax-1 or tax-2 in the URL could perfectly be a built-in taxonomy
+*such as "category" or "post_tag"*.
+
+Is that even possible?
+
+Based on my environment, a URL query formulated as above redirects to a
+random post. But if I were to add "*category_name*" parameter in the URL,
+then it does not do that redirect. *(I know that that is because WordPress
+has special rules when it sees the string "*category_name*" as part of the
+URL. )*
+
+So while this works
+
+?category_name=term-a&tax-2=term-y
+
+This does not:
+
+?category=term-a&post_tag=y
+
+This may be good enough for many situations, but it does force the posts to
+be classified under a specific category (which means that the taxonomy
+"category" must always be part of the deal and you must always use
+"category_name" in the URL. )
+
+Am I getting this wrong? Is there a way to generalize the URLs by simply
+ concatenating taxonomy=term pieces without using the "category_name" in
+the url?
+
+This question has also been posted at
+http://stackoverflow.com/questions/40955753/building-advanced-wordpress-urls-for-advanced-taxonomy-queries
+
+Thank you
+
+From chris.hearn01 at ntlworld.com  Tue Dec 27 18:17:22 2016
+From: chris.hearn01 at ntlworld.com (Chris Hearn)
+Date: Tue, 27 Dec 2016 18:17:22 +0000
+Subject: [wp-hackers] Access custom table using global wpdb not working
+Message-ID: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+
+Hi,
+Just recently a custom plugin on my site stopped working properly (after 
+several years).
+The following line that fails is simply getting a count from a custom 
+(non-wp) table.
+
+global $wpdb;
+...
+$num = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->custom_tablename"); 
+// result is null because it appears that $wpdb->custom_tablename is 
+also null.
+
+$num_wpUsers = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->users"); // 
+this works as expected!
+
+If there some change that only allows "standard" wordpress table names now?
+
+Thanks for any help!
+Chris
+
+
+---
+This email has been checked for viruses by Avast antivirus software.
+https://www.avast.com/antivirus
+
+From david at carrcommunications.com  Tue Dec 27 18:27:14 2016
+From: david at carrcommunications.com (David F. Carr)
+Date: Tue, 27 Dec 2016 13:27:14 -0500
+Subject: [wp-hackers] Access custom table using global wpdb not working
+In-Reply-To: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+References: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+Message-ID: <CAJbdpGsq86tBx_tumDgXXjwB0zZd8TJP2KWeiu4WDoej3b_-ng@mail.gmail.com>
+
+As far as I know, custom table names are not automatically populated in the
+$wpdb object (never worked when I tried it). I usually do something like
+$custom_tablename = $wpdb->prefix.'custom_tablename' and then use that
+variable in my sql.
+
+You're saying this used to work. Is it a plugin of your design? Could there
+have been something in the plugin code (now changed or deleted) that added
+an additional property to the $wpdb object?
+
+
+On Tue, Dec 27, 2016 at 1:17 PM, Chris Hearn <chris.hearn01 at ntlworld.com>
+wrote:
+
+> Hi,
+> Just recently a custom plugin on my site stopped working properly (after
+> several years).
+> The following line that fails is simply getting a count from a custom
+> (non-wp) table.
+>
+> global $wpdb;
+> ...
+> $num = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->custom_tablename"); //
+> result is null because it appears that $wpdb->custom_tablename is also null.
+>
+> $num_wpUsers = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->users"); //
+> this works as expected!
+>
+> If there some change that only allows "standard" wordpress table names now?
+>
+> Thanks for any help!
+> Chris
+>
+>
+> ---
+> This email has been checked for viruses by Avast antivirus software.
+> https://www.avast.com/antivirus
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From chris.hearn01 at ntlworld.com  Tue Dec 27 20:30:17 2016
+From: chris.hearn01 at ntlworld.com (Chris Hearn)
+Date: Tue, 27 Dec 2016 20:30:17 +0000
+Subject: [wp-hackers] Access custom table using global wpdb not working
+In-Reply-To: <CAJbdpGsq86tBx_tumDgXXjwB0zZd8TJP2KWeiu4WDoej3b_-ng@mail.gmail.com>
+References: <d9db183e-200c-4a5f-57a9-ed806fe15644@ntlworld.com>
+ <CAJbdpGsq86tBx_tumDgXXjwB0zZd8TJP2KWeiu4WDoej3b_-ng@mail.gmail.com>
+Message-ID: <cad887c2-c0b2-1709-621f-acd257201b1c@ntlworld.com>
+
+HI David,
+
+I am changing my code to do as you suggested. But yes, I am saying that 
+the $wpdb->custom_tablename used to work!
+
+I am going through the code, because its a long time since I wrote it!
+
+Thanks for your reply
+
+Chris
+
+
+On 27/12/2016 18:27, David F. Carr wrote:
+> As far as I know, custom table names are not automatically populated in the
+> $wpdb object (never worked when I tried it). I usually do something like
+> $custom_tablename = $wpdb->prefix.'custom_tablename' and then use that
+> variable in my sql.
+>
+> You're saying this used to work. Is it a plugin of your design? Could there
+> have been something in the plugin code (now changed or deleted) that added
+> an additional property to the $wpdb object?
+>
+>
+> On Tue, Dec 27, 2016 at 1:17 PM, Chris Hearn <chris.hearn01 at ntlworld.com>
+> wrote:
+>
+>> Hi,
+>> Just recently a custom plugin on my site stopped working properly (after
+>> several years).
+>> The following line that fails is simply getting a count from a custom
+>> (non-wp) table.
+>>
+>> global $wpdb;
+>> ...
+>> $num = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->custom_tablename"); //
+>> result is null because it appears that $wpdb->custom_tablename is also null.
+>>
+>> $num_wpUsers = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->users"); //
+>> this works as expected!
+>>
+>> If there some change that only allows "standard" wordpress table names now?
+>>
+>> Thanks for any help!
+>> Chris
+>>
+>>
+>> ---
+>> This email has been checked for viruses by Avast antivirus software.
+>> https://www.avast.com/antivirus
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+---
+This email has been checked for viruses by Avast antivirus software.
+https://www.avast.com/antivirus
+

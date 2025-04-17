@@ -1,0 +1,1918 @@
+From dkwhisle at uncc.edu  Tue May  1 19:19:03 2012
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Tue, 1 May 2012 19:19:03 +0000
+Subject: [wp-edu] WordPress Multisite site names
+Message-ID: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+
+Does anyone know the official limitations (max length, type of characters) for a new site's "path" when you create it via the "Add New Site" menu on WordPress 3.2.2 multisite installation.
+
+The on-screen dialog says this "Only the characters a-z and 0-9 recommended".
+
+However, it does not state the max# of characters.    Nor does it say if a dash between words would be acceptable (or not).
+
+It did allow me to create one like "instrumentation-development"   however, it rejected this one:   " instrumentation-development-group" so I suspect the limit is around 30 characters.
+
+Does anyone know if dashes in the path name will cause issues?    Does anyone know the official max length?     Shouldn't this be displayed on the "Add New Site" screen?
+
+Thanks,
+Dave
+
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120501/0d983607/attachment.htm>
+
+From wordpress at zed1.com  Tue May  1 19:49:57 2012
+From: wordpress at zed1.com (Mike Little)
+Date: Tue, 1 May 2012 20:49:57 +0100
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+Message-ID: <CAMb54M29cYFLzqehCyH57D9tJbLDo_sNeDNPr-3XyWJRvS0Gtw@mail.gmail.com>
+
+On Tue, May 1, 2012 at 20:19, Whisler, Dave <dkwhisle at uncc.edu> wrote:
+
+>  Does anyone know the official limitations (max length, type of
+> characters) for a new site?s ?path? when you create it via the ?Add New
+> Site? menu on WordPress 3.2.2 multisite installation.****
+>
+> ** **
+>
+> The on-screen dialog says this ?Only the characters a-z and 0-9
+> recommended?.****
+>
+> ** **
+>
+> However, it does not state the max# of characters.    Nor does it say if a
+> dash between words would be acceptable (or not).****
+>
+> ** **
+>
+> It did allow me to create one like ?instrumentation-development?
+> however, it rejected this one:   ? instrumentation-development-group? so I
+> suspect the limit is around 30 characters.****
+>
+> **
+>
+
+
+Looking at the code, there doesn't seem to be a maximum, but there is
+minimum 4, and a bunch of other restrictions.
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120501/0aa64849/attachment.htm>
+
+From dennen at gmail.com  Tue May  1 19:56:17 2012
+From: dennen at gmail.com (Bill Dennen)
+Date: Tue, 1 May 2012 15:56:17 -0400
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <CAMb54M29cYFLzqehCyH57D9tJbLDo_sNeDNPr-3XyWJRvS0Gtw@mail.gmail.com>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+	<CAMb54M29cYFLzqehCyH57D9tJbLDo_sNeDNPr-3XyWJRvS0Gtw@mail.gmail.com>
+Message-ID: <CAAFBVjjnp+X0ALFFWJ_qP8rbh8KuBaECHA-azQ5aSQEovKNrjQ@mail.gmail.com>
+
+> Looking at the code, there doesn't seem to be a maximum, but there is
+> minimum 4, and a bunch of other restrictions.
+
+The database seems to have a limit on the "path" field in the wp_blogs
+table: 100 characters.
+
+varchar(100)
+
+I was just able to create one with this as the path:
+
+/now-is-the-time-for-all-good-men-to-come-to-the-aid-of-their-party/
+
+and when I tried a lengthier one, it truncated it to this, which is 99 chars:
+
+now-is-the-time-for-all-good-men-to-come-to-the-aid-of-their-party-now-is-the-time-for-all-good-men
+
+-Bill
+
+From ANorwood at law.utexas.edu  Tue May  1 20:36:56 2012
+From: ANorwood at law.utexas.edu (Adam Norwood)
+Date: Tue, 1 May 2012 15:36:56 -0500
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+Message-ID: <3DC1B50A49E5AF4D9ABD8506270F3A320302FA72F5@EXCHMAIL.austin.law.utexas.edu>
+
+Hi Dave,
+
+Bill beat me to the punch, but as he says the size of the ?path? column in the database is limited to 100 characters. Does MySQL automatically truncate overly-long strings on INSERT? If not, I can?t find where this happen in the WordPress code -- Mike: where?s the code that sets the minimum length to 4? Maybe that?s where the truncation happens and I just haven?t found it yet? I?d be curious to know if there are any other regex rules that block special characters in the path, but as far as I know simple dashes are URL-safe.
+
+Having said that, are you getting a specific error message when trying to use the longer ?instrumentation-development-group? path, or does it accept it but truncate it? Is the root of your WordPress network at an already-lengthy path (like example.com/some/subdirectory/path/wp/), which might explain why you only have ~30 characters to work with?
+
+Best,
+Adam Norwood
+
+
+--
+Sr. Software Developer ? Webmaster
+Law Technology Services
+University of Texas School of Law
+(512) 471.3040     @anorwood
+
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Whisler, Dave
+Sent: Tuesday, May 01, 2012 2:19 PM
+To: 'wp-edu at lists.automattic.com'
+Subject: [wp-edu] WordPress Multisite site names
+
+Does anyone know the official limitations (max length, type of characters) for a new site?s ?path? when you create it via the ?Add New Site? menu on WordPress 3.2.2 multisite installation.
+
+The on-screen dialog says this ?Only the characters a-z and 0-9 recommended?.
+
+However, it does not state the max# of characters.    Nor does it say if a dash between words would be acceptable (or not).
+
+It did allow me to create one like ?instrumentation-development?   however, it rejected this one:   ? instrumentation-development-group? so I suspect the limit is around 30 characters.
+
+Does anyone know if dashes in the path name will cause issues?    Does anyone know the official max length?     Shouldn?t this be displayed on the ?Add New Site? screen?
+
+Thanks,
+Dave
+
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu<mailto:dkwhisle at uncc.edu> | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120501/b1a16499/attachment-0001.htm>
+
+From gsemb at np-education.ca  Tue May  1 20:37:05 2012
+From: gsemb at np-education.ca (gsemb at np-education.ca)
+Date: Tue,  1 May 2012 16:37:05 -0400 (EDT)
+Subject: [wp-edu] wp-edu Digest, Vol 35, Issue 1
+Message-ID: <20120501203705.8CB1821809F@cert.np-education.ca>
+
+Thank you for your message. However, please note that I am away from the office for the rest of the week. For any emergency please contact Terry Tremblay at ttrem at np-education.ca  or Claude Morin cmorin at np-education.ca 
+
+thank you
+
+Guillaume
+
+From wordpress at zed1.com  Tue May  1 22:11:36 2012
+From: wordpress at zed1.com (Mike Little)
+Date: Tue, 1 May 2012 23:11:36 +0100
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <3DC1B50A49E5AF4D9ABD8506270F3A320302FA72F5@EXCHMAIL.austin.law.utexas.edu>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+	<3DC1B50A49E5AF4D9ABD8506270F3A320302FA72F5@EXCHMAIL.austin.law.utexas.edu>
+Message-ID: <CAMb54M3AT2KhZYSSOJua04Uk3hkwE+Wtk-33sCM2o5Bq2jjAFA@mail.gmail.com>
+
+On Tue, May 1, 2012 at 9:36 PM, Adam Norwood <ANorwood at law.utexas.edu>wrote:
+
+> Hi Dave,****
+>
+> ** **
+>
+> Bill beat me to the punch, but as he says the size of the ?path? column in
+> the database is limited to 100 characters. Does MySQL automatically
+> truncate overly-long strings on INSERT? If not, I can?t find where this
+> happen in the WordPress code -- Mike: where?s the code that sets the
+> minimum length to 4? Maybe that?s where the truncation happens and I just
+> haven?t found it yet? I?d be curious to know if there are any other regex
+> rules that block special characters in the path, but as far as I know
+> simple dashes are URL-safe.****
+>
+> **
+>
+
+In function wpmu_validate_blog_signup() which lives in file
+wp-includes/ms-functions.php
+Note if you are super admin it lets you do it anyway.
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120501/8817d6f0/attachment.htm>
+
+From steph at sillybean.net  Wed May  2 13:41:57 2012
+From: steph at sillybean.net (Stephanie Leary)
+Date: Wed, 2 May 2012 08:41:57 -0500
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+Message-ID: <4CBCDE55-4F50-459F-A8E1-984AFDAF6FF7@sillybean.net>
+
+On May 1, 2012, at 2:19 PM, Whisler, Dave wrote:
+> Does anyone know if dashes in the path name will cause issues? 
+
+IIRC, dashes are not allowed. I know they're not allowed in usernames, and multisite expects that usernames will become site names. I've had to edit a lot of users after adding them with underscores instead, so our usernames (like s-leary) match those for the campus CAS accounts.
+
+
+Stephanie Leary, @sleary
+sillybean.net
+
+
+
+
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120502/26bbb701/attachment.htm>
+
+From dennen at gmail.com  Wed May  2 13:44:13 2012
+From: dennen at gmail.com (Bill Dennen)
+Date: Wed, 2 May 2012 09:44:13 -0400
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <4CBCDE55-4F50-459F-A8E1-984AFDAF6FF7@sillybean.net>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+	<4CBCDE55-4F50-459F-A8E1-984AFDAF6FF7@sillybean.net>
+Message-ID: <CAAFBVjipyS2+rpt6pd3E=rn69HmmSkJgi2tMaURmVq2eNbrygQ@mail.gmail.com>
+
+> IIRC, dashes are not allowed.
+
+Go point about usernames. But, we use dashes in path-names often.
+
+ex: http://wheatoncollege.edu/public-safety/
+
+From wordpress at zed1.com  Wed May  2 14:16:59 2012
+From: wordpress at zed1.com (Mike Little)
+Date: Wed, 2 May 2012 15:16:59 +0100
+Subject: [wp-edu] WordPress Multisite site names
+In-Reply-To: <CAAFBVjipyS2+rpt6pd3E=rn69HmmSkJgi2tMaURmVq2eNbrygQ@mail.gmail.com>
+References: <469C92EC338A114C995BE4B8A86743291BD5DF@RPITSEXMS3.its.uncc.edu>
+	<4CBCDE55-4F50-459F-A8E1-984AFDAF6FF7@sillybean.net>
+	<CAAFBVjipyS2+rpt6pd3E=rn69HmmSkJgi2tMaURmVq2eNbrygQ@mail.gmail.com>
+Message-ID: <CAMb54M2JuvBdegfoa84rqA0+fJQf0dga+JFxAZMgpEcR3cvukg@mail.gmail.com>
+
+On Wed, May 2, 2012 at 2:44 PM, Bill Dennen <dennen at gmail.com> wrote:
+
+> > IIRC, dashes are not allowed.
+>
+> Go point about usernames. But, we use dashes in path-names often.
+>
+> ex: http://wheatoncollege.edu/public-safety/
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+The code looks like it will prevent dashes but I can easily create subsites
+with dashes. Maybe it's a superadmin/backend versus front end registration
+thing. Or a bug in the code.
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120502/87416200/attachment.htm>
+
+From dkwhisle at uncc.edu  Thu May 10 15:21:49 2012
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Thu, 10 May 2012 15:21:49 +0000
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+Message-ID: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+
+I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+
+Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  "Upload file types".   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing?
+
+Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+
+The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+
+
+1.       What is the correct way to accomplish this?
+
+2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide - and not have to do any configuration changes on individual sites.
+
+Below are some Plugins that appear like they might do the job.
+http://wordpress.org/extend/plugins/ap-extended-mime-types/
+
+http://wordpress.org/extend/plugins/manage-upload-types/
+
+http://wordpress.org/extend/plugins/add-more-files-extensions/
+
+http://wordpress.org/extend/plugins/uploads/
+
+
+In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings:
+SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes";
+However, I've not found anything like this on a single-site WordPress installation.
+
+Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php - add the filetypes in the "get_allowed_mime_types() function).   However, I'd rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) - as this just adds complications.
+
+Please let me know how you accomplish this - as I want to best method for the long-run - one that won't end up causing problems in the future.
+
+Thanks,
+Dave
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120510/bb04339d/attachment.htm>
+
+From joseph.ugoretz at mhc.cuny.edu  Thu May 10 16:36:24 2012
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Thu, 10 May 2012 12:36:24 -0400
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+In-Reply-To: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+References: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+Message-ID: <7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+
+Hi Dave,
+
+As far as I've seen, that limit on uploaded file types is specific to multisite, not configurable in standard, because the possible security problem of untrusted (or less-trusted) users doesn't exist in single-user WordPress.  If you're the single user, it can be assumed that you trust yourself.
+
+In multisite, though, that option does work fine.  WordPress does utilize it, without any plugins, or at least it always has in our install.  We can add new file types to that list, and files of that type can then be uploaded.  Or conversely, when we remove file types from that list, they can no longer be uploaded.
+
+So if that's not working for you, there must be something else wrong.  Maybe php settings?  
+
+If everything's functioning as it should, as it's designed to, that list of acceptable file types is workable and effective.
+
+Joe
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+
+> I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+>  
+> Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+> WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  ?Upload file types?.   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing? 
+>  
+> Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+>  
+> The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+>  
+> 1.       What is the correct way to accomplish this?
+> 2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide ? and not have to do any configuration changes on individual sites.
+>  
+> Below are some Plugins that appear like they might do the job.
+> http://wordpress.org/extend/plugins/ap-extended-mime-types/
+>  
+> http://wordpress.org/extend/plugins/manage-upload-types/
+>  
+> http://wordpress.org/extend/plugins/add-more-files-extensions/
+>  
+> http://wordpress.org/extend/plugins/uploads/
+>  
+>  
+> In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings: 
+> SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes";
+> However, I?ve not found anything like this on a single-site WordPress installation.
+>  
+> Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php ? add the filetypes in the ?get_allowed_mime_types() function).   However, I?d rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) ? as this just adds complications. 
+>  
+> Please let me know how you accomplish this ? as I want to best method for the long-run ? one that won?t end up causing problems in the future.
+>  
+> Thanks,
+> Dave
+>  
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+> UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+> disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+> received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+>  
+> <ATT00001.c>
+
+
+From dkwhisle at uncc.edu  Thu May 10 19:23:42 2012
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Thu, 10 May 2012 19:23:42 +0000
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+In-Reply-To: <7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+References: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+	<7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+Message-ID: <469C92EC338A114C995BE4B8A86743291C1AE7@RPITSEXMS3.its.uncc.edu>
+
+Joseph,
+
+Ok, so I tried what you said in a regular install of WordPress 3.3.2 (latest version - not configured for multisite).
+I was not able to upload a MS-Access 2007 db file (.accdb) which I created just for this test (just has one table in it with a couple of records...).
+However, when I renamed the file to the old MS-Access 2003 db file extension (.mdb file format), then WordPress allowed me to upload it.
+
+Weird, huh?
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, May 10, 2012 12:36 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+Hi Dave,
+
+As far as I've seen, that limit on uploaded file types is specific to multisite, not configurable in standard, because the possible security problem of untrusted (or less-trusted) users doesn't exist in single-user WordPress.  If you're the single user, it can be assumed that you trust yourself.
+
+In multisite, though, that option does work fine.  WordPress does utilize it, without any plugins, or at least it always has in our install.  We can add new file types to that list, and files of that type can then be uploaded.  Or conversely, when we remove file types from that list, they can no longer be uploaded.
+
+So if that's not working for you, there must be something else wrong.  Maybe php settings?  
+
+If everything's functioning as it should, as it's designed to, that list of acceptable file types is workable and effective.
+
+Joe
+
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+
+> I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+>  
+> Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+> WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  "Upload file types".   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing? 
+>  
+> Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+>  
+> The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+>  
+> 1.       What is the correct way to accomplish this?
+> 2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide - and not have to do any configuration changes on individual sites.
+>  
+> Below are some Plugins that appear like they might do the job.
+> http://wordpress.org/extend/plugins/ap-extended-mime-types/
+>  
+> http://wordpress.org/extend/plugins/manage-upload-types/
+>  
+> http://wordpress.org/extend/plugins/add-more-files-extensions/
+>  
+> http://wordpress.org/extend/plugins/uploads/
+>  
+>  
+> In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings: 
+> SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes";
+> However, I've not found anything like this on a single-site WordPress installation.
+>  
+> Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php - add the filetypes in the "get_allowed_mime_types() function).   However, I'd rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) - as this just adds complications. 
+>  
+> Please let me know how you accomplish this - as I want to best method for the long-run - one that won't end up causing problems in the future.
+>  
+> Thanks,
+> Dave
+>  
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+> UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+> disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+> received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+>  
+> <ATT00001.c>
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From joseph.ugoretz at mhc.cuny.edu  Thu May 10 19:33:21 2012
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Thu, 10 May 2012 15:33:21 -0400
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+In-Reply-To: <469C92EC338A114C995BE4B8A86743291C1AE7@RPITSEXMS3.its.uncc.edu>
+References: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+	<7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+	<469C92EC338A114C995BE4B8A86743291C1AE7@RPITSEXMS3.its.uncc.edu>
+Message-ID: <C6AEDBA0-8684-4A41-96C7-71C300B644D7@mhc.cuny.edu>
+
+Weird indeed and you may have me stumped, but maybe some of the more expert folks on the list can help.
+
+But just to clarify...
+
+What you want to do is to be able to use the "Upload file types" item in the Upload Settings area of multisite network settings to add or subtract filetypes?
+
+Is that right?
+
+I guess I'm not certain what the goal is here--to have this work in single-site (standard) or multi-site?
+
+I can vouch for the fact that it does (or should) work in multi-site.  So I'm not sure how the different behavior in single-site really helps?
+
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 3:23 PM, Whisler, Dave wrote:
+
+> Joseph,
+> 
+> Ok, so I tried what you said in a regular install of WordPress 3.3.2 (latest version - not configured for multisite).
+> I was not able to upload a MS-Access 2007 db file (.accdb) which I created just for this test (just has one table in it with a couple of records...).
+> However, when I renamed the file to the old MS-Access 2003 db file extension (.mdb file format), then WordPress allowed me to upload it.
+> 
+> Weird, huh?
+> 
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+> UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+> disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+> received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+> 
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+> Sent: Thursday, May 10, 2012 12:36 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+> 
+> Hi Dave,
+> 
+> As far as I've seen, that limit on uploaded file types is specific to multisite, not configurable in standard, because the possible security problem of untrusted (or less-trusted) users doesn't exist in single-user WordPress.  If you're the single user, it can be assumed that you trust yourself.
+> 
+> In multisite, though, that option does work fine.  WordPress does utilize it, without any plugins, or at least it always has in our install.  We can add new file types to that list, and files of that type can then be uploaded.  Or conversely, when we remove file types from that list, they can no longer be uploaded.
+> 
+> So if that's not working for you, there must be something else wrong.  Maybe php settings?  
+> 
+> If everything's functioning as it should, as it's designed to, that list of acceptable file types is workable and effective.
+> 
+> Joe
+> 
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+> 
+> 
+> 
+> 
+> 
+> 
+> On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+> 
+>> I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+>> 
+>> Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+>> WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  "Upload file types".   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing? 
+>> 
+>> Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+>> 
+>> The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+>> 
+>> 1.       What is the correct way to accomplish this?
+>> 2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide - and not have to do any configuration changes on individual sites.
+>> 
+>> Below are some Plugins that appear like they might do the job.
+>> http://wordpress.org/extend/plugins/ap-extended-mime-types/
+>> 
+>> http://wordpress.org/extend/plugins/manage-upload-types/
+>> 
+>> http://wordpress.org/extend/plugins/add-more-files-extensions/
+>> 
+>> http://wordpress.org/extend/plugins/uploads/
+>> 
+>> 
+>> In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings: 
+>> SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes";
+>> However, I've not found anything like this on a single-site WordPress installation.
+>> 
+>> Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php - add the filetypes in the "get_allowed_mime_types() function).   However, I'd rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) - as this just adds complications. 
+>> 
+>> Please let me know how you accomplish this - as I want to best method for the long-run - one that won't end up causing problems in the future.
+>> 
+>> Thanks,
+>> Dave
+>> 
+>> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+>> UNC Charlotte | The William States Lee College of Engineering
+>> 9201 University City Blvd. | Charlotte, NC 28223
+>> Phone: 704-687-3964 | Fax: 704-687-2352
+>> dkwhisle at uncc.edu | http://www.uncc.edu
+>> ---------------------------------------------------------------------------
+>> If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+>> disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+>> received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+>> 
+>> <ATT00001.c>
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From dkwhisle at uncc.edu  Thu May 10 19:58:02 2012
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Thu, 10 May 2012 19:58:02 +0000
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+In-Reply-To: <C6AEDBA0-8684-4A41-96C7-71C300B644D7@mhc.cuny.edu>
+References: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+	<7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+	<469C92EC338A114C995BE4B8A86743291C1AE7@RPITSEXMS3.its.uncc.edu>
+	<C6AEDBA0-8684-4A41-96C7-71C300B644D7@mhc.cuny.edu>
+Message-ID: <469C92EC338A114C995BE4B8A86743291C1B10@RPITSEXMS3.its.uncc.edu>
+
+Joseph,
+
+I just looked at wp-includes/functions.php (part of core) and the "get_allowed_mime_types" function is what is determining which file types are acceptable or not.
+	.accdb is NOT listed in this function, but .mdb is listed in it.
+This is why I cannot upload a .accdb file into WP, but I can upload a .mdb file.
+
+So, even in the single-install of WordPress, the acceptable file types to upload are limited and not easily updated (out of the box).
+It appears that either you have to edit wp-includes/functions.php (part of core)  and add/remove file types from the "get_allowed_mime_types" function or you have to use one of the WP plugins (or write your own) to manage the list of allowed file types to upload into WordPress.   
+
+On one of my multi-site installs, I could not upload the .accdb, nor could I upload the .mdb file.
+So, I added the mdb and accdb file formats to the "Upload file types" item in the Upload Settings area of multisite network settings. 
+Afterwhich I could go into one of the sites in this network and upload the .mdb BUT NOT the .accdb file.     
+Hmmm....   It appears that on a multisite the filetype must be in the "get_allowed_mime_types" function of the wp-includes/functions.php file AND in the "Upload file types" list.
+
+In reply to your email below:
+
+The goal is to be able to easily add (or remove) file types from the list of file types that can be uploaded into WordPress.  I need this ability for single-site installs as well as multisite installs.   I don't want to have to edit the core functions.php file (listed above), because then it becomes a maint. issue when applying WordPress upgrades/patches.
+
+Does anyone have advice?    
+
+Thanks,
+Dave
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, May 10, 2012 3:33 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+Weird indeed and you may have me stumped, but maybe some of the more expert folks on the list can help.
+
+But just to clarify...
+
+What you want to do is to be able to use the "Upload file types" item in the Upload Settings area of multisite network settings to add or subtract filetypes?
+
+Is that right?
+
+I guess I'm not certain what the goal is here--to have this work in single-site (standard) or multi-site?
+
+I can vouch for the fact that it does (or should) work in multi-site.  So I'm not sure how the different behavior in single-site really helps?
+
+
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 3:23 PM, Whisler, Dave wrote:
+
+> Joseph,
+> 
+> Ok, so I tried what you said in a regular install of WordPress 3.3.2 (latest version - not configured for multisite).
+> I was not able to upload a MS-Access 2007 db file (.accdb) which I created just for this test (just has one table in it with a couple of records...).
+> However, when I renamed the file to the old MS-Access 2003 db file extension (.mdb file format), then WordPress allowed me to upload it.
+> 
+> Weird, huh?
+> 
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+> UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+> disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+> received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+> 
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+> Sent: Thursday, May 10, 2012 12:36 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+> 
+> Hi Dave,
+> 
+> As far as I've seen, that limit on uploaded file types is specific to multisite, not configurable in standard, because the possible security problem of untrusted (or less-trusted) users doesn't exist in single-user WordPress.  If you're the single user, it can be assumed that you trust yourself.
+> 
+> In multisite, though, that option does work fine.  WordPress does utilize it, without any plugins, or at least it always has in our install.  We can add new file types to that list, and files of that type can then be uploaded.  Or conversely, when we remove file types from that list, they can no longer be uploaded.
+> 
+> So if that's not working for you, there must be something else wrong.  Maybe php settings?  
+> 
+> If everything's functioning as it should, as it's designed to, that list of acceptable file types is workable and effective.
+> 
+> Joe
+> 
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+> 
+> 
+> 
+> 
+> 
+> 
+> On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+> 
+>> I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+>> 
+>> Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+>> WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  "Upload file types".   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing? 
+>> 
+>> Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+>> 
+>> The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+>> 
+>> 1.       What is the correct way to accomplish this?
+>> 2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide - and not have to do any configuration changes on individual sites.
+>> 
+>> Below are some Plugins that appear like they might do the job.
+>> http://wordpress.org/extend/plugins/ap-extended-mime-types/
+>> 
+>> http://wordpress.org/extend/plugins/manage-upload-types/
+>> 
+>> http://wordpress.org/extend/plugins/add-more-files-extensions/
+>> 
+>> http://wordpress.org/extend/plugins/uploads/
+>> 
+>> 
+>> In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings: 
+>> SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes";
+>> However, I've not found anything like this on a single-site WordPress installation.
+>> 
+>> Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php - add the filetypes in the "get_allowed_mime_types() function).   However, I'd rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) - as this just adds complications. 
+>> 
+>> Please let me know how you accomplish this - as I want to best method for the long-run - one that won't end up causing problems in the future.
+>> 
+>> Thanks,
+>> Dave
+>> 
+>> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+>> UNC Charlotte | The William States Lee College of Engineering
+>> 9201 University City Blvd. | Charlotte, NC 28223
+>> Phone: 704-687-3964 | Fax: 704-687-2352
+>> dkwhisle at uncc.edu | http://www.uncc.edu
+>> ---------------------------------------------------------------------------
+>> If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+>> disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+>> received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+>> 
+>> <ATT00001.c>
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From mmuro at advance.ua.edu  Thu May 10 20:01:21 2012
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Thu, 10 May 2012 15:01:21 -0500
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+In-Reply-To: <469C92EC338A114C995BE4B8A86743291C1B10@RPITSEXMS3.its.uncc.edu>
+References: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+	<7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+	<469C92EC338A114C995BE4B8A86743291C1AE7@RPITSEXMS3.its.uncc.edu>
+	<C6AEDBA0-8684-4A41-96C7-71C300B644D7@mhc.cuny.edu>
+	<469C92EC338A114C995BE4B8A86743291C1B10@RPITSEXMS3.its.uncc.edu>
+Message-ID: <2FDE7F7B-2430-4226-93D1-665B44E260E8@ur.ua.edu>
+
+You do not and should not have to edit the core to add or remove a mime type.  Use the filter upload_mimes.
+
+http://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+
+
+
+
+
+On May 10, 2012, at 2:58 PM, Whisler, Dave wrote:
+
+Joseph,
+
+I just looked at wp-includes/functions.php (part of core) and the "get_allowed_mime_types" function is what is determining which file types are acceptable or not.
+       .accdb is NOT listed in this function, but .mdb is listed in it.
+This is why I cannot upload a .accdb file into WP, but I can upload a .mdb file.
+
+So, even in the single-install of WordPress, the acceptable file types to upload are limited and not easily updated (out of the box).
+It appears that either you have to edit wp-includes/functions.php (part of core)  and add/remove file types from the "get_allowed_mime_types" function or you have to use one of the WP plugins (or write your own) to manage the list of allowed file types to upload into WordPress.
+
+On one of my multi-site installs, I could not upload the .accdb, nor could I upload the .mdb file.
+So, I added the mdb and accdb file formats to the "Upload file types" item in the Upload Settings area of multisite network settings.
+Afterwhich I could go into one of the sites in this network and upload the .mdb BUT NOT the .accdb file.
+Hmmm....   It appears that on a multisite the filetype must be in the "get_allowed_mime_types" function of the wp-includes/functions.php file AND in the "Upload file types" list.
+
+In reply to your email below:
+
+The goal is to be able to easily add (or remove) file types from the list of file types that can be uploaded into WordPress.  I need this ability for single-site installs as well as multisite installs.   I don't want to have to edit the core functions.php file (listed above), because then it becomes a maint. issue when applying WordPress upgrades/patches.
+
+Does anyone have advice?
+
+Thanks,
+Dave
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu<mailto:dkwhisle at uncc.edu> | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com<mailto:wp-edu-bounces at lists.automattic.com> [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, May 10, 2012 3:33 PM
+To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+Weird indeed and you may have me stumped, but maybe some of the more expert folks on the list can help.
+
+But just to clarify...
+
+What you want to do is to be able to use the "Upload file types" item in the Upload Settings area of multisite network settings to add or subtract filetypes?
+
+Is that right?
+
+I guess I'm not certain what the goal is here--to have this work in single-site (standard) or multi-site?
+
+I can vouch for the fact that it does (or should) work in multi-site.  So I'm not sure how the different behavior in single-site really helps?
+
+
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 3:23 PM, Whisler, Dave wrote:
+
+Joseph,
+
+Ok, so I tried what you said in a regular install of WordPress 3.3.2 (latest version - not configured for multisite).
+I was not able to upload a MS-Access 2007 db file (.accdb) which I created just for this test (just has one table in it with a couple of records...).
+However, when I renamed the file to the old MS-Access 2003 db file extension (.mdb file format), then WordPress allowed me to upload it.
+
+Weird, huh?
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, May 10, 2012 12:36 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+Hi Dave,
+
+As far as I've seen, that limit on uploaded file types is specific to multisite, not configurable in standard, because the possible security problem of untrusted (or less-trusted) users doesn't exist in single-user WordPress.  If you're the single user, it can be assumed that you trust yourself.
+
+In multisite, though, that option does work fine.  WordPress does utilize it, without any plugins, or at least it always has in our install.  We can add new file types to that list, and files of that type can then be uploaded.  Or conversely, when we remove file types from that list, they can no longer be uploaded.
+
+So if that's not working for you, there must be something else wrong.  Maybe php settings?
+
+If everything's functioning as it should, as it's designed to, that list of acceptable file types is workable and effective.
+
+Joe
+
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+
+I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+
+Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  "Upload file types".   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing?
+
+Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+
+The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+
+1.       What is the correct way to accomplish this?
+2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide - and not have to do any configuration changes on individual sites.
+
+Below are some Plugins that appear like they might do the job.
+http://wordpress.org/extend/plugins/ap-extended-mime-types/
+
+http://wordpress.org/extend/plugins/manage-upload-types/
+
+http://wordpress.org/extend/plugins/add-more-files-extensions/
+
+http://wordpress.org/extend/plugins/uploads/
+
+
+In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings:
+SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes";
+However, I've not found anything like this on a single-site WordPress installation.
+
+Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php - add the filetypes in the "get_allowed_mime_types() function).   However, I'd rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) - as this just adds complications.
+
+Please let me know how you accomplish this - as I want to best method for the long-run - one that won't end up causing problems in the future.
+
+Thanks,
+Dave
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any
+disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have
+received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+<ATT00001.c>
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From dkwhisle at uncc.edu  Thu May 10 20:43:53 2012
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Thu, 10 May 2012 20:43:53 +0000
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+In-Reply-To: <2FDE7F7B-2430-4226-93D1-665B44E260E8@ur.ua.edu>
+References: <469C92EC338A114C995BE4B8A86743291C19AC@RPITSEXMS3.its.uncc.edu>
+	<7FD3E1E3-56B6-4351-8036-A9F85CE92ED4@mhc.cuny.edu>
+	<469C92EC338A114C995BE4B8A86743291C1AE7@RPITSEXMS3.its.uncc.edu>
+	<C6AEDBA0-8684-4A41-96C7-71C300B644D7@mhc.cuny.edu>
+	<469C92EC338A114C995BE4B8A86743291C1B10@RPITSEXMS3.its.uncc.edu>
+	<2FDE7F7B-2430-4226-93D1-665B44E260E8@ur.ua.edu>
+Message-ID: <469C92EC338A114C995BE4B8A86743291C1B51@RPITSEXMS3.its.uncc.edu>
+
+I followed the directions in that weblink and it works perfectly.   Thanks!    
+Is there any way to put a weblink to this page on the doc page about file uploads (http://codex.wordpress.org/Uploading_Files) so it's easier to find?
+
+Dave
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Muro, Matthew
+Sent: Thursday, May 10, 2012 4:01 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+You do not and should not have to edit the core to add or remove a mime type.  Use the filter upload_mimes.
+
+http://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+
+
+
+
+
+On May 10, 2012, at 2:58 PM, Whisler, Dave wrote:
+
+Joseph,
+
+I just looked at wp-includes/functions.php (part of core) and the "get_allowed_mime_types" function is what is determining which file types are acceptable or not.
+       .accdb is NOT listed in this function, but .mdb is listed in it.
+This is why I cannot upload a .accdb file into WP, but I can upload a .mdb file.
+
+So, even in the single-install of WordPress, the acceptable file types to upload are limited and not easily updated (out of the box).
+It appears that either you have to edit wp-includes/functions.php (part of core)  and add/remove file types from the "get_allowed_mime_types" function or you have to use one of the WP plugins (or write your own) to manage the list of allowed file types to upload into WordPress.
+
+On one of my multi-site installs, I could not upload the .accdb, nor could I upload the .mdb file.
+So, I added the mdb and accdb file formats to the "Upload file types" item in the Upload Settings area of multisite network settings.
+Afterwhich I could go into one of the sites in this network and upload the .mdb BUT NOT the .accdb file.
+Hmmm....   It appears that on a multisite the filetype must be in the "get_allowed_mime_types" function of the wp-includes/functions.php file AND in the "Upload file types" list.
+
+In reply to your email below:
+
+The goal is to be able to easily add (or remove) file types from the list of file types that can be uploaded into WordPress.  I need this ability for single-site installs as well as multisite installs.   I don't want to have to edit the core functions.php file (listed above), because then it becomes a maint. issue when applying WordPress upgrades/patches.
+
+Does anyone have advice?
+
+Thanks,
+Dave
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu<mailto:dkwhisle at uncc.edu> | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com<mailto:wp-edu-bounces at lists.automattic.com> [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, May 10, 2012 3:33 PM
+To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+Weird indeed and you may have me stumped, but maybe some of the more expert folks on the list can help.
+
+But just to clarify...
+
+What you want to do is to be able to use the "Upload file types" item in the Upload Settings area of multisite network settings to add or subtract filetypes?
+
+Is that right?
+
+I guess I'm not certain what the goal is here--to have this work in single-site (standard) or multi-site?
+
+I can vouch for the fact that it does (or should) work in multi-site.  So I'm not sure how the different behavior in single-site really helps?
+
+
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 3:23 PM, Whisler, Dave wrote:
+
+Joseph,
+
+Ok, so I tried what you said in a regular install of WordPress 3.3.2 (latest version - not configured for multisite).
+I was not able to upload a MS-Access 2007 db file (.accdb) which I created just for this test (just has one table in it with a couple of records...).
+However, when I renamed the file to the old MS-Access 2003 db file extension (.mdb file format), then WordPress allowed me to upload it.
+
+Weird, huh?
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, May 10, 2012 12:36 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+
+Hi Dave,
+
+As far as I've seen, that limit on uploaded file types is specific to multisite, not configurable in standard, because the possible security problem of untrusted (or less-trusted) users doesn't exist in single-user WordPress.  If you're the single user, it can be assumed that you trust yourself.
+
+In multisite, though, that option does work fine.  WordPress does utilize it, without any plugins, or at least it always has in our install.  We can add new file types to that list, and files of that type can then be uploaded.  Or conversely, when we remove file types from that list, they can no longer be uploaded.
+
+So if that's not working for you, there must be something else wrong.  Maybe php settings?
+
+If everything's functioning as it should, as it's designed to, that list of acceptable file types is workable and effective.
+
+Joe
+
+--
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+
+I need to know the best way to add/remove items from the list of acceptable file types (file extensions) that are permitted in WordPress 3.x.x.
+
+Standard WordPress (non-multisite):  It does not have any options to add/remove file from the WP Dashboard.
+WP MultiSite Installation:  If you go into the network admin Dashboard, it has a field that has a list of acceptable file types here:   Dashboard -> Settings -> Network Settings ->  "Upload file types".   However, adding a new file type to this list does not seem to enable me to upload a file of this type to any of the sites on this WP network.    What am I missing?
+
+Why would WordPress have this option listed in the Network configuration on Multisite installations and then not utilize it?     And where is this option on a normal WordPress install?
+
+The online WordPress codex seems to be silent on this:    http://codex.wordpress.org/Uploading_Files
+
+1.       What is the correct way to accomplish this?
+2.       And if it cannot be accomplished without using (or writing a plugin), let me know which Plugins you have used and why.   Below are some plugins that I found (not tested yet) that seem like they might accomplish this.   Does anyone have experience using them on a WP multisite network?    A major concern is that I do not want to be able to set them network-wide - and not have to do any configuration changes on individual sites.
+
+Below are some Plugins that appear like they might do the job.
+http://wordpress.org/extend/plugins/ap-extended-mime-types/
+
+http://wordpress.org/extend/plugins/manage-upload-types/
+
+http://wordpress.org/extend/plugins/add-more-files-extensions/
+
+http://wordpress.org/extend/plugins/uploads/
+
+
+In the database for WP Multi-sites, you can run this query to see the same list of upload filetypes as in the Network Settings:
+SELECT meta_key, meta_value FROM wp_sitemeta WHERE meta_key="upload_filetypes"; However, I've not found anything like this on a single-site WordPress installation.
+
+Some people suggest modifying the function.php file in your WordPress theme to do it.   While others have said to modify WordPress core (wp-includes/functions.php - add the filetypes in the "get_allowed_mime_types() function).   However, I'd rather not modify my theme (what if we want to change themes?) or WordPress core (what about upgrades) - as this just adds complications.
+
+Please let me know how you accomplish this - as I want to best method for the long-run - one that won't end up causing problems in the future.
+
+Thanks,
+Dave
+
+David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla Administrator UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+---------------------------------------------------------------------------
+If you are not the intended recipient of this transmission or a person responsible for delivering it to the intended recipient, any disclosure, copying, distribution, or other use of any of the information in this transmission is strictly prohibited. If you have received this transmission in error, please notify me immediately by reply e-mail or by telephone at 704-687-3964. Thank you.
+
+<ATT00001.c>
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From hornetok at gmail.com  Fri May 11 13:57:19 2012
+From: hornetok at gmail.com (Joshua Maxwell)
+Date: Fri, 11 May 2012 08:57:19 -0500
+Subject: [wp-edu] managing Upload Filetypes on WordPress 3.x.x (Maxwell,
+	Josh)
+Message-ID: <CAP3hb2K9_Ca1zS6a2k7D9VKty1Z4ScHJ_OazBQTx12-xKaJLgw@mail.gmail.com>
+
+Hate to come in late and at the end of a "solution", but I wanted to share
+that I created a plugin with WPMS specifically in mind to allow blogs on a
+network to upload a variety of mime-types -- without having to hack the
+core or include it into every theme's functions.php.
+
+http://wordpress.org/extend/plugins/ap-extended-mime-types
+
+
+Thanks,
+Josh Maxwell
+Web Designer
+Tahlequah Public Schools
+
+
+
+
+On Fri, May 11, 2012 at 7:00 AM, <wp-edu-request at lists.automattic.com>wrote:
+
+> Send wp-edu mailing list submissions to
+>        wp-edu at lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+>        wp-edu-request at lists.automattic.com
+>
+> You can reach the person managing the list at
+>        wp-edu-owner at lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Re: managing Upload Filetypes on WordPress 3.x.x (Whisler, Dave)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Thu, 10 May 2012 20:43:53 +0000
+> From: "Whisler, Dave" <dkwhisle at uncc.edu>
+> Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+> To: "'wp-edu at lists.automattic.com'" <wp-edu at lists.automattic.com>
+> Message-ID:
+>        <469C92EC338A114C995BE4B8A86743291C1B51 at RPITSEXMS3.its.uncc.edu>
+> Content-Type: text/plain; charset="us-ascii"
+>
+> I followed the directions in that weblink and it works perfectly.   Thanks!
+> Is there any way to put a weblink to this page on the doc page about file
+> uploads (http://codex.wordpress.org/Uploading_Files) so it's easier to
+> find?
+>
+> Dave
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:
+> wp-edu-bounces at lists.automattic.com] On Behalf Of Muro, Matthew
+> Sent: Thursday, May 10, 2012 4:01 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+>
+> You do not and should not have to edit the core to add or remove a mime
+> type.  Use the filter upload_mimes.
+>
+> http://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes
+>
+> Matthew Muro
+> Web Developer
+> UA Office of Web Communications
+>
+>
+>
+>
+>
+> On May 10, 2012, at 2:58 PM, Whisler, Dave wrote:
+>
+> Joseph,
+>
+> I just looked at wp-includes/functions.php (part of core) and the
+> "get_allowed_mime_types" function is what is determining which file types
+> are acceptable or not.
+>       .accdb is NOT listed in this function, but .mdb is listed in it.
+> This is why I cannot upload a .accdb file into WP, but I can upload a .mdb
+> file.
+>
+> So, even in the single-install of WordPress, the acceptable file types to
+> upload are limited and not easily updated (out of the box).
+> It appears that either you have to edit wp-includes/functions.php (part of
+> core)  and add/remove file types from the "get_allowed_mime_types" function
+> or you have to use one of the WP plugins (or write your own) to manage the
+> list of allowed file types to upload into WordPress.
+>
+> On one of my multi-site installs, I could not upload the .accdb, nor could
+> I upload the .mdb file.
+> So, I added the mdb and accdb file formats to the "Upload file types" item
+> in the Upload Settings area of multisite network settings.
+> Afterwhich I could go into one of the sites in this network and upload the
+> .mdb BUT NOT the .accdb file.
+> Hmmm....   It appears that on a multisite the filetype must be in the
+> "get_allowed_mime_types" function of the wp-includes/functions.php file AND
+> in the "Upload file types" list.
+>
+> In reply to your email below:
+>
+> The goal is to be able to easily add (or remove) file types from the list
+> of file types that can be uploaded into WordPress.  I need this ability for
+> single-site installs as well as multisite installs.   I don't want to have
+> to edit the core functions.php file (listed above), because then it becomes
+> a maint. issue when applying WordPress upgrades/patches.
+>
+> Does anyone have advice?
+>
+> Thanks,
+> Dave
+>
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla
+> Administrator UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu<mailto:dkwhisle at uncc.edu> | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person
+> responsible for delivering it to the intended recipient, any disclosure,
+> copying, distribution, or other use of any of the information in this
+> transmission is strictly prohibited. If you have received this transmission
+> in error, please notify me immediately by reply e-mail or by telephone at
+> 704-687-3964. Thank you.
+>
+>
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com<mailto:
+> wp-edu-bounces at lists.automattic.com> [mailto:
+> wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+> Sent: Thursday, May 10, 2012 3:33 PM
+> To: wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+>
+> Weird indeed and you may have me stumped, but maybe some of the more
+> expert folks on the list can help.
+>
+> But just to clarify...
+>
+> What you want to do is to be able to use the "Upload file types" item in
+> the Upload Settings area of multisite network settings to add or subtract
+> filetypes?
+>
+> Is that right?
+>
+> I guess I'm not certain what the goal is here--to have this work in
+> single-site (standard) or multi-site?
+>
+> I can vouch for the fact that it does (or should) work in multi-site.  So
+> I'm not sure how the different behavior in single-site really helps?
+>
+>
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean of Teaching, Learning and Technology Macaulay Honors
+> College - CUNY
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+>
+>
+>
+>
+>
+>
+> On May 10, 2012, at 3:23 PM, Whisler, Dave wrote:
+>
+> Joseph,
+>
+> Ok, so I tried what you said in a regular install of WordPress 3.3.2
+> (latest version - not configured for multisite).
+> I was not able to upload a MS-Access 2007 db file (.accdb) which I created
+> just for this test (just has one table in it with a couple of records...).
+> However, when I renamed the file to the old MS-Access 2003 db file
+> extension (.mdb file format), then WordPress allowed me to upload it.
+>
+> Weird, huh?
+>
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla
+> Administrator UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person
+> responsible for delivering it to the intended recipient, any disclosure,
+> copying, distribution, or other use of any of the information in this
+> transmission is strictly prohibited. If you have received this transmission
+> in error, please notify me immediately by reply e-mail or by telephone at
+> 704-687-3964. Thank you.
+>
+>
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:
+> wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+> Sent: Thursday, May 10, 2012 12:36 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] managing Upload Filetypes on WordPress 3.x.x
+>
+> Hi Dave,
+>
+> As far as I've seen, that limit on uploaded file types is specific to
+> multisite, not configurable in standard, because the possible security
+> problem of untrusted (or less-trusted) users doesn't exist in single-user
+> WordPress.  If you're the single user, it can be assumed that you trust
+> yourself.
+>
+> In multisite, though, that option does work fine.  WordPress does utilize
+> it, without any plugins, or at least it always has in our install.  We can
+> add new file types to that list, and files of that type can then be
+> uploaded.  Or conversely, when we remove file types from that list, they
+> can no longer be uploaded.
+>
+> So if that's not working for you, there must be something else wrong.
+>  Maybe php settings?
+>
+> If everything's functioning as it should, as it's designed to, that list
+> of acceptable file types is workable and effective.
+>
+> Joe
+>
+> --
+> Joseph Ugoretz, PhD
+> Associate Dean of Teaching, Learning and Technology Macaulay Honors
+> College - CUNY
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+>
+>
+>
+>
+>
+>
+> On May 10, 2012, at 11:21 AM, Whisler, Dave wrote:
+>
+> I need to know the best way to add/remove items from the list of
+> acceptable file types (file extensions) that are permitted in WordPress
+> 3.x.x.
+>
+> Standard WordPress (non-multisite):  It does not have any options to
+> add/remove file from the WP Dashboard.
+> WP MultiSite Installation:  If you go into the network admin Dashboard, it
+> has a field that has a list of acceptable file types here:   Dashboard ->
+> Settings -> Network Settings ->  "Upload file types".   However, adding a
+> new file type to this list does not seem to enable me to upload a file of
+> this type to any of the sites on this WP network.    What am I missing?
+>
+> Why would WordPress have this option listed in the Network configuration
+> on Multisite installations and then not utilize it?     And where is this
+> option on a normal WordPress install?
+>
+> The online WordPress codex seems to be silent on this:
+> http://codex.wordpress.org/Uploading_Files
+>
+> 1.       What is the correct way to accomplish this?
+> 2.       And if it cannot be accomplished without using (or writing a
+> plugin), let me know which Plugins you have used and why.   Below are some
+> plugins that I found (not tested yet) that seem like they might accomplish
+> this.   Does anyone have experience using them on a WP multisite network?
+>  A major concern is that I do not want to be able to set them network-wide
+> - and not have to do any configuration changes on individual sites.
+>
+> Below are some Plugins that appear like they might do the job.
+> http://wordpress.org/extend/plugins/ap-extended-mime-types/
+>
+> http://wordpress.org/extend/plugins/manage-upload-types/
+>
+> http://wordpress.org/extend/plugins/add-more-files-extensions/
+>
+> http://wordpress.org/extend/plugins/uploads/
+>
+>
+> In the database for WP Multi-sites, you can run this query to see the same
+> list of upload filetypes as in the Network Settings:
+> SELECT meta_key, meta_value FROM wp_sitemeta WHERE
+> meta_key="upload_filetypes"; However, I've not found anything like this on
+> a single-site WordPress installation.
+>
+> Some people suggest modifying the function.php file in your WordPress
+> theme to do it.   While others have said to modify WordPress core
+> (wp-includes/functions.php - add the filetypes in the
+> "get_allowed_mime_types() function).   However, I'd rather not modify my
+> theme (what if we want to change themes?) or WordPress core (what about
+> upgrades) - as this just adds complications.
+>
+> Please let me know how you accomplish this - as I want to best method for
+> the long-run - one that won't end up causing problems in the future.
+>
+> Thanks,
+> Dave
+>
+> David K. Whisler | Oracle & MySQL DBA/Developer, WordPress & Joomla
+> Administrator UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ---------------------------------------------------------------------------
+> If you are not the intended recipient of this transmission or a person
+> responsible for delivering it to the intended recipient, any disclosure,
+> copying, distribution, or other use of any of the information in this
+> transmission is strictly prohibited. If you have received this transmission
+> in error, please notify me immediately by reply e-mail or by telephone at
+> 704-687-3964. Thank you.
+>
+> <ATT00001.c>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+> End of wp-edu Digest, Vol 35, Issue 6
+> *************************************
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120511/3f901e80/attachment-0001.htm>
+
+From jeffvand at unc.edu  Thu May 31 19:43:51 2012
+From: jeffvand at unc.edu (VanDrimmelen, Jeff)
+Date: Thu, 31 May 2012 19:43:51 +0000
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <A9C0EED8-A9DF-44FD-9C5D-009B9D4CC583@vcu.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+	<85F05EE0D1E7E1499CCFFE9E3DFDF43C0878FEE5@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<A9C0EED8-A9DF-44FD-9C5D-009B9D4CC583@vcu.edu>
+Message-ID: <AE8BE2E24729AE45A3B4448BAEA6990018D998D5@ITS-MSXMBS3M.ad.unc.edu>
+
+Did anyone ever find a good solution for this?  We are looking to do the same thing today.  Thanks so much for your thoughts and solutions. 
+
+~Jeff
+UNC-CH
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Jonathan Cox
+Sent: Friday, March 23, 2012 8:01 AM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Making media library files private
+
+I'm trying to accomplish the same thing. Yesterday I had the idea of prepending something like 'protected' to the path in the guid of an uploaded file, and then putting a redirect in the .htaccess file that passes requests for ^protected/file/image.jpg to a script that will deliver the file only under certain conditions.
+
+Some or most of you may have known this, but I just realized yesterday that this is how WordPress handles all uploaded file requests in a network installation. The relevant line in the .htaccess file is
+
+RewriteRule ^([_0-9a-zA-Z-]+/)?files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+The ms-files script adds some headers and serves the file. Ideally, there would be an action hook like 'pre_serve_file' where you could just add a function to check conditions before serving the file, but it doesn't look like one exists. I'm going to continue trying to make this work in a similar fashion, probably using a redirect to a plugin script, which will include ms-files.php if certain conditions are met.
+
+Also, having noticed the above rewrite rule, I added a second one to the .htaccess file to prevent those 'blogs.dir' URLs from displaying images and other files from the wrong blog:
+
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-content/blogs.dir/[0-9]+/files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+Jonathan Cox
+VCU Webmaster
+Technology Services
+(804) 827-0067
+
+On Mar 6, 2012, at 11:13 AM, Grogan, David wrote:
+
+> Thanks Bill. I'll bring back any solutions we find that works.
+> 
+> David
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com 
+> [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Bill Dennen
+> Sent: Monday, March 05, 2012 9:31 AM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] Making media library files private
+> 
+> This might be worth looking into:
+> 
+> WP Document Revisions
+> http://wordpress.org/extend/plugins/wp-document-revisions/
+> 
+> "Access Control - Each document is given a persistent URL (e.g.,
+> yourcompany.com/documents/2011/08/TPS-Report.doc) which can be private 
+> (securely delivered only to members of your organization), password 
+> protected (available only to those you select such as clients or 
+> contractors), or public (published and hosted for the world to see).
+> If you catch a typo and upload a new version, that URL will continue 
+> to point to the latest version, regardless of how many changes you 
+> make."
+> 
+> However, given the way WP Multisite media files are served, it may 
+> take additional apache rules to completely block access.
+> 
+> Boston University has written some custom code to do this -- I believe 
+> it writes htaccess files to protect media uploads. You can see their 
+> documentation (but not their code), here for some ideas:
+> 
+> http://www.bu.edu/tech/web/departments/wordpress/management/access/con
+> tent-protection/
+> 
+> -Bill
+> 
+> 
+> On Mon, Mar 5, 2012 at 9:24 AM, Grogan, David <David.Grogan at tufts.edu> wrote:
+>> Hello all,
+>> 
+>> We have a large multi-site instance of WP 3.3.1 and although you can make your WordPress site private to individual named accounts (e.g. try accessing http://sites.tufts.edu/dgtest) it's really only the posts and pages content that is private. Any content uploaded to the sites Media Library (e.g. documents, images, audio etc) is still publicly accessible (e.g. try accessing: http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+>> 
+>> Has anyone come across a solution that will provide privacy to the media library files?
+>> 
+>> David
+>> 
+>> --------------------------------------------------------------
+>> David Grogan
+>> Senior Solutions Specialist
+>> Educational & Scholarly Technology Services (ESTS) University 
+>> Information Technology (UIT) Tufts University
+>> 108 Bromfield Rd
+>> Somerville, MA  02144
+>> 
+>> Phone: 617.627.2859
+>> Fax: 617.627.3082
+>> 
+>> http://uit.tufts.edu/at/
+>> http://sites.tufts.edu/davidgrogan
+>> 
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From cgabel at engr.uky.edu  Thu May 31 19:50:27 2012
+From: cgabel at engr.uky.edu (Christopher Gabel)
+Date: Thu, 31 May 2012 19:50:27 +0000
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <AE8BE2E24729AE45A3B4448BAEA6990018D998D5@ITS-MSXMBS3M.ad.unc.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+	<85F05EE0D1E7E1499CCFFE9E3DFDF43C0878FEE5@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<A9C0EED8-A9DF-44FD-9C5D-009B9D4CC583@vcu.edu>
+	<AE8BE2E24729AE45A3B4448BAEA6990018D998D5@ITS-MSXMBS3M.ad.unc.edu>
+Message-ID: <8A333E503CF59B41A0C19C07D910A5D51E3ACFBB@egret.pond.engr.uky.edu>
+
+Hey Jeff, 
+I've been using http://wordpress.org/extend/plugins/user-access-manager/ and the members plugin http://wordpress.org/extend/plugins/members/  for something similar.  I had a few problems when we had a mapped domain but on subsite and subfolder builds I haven't had any problems.  You can select a box to recursively limit pages, children and documents based on user roles.  UAM drops a htaccess file in the uploads directory for the given site so you don't have to keep updating the htaccess file associated with your build.
+
+Have a great day, 
+
+Chris Gabel
+Webmaster
+Marketing and Communications
+College of Engineering
+University of Kentucky
+211 RMB Building
+Lexington, KY 40506-0108
+p: (859) 257-0163
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of VanDrimmelen, Jeff
+Sent: Thursday, May 31, 2012 3:44 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Making media library files private
+
+Did anyone ever find a good solution for this?  We are looking to do the same thing today.  Thanks so much for your thoughts and solutions. 
+
+~Jeff
+UNC-CH
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Jonathan Cox
+Sent: Friday, March 23, 2012 8:01 AM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Making media library files private
+
+I'm trying to accomplish the same thing. Yesterday I had the idea of prepending something like 'protected' to the path in the guid of an uploaded file, and then putting a redirect in the .htaccess file that passes requests for ^protected/file/image.jpg to a script that will deliver the file only under certain conditions.
+
+Some or most of you may have known this, but I just realized yesterday that this is how WordPress handles all uploaded file requests in a network installation. The relevant line in the .htaccess file is
+
+RewriteRule ^([_0-9a-zA-Z-]+/)?files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+The ms-files script adds some headers and serves the file. Ideally, there would be an action hook like 'pre_serve_file' where you could just add a function to check conditions before serving the file, but it doesn't look like one exists. I'm going to continue trying to make this work in a similar fashion, probably using a redirect to a plugin script, which will include ms-files.php if certain conditions are met.
+
+Also, having noticed the above rewrite rule, I added a second one to the .htaccess file to prevent those 'blogs.dir' URLs from displaying images and other files from the wrong blog:
+
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-content/blogs.dir/[0-9]+/files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+Jonathan Cox
+VCU Webmaster
+Technology Services
+(804) 827-0067
+
+On Mar 6, 2012, at 11:13 AM, Grogan, David wrote:
+
+> Thanks Bill. I'll bring back any solutions we find that works.
+> 
+> David
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com
+> [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Bill Dennen
+> Sent: Monday, March 05, 2012 9:31 AM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] Making media library files private
+> 
+> This might be worth looking into:
+> 
+> WP Document Revisions
+> http://wordpress.org/extend/plugins/wp-document-revisions/
+> 
+> "Access Control - Each document is given a persistent URL (e.g.,
+> yourcompany.com/documents/2011/08/TPS-Report.doc) which can be private 
+> (securely delivered only to members of your organization), password 
+> protected (available only to those you select such as clients or 
+> contractors), or public (published and hosted for the world to see).
+> If you catch a typo and upload a new version, that URL will continue 
+> to point to the latest version, regardless of how many changes you 
+> make."
+> 
+> However, given the way WP Multisite media files are served, it may 
+> take additional apache rules to completely block access.
+> 
+> Boston University has written some custom code to do this -- I believe 
+> it writes htaccess files to protect media uploads. You can see their 
+> documentation (but not their code), here for some ideas:
+> 
+> http://www.bu.edu/tech/web/departments/wordpress/management/access/con
+> tent-protection/
+> 
+> -Bill
+> 
+> 
+> On Mon, Mar 5, 2012 at 9:24 AM, Grogan, David <David.Grogan at tufts.edu> wrote:
+>> Hello all,
+>> 
+>> We have a large multi-site instance of WP 3.3.1 and although you can make your WordPress site private to individual named accounts (e.g. try accessing http://sites.tufts.edu/dgtest) it's really only the posts and pages content that is private. Any content uploaded to the sites Media Library (e.g. documents, images, audio etc) is still publicly accessible (e.g. try accessing: http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+>> 
+>> Has anyone come across a solution that will provide privacy to the media library files?
+>> 
+>> David
+>> 
+>> --------------------------------------------------------------
+>> David Grogan
+>> Senior Solutions Specialist
+>> Educational & Scholarly Technology Services (ESTS) University 
+>> Information Technology (UIT) Tufts University
+>> 108 Bromfield Rd
+>> Somerville, MA  02144
+>> 
+>> Phone: 617.627.2859
+>> Fax: 617.627.3082
+>> 
+>> http://uit.tufts.edu/at/
+>> http://sites.tufts.edu/davidgrogan
+>> 
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+

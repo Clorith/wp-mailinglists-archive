@@ -1,0 +1,99 @@
+From jackie at sdiwc.info  Fri Dec  2 06:06:59 2016
+From: jackie at sdiwc.info (Jackie Blanco)
+Date: Thu, 01 Dec 2016 23:06:59 -0700
+Subject: [wp-edu] Cyber Security,
+ Cyber Welfare and Digital Forensic - Call for Participation and
+ Papers
+Message-ID: <02f748b309eff16ef704fab0fc0db522@sdiwc.info>
+
+*********************************************************************
+Call for Participation and Research Papers
+
+CyberSec2017: The Fifth International Conference on Cyber Security, 
+Cyber Welfare and Digital Forensic
+
+22-24 April 2017, St. Mary's University, Addis Ababa, Ethiopia
+
+https://goo.gl/mbDr7F
+
+*********************************************************************
+
+You are cordially invited to participate and contribute to the 5th 
+International Conference on Cyber Security, Cyber Welfare and Digital 
+Forensic (CyberSec2017).
+
+This conference is looking forward for participation of delegates in 
+contribution to CyberSec field of topics. CyberSec aims to enable 
+researchers build connections between different digital applications and 
+engineering. The event will be held over three days, with presentations 
+delivered by researchers from the international community, including 
+presentations from keynote speakers and state-of-the-art lectures. The 
+conference welcomes papers on the following research topics:
+
+- Cyber Security
+- Distributed and Pervasive Systems Security
+- Formal Methods Application in Security
+- Incident Handling and Penetration Testing
+- Digital Forensic
+- Anti-Forensics and Anti-Anti-Forensics Techniques
+- Data leakage, Data protection and Database forensics
+- Cyber-Crimes
+- Information Assurance and Security Management
+- Business Continuity & Disaster Recovery Planning
+- Critical Infrastructure Protection
+- Cyber Peacefare and Physical Security
+- Authentication and Access Control Systems
+- Biometrics standards and standardization
+
+:: General Chair
+    Kebede Kassa, St. Mary?s University, Ethiopia
+
+:: Keynote Speaker
+    Dr. Solomon Atnafu, Addis Ababa University, Ethiopia
+
+The conference uses double-blind review by at least two reviewers, which 
+means that both the reviewer and author identities are concealed from 
+the reviewers, and vice versa, throughout the review process. To 
+facilitate this, authors need to ensure that their manuscripts are 
+prepared in a way that does not give away their identity.
+
+Full paper submission is due on March 1, 2017.
+
+From stergatu at cti.gr  Tue Dec  6 08:16:56 2016
+From: stergatu at cti.gr (Stergatou Eleni)
+Date: Tue, 6 Dec 2016 08:16:56 +0000
+Subject: [wp-edu] Admin notification for low space in subsites
+Message-ID: <618913179437F14AB3A65275853EA37271D538D7@MAIL.cti.gr>
+
+Hi.
+We made a small snippet which notifies the superadmin via email in case of a subsite has less than 200MB space left.
+
+Maybe this can be useful for some of you also. Just add it in the custom.php of your installation.
+
+
+/**
+* Send email to super admin when the blog's available space is less than 200MB
+*/
+function ls_blog_space_mail() {
+    $space_left = round( get_upload_space_available() / 1024 / 1024 );
+    if ( $space_left < 200 ) {
+     $message = 'Site ' . get_site_url() . ' has only ' . $space_left . 'MB space left. '
+           . 'If you wish to expand the available space visit  ' . network_admin_url( 'site-settings.php?id=' . get_current_blog_id() ) . '  and increase the  "' . __( 'Site Upload Space Quota' ) . '."';
+     wp_mail( get_site_option( 'admin_email' ), "[ " . wp_specialchars_decode( get_option( 'blogname' ) ) . " ].  Low available space", $message );
+    }
+}
+
+if ( is_multisite() ) {
+    add_action( 'activity_box_end', 'ls_blog_space_mail' );
+}
+
+
+You can find the function also  in https://github.com/lenasterg/wpms_snippet/blob/master/alert_netadmin_low_blog_space
+
+
+Best regards,
+Lena Stergatou
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20161206/207f8bb9/attachment.html>
+

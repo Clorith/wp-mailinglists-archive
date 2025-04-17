@@ -1,0 +1,1699 @@
+From lorelleonwordpress at gmail.com  Mon Dec  1 06:02:42 2008
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Mon Dec  1 06:02:49 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <49316F19.9040005@htcomp.net>
+References: <492E98E6.6010402@htcomp.net>
+	<fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>
+	<49316F19.9040005@htcomp.net>
+Message-ID: <fded39850811302202j21c19d46kf46c96d8c1638d9d@mail.gmail.com>
+
+You make some good points. In general, the pages used to be fairly
+consistent, and we hope to keep them that way.
+
+There are supposed to be text copies of the code spelling out the steps,
+screencasts, and/or videos, not only one option. We need to have options for
+everyone. Sorry you misinterpreted that.
+
+As for the jargon, what were template tags, that used various "functions" to
+work, were the original name for WordPress-specific code within a WordPress
+Theme. Now the word "functions" has it's own meaning with the expansion of
+programming code within WordPress, and as such, an evolution in the
+name-calling language is happening and I'm waiting for the dust to settle as
+WordPress changes even more in the next version.
+
+Jacob and the rest are right in that the Codex is meant to offer
+hand-holding and a guide to how to use WordPress, and his work and the work
+of others to document the code beyond WordPress Themes into the programming
+language is critical, and the Codex must support that work, though not
+replace it.
+
+Honestly, throw yourself into this, and others will join the cause. Don't
+kill yourself, do what you can. The Codex is an open, living document,
+changing all the time. It will change dramatically as soon as I get some
+more feedback from the development team on structure associated with
+WordPress 2.7, so hang on to your socks.
+
+But don't let that stop you. Dig in. Do what you can. Use your best
+judgment. There are some core standards on how the Codex works, but all is
+fixable. Just read through the core Codex guidelines (no "I" stories, link
+to all panel keywords, etc.) and you should be fine. Let us know which
+articles you have worked on at first, and we'll double check them for you if
+you want.
+
+All help welcome. Thank you so much for your desire to take this on.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081201/5a2603ed/attachment.htm
+From dangayle at gmail.com  Tue Dec  2 18:04:21 2008
+From: dangayle at gmail.com (Dan Gayle)
+Date: Tue Dec  2 18:04:36 2008
+Subject: [wp-docs] List of added CSS classes
+Message-ID: <E4ED5E7D-B965-4621-B324-57BCEBB5E1A5@gmail.com>
+
+Is there a list anywhere of all of the wordpress generated classes?  
+The http://codex.wordpress.org/CSS page lists a few of them, but I  
+think there should be a list of them in the codex, since they are  
+currently spread out throughout the relevant template tag pages, and  
+not always even there. (I just added .categories .cat-item  
+and .current-cat-parent to the wp_list_categories page).
+
+I have these, but I know I must be missing some that come from the  
+write posts panel or other template tags that aren't used as often:
+
+These were already documented at http://codex.wordpress.org/CSS
+
+.aligncenter{}
+.alignleft{}
+.alignright{}
+.wp-caption{}
+.wp-caption-text{}
+
+I added these to the http://codex.wordpress.org/CSS
+.categories {}
+.cat-item {}
+.current-cat {}
+.current-cat-parent {}
+.pagenav {}
+.page_item {}
+.current_page_item {}
+.current_page_parent {}
+.widget {}
+.widget_text {}
+.blogroll {}
+.linkcat {}
+
+
+I think it would be useful resource to theme developers to know what  
+classes come standard, so that they can build them into their  
+stylesheets without having to rebuild the wheel, or look for solutions  
+that already exist.
+From lorelleonwordpress at gmail.com  Thu Dec  4 19:40:12 2008
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu Dec  4 19:40:27 2008
+Subject: [wp-docs] Changing the WordPress Codex References to Administration
+	Panels
+Message-ID: <fded39850812041140l5d4f328ai6bc898a8e11adef2@mail.gmail.com>
+
+Time to get cracking. WordPress 2.7 will be on WordPress.com in a few hours,
+and we, the documentation team, need to get our acts together.
+
+In general, the Codex will not be supporting old versions of WordPress since
+most have known security vulnerabilities and we are encouraging upgrading to
+the latest version accordingly. This doesn't mean "old" articles will be
+obsolete and deleted. They are to be marked as follows:
+
+1. For pages covering known versions, add this to the top with the correct
+version number.
+
+   {{Oldpage|2.6}} or whatever the version number is.
+
+2. For sections covering older versions, you can add the same thing in the
+section, under the section title.
+
+3. For pages covering older versions, but not specific older versions, add
+this to the top of the page.
+
+   {{Oldversion}}
+
+I recommend you add {{Oldversion}} when in doubt.
+
+Here is a to do list to help volunteers get started. It would be nice to let
+us know if you will take on a specific set of documents, such as everything
+within the installation, design, or whatever sections. I'll be working with
+Jane on adding the new screencasts to the WordPress Lessons and other key
+pages within the Codex.
+
+1. See http://en.blog.wordpress.com/2008/12/03/27-gets-here-in-two-days/ for
+changes in how panels are to be referenced. In the past, we've pointed to
+menu items such as Write > Post and the new version is Posts: Add New. All
+references need to be updated accordingly.
+
+2. Jane is working on http://codex.wordpress.org/Administration_Panels, one
+of the most linked to pages on the Codex. When the updates are finished
+which match the new version, let's ensure that we follow that lead with all
+of our guides and references for naming things.
+
+3. If you are currently using the Beta RC, please go through the
+Administration Pages and find every link to a help file on the Codex and
+ensure that these documents are up-to-date and accurate, as well as reflect
+the changes in WordPress. We will need many eyes to review these, as well as
+find them, to ensure they are ready.
+
+4. I will be working on the new table of contents and posting it hopefully
+next week. I've been waiting for new changes in the naming structure and
+interface before jumping too fast. I'll be announcing the demo pages here
+and seeking input. We're aiming to keep the table of contents pages very
+simple and easy to find things.
+
+5. I've asked Matt Thomas several times to fix the CSS in the Codex,
+especially restoring image floats and DIV styles for demo examples, as we
+have no access. Hopefully, he will implement those improvements soon to make
+it easier to read and work with the Codex, as well as edit and contribute.
+
+Thanks to everyone for pitching in, and I'll try to get the WP-Docs IRC
+channel open next week for immediate input and response as we work on the
+Codex. Hope to see you there!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081204/7c9e524e/attachment.htm
+From justmichaelh at gmail.com  Thu Dec  4 20:13:55 2008
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Thu Dec  4 20:14:11 2008
+Subject: [wp-docs] Changing the WordPress Codex References to
+	AdministrationPanels
+References: <fded39850812041140l5d4f328ai6bc898a8e11adef2@mail.gmail.com>
+Message-ID: <027501c9564c$d8129710$6701a8c0@dell8600>
+
+
+----- Original Message ----- 
+From: "Lorelle on WordPress" <lorelleonwordpress@gmail.com>
+>
+> 2. Jane is working on http://codex.wordpress.org/Administration_Panels, 
+> one
+> of the most linked to pages on the Codex. When the updates are finished
+> which match the new version, let's ensure that we follow that lead with 
+> all
+> of our guides and references for naming things.
+
+Administration Panels is completed and in place.  Many SubPanels are done as 
+well.
+
+MichaelH
+
+From lorelleonwordpress at gmail.com  Thu Dec  4 21:32:47 2008
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu Dec  4 21:33:08 2008
+Subject: [wp-docs] Codex Editing Page Done
+Message-ID: <fded39850812041332q5d689434q75faea61a00b25a6@mail.gmail.com>
+
+I've finally updated the Codex Editing page:
+http://codex.wordpress.org/Help:Editing
+
+It now is out of the ugly tables and cleaned up to reflect the fairly
+current WordPress Codex styles.
+
+It also includes a lot of notes clarifying what doesn't work in the Codex
+styles, such as image alignment, horizontal lines, and so on. Hopefully,
+Matt Thomas will be fixing these soon as I know they have been frustrating a
+lot of you.
+
+I hope this helps clarify much of the editing details on the Codex.
+Suggestions for what else should be added to the list?
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081204/8a08c05d/attachment.htm
+From lorelleonwordpress at gmail.com  Thu Dec  4 21:34:18 2008
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu Dec  4 21:34:26 2008
+Subject: [wp-docs] Changing the WordPress Codex References to
+	AdministrationPanels
+In-Reply-To: <027501c9564c$d8129710$6701a8c0@dell8600>
+References: <fded39850812041140l5d4f328ai6bc898a8e11adef2@mail.gmail.com>
+	<027501c9564c$d8129710$6701a8c0@dell8600>
+Message-ID: <fded39850812041334v707d1cbdn1828d9542a93ebfe@mail.gmail.com>
+
+We are working on adding screenshots and a few more images to the
+Administration Panels page. Jane's been working on that like crazy. Three
+cheers for her! :D
+
+Thanks!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081204/a3e575fa/attachment.htm
+From cclarkson at htcomp.net  Wed Dec 10 18:29:55 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Wed Dec 10 18:30:16 2008
+Subject: [wp-docs] Individual Function Reference Pages
+Message-ID: <49400AA3.5010601@htcomp.net>
+
+Hello,
+
+[1] http://codex.wordpress.org/Function_Reference/check_comment
+[2] http://codex.wordpress.org/Function_Reference
+[3] http://codex.wordpress.org/Codex:Guidelines
+
+I have started uploading new pages [1] for the Function Reference [2]. I 
+am bypassing the usual {{Draft}} and {{Stub}} stages in the Codex 
+Guidelines [3] and adding new pages to the function reference for 
+missing function pages. I /am/ adding the {{Copyedit}} tag because I am 
+a new editor.
+
+I will add the [[Category:New_page_created]] tag to each new page. I 
+have also added some xhtml comments to the page that can be seen when 
+editing.
+
+I am doing this because:
+
+* I want those missing functions documented as soon as possible,
+
+* Creating a page is generally harder than editing an existing page, and
+
+* I am much better at asking for forgiveness than asking for permission. :)
+
+[looks at feet; bows head; blushes]
+
+
+I hope to concentrate on the missing functions already found on the 
+Function Reference  first. Then I will start changing the old function 
+pages. Next I'll go back to add examples and finally I hope to search 
+the source for functions not already found on the Function Reference.
+
+I am quickly realizing that the Function Reference [2] is too long and 
+needs to be reorganized (and perhaps split into more pages) to be more 
+useful. I'll keep that in mind as I update the functions and perhaps 
+inspiration will pop me upside the head.
+
+All suggestions, comments and chastisements welcome.
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From yahgrp at poplarware.com  Wed Dec 10 18:41:51 2008
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Dec 10 18:40:53 2008
+Subject: [wp-docs] Individual Function Reference Pages
+In-Reply-To: <49400AA3.5010601@htcomp.net>
+References: <49400AA3.5010601@htcomp.net>
+Message-ID: <49400D6F.6010503@poplarware.com>
+
+Sounds like a great plan! Future WordPress developers will be thankful 
+for any effort you can put into documenting functions in WordPress.
+
+You definitely don't have to mark your new pages as Stub or Draft if 
+your first version is more or less the final version. :)
+
+Regards,
+    Jennifer
+
+
+Charles K. Clarkson wrote:
+> I have started uploading new pages [1] for the Function Reference [2]. I 
+> am bypassing the usual {{Draft}} and {{Stub}} stages in the Codex 
+> Guidelines [3] and adding new pages to the function reference for 
+> missing function pages. I /am/ adding the {{Copyedit}} tag because I am 
+> a new editor.
+
+
+
+-- 
+Jennifer Hodgdon * Poplar ProductivityWare
+www.poplarware.com
+
+Drupal/WordPress Sites, Themes, Modules/Plugins
+Custom Web Programming, Web Databases
+PHP, Perl, MySQL, JavaScript, XML, AJAX
+
+From cclarkson at htcomp.net  Wed Dec 10 21:26:10 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Wed Dec 10 21:26:31 2008
+Subject: [wp-docs] Inline Documentation -- Better Quality Assurance
+Message-ID: <494033F2.5070704@htcomp.net>
+
+Hello,
+
+Before adding my own two cents to this list, I read about a year's worth 
+of archived posts. I remember being particularly struck by a message 
+from Jacob Santos about the failure of his Inline Documentation project. 
+It was really disheartening to hear someone had gone through such a 
+Herculean effort and had been met with a feeling of such despair.
+
+Today, I was reading the Version_2.7 page [1] and I ran across this 
+section [2]:
+
+
+Inline Documentation
+
+The WordPress 2.7 has almost every file fully documented with phpdoc 
+type inline documentation. This includes most of the files with file 
+level phpdoc blocks. The functions have the parameters accepted type 
+documented with descriptions. The functions also have short descriptions 
+and many functions have long descriptions.
+
+This should improve the support and limit the questions newcomers have 
+about the WordPress library. It is also along the goal of better quality 
+assurance.
+
+
+
+Jacob, it seems to me that you changed a mind or two about the 
+importance of Inline Documentation. I know my project will be a lot 
+easier due to your efforts.
+
+
+Thanks for not giving up.
+
+
+[1] http://codex.wordpress.org/Version_2.7
+[2] http://codex.wordpress.org/Version_2.7#Inline_Documentation
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From stevish at gmail.com  Wed Dec 10 22:47:41 2008
+From: stevish at gmail.com (Steve)
+Date: Wed Dec 10 22:48:25 2008
+Subject: [wp-docs] Individual Function Reference Pages
+In-Reply-To: <49400D6F.6010503@poplarware.com>
+References: <49400AA3.5010601@htcomp.net> <49400D6F.6010503@poplarware.com>
+Message-ID: <80dd5f5d0812101447v2cc13e7dr974f087fc74c7f37@mail.gmail.com>
+
+Yeah, way to go, man! I messed around with adding some pages back when I had
+more free time, so I know the sacrifice it takes to make a lot of new pages.
+Your work will be well-appreciated by many developers and codexers who come
+after you.
+
+Keep it up!
+
+-Steve
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081210/5e1cfda6/attachment.htm
+From lorelleonwordpress at gmail.com  Thu Dec 11 02:17:54 2008
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu Dec 11 02:18:02 2008
+Subject: [wp-docs] Individual Function Reference Pages
+In-Reply-To: <49400AA3.5010601@htcomp.net>
+References: <49400AA3.5010601@htcomp.net>
+Message-ID: <fded39850812101817oa28669euf22169e5b6532b78@mail.gmail.com>
+
+I'm with everyone else cheering you on. This is fabulous. You're on the
+right track. Thank you, thank you, thank you!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081211/a6620f1e/attachment.htm
+From wordpress at santosj.name  Thu Dec 11 04:35:04 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Thu Dec 11 04:35:17 2008
+Subject: [wp-docs] Inline Documentation -- Better Quality Assurance
+In-Reply-To: <494033F2.5070704@htcomp.net>
+References: <494033F2.5070704@htcomp.net>
+Message-ID: <49409878.8000506@santosj.name>
+
+It was expressed to me to continue the effort from how it helped others. 
+However, I mean, it was a few months after that thread that I finally 
+took it up again. I was able to complete majority of the remaining files 
+in September and the rest in October. I had help, which increased my 
+motivation for working on it. Scott H. completed the bulk of a really 
+difficult to document functions in formatting.php. It got to the point 
+where I was completing almost a file a day.
+
+The WordPress administration Library still needs to be documented, but 
+the majority of what plugin and theme developers work with have been 
+documented. It will help coders modifying the WordPress Admin by 
+creating patches or whatever to have it documented, but I have no 
+motivation to document it. If it isn't documented by Spring or Summer 
+next year, then I'll probably finish it.
+
+I did leave an update which stated that the effort was finally a 
+success. Other contributors are mostly maintaining the inline 
+documentation now. It is nice that you are using it for the codex. That 
+was one of the intentions with no including more examples in the code.
+
+Actually, the inline documentation does also include a link to the 
+codex, where applicable, for more examples and details. I think that 
+once you get more completed, I'll go through and create a patch linking 
+more of the functions to the codex. It was my hope that the function 
+reference would link back to the codex and the codex would link to the 
+function reference. However the official phpdoc site is FUBAR at the moment.
+
+Jacob Santos
+
+Charles K. Clarkson wrote:
+> Hello,
+>
+> Before adding my own two cents to this list, I read about a year's 
+> worth of archived posts. I remember being particularly struck by a 
+> message from Jacob Santos about the failure of his Inline 
+> Documentation project. It was really disheartening to hear someone had 
+> gone through such a Herculean effort and had been met with a feeling 
+> of such despair.
+>
+> Today, I was reading the Version_2.7 page [1] and I ran across this 
+> section [2]:
+>
+>
+> Inline Documentation
+>
+> The WordPress 2.7 has almost every file fully documented with phpdoc 
+> type inline documentation. This includes most of the files with file 
+> level phpdoc blocks. The functions have the parameters accepted type 
+> documented with descriptions. The functions also have short 
+> descriptions and many functions have long descriptions.
+>
+> This should improve the support and limit the questions newcomers have 
+> about the WordPress library. It is also along the goal of better 
+> quality assurance.
+>
+>
+>
+> Jacob, it seems to me that you changed a mind or two about the 
+> importance of Inline Documentation. I know my project will be a lot 
+> easier due to your efforts.
+>
+>
+> Thanks for not giving up.
+>
+>
+> [1] http://codex.wordpress.org/Version_2.7
+> [2] http://codex.wordpress.org/Version_2.7#Inline_Documentation
+>
+>
+> HTH,
+>
+> Charles Clarkson
+
+From yahgrp at poplarware.com  Tue Dec 23 17:19:53 2008
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Tue Dec 23 17:18:34 2008
+Subject: [wp-docs] CSS style for definition lists  in Codex...
+Message-ID: <49511DB9.9020705@poplarware.com>
+
+How come the style for definition lists in the Codex is bold for both 
+the item and the definition? What I'm talking about is what you enter 
+in the codex (as described in Help:Editing) like this:
+
+   ; Definition list : list of definitions
+   ; item : the item's definition
+
+The lists are rendered in HTML as DT and DD elements, and the CSS 
+style for both the DT and the DD has
+    font-weight: bold
+
+That makes certain pages look very odd. For instance:
+   http://codex.wordpress.org/Plugin_Submission_and_Promotion
+The entire bottom section is bold, which makes it difficult to read, 
+and makes it look like it's more important than the rest of the page, 
+which it isn't.
+
+Can someone change at least the DD (definition) element so it isn't 
+bold? It may make sense for the DT, but it definitely doesn't for the DD.
+
+    --Jennifer
+
+-- 
+Jennifer Hodgdon * Poplar ProductivityWare
+www.poplarware.com
+
+Drupal/WordPress Sites, Themes, Modules/Plugins
+Custom Web Programming, Web Databases
+PHP, Perl, MySQL, JavaScript, XML, AJAX
+
+From frankie at frankieroberto.com  Tue Dec 23 17:42:28 2008
+From: frankie at frankieroberto.com (Frankie Roberto)
+Date: Tue Dec 23 17:42:42 2008
+Subject: [wp-docs] CSS style for definition lists in Codex...
+In-Reply-To: <49511DB9.9020705@poplarware.com>
+References: <49511DB9.9020705@poplarware.com>
+Message-ID: <1350f7a40812230942x23265161h39eb6bab0e88e1ee@mail.gmail.com>
+
+Jennifer Hodgdon <yahgrp@poplarware.com> wrote:
+
+How come the style for definition lists in the Codex is bold for both the
+> item and the definition?
+
+
+[...]
+
+
+> That makes certain pages look very odd. For instance:
+>  http://codex.wordpress.org/Plugin_Submission_and_Promotion
+> The entire bottom section is bold, which makes it difficult to read, and
+> makes it look like it's more important than the rest of the page, which it
+> isn't.
+
+
+Good point. With the examples on that page though, I'd be tempted not to use
+definition lists at all. Whilst they seem to loosely resemble terms (title
+of idea followed by description of idea), it's pretty loose, and I'd prefer
+to mark them up as simple headings and paragraphs (which still implies a
+semantic association). The specs are a bit vague, and so it's down to
+interpretation, but I tend to stick to using <dl>s only for
+dictionary/glossary style descriptions of simple terms, short phrases.
+
+The HTML5 spec (which is a bit more verbose on the semantics of phrase
+elements) suggests you can use it for "terms and definitions, metadata
+topics and values, or any other groups of name-value data", but I'm not sure
+the example fits any of these...
+
+Should still change the CSS though. :)
+
+Cheers,
+
+Frankie
+
+-- 
+Frankie Roberto
+Experience Designer, Rattle
+0114 2706977
+http://www.rattlecentral.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081223/1b9b705c/attachment.htm
+From lorellevan at gmail.com  Tue Dec 23 17:46:38 2008
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Tue Dec 23 17:46:51 2008
+Subject: [wp-docs] CSS style for definition lists in Codex...
+In-Reply-To: <49511DB9.9020705@poplarware.com>
+References: <49511DB9.9020705@poplarware.com>
+Message-ID: <fded39850812230946h60c5ed6er6e76c73e0dd3b01a@mail.gmail.com>
+
+I've been trying for over a year to get the bad CSS styles changed,
+including this one, in the WordPress Codex. Matt Thomas of Automattic has
+the access to change the CSS, and has been given the styles and
+recommendations several times. We're still waiting.
+
+Hopefully, this will be cleaned up now that WordPress 2.7 has been released.
+
+Lorelle
+
+
+On Tue, Dec 23, 2008 at 9:19 AM, Jennifer Hodgdon <yahgrp@poplarware.com>wrote:
+
+> How come the style for definition lists in the Codex is bold for both the
+> item and the definition? What I'm talking about is what you enter in the
+> codex (as described in Help:Editing) like this:
+>
+>  ; Definition list : list of definitions
+>  ; item : the item's definition
+>
+> The lists are rendered in HTML as DT and DD elements, and the CSS style for
+> both the DT and the DD has
+>   font-weight: bold
+>
+> That makes certain pages look very odd. For instance:
+>  http://codex.wordpress.org/Plugin_Submission_and_Promotion
+> The entire bottom section is bold, which makes it difficult to read, and
+> makes it look like it's more important than the rest of the page, which it
+> isn't.
+>
+> Can someone change at least the DD (definition) element so it isn't bold?
+> It may make sense for the DT, but it definitely doesn't for the DD.
+>
+>   --Jennifer
+>
+> --
+> Jennifer Hodgdon * Poplar ProductivityWare
+> www.poplarware.com
+>
+> Drupal/WordPress Sites, Themes, Modules/Plugins
+> Custom Web Programming, Web Databases
+> PHP, Perl, MySQL, JavaScript, XML, AJAX
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+Lorelle VanFossen
+On the Road
+Lorelle on WordPress - http://lorelle.wordpress.com/
+Blog Herald - http://www.blogherald.com/
+Woopra - http://www.woopra.com/
+Taking Your Camera on the Road - http://www.cameraontheroad.com/
+Lorelle's Family History Blog - http://www.cameraontheroad.com/family/
+New Book - Order Now! Blogging Tips: What Bloggers Won't Tell You About
+Blogging - http://lorelle.wordpress.com/books/blogging-tips/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081223/e46961b0/attachment.htm
+From gaarai at gaarai.com  Sat Dec 27 01:54:59 2008
+From: gaarai at gaarai.com (Gaarai)
+Date: Sat Dec 27 01:55:41 2008
+Subject: [wp-docs] Limitations on styling DIVs in Codex
+Message-ID: <49558AF3.5020305@gaarai.com>
+
+Looking through the CSS for Codex, I find the following:
+
+    #bodyContent div {
+        background: none !important;
+        border: none !important;
+        font-size: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+These settings severely limit the ability to style DIVs. For example, 
+I'm trying to style a DIV to look like the PRE blocks with support for 
+word-wrap, just like the Codex:Styles page recommends. I can't do this 
+(easily) due to these rules. Also, certain elements lose their styling 
+due to this, such as the styling for draft copy.
+
+Is there a reason for these rules being present?
+
+-- 
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081227/183b5615/attachment.htm
+From lorellevan at gmail.com  Sat Dec 27 02:26:42 2008
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Sat Dec 27 02:26:50 2008
+Subject: [wp-docs] Limitations on styling DIVs in Codex
+In-Reply-To: <49558AF3.5020305@gaarai.com>
+References: <49558AF3.5020305@gaarai.com>
+Message-ID: <fded39850812261826w14e22e24paac6bcb339df1568@mail.gmail.com>
+
+I've forwarded this to the designer for Automattic and hopefully we'll get
+an answer. Good point, thanks.
+
+For now, just use CODE if you are having trouble using the PRE when writing
+articles in the WordPress Codex.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081227/77122997/attachment.htm
+From gaarai at gaarai.com  Sat Dec 27 03:22:56 2008
+From: gaarai at gaarai.com (Gaarai)
+Date: Sat Dec 27 03:23:40 2008
+Subject: [wp-docs] Limitations on styling DIVs in Codex
+In-Reply-To: <fded39850812261826w14e22e24paac6bcb339df1568@mail.gmail.com>
+References: <49558AF3.5020305@gaarai.com>
+	<fded39850812261826w14e22e24paac6bcb339df1568@mail.gmail.com>
+Message-ID: <49559F90.9010404@gaarai.com>
+
+Thanks Lorelle.
+
+For now, I'm using SPANs with a display of block in place of DIVs.
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+
+
+Lorelle VanFossen wrote:
+> I've forwarded this to the designer for Automattic and hopefully we'll 
+> get an answer. Good point, thanks.
+>
+> For now, just use CODE if you are having trouble using the PRE when 
+> writing articles in the WordPress Codex.
+>
+> Lorelle
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081227/b816f50e/attachment.htm
+From yahgrp at poplarware.com  Sat Dec 27 22:39:23 2008
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Sat Dec 27 22:39:42 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <49569416.8000206@gaarai.com>
+References: <49569416.8000206@gaarai.com>
+Message-ID: <4956AE9B.8050702@poplarware.com>
+
+You might want to post this to the Doc list too (so I've cc'd that list).
+
+I personally like your new style better than the current style. It 
+annoys me all the time to have to scroll to the bottom to find the 
+argument list, the way some of the current pages have been organized.
+
+But if you are planning on using this for the functions known as 
+"Template Tags", you will need to get some feedback from less 
+technically-oriented viewers than the typical person on the Hackers 
+list. I think the way those pages are organized (with examples first and 
+the args way at the bottom) was chosen to avoid intimidating themers who 
+are just trying to do a little more with their themes but might not be 
+PHP or programming experts.
+
+So what I am trying to say is I think your style idea is great for a 
+programmer. :)   But we need to make sure to accomodate other audiences 
+for "template tag" functions.
+
+Regards,
+    Jennifer
+
+Gaarai wrote:
+> I've spent the past couple of days working on a new style for the 
+> function pages on the Codex. I did a lot of research on different 
+> documentation sites. Eventually, I found that the PHP Function Reference 
+> <http://us2.php.net/manual/en/funcref.php>, has what I consider the most 
+> straightforward, intuitive function documentation style.
+> 
+> In order to see how the PHP style would work on the Codex, I created a 
+> new function reference rough draft to try it out. My results can be 
+> found here <http://codex.wordpress.org/User:Chrisbliss18/wp_cache_add> 
+> (http://codex.wordpress.org/User:Chrisbliss18/wp_cache_add).
+> 
+> For those that don't know why I'm doing this, I'm trying to get a 
+> standard format that can be used for all functions in order to make 
+> using the Codex more consistent and creating/editing pages quicker and 
+> easier.
+> 
+> With that in mind, I'd like to get feedback on what everyone thinks 
+> about this format.
+> 
+> What do you like and dislike about it?
+> Would this format make using the Codex easier or more difficult?
+> Would this format make adding/editing the Codex easier or more difficult?
+> 
+
+From gaarai at gaarai.com  Sat Dec 27 22:57:34 2008
+From: gaarai at gaarai.com (Gaarai)
+Date: Sat Dec 27 22:58:23 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <4956AE9B.8050702@poplarware.com>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+Message-ID: <4956B2DE.5000102@gaarai.com>
+
+You have some very good points Jennifer.
+
+My desire is to create a standard that is used for all function 
+references, template tag or not. The reason I'm frustrated by the Codex 
+currently is that there isn't a standard by which all the pages are held 
+to resulting in documentation chaos.
+
+I'm trying to mentally weight the benefits and detriments with having 
+the parameters below and the examples at top as opposed to the way I 
+have it. On the one hand, using the current model does help those new 
+people see the examples more quickly, but I wonder if these new 
+coders/themers get used to that and never think about the power that the 
+functions truly have due to being "insulated" from the parameters list 
+and only being shown a very small sample of what functions can do.
+
+I added a link to the Examples section in the Description section. 
+Having something that overt toward the top, may assist those who just 
+want to quickly see examples.
+
+In my mind, the goal is to turn everyone who does more than just minor 
+tweaks here and there into a WP developer, and I definitely think that 
+this format is more usable than the current format. That said, I'm by no 
+means a documentation expert; rather, I'm simply a coder that wants a 
+better Codex and has finally taken up the initiative to try to create it.
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+
+Jennifer Hodgdon wrote:
+> You might want to post this to the Doc list too (so I've cc'd that list).
+>
+> I personally like your new style better than the current style. It 
+> annoys me all the time to have to scroll to the bottom to find the 
+> argument list, the way some of the current pages have been organized.
+>
+> But if you are planning on using this for the functions known as 
+> "Template Tags", you will need to get some feedback from less 
+> technically-oriented viewers than the typical person on the Hackers 
+> list. I think the way those pages are organized (with examples first 
+> and the args way at the bottom) was chosen to avoid intimidating 
+> themers who are just trying to do a little more with their themes but 
+> might not be PHP or programming experts.
+>
+> So what I am trying to say is I think your style idea is great for a 
+> programmer. :)   But we need to make sure to accomodate other 
+> audiences for "template tag" functions.
+>
+> Regards,
+>    Jennifer
+From justmichaelh at gmail.com  Sat Dec 27 23:16:31 2008
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Sat Dec 27 23:16:43 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+Message-ID: <038f01c96879$288b9e60$6701a8c0@dell8600>
+
+
+----- Original Message ----- 
+From: "Jennifer Hodgdon" <yahgrp@poplarware.com>
+To: <wp-hackers@lists.automattic.com>; <wp-docs@lists.automattic.com>
+Sent: Saturday, December 27, 2008 5:39 PM
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+
+
+> You might want to post this to the Doc list too (so I've cc'd that list).
+> Gaarai wrote:
+>> I've spent the past couple of days working on a new style for the 
+>> function pages on the Codex. I did a lot of research on different 
+>> documentation sites. Eventually, I found that the PHP Function Reference 
+>> <http://us2.php.net/manual/en/funcref.php>, has what I consider the most 
+>> straightforward, intuitive function documentation style.
+
+Chris may also want to look at the format CharlesClarkson is using [1] and 
+the large number of Function articles Charles [2] has recently created.
+
+[1] 
+http://codex.wordpress.org/User:CharlesClarkson#Individual_Function_Reference_Pages
+[2] http://codex.wordpress.org/Special:Contributions/CharlesClarkson
+
+
+MichaelH
+
+
+From gaarai at gaarai.com  Sat Dec 27 23:21:12 2008
+From: gaarai at gaarai.com (Gaarai)
+Date: Sat Dec 27 23:21:59 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <038f01c96879$288b9e60$6701a8c0@dell8600>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+	<038f01c96879$288b9e60$6701a8c0@dell8600>
+Message-ID: <4956B868.6090908@gaarai.com>
+
+Thanks for that Michael. Looks like I need to contact Charles.
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+
+
+Michael E. Hancock wrote:
+> Chris may also want to look at the format CharlesClarkson is using [1] 
+> and the large number of Function articles Charles [2] has recently 
+> created.
+>
+> [1] 
+> http://codex.wordpress.org/User:CharlesClarkson#Individual_Function_Reference_Pages 
+>
+> [2] http://codex.wordpress.org/Special:Contributions/CharlesClarkson
+>
+>
+> MichaelH 
+From wordpress at santosj.name  Sun Dec 28 02:50:06 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Sun Dec 28 02:50:55 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <4956B868.6090908@gaarai.com>
+References: <49569416.8000206@gaarai.com>
+	<4956AE9B.8050702@poplarware.com>	<038f01c96879$288b9e60$6701a8c0@dell8600>
+	<4956B868.6090908@gaarai.com>
+Message-ID: <4956E95E.3030903@santosj.name>
+
+I want you guys to pay attention, because this is most likely going to 
+be a long post and skipping parts will lose information. I would say, it 
+is a really bad idea, because I know so, but that argument doesn't work 
+with children, so I doubt it would work with adults.
+
+The problem with function documentation on the codex is even worse than 
+having it in the source code. At least in the source code, there is a 
+chance, albeit a slim one that the documentation will be updated when a 
+change is made. That is problem, most patches I've seen don't bother 
+updating the comments when the comments should be updated. What makes 
+you think they are going to take the time to update the codex page either?
+
+You are duplicating efforts. I have committed to keeping the inline 
+documentation updated, I'm sure as hell not going to duplicate my 
+efforts for the codex as well. I figure it will take merely a week 
+before a release, to check to make sure that the documentation is 
+complete, that any new functions has documentation, and go through and 
+check and tighten up old documentation. I'm going to extend that time 
+further by updating the codex as well.
+
+Having the documentation on the codex was good, when inline 
+documentation was sparse and the function reference didn't exist 
+(http://phpdoc.wordpress.org/trunk/) I will suggest you link to that for 
+the parameters, return types, and other information already contained in 
+the function documentation site.
+
+I would rather see more of http://codex.wordpress.org/Shortcode_API type 
+pages. Function reference pages are only good when you know what you are 
+searching for. You have to know that the function exists, before you can 
+go to it. It is to remind you of information you already know or to give 
+you more information that doesn't exist elsewhere. It is meant for 
+programmers, but it is useless to programmers without some companion to 
+let them know they should be looking for it.
+
+The reason the PHP function reference works, so well, is that it is 
+written in DocBook and contains codex type information, as well as 
+function reference type information. There isn't a function reference 
+for PHP, nor is there a codex (like WordPress has) for PHP. PHP just has 
+both in one. They don't duplicate efforts, because everyone's effort is 
+in the DocBook. Therefore, if there is a change, they just do so in one 
+place.
+
+Whereas for WordPress, you have two places, you already have the 
+function reference. Therefore, the parameters, return types, and other 
+miscellaneous function relevant information is known there. For the 
+Codex, I would rather like to see more examples. There is a reason I 
+didn't put examples in the inline documentation, I knew the codex was 
+the best place to put it. It is a place that has many contributors, can 
+easily be updated, and examples don't need to be changed or updated 
+often. If examples need to be updated, then a regression has occurred 
+and it is a defect that needs to be fixed or documented and the example 
+corrected.
+
+I figured that the best place to have documentation about parameters, 
+return types, and other information specific to the function was inline 
+to the function. I figured the best place to have the examples was in 
+the Codex. The reason there are sometimes examples in the inline 
+documentation is that there wasn't a codex page for the function or it 
+was someone else who thought it would be a good idea.
+
+No, the codex should have more pages like the Shortcode API Codex page. 
+Actually, there shouldn't really be very many function specific pages 
+either. It was my hope that the focus would be more on the layman 
+descriptions explaining the functions and examples on how to use the 
+functions than on parameters and return types.
+
+I am not much of a writer, I've tried to do this before and it is 
+terribly boring to me. I haven't even wrote the HTTP API Codex page 
+either. Really that is my fault, but I mean it isn't that difficult, or 
+at least it isn't to me.
+
+I've leave you with this gem. If you are not ready to babysit the Codex 
+parameter and return type information, then no one else is. If you think 
+for a moment that you will leave the community or abandon the Codex 
+effort, then don't do it. I think the reason you are doing it, is 
+because you think programmers pay more attention to the Function 
+Reference and I'll tell you that they don't. Programmers need good, well 
+written Codex style documentation as well, no matter the skill level.
+
+The problem is always that function reference lacks context, which 
+examples provide, however what provides an even greater context is how 
+other functions go together. In this well, you establish a relationship 
+and make other functions related to the one known to the developer and 
+designer.
+
+I'll say that Designers need to have some programmer knowledge, so if 
+they are scared by a little function or whatnot, then they should hire 
+someone like me, who knows WTF he is doing! That said, any person should 
+understand the concepts given in an example and explained in detail. 
+Unless they wish to not understand and in that case, dressing the 
+verbiage in "designer friendly" terms doesn't seem acceptable to me. 
+Then again, I'm an asshole, so WTF do I care?
+
+Jacob Santos
+From lorellevan at gmail.com  Sun Dec 28 19:59:12 2008
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Sun Dec 28 19:59:22 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <4956E95E.3030903@santosj.name>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+	<038f01c96879$288b9e60$6701a8c0@dell8600>
+	<4956B868.6090908@gaarai.com> <4956E95E.3030903@santosj.name>
+Message-ID: <fded39850812281159l379f8664u63214b6b215359d3@mail.gmail.com>
+
+While Jacob's colorful response is right in most cases, the other long time
+members of the Codex volunteer team are also right. We've got a lot of
+redundant effort when it comes to documenting functions, template tags, and
+such, often to the distress of other contextual needs in the Codex. The
+structure originally set by Kaf and others, similar to what Chris and
+Charles are working on, did come from the PHP manuals as a key example.
+
+Getting the inline documentation into a "readable" format is critical,
+especially if it is easily updated. Whether that is integrated into the
+Codex or a separate medium will be up to those who choose to maintain it at
+the current time. It may evolve into something else later as technology and
+volunteer ability changes, but the key is to connect the two together,
+rather than duplicate effort.
+
+The key to the WordPress Codex is the word "manual." It is a guide to help
+people use WordPress, from just blogging to writing Plugins and developing
+Themes. WordPress is moving away from core hacking into third-party
+enhancements, and it is up to the documentation team to make it easy for
+those third-party folks to understand how to hook into WordPress, but
+equally, how to use the most basic of functions and a little bit more.
+
+A lot of people have taken on the burden of redoing all of the function
+pages, losing track midway through. It's a LOT to take on. I think it's
+important to set a core style, which has been done, and then update the
+information rather than redo. It's a lot of upkeep. Highlighting the most
+commonly used functions WITH EXAMPLES is key to helping people learn how to
+use them. That makes the Codex important to those who use it, and the inline
+docs project is critical to those who want to dig deeper, and much applause
+needs to go to Jacob for his determination to see that project through. It
+was a herculean effort and we are all proud of you, Jacob, in spite of being
+a teddy bear ass. :D
+
+If Chris and Charles can work together to create a core format, and update
+ALL the pages accordingly, and then continue the work with the most popular
+and common functions, we'll cheer you on as well. We love everyone who takes
+a few minutes of their time to help improve the Codex and supporting
+documentation. Let's just avoid duplicating effort to slow the burn out and
+frustrations.
+
+For historical reference on functions and hooks projects, see:
+
+http://planetozh.com/blog/my-projects/wordpress-functions-implementation-history-tool/
+http://blog.ftwr.co.uk/archives/2007/12/28/tracking-deprecated-functions/
+http://sandbox.ftwr.co.uk/doc/
+http://www.dbswebsite.com/design/wordpress-reference/
+http://asymptomatic.net/2005/04/22/1503/ezstatic-20-and-pluggable-functions/
+http://blog.taragana.com/index.php/archive/wordpress-2x-hooks-for-action-comprehensive-list-for-plugin-and-theme-developers/
+http://blog.taragana.com/index.php/archive/wordpress-2x-filters-comprehensive-list-for-plugin-and-theme-developer
+http://wphooks.flatearth.org/
+http://wordpress.taragana.net/index.html WordPress Source Code
+http://adambrown.info/p/wp_hooks
+
+Only a few of the attempts to document hooks and functions in WordPress that
+I've kept up with.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081228/7f89c178/attachment.htm
+From lorellevan at gmail.com  Sun Dec 28 20:30:25 2008
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Sun Dec 28 20:30:36 2008
+Subject: [wp-docs] CSS Styles in the Codex
+Message-ID: <fded39850812281230i11f5c7afsbbf41531158bd88a@mail.gmail.com>
+
+I've been told by Matt Thomas that he and another new designer they just
+hired will be fixing the design style problems with the Codex. I've sent
+them a whole list of things that need fixing, but if there is anything
+really annoying you, please post it here in this thread so we don't miss
+anything.
+
+A key thing I'm asking to get changed is moving the third column back over
+to the left so we have more room when editing. I'm really tired of feeling
+squished when logged onto the Codex and editing a Codex page.
+
+I've also updated http://codex.wordpress.org/Help:Editing with all the core
+Mediawiki styles used in the Codex, with a few Codex specific ones. I've
+also included notes to point out where the CSS styles go wonkers with the
+hope that these will be cleaned up. Until they are, just continue to put in
+the right code and not force the styles to conform so we won't have to go
+back and fix them when they are "corrected" properly.
+
+Thanks to all for your patience while the Codex has been a little unstylish.
+:D
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081228/830712d8/attachment.htm
+From cclarkson at htcomp.net  Mon Dec 29 04:57:51 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Mon Dec 29 04:58:35 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <4956E95E.3030903@santosj.name>
+References: <49569416.8000206@gaarai.com>	<4956AE9B.8050702@poplarware.com>	<038f01c96879$288b9e60$6701a8c0@dell8600>	<4956B868.6090908@gaarai.com>
+	<4956E95E.3030903@santosj.name>
+Message-ID: <495858CF.5020906@htcomp.net>
+
+Jacob Santos wrote:
+
+ > What makes you think they are going to take the
+ > time to update the codex page either?
+
+I don't think they will. I was really concerned with this as well when I
+launched my function reference project. I was also concerned that I
+might burn out because there seems to be almost 1900 functions in
+WordPress. It's a daunting project.
+
+I hated the idea of having to rewrite much of what was in the inline
+docs. I am not a good candidate for boring rote work. I am a writer and
+a programmer though and think I might be able to offer more insight and
+better descriptions than the inline documentation offers.
+
+
+ > You are duplicating efforts.
+
+You are not thinking like a programmer.
+
+I started programming too many decades ago and along the way worked a
+few years with Perl. I decided to start writing the function reference
+by first writing a parser for the inline documentation in the source
+code and having it create the Codex documentation for me. I wrote it in
+Perl because I develop in it faster than I do in PHP (and because Perl
+has awesome quote operators).
+
+I have added 82 new function definitions this month. Some of them mimic
+the version 2.7 inline documentation exactly. Others are more robust
+because I keep adding new search and replace features to the parser. I
+have been working on adding links to the global variables recently and
+have added a limited concept search for some of the XML stuff (like
+XML-RPC) in the description field.
+
+The script is not ready for public use (yet), but I have been changing
+the documentation I produce by adding PHPDoc stuff to my local copy of
+version 2.7 and rerunning the parser. I still change some parser
+mistakes in the end result, but not as many as a few weeks ago.
+
+One goal is to write a script which will automatically update some
+sections of the function reference in the Codex as each new version
+comes out. Right now, I could safely update the Usage, Parameters,
+Returns, Change Log, and Source File sections of each function in the
+reference automatically. (Writing a web bot in Perl is a breeze. It
+takes only a few hours to write and test.)
+
+The Notes section would require some tweaking as I have added notes to
+the Codex for some functions which do not fit in the PHPDoc inline
+documentation tags. Though that limitation could be due to my own
+ignorance of PHPDoc tags.
+
+If I can get the hang of editing the inline docs in the WordPress CVS,
+then the parser should allow updates to the Codex from the inline
+documentation from a script. That should reduce some (or perhaps most) 
+of the duplication in maintaining the Codex.
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From cclarkson at htcomp.net  Mon Dec 29 07:31:26 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Mon Dec 29 07:32:10 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <4956B2DE.5000102@gaarai.com>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+	<4956B2DE.5000102@gaarai.com>
+Message-ID: <49587CCE.4010100@htcomp.net>
+
+Gaarai wrote:
+
+ > My desire is to create a standard that is used for all function
+ > references, template tag or not. The reason I'm frustrated by the
+ > Codex currently is that there isn't a standard by which all the pages
+ > are held to resulting in documentation chaos.
+
+I found the same thing a couple of months ago. One problem with the
+Codex is that there are almost 1900 WordPress functions (not including
+Classes). Maintaining a standard for that many pages in a wiki is bound
+to be difficult, if not impossible.
+
+
+ > I'm trying to mentally weigh the benefits and detriments with having
+ > the parameters below and the examples at top as opposed to the way I
+ > have it.
+
+I toyed with placing the examples higher up on the page, but the Table
+of Contents (TOC) kept getting in the way. With a few examples in it,
+the TOC gets really long and pushes the first code box way down the
+page. The same problem results with the Usage section if there are a lot
+of parameters, but there is no descriptive text in the Usage section.
+
+The problem with a well-written example is that there will probably be
+some descriptive text above the code section which is more convenient if
+it remains near the code section. To avoid unnecessary wrapping the
+Codex page style pushes the first code box down below the TOC. The
+result may be a huge amount of whitespace between descriptive text and
+the code box.
+
+The reader can correct this behavior by hiding the TOC, but that may not
+work on all browsers and it has to be selected on each page. (There's no
+cookie for it). Navigating away from the page will require hiding the
+TOC again.
+
+ > Eventually, I found that the PHP Function Reference, has what I
+ > consider the most straightforward, intuitive function documentation
+ > style.
+
+I have a dedicated button in my Firefox browser to jump to the PHP docs
+you mention [2]. I wish there was something similar for other
+programming languages, but I do sometimes go nuts trying to figure out
+the data type of the return value of many PHP functions. It's just not
+in the docs many times.
+
+I find the PHP docs are missing some uniformity between function
+definitions. I am often left with unanswered questions after reading the
+docs.
+
+
+When I first started editing the Codex function reference I had
+something like the following in mind. It's based on the Template Tags
+sections. Your See Also section is my Related section.
+
+== Description ==
+== Usage ==
+== Examples ==
+== Parameters ==
+== Return Values ==
+== Notes ==
+== Change Log ==
+== Source File ==
+== Related ==
+
+After writing a few dozen function pages I changed it to this so that
+the Examples section would clear the Table of Contents more often.
+
+NOTE: I was not aware of the Trunk [4] auto generated documentation
+       before now.
+
+== Description ==
+== Usage ==
+== Parameters ==
+== Return Values ==
+== Examples ==
+== Notes ==
+== Change Log ==
+== Source File ==
+== Related ==
+
+After some consideration I think Usage, Parameters, Return Values should
+remain together. We could place those in one big section:
+
+== Usage ==
+=== Parameters ===
+=== Return Values ===
+
+Using a cookie, we could auto hide that section for people who would
+rather not see it at first.
+
+Reading the past posts, it seems like special things like cookies are
+not easily added.
+
+The Table of Contents allows the reader to jump to a favorite section,
+like the Examples.
+
+My Notes section contains information on cross-reference items like
+which WordPress functions this function uses and which global variables
+are used or manipulated. Those portions of that section are mostly
+auto-generated from the source.
+
+My Source File section is a personal preference. I always want to look
+at the source code while developing and some functions are in files
+which make little sense from their names. We could also add it to the
+Usage block. SO could the Change Log.
+
+== Usage ==
+=== Parameters ===
+=== Return Values ===
+=== Source File ===
+=== Change Log ===
+
+This would reduce the top level sections to the following.
+
+== Description ==
+== Usage ==
+== Examples ==
+== Notes ==
+== Related ==
+
+If the Codex author could change the Table of Contents on the function
+reference pages to show only the top level sections and not the sub-
+sections, the TOC would always be short enough to avoid the whitespace
+gap I mentioned above. We could then use your example centric style.
+This would also place the Notes next to the Usage which seems more
+appropriate.
+
+== Description ==
+== Examples ==
+== Usage ==
+== Notes ==
+== Related ==
+
+
+The Parameters section has a lot of white space in it and too much bold
+text for my tastes. It is written using the Parameter Template [1], so
+its style and HTML could be changed to make it more concise without
+editing each function in the Codex. It would be nice to have a similar
+Template for Return Values and the Usage sections as well.
+
+I can write a script that will change the order of the function
+reference page sections across the whole Codex function reference, so
+don't be afraid to make a change in the section order.
+
+As I stated in another message, I use a parser to generate much of the
+function page sections directly from the source code, so maintenance
+may not be as much a problem as it may first appear.
+
+
+
+Additional Thoughts:
+
+It would probably be better for this and future documentation projects
+to generate XML from the WordPress source code. Future Codex editors
+could then use that XML source to customize references. Writing a XML
+standard for that is beyond my current skills, but common source files
+have a lot of appeal.
+
+The program which produces the Trunk [4] (phpDocumentor) might be a good
+candidate for producing the base XML files. Examples, Descriptions and
+Notes would still require human editors to maintain relevant
+documentation, but could be left in the XML files to allow more robust
+WordPress documentation projects down the line.
+
+As Jacob has stated, we need to avoid duplicate effort, not because it
+is is inefficient, but because we all will eventually move on to other
+projects and we need to find the easiest path to keeping the Codex up to
+date now and in the future.
+
+You mentioned code syntax highlighting in your example page [3]. With a
+publicly available XML file of the WordPress function docs it isn't much
+of a stretch to see a WordPress plugin which could use one of the
+textarea plugins to display up to date WordPress documentation in the
+Admin area of the users own blog complete with links to other sources
+and syntax highlighted examples customized to the users preferences.
+
+[1] http://codex.wordpress.org/Template:Parameter
+[2] http://us2.php.net/manual/en/funcref.php
+[3] http://codex.wordpress.org/User:Chrisbliss18/wp_cache_add
+[4] http://phpdoc.wordpress.org/trunk/
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From wordpress at santosj.name  Mon Dec 29 08:08:08 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Mon Dec 29 08:08:24 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <49587CCE.4010100@htcomp.net>
+References: <49569416.8000206@gaarai.com>
+	<4956AE9B.8050702@poplarware.com>	<4956B2DE.5000102@gaarai.com>
+	<49587CCE.4010100@htcomp.net>
+Message-ID: <49588568.80707@santosj.name>
+
+You should have mentioned the Perl automated script. However, it again 
+seems as if you are moving toward DocBook for your solution. You should 
+look more into phpDocumentor [1], because it can also output in DocBok 
+format. It might be an issue however is that the phpdoc does not include 
+@category, which the DocBook format template uses. If that is the case, 
+then it shouldn't be too difficult to add it in for all of the files. 
+You would just need to add @category to all of the file level phpdoc 
+blocks. The patch for that wouldn't be that difficult.
+
+Hmm, it seems that whatever you conclude on, it will be interesting. 
+Hopefully, the conclusion will be sooner rather than later, because I 
+don't think any one else will attempt what you guys are doing at the 
+moment or at least not in the near future.
+
+Jacob Santos
+
+
+Charles K. Clarkson wrote:
+> Additional Thoughts:
+>
+> It would probably be better for this and future documentation projects
+> to generate XML from the WordPress source code. Future Codex editors
+> could then use that XML source to customize references. Writing a XML
+> standard for that is beyond my current skills, but common source files
+> have a lot of appeal.
+>
+> The program which produces the Trunk [4] (phpDocumentor) might be a good
+> candidate for producing the base XML files. Examples, Descriptions and
+> Notes would still require human editors to maintain relevant
+> documentation, but could be left in the XML files to allow more robust
+> WordPress documentation projects down the line.
+>
+> As Jacob has stated, we need to avoid duplicate effort, not because it
+> is is inefficient, but because we all will eventually move on to other
+> projects and we need to find the easiest path to keeping the Codex up to
+> date now and in the future.
+>
+> You mentioned code syntax highlighting in your example page [3]. With a
+> publicly available XML file of the WordPress function docs it isn't much
+> of a stretch to see a WordPress plugin which could use one of the
+> textarea plugins to display up to date WordPress documentation in the
+> Admin area of the users own blog complete with links to other sources
+> and syntax highlighted examples customized to the users preferences.
+>
+> [1] http://codex.wordpress.org/Template:Parameter
+> [2] http://us2.php.net/manual/en/funcref.php
+> [3] http://codex.wordpress.org/User:Chrisbliss18/wp_cache_add
+> [4] http://phpdoc.wordpress.org/trunk/
+>
+> HTH,
+>
+> Charles Clarkson
+
+From lorellevan at gmail.com  Mon Dec 29 20:23:38 2008
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Mon Dec 29 20:25:36 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <49588568.80707@santosj.name>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+	<4956B2DE.5000102@gaarai.com> <49587CCE.4010100@htcomp.net>
+	<49588568.80707@santosj.name>
+Message-ID: <fded39850812291223t2d10c76aq2ffbccf9f05880c@mail.gmail.com>
+
+FYI: The Table of Contents issue is specifically a problem for those who are
+logged in, not normal visitors. The third column is hidden by those not
+logged in. I'm trying to get it moved to the left column, where it was
+during the first few years of the Codex. Please do not style things or move
+content around to take the TOC into consideration. This will be moved if I
+have to dig in and yank it over myself soon. :D
+
+The squished in area of the content when editing is extremely painful and
+we're trying to get that remedied. Again, DO NOT STYLE THINGS with the TOC
+in mind. We'll fix it.
+
+Thanks for all that you are doing and for helping everyone understand how
+this all works and what the core elements need to be, as well as our
+options.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081229/b9e75806/attachment.htm
+From noel at automattic.com  Mon Dec 29 23:29:29 2008
+From: noel at automattic.com (Noel Jackson)
+Date: Mon Dec 29 23:29:46 2008
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <fded39850812291223t2d10c76aq2ffbccf9f05880c@mail.gmail.com>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+	<4956B2DE.5000102@gaarai.com> <49587CCE.4010100@htcomp.net>
+	<49588568.80707@santosj.name>
+	<fded39850812291223t2d10c76aq2ffbccf9f05880c@mail.gmail.com>
+Message-ID: <9F7265F1-35DA-47F1-871D-B99CC3685FAE@automattic.com>
+
+Lorelle is right! :) It's being fixed (very very soon), rest assured.
+
+--
+noel jackson | noel@automattic.com | http://jcksn.com
+734.236.1033 | skype/aim: noelndj
+
+On Dec 29, 2008, at 3:23 PM, Lorelle VanFossen wrote:
+
+> FYI: The Table of Contents issue is specifically a problem for those  
+> who are logged in, not normal visitors. The third column is hidden  
+> by those not logged in. I'm trying to get it moved to the left  
+> column, where it was during the first few years of the Codex. Please  
+> do not style things or move content around to take the TOC into  
+> consideration. This will be moved if I have to dig in and yank it  
+> over myself soon. :D
+>
+> The squished in area of the content when editing is extremely  
+> painful and we're trying to get that remedied. Again, DO NOT STYLE  
+> THINGS with the TOC in mind. We'll fix it.
+>
+> Thanks for all that you are doing and for helping everyone  
+> understand how this all works and what the core elements need to be,  
+> as well as our options.
+>
+> Lorelle
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+From gaarai at gaarai.com  Wed Dec 31 14:32:34 2008
+From: gaarai at gaarai.com (Chris)
+Date: Wed Dec 31 14:32:58 2008
+Subject: [wp-docs] CSS Styles in the Codex
+In-Reply-To: <fded39850812281230i11f5c7afsbbf41531158bd88a@mail.gmail.com>
+References: <fded39850812281230i11f5c7afsbbf41531158bd88a@mail.gmail.com>
+Message-ID: <495B8282.70606@gaarai.com>
+
+Thanks Lorelle. I have some notes that I've put together regarding the 
+styling. They are as follows:
+
+    * A rule in the Codex's CSS prevents DIVs from being styled. I
+      worked around this by using SPANs with a display of block. It
+      would be better if DIVs could actually be styled. As it is, there
+      are DIVs, such as the container for drafts, that are styled but
+      don't show the styling currently.
+    * It would be nice if a class existed that would apply the PRE
+      styling to other elements (such as DIVs). This would make it very
+      easy to create code blocks that support wrapping. It would also
+      ensure that any updates to PRE styling would affect blocks that
+      are styled to look like PRE.
+    * The CSS rules don't have any padding for table elements. The only
+      way to work around this (due to not being able to define CSS rules
+      other than via individual style declarations) is by either using
+      cellspacing and cellpadding (not desirable) or adding style
+      information to every TH and TD element (also not desirable).
+      Adding padding in the CSS for all tables would make overriding
+      difficult, so I would like to request a class that can be used to
+      apply padding to all th and td elements without using styles for each.
+    * Lack of styling for DD and DT elements. I solved this by manually
+      applying style information to each element. The way that DD and DT
+      elements are styled in the PHP documentation is very nice. Similar
+      to my request with tables, I'd like to be able to use a class on
+      the DL element to apply this type of styling to the DD and DT
+      elements.
+    * The </dd> and </dt> elements are not supported, thus breaking
+      standards. If I include the closing DD and DT tags, they are
+      parsed as text and not as tags.
+    * The %%% directive makes very nicely-colored PHP code output, but
+      it has limitations.
+          o To get the output to be have syntax highlighting, it needs
+            to be wrapped in <?php ?> tags. This adds unnecessary lines
+            since the presence of these tags can be assumed in most
+            instances. It would be nice if there could be an option to
+            force highlighting without the use of the tags.
+          o The output is not contained in a box like as the CSS styles
+            the PRE. This type of container is helpful as it clearly
+            sets the code apart from the rest of the documentation. I
+            manually applied this look using the styled SPAN that I used
+            for the function structure.
+
+You can see examples of how I worked around all these issues at my 
+wp_cache_add draft 
+<http://codex.wordpress.org/User:Chrisbliss18/wp_cache_add>. This will 
+give you a good idea of how much styling I had to apply to get a 
+consistent look.
+
+These are just notes and ideas. By no means, do they have to be 
+implemented. However, I would see it as a very nice New Year's gift if 
+some were. :)
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+
+
+Lorelle VanFossen wrote:
+> I've been told by Matt Thomas that he and another new designer they 
+> just hired will be fixing the design style problems with the Codex. 
+> I've sent them a whole list of things that need fixing, but if there 
+> is anything really annoying you, please post it here in this thread so 
+> we don't miss anything.
+>
+> A key thing I'm asking to get changed is moving the third column back 
+> over to the left so we have more room when editing. I'm really tired 
+> of feeling squished when logged onto the Codex and editing a Codex page.
+>
+> I've also updated http://codex.wordpress.org/Help:Editing with all the 
+> core Mediawiki styles used in the Codex, with a few Codex specific 
+> ones. I've also included notes to point out where the CSS styles go 
+> wonkers with the hope that these will be cleaned up. Until they are, 
+> just continue to put in the right code and not force the styles to 
+> conform so we won't have to go back and fix them when they are 
+> "corrected" properly.
+>
+> Thanks to all for your patience while the Codex has been a little 
+> unstylish. :D
+>
+> Lorelle
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081231/f17fe702/attachment.htm
+From cclarkson at htcomp.net  Wed Dec 31 17:53:14 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Wed Dec 31 17:53:37 2008
+Subject: [wp-docs] CSS Styles in the Codex
+In-Reply-To: <495B8282.70606@gaarai.com>
+References: <fded39850812281230i11f5c7afsbbf41531158bd88a@mail.gmail.com>
+	<495B8282.70606@gaarai.com>
+Message-ID: <495BB18A.1010409@htcomp.net>
+
+Chris wrote:
+
+ >  * Lack of styling for DD and DT elements. I solved this by manually
+ >    applying style information to each element. The way that DD and DT
+ >    elements are styled in the PHP documentation is very nice. Similar
+ >    to my request with tables, I'd like to be able to use a class on
+ >    the DL element to apply this type of styling to the DD and DT
+ >    elements.
+
+     I think you are referring to the Parameters section. There is a
+wikitext Parameter Template [1] which is easy to use. Here's one from a
+function I uploaded recently [2].
+
+{{Parameter|$commentarr|array|Contains information on the comment.}}
+
+     The template translates this template into the following markup. I
+added whitespace for clarification.
+
+<dl>
+     <dt> <tt>$commentarr</tt></dt>
+     <dd> (<i>array</i>) (<i>required</i>)
+         Contains information on the comment.
+         <dl>
+             <dd> Default: <i>None</i></dd>
+         </dl>
+     </dd>
+</dl>
+
+     Note that all the xhtml is added by the template, not by the human
+function reference editor. Using a template, inline styling is more
+convenient because automation handles all the markup.
+
+     The inline style only needs to be changed in one place (the template
+definition). Changing that style from inline to a class or id based
+style would not require changes to the function reference pages.
+
+     Whether this markup is represented using dictionary lists, spans or
+divs using inline styles or separate css shouldn't matter to the
+function reference editor.
+
+     I would like to see similar templates for the Return Values, Usage,
+Source File and Related sections (or subsections).
+
+[1] http://codex.wordpress.org/Template:Parameter
+[2] http://codex.wordpress.org/Function_Reference/wp_update_comment
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328

@@ -1,0 +1,47 @@
+From bg at hearingvoices.com  Thu Apr 18 10:33:31 2013
+From: bg at hearingvoices.com (Barrett Golding)
+Date: Thu, 18 Apr 2013 04:33:31 -0600
+Subject: [wp-docs] Page Templates article
+Message-ID: <AD690CAA-1823-4064-A890-1D03CC9E1498@hearingvoices.com>
+
+This is a proposed new Codex article, splitting off Page Templates from the Pages article:http://codex.wordpress.org/Pages#Page_Templates
+
+As discussed on:
+http://make.wordpress.org/docs/2013/04/09/adopt-a-codex-page/#comment-21173
+
+Most of the Pages#Page_Templates info is included here, but re-written somewhat. All the Examples are preserved, but given consistent formatting (eg, indents), and updated from Twenty Eleven theme structure to Twenty Thirteen.
+
+Also added some examples of my own, which are more for dev purposes, but may be helpful:http://codex.wordpress.org/User:Hearvox/Custom_Page_Templates#Page_Template_Functions
+
+article ready for everyone's edits/comments,
+bg
+-- 
+<http://HearingVoices.com/>
+~radio active transmissions~
+
+
+From bg at hearingvoices.com  Thu Apr 18 21:33:59 2013
+From: bg at hearingvoices.com (Barrett Golding)
+Date: Thu, 18 Apr 2013 15:33:59 -0600
+Subject: [wp-docs] get_page_templates
+Message-ID: <6EC6CC44-AC56-4DD0-8DCD-9D435D467DED@hearingvoices.com>
+
+
+I'm revising some Page Template stuff over at Codex,
+and came upon something i need y'all's consult on:
+http://codex.wordpress.org/Function_Reference/get_page_templates
+
+seems like calling just: get_page_templates();
+
+gets you a fatal Undeclared Function error. what's works is:
+wp_get_theme()->get_page_templates()
+
+if so, i should correct the above url.
+but wanted to check w/ you Core Kids first.
+
+bg
+-- 
+<http://HearingVoices.com/>
+~radio active transmissions~
+
+

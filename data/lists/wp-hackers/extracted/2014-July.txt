@@ -1,0 +1,4881 @@
+From needle at haystack.co.uk  Tue Jul  1 08:43:14 2014
+From: needle at haystack.co.uk (Christian Wach)
+Date: Tue, 1 Jul 2014 09:43:14 +0100
+Subject: [wp-hackers] Advanced Javascript development in core
+In-Reply-To: <AC7DB9DF26154FDCAC17DF30399E88F2@gmail.com>
+References: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+ <CAM0WtjeR7OCn59rJ+AnEarJ4Su=wvAHryRvfzE5cOZc3k1CJcg@mail.gmail.com>
+ <CAH9U35=v1wfj_y09L3_96v6EOsp8mKMebeCZ45Lb4nTdvMwxDA@mail.gmail.com>
+ <AC7DB9DF26154FDCAC17DF30399E88F2@gmail.com>
+Message-ID: <18D98156-7D14-4A1B-A90A-D92A8005DBC5@haystack.co.uk>
+
+
+On 29 Jun 2014, at 14:19, Eric Andrew Lewis <eric.andrew.lewis at gmail.com> wrote:
+
+> Carl Danley?s WP JS Hooks (https://github.com/carldanley/wp-js-hooks) which is a fine implementation in my opinion.   
+
+Agree. I'd love to see this in core.
+
+Cheers,
+
+Christian
+
+
+From dmchale at gmail.com  Thu Jul  3 14:49:55 2014
+From: dmchale at gmail.com (Dave McHale)
+Date: Thu, 3 Jul 2014 10:49:55 -0400
+Subject: [wp-hackers] Plugin development and Subversion
+Message-ID: <CANWKvSx6if+bMhApqBO4aH3xiMQ1GH4ELJT5JrzkF9+eqB3tTg@mail.gmail.com>
+
+I'm new to Subversion but hoping someone can help steer me in the right
+direction here. Hopefully my explanation below makes sense.
+
+When developing, I tend to open my projects at the root of a Wordpress
+installation using PHPStorm since I get full context of the WP ecosystem -
+clicking on function names brings me to the function itself, etc. However,
+the baked-into-the-editor SVN integration requires that when you start
+coding, you open the root of your REPOSITORY which ideally would be my
+specific plugin at /wp-content/plugins/<myPluginName>. So I'm stuck either
+opening my plugin directory only (and losing my Wordpress context) or
+putting an ENTIRE copy of wordpress into a repository simply because I want
+to work on a plugin.
+
+I know one option is to just do whatever I want for development, and handle
+all my SVN stuff on the side using something like TortoiseSVN, but I'm
+trying to keep things streamlined as much as possible which is why the IDE
+integration was appealing. Am I looking at this the wrong way? Is there a
+way to do this that I'm missing? It just seems silly to include 16MB+ of WP
+Core code in my repository - not to mention require that every single
+plugin I work on have it's own full copy of Core, too.
+
+TIA, hackers!
+
+Dave
+
+From bryan at ibaku.net  Thu Jul  3 15:31:51 2014
+From: bryan at ibaku.net (Bryan Petty)
+Date: Thu, 3 Jul 2014 09:31:51 -0600
+Subject: [wp-hackers] Plugin development and Subversion
+In-Reply-To: <CANWKvSx6if+bMhApqBO4aH3xiMQ1GH4ELJT5JrzkF9+eqB3tTg@mail.gmail.com>
+References: <CANWKvSx6if+bMhApqBO4aH3xiMQ1GH4ELJT5JrzkF9+eqB3tTg@mail.gmail.com>
+Message-ID: <CAKB8V+qoJwjii6u7z2ie+LSK9DsV-ELg_2oWtdvtNVZNTjrhwA@mail.gmail.com>
+
+On Thu, Jul 3, 2014 at 8:49 AM, Dave McHale <dmchale at gmail.com> wrote:
+> the baked-into-the-editor SVN integration requires that when you start
+> coding, you open the root of your REPOSITORY
+
+Actually, it doesn't. You can have any number of repositories in one
+project at any location.
+
+http://www.jetbrains.com/phpstorm/webhelp/configuring-subversion-repository-location.html
+
+-- 
+Regards,
+Bryan Petty
+
+From nikolov.tmw at gmail.com  Fri Jul  4 13:38:27 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 4 Jul 2014 16:38:27 +0300
+Subject: [wp-hackers] Incorrect documentation for register_post_status
+Message-ID: <CAOwx47dPs+gruryh7J4RWAJJ9PkO0B-XpRYbn+OzbF8cECKTHA@mail.gmail.com>
+
+I had to add a new custom post status and so I looked-up the documentation
+for the register_post_status()
+<http://codex.wordpress.org/Function_Reference/register_post_status>
+function and adjusted the sample code from there.
+
+I found a way to add the post status to the status drop-down on the
+add/edit posts screens and changed the status of one of the posts.
+
+It all worked as expected - the post status was now updated for that post.
+
+Then I went back to the posts screen for my custom post type and I saw the
+post status link on top, showing me that there's 1 post with that post
+status. That's also correct.
+
+However the post disappeared from the list of posts, even though I've set
+"show_in_admin_all_list" to true in the arguments for the post status.
+
+So I looked around and found out that in /wp-includes/query.php on line
+#2819
+<https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2819>
+,
+WordPress is getting registered post statuses with show_in_admin_all_list =
+true AND protected = true
+
+The *protected* argument is not documented anywhere, but after I set that
+to true in my arguments list, the post appeared again.
+
+I would go in and document that myself, but I really have no clue what
+*protected* is used for and I don't want to advise people to add it in just
+because it works.
+
+If anyone has more insight, I'd be happy to hear it.
+
+Nikola
+
+From f.gargano at consulenti.kataweb.it  Fri Jul  4 14:26:28 2014
+From: f.gargano at consulenti.kataweb.it (Fabrizio Gargano)
+Date: Fri, 04 Jul 2014 16:26:28 +0200
+Subject: [wp-hackers] Youtube oembed & plugin fix
+Message-ID: <53B6B994.8050002@consulenti.kataweb.it>
+
+Hi everybody.
+It seems youtube.com oembed result for playlists is a bit incorrect.
+
+Example:
+http://www.youtube.com/watch?v=N1zxDa3t0fg&list=PLE90C50E033BD1351&feature=share&index=2
+
+The oembed url for xml format is:
+http://www.youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DN1zxDa3t0fg%26list%3DPLE90C50E033BD1351%26index%3D3&format=xml
+
+The html tag, imho, should have a src attribute for iframe like
+"http://www.youtube.com/embed/videoseries?list=PLE90C50E033BD1351&index=1"
+
+Youtube's iframe src lacks the index parameter, so the embed starts to
+play from the first video.
+
+So I wrote a simple mu-plugins to append it to html results:
+
+<?php
+function fix_iframe_src($html, $url){
+    if(strpos($url,"http://www.youtube.com/")!==false &&
+strpos($url,"list=")!==false && strpos($html,"index=")===false){
+      foreach(explode("&",$url) as $param){
+        if(preg_match('/^index=([0-9]+)$/',$param,$result)===1){
+           $index=$result[1];
+           $index--;
+           return preg_replace('/(src="[^"]+)/',"\\1&index=$index",$html);
+        }
+      }
+    }
+    return $html;
+}
+add_filter('embed_oembed_html','fix_iframe_src',10,2);
+
+
+Regards,
+F.
+
+From lukebryan at sharefaith.com  Sun Jul  6 07:06:16 2014
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Sun, 6 Jul 2014 00:06:16 -0700
+Subject: [wp-hackers] (no subject)
+Message-ID: <CAFnKAk2cxBEFbpRM57TnfELfGLDo9UB=hKVO-7mN6QR9JWaBoQ@mail.gmail.com>
+
+Greetings,
+
+I was wondering about this comment in 3.9.1 - wp-includes/js/mce-view.js:
+
+/* global tinymce, MediaElementPlayer, WPPlaylistView */
+/**
+ * Note: this API is "experimental" meaning that it will probably change
+ * in the next few releases based on feedback from 3.9.0.
+ * If you decide to use it, please follow the development closely.
+ */
+
+Is this API officially changing in 4.0, or is it pretty much ready and
+documented somewhere?
+When finished, will this be the answer to this bug?
+https://core.trac.wordpress.org/ticket/28169
+
+
+Best regards,
+Luke
+
+From halukkaramete at gmail.com  Sun Jul  6 10:26:09 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 6 Jul 2014 03:26:09 -0700
+Subject: [wp-hackers] Admin dashboard > category box wish list.
+Message-ID: <CAHERW=2SHzyMMEssTdZzMvWbn=OKpyTpjh50cU4J4pUm5X9V1w@mail.gmail.com>
+
+Hello everybody...
+
+On Wordpress dashboard, at the "categories" section, I have 3 basic
+questions. I'd appreciate any lending hands.
+
+(1) How do I change the length of that area so I can display all my cats -
+eliminating the need for the vertical scroll-bar?
+
+(2) How do I ensure that the __top level items__ are listed in an order I
+specify (or even better in the order they were created - sorted by their
+TTID) ?
+   currently, out of the box WordPress displays them in an alpabetical
+order.
+
+and finally,
+
+(3) is there a simple trick to tell WordPress to keep the checked terms in
+their own original hierarchical spot - rather than by moving them to the
+top as currently?
+
+From halukkaramete at gmail.com  Sun Jul  6 17:57:10 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 6 Jul 2014 10:57:10 -0700
+Subject: [wp-hackers] Admin dashboard > category box wish list.
+In-Reply-To: <CAHERW=2SHzyMMEssTdZzMvWbn=OKpyTpjh50cU4J4pUm5X9V1w@mail.gmail.com>
+References: <CAHERW=2SHzyMMEssTdZzMvWbn=OKpyTpjh50cU4J4pUm5X9V1w@mail.gmail.com>
+Message-ID: <CAHERW=1v7hsj9gdwwhyis2AhxODBSvDoVXxB8AUPisxmjjU_QQ@mail.gmail.com>
+
+Answering my own,, sharing for-what-it's-worth!
+
+(1) and (3) of my original wish list taken care of.
+I have some sense that wish #2 is impossible without the term_meta. so
+leaving that as 'wishful-thinking' and moving on.
+
+here we go...
+
+# keep the category hierarchy on the post editing screen as original
+# and expand the category meta box vertically so not we see no scrollbars
+
+# code inspired by
+# 1) http://wordpress.org/plugins/category-checklist-tree/
+# 2) http://wordpress.org/plugins/category-checklist-expander/
+
+# keep the category hierarchy on the post editing screen as original
+add_filter( 'wp_terms_checklist_args', 'blp_checklist_args' ) ;
+function blp_checklist_args( $args ) {
+    $args['checked_ontop'] = false;
+    return $args;
+}
+
+# and expand the category meta box vertically so not we see no scrollbars
+add_action( 'admin_head', 'blp_category_scroll_bar_be_gone' );
+function blp_category_scroll_bar_be_gone() {
+    global $wp_version, $pagenow;
+    if ( !in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) )
+        return;
+    ?>
+    <style>
+        #categorydiv div.tabs-panel, #linkcategorydiv div.tabs-panel {
+height: auto; max-height: none; }
+    </style>
+<?php
+}
+
+
+
+On Sun, Jul 6, 2014 at 3:26 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Hello everybody...
+>
+> On Wordpress dashboard, at the "categories" section, I have 3 basic
+> questions. I'd appreciate any lending hands.
+>
+> (1) How do I change the length of that area so I can display all my cats -
+> eliminating the need for the vertical scroll-bar?
+>
+> (2) How do I ensure that the __top level items__ are listed in an order I
+> specify (or even better in the order they were created - sorted by their
+> TTID) ?
+>    currently, out of the box WordPress displays them in an alpabetical
+> order.
+>
+> and finally,
+>
+> (3) is there a simple trick to tell WordPress to keep the checked terms in
+> their own original hierarchical spot - rather than by moving them to the
+> top as currently?
+>
+>
+>
+
+From hi_word at hotmail.com  Sun Jul  6 18:47:05 2014
+From: hi_word at hotmail.com (Adam LaBarge)
+Date: Sun, 6 Jul 2014 18:47:05 +0000
+Subject: [wp-hackers] extended Genesis Featured Widget Amplified new
+ $instance array elements not making it to and saving in update()
+Message-ID: <SNT148-W29EAE79C9384A1E19B76DF9F020@phx.gbl>
+
+
+Hello -
+In a nutshell: I'm extending a plugin widget class, adding new elements to defaults array and $instance, making a check box, and trying to save check box settings.  But no saving is happening.
+Extended: I'm working on extending the Genesis Featured Widget Amplified (gfwa) plugin.  Currently, at least with version 0.8.1, the widget will not ignore sticky post and if there are sticky post, it will blow out the user defined post limit.  (ie, 4 sticky post, user limit set to 4, so 8 post show up in the widget output, not 4 - this kind of defeats the purpose of a limit).
+So far I have, i think, everything set up correctly.  But something is wrong because when I var_dump the inputs of update($instance, $old_instance), neither have the new defaults array elements.
+I have extended the original class, updated widget() to account for ignore sticky and set a real limit on the while loop, added my check box to the form(), but no luck in saving.
+The code for this is rather long, so I've put it up on github:https://github.com/adamplabarge/apl_gfwa_extended/blob/master/apl_gfwa_extended.php
+Thanks any help and or suggestions.  And open to code critique.-adam 
+
+
+  		 	   		  
+
+From remkus at forsite.nu  Sun Jul  6 19:01:30 2014
+From: remkus at forsite.nu (=?utf-8?Q?Remkus_de_Vries_=7C_Forsite_Media?=)
+Date: Sun, 6 Jul 2014 21:01:30 +0200
+Subject: [wp-hackers] extended Genesis Featured Widget Amplified new
+ $instance array elements not making it to and saving in update()
+In-Reply-To: <SNT148-W29EAE79C9384A1E19B76DF9F020@phx.gbl>
+References: <SNT148-W29EAE79C9384A1E19B76DF9F020@phx.gbl>
+Message-ID: <A197212A6C7E4F2CA48B2E71EED832FE@forsite.nu>
+
+Nick?s plugin hasn?t been updated for more than two years, so for starters you?re probably better off extending Travis' https://github.com/wpsmith/genesis-sandbox-featured-content-widget
+
+On Sunday, 6 July, 2014 at 20:47 , Adam LaBarge wrote:
+
+>  
+> Hello -
+> In a nutshell: I'm extending a plugin widget class, adding new elements to defaults array and $instance, making a check box, and trying to save check box settings. But no saving is happening.
+> Extended: I'm working on extending the Genesis Featured Widget Amplified (gfwa) plugin. Currently, at least with version 0.8.1, the widget will not ignore sticky post and if there are sticky post, it will blow out the user defined post limit. (ie, 4 sticky post, user limit set to 4, so 8 post show up in the widget output, not 4 - this kind of defeats the purpose of a limit).
+> So far I have, i think, everything set up correctly. But something is wrong because when I var_dump the inputs of update($instance, $old_instance), neither have the new defaults array elements.
+> I have extended the original class, updated widget() to account for ignore sticky and set a real limit on the while loop, added my check box to the form(), but no luck in saving.
+> The code for this is rather long, so I've put it up on github:https://github.com/adamplabarge/apl_gfwa_extended/blob/master/apl_gfwa_extended.php
+> Thanks any help and or suggestions. And open to code critique.-adam  
+>  
+>  
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>  
+>  
+
+
+
+From pascal.birchler at gmail.com  Mon Jul  7 07:26:31 2014
+From: pascal.birchler at gmail.com (Pascal Birchler)
+Date: Mon, 7 Jul 2014 09:26:31 +0200
+Subject: [wp-hackers] Incorrect documentation for register_post_status
+In-Reply-To: <CAOwx47dPs+gruryh7J4RWAJJ9PkO0B-XpRYbn+OzbF8cECKTHA@mail.gmail.com>
+References: <CAOwx47dPs+gruryh7J4RWAJJ9PkO0B-XpRYbn+OzbF8cECKTHA@mail.gmail.com>
+Message-ID: <CA+U2bwJfsbGaKBuOVYu9Ef3AuzRj3f-UiO2m8ZUpUOzZGBbOog@mail.gmail.com>
+
+How does your code look like? It seems like setting the `public` argument
+to true should be enough. See the lines above:
+https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2810
+
+
+2014-07-04 15:38 GMT+02:00 Nikola Nikolov <nikolov.tmw at gmail.com>:
+
+> I had to add a new custom post status and so I looked-up the documentation
+> for the register_post_status()
+> <http://codex.wordpress.org/Function_Reference/register_post_status>
+> function and adjusted the sample code from there.
+>
+> I found a way to add the post status to the status drop-down on the
+> add/edit posts screens and changed the status of one of the posts.
+>
+> It all worked as expected - the post status was now updated for that post.
+>
+> Then I went back to the posts screen for my custom post type and I saw the
+> post status link on top, showing me that there's 1 post with that post
+> status. That's also correct.
+>
+> However the post disappeared from the list of posts, even though I've set
+> "show_in_admin_all_list" to true in the arguments for the post status.
+>
+> So I looked around and found out that in /wp-includes/query.php on line
+> #2819
+> <
+> https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2819
+> >
+> ,
+> WordPress is getting registered post statuses with show_in_admin_all_list =
+> true AND protected = true
+>
+> The *protected* argument is not documented anywhere, but after I set that
+> to true in my arguments list, the post appeared again.
+>
+> I would go in and document that myself, but I really have no clue what
+> *protected* is used for and I don't want to advise people to add it in just
+> because it works.
+>
+> If anyone has more insight, I'd be happy to hear it.
+>
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Mon Jul  7 09:34:54 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 7 Jul 2014 02:34:54 -0700
+Subject: [wp-hackers] by passing the entire template hierarchy
+Message-ID: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+
+Is there a way to by pass the great system known as the  WordPress Template
+Hierarchy so that WordPress shoots the ball straight to the last resort
+which is index.php?
+
+From nikolov.tmw at gmail.com  Mon Jul  7 11:43:16 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 7 Jul 2014 14:43:16 +0300
+Subject: [wp-hackers] Incorrect documentation for register_post_status
+In-Reply-To: <CA+U2bwJfsbGaKBuOVYu9Ef3AuzRj3f-UiO2m8ZUpUOzZGBbOog@mail.gmail.com>
+References: <CAOwx47dPs+gruryh7J4RWAJJ9PkO0B-XpRYbn+OzbF8cECKTHA@mail.gmail.com>
+ <CA+U2bwJfsbGaKBuOVYu9Ef3AuzRj3f-UiO2m8ZUpUOzZGBbOog@mail.gmail.com>
+Message-ID: <CAOwx47e5+uXfT2M8j-3sW04NFuDQE6oBBwrV4iQWZ_1VLcF7YA@mail.gmail.com>
+
+That's the thing - I don't want posts with that status to be public.
+
+However, in theory(according to the documentation), setting
+"show_in_admin_all_list" to true should make posts with that post status
+visible in the "All" section of the posts list.
+
+What I'm not sure about is what the "protected" property of a post status
+is used for.
+
+
+On Mon, Jul 7, 2014 at 10:26 AM, Pascal Birchler <pascal.birchler at gmail.com>
+wrote:
+
+> How does your code look like? It seems like setting the `public` argument
+> to true should be enough. See the lines above:
+>
+> https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2810
+>
+>
+> 2014-07-04 15:38 GMT+02:00 Nikola Nikolov <nikolov.tmw at gmail.com>:
+>
+> > I had to add a new custom post status and so I looked-up the
+> documentation
+> > for the register_post_status()
+> > <http://codex.wordpress.org/Function_Reference/register_post_status>
+> > function and adjusted the sample code from there.
+> >
+> > I found a way to add the post status to the status drop-down on the
+> > add/edit posts screens and changed the status of one of the posts.
+> >
+> > It all worked as expected - the post status was now updated for that
+> post.
+> >
+> > Then I went back to the posts screen for my custom post type and I saw
+> the
+> > post status link on top, showing me that there's 1 post with that post
+> > status. That's also correct.
+> >
+> > However the post disappeared from the list of posts, even though I've set
+> > "show_in_admin_all_list" to true in the arguments for the post status.
+> >
+> > So I looked around and found out that in /wp-includes/query.php on line
+> > #2819
+> > <
+> >
+> https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2819
+> > >
+> > ,
+> > WordPress is getting registered post statuses with
+> show_in_admin_all_list =
+> > true AND protected = true
+> >
+> > The *protected* argument is not documented anywhere, but after I set that
+> > to true in my arguments list, the post appeared again.
+> >
+> > I would go in and document that myself, but I really have no clue what
+> > *protected* is used for and I don't want to advise people to add it in
+> just
+> > because it works.
+> >
+> > If anyone has more insight, I'd be happy to hear it.
+> >
+> > Nikola
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From skaramicke at gmail.com  Mon Jul  7 12:52:35 2014
+From: skaramicke at gmail.com (=?UTF-8?B?TWlrYWVsIEdyw7Zu?=)
+Date: Mon, 7 Jul 2014 14:52:35 +0200
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+References: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+Message-ID: <CAJB_gEvu-xG13rHdVXAUbHUH_qrNciAFcgWSqQgjm2MjFe=QwA@mail.gmail.com>
+
+What are you trying to accomplish?
+
+When I want to run pure code, for cron scripts and stuff, I usually do
+something like this:
+
+<?php
+
+// in plugin or theme
+add_action('get_header', function(){
+    if (strstr($_SERVER['REQUEST_URI'], '/cron/trigger_word')
+    {
+        // My code
+        exit;
+    }
+});
+
+?>
+
+--
+Regards
+Mikael Gr?n
+
+
+2014-07-07 11:34 GMT+02:00 Haluk Karamete <halukkaramete at gmail.com>:
+
+> Is there a way to by pass the great system known as the  WordPress Template
+> Hierarchy so that WordPress shoots the ball straight to the last resort
+> which is index.php?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From skaramicke at gmail.com  Mon Jul  7 12:53:14 2014
+From: skaramicke at gmail.com (=?UTF-8?B?TWlrYWVsIEdyw7Zu?=)
+Date: Mon, 7 Jul 2014 14:53:14 +0200
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAJB_gEvu-xG13rHdVXAUbHUH_qrNciAFcgWSqQgjm2MjFe=QwA@mail.gmail.com>
+References: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+ <CAJB_gEvu-xG13rHdVXAUbHUH_qrNciAFcgWSqQgjm2MjFe=QwA@mail.gmail.com>
+Message-ID: <CAJB_gEv96Sskrz-79j3K=7-33ywgw8Khf4VtVSz7Q7jNEE3KCg@mail.gmail.com>
+
+(sorry about the typo, coding in a gmail compose window is not recommended.)
+
+--
+Med v?nliga h?lsningar
+Mikael Gr?n
+
+
+2014-07-07 14:52 GMT+02:00 Mikael Gr?n <skaramicke at gmail.com>:
+
+> What are you trying to accomplish?
+>
+> When I want to run pure code, for cron scripts and stuff, I usually do
+> something like this:
+>
+> <?php
+>
+> // in plugin or theme
+> add_action('get_header', function(){
+>     if (strstr($_SERVER['REQUEST_URI'], '/cron/trigger_word')
+>     {
+>         // My code
+>         exit;
+>     }
+> });
+>
+> ?>
+>
+> --
+> Regards
+> Mikael Gr?n
+>
+>
+> 2014-07-07 11:34 GMT+02:00 Haluk Karamete <halukkaramete at gmail.com>:
+>
+> Is there a way to by pass the great system known as the  WordPress Template
+>> Hierarchy so that WordPress shoots the ball straight to the last resort
+>> which is index.php?
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>
+>
+
+From jdg at codesymphony.co  Mon Jul  7 13:12:51 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Mon, 7 Jul 2014 09:12:51 -0400
+Subject: [wp-hackers] Incorrect documentation for register_post_status
+In-Reply-To: <CAOwx47e5+uXfT2M8j-3sW04NFuDQE6oBBwrV4iQWZ_1VLcF7YA@mail.gmail.com>
+References: <CAOwx47dPs+gruryh7J4RWAJJ9PkO0B-XpRYbn+OzbF8cECKTHA@mail.gmail.com>
+ <CA+U2bwJfsbGaKBuOVYu9Ef3AuzRj3f-UiO2m8ZUpUOzZGBbOog@mail.gmail.com>
+ <CAOwx47e5+uXfT2M8j-3sW04NFuDQE6oBBwrV4iQWZ_1VLcF7YA@mail.gmail.com>
+Message-ID: <0641A70C-B758-476E-9A61-52796C7B9501@codesymphony.co>
+
+Take a look at the registration of the core post types: https://core.trac.wordpress.org/browser/trunk/src/wp-includes/post.php#L111
+
+public => true is used for publish.
+protected => true is used for future, draft, and pending. 
+private => true is used for private.
+internal => true is used for trash, auto-draft, and inherit.
+
+So the protected property means that a post status shouldn?t be visible on the front end to users without the required caps. In other words, it would make the status behave like a draft or pending post.
+
+The docs should be updated to say that a post status should be registered with one of these set to true. They basically represent a ?visibility? property for the status, but instead they are each a separate property (but they probably shouldn?t have been, IMHO). I think it is intended that one of them should always be used, and not more than one.
+
+-J.D.
+
+On Jul 7, 2014, at 7:43 AM, Nikola Nikolov <nikolov.tmw at gmail.com> wrote:
+
+> That's the thing - I don't want posts with that status to be public.
+> 
+> However, in theory(according to the documentation), setting
+> "show_in_admin_all_list" to true should make posts with that post status
+> visible in the "All" section of the posts list.
+> 
+> What I'm not sure about is what the "protected" property of a post status
+> is used for.
+> 
+> 
+> On Mon, Jul 7, 2014 at 10:26 AM, Pascal Birchler <pascal.birchler at gmail.com>
+> wrote:
+> 
+>> How does your code look like? It seems like setting the `public` argument
+>> to true should be enough. See the lines above:
+>> 
+>> https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2810
+>> 
+>> 
+>> 2014-07-04 15:38 GMT+02:00 Nikola Nikolov <nikolov.tmw at gmail.com>:
+>> 
+>>> I had to add a new custom post status and so I looked-up the
+>> documentation
+>>> for the register_post_status()
+>>> <http://codex.wordpress.org/Function_Reference/register_post_status>
+>>> function and adjusted the sample code from there.
+>>> 
+>>> I found a way to add the post status to the status drop-down on the
+>>> add/edit posts screens and changed the status of one of the posts.
+>>> 
+>>> It all worked as expected - the post status was now updated for that
+>> post.
+>>> 
+>>> Then I went back to the posts screen for my custom post type and I saw
+>> the
+>>> post status link on top, showing me that there's 1 post with that post
+>>> status. That's also correct.
+>>> 
+>>> However the post disappeared from the list of posts, even though I've set
+>>> "show_in_admin_all_list" to true in the arguments for the post status.
+>>> 
+>>> So I looked around and found out that in /wp-includes/query.php on line
+>>> #2819
+>>> <
+>>> 
+>> https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2819
+>>>> 
+>>> ,
+>>> WordPress is getting registered post statuses with
+>> show_in_admin_all_list =
+>>> true AND protected = true
+>>> 
+>>> The *protected* argument is not documented anywhere, but after I set that
+>>> to true in my arguments list, the post appeared again.
+>>> 
+>>> I would go in and document that myself, but I really have no clue what
+>>> *protected* is used for and I don't want to advise people to add it in
+>> just
+>>> because it works.
+>>> 
+>>> If anyone has more insight, I'd be happy to hear it.
+>>> 
+>>> Nikola
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>> 
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From johnbillion+wp at gmail.com  Mon Jul  7 13:39:29 2014
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Mon, 7 Jul 2014 14:39:29 +0100
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+References: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+Message-ID: <CAOqAKWDxWDzbXp+DwJDrjZLxhkzLu4UQo1eQwW0RDi4NCbYYGA@mail.gmail.com>
+
+It's a strange thing to need to do (you might want to re-think what
+exactly it is you're doing) but it's simple enough:
+
+add_filter( 'template_include', function( $template ) {
+    return locate_template( 'index.php' );
+} );
+
+On 7 July 2014 10:34, Haluk Karamete <halukkaramete at gmail.com> wrote:
+> Is there a way to by pass the great system known as the  WordPress Template
+> Hierarchy so that WordPress shoots the ball straight to the last resort
+> which is index.php?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From halukkaramete at gmail.com  Mon Jul  7 15:08:54 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 7 Jul 2014 08:08:54 -0700
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAOqAKWDxWDzbXp+DwJDrjZLxhkzLu4UQo1eQwW0RDi4NCbYYGA@mail.gmail.com>
+References: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+ <CAOqAKWDxWDzbXp+DwJDrjZLxhkzLu4UQo1eQwW0RDi4NCbYYGA@mail.gmail.com>
+Message-ID: <CAHERW=2k4ogUjnwh3FYUkKUh5C2fTGM6MB5FhxgL5DaOdy=P4g@mail.gmail.com>
+
+Thank you guys for your input.. I appreciate it.
+
+John, I've built a new infustructure where things work differently and in
+this infrustructure, the whole theme is done by a single index.php. And
+that's always the case - which nullifies the need for the concept known as
+template-hiearachy.
+
+So there will never-ever be a need to say category.php.
+I do not wish to get into the details here as to why I]ve built a framework
+as such , and why I should or should not have done so etc.
+
+Please note that this is not about overwriting the template hierarchy.
+
+It's about totally by passing it
+- which I have a feeling is not possible.
+
+In the case of hooking into the "template_include" (or "template_redirect"
+for that matter), it's an overwrite.
+
+As you know, those hooks are run after wordpress core deployed the
+template-hierarchy and in some cases 7 or 8 files have already been probed
+for their existence. - which is exactly the process I'm trying to prevent
+from taking place.
+
+and as to the get_header option, Mikael, it's the same situation. By the
+time, get_header hook sees the world, all the file_exists operations have
+already been performed.
+
+Let me put it this way, we all know index.php is the last resort in the
+template-hierarchy.
+
+Is there a hook that I can turn index.php being the first-resort?
+
+
+
+
+
+On Mon, Jul 7, 2014 at 6:39 AM, John Blackbourn <johnbillion+wp at gmail.com>
+wrote:
+
+> It's a strange thing to need to do (you might want to re-think what
+> exactly it is you're doing) but it's simple enough:
+>
+> add_filter( 'template_include', function( $template ) {
+>     return locate_template( 'index.php' );
+> } );
+>
+> On 7 July 2014 10:34, Haluk Karamete <halukkaramete at gmail.com> wrote:
+> > Is there a way to by pass the great system known as the  WordPress
+> Template
+> > Hierarchy so that WordPress shoots the ball straight to the last resort
+> > which is index.php?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From johnbillion+wp at gmail.com  Mon Jul  7 15:24:50 2014
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Mon, 7 Jul 2014 16:24:50 +0100
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAHERW=2k4ogUjnwh3FYUkKUh5C2fTGM6MB5FhxgL5DaOdy=P4g@mail.gmail.com>
+References: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+ <CAOqAKWDxWDzbXp+DwJDrjZLxhkzLu4UQo1eQwW0RDi4NCbYYGA@mail.gmail.com>
+ <CAHERW=2k4ogUjnwh3FYUkKUh5C2fTGM6MB5FhxgL5DaOdy=P4g@mail.gmail.com>
+Message-ID: <CAOqAKWD9YeafgrNViZU8d966mf_HoE3Z5VQVKBFVxGz=DjF9cg@mail.gmail.com>
+
+It sounds like you're trying to do something that doesn't belong as a
+theme, but whatever. This should do the trick:
+
+add_action( 'template_redirect', function() {
+    locate_template( 'index.php', true );
+    exit;
+} );
+
+Note that this will also affect feeds and things, so you might want to
+add some `!is_feed()` logic in there if you still want feeds to work.
+
+John
+
+On 7 July 2014 16:08, Haluk Karamete <halukkaramete at gmail.com> wrote:
+> Thank you guys for your input.. I appreciate it.
+>
+> John, I've built a new infustructure where things work differently and in
+> this infrustructure, the whole theme is done by a single index.php. And
+> that's always the case - which nullifies the need for the concept known as
+> template-hiearachy.
+>
+> So there will never-ever be a need to say category.php.
+> I do not wish to get into the details here as to why I]ve built a framework
+> as such , and why I should or should not have done so etc.
+>
+> Please note that this is not about overwriting the template hierarchy.
+>
+> It's about totally by passing it
+> - which I have a feeling is not possible.
+>
+> In the case of hooking into the "template_include" (or "template_redirect"
+> for that matter), it's an overwrite.
+>
+> As you know, those hooks are run after wordpress core deployed the
+> template-hierarchy and in some cases 7 or 8 files have already been probed
+> for their existence. - which is exactly the process I'm trying to prevent
+> from taking place.
+>
+> and as to the get_header option, Mikael, it's the same situation. By the
+> time, get_header hook sees the world, all the file_exists operations have
+> already been performed.
+>
+> Let me put it this way, we all know index.php is the last resort in the
+> template-hierarchy.
+>
+> Is there a hook that I can turn index.php being the first-resort?
+>
+>
+>
+>
+>
+> On Mon, Jul 7, 2014 at 6:39 AM, John Blackbourn <johnbillion+wp at gmail.com>
+> wrote:
+>
+>> It's a strange thing to need to do (you might want to re-think what
+>> exactly it is you're doing) but it's simple enough:
+>>
+>> add_filter( 'template_include', function( $template ) {
+>>     return locate_template( 'index.php' );
+>> } );
+>>
+>> On 7 July 2014 10:34, Haluk Karamete <halukkaramete at gmail.com> wrote:
+>> > Is there a way to by pass the great system known as the  WordPress
+>> Template
+>> > Hierarchy so that WordPress shoots the ball straight to the last resort
+>> > which is index.php?
+>> > _______________________________________________
+>> > wp-hackers mailing list
+>> > wp-hackers at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From lists at walterebert.com  Mon Jul  7 15:47:44 2014
+From: lists at walterebert.com (Walter Ebert)
+Date: Mon, 07 Jul 2014 17:47:44 +0200
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAHERW=2k4ogUjnwh3FYUkKUh5C2fTGM6MB5FhxgL5DaOdy=P4g@mail.gmail.com>
+References: <CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg@mail.gmail.com>
+ <CAOqAKWDxWDzbXp+DwJDrjZLxhkzLu4UQo1eQwW0RDi4NCbYYGA@mail.gmail.com>
+ <CAHERW=2k4ogUjnwh3FYUkKUh5C2fTGM6MB5FhxgL5DaOdy=P4g@mail.gmail.com>
+Message-ID: <53BAC120.6080706@walterebert.com>
+
+Hi,
+
+you could try to use a custom front controller and use .htaccess to map
+to that file, for example:
+
+index2.php
+<?php
+require 'wp-load.php';
+require get_template_directory() . '/index.php';
+
+
+.htaccess
+DirectoryIndex index2.php index.php index.html
+
+Cheers,
+Walter
+
+On 07/07/2014 05:08 PM, Haluk Karamete wrote:
+> Thank you guys for your input.. I appreciate it.
+> 
+> John, I've built a new infustructure where things work differently and in
+> this infrustructure, the whole theme is done by a single index.php. And
+> that's always the case - which nullifies the need for the concept known as
+> template-hiearachy.
+> 
+> So there will never-ever be a need to say category.php.
+> I do not wish to get into the details here as to why I]ve built a framework
+> as such , and why I should or should not have done so etc.
+> 
+> Please note that this is not about overwriting the template hierarchy.
+> 
+> It's about totally by passing it
+> - which I have a feeling is not possible.
+> 
+> In the case of hooking into the "template_include" (or "template_redirect"
+> for that matter), it's an overwrite.
+> 
+> As you know, those hooks are run after wordpress core deployed the
+> template-hierarchy and in some cases 7 or 8 files have already been probed
+> for their existence. - which is exactly the process I'm trying to prevent
+> from taking place.
+> 
+> and as to the get_header option, Mikael, it's the same situation. By the
+> time, get_header hook sees the world, all the file_exists operations have
+> already been performed.
+> 
+> Let me put it this way, we all know index.php is the last resort in the
+> template-hierarchy.
+> 
+> Is there a hook that I can turn index.php being the first-resort?
+> 
+> 
+> 
+> 
+> 
+> On Mon, Jul 7, 2014 at 6:39 AM, John Blackbourn <johnbillion+wp at gmail.com>
+> wrote:
+> 
+>> It's a strange thing to need to do (you might want to re-think what
+>> exactly it is you're doing) but it's simple enough:
+>>
+>> add_filter( 'template_include', function( $template ) {
+>>     return locate_template( 'index.php' );
+>> } );
+>>
+>> On 7 July 2014 10:34, Haluk Karamete <halukkaramete at gmail.com> wrote:
+>>> Is there a way to by pass the great system known as the  WordPress
+>> Template
+>>> Hierarchy so that WordPress shoots the ball straight to the last resort
+>>> which is index.php?
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+
+
+-- 
+Walter Ebert http://walterebert.com/
+
+From greglancaster71 at gmail.com  Mon Jul  7 21:18:27 2014
+From: greglancaster71 at gmail.com (BenderisGreat)
+Date: Mon, 7 Jul 2014 14:18:27 -0700 (PDT)
+Subject: [wp-hackers] Wordpress Media Uploader Use in a Plugin
+Message-ID: <1404767907668-44096.post@n5.nabble.com>
+
+I am having some trouble using the Media Library in a plugin.  I have a meta
+box in the new post area, and it allows for selection of a picture. The
+issue is I dont see how to allow selection of more than one image, but more
+importantly the image is returned at full size.  The attachment var returns
+only the full size.  I am using this jQuery :
+
+jQuery(document).ready(function($){
+      var custom_uploader;
+    $('#upload_image_button').click(function(e) {
+          e.preventDefault();
+          //If the uploader object has already been created, reopen the
+dialog
+          if (custom_uploader) {
+              custom_uploader.open();
+              return;
+          }
+          //Extend the wp.media object
+          custom_uploader = wp.media({
+              title: 'Choose Image',
+              button: {
+                  text: 'Choose Image',
+              },
+              multiple: false,
+             // If you pretent a function only for images you can limit the
+media elements only to images
+             library : { type : 'image' }
+         });
+
+         //When close, grab the url of the image where needed
+        custom_uploader.on('close', function() {
+            attachment =
+custom_uploader.state().get('selection').first().toJSON();
+            console.log(attachment); ## This only returns the full size url,
+no thumbnails.
+            $('#upload_image').val(attachment.url);
+            $('.custom_preview_image').attr("src", attachment.url);
+        });
+
+       //Open the uploader dialog
+       custom_uploader.open();
+   });
+
+    $('#clear_images').click(function() {  
+        var defaultImage =
+jQuery(this).parent().siblings('.custom_default_image').text();  
+		$('#upload_image').val('');
+        $('img.custom_preview_image').attr('src', '');
+        return false;  
+    });  
+});
+
+Is there something I am doing wrong?  Or is returning the full size media
+file the only available option?  (I followed most of this tutorial to get
+where I am guys --
+http://mikejolley.com/2012/12/using-the-new-wordpress-3-5-media-uploader-in-plugins/
+)
+
+
+
+--
+View this message in context: http://wordpress-hackers.1065353.n5.nabble.com/Wordpress-Media-Uploader-Use-in-a-Plugin-tp44096.html
+Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+
+From hi_word at hotmail.com  Mon Jul  7 23:41:37 2014
+From: hi_word at hotmail.com (Adam LaBarge)
+Date: Mon, 7 Jul 2014 23:41:37 +0000
+Subject: [wp-hackers] extended Genesis Featured Widget Amplified new
+ $instance array elements not making it to and saving in update()
+In-Reply-To: <mailman.6.1404734401.26589.wp-hackers@lists.automattic.com>
+References: <mailman.6.1404734401.26589.wp-hackers@lists.automattic.com>
+Message-ID: <SNT148-W611A91BC50640A6239A7E39F0D0@phx.gbl>
+
+I found the issue and all works are should now.  Was in the html check box and which $instance and ref.  IDK how to explain it, but basically it totally works as should. 
+
+
+ 
+
+> From: wp-hackers-request at lists.automattic.com
+> Subject: wp-hackers Digest, Vol 114, Issue 5
+> To: wp-hackers at lists.automattic.com
+> Date: Mon, 7 Jul 2014 12:00:01 +0000
+> 
+> Send wp-hackers mailing list submissions to
+> 	wp-hackers at lists.automattic.com
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-hackers
+> or, via email, send a message with subject or body 'help' to
+> 	wp-hackers-request at lists.automattic.com
+> 
+> You can reach the person managing the list at
+> 	wp-hackers-owner at lists.automattic.com
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-hackers digest..."
+> 
+> 
+> Today's Topics:
+> 
+>    1. Re: Admin dashboard > category box wish list. (Haluk Karamete)
+>    2. extended Genesis Featured Widget Amplified new $instance
+>       array elements not making it to and saving in update() (Adam LaBarge)
+>    3. Re: extended Genesis Featured Widget Amplified new $instance
+>       array elements not making it to and saving in update()
+>       (Remkus de Vries | Forsite Media)
+>    4. Re: Incorrect documentation for register_post_status
+>       (Pascal Birchler)
+>    5. by passing the entire template hierarchy (Haluk Karamete)
+>    6. Re: Incorrect documentation for register_post_status
+>       (Nikola Nikolov)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Sun, 6 Jul 2014 10:57:10 -0700
+> From: Haluk Karamete <halukkaramete at gmail.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] Admin dashboard > category box wish list.
+> Message-ID:
+> 	<CAHERW=1v7hsj9gdwwhyis2AhxODBSvDoVXxB8AUPisxmjjU_QQ at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+> 
+> Answering my own,, sharing for-what-it's-worth!
+> 
+> (1) and (3) of my original wish list taken care of.
+> I have some sense that wish #2 is impossible without the term_meta. so
+> leaving that as 'wishful-thinking' and moving on.
+> 
+> here we go...
+> 
+> # keep the category hierarchy on the post editing screen as original
+> # and expand the category meta box vertically so not we see no scrollbars
+> 
+> # code inspired by
+> # 1) http://wordpress.org/plugins/category-checklist-tree/
+> # 2) http://wordpress.org/plugins/category-checklist-expander/
+> 
+> # keep the category hierarchy on the post editing screen as original
+> add_filter( 'wp_terms_checklist_args', 'blp_checklist_args' ) ;
+> function blp_checklist_args( $args ) {
+>     $args['checked_ontop'] = false;
+>     return $args;
+> }
+> 
+> # and expand the category meta box vertically so not we see no scrollbars
+> add_action( 'admin_head', 'blp_category_scroll_bar_be_gone' );
+> function blp_category_scroll_bar_be_gone() {
+>     global $wp_version, $pagenow;
+>     if ( !in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) )
+>         return;
+>     ?>
+>     <style>
+>         #categorydiv div.tabs-panel, #linkcategorydiv div.tabs-panel {
+> height: auto; max-height: none; }
+>     </style>
+> <?php
+> }
+> 
+> 
+> 
+> On Sun, Jul 6, 2014 at 3:26 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+> 
+> > Hello everybody...
+> >
+> > On Wordpress dashboard, at the "categories" section, I have 3 basic
+> > questions. I'd appreciate any lending hands.
+> >
+> > (1) How do I change the length of that area so I can display all my cats -
+> > eliminating the need for the vertical scroll-bar?
+> >
+> > (2) How do I ensure that the __top level items__ are listed in an order I
+> > specify (or even better in the order they were created - sorted by their
+> > TTID) ?
+> >    currently, out of the box WordPress displays them in an alpabetical
+> > order.
+> >
+> > and finally,
+> >
+> > (3) is there a simple trick to tell WordPress to keep the checked terms in
+> > their own original hierarchical spot - rather than by moving them to the
+> > top as currently?
+> >
+> >
+> >
+> 
+> 
+> ------------------------------
+> 
+> Message: 2
+> Date: Sun, 6 Jul 2014 18:47:05 +0000
+> From: Adam LaBarge <hi_word at hotmail.com>
+> To: "wp-hackers at lists.automattic.com"
+> 	<wp-hackers at lists.automattic.com>
+> Subject: [wp-hackers] extended Genesis Featured Widget Amplified new
+> 	$instance array elements not making it to and saving in update()
+> Message-ID: <SNT148-W29EAE79C9384A1E19B76DF9F020 at phx.gbl>
+> Content-Type: text/plain; charset="iso-8859-1"
+> 
+> 
+> Hello -
+> In a nutshell: I'm extending a plugin widget class, adding new elements to defaults array and $instance, making a check box, and trying to save check box settings.  But no saving is happening.
+> Extended: I'm working on extending the Genesis Featured Widget Amplified (gfwa) plugin.  Currently, at least with version 0.8.1, the widget will not ignore sticky post and if there are sticky post, it will blow out the user defined post limit.  (ie, 4 sticky post, user limit set to 4, so 8 post show up in the widget output, not 4 - this kind of defeats the purpose of a limit).
+> So far I have, i think, everything set up correctly.  But something is wrong because when I var_dump the inputs of update($instance, $old_instance), neither have the new defaults array elements.
+> I have extended the original class, updated widget() to account for ignore sticky and set a real limit on the while loop, added my check box to the form(), but no luck in saving.
+> The code for this is rather long, so I've put it up on github:https://github.com/adamplabarge/apl_gfwa_extended/blob/master/apl_gfwa_extended.php
+> Thanks any help and or suggestions.  And open to code critique.-adam 
+> 
+> 
+>   		 	   		  
+> 
+> ------------------------------
+> 
+> Message: 3
+> Date: Sun, 6 Jul 2014 21:01:30 +0200
+> From: Remkus de Vries | Forsite Media <remkus at forsite.nu>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] extended Genesis Featured Widget Amplified
+> 	new $instance array elements not making it to and saving in update()
+> Message-ID: <A197212A6C7E4F2CA48B2E71EED832FE at forsite.nu>
+> Content-Type: text/plain; charset="utf-8"
+> 
+> Nick?s plugin hasn?t been updated for more than two years, so for starters you?re probably better off extending Travis' https://github.com/wpsmith/genesis-sandbox-featured-content-widget
+> 
+> On Sunday, 6 July, 2014 at 20:47 , Adam LaBarge wrote:
+> 
+> >  
+> > Hello -
+> > In a nutshell: I'm extending a plugin widget class, adding new elements to defaults array and $instance, making a check box, and trying to save check box settings. But no saving is happening.
+> > Extended: I'm working on extending the Genesis Featured Widget Amplified (gfwa) plugin. Currently, at least with version 0.8.1, the widget will not ignore sticky post and if there are sticky post, it will blow out the user defined post limit. (ie, 4 sticky post, user limit set to 4, so 8 post show up in the widget output, not 4 - this kind of defeats the purpose of a limit).
+> > So far I have, i think, everything set up correctly. But something is wrong because when I var_dump the inputs of update($instance, $old_instance), neither have the new defaults array elements.
+> > I have extended the original class, updated widget() to account for ignore sticky and set a real limit on the while loop, added my check box to the form(), but no luck in saving.
+> > The code for this is rather long, so I've put it up on github:https://github.com/adamplabarge/apl_gfwa_extended/blob/master/apl_gfwa_extended.php
+> > Thanks any help and or suggestions. And open to code critique.-adam  
+> >  
+> >  
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >  
+> >  
+> 
+> 
+> 
+> 
+> ------------------------------
+> 
+> Message: 4
+> Date: Mon, 7 Jul 2014 09:26:31 +0200
+> From: Pascal Birchler <pascal.birchler at gmail.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] Incorrect documentation for
+> 	register_post_status
+> Message-ID:
+> 	<CA+U2bwJfsbGaKBuOVYu9Ef3AuzRj3f-UiO2m8ZUpUOzZGBbOog at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+> 
+> How does your code look like? It seems like setting the `public` argument
+> to true should be enough. See the lines above:
+> https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2810
+> 
+> 
+> 2014-07-04 15:38 GMT+02:00 Nikola Nikolov <nikolov.tmw at gmail.com>:
+> 
+> > I had to add a new custom post status and so I looked-up the documentation
+> > for the register_post_status()
+> > <http://codex.wordpress.org/Function_Reference/register_post_status>
+> > function and adjusted the sample code from there.
+> >
+> > I found a way to add the post status to the status drop-down on the
+> > add/edit posts screens and changed the status of one of the posts.
+> >
+> > It all worked as expected - the post status was now updated for that post.
+> >
+> > Then I went back to the posts screen for my custom post type and I saw the
+> > post status link on top, showing me that there's 1 post with that post
+> > status. That's also correct.
+> >
+> > However the post disappeared from the list of posts, even though I've set
+> > "show_in_admin_all_list" to true in the arguments for the post status.
+> >
+> > So I looked around and found out that in /wp-includes/query.php on line
+> > #2819
+> > <
+> > https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2819
+> > >
+> > ,
+> > WordPress is getting registered post statuses with show_in_admin_all_list =
+> > true AND protected = true
+> >
+> > The *protected* argument is not documented anywhere, but after I set that
+> > to true in my arguments list, the post appeared again.
+> >
+> > I would go in and document that myself, but I really have no clue what
+> > *protected* is used for and I don't want to advise people to add it in just
+> > because it works.
+> >
+> > If anyone has more insight, I'd be happy to hear it.
+> >
+> > Nikola
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> 
+> 
+> ------------------------------
+> 
+> Message: 5
+> Date: Mon, 7 Jul 2014 02:34:54 -0700
+> From: Haluk Karamete <halukkaramete at gmail.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: [wp-hackers] by passing the entire template hierarchy
+> Message-ID:
+> 	<CAHERW=2BtF=hCi8bOc9wwCx6-U4fqmnNzjrD-Kjo382urwpHjg at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+> 
+> Is there a way to by pass the great system known as the  WordPress Template
+> Hierarchy so that WordPress shoots the ball straight to the last resort
+> which is index.php?
+> 
+> 
+> ------------------------------
+> 
+> Message: 6
+> Date: Mon, 7 Jul 2014 14:43:16 +0300
+> From: Nikola Nikolov <nikolov.tmw at gmail.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] Incorrect documentation for
+> 	register_post_status
+> Message-ID:
+> 	<CAOwx47e5+uXfT2M8j-3sW04NFuDQE6oBBwrV4iQWZ_1VLcF7YA at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+> 
+> That's the thing - I don't want posts with that status to be public.
+> 
+> However, in theory(according to the documentation), setting
+> "show_in_admin_all_list" to true should make posts with that post status
+> visible in the "All" section of the posts list.
+> 
+> What I'm not sure about is what the "protected" property of a post status
+> is used for.
+> 
+> 
+> On Mon, Jul 7, 2014 at 10:26 AM, Pascal Birchler <pascal.birchler at gmail.com>
+> wrote:
+> 
+> > How does your code look like? It seems like setting the `public` argument
+> > to true should be enough. See the lines above:
+> >
+> > https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2810
+> >
+> >
+> > 2014-07-04 15:38 GMT+02:00 Nikola Nikolov <nikolov.tmw at gmail.com>:
+> >
+> > > I had to add a new custom post status and so I looked-up the
+> > documentation
+> > > for the register_post_status()
+> > > <http://codex.wordpress.org/Function_Reference/register_post_status>
+> > > function and adjusted the sample code from there.
+> > >
+> > > I found a way to add the post status to the status drop-down on the
+> > > add/edit posts screens and changed the status of one of the posts.
+> > >
+> > > It all worked as expected - the post status was now updated for that
+> > post.
+> > >
+> > > Then I went back to the posts screen for my custom post type and I saw
+> > the
+> > > post status link on top, showing me that there's 1 post with that post
+> > > status. That's also correct.
+> > >
+> > > However the post disappeared from the list of posts, even though I've set
+> > > "show_in_admin_all_list" to true in the arguments for the post status.
+> > >
+> > > So I looked around and found out that in /wp-includes/query.php on line
+> > > #2819
+> > > <
+> > >
+> > https://github.com/WordPress/WordPress/blob/3.9-branch/wp-includes/query.php#L2819
+> > > >
+> > > ,
+> > > WordPress is getting registered post statuses with
+> > show_in_admin_all_list =
+> > > true AND protected = true
+> > >
+> > > The *protected* argument is not documented anywhere, but after I set that
+> > > to true in my arguments list, the post appeared again.
+> > >
+> > > I would go in and document that myself, but I really have no clue what
+> > > *protected* is used for and I don't want to advise people to add it in
+> > just
+> > > because it works.
+> > >
+> > > If anyone has more insight, I'd be happy to hear it.
+> > >
+> > > Nikola
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> 
+> 
+> ------------------------------
+> 
+> Subject: Digest Footer
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> 
+> ------------------------------
+> 
+> End of wp-hackers Digest, Vol 114, Issue 5
+> ******************************************
+ 		 	   		  
+
+From prog.support at webwizards.com.au  Tue Jul  8 01:46:08 2014
+From: prog.support at webwizards.com.au (Shane Thompson)
+Date: Tue, 8 Jul 2014 09:46:08 +0800
+Subject: [wp-hackers] by passing the entire template hierarchy
+Message-ID: <CAGFxCzjUvfCnRgoqMwgQQN6rJBndWkY20UTibZvMxfReCvE=FQ@mail.gmail.com>
+
+Hi Haluk,
+
+Although it is possible, as already described, I don't think it would be a
+very good idea to circumvent this. If you must, template_include is
+probably better for this than template_redirect, as template_redirect (my
+understanding) is purely for doing redirects. ie. I want /courses/ to
+redirect to /courses/medical so I would do this with template_redirect.
+
+If you are trying to circumvent it for performance reasons, you're not
+making much of a performance benefit at all. We can discuss ways to get the
+best performance out of WP here, if that is what you are after.
+
+Shane Thompson
+
+>> On 7 July 2014 10:34, Haluk Karamete <halukkaramete at gmail.com> wrote:
+>> > Is there a way to by pass the great system known as the  WordPress
+>> Template
+>> > Hierarchy so that WordPress shoots the ball straight to the last resort
+>> > which is index.php?
+
+From halukkaramete at gmail.com  Tue Jul  8 01:59:37 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 7 Jul 2014 18:59:37 -0700
+Subject: [wp-hackers] by passing the entire template hierarchy
+In-Reply-To: <CAGFxCzjUvfCnRgoqMwgQQN6rJBndWkY20UTibZvMxfReCvE=FQ@mail.gmail.com>
+References: <CAGFxCzjUvfCnRgoqMwgQQN6rJBndWkY20UTibZvMxfReCvE=FQ@mail.gmail.com>
+Message-ID: <CAHERW=3qqtcismELve2heoziYhPJHO2DiYkv+oLva9mbsjOMvA@mail.gmail.com>
+
+Thank you Shane for your comment..
+
+There currently is no way in WordPress that I know of to prevent the
+behaviour I described.
+
+Wordpress has to do its chores and check those files one by one - following
+the template hierarchy  - no matter what the case be.
+Neither the template_redirect , nor the template_include would prevent that
+from happening.
+
+I was strictly approaching the matter from a performance point of view as
+you've correctly sensed.
+
+But sometime during the afternoon today, I just let go of that. :)
+
+It's OK for the template hierarchy  to take its course - checking all those
+files even thought, in my case 100% of the time, index.php will prevail at
+the end of those look ups. Since the PHP's "file_exists" function is
+failrly fast, there is no need for me to worry about that.
+
+I'm just moving on...
+
+
+
+
+
+On Mon, Jul 7, 2014 at 6:46 PM, Shane Thompson <
+prog.support at webwizards.com.au> wrote:
+
+> Hi Haluk,
+>
+> Although it is possible, as already described, I don't think it would be a
+> very good idea to circumvent this. If you must, template_include is
+> probably better for this than template_redirect, as template_redirect (my
+> understanding) is purely for doing redirects. ie. I want /courses/ to
+> redirect to /courses/medical so I would do this with template_redirect.
+>
+> If you are trying to circumvent it for performance reasons, you're not
+> making much of a performance benefit at all. We can discuss ways to get the
+> best performance out of WP here, if that is what you are after.
+>
+> Shane Thompson
+>
+> >> On 7 July 2014 10:34, Haluk Karamete <halukkaramete at gmail.com> wrote:
+> >> > Is there a way to by pass the great system known as the  WordPress
+> >> Template
+> >> > Hierarchy so that WordPress shoots the ball straight to the last
+> resort
+> >> > which is index.php?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From eric.andrew.lewis at gmail.com  Tue Jul  8 03:20:43 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Mon, 7 Jul 2014 23:20:43 -0400
+Subject: [wp-hackers] Wordpress Media Uploader Use in a Plugin
+In-Reply-To: <1404767907668-44096.post@n5.nabble.com>
+References: <1404767907668-44096.post@n5.nabble.com>
+Message-ID: <CAMi+fEmX9y=K25mN5CfAN8yYvJJ1jrtnxPeFevB=5fv0REzyGA@mail.gmail.com>
+
+In the options hash you pass to wp.media, set `multiple` to `true` for
+multi-select.
+
+In your on `close` event handler, you have full access to an attachment
+model's attributes, including the `size` attribute, which includes various
+image sizes.
+
+Eric Andrew Lewis
+ericandrewlewis.com
+610.715.8560
+
+
+On Mon, Jul 7, 2014 at 5:18 PM, BenderisGreat <greglancaster71 at gmail.com>
+wrote:
+
+> I am having some trouble using the Media Library in a plugin.  I have a
+> meta
+> box in the new post area, and it allows for selection of a picture. The
+> issue is I dont see how to allow selection of more than one image, but more
+> importantly the image is returned at full size.  The attachment var returns
+> only the full size.  I am using this jQuery :
+>
+> jQuery(document).ready(function($){
+>       var custom_uploader;
+>     $('#upload_image_button').click(function(e) {
+>           e.preventDefault();
+>           //If the uploader object has already been created, reopen the
+> dialog
+>           if (custom_uploader) {
+>               custom_uploader.open();
+>               return;
+>           }
+>           //Extend the wp.media object
+>           custom_uploader = wp.media({
+>               title: 'Choose Image',
+>               button: {
+>                   text: 'Choose Image',
+>               },
+>               multiple: false,
+>              // If you pretent a function only for images you can limit the
+> media elements only to images
+>              library : { type : 'image' }
+>          });
+>
+>          //When close, grab the url of the image where needed
+>         custom_uploader.on('close', function() {
+>             attachment =
+> custom_uploader.state().get('selection').first().toJSON();
+>             console.log(attachment); ## This only returns the full size
+> url,
+> no thumbnails.
+>             $('#upload_image').val(attachment.url);
+>             $('.custom_preview_image').attr("src", attachment.url);
+>         });
+>
+>        //Open the uploader dialog
+>        custom_uploader.open();
+>    });
+>
+>     $('#clear_images').click(function() {
+>         var defaultImage =
+> jQuery(this).parent().siblings('.custom_default_image').text();
+>                 $('#upload_image').val('');
+>         $('img.custom_preview_image').attr('src', '');
+>         return false;
+>     });
+> });
+>
+> Is there something I am doing wrong?  Or is returning the full size media
+> file the only available option?  (I followed most of this tutorial to get
+> where I am guys --
+>
+> http://mikejolley.com/2012/12/using-the-new-wordpress-3-5-media-uploader-in-plugins/
+> )
+>
+>
+>
+> --
+> View this message in context:
+> http://wordpress-hackers.1065353.n5.nabble.com/Wordpress-Media-Uploader-Use-in-a-Plugin-tp44096.html
+> Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Mon Jul 14 01:53:03 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 13 Jul 2014 18:53:03 -0700
+Subject: [wp-hackers] $wpdb->last_error and $wpdb->hide_errors()
+Message-ID: <CAHERW=0AoT4qEH6z_xGDTEkhE6srnUNSsDqq7CYoTY5Gu4uHWg@mail.gmail.com>
+
+I wrote this function to get a list of all the tables in the current
+wordpress database.
+
+Though I commented in the code what does not work, I brief it here.
+
+as you see, I start the show with the $wpdb->hide_errors();
+then I create a deliberate SQL error;
+instead of running the SHOW TABLES, I run SHOW323234 TABLES.
+
+Because of the wpdb->hide_errors(), I get silence.
+That's fine and expected.
+
+But why is it that at that time, our $wpdb->last_error produces NADA?
+
+
+function blp_get_tables($sep = ',') {
+ global $wpdb;
+
+        $wpdb->hide_errors();
+        $wpdb->flush();
+ global $blp_num_rows;
+global $blp_last_error;
+global $blp_last_sql;
+global $blp_last_query;
+
+$retval = "";
+$sql =  "SHOWasadads TABLES ";
+$results = $wpdb->get_results($sql,'ARRAY_N');
+
+/*
+as you see  I deliberately create a SQL error here by changing the $sql to
+something that does not make sense..
+
+
+at this time the $wpdb->hide_errors() is in effect,
+so I get no errors and I get an empty array into the $results..
+
+which is totally fine and expected ...
+
+but what puzzles me is that I do not get anything out of that
+$wpdb->last_error neither... and that drives me [brasilian] nuts.
+
+If I were to turn on errors by replacing the code
+$wpdb->hide_errors(),
+with $wpdb->show_errors(), I get the error reported on the screen!
+
+so why does not $wpdb->last_error() do what it's supposed to do and return
+the suppressed error (that show_errors() would have shown if given the
+chance)?
+
+*/
+
+$blp_last_sql = $wpdb->last_query;
+
+if ( FALSE === $results ):  # I also noticed that this is not gonna fly as
+get_results does not return a FALSE in case of a SQL error, but hey that's
+another problem... I'm more curious on the last_error thing.
+
+$blp_last_error = $wpdb->last_error;
+else:
+$blp_last_error = '';
+endif;
+$table = '';
+foreach ($results as $current_item):
+$table .= $current_item[0] . $sep;
+endforeach;
+return $table;
+}
+
+From yok2504 at gmail.com  Mon Jul 14 12:16:19 2014
+From: yok2504 at gmail.com (Sinan)
+Date: Mon, 14 Jul 2014 15:16:19 +0300
+Subject: [wp-hackers] Is there a way to limit number of plugin activate ?
+Message-ID: <CABmkrsHua+2SoosDMw+8YmCPFW6kHzN2WWaLAS55NoGP2zrU=Q@mail.gmail.com>
+
+Is there a way to limit number of plugin activate ?
+
+I'm thinking to make a wp hosting but limiting plugin is important. Some
+plugins makes not just hosting all server fail.
+
+Only solution is giving support or limiting how many plugin customer can
+activate.
+
+Any suggestions ?
+
+-- 
+Sinan ??LER
+sinanisler.com <http://www.sinanisler.com/>
+
+From info at bungeshea.com  Mon Jul 14 12:25:54 2014
+From: info at bungeshea.com (Shea Bunge)
+Date: Mon, 14 Jul 2014 22:25:54 +1000
+Subject: [wp-hackers] Is there a way to limit number of plugin activate ?
+In-Reply-To: <CABmkrsHua+2SoosDMw+8YmCPFW6kHzN2WWaLAS55NoGP2zrU=Q@mail.gmail.com>
+References: <CABmkrsHua+2SoosDMw+8YmCPFW6kHzN2WWaLAS55NoGP2zrU=Q@mail.gmail.com>
+Message-ID: <CAJLbkRY5AzwdozfGF77pCRhGk2dDOeP4LCyZaaJn2D37kDM6Ug@mail.gmail.com>
+
+Keep in mind that the number of plugins active is not related to
+server performance. Some plugins can be really resource-intensive;
+others are incredibly light and will have little to no effect on the
+site's performance or resource usage at all.
+
+On 7/14/14, Sinan <yok2504 at gmail.com> wrote:
+> Is there a way to limit number of plugin activate ?
+>
+> I'm thinking to make a wp hosting but limiting plugin is important. Some
+> plugins makes not just hosting all server fail.
+>
+> Only solution is giving support or limiting how many plugin customer can
+> activate.
+>
+> Any suggestions ?
+>
+> --
+> Sinan ??LER
+> sinanisler.com <http://www.sinanisler.com/>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From ankittiwaari at gmail.com  Mon Jul 14 12:29:27 2014
+From: ankittiwaari at gmail.com (Ankit Tiwari)
+Date: Mon, 14 Jul 2014 17:59:27 +0530
+Subject: [wp-hackers] Is there a way to limit number of plugin activate ?
+In-Reply-To: <CABmkrsHua+2SoosDMw+8YmCPFW6kHzN2WWaLAS55NoGP2zrU=Q@mail.gmail.com>
+References: <CABmkrsHua+2SoosDMw+8YmCPFW6kHzN2WWaLAS55NoGP2zrU=Q@mail.gmail.com>
+Message-ID: <CACGEjq_iwV+hUW_kUbWJc5bCvN7B-f0em7Livynm97ogc2Jm7Q@mail.gmail.com>
+
+Just a random thought.
+
+The list of active plugins is maintained in options table ( prefix_options
+). You could set up a hook to run when a plugin is activated and then add a
+function to it that does following.
+1) get the list of active plugins by $list = get_option( 'active_plugins' );
+2) if the number of active plugin is equal to the limit, deactivate the
+recently activated plugin.
+
+This is just a guess but I will try this method and if it works, will post
+the code.
+
+
+On Mon, Jul 14, 2014 at 5:46 PM, Sinan <yok2504 at gmail.com> wrote:
+
+> Is there a way to limit number of plugin activate ?
+>
+> I'm thinking to make a wp hosting but limiting plugin is important. Some
+> plugins makes not just hosting all server fail.
+>
+> Only solution is giving support or limiting how many plugin customer can
+> activate.
+>
+> Any suggestions ?
+>
+> --
+> Sinan ??LER
+> sinanisler.com <http://www.sinanisler.com/>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From lmlane at gmail.com  Mon Jul 14 12:34:13 2014
+From: lmlane at gmail.com (Mark Lane)
+Date: Mon, 14 Jul 2014 08:34:13 -0400
+Subject: [wp-hackers] Is there a way to limit number of plugin activate ?
+In-Reply-To: <CACGEjq_iwV+hUW_kUbWJc5bCvN7B-f0em7Livynm97ogc2Jm7Q@mail.gmail.com>
+References: <CABmkrsHua+2SoosDMw+8YmCPFW6kHzN2WWaLAS55NoGP2zrU=Q@mail.gmail.com>
+ <CACGEjq_iwV+hUW_kUbWJc5bCvN7B-f0em7Livynm97ogc2Jm7Q@mail.gmail.com>
+Message-ID: <CAJp5mPgmEOG7pZ1Sqz5mRDqZJRw=Cp2zobgQ5jathP4=8JFPtA@mail.gmail.com>
+
+If I were you, I would set resource limits on each account and if the
+user goes over those limits charge them more or use the limits to cut
+them off at a certain point. Apache supports resource limits not sure
+about IIS. Limiting the number of plug-ins is just not the proper way
+to handle this. With that said, you might want to limit which plug-ins
+they can install to an approved list. Then again that would require
+much more work on your end.
+
+On Mon, Jul 14, 2014 at 8:29 AM, Ankit Tiwari <ankittiwaari at gmail.com> wrote:
+> Just a random thought.
+>
+> The list of active plugins is maintained in options table ( prefix_options
+> ). You could set up a hook to run when a plugin is activated and then add a
+> function to it that does following.
+> 1) get the list of active plugins by $list = get_option( 'active_plugins' );
+> 2) if the number of active plugin is equal to the limit, deactivate the
+> recently activated plugin.
+>
+> This is just a guess but I will try this method and if it works, will post
+> the code.
+>
+>
+> On Mon, Jul 14, 2014 at 5:46 PM, Sinan <yok2504 at gmail.com> wrote:
+>
+>> Is there a way to limit number of plugin activate ?
+>>
+>> I'm thinking to make a wp hosting but limiting plugin is important. Some
+>> plugins makes not just hosting all server fail.
+>>
+>> Only solution is giving support or limiting how many plugin customer can
+>> activate.
+>>
+>> Any suggestions ?
+>>
+>> --
+>> Sinan ??LER
+>> sinanisler.com <http://www.sinanisler.com/>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+
+-- 
+Mark Lane <lmlane at gmail.com>
+http://2100computerlane.net
+
+From jdg at codesymphony.co  Mon Jul 14 13:09:45 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Mon, 14 Jul 2014 09:09:45 -0400
+Subject: [wp-hackers] $wpdb->last_error and $wpdb->hide_errors()
+In-Reply-To: <CAHERW=0AoT4qEH6z_xGDTEkhE6srnUNSsDqq7CYoTY5Gu4uHWg@mail.gmail.com>
+References: <CAHERW=0AoT4qEH6z_xGDTEkhE6srnUNSsDqq7CYoTY5Gu4uHWg@mail.gmail.com>
+Message-ID: <1481AC14-C514-4DEE-9AB5-709CD42E45C8@codesymphony.co>
+
+This works for me. If you error_log( $wpdb->last_error ) you will see something like: 
+
+> [14-Jul-2014 13:03:56 UTC] WordPress database error You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SHOWasadads TABLES' at line 1 for query SHOWasadads TABLES  made by blp_get_tables
+
+-J.D.
+
+On Jul 13, 2014, at 9:53 PM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> I wrote this function to get a list of all the tables in the current
+> wordpress database.
+> 
+> Though I commented in the code what does not work, I brief it here.
+> 
+> as you see, I start the show with the $wpdb->hide_errors();
+> then I create a deliberate SQL error;
+> instead of running the SHOW TABLES, I run SHOW323234 TABLES.
+> 
+> Because of the wpdb->hide_errors(), I get silence.
+> That's fine and expected.
+> 
+> But why is it that at that time, our $wpdb->last_error produces NADA?
+> 
+> 
+> function blp_get_tables($sep = ',') {
+> global $wpdb;
+> 
+>        $wpdb->hide_errors();
+>        $wpdb->flush();
+> global $blp_num_rows;
+> global $blp_last_error;
+> global $blp_last_sql;
+> global $blp_last_query;
+> 
+> $retval = "";
+> $sql =  "SHOWasadads TABLES ";
+> $results = $wpdb->get_results($sql,'ARRAY_N');
+> 
+> /*
+> as you see  I deliberately create a SQL error here by changing the $sql to
+> something that does not make sense..
+> 
+> 
+> at this time the $wpdb->hide_errors() is in effect,
+> so I get no errors and I get an empty array into the $results..
+> 
+> which is totally fine and expected ...
+> 
+> but what puzzles me is that I do not get anything out of that
+> $wpdb->last_error neither... and that drives me [brasilian] nuts.
+> 
+> If I were to turn on errors by replacing the code
+> $wpdb->hide_errors(),
+> with $wpdb->show_errors(), I get the error reported on the screen!
+> 
+> so why does not $wpdb->last_error() do what it's supposed to do and return
+> the suppressed error (that show_errors() would have shown if given the
+> chance)?
+> 
+> */
+> 
+> $blp_last_sql = $wpdb->last_query;
+> 
+> if ( FALSE === $results ):  # I also noticed that this is not gonna fly as
+> get_results does not return a FALSE in case of a SQL error, but hey that's
+> another problem... I'm more curious on the last_error thing.
+> 
+> $blp_last_error = $wpdb->last_error;
+> else:
+> $blp_last_error = '';
+> endif;
+> $table = '';
+> foreach ($results as $current_item):
+> $table .= $current_item[0] . $sep;
+> endforeach;
+> return $table;
+> }
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From halukkaramete at gmail.com  Tue Jul 15 18:14:03 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 15 Jul 2014 11:14:03 -0700
+Subject: [wp-hackers] wpdb->query and running 2 sql statements with one go
+Message-ID: <CAHERW=3wFOuZHk_3NNvqfVHaXn6R5CyxQtT+zSc1i=m=zxp5RA@mail.gmail.com>
+
+I'd like to be able to run this SQL using one wpdb->query call.
+
+$sql = 'TRUNCATE TABLE `my_new_table` ;ALTER TABLE `my_new_table`
+auto_increment = 1';
+
+$query_result = $wpdb->query($sql);
+
+
+As of 3.9.1, we do have the mysqli support. So, I'm not sure why this would
+not fly.
+
+Is that one of my brain-freeze moments again?
+
+
+but I'm getting the *familiar error: *
+
+You have an error in your SQL syntax; check the manual that corresponds to
+your MySQL server version for the right syntax to use near 'ALTER TABLE
+`my_new_table` auto_increment = 1)' at line 1]
+
+From jdg at codesymphony.co  Tue Jul 15 18:31:54 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Tue, 15 Jul 2014 14:31:54 -0400
+Subject: [wp-hackers] wpdb->query and running 2 sql statements with one
+	go
+In-Reply-To: <CAHERW=3wFOuZHk_3NNvqfVHaXn6R5CyxQtT+zSc1i=m=zxp5RA@mail.gmail.com>
+References: <CAHERW=3wFOuZHk_3NNvqfVHaXn6R5CyxQtT+zSc1i=m=zxp5RA@mail.gmail.com>
+Message-ID: <90CCEB86-9EBB-45A1-AA53-2B7BA45C2571@codesymphony.co>
+
+wpdb uses mysqli_query() - https://core.trac.wordpress.org/browser/tags/3.9.1/src/wp-includes/wp-db.php#L1616
+
+mysqli_multi_query() must be used to run multiple statements - http://php.net/manual/en/mysqli.quickstart.multiple-statement.php
+
+-J.D.
+On Jul 15, 2014, at 2:14 PM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> I'd like to be able to run this SQL using one wpdb->query call.
+> 
+> $sql = 'TRUNCATE TABLE `my_new_table` ;ALTER TABLE `my_new_table`
+> auto_increment = 1';
+> 
+> $query_result = $wpdb->query($sql);
+> 
+> 
+> As of 3.9.1, we do have the mysqli support. So, I'm not sure why this would
+> not fly.
+> 
+> Is that one of my brain-freeze moments again?
+> 
+> 
+> but I'm getting the *familiar error: *
+> 
+> You have an error in your SQL syntax; check the manual that corresponds to
+> your MySQL server version for the right syntax to use near 'ALTER TABLE
+> `my_new_table` auto_increment = 1)' at line 1]
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From halukkaramete at gmail.com  Tue Jul 15 18:43:23 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 15 Jul 2014 11:43:23 -0700
+Subject: [wp-hackers] wpdb->query and running 2 sql statements with one
+	go
+In-Reply-To: <90CCEB86-9EBB-45A1-AA53-2B7BA45C2571@codesymphony.co>
+References: <CAHERW=3wFOuZHk_3NNvqfVHaXn6R5CyxQtT+zSc1i=m=zxp5RA@mail.gmail.com>
+ <90CCEB86-9EBB-45A1-AA53-2B7BA45C2571@codesymphony.co>
+Message-ID: <CAHERW=38-j7HY5z+pKZg6o4R7fKg9wXMMeYWqqWvh7GtXJNnBQ@mail.gmail.com>
+
+thank you J.D,
+I figured that what I wanted to do was not possible __within the wpdb__
+environment, (which is the environment I'd like to stay in whenever I touch
+the wordpress database)
+I figured so because my guess is that Wordpress doesn't/and/would not
+opt-in for the multiquery support you've mentioned about due to SQL
+injection concerns...
+
+So, I took a different route;
+
+instead of going
+
+$sql=statement1;statement2",
+
+I array'ed them.
+
+sql[]='statement1';
+sql[]='statement2';
+
+the rest was smooth...
+
+        if (is_array($sql)):
+            #this is an exception
+            foreach ($sql as $cur_sql):
+                $query_result = $wpdb->query($cur_sql); # $results could be
+FALSE if in errors!
+                if ( FALSE === $query_result  ):
+                    #early exit time, one of the baby sql's failed us.
+                    return FALSE;
+                endif;
+                $wpdb->flush();
+            endforeach;
+        else:
+            #this is when $sql is a string
+            $query_result = $wpdb->query($sql);
+        endif;
+
+
+
+
+
+On Tue, Jul 15, 2014 at 11:31 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+
+> wpdb uses mysqli_query() -
+> https://core.trac.wordpress.org/browser/tags/3.9.1/src/wp-includes/wp-db.php#L1616
+>
+> mysqli_multi_query() must be used to run multiple statements -
+> http://php.net/manual/en/mysqli.quickstart.multiple-statement.php
+>
+> -J.D.
+> On Jul 15, 2014, at 2:14 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > I'd like to be able to run this SQL using one wpdb->query call.
+> >
+> > $sql = 'TRUNCATE TABLE `my_new_table` ;ALTER TABLE `my_new_table`
+> > auto_increment = 1';
+> >
+> > $query_result = $wpdb->query($sql);
+> >
+> >
+> > As of 3.9.1, we do have the mysqli support. So, I'm not sure why this
+> would
+> > not fly.
+> >
+> > Is that one of my brain-freeze moments again?
+> >
+> >
+> > but I'm getting the *familiar error: *
+> >
+> > You have an error in your SQL syntax; check the manual that corresponds
+> to
+> > your MySQL server version for the right syntax to use near 'ALTER TABLE
+> > `my_new_table` auto_increment = 1)' at line 1]
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From lloydomattic at gmail.com  Wed Jul 16 05:24:29 2014
+From: lloydomattic at gmail.com (Lloyd Dewolf)
+Date: Tue, 15 Jul 2014 22:24:29 -0700
+Subject: [wp-hackers] These Aged Eyes
+Message-ID: <CAFFx54Myv_2tx8TZmWbiiFYT9uKkkH+gW0rO46itD+fnt_M7Pg@mail.gmail.com>
+
+Hi,
+
+Although I've continued to marvel at the evolution of WordPress as the web
+publishing platform, only today did I open the kimono again after a few
+years. WordPress Development is equally as marvelous!
+
+I'm currently focused on volunteering in a capacity related to CI & QA for
+wordpress-mobile. I wanted to share a few observations related to areas
+that challenged these old eyes:
+* The handbook would benefit from describing the relationship b/w
+core.svn.wp.org and the full development tree provided by develop.svn.wp.org
+Thankfully, my google-fu led me to find
+http://make.wordpress.org/core/2013/08/06/a-new-frontier-for-core-development/
+
+* Related to those developments (pun!) many pages in the Download sidebar
+seem stale:
+  * https://wordpress.org/download/beta/ could be combined with
+https://wordpress.org/download/nightly/
+  * https://wordpress.org/download/svn/ &
+https://code.trac.wordpress.org/browser/wordpress-sources
+  * https://wordpress.org/download/source/ & http://xref.wordpress.org/
+* Browse Happy looks to still be used in core, but
+https://github.com/WordPress/browsehappy appears orphaned ... only now
+found http://meta.svn.wordpress.org/sites/trunk/browsehappy.com/ and
+https://meta.trac.wordpress.org/query?status=!closed&component=browsehappy.com
+after coming across https://code.trac.wordpress.org/changeset/281 .
+
+I look forward to the opportunity to circle back and make my own
+contributions around core. Which might start by reporting these
+non-critical issues if someone else doesn't grab the baton meantime.
+
+Thank you,
+Lloyd
+--
+Disclosure: I was previously employed by Automattic and still own a small
+amount of equity in the company.
+
+From eric.andrew.lewis at gmail.com  Wed Jul 16 12:54:30 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Wed, 16 Jul 2014 08:54:30 -0400
+Subject: [wp-hackers] WordPress in the next three years
+Message-ID: <56B0ED9FC23F42F8897DEA47DAD89EC0@gmail.com>
+
+Where do you want WordPress to be in the next three years? 
+
+-- 
+Eric Andrew Lewis
+
+
+From info at tv-productions.org  Wed Jul 16 15:32:23 2014
+From: info at tv-productions.org (TV productions)
+Date: Wed, 16 Jul 2014 17:32:23 +0200
+Subject: [wp-hackers] =?utf-8?q?=5Fn_javascript_variant=3F?=
+Message-ID: <b81fadc795632f3ac24ee0df7a8f5066@tv-productions.org>
+
+Hi there,
+
+I have a custom post type with a custom edit post screen. On that 
+screen, I've build an editor in javascript for this post type.
+The point is, I've a label with the text "1 photo" or "2 photos". This 
+label is initial set on the server side and the number of photos changes 
+on the client side with javascript.
+
+So on the server side I have this code:
+
+<?php
+printf(_n('%d photo', '%d photos', count($photos), 'textdomain'), 
+count($photos));
+?>
+
+And later on I change it with javascript. I currently use 
+wp_localize_script with:
+
+array ('photo' => __('photo', 'textdomain'),
+'photos' => __('photos', 'textdomain')
+)
+
+And in javascript the next condition to choose one of the two:
+
+if ($photos.length == 1) {
+$label.text('1 ' + myL10n.photo);
+} else {
+$label.text($photos.lenght + ' ' + myL10n.photos);
+}
+
+This would output things like "0 photos", "1 photo" and "2 photos".
+The point is that some languages don't have the same plural forms for 0 
+and 2 OR that they have more than 1 plural form.
+
+So does anyone know a workaround to get a correct translation, also in 
+languages with more than 1 plural form?
+
+I hope you have some suggestions guys!
+
+
+Best Regards,
+Ties
+
+-- 
+TV productions :: Web development and stuff
+http://tv-productions.org
+
+From contact at stephenharris.info  Wed Jul 16 15:51:40 2014
+From: contact at stephenharris.info (Stephen Harris)
+Date: Wed, 16 Jul 2014 16:51:40 +0100
+Subject: [wp-hackers] _n javascript variant?
+In-Reply-To: <b81fadc795632f3ac24ee0df7a8f5066@tv-productions.org>
+References: <b81fadc795632f3ac24ee0df7a8f5066@tv-productions.org>
+Message-ID: <53C69F8C.80306@stephenharris.info>
+
+I had a similar problem recently when working in a Backbone.js-heavy 
+project. If the number of translatable strings is low, then you could 
+still use wp_localize_script() to load the plural translations as we all 
+as singular. Obviously this isn't entirely ideal, as you don't know a 
+priori how many different plural forms there are (though this list is 
+pretty extensive 
+http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html).
+
+For a variety of reasons I went down a different route of generating a 
+.json version of the .po file, and then used that data client-side with 
+few simple functions to look-up translations. You essentially just use 
+wp_localize_script() with the appropriate .json data. I use a Grunt task 
+to generate the .json files, so I don't need to worry about things 
+falling out of sync. This still has some drawbacks, not least because my 
+implementation only handles one plural form (I plan to improve on this). 
+Additionally, it lives out of the scope of "language packs" which .org 
+hosted plug-ins can take advantage of. Nevertheless, details of this 
+approach can be found here: 
+http://stephenharris.info/grunt-wordpress-development-iv-another-task-for-internationalisation/.
+
+Stephen
+
+
+
+From jdg at codesymphony.co  Wed Jul 16 16:00:13 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Wed, 16 Jul 2014 12:00:13 -0400
+Subject: [wp-hackers] _n javascript variant?
+In-Reply-To: <b81fadc795632f3ac24ee0df7a8f5066@tv-productions.org>
+References: <b81fadc795632f3ac24ee0df7a8f5066@tv-productions.org>
+Message-ID: <156996FC-879C-4146-A000-619917F93AE4@codesymphony.co>
+
+I?d take a look at https://core.trac.wordpress.org/ticket/20491
+
+-J.D.
+
+On Jul 16, 2014, at 11:32 AM, TV productions <info at tv-productions.org> wrote:
+
+> Hi there,
+> 
+> I have a custom post type with a custom edit post screen. On that screen, I've build an editor in javascript for this post type.
+> The point is, I've a label with the text "1 photo" or "2 photos". This label is initial set on the server side and the number of photos changes on the client side with javascript.
+> 
+> So on the server side I have this code:
+> 
+> <?php
+> printf(_n('%d photo', '%d photos', count($photos), 'textdomain'), count($photos));
+> ?>
+> 
+> And later on I change it with javascript. I currently use wp_localize_script with:
+> 
+> array ('photo' => __('photo', 'textdomain'),
+> 'photos' => __('photos', 'textdomain')
+> )
+> 
+> And in javascript the next condition to choose one of the two:
+> 
+> if ($photos.length == 1) {
+> $label.text('1 ' + myL10n.photo);
+> } else {
+> $label.text($photos.lenght + ' ' + myL10n.photos);
+> }
+> 
+> This would output things like "0 photos", "1 photo" and "2 photos".
+> The point is that some languages don't have the same plural forms for 0 and 2 OR that they have more than 1 plural form.
+> 
+> So does anyone know a workaround to get a correct translation, also in languages with more than 1 plural form?
+> 
+> I hope you have some suggestions guys!
+> 
+> 
+> Best Regards,
+> Ties
+> 
+> -- 
+> TV productions :: Web development and stuff
+> http://tv-productions.org
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From halukkaramete at gmail.com  Thu Jul 17 15:14:28 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 17 Jul 2014 08:14:28 -0700
+Subject: [wp-hackers] running the themeunit.xml programmatically from the
+	back end
+Message-ID: <CAHERW=18FkwREAM4SSj+zUtr8k-M2zGF5V3B=rHuRN2Hxg9SRQ@mail.gmail.com>
+
+I wrote a script which is when I run it, it puts my localhost installation
+of the wordpress site back to the right after 5-min-install state.
+
+So it basically truncates most tables and bam brings to the fresh state...
+( I just won't touch the user stuff and the options table ) but everythinh
+else back to seed 0.
+
+So when I run that script, I am left with Mr. Wordpress's Comment plus the
+Hello World post and the Sample Page. And that's what I call back-to-5-min
+install state.
+
+This script is a time saver for me. Cause I'm doing some heavy duty plug in
+development and I'd like such quick actions to be available to me.
+
+but I'd like to take it to the next level.
+
+I'd like to attach an argument to that function of mine to tell my engine,
+"hey go ahead and run this
+https://wpcom-themes.svn.automattic.com/demo/theme-unit-test-data.xml while
+we are at it.
+
+My question to you is what API call should I use so that my script gives me
+the back-to-5-min install state plus the theme-unit-test-data.xml?
+
+Thank you
+
+From nikolov.tmw at gmail.com  Thu Jul 17 15:21:48 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 17 Jul 2014 18:21:48 +0300
+Subject: [wp-hackers] running the themeunit.xml programmatically from
+ the back end
+In-Reply-To: <CAHERW=18FkwREAM4SSj+zUtr8k-M2zGF5V3B=rHuRN2Hxg9SRQ@mail.gmail.com>
+References: <CAHERW=18FkwREAM4SSj+zUtr8k-M2zGF5V3B=rHuRN2Hxg9SRQ@mail.gmail.com>
+Message-ID: <CAOwx47dDu6n1VUehLMUb9zfwo_PTBOUZeVH6=eXetgK4qFEcmg@mail.gmail.com>
+
+I'd use wp-cli for that and more specifically the "wp import" command -
+http://wp-cli.org/commands/import/
+
+
+On Thu, Jul 17, 2014 at 6:14 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> I wrote a script which is when I run it, it puts my localhost installation
+> of the wordpress site back to the right after 5-min-install state.
+>
+> So it basically truncates most tables and bam brings to the fresh state...
+> ( I just won't touch the user stuff and the options table ) but everythinh
+> else back to seed 0.
+>
+> So when I run that script, I am left with Mr. Wordpress's Comment plus the
+> Hello World post and the Sample Page. And that's what I call back-to-5-min
+> install state.
+>
+> This script is a time saver for me. Cause I'm doing some heavy duty plug in
+> development and I'd like such quick actions to be available to me.
+>
+> but I'd like to take it to the next level.
+>
+> I'd like to attach an argument to that function of mine to tell my engine,
+> "hey go ahead and run this
+> https://wpcom-themes.svn.automattic.com/demo/theme-unit-test-data.xml
+> while
+> we are at it.
+>
+> My question to you is what API call should I use so that my script gives me
+> the back-to-5-min install state plus the theme-unit-test-data.xml?
+>
+> Thank you
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Thu Jul 17 15:28:00 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 17 Jul 2014 08:28:00 -0700
+Subject: [wp-hackers] running the themeunit.xml programmatically from
+ the back end
+In-Reply-To: <CAOwx47dDu6n1VUehLMUb9zfwo_PTBOUZeVH6=eXetgK4qFEcmg@mail.gmail.com>
+References: <CAHERW=18FkwREAM4SSj+zUtr8k-M2zGF5V3B=rHuRN2Hxg9SRQ@mail.gmail.com>
+ <CAOwx47dDu6n1VUehLMUb9zfwo_PTBOUZeVH6=eXetgK4qFEcmg@mail.gmail.com>
+Message-ID: <CAHERW=1M7QXwQR__ED+gK0J9zTZnxOefxg6nJ-FSYxw5jZWF8g@mail.gmail.com>
+
+Nikola, thank you.. but I need to that from within the php script - as part
+of my  function.
+there must be an api for this.
+
+
+On Thu, Jul 17, 2014 at 8:21 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> I'd use wp-cli for that and more specifically the "wp import" command -
+> http://wp-cli.org/commands/import/
+>
+>
+> On Thu, Jul 17, 2014 at 6:14 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > I wrote a script which is when I run it, it puts my localhost
+> installation
+> > of the wordpress site back to the right after 5-min-install state.
+> >
+> > So it basically truncates most tables and bam brings to the fresh
+> state...
+> > ( I just won't touch the user stuff and the options table ) but
+> everythinh
+> > else back to seed 0.
+> >
+> > So when I run that script, I am left with Mr. Wordpress's Comment plus
+> the
+> > Hello World post and the Sample Page. And that's what I call
+> back-to-5-min
+> > install state.
+> >
+> > This script is a time saver for me. Cause I'm doing some heavy duty plug
+> in
+> > development and I'd like such quick actions to be available to me.
+> >
+> > but I'd like to take it to the next level.
+> >
+> > I'd like to attach an argument to that function of mine to tell my
+> engine,
+> > "hey go ahead and run this
+> > https://wpcom-themes.svn.automattic.com/demo/theme-unit-test-data.xml
+> > while
+> > we are at it.
+> >
+> > My question to you is what API call should I use so that my script gives
+> me
+> > the back-to-5-min install state plus the theme-unit-test-data.xml?
+> >
+> > Thank you
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Thu Jul 17 15:29:48 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 17 Jul 2014 18:29:48 +0300
+Subject: [wp-hackers] running the themeunit.xml programmatically from
+ the back end
+In-Reply-To: <CAHERW=1M7QXwQR__ED+gK0J9zTZnxOefxg6nJ-FSYxw5jZWF8g@mail.gmail.com>
+References: <CAHERW=18FkwREAM4SSj+zUtr8k-M2zGF5V3B=rHuRN2Hxg9SRQ@mail.gmail.com>
+ <CAOwx47dDu6n1VUehLMUb9zfwo_PTBOUZeVH6=eXetgK4qFEcmg@mail.gmail.com>
+ <CAHERW=1M7QXwQR__ED+gK0J9zTZnxOefxg6nJ-FSYxw5jZWF8g@mail.gmail.com>
+Message-ID: <CAOwx47cw0yi6+XZzpNo0BginL5goesrcS9dkL_P52nHz0OWRcA@mail.gmail.com>
+
+Technically you can still do it from PHP as long as you can execute system
+commands :) I'm not sure exactly how the WordPress importer plugin works
+though.
+
+
+On Thu, Jul 17, 2014 at 6:28 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Nikola, thank you.. but I need to that from within the php script - as part
+> of my  function.
+> there must be an api for this.
+>
+>
+> On Thu, Jul 17, 2014 at 8:21 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > I'd use wp-cli for that and more specifically the "wp import" command -
+> > http://wp-cli.org/commands/import/
+> >
+> >
+> > On Thu, Jul 17, 2014 at 6:14 PM, Haluk Karamete <halukkaramete at gmail.com
+> >
+> > wrote:
+> >
+> > > I wrote a script which is when I run it, it puts my localhost
+> > installation
+> > > of the wordpress site back to the right after 5-min-install state.
+> > >
+> > > So it basically truncates most tables and bam brings to the fresh
+> > state...
+> > > ( I just won't touch the user stuff and the options table ) but
+> > everythinh
+> > > else back to seed 0.
+> > >
+> > > So when I run that script, I am left with Mr. Wordpress's Comment plus
+> > the
+> > > Hello World post and the Sample Page. And that's what I call
+> > back-to-5-min
+> > > install state.
+> > >
+> > > This script is a time saver for me. Cause I'm doing some heavy duty
+> plug
+> > in
+> > > development and I'd like such quick actions to be available to me.
+> > >
+> > > but I'd like to take it to the next level.
+> > >
+> > > I'd like to attach an argument to that function of mine to tell my
+> > engine,
+> > > "hey go ahead and run this
+> > > https://wpcom-themes.svn.automattic.com/demo/theme-unit-test-data.xml
+> > > while
+> > > we are at it.
+> > >
+> > > My question to you is what API call should I use so that my script
+> gives
+> > me
+> > > the back-to-5-min install state plus the theme-unit-test-data.xml?
+> > >
+> > > Thank you
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From greglancaster71 at gmail.com  Thu Jul 17 22:16:34 2014
+From: greglancaster71 at gmail.com (BenderisGreat)
+Date: Thu, 17 Jul 2014 15:16:34 -0700 (PDT)
+Subject: [wp-hackers] filtering archive or category templates before the loop
+Message-ID: <1405635394586-44148.post@n5.nabble.com>
+
+Just a quick question.  I need to know if there is a way to add an HTML
+Element before the loop begins on category and/or archive pages.  Looking
+for a way to place a sorting dropdown box in a plugin.  Any help would be
+great guys
+
+
+
+--
+View this message in context: http://wordpress-hackers.1065353.n5.nabble.com/filtering-archive-or-category-templates-before-the-loop-tp44148.html
+Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+
+From halukkaramete at gmail.com  Fri Jul 18 20:33:59 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Fri, 18 Jul 2014 13:33:59 -0700
+Subject: [wp-hackers] do you guys distinquish between various PHP commenting
+	options?
+Message-ID: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+
+Commenting is great...
+
+But do you have personal guidelines as to which of the 3 commenting options
+that come with PHP when you comment on SINGLE LINES?
+
+We got 3 to choose from.
+
+#
+
+//
+
+/*  */
+
+There must be a reason why we have 3 choices I'm thinking...
+
+And I'm also curious if a leaner version of WordPress (with 0 comments & 0
+unnecessary white space ) has been considered as an optional download for
+those who choose to do so (from the repository) discussed any earlier.
+
+For example, one can choose to download the minified version of 3.9.1 per
+se.
+
+I'm just curious how that discussion went - if any.
+
+From nikolov.tmw at gmail.com  Fri Jul 18 21:06:19 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Sat, 19 Jul 2014 00:06:19 +0300
+Subject: [wp-hackers] do you guys distinquish between various PHP
+ commenting options?
+In-Reply-To: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+Message-ID: <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+
+I prefer // for single-line comments and usually go with /**/ for
+multi-line comments(although if I'm quickly commenting a couple of lines of
+code while I'm working, I'd use the quick insert/remove comment function of
+Sublime Text and it will just add // at the beginning of all selected
+lines).
+
+I'm not sure if there's a reason why you'd need a minified version of
+WordPress(not sure if the license allows the WordPress source code to be
+obscured in any way) - as far as I know the decreased file size won't make
+a huge difference in performance or anything.
+
+
+On Fri, Jul 18, 2014 at 11:33 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Commenting is great...
+>
+> But do you have personal guidelines as to which of the 3 commenting options
+> that come with PHP when you comment on SINGLE LINES?
+>
+> We got 3 to choose from.
+>
+> #
+>
+> //
+>
+> /*  */
+>
+> There must be a reason why we have 3 choices I'm thinking...
+>
+> And I'm also curious if a leaner version of WordPress (with 0 comments & 0
+> unnecessary white space ) has been considered as an optional download for
+> those who choose to do so (from the repository) discussed any earlier.
+>
+> For example, one can choose to download the minified version of 3.9.1 per
+> se.
+>
+> I'm just curious how that discussion went - if any.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jdg at codesymphony.co  Fri Jul 18 21:08:16 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Fri, 18 Jul 2014 17:08:16 -0400
+Subject: [wp-hackers] do you guys distinquish between various PHP
+	commenting options?
+In-Reply-To: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+Message-ID: <AE5935B7-D19C-45BF-802A-D615E3AF5BFE@codesymphony.co>
+
+For single line comments, use //. I couldn?t find it in the coding standards (http://make.wordpress.org/core/handbook/coding-standards/php/), but I think # is discouraged. At any rate, // is what is generally used in core. The /* */ comments are extra writing, unless your comment has to be in the middle of a line of code (which it almost never does), so you need to close it.
+
+As far as minifying the PHP source, this would reduce download time, but it would also increase confusion, and make debugging more difficult. WordPress core isn?t that large, so it isn?t worth it. Even if a user is never going to be looking at the code, if they get an error it is easier to help them debug if the line the code is coming form is unambiguous. All you need to know now is the version. If minified code was offered, then you?d also need them to tell you whether they had the minified version or not, which they probably wouldn?t even know. One of the great things about WordPress is it?s very low entry point for new developers. Minifying the code would make it a lot harder for someone to just start hacking on their site. And actually, now many web hosts provide a one-click installer thingy, so many users aren?t even downloading the source to start with.
+
+-J.D.
+
+On Jul 18, 2014, at 4:33 PM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> Commenting is great...
+> 
+> But do you have personal guidelines as to which of the 3 commenting options
+> that come with PHP when you comment on SINGLE LINES?
+> 
+> We got 3 to choose from.
+> 
+> #
+> 
+> //
+> 
+> /*  */
+> 
+> There must be a reason why we have 3 choices I'm thinking...
+> 
+> And I'm also curious if a leaner version of WordPress (with 0 comments & 0
+> unnecessary white space ) has been considered as an optional download for
+> those who choose to do so (from the repository) discussed any earlier.
+> 
+> For example, one can choose to download the minified version of 3.9.1 per
+> se.
+> 
+> I'm just curious how that discussion went - if any.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From ankittiwaari at gmail.com  Sat Jul 19 03:26:32 2014
+From: ankittiwaari at gmail.com (Ankit Tiwari)
+Date: Sat, 19 Jul 2014 08:56:32 +0530
+Subject: [wp-hackers] do you guys distinquish between various PHP
+ commenting options?
+In-Reply-To: <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+ <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+Message-ID: <CACGEjq9N0_avVVDTt9fnxD7Ae=WdOyYN6hmDfCV3rUU9CuT9cA@mail.gmail.com>
+
+Using # for single line commenting is discouraged in wordpress as well as
+pear coding standards.
+
+You can use any method from the remaining two, but a common practice is to
+comment a single line using // and multiple lines using /**/
+
+Ankit Tiwari
+Open Source Developer
+On Jul 19, 2014 2:36 AM, "Nikola Nikolov" <nikolov.tmw at gmail.com> wrote:
+
+> I prefer // for single-line comments and usually go with /**/ for
+> multi-line comments(although if I'm quickly commenting a couple of lines of
+> code while I'm working, I'd use the quick insert/remove comment function of
+> Sublime Text and it will just add // at the beginning of all selected
+> lines).
+>
+> I'm not sure if there's a reason why you'd need a minified version of
+> WordPress(not sure if the license allows the WordPress source code to be
+> obscured in any way) - as far as I know the decreased file size won't make
+> a huge difference in performance or anything.
+>
+>
+> On Fri, Jul 18, 2014 at 11:33 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Commenting is great...
+> >
+> > But do you have personal guidelines as to which of the 3 commenting
+> options
+> > that come with PHP when you comment on SINGLE LINES?
+> >
+> > We got 3 to choose from.
+> >
+> > #
+> >
+> > //
+> >
+> > /*  */
+> >
+> > There must be a reason why we have 3 choices I'm thinking...
+> >
+> > And I'm also curious if a leaner version of WordPress (with 0 comments &
+> 0
+> > unnecessary white space ) has been considered as an optional download for
+> > those who choose to do so (from the repository) discussed any earlier.
+> >
+> > For example, one can choose to download the minified version of 3.9.1 per
+> > se.
+> >
+> > I'm just curious how that discussion went - if any.
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wordpress at jacobsantos.com  Sat Jul 19 05:56:10 2014
+From: wordpress at jacobsantos.com (Jacob Santos)
+Date: Sat, 19 Jul 2014 00:56:10 -0500
+Subject: [wp-hackers] do you guys distinquish between various PHP
+ commenting options?
+In-Reply-To: <CACGEjq9N0_avVVDTt9fnxD7Ae=WdOyYN6hmDfCV3rUU9CuT9cA@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+ <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+ <CACGEjq9N0_avVVDTt9fnxD7Ae=WdOyYN6hmDfCV3rUU9CuT9cA@mail.gmail.com>
+Message-ID: <CAODYmTPEpRvS-c0SxxJ5HMN_utTzMTJao7tiDVx2EvqWEz6tkw@mail.gmail.com>
+
+It is discouraged in the coding standards, because you should only use one
+single line comment token. Code should look like it was written by one
+person, so that developers don't create a mess of the code based on
+personal preference.
+
+If you have code where the comments have '#' sometimes and '//' other
+times, then it isn't clean and it draws the programmer who is reading the
+code out of their flow of thought (maybe). Some resources recommend using
+the other rarely when you have a reason to note something. So, for example,
+if you used '//' all the time and only used '#' only when you had a
+warning, then it would make sense. The programmer reading the code would
+understand, eventually, that they need to pay attention to '#' characters.
+
+In practice, this is rarely done and most programmers reading the code are
+not going to read the coding style guide, so won't know the difference
+between when to use '#' or '//'. They will just assume that you don't know
+what you are doing or don't have a coding style.
+
+As an aside, Python only has '#' for comments and doesn't have a separate
+token for multiple line comments. Although, you can use """ ... """ for
+documentation and to comment out large sections of code. The latter is
+strongly discouraged. I suppose the point is that code should be self
+documenting, and therefore shouldn't have many comments. What it actually
+does, is make it a burden to add comments to code, so a lot of code is not
+documented when it should.
+
+Jacob Santos
+
+Programmer
+
+
+
+On Fri, Jul 18, 2014 at 10:26 PM, Ankit Tiwari <ankittiwaari at gmail.com>
+wrote:
+
+> Using # for single line commenting is discouraged in wordpress as well as
+> pear coding standards.
+>
+> You can use any method from the remaining two, but a common practice is to
+> comment a single line using // and multiple lines using /**/
+>
+> Ankit Tiwari
+> Open Source Developer
+> On Jul 19, 2014 2:36 AM, "Nikola Nikolov" <nikolov.tmw at gmail.com> wrote:
+>
+> > I prefer // for single-line comments and usually go with /**/ for
+> > multi-line comments(although if I'm quickly commenting a couple of lines
+> of
+> > code while I'm working, I'd use the quick insert/remove comment function
+> of
+> > Sublime Text and it will just add // at the beginning of all selected
+> > lines).
+> >
+> > I'm not sure if there's a reason why you'd need a minified version of
+> > WordPress(not sure if the license allows the WordPress source code to be
+> > obscured in any way) - as far as I know the decreased file size won't
+> make
+> > a huge difference in performance or anything.
+> >
+> >
+> > On Fri, Jul 18, 2014 at 11:33 PM, Haluk Karamete <
+> halukkaramete at gmail.com>
+> > wrote:
+> >
+> > > Commenting is great...
+> > >
+> > > But do you have personal guidelines as to which of the 3 commenting
+> > options
+> > > that come with PHP when you comment on SINGLE LINES?
+> > >
+> > > We got 3 to choose from.
+> > >
+> > > #
+> > >
+> > > //
+> > >
+> > > /*  */
+> > >
+> > > There must be a reason why we have 3 choices I'm thinking...
+> > >
+> > > And I'm also curious if a leaner version of WordPress (with 0 comments
+> &
+> > 0
+> > > unnecessary white space ) has been considered as an optional download
+> for
+> > > those who choose to do so (from the repository) discussed any earlier.
+> > >
+> > > For example, one can choose to download the minified version of 3.9.1
+> per
+> > > se.
+> > >
+> > > I'm just curious how that discussion went - if any.
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Sat Jul 19 10:29:39 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sat, 19 Jul 2014 03:29:39 -0700
+Subject: [wp-hackers] do you guys distinquish between various PHP
+ commenting options?
+In-Reply-To: <CAODYmTPEpRvS-c0SxxJ5HMN_utTzMTJao7tiDVx2EvqWEz6tkw@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+ <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+ <CACGEjq9N0_avVVDTt9fnxD7Ae=WdOyYN6hmDfCV3rUU9CuT9cA@mail.gmail.com>
+ <CAODYmTPEpRvS-c0SxxJ5HMN_utTzMTJao7tiDVx2EvqWEz6tkw@mail.gmail.com>
+Message-ID: <CAHERW=3OU02uBo2SXZ0PRhhkTqk21wqGNRTLWPZ2_3F=oUdEgw@mail.gmail.com>
+
+Thanks guys for your input..
+
+I digged this article which also inlines with your insight as to leaving
+the comments in the code is OK.
+phplens.com/lens/php-book/optimizing-debugging-php.php -> Useless
+Optimizations
+
+As to the #, // thing...
+I now know why it would not make sense to use them in a mix and match
+format,
+When it comes to multi-line commenting, surely, going with /* */ is a
+no-brainer.
+But for the single lines, I guess it comes down to individual choice which
+one to adapt or when to use which?
+
+My choice is ...
+I'd like to be able to distinquish the type of comment I'm typing in - so
+I'd be using all 3 in the same file.
+
+/* big section headings */     <- I follow this with 2 or more blank lines
+before or after major sections in the code
+# sub section comments                  <- I use this for sub sections. I
+follow this with only 1 blank line - before or after
+// copy-paste var_dump       <-no lines before or after. this is the only
+one I use on the same line
+
+As I said when it comes to multi-lines, there really is no point to use #
+or //.
+
+
+
+
+
+
+On Fri, Jul 18, 2014 at 10:56 PM, Jacob Santos <wordpress at jacobsantos.com>
+wrote:
+
+> It is discouraged in the coding standards, because you should only use one
+> single line comment token. Code should look like it was written by one
+> person, so that developers don't create a mess of the code based on
+> personal preference.
+>
+> If you have code where the comments have '#' sometimes and '//' other
+> times, then it isn't clean and it draws the programmer who is reading the
+> code out of their flow of thought (maybe). Some resources recommend using
+> the other rarely when you have a reason to note something. So, for example,
+> if you used '//' all the time and only used '#' only when you had a
+> warning, then it would make sense. The programmer reading the code would
+> understand, eventually, that they need to pay attention to '#' characters.
+>
+> In practice, this is rarely done and most programmers reading the code are
+> not going to read the coding style guide, so won't know the difference
+> between when to use '#' or '//'. They will just assume that you don't know
+> what you are doing or don't have a coding style.
+>
+> As an aside, Python only has '#' for comments and doesn't have a separate
+> token for multiple line comments. Although, you can use """ ... """ for
+> documentation and to comment out large sections of code. The latter is
+> strongly discouraged. I suppose the point is that code should be self
+> documenting, and therefore shouldn't have many comments. What it actually
+> does, is make it a burden to add comments to code, so a lot of code is not
+> documented when it should.
+>
+> Jacob Santos
+>
+> Programmer
+>
+>
+>
+> On Fri, Jul 18, 2014 at 10:26 PM, Ankit Tiwari <ankittiwaari at gmail.com>
+> wrote:
+>
+> > Using # for single line commenting is discouraged in wordpress as well as
+> > pear coding standards.
+> >
+> > You can use any method from the remaining two, but a common practice is
+> to
+> > comment a single line using // and multiple lines using /**/
+> >
+> > Ankit Tiwari
+> > Open Source Developer
+> > On Jul 19, 2014 2:36 AM, "Nikola Nikolov" <nikolov.tmw at gmail.com> wrote:
+> >
+> > > I prefer // for single-line comments and usually go with /**/ for
+> > > multi-line comments(although if I'm quickly commenting a couple of
+> lines
+> > of
+> > > code while I'm working, I'd use the quick insert/remove comment
+> function
+> > of
+> > > Sublime Text and it will just add // at the beginning of all selected
+> > > lines).
+> > >
+> > > I'm not sure if there's a reason why you'd need a minified version of
+> > > WordPress(not sure if the license allows the WordPress source code to
+> be
+> > > obscured in any way) - as far as I know the decreased file size won't
+> > make
+> > > a huge difference in performance or anything.
+> > >
+> > >
+> > > On Fri, Jul 18, 2014 at 11:33 PM, Haluk Karamete <
+> > halukkaramete at gmail.com>
+> > > wrote:
+> > >
+> > > > Commenting is great...
+> > > >
+> > > > But do you have personal guidelines as to which of the 3 commenting
+> > > options
+> > > > that come with PHP when you comment on SINGLE LINES?
+> > > >
+> > > > We got 3 to choose from.
+> > > >
+> > > > #
+> > > >
+> > > > //
+> > > >
+> > > > /*  */
+> > > >
+> > > > There must be a reason why we have 3 choices I'm thinking...
+> > > >
+> > > > And I'm also curious if a leaner version of WordPress (with 0
+> comments
+> > &
+> > > 0
+> > > > unnecessary white space ) has been considered as an optional download
+> > for
+> > > > those who choose to do so (from the repository) discussed any
+> earlier.
+> > > >
+> > > > For example, one can choose to download the minified version of 3.9.1
+> > per
+> > > > se.
+> > > >
+> > > > I'm just curious how that discussion went - if any.
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wordpress at jacobsantos.com  Sat Jul 19 19:17:04 2014
+From: wordpress at jacobsantos.com (Jacob Santos)
+Date: Sat, 19 Jul 2014 14:17:04 -0500
+Subject: [wp-hackers] do you guys distinquish between various PHP
+ commenting options?
+In-Reply-To: <CAHERW=3OU02uBo2SXZ0PRhhkTqk21wqGNRTLWPZ2_3F=oUdEgw@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+ <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+ <CACGEjq9N0_avVVDTt9fnxD7Ae=WdOyYN6hmDfCV3rUU9CuT9cA@mail.gmail.com>
+ <CAODYmTPEpRvS-c0SxxJ5HMN_utTzMTJao7tiDVx2EvqWEz6tkw@mail.gmail.com>
+ <CAHERW=3OU02uBo2SXZ0PRhhkTqk21wqGNRTLWPZ2_3F=oUdEgw@mail.gmail.com>
+Message-ID: <CAODYmTNYN+owZ91LwRq+WOEBf5C7OuLD5hG4TufCbSdYxWAfZg@mail.gmail.com>
+
+Okay, so, what is the point of comments? When you use /** */ you are saying
+to PHP and the PHP tool processing the file, "This comment exists for the
+benefit of documenting this block of code to be outputted in an API
+documentation site." You should always have /** */ comments. These are
+called PHPdoc comments, I guess from PHPdocumentator application.
+
+Single line and multiple line comments exist to inform programmers reading
+your code the reason you did something a certain way or to further clarify
+code.
+
+You don't need a comment:
+
+// Add one to variable
+$var += 1;
+
+The reason you don't need a comment is because the comment merely restates
+what the code already makes clear.
+
+You may need a comment:
+
+switch(true) {
+    case false: // this code existed for some time and wasn't documented,
+should probably be removed.
+         some_function_that_did_things();
+         break;
+   case $var === true: // Fall through
+   case $var === 1:
+        do_something_when_true();
+        break;
+}
+
+The reason you need both comments is to tell developers why you have dead
+code area (generally bad practice). Usually when you fall through using a
+switch, it is a good idea to inform people that this is intentional.
+
+Dead code is bad practice for the same reason commented out code is bad
+practice. You should be using Version Control anyway and if you are, then
+you don't need to ever worry about "losing code", because as long as you
+commit before you remove, the code will always be there. It might be
+difficult to find, but it will always be available.
+
+The reason you could document switch fallthrough is because of C/C++ and
+languages that don't allow fallthrough. The coding practice was to always,
+always break for each case. Always. The reason was so that you don't forget
+and so that the programmer after you can correct your mistake. If you
+always do something, then someone knows when you forgot. Why is this
+important? Fall through is great because you could put multiple options on
+multiple lines, cleaning up the code and allowing the same action to be
+performed for all of the options that fall through.
+
+There are no few bugs involving a fall through when there should not have
+been. Documenting when you mean for code to fall through helps people
+realize when something might not actually be a bug.
+
+
+The other area where comments are helpful is for you, when you are new to a
+concept and need help remembering what code does. Sadly, for me, that is
+bitwise operations and remembering why I did a certain action. Even when I
+finally realize bitwise operations, I will still write and keep comments,
+because those are specific enough that you might have to tell people what
+the bitwise operation is supposed to do. These obscure code are ripe for
+comments, because they inform you later what you meant when you wrote the
+code and it informs other programmers, so they don't look at the code
+confused or thinking you made a mistake.
+
+Jacob Santos
+
+Programmer
+
+
+
+On Sat, Jul 19, 2014 at 5:29 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Thanks guys for your input..
+>
+> I digged this article which also inlines with your insight as to leaving
+> the comments in the code is OK.
+> phplens.com/lens/php-book/optimizing-debugging-php.php -> Useless
+> Optimizations
+>
+> As to the #, // thing...
+> I now know why it would not make sense to use them in a mix and match
+> format,
+> When it comes to multi-line commenting, surely, going with /* */ is a
+> no-brainer.
+> But for the single lines, I guess it comes down to individual choice which
+> one to adapt or when to use which?
+>
+> My choice is ...
+> I'd like to be able to distinquish the type of comment I'm typing in - so
+> I'd be using all 3 in the same file.
+>
+> /* big section headings */     <- I follow this with 2 or more blank lines
+> before or after major sections in the code
+> # sub section comments                  <- I use this for sub sections. I
+> follow this with only 1 blank line - before or after
+> // copy-paste var_dump       <-no lines before or after. this is the only
+> one I use on the same line
+>
+> As I said when it comes to multi-lines, there really is no point to use #
+> or //.
+>
+>
+>
+>
+>
+>
+> On Fri, Jul 18, 2014 at 10:56 PM, Jacob Santos <wordpress at jacobsantos.com>
+> wrote:
+>
+> > It is discouraged in the coding standards, because you should only use
+> one
+> > single line comment token. Code should look like it was written by one
+> > person, so that developers don't create a mess of the code based on
+> > personal preference.
+> >
+> > If you have code where the comments have '#' sometimes and '//' other
+> > times, then it isn't clean and it draws the programmer who is reading the
+> > code out of their flow of thought (maybe). Some resources recommend using
+> > the other rarely when you have a reason to note something. So, for
+> example,
+> > if you used '//' all the time and only used '#' only when you had a
+> > warning, then it would make sense. The programmer reading the code would
+> > understand, eventually, that they need to pay attention to '#'
+> characters.
+> >
+> > In practice, this is rarely done and most programmers reading the code
+> are
+> > not going to read the coding style guide, so won't know the difference
+> > between when to use '#' or '//'. They will just assume that you don't
+> know
+> > what you are doing or don't have a coding style.
+> >
+> > As an aside, Python only has '#' for comments and doesn't have a separate
+> > token for multiple line comments. Although, you can use """ ... """ for
+> > documentation and to comment out large sections of code. The latter is
+> > strongly discouraged. I suppose the point is that code should be self
+> > documenting, and therefore shouldn't have many comments. What it actually
+> > does, is make it a burden to add comments to code, so a lot of code is
+> not
+> > documented when it should.
+> >
+> > Jacob Santos
+> >
+> > Programmer
+> >
+> >
+> >
+> > On Fri, Jul 18, 2014 at 10:26 PM, Ankit Tiwari <ankittiwaari at gmail.com>
+> > wrote:
+> >
+> > > Using # for single line commenting is discouraged in wordpress as well
+> as
+> > > pear coding standards.
+> > >
+> > > You can use any method from the remaining two, but a common practice is
+> > to
+> > > comment a single line using // and multiple lines using /**/
+> > >
+> > > Ankit Tiwari
+> > > Open Source Developer
+> > > On Jul 19, 2014 2:36 AM, "Nikola Nikolov" <nikolov.tmw at gmail.com>
+> wrote:
+> > >
+> > > > I prefer // for single-line comments and usually go with /**/ for
+> > > > multi-line comments(although if I'm quickly commenting a couple of
+> > lines
+> > > of
+> > > > code while I'm working, I'd use the quick insert/remove comment
+> > function
+> > > of
+> > > > Sublime Text and it will just add // at the beginning of all selected
+> > > > lines).
+> > > >
+> > > > I'm not sure if there's a reason why you'd need a minified version of
+> > > > WordPress(not sure if the license allows the WordPress source code to
+> > be
+> > > > obscured in any way) - as far as I know the decreased file size won't
+> > > make
+> > > > a huge difference in performance or anything.
+> > > >
+> > > >
+> > > > On Fri, Jul 18, 2014 at 11:33 PM, Haluk Karamete <
+> > > halukkaramete at gmail.com>
+> > > > wrote:
+> > > >
+> > > > > Commenting is great...
+> > > > >
+> > > > > But do you have personal guidelines as to which of the 3 commenting
+> > > > options
+> > > > > that come with PHP when you comment on SINGLE LINES?
+> > > > >
+> > > > > We got 3 to choose from.
+> > > > >
+> > > > > #
+> > > > >
+> > > > > //
+> > > > >
+> > > > > /*  */
+> > > > >
+> > > > > There must be a reason why we have 3 choices I'm thinking...
+> > > > >
+> > > > > And I'm also curious if a leaner version of WordPress (with 0
+> > comments
+> > > &
+> > > > 0
+> > > > > unnecessary white space ) has been considered as an optional
+> download
+> > > for
+> > > > > those who choose to do so (from the repository) discussed any
+> > earlier.
+> > > > >
+> > > > > For example, one can choose to download the minified version of
+> 3.9.1
+> > > per
+> > > > > se.
+> > > > >
+> > > > > I'm just curious how that discussion went - if any.
+> > > > > _______________________________________________
+> > > > > wp-hackers mailing list
+> > > > > wp-hackers at lists.automattic.com
+> > > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > > >
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wordpress at jacobsantos.com  Sat Jul 19 19:32:37 2014
+From: wordpress at jacobsantos.com (Jacob Santos)
+Date: Sat, 19 Jul 2014 14:32:37 -0500
+Subject: [wp-hackers] do you guys distinquish between various PHP
+ commenting options?
+In-Reply-To: <CAODYmTNYN+owZ91LwRq+WOEBf5C7OuLD5hG4TufCbSdYxWAfZg@mail.gmail.com>
+References: <CAHERW=29SZwZJUaGLYTUz7b984wurdyOy6FLd-UvxOsz57QD0g@mail.gmail.com>
+ <CAOwx47dw+L0kEA3+NCtLTuw3T1OmqsA1FFGPUHzT6YBKsh8yUw@mail.gmail.com>
+ <CACGEjq9N0_avVVDTt9fnxD7Ae=WdOyYN6hmDfCV3rUU9CuT9cA@mail.gmail.com>
+ <CAODYmTPEpRvS-c0SxxJ5HMN_utTzMTJao7tiDVx2EvqWEz6tkw@mail.gmail.com>
+ <CAHERW=3OU02uBo2SXZ0PRhhkTqk21wqGNRTLWPZ2_3F=oUdEgw@mail.gmail.com>
+ <CAODYmTNYN+owZ91LwRq+WOEBf5C7OuLD5hG4TufCbSdYxWAfZg@mail.gmail.com>
+Message-ID: <CAODYmTN60K75dFmZLBgLjrZx0fVOoE2ane=ACc30PPbWD2FdjQ@mail.gmail.com>
+
+I suggest reading Clean Code for more on when comments are needed and not
+needed. I don't believe the author goes to deeply into this subject as it
+is mostly subjective. I believe most of what is said, is contained in my
+previous email. You don't have to follow everything in Clean Code, because
+some of the suggestions may violate coding standards and practices of the
+team you are on.
+
+Read and have an open mind. The book contains concepts from professionals
+that, if you practice, will put you on the same level as professionals and
+in some cases, above them. If you code this way, then few people will doubt
+your level. There are code smells which may also make you a better
+programmer.
+
+Jacob Santos
+
+
+On Sat, Jul 19, 2014 at 2:17 PM, Jacob Santos <wordpress at jacobsantos.com>
+wrote:
+
+> Okay, so, what is the point of comments? When you use /** */ you are
+> saying to PHP and the PHP tool processing the file, "This comment exists
+> for the benefit of documenting this block of code to be outputted in an API
+> documentation site." You should always have /** */ comments. These are
+> called PHPdoc comments, I guess from PHPdocumentator application.
+>
+> Single line and multiple line comments exist to inform programmers reading
+> your code the reason you did something a certain way or to further clarify
+> code.
+>
+> You don't need a comment:
+>
+> // Add one to variable
+> $var += 1;
+>
+> The reason you don't need a comment is because the comment merely restates
+> what the code already makes clear.
+>
+> You may need a comment:
+>
+> switch(true) {
+>     case false: // this code existed for some time and wasn't documented,
+> should probably be removed.
+>          some_function_that_did_things();
+>          break;
+>    case $var === true: // Fall through
+>    case $var === 1:
+>         do_something_when_true();
+>         break;
+> }
+>
+> The reason you need both comments is to tell developers why you have dead
+> code area (generally bad practice). Usually when you fall through using a
+> switch, it is a good idea to inform people that this is intentional.
+>
+> Dead code is bad practice for the same reason commented out code is bad
+> practice. You should be using Version Control anyway and if you are, then
+> you don't need to ever worry about "losing code", because as long as you
+> commit before you remove, the code will always be there. It might be
+> difficult to find, but it will always be available.
+>
+> The reason you could document switch fallthrough is because of C/C++ and
+> languages that don't allow fallthrough. The coding practice was to always,
+> always break for each case. Always. The reason was so that you don't forget
+> and so that the programmer after you can correct your mistake. If you
+> always do something, then someone knows when you forgot. Why is this
+> important? Fall through is great because you could put multiple options on
+> multiple lines, cleaning up the code and allowing the same action to be
+> performed for all of the options that fall through.
+>
+> There are no few bugs involving a fall through when there should not have
+> been. Documenting when you mean for code to fall through helps people
+> realize when something might not actually be a bug.
+>
+>
+> The other area where comments are helpful is for you, when you are new to
+> a concept and need help remembering what code does. Sadly, for me, that is
+> bitwise operations and remembering why I did a certain action. Even when I
+> finally realize bitwise operations, I will still write and keep comments,
+> because those are specific enough that you might have to tell people what
+> the bitwise operation is supposed to do. These obscure code are ripe for
+> comments, because they inform you later what you meant when you wrote the
+> code and it informs other programmers, so they don't look at the code
+> confused or thinking you made a mistake.
+>
+> Jacob Santos
+>
+> Programmer
+>
+>
+>
+> On Sat, Jul 19, 2014 at 5:29 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+>> Thanks guys for your input..
+>>
+>> I digged this article which also inlines with your insight as to leaving
+>> the comments in the code is OK.
+>> phplens.com/lens/php-book/optimizing-debugging-php.php -> Useless
+>> Optimizations
+>>
+>> As to the #, // thing...
+>> I now know why it would not make sense to use them in a mix and match
+>> format,
+>> When it comes to multi-line commenting, surely, going with /* */ is a
+>> no-brainer.
+>> But for the single lines, I guess it comes down to individual choice which
+>> one to adapt or when to use which?
+>>
+>> My choice is ...
+>> I'd like to be able to distinquish the type of comment I'm typing in - so
+>> I'd be using all 3 in the same file.
+>>
+>> /* big section headings */     <- I follow this with 2 or more blank lines
+>> before or after major sections in the code
+>> # sub section comments                  <- I use this for sub sections. I
+>> follow this with only 1 blank line - before or after
+>> // copy-paste var_dump       <-no lines before or after. this is the only
+>> one I use on the same line
+>>
+>> As I said when it comes to multi-lines, there really is no point to use #
+>> or //.
+>>
+>>
+>>
+>>
+>>
+>>
+>> On Fri, Jul 18, 2014 at 10:56 PM, Jacob Santos <wordpress at jacobsantos.com
+>> >
+>> wrote:
+>>
+>> > It is discouraged in the coding standards, because you should only use
+>> one
+>> > single line comment token. Code should look like it was written by one
+>> > person, so that developers don't create a mess of the code based on
+>> > personal preference.
+>> >
+>> > If you have code where the comments have '#' sometimes and '//' other
+>> > times, then it isn't clean and it draws the programmer who is reading
+>> the
+>> > code out of their flow of thought (maybe). Some resources recommend
+>> using
+>> > the other rarely when you have a reason to note something. So, for
+>> example,
+>> > if you used '//' all the time and only used '#' only when you had a
+>> > warning, then it would make sense. The programmer reading the code would
+>> > understand, eventually, that they need to pay attention to '#'
+>> characters.
+>> >
+>> > In practice, this is rarely done and most programmers reading the code
+>> are
+>> > not going to read the coding style guide, so won't know the difference
+>> > between when to use '#' or '//'. They will just assume that you don't
+>> know
+>> > what you are doing or don't have a coding style.
+>> >
+>> > As an aside, Python only has '#' for comments and doesn't have a
+>> separate
+>> > token for multiple line comments. Although, you can use """ ... """ for
+>> > documentation and to comment out large sections of code. The latter is
+>> > strongly discouraged. I suppose the point is that code should be self
+>> > documenting, and therefore shouldn't have many comments. What it
+>> actually
+>> > does, is make it a burden to add comments to code, so a lot of code is
+>> not
+>> > documented when it should.
+>> >
+>> > Jacob Santos
+>> >
+>> > Programmer
+>> >
+>> >
+>> >
+>> > On Fri, Jul 18, 2014 at 10:26 PM, Ankit Tiwari <ankittiwaari at gmail.com>
+>> > wrote:
+>> >
+>> > > Using # for single line commenting is discouraged in wordpress as
+>> well as
+>> > > pear coding standards.
+>> > >
+>> > > You can use any method from the remaining two, but a common practice
+>> is
+>> > to
+>> > > comment a single line using // and multiple lines using /**/
+>> > >
+>> > > Ankit Tiwari
+>> > > Open Source Developer
+>> > > On Jul 19, 2014 2:36 AM, "Nikola Nikolov" <nikolov.tmw at gmail.com>
+>> wrote:
+>> > >
+>> > > > I prefer // for single-line comments and usually go with /**/ for
+>> > > > multi-line comments(although if I'm quickly commenting a couple of
+>> > lines
+>> > > of
+>> > > > code while I'm working, I'd use the quick insert/remove comment
+>> > function
+>> > > of
+>> > > > Sublime Text and it will just add // at the beginning of all
+>> selected
+>> > > > lines).
+>> > > >
+>> > > > I'm not sure if there's a reason why you'd need a minified version
+>> of
+>> > > > WordPress(not sure if the license allows the WordPress source code
+>> to
+>> > be
+>> > > > obscured in any way) - as far as I know the decreased file size
+>> won't
+>> > > make
+>> > > > a huge difference in performance or anything.
+>> > > >
+>> > > >
+>> > > > On Fri, Jul 18, 2014 at 11:33 PM, Haluk Karamete <
+>> > > halukkaramete at gmail.com>
+>> > > > wrote:
+>> > > >
+>> > > > > Commenting is great...
+>> > > > >
+>> > > > > But do you have personal guidelines as to which of the 3
+>> commenting
+>> > > > options
+>> > > > > that come with PHP when you comment on SINGLE LINES?
+>> > > > >
+>> > > > > We got 3 to choose from.
+>> > > > >
+>> > > > > #
+>> > > > >
+>> > > > > //
+>> > > > >
+>> > > > > /*  */
+>> > > > >
+>> > > > > There must be a reason why we have 3 choices I'm thinking...
+>> > > > >
+>> > > > > And I'm also curious if a leaner version of WordPress (with 0
+>> > comments
+>> > > &
+>> > > > 0
+>> > > > > unnecessary white space ) has been considered as an optional
+>> download
+>> > > for
+>> > > > > those who choose to do so (from the repository) discussed any
+>> > earlier.
+>> > > > >
+>> > > > > For example, one can choose to download the minified version of
+>> 3.9.1
+>> > > per
+>> > > > > se.
+>> > > > >
+>> > > > > I'm just curious how that discussion went - if any.
+>> > > > > _______________________________________________
+>> > > > > wp-hackers mailing list
+>> > > > > wp-hackers at lists.automattic.com
+>> > > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> > > > >
+>> > > > _______________________________________________
+>> > > > wp-hackers mailing list
+>> > > > wp-hackers at lists.automattic.com
+>> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> > > >
+>> > > _______________________________________________
+>> > > wp-hackers mailing list
+>> > > wp-hackers at lists.automattic.com
+>> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> > >
+>> > _______________________________________________
+>> > wp-hackers mailing list
+>> > wp-hackers at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> >
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>
+>
+
+From halukkaramete at gmail.com  Sun Jul 20 13:42:15 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 20 Jul 2014 06:42:15 -0700
+Subject: [wp-hackers] choosing plural vs singular words in taxonony names in
+	URIs
+Message-ID: <CAHERW=03+H0zkGsuG00K-Wab-T_EkGL7cfLhsWSHi+96eKyymQ@mail.gmail.com>
+
+I know this is very subjective, but the more I pick the highly up-scale
+brains like the great minds of this list, the better it is. so excuse me if
+you find this question a little odd.
+
+here is the situation
+
+say, you got a taxonomy called "Channels" and you got terms under it such
+as "Debates", "Interviews", "PodCasts" etc...
+
+should the url's for these terms read as
+
+your-site.com/channels/debates
+
+or
+
+your-site.com/channel/debates
+
+If this was a straight english grammar, we'd be saying "Debates Channel".
+No dispute on that...
+
+But here in a url structure, can't start with the term first.
+
+So I'm wondering which of the above structures, in the
+broken-english-structure-of URLs be better?  channels/debates or
+channel/debates
+
+Or is this something like case by case? What's the handle or guide in
+deciding on these things?
+
+I hope you don't find this question odd and shoot me down. :)
+
+Please note the only difference between the two is on the taxonomy name,
+NOT on the term. For some reason, it seems to be pretty clear that the term
+( the "debates" part ) needs to be plural. But, please feel free to
+challenge me even on that. I'd only appreciate it.
+
+Thank you
+
+From halukkaramete at gmail.com  Sun Jul 20 14:03:30 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 20 Jul 2014 07:03:30 -0700
+Subject: [wp-hackers] choosing plural vs singular words in taxonony
+	names in URIs
+In-Reply-To: <CAHERW=03+H0zkGsuG00K-Wab-T_EkGL7cfLhsWSHi+96eKyymQ@mail.gmail.com>
+References: <CAHERW=03+H0zkGsuG00K-Wab-T_EkGL7cfLhsWSHi+96eKyymQ@mail.gmail.com>
+Message-ID: <CAHERW=1hgOWiiFfGCPNrHru5YDHiu68oTGWuwHkaa_nQ8eerPg@mail.gmail.com>
+
+my feedback on my own question is that I'd pick channels/debates over
+channel/debates, because of the following reason;
+
+first off, they both are pretty close...  if you pick one over the other,
+regardless of the pick, no body is gonna come after you and put you on the
+spot as if you have done something drastically wrong..
+
+given that....
+
+the former ( channels/debates ) suggests that I've got MANY channels on my
+site.. So, my visitors are indirectly inspired & suggested, that he can go
+ahead and check out what other channels we got in the site...  a wordpress
+page slugged as your-site.com/channels may have an alphabetical listing of
+all those channels.. to explore..
+
+whereas the latter ( channel/debates ) ( though it is closer to the
+day-t-day english we use ) would not make that sort of a suggestion to the
+user that yoo got many channels...
+
+that's the only reason I'd pick the former...  unless you bring a different
+perspective that I am failing to see...
+
+
+
+
+On Sun, Jul 20, 2014 at 6:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> I know this is very subjective, but the more I pick the highly up-scale
+> brains like the great minds of this list, the better it is. so excuse me if
+> you find this question a little odd.
+>
+> here is the situation
+>
+> say, you got a taxonomy called "Channels" and you got terms under it such
+> as "Debates", "Interviews", "PodCasts" etc...
+>
+> should the url's for these terms read as
+>
+> your-site.com/channels/debates
+>
+> or
+>
+> your-site.com/channel/debates
+>
+> If this was a straight english grammar, we'd be saying "Debates Channel".
+> No dispute on that...
+>
+> But here in a url structure, can't start with the term first.
+>
+> So I'm wondering which of the above structures, in the
+> broken-english-structure-of URLs be better?  channels/debates or
+> channel/debates
+>
+> Or is this something like case by case? What's the handle or guide in
+> deciding on these things?
+>
+> I hope you don't find this question odd and shoot me down. :)
+>
+> Please note the only difference between the two is on the taxonomy name,
+> NOT on the term. For some reason, it seems to be pretty clear that the term
+> ( the "debates" part ) needs to be plural. But, please feel free to
+> challenge me even on that. I'd only appreciate it.
+>
+> Thank you
+>
+
+From david at dsernst.com  Mon Jul 21 06:42:55 2014
+From: david at dsernst.com (David Ernst)
+Date: Mon, 21 Jul 2014 02:42:55 -0400
+Subject: [wp-hackers] choosing plural vs singular words in taxonony
+ names in URIs
+In-Reply-To: <CAHERW=1hgOWiiFfGCPNrHru5YDHiu68oTGWuwHkaa_nQ8eerPg@mail.gmail.com>
+References: <CAHERW=03+H0zkGsuG00K-Wab-T_EkGL7cfLhsWSHi+96eKyymQ@mail.gmail.com>
+ <CAHERW=1hgOWiiFfGCPNrHru5YDHiu68oTGWuwHkaa_nQ8eerPg@mail.gmail.com>
+Message-ID: <CANmL2P-bddaeaH9KOhdi4+iO-sgdvroc=g7_R9Fm1MFYG4H=vQ@mail.gmail.com>
+
+Both are probably safe.
+
+Thinking of these as subfolders -- i.e. a traditional non-routed webserver
+--  the plural feels more natural to me. If I'm in the index /, I would
+expect to see folders with names like "Channels", "Debates", etc., not the
+singular.
+
+Re your point that the plural invites visitors to check that out directly
+for an index: Isn't that exactly right? If they do go straight to the
+taxonomy, they *should* see an index. Maybe you don't have a highly
+populated one now, but you could in the future!
+
+And some counter references:
+  * http://theme.wordpress.com/themes/p2/
+  * https://www.youtube.com/user/Google
+  * https://twitter.com/hashtag/WordPress
+  * http://www.reddit.com/user/PresidentObama
+
+
+On Sun, Jul 20, 2014 at 10:03 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> my feedback on my own question is that I'd pick channels/debates over
+> channel/debates, because of the following reason;
+>
+> first off, they both are pretty close...  if you pick one over the other,
+> regardless of the pick, no body is gonna come after you and put you on the
+> spot as if you have done something drastically wrong..
+>
+> given that....
+>
+> the former ( channels/debates ) suggests that I've got MANY channels on my
+> site.. So, my visitors are indirectly inspired & suggested, that he can go
+> ahead and check out what other channels we got in the site...  a wordpress
+> page slugged as your-site.com/channels may have an alphabetical listing of
+> all those channels.. to explore..
+>
+> whereas the latter ( channel/debates ) ( though it is closer to the
+> day-t-day english we use ) would not make that sort of a suggestion to the
+> user that yoo got many channels...
+>
+> that's the only reason I'd pick the former...  unless you bring a different
+> perspective that I am failing to see...
+>
+>
+>
+>
+> On Sun, Jul 20, 2014 at 6:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > I know this is very subjective, but the more I pick the highly up-scale
+> > brains like the great minds of this list, the better it is. so excuse me
+> if
+> > you find this question a little odd.
+> >
+> > here is the situation
+> >
+> > say, you got a taxonomy called "Channels" and you got terms under it such
+> > as "Debates", "Interviews", "PodCasts" etc...
+> >
+> > should the url's for these terms read as
+> >
+> > your-site.com/channels/debates
+> >
+> > or
+> >
+> > your-site.com/channel/debates
+> >
+> > If this was a straight english grammar, we'd be saying "Debates Channel".
+> > No dispute on that...
+> >
+> > But here in a url structure, can't start with the term first.
+> >
+> > So I'm wondering which of the above structures, in the
+> > broken-english-structure-of URLs be better?  channels/debates or
+> > channel/debates
+> >
+> > Or is this something like case by case? What's the handle or guide in
+> > deciding on these things?
+> >
+> > I hope you don't find this question odd and shoot me down. :)
+> >
+> > Please note the only difference between the two is on the taxonomy name,
+> > NOT on the term. For some reason, it seems to be pretty clear that the
+> term
+> > ( the "debates" part ) needs to be plural. But, please feel free to
+> > challenge me even on that. I'd only appreciate it.
+> >
+> > Thank you
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From patty at ayersvirtual.com  Mon Jul 21 16:27:14 2014
+From: patty at ayersvirtual.com (Patty Ayers)
+Date: Mon, 21 Jul 2014 12:27:14 -0400
+Subject: [wp-hackers] =?utf-8?q?_WP=E2=80=99s_XML-RPC_functionality_a_secu?=
+	=?utf-8?q?rity_vulnerability=3F?=
+Message-ID: <CADR_XNwVd8dcwRjfhdfvoaoWOneurAayAH2y332GHqP887SHrQ@mail.gmail.com>
+
+If this is off-topic, I apologize. A web host I use sent me this "courtesy
+security alert", copy-pasted below. Is this accurate? What about their
+recommendations, do you agree with their advice? I have about 25 live WP
+sites and want to keep them as secure as possible. I do use basic good
+security measures (strong passwords, themes and plugins updated, nightly
+off-site backups, etc.) already. Thanks very much in advance,
+
+Patty
+---------------------------------------
+
+"Dear Customer,
+
+Please consider this a courtesy security alert. This message only applies
+to WordPress websites.
+
+We wanted to make you aware of a vulnerability in WordPress that is
+becoming an increasingly popular exploit for attackers.
+
+The vulnerability is from WordPress?s XML-RPC
+<http://codex.wordpress.org/XML-RPC_Support> functionality, a feature
+enabled by default since version 3.5. Attackers are abusing the feature to
+launch DDoS attacks against other sites.
+
+It is important to note that XML-RPC does serve some legitimate purposes
+<http://codex.wordpress.org/XML-RPC_Support>, including the pingback
+<http://en.support.wordpress.com/comments/pingbacks/> feature and the
+ability to post content remotely from various WebLog clients
+<http://codex.wordpress.org/Weblog_Client>.
+
+Due to the scale and nature of the exploits, however, we would like to
+recommend that WordPress owners who do not require or need the XM-RPC
+functionality take steps to disable the threat from their site.
+
+For advanced WordPress users, XML-RPC can be disabled by modifying the
+functions.php file from the site.
+ For general users, there are several plugins available that disable
+XML-RPC, including ?Disable XML RPC Fully
+<https://wordpress.org/plugins/disable-xml-rpc-fully/>? ..."
+
+-----------------------------------------------------------------------------
+
+From jer at simianuprising.com  Mon Jul 21 16:42:19 2014
+From: jer at simianuprising.com (Jeremy Clarke)
+Date: Mon, 21 Jul 2014 12:42:19 -0400
+Subject: [wp-hackers]
+	=?utf-8?q?WP=E2=80=99s_XML-RPC_functionality_a_secur?=
+	=?utf-8?q?ity_vulnerability=3F?=
+In-Reply-To: <CADR_XNwVd8dcwRjfhdfvoaoWOneurAayAH2y332GHqP887SHrQ@mail.gmail.com>
+References: <CADR_XNwVd8dcwRjfhdfvoaoWOneurAayAH2y332GHqP887SHrQ@mail.gmail.com>
+Message-ID: <CAAHgzDOLYvD0ynt7n-yi2FeLfQFpw93Li-vUqZ2MMR8UsKO_kg@mail.gmail.com>
+
+I've noticed a huge surge in trash traffic to /xmlrpc.php on my big sites.
+In my case they are coming from different IP's every time which makes them
+very hard to block (and indicating a DDOS or at least distributed intrusion
+attempt).
+
+Originally they were coming in with a specific user-agent so I could at
+least block them from loading the page, but today it seems they've switched
+to empty user agents, making the requests a lot harder to block.
+
+AFAIK there's no fundamental flaw in WP that would make all these requests
+a security hazard, but anything that hits the login functionality in WP
+over and over is going to have a bad performance impact because of
+transients or whatever else gets saved to the DB when someone tries to log
+in (which is probably what the XMLRPC requests are actually doing).
+
+
+-- 
+Jeremy Clarke
+Code and Design ? globalvoicesonline.org
+
+From contact at stephenharris.info  Mon Jul 21 16:52:10 2014
+From: contact at stephenharris.info (Stephen Harris)
+Date: Mon, 21 Jul 2014 17:52:10 +0100
+Subject: [wp-hackers]
+ =?utf-8?q?WP=E2=80=99s_XML-RPC_functionality_a_secur?=
+ =?utf-8?q?ity_vulnerability=3F?=
+In-Reply-To: <CAAHgzDOLYvD0ynt7n-yi2FeLfQFpw93Li-vUqZ2MMR8UsKO_kg@mail.gmail.com>
+References: <CADR_XNwVd8dcwRjfhdfvoaoWOneurAayAH2y332GHqP887SHrQ@mail.gmail.com>
+ <CAAHgzDOLYvD0ynt7n-yi2FeLfQFpw93Li-vUqZ2MMR8UsKO_kg@mail.gmail.com>
+Message-ID: <53CD453A.1060303@stephenharris.info>
+
+I too have noticed some DoS attacks using XML-RPC to target the site. 
+But the e-mail from the hosts said:
+
+  > Attackers are abusing the feature to launch DDoS attacks against 
+other sites.
+
+so it would seem they are referring to something like 
+https://core.trac.wordpress.org/ticket/4137 (which is fixed).
+
+So I would follow their advice (disable XML-RPC if you don't need it), 
+but it's not clear what vulnerability they are referring to
+
+From joshua.eichorn at pagely.com  Mon Jul 21 16:57:18 2014
+From: joshua.eichorn at pagely.com (Joshua Eichorn)
+Date: Mon, 21 Jul 2014 09:57:18 -0700
+Subject: [wp-hackers]
+	=?utf-8?q?WP=E2=80=99s_XML-RPC_functionality_a_secur?=
+	=?utf-8?q?ity_vulnerability=3F?=
+In-Reply-To: <53CD453A.1060303@stephenharris.info>
+References: <CADR_XNwVd8dcwRjfhdfvoaoWOneurAayAH2y332GHqP887SHrQ@mail.gmail.com>
+ <CAAHgzDOLYvD0ynt7n-yi2FeLfQFpw93Li-vUqZ2MMR8UsKO_kg@mail.gmail.com>
+ <53CD453A.1060303@stephenharris.info>
+Message-ID: <CAOMdZ9fo=BgMqq2bKw20hyhn7UZvUU_pNV731utEO-v57noM_A@mail.gmail.com>
+
+Likely they are talking about xml-rpc ping attacks.
+
+http://wordpress.org/plugins/remove-xmlrpc-pingback-ping/
+
+-josh
+
+
+On Mon, Jul 21, 2014 at 9:52 AM, Stephen Harris <contact at stephenharris.info>
+wrote:
+
+> I too have noticed some DoS attacks using XML-RPC to target the site. But
+> the e-mail from the hosts said:
+>
+>  > Attackers are abusing the feature to launch DDoS attacks against other
+> sites.
+>
+> so it would seem they are referring to something like
+> https://core.trac.wordpress.org/ticket/4137 (which is fixed).
+>
+> So I would follow their advice (disable XML-RPC if you don't need it), but
+> it's not clear what vulnerability they are referring to
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From david at wordshell.net  Tue Jul 22 12:04:52 2014
+From: david at wordshell.net (David Anderson)
+Date: Tue, 22 Jul 2014 13:04:52 +0100
+Subject: [wp-hackers] WP's XML-RPC functionality a security
+	vulnerability?
+In-Reply-To: <mailman.9.1406030401.6196.wp-hackers@lists.automattic.com>
+References: <mailman.9.1406030401.6196.wp-hackers@lists.automattic.com>
+Message-ID: <53CE5364.1030403@wordshell.net>
+
+
+> I've noticed a huge surge in trash traffic to /xmlrpc.php on my big sites.
+> In my case they are coming from different IP's every time which makes them
+> very hard to block (and indicating a DDOS or at least distributed intrusion
+> attempt).
+
+Distributed brute-force login attacks appear to have switched to using 
+XMLRPC in the last couple of weeks. I'm seeing them on many sites. It 
+seems reasonable to assume that this is because some of the solutions 
+that protect against distributed and/or brute-force attacks aren't 
+covering XMLRPC.
+
+I posted this and asked (the very good) BruteProtect about their plans 
+the week before last, but haven't heard what they think about it yet 
+(the link also has more info about the attacks):
+
+http://wordpress.org/support/topic/brute-forcing-via-xmlrpc
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+
+From patty at ayersvirtual.com  Tue Jul 22 13:53:11 2014
+From: patty at ayersvirtual.com (Patty Ayers)
+Date: Tue, 22 Jul 2014 09:53:11 -0400
+Subject: [wp-hackers] WP's XML-RPC functionality a security
+	vulnerability?
+In-Reply-To: <53CE5364.1030403@wordshell.net>
+References: <mailman.9.1406030401.6196.wp-hackers@lists.automattic.com>
+ <53CE5364.1030403@wordshell.net>
+Message-ID: <CADR_XNxgcnn92d=zG4RL1ThrjVKGWV=tfffBd+RYxR=5D9DTZw@mail.gmail.com>
+
+Thanks to all for the information on this, much appreciated.
+
+Patty
+
+
+On Tue, Jul 22, 2014 at 8:04 AM, David Anderson <david at wordshell.net> wrote:
+
+>
+>  I've noticed a huge surge in trash traffic to /xmlrpc.php on my big sites.
+>> In my case they are coming from different IP's every time which makes them
+>> very hard to block (and indicating a DDOS or at least distributed
+>> intrusion
+>> attempt).
+>>
+>
+> Distributed brute-force login attacks appear to have switched to using
+> XMLRPC in the last couple of weeks. I'm seeing them on many sites. It seems
+> reasonable to assume that this is because some of the solutions that
+> protect against distributed and/or brute-force attacks aren't covering
+> XMLRPC.
+>
+> I posted this and asked (the very good) BruteProtect about their plans the
+> week before last, but haven't heard what they think about it yet (the link
+> also has more info about the attacks):
+>
+> http://wordpress.org/support/topic/brute-forcing-via-xmlrpc
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From greglancaster71 at gmail.com  Tue Jul 22 21:52:48 2014
+From: greglancaster71 at gmail.com (BenderisGreat)
+Date: Tue, 22 Jul 2014 14:52:48 -0700 (PDT)
+Subject: [wp-hackers] print_media_templates & filtering SPECIFIC post
+	galleries by ID
+Message-ID: <1406065968354-44175.post@n5.nabble.com>
+
+I am trying to add a feature to a plugin, and just got stuck yesterday on how
+to identify the specific post gallery ID that an option is being set for. 
+In a nutshell, I added a checkbox to the Media Gallery ( see bottom right
+checkbox here:  http://postimg.org/image/g423ozl5l/
+<http://postimg.org/image/g423ozl5l/>   )
+
+Now, I would like that option value to coincide with the specific post
+gallery ID for filtering when the post is loaded.  This is where I am stuck. 
+The print_media_templates filter accepts no arguments, and returns no value. 
+So, I am not sure where the saving of that option value occurs at, or where
+the galley ID is returned to.  
+
+Could someone lend me a pair of eyes and share any possible solutions?  
+
+
+
+--
+View this message in context: http://wordpress-hackers.1065353.n5.nabble.com/print-media-templates-filtering-SPECIFIC-post-galleries-by-ID-tp44175.html
+Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+
+From chris at lod.com  Tue Jul 22 23:59:38 2014
+From: chris at lod.com (Chris McCoy)
+Date: Tue, 22 Jul 2014 19:59:38 -0400
+Subject: [wp-hackers] print_media_templates & filtering SPECIFIC post
+ galleries by ID
+In-Reply-To: <1406065968354-44175.post@n5.nabble.com>
+References: <1406065968354-44175.post@n5.nabble.com>
+Message-ID: <CFF4731E.C84D%chris@lod.com>
+
+how are you doing the checkbox? attachment fields to edit?
+
+On 2014-07-22, 5:52 PM, "BenderisGreat" <greglancaster71 at gmail.com> wrote:
+
+>I am trying to add a feature to a plugin, and just got stuck yesterday on
+>how
+>to identify the specific post gallery ID that an option is being set for.
+>In a nutshell, I added a checkbox to the Media Gallery ( see bottom right
+>checkbox here:  http://postimg.org/image/g423ozl5l/
+><http://postimg.org/image/g423ozl5l/>   )
+>
+>Now, I would like that option value to coincide with the specific post
+>gallery ID for filtering when the post is loaded.  This is where I am
+>stuck. 
+>The print_media_templates filter accepts no arguments, and returns no
+>value. 
+>So, I am not sure where the saving of that option value occurs at, or
+>where
+>the galley ID is returned to.
+>
+>Could someone lend me a pair of eyes and share any possible solutions?
+>
+>
+>
+>--
+>View this message in context:
+>http://wordpress-hackers.1065353.n5.nabble.com/print-media-templates-filte
+>ring-SPECIFIC-post-galleries-by-ID-tp44175.html
+>Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+
+From wordpress at jacobsantos.com  Wed Jul 23 13:33:57 2014
+From: wordpress at jacobsantos.com (Jacob Santos)
+Date: Wed, 23 Jul 2014 08:33:57 -0500
+Subject: [wp-hackers] Possible issue in remove_all_filters()
+Message-ID: <CAODYmTOW2FAFBG25WB4+B-qwsW3Y+HKbrqHxJsKL6bQ1jqPx_w@mail.gmail.com>
+
+On line 312 of wp-includes/plugin.php (in my repository version).
+
+if ( false !== $priority && isset( $wp_filter[ $tag ][ $priority ] ) ) {
+// reset priority.
+} else {
+// remove all priorities and reset entire tag.
+}
+
+The issue is that it is possible that $priority will not be false, but that
+priority not exist, which will remove all priorities and reset the entire
+tag.
+
+1: add_filter('some_tag', 'some_function', 1);
+2: remove_all_filters('some_tag', 1);
+
+If line 1 is removed at any point, then line 2 will reset the entire
+'some_tag' action. This includes priority 10.
+
+
+Is this the intentional behavior and if so, then why?
+
+Jacob Santos
+
+From dino at duechiacchiere.it  Wed Jul 23 19:17:17 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 23 Jul 2014 15:17:17 -0400
+Subject: [wp-hackers] WordPress, load balancer and domain names
+Message-ID: <53D00A3D.3050605@duechiacchiere.it>
+
+Hi list,
+
+I have a question for those who have dealt with MySQL replication. We 
+would like to create an environment with three servers: 1 authoring 
+server behind the firewall (server1.example.com), that only internal 
+users can access, and 2 public-facing servers behind a load balancer 
+(server2.example.com and server3.example.com, with load balancer 
+responding to server.example.com). Filesystems are synchronized via NFS, 
+and MySQL is set as master on the authoring and as slave on the two 
+public servers. In order to avoid issues (apparently WP caches oEmbeds 
+and other stuff when rendering pages), we set the slaves as read-only.
+
+Now, content editors who access the authoring server, will type 
+server1.example.com, which is also the address configured in WordPress. 
+Unfortunately those URLs get copied over to the slaves. And that's were 
+problems start to arise. Have you ever dealt with a similar situation? 
+How did you solve the problem, or what would you recommend we change or 
+adapt to implement this architecture?
+
+Thank you,
+Dino
+
+From filippo.pisano at gmail.com  Wed Jul 23 19:23:09 2014
+From: filippo.pisano at gmail.com (Filippo Pisano)
+Date: Wed, 23 Jul 2014 21:23:09 +0200
+Subject: [wp-hackers] WordPress, load balancer and domain names
+In-Reply-To: <53D00A3D.3050605@duechiacchiere.it>
+References: <53D00A3D.3050605@duechiacchiere.it>
+Message-ID: <CABCyq-=MaWCoULSFiMLRi8jQr+br=Q5CfWQJe5vLV-syB-51sw@mail.gmail.com>
+
+Hi Dino,
+
+You can set WP_HOME and WP_SITEURL accordingly to the server Url inside the
+wp-config.php file of each server.
+We have a similar enviroment and using this approach helped us solving the
+same issue.
+
+Unfortunately all links and images contained inside posts' content will
+remain the same but you can always filter the content.
+Il 23/lug/2014 21:17 "Dino Termini" <dino at duechiacchiere.it> ha scritto:
+
+> Hi list,
+>
+> I have a question for those who have dealt with MySQL replication. We
+> would like to create an environment with three servers: 1 authoring server
+> behind the firewall (server1.example.com), that only internal users can
+> access, and 2 public-facing servers behind a load balancer (
+> server2.example.com and server3.example.com, with load balancer
+> responding to server.example.com). Filesystems are synchronized via NFS,
+> and MySQL is set as master on the authoring and as slave on the two public
+> servers. In order to avoid issues (apparently WP caches oEmbeds and other
+> stuff when rendering pages), we set the slaves as read-only.
+>
+> Now, content editors who access the authoring server, will type
+> server1.example.com, which is also the address configured in WordPress.
+> Unfortunately those URLs get copied over to the slaves. And that's were
+> problems start to arise. Have you ever dealt with a similar situation? How
+> did you solve the problem, or what would you recommend we change or adapt
+> to implement this architecture?
+>
+> Thank you,
+> Dino
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From dino at duechiacchiere.it  Wed Jul 23 19:26:52 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 23 Jul 2014 15:26:52 -0400
+Subject: [wp-hackers] WordPress, load balancer and domain names
+In-Reply-To: <CABCyq-=MaWCoULSFiMLRi8jQr+br=Q5CfWQJe5vLV-syB-51sw@mail.gmail.com>
+References: <53D00A3D.3050605@duechiacchiere.it>
+ <CABCyq-=MaWCoULSFiMLRi8jQr+br=Q5CfWQJe5vLV-syB-51sw@mail.gmail.com>
+Message-ID: <53D00C7C.50809@duechiacchiere.it>
+
+Hi Filippo, I guess we can talk off-list about your setup. WP_HOME is 
+definitely a good start, but how do you filter the content? With a 
+plugin that detects on what server it's running?
+
+Thank you for your quick reply!
+
+On 7/23/14, 3:23 PM, Filippo Pisano wrote:
+> Hi Dino,
+>
+> You can set WP_HOME and WP_SITEURL accordingly to the server Url inside the
+> wp-config.php file of each server.
+> We have a similar enviroment and using this approach helped us solving the
+> same issue.
+>
+> Unfortunately all links and images contained inside posts' content will
+> remain the same but you can always filter the content.
+> Il 23/lug/2014 21:17 "Dino Termini" <dino at duechiacchiere.it> ha scritto:
+>
+>> Hi list,
+>>
+>> I have a question for those who have dealt with MySQL replication. We
+>> would like to create an environment with three servers: 1 authoring server
+>> behind the firewall (server1.example.com), that only internal users can
+>> access, and 2 public-facing servers behind a load balancer (
+>> server2.example.com and server3.example.com, with load balancer
+>> responding to server.example.com). Filesystems are synchronized via NFS,
+>> and MySQL is set as master on the authoring and as slave on the two public
+>> servers. In order to avoid issues (apparently WP caches oEmbeds and other
+>> stuff when rendering pages), we set the slaves as read-only.
+>>
+>> Now, content editors who access the authoring server, will type
+>> server1.example.com, which is also the address configured in WordPress.
+>> Unfortunately those URLs get copied over to the slaves. And that's were
+>> problems start to arise. Have you ever dealt with a similar situation? How
+>> did you solve the problem, or what would you recommend we change or adapt
+>> to implement this architecture?
+>>
+>> Thank you,
+>> Dino
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From wordpress at zed1.com  Wed Jul 23 22:00:57 2014
+From: wordpress at zed1.com (Mike Little)
+Date: Wed, 23 Jul 2014 23:00:57 +0100
+Subject: [wp-hackers] WordPress, load balancer and domain names
+In-Reply-To: <53D00C7C.50809@duechiacchiere.it>
+References: <53D00A3D.3050605@duechiacchiere.it>
+ <CABCyq-=MaWCoULSFiMLRi8jQr+br=Q5CfWQJe5vLV-syB-51sw@mail.gmail.com>
+ <53D00C7C.50809@duechiacchiere.it>
+Message-ID: <CAMb54M1V9ZsgGv1CTzmkQ2=9b-YTzVDkBVmfKvb4xCyhpMd35Q@mail.gmail.com>
+
+Anything you do in WordPress to resolve this issue is probably too slow.
+I'm assuming a very busy site if you need to load balance two front end
+servers.
+
+I've done this before (or at least generating content on one url and
+serving it on another) with apache proxying:
+
+backend cms server: cms.example.com all content is written at that url.
+front end server 1 server1.example.com uses mod_proxy and mod_substitute to
+convert everything to public facing address.
+front end server 2 server2.example.com uses mod_proxy and mod_substitute to
+convert everything to public facing address.
+
+e.g in the vhost setting
+#make sure to translate all content types that may have urls in it
+AddOutputFilterByType SUBSTITUTE text/html
+AddOutputFilterByType SUBSTITUTE application/atom+xml
+AddOutputFilterByType SUBSTITUTE application/xhtml+xml
+AddOutputFilterByType SUBSTITUTE application/xml
+AddOutputFilterByType SUBSTITUTE text/xml
+AddOutputFilterByType SUBSTITUTE text/plain
+AddOutputFilterByType SUBSTITUTE text/css
+AddOutputFilterByType SUBSTITUTE text/javascript
+
+Substitute s/cms.example.com/example.com/n
+
+#proxy in and out
+ProxyPass           / http://cms.example.com/
+ProxyPassReverse    / http://cms.example.com/
+
+# turn this off: we can't substitute in gzipped content
+RequestHeader    unset  Accept-Encoding
+
+This is very approximately what I remember, you will need to tweak it. I'm
+sure nginx has an equivalent.
+
+
+Mike
+-- 
+Mike Little
+*WordPress Specialist*
+
+Web: mikelittle.org
+Skype: mike.little.zed1
+Twitter: @mikelittlezed1
+LinkedIn: linkedin.com/in/mikelittle
+
+Founder and Director
+*Zed1.com Limited*
+http://zed1.com/
+Registered in England & Wales, no. 6745562
+
+From filippo.pisano at gmail.com  Wed Jul 23 22:21:51 2014
+From: filippo.pisano at gmail.com (Filippo Pisano)
+Date: Thu, 24 Jul 2014 00:21:51 +0200
+Subject: [wp-hackers] WordPress, load balancer and domain names
+In-Reply-To: <CAMb54M1V9ZsgGv1CTzmkQ2=9b-YTzVDkBVmfKvb4xCyhpMd35Q@mail.gmail.com>
+References: <53D00A3D.3050605@duechiacchiere.it>
+ <CABCyq-=MaWCoULSFiMLRi8jQr+br=Q5CfWQJe5vLV-syB-51sw@mail.gmail.com>
+ <53D00C7C.50809@duechiacchiere.it>
+ <CAMb54M1V9ZsgGv1CTzmkQ2=9b-YTzVDkBVmfKvb4xCyhpMd35Q@mail.gmail.com>
+Message-ID: <CABCyq-mo06QexCtU5W2AKQ095cB6UYGjPFU0i2DOeq3V8HUWsg@mail.gmail.com>
+
+The solution provided by Mike is way more robust than replacing
+strings/urls at the WordPress level.
+Thank you for sharing it.
+
+
+
+Filippo Pisano
+cel: 3291821355 / skype: filippopisano
+
+
+On Thu, Jul 24, 2014 at 12:00 AM, Mike Little <wordpress at zed1.com> wrote:
+
+> Anything you do in WordPress to resolve this issue is probably too slow.
+> I'm assuming a very busy site if you need to load balance two front end
+> servers.
+>
+> I've done this before (or at least generating content on one url and
+> serving it on another) with apache proxying:
+>
+> backend cms server: cms.example.com all content is written at that url.
+> front end server 1 server1.example.com uses mod_proxy and mod_substitute
+> to
+> convert everything to public facing address.
+> front end server 2 server2.example.com uses mod_proxy and mod_substitute
+> to
+> convert everything to public facing address.
+>
+> e.g in the vhost setting
+> #make sure to translate all content types that may have urls in it
+> AddOutputFilterByType SUBSTITUTE text/html
+> AddOutputFilterByType SUBSTITUTE application/atom+xml
+> AddOutputFilterByType SUBSTITUTE application/xhtml+xml
+> AddOutputFilterByType SUBSTITUTE application/xml
+> AddOutputFilterByType SUBSTITUTE text/xml
+> AddOutputFilterByType SUBSTITUTE text/plain
+> AddOutputFilterByType SUBSTITUTE text/css
+> AddOutputFilterByType SUBSTITUTE text/javascript
+>
+> Substitute s/cms.example.com/example.com/n
+>
+> #proxy in and out
+> ProxyPass           / http://cms.example.com/
+> ProxyPassReverse    / http://cms.example.com/
+>
+> # turn this off: we can't substitute in gzipped content
+> RequestHeader    unset  Accept-Encoding
+>
+> This is very approximately what I remember, you will need to tweak it. I'm
+> sure nginx has an equivalent.
+>
+>
+> Mike
+> --
+> Mike Little
+> *WordPress Specialist*
+>
+> Web: mikelittle.org
+> Skype: mike.little.zed1
+> Twitter: @mikelittlezed1
+> LinkedIn: linkedin.com/in/mikelittle
+>
+> Founder and Director
+> *Zed1.com Limited*
+> http://zed1.com/
+> Registered in England & Wales, no. 6745562
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Wed Jul 30 18:27:06 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 30 Jul 2014 11:27:06 -0700
+Subject: [wp-hackers] creating a text file within WordPress system - the
+ right way - referring to Otto's article
+Message-ID: <CAHERW=3Fw0Lo1vii8vYM6Ck8fcoutP=0T2MENywD1dtz4KGjbA@mail.gmail.com>
+
+Every once in a while, for whatever crazy reason happens to be, I need to
+dig in and create a temporary-txt-file.  - for mostly debugging purposes
+and it is temporary.
+
+( I already got the database version taken care of for my needs but I would
+love to explore and challenge myself the txt file implementation of it)
+
+Now... creating a txt file on the server is easy enough,
+but doing-it-right is pretty complicated.
+
+I read Otto's article at
+http://ottopress.com/2011/tutorial-using-the-wp_filesystem/  ( I had also
+watched his video on this particular subject but a looong time ago )
+
+Anyway, I downloaded his plugin code (which refers to from that article
+above ) in which he clearly says, do-not-use-this-in-production.
+
+There in the plug in code ( which I posted below), there is a section where
+he explains step by step and I get it.
+
+But that code is addressing the needs of an operation that is running
+within the context of the admin dashboard - perhaps to take care of the
+saving of some form post field data into a txt file. the article is all
+about how to do this right,.
+
+Well, in my case, I'm not firing the create text file from within the
+admin.
+
+I will be triggering the call ( such as blp_create_a_text_file($here) )
+from a stand-alone php page like this
+
+$file_path = $upload_dir['path']).'test.txt';
+
+blp_setfiletext($file_path,'hello world');
+
+One little correction though..  When I said stand-alone page, I lied. Cause
+that stand-alone page got these 2 babies:
+
+define('WP_USE_THEMES', false);
+require( $wp_blog_header_path);
+
+my goal is to wrap all that safety procedures referred in that article
+nicely into my blp_setfiletext function.
+
+Looking at this code below though, I could not figure this out. that's
+because the code is in-bed with the wp_nonce_url and $form_fields stuff -
+which as I said earlier is not applicable to the simple operation I'm
+after.
+
+Any ideas how to proceed?
+
+
+
+// check to see if we are trying to save a file
+if (isset($_POST['save'])) {
+    // okay, let's see about getting credentials
+    $url = wp_nonce_url('themes.php?page=otto');
+    if (false === ($creds = request_filesystem_credentials($url, $method,
+false, false, $form_fields) ) ) {
+
+        // if we get here, then we don't have credentials yet,
+        // but have just produced a form for the user to fill in,
+        // so stop processing for now
+
+        return true; // stop the normal page form from displaying
+    }
+
+    // now we have some credentials, try to get the wp_filesystem running
+    if ( ! WP_Filesystem($creds) ) {
+        // our credentials were no good, ask the user for them again
+        request_filesystem_credentials($url, $method, true, false,
+$form_fields);
+        return true;
+    }
+
+    // get the upload directory and make a test.txt file
+    $upload_dir = wp_upload_dir();
+    $filename = trailingslashit($upload_dir['path']).'test.txt';
+
+    // by this point, the $wp_filesystem global should be working, so let's
+use it to create a file
+    global $wp_filesystem;
+    if ( ! $wp_filesystem->put_contents( $filename, 'Test file contents',
+FS_CHMOD_FILE) ) {
+        echo "error saving file!";
+    }
+}
+
+From nicola.peluchetti at gmail.com  Thu Jul 31 13:05:03 2014
+From: nicola.peluchetti at gmail.com (Nicola Peluchetti)
+Date: Thu, 31 Jul 2014 15:05:03 +0200
+Subject: [wp-hackers] Using wp-content/uploads to store dynamically
+ created js and CSS
+In-Reply-To: <CAPtWN+yzXdbq0sKCPToWvkVePwC4TAP3npvumxLHvRXvuDR0nw@mail.gmail.com>
+References: <CAJ7gacoXtVFFhk02kvjBPAQpCYv8eeYHAWEH=0-6hfxSbUON=Q@mail.gmail.com>
+ <CAD-FghwufqwfHgHb6D+8LcwN_YAhhkSUfyYoPiexcPQzD13rkQ@mail.gmail.com>
+ <CAJ7gacpC9nQ1P6dVdJth+xBOJL6F=OKromfSi5MbrmeNo2A67g@mail.gmail.com>
+ <CAPtWN+xJ_YbdMkRwLYqQrOG-1_qh9VJEU8cAr_eFUn3=1aqLGg@mail.gmail.com>
+ <52CE5EE2.2060400@time.ly>
+ <CAOwx47fNGYSwuP7nvuUXsmcjSVxF9=xp7NwzzDb-0B9t1G3_vA@mail.gmail.com>
+ <CAPtWN+yzXdbq0sKCPToWvkVePwC4TAP3npvumxLHvRXvuDR0nw@mail.gmail.com>
+Message-ID: <CAJ7gacrUUmpb6fe1DeDykJWMbNfhCXsTvy++y+HPHFi8=ZV8dA@mail.gmail.com>
+
+Otto,
+
+if i choose to ouput the CSS directly in the page without triggering
+another request, what's the best action to use, wp_head?
+http://codex.wordpress.org/Plugin_API/Action_Reference/wp_head
+
+
+*Nicola Peluchetti - Senior PHP Developer @ Timely*
+Twitter: @nik_peluchetti <https://twitter.com/#!/nik_peluchetti>
+Facebook: nicola.peluchetti <https://www.facebook.com/nicola.peluchetti>
+Stackoverflow: Stackoverflow
+<http://stackoverflow.com/users/397861/nicola-peluchetti>
+Mobile: +39 339 7507235
+
+
+On Thu, Jan 9, 2014 at 3:23 PM, Brian Fegter <brian at fegter.com> wrote:
+
+> @Justas & @Nicola - I understand your point there and I agree it's better
+> to hit the file system before the DB. I missed the point that this was a
+> distributed plugin compared to a single site..
+>
+>
+> On Thu, Jan 9, 2014 at 4:06 AM, Nikola Nikolov <nikolov.tmw at gmail.com
+> >wrote:
+>
+> > I've seen a similar solution, where the generated JS/CSS was stored in
+> the
+> > DB - I know it's not the best solution(since it's still going to load
+> most
+> > of WordPress just to grab that code from the DB), but it seems like an
+> okay
+> > one. Plus if you do output some caching headers(where it says "#Add
+> caching
+> > headers" in his code), then most of the users browsers should have
+> > caching(I believe all modern browsers have caching enabled by default, so
+> > you have to know what you're doing in order to disable it - for instance
+> > developers do that when debugging stuff).
+> >
+> >
+> > On Thu, Jan 9, 2014 at 10:33 AM, Justas Butkus <jbutkus at time.ly> wrote:
+> >
+> > > Hello Brian.
+> > >
+> > > If I see it right, and please correct me if I miss something, your
+> > > proposed solution gives best performance, when site uses a CDN, or at
+> > least
+> > > has a caching reverse HTTP proxy in front of WordPress.
+> > >
+> > > In general case - sites don't have anything like this. And then every
+> new
+> > > user (some of whom might have troubles with cache, but let's say that's
+> > > just some 15% increase in traffic) requires your site to build that
+> file.
+> > > If you have a pre-generated JavaScript, served as an actual static
+> file,
+> > > the WordPress isn't even touched, but with your approach every request
+> by
+> > > each new user causes new generation, which might impose significant
+> > > increase in resources utilization.
+> > >
+> > > Maybe you have some considerations how to counter-act that?
+> > > I mean except recommending each and every user to have a
+> > > CDN/caching-proxy, which would be good, just as good as asking everyone
+> > to
+> > > use PHP 5.5, which was discussed here few weeks ago. :-)
+> > >
+> > >
+> > > --
+> > > Regards,
+> > > Justas B.
+> > >
+> > > 2014.01.09 00:35, Brian Fegter ra??:
+> > >
+> > >  Nicola,
+> > >>
+> > >> Instead of generating an actual static file, why not use a rewrite?
+> You
+> > >> won't have to deal with the file system at all and any quirks that
+> come
+> > >> with your setup.
+> > >>
+> > >> Heres a gist with the setup I use for this type of thing. This allows
+> > you
+> > >> to use object caching and your CDN sees this as a static file as well.
+> > >> https://gist.github.com/inspectorfegter/8325711
+> > >>
+> > >> Let me know if you have any question on this approach. Just another
+> way
+> > to
+> > >> skin a cat.
+> > >>
+> > >> Thanks!
+> > >> Brian
+> > >>
+> > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From dino at duechiacchiere.it  Thu Jul 31 15:00:10 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Thu, 31 Jul 2014 11:00:10 -0400
+Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+Message-ID: <53DA59FA.2050904@duechiacchiere.it>
+
+Hi list,
+
+we have the following scenario: custom post type "tool" with a bunch of 
+taxonomies attached to it (type, location, etc). Nothing new under the sun.
+
+Using Members [1], I created a new role that has access to tools only, 
+no pages, no posts. In the CPT definition, I set capability_type = 
+'tool', and assigned edit_tools, delete_tools, etc to the corresponding 
+role.
+
+Now, when I log into the system as a Tool Editor, I can add a new tool, 
+but the sidebar taxonomy terms cannot be selected unless I add 
+'edit_posts' to the list of capabilities associated to Tool Editor.
+
+Am I missing something? Is this a bug in WP?
+
+Thanks,
+Dino
+
+[1] https://wordpress.org/plugins/members/
+
+From jamie at wunderdojo.com  Thu Jul 31 16:22:10 2014
+From: jamie at wunderdojo.com (James Currie)
+Date: Thu, 31 Jul 2014 16:22:10 +0000
+Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+In-Reply-To: <53DA59FA.2050904@duechiacchiere.it>
+Message-ID: <emdc0918c0-3223-43d9-85af-9c69c49c5504@wunderdojo>
+
+Are you using a custom taxonomy for it via register_taxonomy? 
+(http://codex.wordpress.org/Function_Reference/register_taxonomy)
+
+If so, just set the capabilities to match your custome ones, ie:
+
+   'capabilities'    => array(
+             'manage_terms'  =>'custom-capability',
+             'edit_terms'    =>'custom-capability',
+             'delete_terms'  =>'custom-capability',
+             'assign_terms'  =>'custom-capability'
+     ),
+
+
+Jamie
+www.wunderdojo.com
+
+------ Original Message ------
+From: "Dino Termini" <dino at duechiacchiere.it>
+To: wp-hackers at lists.automattic.com
+Sent: 7/31/2014 8:00:10 AM
+Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+
+>Hi list,
+>
+>we have the following scenario: custom post type "tool" with a bunch of 
+>taxonomies attached to it (type, location, etc). Nothing new under the 
+>sun.
+>
+>Using Members [1], I created a new role that has access to tools only, 
+>no pages, no posts. In the CPT definition, I set capability_type = 
+>'tool', and assigned edit_tools, delete_tools, etc to the corresponding 
+>role.
+>
+>Now, when I log into the system as a Tool Editor, I can add a new tool, 
+>but the sidebar taxonomy terms cannot be selected unless I add 
+>'edit_posts' to the list of capabilities associated to Tool Editor.
+>
+>Am I missing something? Is this a bug in WP?
+>
+>Thanks,
+>Dino
+>
+>[1] https://wordpress.org/plugins/members/
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From otto at ottodestruct.com  Thu Jul 31 16:36:56 2014
+From: otto at ottodestruct.com (Otto)
+Date: Thu, 31 Jul 2014 11:36:56 -0500
+Subject: [wp-hackers] Using wp-content/uploads to store dynamically
+ created js and CSS
+In-Reply-To: <CAJ7gacrUUmpb6fe1DeDykJWMbNfhCXsTvy++y+HPHFi8=ZV8dA@mail.gmail.com>
+References: <CAJ7gacoXtVFFhk02kvjBPAQpCYv8eeYHAWEH=0-6hfxSbUON=Q@mail.gmail.com>
+ <CAD-FghwufqwfHgHb6D+8LcwN_YAhhkSUfyYoPiexcPQzD13rkQ@mail.gmail.com>
+ <CAJ7gacpC9nQ1P6dVdJth+xBOJL6F=OKromfSi5MbrmeNo2A67g@mail.gmail.com>
+ <CAPtWN+xJ_YbdMkRwLYqQrOG-1_qh9VJEU8cAr_eFUn3=1aqLGg@mail.gmail.com>
+ <52CE5EE2.2060400@time.ly>
+ <CAOwx47fNGYSwuP7nvuUXsmcjSVxF9=xp7NwzzDb-0B9t1G3_vA@mail.gmail.com>
+ <CAPtWN+yzXdbq0sKCPToWvkVePwC4TAP3npvumxLHvRXvuDR0nw@mail.gmail.com>
+ <CAJ7gacrUUmpb6fe1DeDykJWMbNfhCXsTvy++y+HPHFi8=ZV8dA@mail.gmail.com>
+Message-ID: <CAD-FghwCMfk_z=YeBBsE5S6jv+z5+FjgJTyTWD4tzRkX7O2a2w@mail.gmail.com>
+
+On Thu, Jul 31, 2014 at 8:05 AM, Nicola Peluchetti <
+nicola.peluchetti at gmail.com> wrote:
+
+> Otto,
+>
+> if i choose to ouput the CSS directly in the page without triggering
+> another request, what's the best action to use, wp_head?
+> http://codex.wordpress.org/Plugin_API/Action_Reference/wp_head
+>
+>
+For inline CSS, I'd really recommend adding it using the
+wp_add_inline_style() function.
+
+http://codex.wordpress.org/Function_Reference/wp_add_inline_style
+
+-Otto
+
+From dino at duechiacchiere.it  Thu Jul 31 17:03:20 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Thu, 31 Jul 2014 13:03:20 -0400
+Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+In-Reply-To: <emdc0918c0-3223-43d9-85af-9c69c49c5504@wunderdojo>
+References: <emdc0918c0-3223-43d9-85af-9c69c49c5504@wunderdojo>
+Message-ID: <53DA76D8.3000704@duechiacchiere.it>
+
+I am using CPT UI, which doesn't have that option. I guess I'll have to 
+use the 'manual' approach then :) Thanks!
+
+On 7/31/14, 12:22 PM, James Currie wrote:
+> Are you using a custom taxonomy for it via register_taxonomy? 
+> (http://codex.wordpress.org/Function_Reference/register_taxonomy)
+>
+> If so, just set the capabilities to match your custome ones, ie:
+>
+>   'capabilities'    => array(
+>             'manage_terms'  =>'custom-capability',
+>             'edit_terms'    =>'custom-capability',
+>             'delete_terms'  =>'custom-capability',
+>             'assign_terms'  =>'custom-capability'
+>     ),
+>
+>
+> Jamie
+> www.wunderdojo.com
+>
+> ------ Original Message ------
+> From: "Dino Termini" <dino at duechiacchiere.it>
+> To: wp-hackers at lists.automattic.com
+> Sent: 7/31/2014 8:00:10 AM
+> Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+>
+>> Hi list,
+>>
+>> we have the following scenario: custom post type "tool" with a bunch 
+>> of taxonomies attached to it (type, location, etc). Nothing new under 
+>> the sun.
+>>
+>> Using Members [1], I created a new role that has access to tools 
+>> only, no pages, no posts. In the CPT definition, I set 
+>> capability_type = 'tool', and assigned edit_tools, delete_tools, etc 
+>> to the corresponding role.
+>>
+>> Now, when I log into the system as a Tool Editor, I can add a new 
+>> tool, but the sidebar taxonomy terms cannot be selected unless I add 
+>> 'edit_posts' to the list of capabilities associated to Tool Editor.
+>>
+>> Am I missing something? Is this a bug in WP?
+>>
+>> Thanks,
+>> Dino
+>>
+>> [1] https://wordpress.org/plugins/members/
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jamie at wunderdojo.com  Thu Jul 31 17:35:58 2014
+From: jamie at wunderdojo.com (James Currie)
+Date: Thu, 31 Jul 2014 17:35:58 +0000
+Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+In-Reply-To: <53DA76D8.3000704@duechiacchiere.it>
+Message-ID: <em6e4876f3-cf75-445e-923a-82ab6f132faa@wunderdojo>
+
+If you want to just hook into the setup you've already got and change 
+the permissions you could look at registered_taxonomy 
+(http://codex.wordpress.org/Plugin_API/Action_Reference/registered_taxonomy)
+
+Something like: add_action('registered_taxonomy', array($this, 
+'registered_taxonomy'), 10, 3);
+
+Where $this is the class I'm calling add_action from and 
+registered_taxonomy is the method that is going to manipulate it. From 
+there you can modify the permissions to suit.
+
+Jamie
+
+------ Original Message ------
+From: "Dino Termini" <dino at duechiacchiere.it>
+To: wp-hackers at lists.automattic.com
+Sent: 7/31/2014 10:03:20 AM
+Subject: Re: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+
+>I am using CPT UI, which doesn't have that option. I guess I'll have to 
+>use the 'manual' approach then :) Thanks!
+>
+>On 7/31/14, 12:22 PM, James Currie wrote:
+>>Are you using a custom taxonomy for it via register_taxonomy? 
+>>(http://codex.wordpress.org/Function_Reference/register_taxonomy)
+>>
+>>If so, just set the capabilities to match your custome ones, ie:
+>>
+>>   'capabilities' => array(
+>>             'manage_terms' =>'custom-capability',
+>>             'edit_terms' =>'custom-capability',
+>>             'delete_terms' =>'custom-capability',
+>>             'assign_terms' =>'custom-capability'
+>>     ),
+>>
+>>
+>>Jamie
+>>www.wunderdojo.com
+>>
+>>------ Original Message ------
+>>From: "Dino Termini" <dino at duechiacchiere.it>
+>>To: wp-hackers at lists.automattic.com
+>>Sent: 7/31/2014 8:00:10 AM
+>>Subject: [wp-hackers] [Bug?] Selecting tax terms associated to a cpt
+>>
+>>>Hi list,
+>>>
+>>>we have the following scenario: custom post type "tool" with a bunch 
+>>>of taxonomies attached to it (type, location, etc). Nothing new under 
+>>>the sun.
+>>>
+>>>Using Members [1], I created a new role that has access to tools 
+>>>only, no pages, no posts. In the CPT definition, I set 
+>>>capability_type = 'tool', and assigned edit_tools, delete_tools, etc 
+>>>to the corresponding role.
+>>>
+>>>Now, when I log into the system as a Tool Editor, I can add a new 
+>>>tool, but the sidebar taxonomy terms cannot be selected unless I add 
+>>>'edit_posts' to the list of capabilities associated to Tool Editor.
+>>>
+>>>Am I missing something? Is this a bug in WP?
+>>>
+>>>Thanks,
+>>>Dino
+>>>
+>>>[1] https://wordpress.org/plugins/members/
+>>>_______________________________________________
+>>>wp-hackers mailing list
+>>>wp-hackers at lists.automattic.com
+>>>http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>_______________________________________________
+>>wp-hackers mailing list
+>>wp-hackers at lists.automattic.com
+>>http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+

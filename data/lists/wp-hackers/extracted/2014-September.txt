@@ -1,0 +1,2673 @@
+From list at xenhideout.nl  Tue Sep  2 01:20:28 2014
+From: list at xenhideout.nl (Bart Schouten)
+Date: Tue, 2 Sep 2014 03:20:28 +0200 (CEST)
+Subject: [wp-hackers]  Blocking SEO robots
+Message-ID: <alpine.LNX.0.999.1409011854260.3224@swan.dds.nl>
+
+On Wed, Aug 6, 2014 at 9:26 PM, Daniel <malkir at gmail.com> wrote:
+
+> Set up a trap. A link hidden by CSS on each page that if hit, the IP 
+> gets blacklisted for a period of time. No human will ever come across 
+> the link unless they're digging. No bot actually renders the entire page 
+> out before deciding what to use.
+
+
+This is awesome stuff.
+
+Personally I am annoyed by the pollution of page hit (visitor) statistics. 
+So the same trigger cq. trap could be used to filter out those. At this 
+point I am probably not allowed by my host in any way to start blocking 
+IPs at the Apache level (even that) but it is easy enough to implement it 
+in PHP at least for my purposes.
+
+I guess it should then just be the first link on every page, which is 
+currently a "home" link. It could be something ridiculously funny like 
+geteatenalive.php but that might also tempt some human diggers :P.
+
+Alright let's see what it does. I have this table:
+
+CREATE TABLE wordpr_trap_victims (
+   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   ip_address VARCHAR(15) NOT NULL,
+   host_name VARCHAR(255),
+   time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   user_agent VARCHAR(255),
+   referer VARCHAR(2000),
+   INDEX(ip_address)
+);
+
+My site has a /norobot/deathtrap.php that takes a base64 encoded parameter 
+"r" with the referer field of the page that generated the link to this 
+script. Then, if following this link is the first action the spider takes 
+after getting to my site, I should get the original referer field pointing 
+to the originating crawl script. There is one crawler (semalt.com) that 
+constantly indexes my site or whatever it does. I'm not sure what it does 
+but it is a search rankings scheme kinda thing. It uses a zillion 
+different aliases like 905.semalt.com and 512.semalt.com and so on.
+
+The script just silently adds a row to the table and then redirects to the 
+front page.
+
+Within a few days I should know if any crawler actually follows that link.
+
+This will be the motto:
+
+//You may think you are a spider, but to me, you're just a fly. This is my 
+web... and *I* am the spider.//
+
+I just have the link hidden with inline CSS but that shouldn't make too 
+much of a difference....
+
+Let's see if this will be any fun :D.
+
+Kudos, Bart
+
+From list at xenhideout.nl  Tue Sep  2 01:38:20 2014
+From: list at xenhideout.nl (Bart Schouten)
+Date: Tue, 2 Sep 2014 03:38:20 +0200 (CEST)
+Subject: [wp-hackers] is_single() includes attachments
+Message-ID: <54051E1F.2070409@xenhideout.nl>
+
+(I wrote this two weeks ago).
+
+Hi all,
+
+There seems to be a bit of a confusion all around about the "is_single()" 
+template function.
+
+>From the Codex:
+
+"This conditional tag checks if a single post of any post type except 
+attachment and page post types is being displayed. (...). To check for all 
+the post types, use the is_singular() function."
+
+However when you check the code it is clear attachments are included, not 
+excluded:
+
+(Talking about 3.9.2 now)..
+
+query.php: WP_Query::init_query_flags() initializes $this->is_single to
+false.
+
+query.php: WP_Query::parse_query() then does:
+
+if ( ('' != $qv['attachment']) || !empty($qv['attachment_id']) ) {
+      $this->is_single = true;
+      $this->is_attachment = true;
+}
+
+Also, further down:
+
+} elseif ( '' != $qv['static'] || '' != $qv['pagename'] || 
+!empty($qv['page_id']) ) {
+      $this->is_page = true;
+      $this->is_single = false;
+}
+
+This "is_single = false" is pointless since is_single was already false in
+all conditions. But that's beside the point really. From the code you can
+see that "pages" are excluded but "attachments" are included in
+"is_single".
+
+There is other code that depends on this:
+
+E.g. post-template.php, get_body_class(), line 536:
+
+if ( is_attachment() ) {
+
+...only runs if is_single() is also true, ie. it is situated inside an if
+( is_single() ) block.
+
+But this code in query.php is meaningless now:
+
+$this->is_singular = $this->is_single || $this->is_page ||
+$this->is_attachment;
+
+because is_single already includes is_attachment at this point.
+
+It seems to me that the intent of this design was for is_single to NOT
+include is_attachment.
+
+In 3.9.2 the offending line is at query.php:1500, in trunk it is at
+query.php:1590.
+
+(There is a lot more documentation for that function (parse_query) in
+trunk...?)
+
+--------
+There is this function in link-template.php:
+
+function adjacent_posts_rel_link_wp_head() {
+      if ( !is_singular() || is_attachment() )
+          return;
+      adjacent_posts_rel_link();
+}
+
+That could also be written as:
+
+function adjacent_posts_rel_link_wp_head() {
+      if ( is_single() || is_page() ) {
+          adjacent_posts_rel_link();
+      }
+}
+
+provided that is_single would actually work as intended.
+
+(!is_singular || is_attachment) is equivalent to !(is_singular &&
+!is_attachment) which means you could also write:
+
+function adjacent_posts_rel_link_wp_head() {
+      if ( is_singular() && !is_attachment ) {
+          adjacent_posts_rel_link();
+      }
+}
+
+and that would currently also work.)
+
+---
+This code:
+
+function get_boundary_post( $in_same_term = false, $excluded_terms = '',
+$start = true, $taxonomy = 'category' ) {
+      $post = get_post();
+      if ( ! $post || ! is_single() || is_attachment() || ! taxonomy_exists(
+$taxonomy ) )
+          return null;
+}
+
+actually only tests for is_attachment because of the is_single() flaw.
+
+It ought to be covered by !is_single() but that doesn't work, so an
+additional test is needed.
+
+Of course there is many more references to is_single() and you'd need to
+check them all. Many templates may also have been designed around this
+aberrant code. Any template that checks for is_single expecting it to only
+cover single posts, would find to (its) surprise that attachments are also
+covered by that code. So e.g. some sidebar code that does different things
+depending on query/page type would need to test for is_attachment first or
+as a form of "if (is_single && !is_attachment)".
+
+I encountered it because I have some buggy sidebar code that bugs out on
+any anomaly of this kind. Canary in the coalmine kinda thing :p.
+
+I am not any regular contributor, nor have I ever contributed any code to
+anything, but instead of writing this as a bug in TRAC I thought I would
+(first) post it here.
+
+I guess I could submit a bug and then start modifying files, make patch
+files out of them, then attach them to the bug, but it is still a
+modification that can affect a lot of files (potentially) so I guess I
+just want to offer this just as a suggestion for now.
+
+Regards,
+
+Bart Schouten, NL.
+
+From mark at simplercomputing.net  Fri Sep  5 17:14:34 2014
+From: mark at simplercomputing.net (Mark E)
+Date: Fri, 05 Sep 2014 11:14:34 -0600
+Subject: [wp-hackers] Alternative DB lib for load balancing
+In-Reply-To: <54051E1F.2070409@xenhideout.nl>
+References: <54051E1F.2070409@xenhideout.nl>
+Message-ID: <5409EF7A.5000803@simplercomputing.net>
+
+Looking for some specific code:
+
+There is, or was, a drop-in database lib tool for WordPress that can 
+allow a site to have multiple read/write database servers.
+If I recall correctly this was developed years ago in the earlier days 
+of WP.org and I believe this was built and made available as open source 
+to by Automattic.
+
+Basically what it does is the you configure the site so the any number 
+of database servers can be used for ultra high traffic scenarios, and 
+each DB server in the config can be set for reads or writes. Then when 
+WP needs to do a query it determines which server to send the request 
+to. Something like that.
+
+Anyone know where that code is located?
+
+Mark
+
+From mark at simplercomputing.net  Fri Sep  5 17:20:24 2014
+From: mark at simplercomputing.net (Mark E)
+Date: Fri, 05 Sep 2014 11:20:24 -0600
+Subject: [wp-hackers] Alternative DB lib for load balancing
+In-Reply-To: <5409EF7A.5000803@simplercomputing.net>
+References: <54051E1F.2070409@xenhideout.nl>
+ <5409EF7A.5000803@simplercomputing.net>
+Message-ID: <5409F0D8.2020202@simplercomputing.net>
+
+Doh - found it!
+
+https://wordpress.org/plugins/hyperdb/
+
+
+On 09/05/2014 11:14 AM, Mark E wrote:
+> Looking for some specific code:
+>
+> There is, or was, a drop-in database lib tool for WordPress that can 
+> allow a site to have multiple read/write database servers.
+> If I recall correctly this was developed years ago in the earlier days 
+> of WP.org and I believe this was built and made available as open 
+> source to by Automattic.
+>
+> Basically what it does is the you configure the site so the any number 
+> of database servers can be used for ultra high traffic scenarios, and 
+> each DB server in the config can be set for reads or writes. Then when 
+> WP needs to do a query it determines which server to send the request 
+> to. Something like that.
+>
+> Anyone know where that code is located?
+>
+> Mark
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+From list at xenhideout.nl  Sat Sep  6 00:22:35 2014
+From: list at xenhideout.nl (Bart Schouten)
+Date: Sat, 6 Sep 2014 02:22:35 +0200 (CEST)
+Subject: [wp-hackers] Alternative DB lib for load balancing
+In-Reply-To: <5409F0D8.2020202@simplercomputing.net>
+References: <54051E1F.2070409@xenhideout.nl>
+ <5409EF7A.5000803@simplercomputing.net>
+ <5409F0D8.2020202@simplercomputing.net>
+Message-ID: <alpine.LNX.0.999.1409060211091.923@swan.dds.nl>
+
+Thanks! That should prove useful some day.
+
+>From what I see it is not a real parallel computing thing in the sense of 
+it being really advanced but it seems to rely on partitions of the data 
+set in order to simply say "this part gets stored there" and "this other 
+part gets stored elsewhere". But perhaps that only makes sense because 
+full redundancy would obviate any advantages; then again, we are talking 
+about db-reads mostly so any regular 'load balancing' strategy should be 
+sufficient or perfect for this as well... (?) . Actually, it seems pretty 
+awesome.
+
+Regards,
+
+Bart.
+
+
+On Fri, 5 Sep 2014, Mark E wrote:
+
+> Doh - found it!
+>
+> https://wordpress.org/plugins/hyperdb/
+>
+>
+> On 09/05/2014 11:14 AM, Mark E wrote:
+>> Looking for some specific code:
+>> 
+>> There is, or was, a drop-in database lib tool for WordPress that can allow 
+>> a site to have multiple read/write database servers.
+>> If I recall correctly this was developed years ago in the earlier days of 
+>> WP.org and I believe this was built and made available as open source to by 
+>> Automattic.
+>> 
+>> Basically what it does is the you configure the site so the any number of 
+>> database servers can be used for ultra high traffic scenarios, and each DB 
+>> server in the config can be set for reads or writes. Then when WP needs to 
+>> do a query it determines which server to send the request to. Something 
+>> like that.
+>> 
+>> Anyone know where that code is located?
+>> 
+>> Mark
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jeff.lambert at jvhm.com  Mon Sep  8 01:49:07 2014
+From: jeff.lambert at jvhm.com (Jeff Lambert)
+Date: Sun, 07 Sep 2014 18:49:07 -0700
+Subject: [wp-hackers] Syndication Input Sought
+Message-ID: <D0325923.1051FE%jeff.lambert@jvhm.com>
+
+Looking to see if anyone has ideas on the best approach to this scenario:
+
+I have a client who has a couple of sites that we want to syndicate, partly
+through opening up a JSON tunnel and also by serving up a page within an
+iframe on the subscriber?s site.
+
+To get here my plan was to bring the content of our two sites together and
+syndicate the centrally managed content out to our two sites, as well as to
+those who sign up for our service.  This is the path I?ve taken.
+
+In researching this awhile back I came across this offering by VIP
+WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect solution,
+so, I did some hunting and found there is a plugin, developed by Automattic,
+up on the plugin repository, http://wordpress.org/plugins/push-syndication/.
+While it hasn?t been updated in awhile there were some answers to somewhat
+recent support topics and a reference to a more current version on github,
+which I?m running.  Unfortunately, my support posts go unanswered and I now
+have run into a new issue and will likely not use this option anymore unless
+someone here has some thoughts about it.
+
+So, I?m looking for suggestions on a different approach.  if I pull the two
+sites onto my multisite and run them as sub-sites, is there a good way to
+parse out the posts from the primary site to these sub-sites?  Anyone done
+this?  I?m not worried about search engine hate as I?ll be ?blocking? the
+search engines from my main content site and those who sign up for our
+service are only displaying content on their Intranets.
+
+Specific info:
+
+Main content management site is:  http://accuranews.com
+
+Current site that I?m trying to push content to:
+http://www.frequentbusinesstraveler.com
+
+Future second site to push content to is:  http://www.thedieseldriver.com
+
+Thanks in advance for your help!
+
+Cheers,
+
+Jeff
+
+
+
+
+From nikolov.tmw at gmail.com  Mon Sep  8 07:59:13 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 8 Sep 2014 10:59:13 +0300
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <D0325923.1051FE%jeff.lambert@jvhm.com>
+References: <D0325923.1051FE%jeff.lambert@jvhm.com>
+Message-ID: <CAOwx47cuFVfEs3_dQS270t3vSHe7uJFg_K7BCq4rtnZrS4ryMA@mail.gmail.com>
+
+Hi Jeff,
+
+Have you stumbled upon the ThreeWP Broadcast(
+http://plainview.se/wordpress/threewp-broadcast/ ) plugin? There's a free
+and paid version(one-time payment, one year of updates and support - and
+the support is pretty quick in general).
+It's not fully automatic, meaning that you have to select what content
+should be "broadcasted" to which sub-sites. You can do this when you're
+creating a post, after you've created one, etc. You can also remove the
+content from the child sites from the main site. You can update all local
+links to point to the correct place(so instead of them pointing to the main
+site, they'll point to the sub-site).
+
+It's not a bad plugin and I've used it on a multisite with about 12
+sub-sites and it works fairly well(a bit slow on a BlueHost shared hosting,
+even though it's the more expensive option).
+
+Nikola
+
+On Mon, Sep 8, 2014 at 4:49 AM, Jeff Lambert <jeff.lambert at jvhm.com> wrote:
+
+> Looking to see if anyone has ideas on the best approach to this scenario:
+>
+> I have a client who has a couple of sites that we want to syndicate, partly
+> through opening up a JSON tunnel and also by serving up a page within an
+> iframe on the subscriber?s site.
+>
+> To get here my plan was to bring the content of our two sites together and
+> syndicate the centrally managed content out to our two sites, as well as to
+> those who sign up for our service.  This is the path I?ve taken.
+>
+> In researching this awhile back I came across this offering by VIP
+> WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect
+> solution,
+> so, I did some hunting and found there is a plugin, developed by
+> Automattic,
+> up on the plugin repository,
+> http://wordpress.org/plugins/push-syndication/.
+> While it hasn?t been updated in awhile there were some answers to somewhat
+> recent support topics and a reference to a more current version on github,
+> which I?m running.  Unfortunately, my support posts go unanswered and I now
+> have run into a new issue and will likely not use this option anymore
+> unless
+> someone here has some thoughts about it.
+>
+> So, I?m looking for suggestions on a different approach.  if I pull the two
+> sites onto my multisite and run them as sub-sites, is there a good way to
+> parse out the posts from the primary site to these sub-sites?  Anyone done
+> this?  I?m not worried about search engine hate as I?ll be ?blocking? the
+> search engines from my main content site and those who sign up for our
+> service are only displaying content on their Intranets.
+>
+> Specific info:
+>
+> Main content management site is:  http://accuranews.com
+>
+> Current site that I?m trying to push content to:
+> http://www.frequentbusinesstraveler.com
+>
+> Future second site to push content to is:  http://www.thedieseldriver.com
+>
+> Thanks in advance for your help!
+>
+> Cheers,
+>
+> Jeff
+>
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From list at xenhideout.nl  Mon Sep  8 08:15:34 2014
+From: list at xenhideout.nl (Bart Schouten)
+Date: Mon, 8 Sep 2014 10:15:34 +0200 (CEST)
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <D0325923.1051FE%jeff.lambert@jvhm.com>
+References: <D0325923.1051FE%jeff.lambert@jvhm.com>
+Message-ID: <alpine.LNX.0.999.1409081010440.498@swan.dds.nl>
+
+Hi,
+
+I can only say that to me, the first solution you envisioned sounds really 
+inspired and creative and solid. But the alternative path you suggest 
+after, sounds just like you're running out of time and you need a quicker 
+solution.
+
+I do hope you will be able to find something that really satisfies you..
+
+All the best,
+
+Bart.
+
+ps. maybe you should push harder to get support on that plugin. I mean, 
+wherever, in here, somewhere else. "unless someone here has some thoughts 
+about it" is not a very invitational statement to make if you are looking 
+for that kind of help. That's like admitting defeat before you've even 
+asked anything...
+
+Anyway, good luck.
+
+
+On Sun, 7 Sep 2014, Jeff Lambert wrote:
+
+> Looking to see if anyone has ideas on the best approach to this scenario:
+>
+> I have a client who has a couple of sites that we want to syndicate, partly
+> through opening up a JSON tunnel and also by serving up a page within an
+> iframe on the subscriber?s site.
+>
+> To get here my plan was to bring the content of our two sites together and
+> syndicate the centrally managed content out to our two sites, as well as to
+> those who sign up for our service.  This is the path I?ve taken.
+>
+> In researching this awhile back I came across this offering by VIP
+> WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect solution,
+> so, I did some hunting and found there is a plugin, developed by Automattic,
+> up on the plugin repository, http://wordpress.org/plugins/push-syndication/.
+> While it hasn?t been updated in awhile there were some answers to somewhat
+> recent support topics and a reference to a more current version on github,
+> which I?m running.  Unfortunately, my support posts go unanswered and I now
+> have run into a new issue and will likely not use this option anymore unless
+> someone here has some thoughts about it.
+>
+> So, I?m looking for suggestions on a different approach.  if I pull the two
+> sites onto my multisite and run them as sub-sites, is there a good way to
+> parse out the posts from the primary site to these sub-sites?  Anyone done
+> this?  I?m not worried about search engine hate as I?ll be ?blocking? the
+> search engines from my main content site and those who sign up for our
+> service are only displaying content on their Intranets.
+>
+> Specific info:
+>
+> Main content management site is:  http://accuranews.com
+>
+> Current site that I?m trying to push content to:
+> http://www.frequentbusinesstraveler.com
+>
+> Future second site to push content to is:  http://www.thedieseldriver.com
+>
+> Thanks in advance for your help!
+>
+> Cheers,
+>
+> Jeff
+>
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From jeff.lambert at jvhm.com  Mon Sep  8 13:54:49 2014
+From: jeff.lambert at jvhm.com (Jeff Lambert)
+Date: Mon, 08 Sep 2014 06:54:49 -0700
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <alpine.LNX.0.999.1409081010440.498@swan.dds.nl>
+References: <D0325923.1051FE%jeff.lambert@jvhm.com>
+ <alpine.LNX.0.999.1409081010440.498@swan.dds.nl>
+Message-ID: <D033029D.10524E%jeff.lambert@jvhm.com>
+
+Thanks Bart and Nikola.
+
+Nikola - I?ll take a look at threewpbroadcast.
+
+Bart - Probably am feeling defeated as I keep running into roadblocks on
+this plugin and really don?t have the bandwidth, and likely the knowledge
+to dig into the code.  I did a little looking around but think there are
+things on the WP side I?m not aware of, especially given that it requires
+JetPack be installed on the receiving site.  If you have thoughts on how
+to get support, or engage someone to here to help make this plugin work,
+I?m all ears.
+
+Cheers,
+
+Jeff
+
+On 9/8/14, 1:15 AM, "Bart Schouten" <list at xenhideout.nl> wrote:
+
+>Hi,
+>
+>I can only say that to me, the first solution you envisioned sounds
+>really 
+>inspired and creative and solid. But the alternative path you suggest
+>after, sounds just like you're running out of time and you need a quicker
+>solution.
+>
+>I do hope you will be able to find something that really satisfies you..
+>
+>All the best,
+>
+>Bart.
+>
+>ps. maybe you should push harder to get support on that plugin. I mean,
+>wherever, in here, somewhere else. "unless someone here has some thoughts
+>about it" is not a very invitational statement to make if you are looking
+>for that kind of help. That's like admitting defeat before you've even
+>asked anything...
+>
+>Anyway, good luck.
+>
+>
+>On Sun, 7 Sep 2014, Jeff Lambert wrote:
+>
+>> Looking to see if anyone has ideas on the best approach to this
+>>scenario:
+>>
+>> I have a client who has a couple of sites that we want to syndicate,
+>>partly
+>> through opening up a JSON tunnel and also by serving up a page within an
+>> iframe on the subscriber?s site.
+>>
+>> To get here my plan was to bring the content of our two sites together
+>>and
+>> syndicate the centrally managed content out to our two sites, as well
+>>as to
+>> those who sign up for our service.  This is the path I?ve taken.
+>>
+>> In researching this awhile back I came across this offering by VIP
+>> WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect
+>>solution,
+>> so, I did some hunting and found there is a plugin, developed by
+>>Automattic,
+>> up on the plugin repository,
+>>http://wordpress.org/plugins/push-syndication/.
+>> While it hasn?t been updated in awhile there were some answers to
+>>somewhat
+>> recent support topics and a reference to a more current version on
+>>github,
+>> which I?m running.  Unfortunately, my support posts go unanswered and I
+>>now
+>> have run into a new issue and will likely not use this option anymore
+>>unless
+>> someone here has some thoughts about it.
+>>
+>> So, I?m looking for suggestions on a different approach.  if I pull the
+>>two
+>> sites onto my multisite and run them as sub-sites, is there a good way
+>>to
+>> parse out the posts from the primary site to these sub-sites?  Anyone
+>>done
+>> this?  I?m not worried about search engine hate as I?ll be ?blocking?
+>>the
+>> search engines from my main content site and those who sign up for our
+>> service are only displaying content on their Intranets.
+>>
+>> Specific info:
+>>
+>> Main content management site is:  http://accuranews.com
+>>
+>> Current site that I?m trying to push content to:
+>> http://www.frequentbusinesstraveler.com
+>>
+>> Future second site to push content to is:
+>>http://www.thedieseldriver.com
+>>
+>> Thanks in advance for your help!
+>>
+>> Cheers,
+>>
+>> Jeff
+>>
+>>
+>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+
+From jamesorodig at gmail.com  Mon Sep  8 14:10:39 2014
+From: jamesorodig at gmail.com (James DiGioia)
+Date: Mon, 08 Sep 2014 07:10:39 -0700 (PDT)
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <D033029D.10524E%jeff.lambert@jvhm.com>
+References: <D033029D.10524E%jeff.lambert@jvhm.com>
+Message-ID: <1410185438808.5d461a2f@Nodemailer>
+
+It may be worth looking into the?WP-API, which is the JSON api slated to go into core in 4.1 (I think). I haven't used it, but I think it will provide JSON endpoints withou requiring the Jetpack plugin, if you're looking to avoid that.
+
+On Mon, Sep 8, 2014 at 9:55 AM, Jeff Lambert <jeff.lambert at jvhm.com>
+wrote:
+
+> Thanks Bart and Nikola.
+> Nikola - I?ll take a look at threewpbroadcast.
+> Bart - Probably am feeling defeated as I keep running into roadblocks on
+> this plugin and really don?t have the bandwidth, and likely the knowledge
+> to dig into the code.  I did a little looking around but think there are
+> things on the WP side I?m not aware of, especially given that it requires
+> JetPack be installed on the receiving site.  If you have thoughts on how
+> to get support, or engage someone to here to help make this plugin work,
+> I?m all ears.
+> Cheers,
+> Jeff
+> On 9/8/14, 1:15 AM, "Bart Schouten" <list at xenhideout.nl> wrote:
+>>Hi,
+>>
+>>I can only say that to me, the first solution you envisioned sounds
+>>really 
+>>inspired and creative and solid. But the alternative path you suggest
+>>after, sounds just like you're running out of time and you need a quicker
+>>solution.
+>>
+>>I do hope you will be able to find something that really satisfies you..
+>>
+>>All the best,
+>>
+>>Bart.
+>>
+>>ps. maybe you should push harder to get support on that plugin. I mean,
+>>wherever, in here, somewhere else. "unless someone here has some thoughts
+>>about it" is not a very invitational statement to make if you are looking
+>>for that kind of help. That's like admitting defeat before you've even
+>>asked anything...
+>>
+>>Anyway, good luck.
+>>
+>>
+>>On Sun, 7 Sep 2014, Jeff Lambert wrote:
+>>
+>>> Looking to see if anyone has ideas on the best approach to this
+>>>scenario:
+>>>
+>>> I have a client who has a couple of sites that we want to syndicate,
+>>>partly
+>>> through opening up a JSON tunnel and also by serving up a page within an
+>>> iframe on the subscriber?s site.
+>>>
+>>> To get here my plan was to bring the content of our two sites together
+>>>and
+>>> syndicate the centrally managed content out to our two sites, as well
+>>>as to
+>>> those who sign up for our service.  This is the path I?ve taken.
+>>>
+>>> In researching this awhile back I came across this offering by VIP
+>>> WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect
+>>>solution,
+>>> so, I did some hunting and found there is a plugin, developed by
+>>>Automattic,
+>>> up on the plugin repository,
+>>>http://wordpress.org/plugins/push-syndication/.
+>>> While it hasn?t been updated in awhile there were some answers to
+>>>somewhat
+>>> recent support topics and a reference to a more current version on
+>>>github,
+>>> which I?m running.  Unfortunately, my support posts go unanswered and I
+>>>now
+>>> have run into a new issue and will likely not use this option anymore
+>>>unless
+>>> someone here has some thoughts about it.
+>>>
+>>> So, I?m looking for suggestions on a different approach.  if I pull the
+>>>two
+>>> sites onto my multisite and run them as sub-sites, is there a good way
+>>>to
+>>> parse out the posts from the primary site to these sub-sites?  Anyone
+>>>done
+>>> this?  I?m not worried about search engine hate as I?ll be ?blocking?
+>>>the
+>>> search engines from my main content site and those who sign up for our
+>>> service are only displaying content on their Intranets.
+>>>
+>>> Specific info:
+>>>
+>>> Main content management site is:  http://accuranews.com
+>>>
+>>> Current site that I?m trying to push content to:
+>>> http://www.frequentbusinesstraveler.com
+>>>
+>>> Future second site to push content to is:
+>>>http://www.thedieseldriver.com
+>>>
+>>> Thanks in advance for your help!
+>>>
+>>> Cheers,
+>>>
+>>> Jeff
+>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From list at xenhideout.nl  Mon Sep  8 17:17:17 2014
+From: list at xenhideout.nl (Xen)
+Date: Mon, 8 Sep 2014 19:17:17 +0200 (CEST)
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <1410185438808.5d461a2f@Nodemailer>
+References: <D033029D.10524E%jeff.lambert@jvhm.com>
+ <1410185438808.5d461a2f@Nodemailer>
+Message-ID: <alpine.LNX.0.999.1409081814420.2475@swan.dds.nl>
+
+That seems pretty good, like, exactly the same thing as the Facebook 
+"Graph" API.
+
+But the only downside that you're making it extremely easy for anyone to 
+gain this type of access, if you're not careful. Which is why I would be 
+hesitant...
+
+It's funny. The Facebook Graph API provides for less information than the 
+regular web interface. And all those developers that want to use it, are 
+complaining about that. For instance, you cannot even retrieve your own 
+friendslist unless every one of your friends give you (or your app) 
+permission to do so. Meanwhile, if you're willing to put in the effort, 
+all of that information is easily 'grabbable'.
+
+In any case, I understand your feeling, Jeff. You can get exhausted from 
+trying things that don't ever seem to work. Jetpack is also not the most 
+...elegant or useful addition to the fleet. Suddenly you are mandated to 
+install a 21 meg plugin that comes with a million features and requires a 
+WP.com account to basically do anything, and that is actually not a plugin 
+itself but a plugin framework within the plugin framework of WP.org. 
+Personally, I intend to use it at some point, but I'm going to strip away 
+the all-too-obvious "container" aspect to it at least in terms of the user 
+interface (the word "Jetpack" is meaningless to me because it doesn't do 
+anything useful; "stats" and "akismet" are not). And get rid of all the 
+modules I don't use anyway, and will never use. After that it will just be 
+a common library to the few 'modules' I do use :) :p.
+
+Just giving it its proper position ;-).
+
+When I read the page at http://wordpress.org/plugins/push-syndication/, I 
+feel a lot of sadness. As if those developers that had once written those 
+words with inspiration, are now feeling drained, as you do. The plugin was 
+probably conceived as something relatively standalone. But today 
+everything has come under a heavier wind and this wind is pushing forward 
+in some sort of frenzy of WordPress.com integration of everything.
+
+For example, one of the Jetpack advantages is listed as "if you let us do 
+your statistics, it will not burden your own servers, but rather ours, 
+that are extremely speedy." How one cloud-hosted server park can ever be 
+faster than a local server is beyond me, unless you'd be talking about the 
+caching advantages of webclients retrieving things like jQuery from 
+centrally hosted locations (such as some Google server) instead of your 
+site. But it is nonsensical to think that the computing power of millions 
+of decentralized hosts would be dwarfed by a few centrally hosted server 
+parks. And these guys think they are some kind of awesome. When you check 
+the stats page of a newly configured stats counter or API key or whatever, 
+you are greeted with the message "Whoa! Not so fast! We just started 
+counting, there's nothing here yet, DUDE." Liberally cited, but still, 
+that was the gist of the message. Completely inappropriate for something 
+that is meant to be a serious, boring (but still exciting) "accounting" 
+system. Suddenly we're all being turned into surfer dudes when really, we 
+just wanted to check out how that page looked.
+
+Jetpack is really not that cool. Not nearly as cool as they try to make it 
+out to be..
+
+So perhaps you're also feeling drained because that plugin you got excited 
+about, it is really at a true 'dead end' or at least a 'not feeling it 
+anymore' end.
+
+So there's probably something that they're doing (or that someone is 
+doing) that is more in line with 'the times' and it is just a matter of 
+getting through the grief of having lost this old thing, so you can make 
+room for the new thing and I'm sure it will soon fall into your hands, or 
+cross paths with you...
+
+It is just a bit of a feeling of depression I guess.. that I'm feeling 
+right now..
+
+Kudos,
+
+Bart.
+
+
+
+On Mon, 8 Sep 2014, James DiGioia wrote:
+
+> It may be worth looking into the?WP-API, which is the JSON api slated to go into core in 4.1 (I think). I haven't used it, but I think it will provide JSON endpoints withou requiring the Jetpack plugin, if you're looking to avoid that.
+>
+> On Mon, Sep 8, 2014 at 9:55 AM, Jeff Lambert <jeff.lambert at jvhm.com>
+> wrote:
+>
+>> Thanks Bart and Nikola.
+>> Nikola - I?ll take a look at threewpbroadcast.
+>> Bart - Probably am feeling defeated as I keep running into roadblocks on
+>> this plugin and really don?t have the bandwidth, and likely the knowledge
+>> to dig into the code.  I did a little looking around but think there are
+>> things on the WP side I?m not aware of, especially given that it requires
+>> JetPack be installed on the receiving site.  If you have thoughts on how
+>> to get support, or engage someone to here to help make this plugin work,
+>> I?m all ears.
+>> Cheers,
+>> Jeff
+>> On 9/8/14, 1:15 AM, "Bart Schouten" <list at xenhideout.nl> wrote:
+>>> Hi,
+>>>
+>>> I can only say that to me, the first solution you envisioned sounds
+>>> really
+>>> inspired and creative and solid. But the alternative path you suggest
+>>> after, sounds just like you're running out of time and you need a quicker
+>>> solution.
+>>>
+>>> I do hope you will be able to find something that really satisfies you..
+>>>
+>>> All the best,
+>>>
+>>> Bart.
+>>>
+>>> ps. maybe you should push harder to get support on that plugin. I mean,
+>>> wherever, in here, somewhere else. "unless someone here has some thoughts
+>>> about it" is not a very invitational statement to make if you are looking
+>>> for that kind of help. That's like admitting defeat before you've even
+>>> asked anything...
+>>>
+>>> Anyway, good luck.
+>>>
+>>>
+>>> On Sun, 7 Sep 2014, Jeff Lambert wrote:
+>>>
+>>>> Looking to see if anyone has ideas on the best approach to this
+>>>> scenario:
+>>>>
+>>>> I have a client who has a couple of sites that we want to syndicate,
+>>>> partly
+>>>> through opening up a JSON tunnel and also by serving up a page within an
+>>>> iframe on the subscriber?s site.
+>>>>
+>>>> To get here my plan was to bring the content of our two sites together
+>>>> and
+>>>> syndicate the centrally managed content out to our two sites, as well
+>>>> as to
+>>>> those who sign up for our service.  This is the path I?ve taken.
+>>>>
+>>>> In researching this awhile back I came across this offering by VIP
+>>>> WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect
+>>>> solution,
+>>>> so, I did some hunting and found there is a plugin, developed by
+>>>> Automattic,
+>>>> up on the plugin repository,
+>>>> http://wordpress.org/plugins/push-syndication/.
+>>>> While it hasn?t been updated in awhile there were some answers to
+>>>> somewhat
+>>>> recent support topics and a reference to a more current version on
+>>>> github,
+>>>> which I?m running.  Unfortunately, my support posts go unanswered and I
+>>>> now
+>>>> have run into a new issue and will likely not use this option anymore
+>>>> unless
+>>>> someone here has some thoughts about it.
+>>>>
+>>>> So, I?m looking for suggestions on a different approach.  if I pull the
+>>>> two
+>>>> sites onto my multisite and run them as sub-sites, is there a good way
+>>>> to
+>>>> parse out the posts from the primary site to these sub-sites?  Anyone
+>>>> done
+>>>> this?  I?m not worried about search engine hate as I?ll be ?blocking?
+>>>> the
+>>>> search engines from my main content site and those who sign up for our
+>>>> service are only displaying content on their Intranets.
+>>>>
+>>>> Specific info:
+>>>>
+>>>> Main content management site is:  http://accuranews.com
+>>>>
+>>>> Current site that I?m trying to push content to:
+>>>> http://www.frequentbusinesstraveler.com
+>>>>
+>>>> Future second site to push content to is:
+>>>> http://www.thedieseldriver.com
+>>>>
+>>>> Thanks in advance for your help!
+>>>>
+>>>> Cheers,
+>>>>
+>>>> Jeff
+>>>>
+>>>>
+>>>>
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From askjayson at gmail.com  Mon Sep  8 17:34:41 2014
+From: askjayson at gmail.com (=?iso-8859-1?Q?=22Jayson_T=2E_Cot=E9=22?=)
+Date: Mon, 8 Sep 2014 11:34:41 -0600
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <alpine.LNX.0.999.1409081814420.2475@swan.dds.nl>
+References: <D033029D.10524E%jeff.lambert@jvhm.com>
+ <1410185438808.5d461a2f@Nodemailer>
+ <alpine.LNX.0.999.1409081814420.2475@swan.dds.nl>
+Message-ID: <ABF08853-DA6F-4673-9668-7037399D8D74@gmail.com>
+
+Hey Jeff, I have run into this syndication issue on several occasions and have tested many different variations from publishing all posts to one "mother' site in a WPMS environment and then sharing the posts with child or sub sites to utilizing various 'syndication' routines from plugins to even coding up an RSS routine.  I have settled on using the Autoblog plugin from WPMU.  It works very well and has the options I need.  That I would pass it on.  Hope this helps - https://premium.wpmudev.org/project/autoblog/
+
+Kind Regards,
+Jayson T. Cot? | Chief Rainmaker | groundupmedia.com
+w: 303.900.8825 | m: 303-910-8020 | Skype: jaysontcote
+
+
+On Sep 8, 2014, at 11:17 AM, Xen <list at xenhideout.nl> wrote:
+
+That seems pretty good, like, exactly the same thing as the Facebook "Graph" API.
+
+But the only downside that you're making it extremely easy for anyone to gain this type of access, if you're not careful. Which is why I would be hesitant...
+
+It's funny. The Facebook Graph API provides for less information than the regular web interface. And all those developers that want to use it, are complaining about that. For instance, you cannot even retrieve your own friendslist unless every one of your friends give you (or your app) permission to do so. Meanwhile, if you're willing to put in the effort, all of that information is easily 'grabbable'.
+
+In any case, I understand your feeling, Jeff. You can get exhausted from trying things that don't ever seem to work. Jetpack is also not the most ...elegant or useful addition to the fleet. Suddenly you are mandated to install a 21 meg plugin that comes with a million features and requires a WP.com account to basically do anything, and that is actually not a plugin itself but a plugin framework within the plugin framework of WP.org. Personally, I intend to use it at some point, but I'm going to strip away the all-too-obvious "container" aspect to it at least in terms of the user interface (the word "Jetpack" is meaningless to me because it doesn't do anything useful; "stats" and "akismet" are not). And get rid of all the modules I don't use anyway, and will never use. After that it will just be a common library to the few 'modules' I do use :) :p.
+
+Just giving it its proper position ;-).
+
+When I read the page at http://wordpress.org/plugins/push-syndication/, I feel a lot of sadness. As if those developers that had once written those words with inspiration, are now feeling drained, as you do. The plugin was probably conceived as something relatively standalone. But today everything has come under a heavier wind and this wind is pushing forward in some sort of frenzy of WordPress.com integration of everything.
+
+For example, one of the Jetpack advantages is listed as "if you let us do your statistics, it will not burden your own servers, but rather ours, that are extremely speedy." How one cloud-hosted server park can ever be faster than a local server is beyond me, unless you'd be talking about the caching advantages of webclients retrieving things like jQuery from centrally hosted locations (such as some Google server) instead of your site. But it is nonsensical to think that the computing power of millions of decentralized hosts would be dwarfed by a few centrally hosted server parks. And these guys think they are some kind of awesome. When you check the stats page of a newly configured stats counter or API key or whatever, you are greeted with the message "Whoa! Not so fast! We just started counting, there's nothing here yet, DUDE." Liberally cited, but still, that was the gist of the message. Completely inappropriate for something that is meant to be a serious, boring (but still exciting) "accounting" system. Suddenly we're all being turned into surfer dudes when really, we just wanted to check out how that page looked.
+
+Jetpack is really not that cool. Not nearly as cool as they try to make it out to be..
+
+So perhaps you're also feeling drained because that plugin you got excited about, it is really at a true 'dead end' or at least a 'not feeling it anymore' end.
+
+So there's probably something that they're doing (or that someone is doing) that is more in line with 'the times' and it is just a matter of getting through the grief of having lost this old thing, so you can make room for the new thing and I'm sure it will soon fall into your hands, or cross paths with you...
+
+It is just a bit of a feeling of depression I guess.. that I'm feeling right now..
+
+Kudos,
+
+Bart.
+
+
+
+On Mon, 8 Sep 2014, James DiGioia wrote:
+
+> It may be worth looking into the WP-API, which is the JSON api slated to go into core in 4.1 (I think). I haven't used it, but I think it will provide JSON endpoints withou requiring the Jetpack plugin, if you're looking to avoid that.
+> 
+> On Mon, Sep 8, 2014 at 9:55 AM, Jeff Lambert <jeff.lambert at jvhm.com>
+> wrote:
+> 
+>> Thanks Bart and Nikola.
+>> Nikola - I?ll take a look at threewpbroadcast.
+>> Bart - Probably am feeling defeated as I keep running into roadblocks on
+>> this plugin and really don?t have the bandwidth, and likely the knowledge
+>> to dig into the code.  I did a little looking around but think there are
+>> things on the WP side I?m not aware of, especially given that it requires
+>> JetPack be installed on the receiving site.  If you have thoughts on how
+>> to get support, or engage someone to here to help make this plugin work,
+>> I?m all ears.
+>> Cheers,
+>> Jeff
+>> On 9/8/14, 1:15 AM, "Bart Schouten" <list at xenhideout.nl> wrote:
+>>> Hi,
+>>> 
+>>> I can only say that to me, the first solution you envisioned sounds
+>>> really
+>>> inspired and creative and solid. But the alternative path you suggest
+>>> after, sounds just like you're running out of time and you need a quicker
+>>> solution.
+>>> 
+>>> I do hope you will be able to find something that really satisfies you..
+>>> 
+>>> All the best,
+>>> 
+>>> Bart.
+>>> 
+>>> ps. maybe you should push harder to get support on that plugin. I mean,
+>>> wherever, in here, somewhere else. "unless someone here has some thoughts
+>>> about it" is not a very invitational statement to make if you are looking
+>>> for that kind of help. That's like admitting defeat before you've even
+>>> asked anything...
+>>> 
+>>> Anyway, good luck.
+>>> 
+>>> 
+>>> On Sun, 7 Sep 2014, Jeff Lambert wrote:
+>>> 
+>>>> Looking to see if anyone has ideas on the best approach to this
+>>>> scenario:
+>>>> 
+>>>> I have a client who has a couple of sites that we want to syndicate,
+>>>> partly
+>>>> through opening up a JSON tunnel and also by serving up a page within an
+>>>> iframe on the subscriber?s site.
+>>>> 
+>>>> To get here my plan was to bring the content of our two sites together
+>>>> and
+>>>> syndicate the centrally managed content out to our two sites, as well
+>>>> as to
+>>>> those who sign up for our service.  This is the path I?ve taken.
+>>>> 
+>>>> In researching this awhile back I came across this offering by VIP
+>>>> WordPress, http://vip.wordpress.com/plugins/syndication.  Perfect
+>>>> solution,
+>>>> so, I did some hunting and found there is a plugin, developed by
+>>>> Automattic,
+>>>> up on the plugin repository,
+>>>> http://wordpress.org/plugins/push-syndication/.
+>>>> While it hasn?t been updated in awhile there were some answers to
+>>>> somewhat
+>>>> recent support topics and a reference to a more current version on
+>>>> github,
+>>>> which I?m running.  Unfortunately, my support posts go unanswered and I
+>>>> now
+>>>> have run into a new issue and will likely not use this option anymore
+>>>> unless
+>>>> someone here has some thoughts about it.
+>>>> 
+>>>> So, I?m looking for suggestions on a different approach.  if I pull the
+>>>> two
+>>>> sites onto my multisite and run them as sub-sites, is there a good way
+>>>> to
+>>>> parse out the posts from the primary site to these sub-sites?  Anyone
+>>>> done
+>>>> this?  I?m not worried about search engine hate as I?ll be ?blocking?
+>>>> the
+>>>> search engines from my main content site and those who sign up for our
+>>>> service are only displaying content on their Intranets.
+>>>> 
+>>>> Specific info:
+>>>> 
+>>>> Main content management site is:  http://accuranews.com
+>>>> 
+>>>> Current site that I?m trying to push content to:
+>>>> http://www.frequentbusinesstraveler.com
+>>>> 
+>>>> Future second site to push content to is:
+>>>> http://www.thedieseldriver.com
+>>>> 
+>>>> Thanks in advance for your help!
+>>>> 
+>>>> Cheers,
+>>>> 
+>>>> Jeff
+>>>> 
+>>>> 
+>>>> 
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From list at xenhideout.nl  Mon Sep  8 18:13:17 2014
+From: list at xenhideout.nl (Bart Schouten)
+Date: Mon, 8 Sep 2014 20:13:17 +0200 (CEST)
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <alpine.LNX.0.999.1409081814420.2475@swan.dds.nl>
+References: <D033029D.10524E%jeff.lambert@jvhm.com>
+ <1410185438808.5d461a2f@Nodemailer>
+ <alpine.LNX.0.999.1409081814420.2475@swan.dds.nl>
+Message-ID: <alpine.LNX.0.999.1409081926170.2475@swan.dds.nl>
+
+On Mon, 8 Sep 2014, Xen wrote:
+
+> That seems pretty good, like, exactly the same thing as the Facebook 
+> "Graph" API.
+
+
+My apologies about this 'top-post', it was a bit unclear, but I was 
+responding to James...
+
+> It may be worth looking into the?WP-API, which is the JSON api slated to 
+> go into core in 4.1 (I think). I haven't used it, but I think it will 
+> provide JSON endpoints withou [sic] requiring the Jetpack plugin, if 
+> you're looking to avoid that.
+
+By James DiGioia, Mon, 8 Sept 2014.
+
+
+In any case, it has me thinking.. There is one bot in the crawlers to my 
+site I've been observing that gives me a really bad feeling. It is the 
+"meanpathbot". What the "meanpathbot" does is basically just steal all 
+your content, all your css, all your javascript, and then sell it to 
+researchers and journalists and the like who like to analyse that data to 
+their benefit.
+
+Which could, for example, be sensitive content you removed at the perfect 
+time from your site so as to gain enough exposure for it, but not too 
+much.
+
+It could be anything. And they try to archive it and then provide access 
+to all of it, to anyone who is willing to fork out the cash. Which starts 
+at $500 USD per month.
+
+I am definitely going to block that one. But on the topic of public "REST" 
+APIs, if you allow your content (that is basically something you protect 
+and control its access paths to) to be retrieved by THIRD parties (like 
+Facebook does) but WITHOUT the representation you have so carefully chosen 
+(by designing your web interface) or that (in the case of Facebook) your 
+users may have carefully chosen so as to provide a certain feeling and a 
+certain integrity of what others see of you, within a certain access 
+domain ---
+
+And now suddenly everyone and his green seamonkey can just press a button 
+and download it all, irrespective of who they are or where they are at...
+
+I just say that that is something you need to carefully watch against.
+
+Something becomes more valuable if a user/visitor/person has to put in a 
+bit of effort, such as taking the time to actually visit your site. Or to 
+get to know you. Or to first hear about you. Or to know where to look for 
+information. Or to be intrigued by what you offer and to seek more.
+
+If you were to write a book, get it printed, and then give it away for 
+free, you will find 95% of it in the dustbins of the area where you have 
+been handing it out. People will take it off your hands, look at it for 2 
+seconds, get bored, and throw it away. That's just the way it goes..
+
+So make sure you maintain the proper balance between what people are 
+getting from you, and what they are putting in themselves. That's just 
+what I'm trying to say.
+
+Don't be a whore who trades something worthless for something equally 
+worthless. Your content is valuable. It has a price, a worth, a value. It 
+has seen effort. It has seen sweat. It has perhaps even seen a lot of 
+blood. Or even some tears as well.
+
+So don't start giving it all away just because it could mean more exposure 
+of it. Don't be the one who gets rejected. Be the one who rejects.
+
+Even if directly monetizing access is not your business model. Even if you 
+are not a business for money at all. There is still something you want, be 
+it a form of popularity, of being a popular place where people like to 
+hang out, a type of community centre, you are trying to be something 
+valuable as a result of the value you put onto your site so as you give 
+value to others, they give value to you because you become a source to 
+them of value. And the more people recognize you as a source of value to 
+them, the better it becomes for you, in all respects.
+
+But that depends increasingly in this world on your ability to maintain 
+control over who sees what and how. And syndication to a controlled 
+netwerk of sites that agree with your vision is not a problem at all. But 
+take care to recognise what is "inner circle" and what belongs to the 
+"outer circle". The outer circle of you, the main public.
+
+Personally I intend to put into my (very personal) site a form of 
+intrigue. Everything is in fact publically accessible (or most of it) but 
+I can give off the illusion that it is sacred or hidden material by 
+providing a sense of exclusivity to those who opt to become members. That 
+requires nothing more than that certain material will take more effort to 
+reach for those who are not members. For example, non-members will only 
+see the 5 most recent posts and will have to traverse categories to get to 
+the rest.
+
+That's intriguing. It will give people the impression that I consider my 
+content valuable enough to restrict access to it, while not turning anyone 
+away if they want to put the value into it to get my value out.
+
+So it is really an illusion of exclusivity when the site is all-inclusive. 
+But many commercial entities do the reverse: they provide an illusion of 
+inclusivity when in fact they are very exclusive, in the sense that you 
+can never become part of their inner circle. (Try to send an email to 
+Google technical support, if you could, if you dared, if you envisioned 
+the possibility of dreaming about that being within the realm of the 
+achievable.)
+
+So don't be Google and don't be Facebook. Facebook at least has to 
+restrict access to almost everything since it is a persons site. WordPress 
+falls along the same lines as Facebook mostly... but since most content is 
+public to begin with, people running those public JSON webservices may end 
+up being among the likes of Google if they think people offloading their 
+data is a plus....
+
+Regards,
+
+Bart.
+
+
+> But the only downside that you're making it extremely easy for anyone to 
+> gain this type of access, if you're not careful. Which is why I would be 
+> hesitant...
+>
+> It's funny. The Facebook Graph API provides for less information than the 
+> regular web interface. And all those developers that want to use it, are 
+> complaining about that. For instance, you cannot even retrieve your own 
+> friendslist unless every one of your friends give you (or your app) 
+> permission to do so. Meanwhile, if you're willing to put in the effort, 
+> all of that information is easily 'grabbable'.
+>
+> In any case, I understand your feeling, Jeff. You can get exhausted from 
+> trying things that don't ever seem to work. Jetpack is also not the most 
+> ...elegant or useful addition to the fleet. Suddenly you are mandated to 
+> install a 21 meg plugin that comes with a million features and requires a 
+> WP.com account to basically do anything, and that is actually not a plugin 
+> itself but a plugin framework within the plugin framework of WP.org. 
+> Personally, I intend to use it at some point, but I'm going to strip away 
+> the all-too-obvious "container" aspect to it at least in terms of the user 
+> interface (the word "Jetpack" is meaningless to me because it doesn't do 
+> anything useful; "stats" and "akismet" are not). And get rid of all the 
+> modules I don't use anyway, and will never use. After that it will just be 
+> a common library to the few 'modules' I do use :) :p.
+>
+> Just giving it its proper position ;-).
+>
+> When I read the page at http://wordpress.org/plugins/push-syndication/, I 
+> feel a lot of sadness. As if those developers that had once written those 
+> words with inspiration, are now feeling drained, as you do. The plugin was 
+> probably conceived as something relatively standalone. But today 
+> everything has come under a heavier wind and this wind is pushing forward 
+> in some sort of frenzy of WordPress.com integration of everything.
+>
+> For example, one of the Jetpack advantages is listed as "if you let us do 
+> your statistics, it will not burden your own servers, but rather ours, 
+> that are extremely speedy." How one cloud-hosted server park can ever be 
+> faster than a local server is beyond me, unless you'd be talking about the 
+> caching advantages of webclients retrieving things like jQuery from 
+> centrally hosted locations (such as some Google server) instead of your 
+> site. But it is nonsensical to think that the computing power of millions 
+> of decentralized hosts would be dwarfed by a few centrally hosted server 
+> parks. And these guys think they are some kind of awesome. When you check 
+> the stats page of a newly configured stats counter or API key or whatever, 
+> you are greeted with the message "Whoa! Not so fast! We just started 
+> counting, there's nothing here yet, DUDE." Liberally cited, but still, 
+> that was the gist of the message. Completely inappropriate for something 
+> that is meant to be a serious, boring (but still exciting) "accounting" 
+> system. Suddenly we're all being turned into surfer dudes when really, we 
+> just wanted to check out how that page looked.
+>
+> Jetpack is really not that cool. Not nearly as cool as they try to make it 
+> out to be..
+>
+> So perhaps you're also feeling drained because that plugin you got excited 
+> about, it is really at a true 'dead end' or at least a 'not feeling it 
+> anymore' end.
+>
+> So there's probably something that they're doing (or that someone is 
+> doing) that is more in line with 'the times' and it is just a matter of 
+> getting through the grief of having lost this old thing, so you can make 
+> room for the new thing and I'm sure it will soon fall into your hands, or 
+> cross paths with you...
+>
+> It is just a bit of a feeling of depression I guess.. that I'm feeling 
+> right now..
+>
+> Kudos,
+>
+> Bart.
+>
+
+From halukkaramete at gmail.com  Tue Sep  9 22:03:47 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 9 Sep 2014 15:03:47 -0700
+Subject: [wp-hackers] non-ascii characters at URL and pasrsing those chars
+	at string level
+Message-ID: <CAHERW=2r_+3AR0yt23EDFsWoYiFytfHwRu+MBYxM7XFt=EYYJQ@mail.gmail.com>
+
+First off, I need to get you what non-ascii chacters I'm talking about.
+
+For instance, just type in 'Slobodan Milosevic' in Google Search and go to
+the first suggested wikipedia link.
+
+You will see that the URL contains very unusual characters that is well
+beyond the common ASCII set. I'm simply curious if WordPress support that.
+
+Though this is not a feature I particularly like (to say the least), I do
+confess that I find it quite interesting from an HTTP point of view.
+
+But my real question (or pain to better put) is this.
+Say you are scraping that data and you came across that title with those
+funny characers...  and you want to create a tag out of that.
+
+Is there a conversion function that I can pass in that string and get back
+the ASCII 128 or below translated version?
+
+So I pass in 'slobodan_milo%c5%a1evi%c4%87', and I get back the good old
+'Slobodan Milosevic'
+
+Does such a function exist? Or how do you deal with that situation?
+
+From jason at codeclarified.com  Tue Sep  9 23:53:54 2014
+From: jason at codeclarified.com (Jason LeVan)
+Date: Tue, 9 Sep 2014 19:53:54 -0400
+Subject: [wp-hackers] non-ascii characters at URL and pasrsing those
+ chars at string level
+In-Reply-To: <CAHERW=2r_+3AR0yt23EDFsWoYiFytfHwRu+MBYxM7XFt=EYYJQ@mail.gmail.com>
+References: <CAHERW=2r_+3AR0yt23EDFsWoYiFytfHwRu+MBYxM7XFt=EYYJQ@mail.gmail.com>
+Message-ID: <CAKarewsU9qvky+QP_KSq6wki6J9D6_EwjrvRFk5-MNMwfdYhiQ@mail.gmail.com>
+
+urldecode() mixed with remove_accents() perhaps?
+
+https://core.trac.wordpress.org/browser/trunk/src/wp-includes/formatting.php#L794
+
+___________________________________
+
+Jason LeVan
+
+Email: jason at codeclarified.com
+
+Twitter: @codeclarified
+
+On Tue, Sep 9, 2014 at 6:03 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> First off, I need to get you what non-ascii chacters I'm talking about.
+>
+> For instance, just type in 'Slobodan Milosevic' in Google Search and go to
+> the first suggested wikipedia link.
+>
+> You will see that the URL contains very unusual characters that is well
+> beyond the common ASCII set. I'm simply curious if WordPress support that.
+>
+> Though this is not a feature I particularly like (to say the least), I do
+> confess that I find it quite interesting from an HTTP point of view.
+>
+> But my real question (or pain to better put) is this.
+> Say you are scraping that data and you came across that title with those
+> funny characers...  and you want to create a tag out of that.
+>
+> Is there a conversion function that I can pass in that string and get back
+> the ASCII 128 or below translated version?
+>
+> So I pass in 'slobodan_milo%c5%a1evi%c4%87', and I get back the good old
+> 'Slobodan Milosevic'
+>
+> Does such a function exist? Or how do you deal with that situation?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue Sep  9 23:59:15 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 9 Sep 2014 16:59:15 -0700
+Subject: [wp-hackers] non-ascii characters at URL and pasrsing those
+ chars at string level
+In-Reply-To: <CAKarewsU9qvky+QP_KSq6wki6J9D6_EwjrvRFk5-MNMwfdYhiQ@mail.gmail.com>
+References: <CAHERW=2r_+3AR0yt23EDFsWoYiFytfHwRu+MBYxM7XFt=EYYJQ@mail.gmail.com>
+ <CAKarewsU9qvky+QP_KSq6wki6J9D6_EwjrvRFk5-MNMwfdYhiQ@mail.gmail.com>
+Message-ID: <CAHERW=3aboOe3n-RjG52f5NWmVApmLtMoX8JcZXn_+qdctfdYQ@mail.gmail.com>
+
+I will look into that. your suggestion looks very promising. thank you for
+that.
+I also discovered this resource http://www.acc.umu.se/~saasha/charsets/ for
+my own DIY.
+
+On Tue, Sep 9, 2014 at 4:53 PM, Jason LeVan <jason at codeclarified.com> wrote:
+
+> urldecode() mixed with remove_accents() perhaps?
+>
+>
+> https://core.trac.wordpress.org/browser/trunk/src/wp-includes/formatting.php#L794
+>
+> ___________________________________
+>
+> Jason LeVan
+>
+> Email: jason at codeclarified.com
+>
+> Twitter: @codeclarified
+>
+> On Tue, Sep 9, 2014 at 6:03 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > First off, I need to get you what non-ascii chacters I'm talking about.
+> >
+> > For instance, just type in 'Slobodan Milosevic' in Google Search and go
+> to
+> > the first suggested wikipedia link.
+> >
+> > You will see that the URL contains very unusual characters that is well
+> > beyond the common ASCII set. I'm simply curious if WordPress support
+> that.
+> >
+> > Though this is not a feature I particularly like (to say the least), I do
+> > confess that I find it quite interesting from an HTTP point of view.
+> >
+> > But my real question (or pain to better put) is this.
+> > Say you are scraping that data and you came across that title with those
+> > funny characers...  and you want to create a tag out of that.
+> >
+> > Is there a conversion function that I can pass in that string and get
+> back
+> > the ASCII 128 or below translated version?
+> >
+> > So I pass in 'slobodan_milo%c5%a1evi%c4%87', and I get back the good old
+> > 'Slobodan Milosevic'
+> >
+> > Does such a function exist? Or how do you deal with that situation?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jeff.lambert at jvhm.com  Wed Sep 10 06:05:38 2014
+From: jeff.lambert at jvhm.com (Jeff Lambert)
+Date: Tue, 09 Sep 2014 23:05:38 -0700
+Subject: [wp-hackers] Syndication Input Sought
+In-Reply-To: <alpine.LNX.0.999.1409081926170.2475@swan.dds.nl>
+References: <D033029D.10524E%jeff.lambert@jvhm.com>
+ <1410185438808.5d461a2f@Nodemailer>
+ <alpine.LNX.0.999.1409081814420.2475@swan.dds.nl>
+ <alpine.LNX.0.999.1409081926170.2475@swan.dds.nl>
+Message-ID: <D0353710.1055F9%jeff.lambert@jvhm.com>
+
+Thanks everyone for your input. I?ll be researching options soon. If
+anyone has any other recommendations just let me know. Pros-and-Cons to
+the various options but the REST APIs are, to me, the more strategic
+approach but when I looked at them previously they weren?t quite there,
+which is why I was jazzed when I found the push syndication plugin until I
+continually realized it was similar to a lot of projects that start out
+hot-n-heavy and then fall a bit to the wayside.  Good comments on security
+and other such things.
+
+Cheers,
+
+Jeff
+
+On 9/8/14, 11:13 AM, "Bart Schouten" <list at xenhideout.nl> wrote:
+
+>On Mon, 8 Sep 2014, Xen wrote:
+>
+>> That seems pretty good, like, exactly the same thing as the Facebook
+>> "Graph" API.
+>
+>
+>My apologies about this 'top-post', it was a bit unclear, but I was
+>responding to James...
+>
+>> It may be worth looking into the WP-API, which is the JSON api slated
+>>to 
+>> go into core in 4.1 (I think). I haven't used it, but I think it will
+>> provide JSON endpoints withou [sic] requiring the Jetpack plugin, if
+>> you're looking to avoid that.
+>
+>By James DiGioia, Mon, 8 Sept 2014.
+>
+>
+>In any case, it has me thinking.. There is one bot in the crawlers to my
+>site I've been observing that gives me a really bad feeling. It is the
+>"meanpathbot". What the "meanpathbot" does is basically just steal all
+>your content, all your css, all your javascript, and then sell it to
+>researchers and journalists and the like who like to analyse that data to
+>their benefit.
+>
+>Which could, for example, be sensitive content you removed at the perfect
+>time from your site so as to gain enough exposure for it, but not too
+>much.
+>
+>It could be anything. And they try to archive it and then provide access
+>to all of it, to anyone who is willing to fork out the cash. Which starts
+>at $500 USD per month.
+>
+>I am definitely going to block that one. But on the topic of public
+>"REST" 
+>APIs, if you allow your content (that is basically something you protect
+>and control its access paths to) to be retrieved by THIRD parties (like
+>Facebook does) but WITHOUT the representation you have so carefully
+>chosen 
+>(by designing your web interface) or that (in the case of Facebook) your
+>users may have carefully chosen so as to provide a certain feeling and a
+>certain integrity of what others see of you, within a certain access
+>domain ---
+>
+>And now suddenly everyone and his green seamonkey can just press a button
+>and download it all, irrespective of who they are or where they are at...
+>
+>I just say that that is something you need to carefully watch against.
+>
+>Something becomes more valuable if a user/visitor/person has to put in a
+>bit of effort, such as taking the time to actually visit your site. Or to
+>get to know you. Or to first hear about you. Or to know where to look for
+>information. Or to be intrigued by what you offer and to seek more.
+>
+>If you were to write a book, get it printed, and then give it away for
+>free, you will find 95% of it in the dustbins of the area where you have
+>been handing it out. People will take it off your hands, look at it for 2
+>seconds, get bored, and throw it away. That's just the way it goes..
+>
+>So make sure you maintain the proper balance between what people are
+>getting from you, and what they are putting in themselves. That's just
+>what I'm trying to say.
+>
+>Don't be a whore who trades something worthless for something equally
+>worthless. Your content is valuable. It has a price, a worth, a value. It
+>has seen effort. It has seen sweat. It has perhaps even seen a lot of
+>blood. Or even some tears as well.
+>
+>So don't start giving it all away just because it could mean more
+>exposure 
+>of it. Don't be the one who gets rejected. Be the one who rejects.
+>
+>Even if directly monetizing access is not your business model. Even if
+>you 
+>are not a business for money at all. There is still something you want,
+>be 
+>it a form of popularity, of being a popular place where people like to
+>hang out, a type of community centre, you are trying to be something
+>valuable as a result of the value you put onto your site so as you give
+>value to others, they give value to you because you become a source to
+>them of value. And the more people recognize you as a source of value to
+>them, the better it becomes for you, in all respects.
+>
+>But that depends increasingly in this world on your ability to maintain
+>control over who sees what and how. And syndication to a controlled
+>netwerk of sites that agree with your vision is not a problem at all. But
+>take care to recognise what is "inner circle" and what belongs to the
+>"outer circle". The outer circle of you, the main public.
+>
+>Personally I intend to put into my (very personal) site a form of
+>intrigue. Everything is in fact publically accessible (or most of it) but
+>I can give off the illusion that it is sacred or hidden material by
+>providing a sense of exclusivity to those who opt to become members. That
+>requires nothing more than that certain material will take more effort to
+>reach for those who are not members. For example, non-members will only
+>see the 5 most recent posts and will have to traverse categories to get
+>to 
+>the rest.
+>
+>That's intriguing. It will give people the impression that I consider my
+>content valuable enough to restrict access to it, while not turning
+>anyone 
+>away if they want to put the value into it to get my value out.
+>
+>So it is really an illusion of exclusivity when the site is
+>all-inclusive. 
+>But many commercial entities do the reverse: they provide an illusion of
+>inclusivity when in fact they are very exclusive, in the sense that you
+>can never become part of their inner circle. (Try to send an email to
+>Google technical support, if you could, if you dared, if you envisioned
+>the possibility of dreaming about that being within the realm of the
+>achievable.)
+>
+>So don't be Google and don't be Facebook. Facebook at least has to
+>restrict access to almost everything since it is a persons site.
+>WordPress 
+>falls along the same lines as Facebook mostly... but since most content
+>is 
+>public to begin with, people running those public JSON webservices may
+>end 
+>up being among the likes of Google if they think people offloading their
+>data is a plus....
+>
+>Regards,
+>
+>Bart.
+>
+>
+>> But the only downside that you're making it extremely easy for anyone
+>>to 
+>> gain this type of access, if you're not careful. Which is why I would
+>>be 
+>> hesitant...
+>>
+>> It's funny. The Facebook Graph API provides for less information than
+>>the 
+>> regular web interface. And all those developers that want to use it,
+>>are 
+>> complaining about that. For instance, you cannot even retrieve your own
+>> friendslist unless every one of your friends give you (or your app)
+>> permission to do so. Meanwhile, if you're willing to put in the effort,
+>> all of that information is easily 'grabbable'.
+>>
+>> In any case, I understand your feeling, Jeff. You can get exhausted
+>>from 
+>> trying things that don't ever seem to work. Jetpack is also not the
+>>most 
+>> ...elegant or useful addition to the fleet. Suddenly you are mandated
+>>to 
+>> install a 21 meg plugin that comes with a million features and requires
+>>a 
+>> WP.com account to basically do anything, and that is actually not a
+>>plugin 
+>> itself but a plugin framework within the plugin framework of WP.org.
+>> Personally, I intend to use it at some point, but I'm going to strip
+>>away 
+>> the all-too-obvious "container" aspect to it at least in terms of the
+>>user 
+>> interface (the word "Jetpack" is meaningless to me because it doesn't
+>>do 
+>> anything useful; "stats" and "akismet" are not). And get rid of all the
+>> modules I don't use anyway, and will never use. After that it will just
+>>be 
+>> a common library to the few 'modules' I do use :) :p.
+>>
+>> Just giving it its proper position ;-).
+>>
+>> When I read the page at http://wordpress.org/plugins/push-syndication/,
+>>I 
+>> feel a lot of sadness. As if those developers that had once written
+>>those 
+>> words with inspiration, are now feeling drained, as you do. The plugin
+>>was 
+>> probably conceived as something relatively standalone. But today
+>> everything has come under a heavier wind and this wind is pushing
+>>forward 
+>> in some sort of frenzy of WordPress.com integration of everything.
+>>
+>> For example, one of the Jetpack advantages is listed as "if you let us
+>>do 
+>> your statistics, it will not burden your own servers, but rather ours,
+>> that are extremely speedy." How one cloud-hosted server park can ever
+>>be 
+>> faster than a local server is beyond me, unless you'd be talking about
+>>the 
+>> caching advantages of webclients retrieving things like jQuery from
+>> centrally hosted locations (such as some Google server) instead of your
+>> site. But it is nonsensical to think that the computing power of
+>>millions 
+>> of decentralized hosts would be dwarfed by a few centrally hosted
+>>server 
+>> parks. And these guys think they are some kind of awesome. When you
+>>check 
+>> the stats page of a newly configured stats counter or API key or
+>>whatever, 
+>> you are greeted with the message "Whoa! Not so fast! We just started
+>> counting, there's nothing here yet, DUDE." Liberally cited, but still,
+>> that was the gist of the message. Completely inappropriate for
+>>something 
+>> that is meant to be a serious, boring (but still exciting) "accounting"
+>> system. Suddenly we're all being turned into surfer dudes when really,
+>>we 
+>> just wanted to check out how that page looked.
+>>
+>> Jetpack is really not that cool. Not nearly as cool as they try to make
+>>it 
+>> out to be..
+>>
+>> So perhaps you're also feeling drained because that plugin you got
+>>excited 
+>> about, it is really at a true 'dead end' or at least a 'not feeling it
+>> anymore' end.
+>>
+>> So there's probably something that they're doing (or that someone is
+>> doing) that is more in line with 'the times' and it is just a matter of
+>> getting through the grief of having lost this old thing, so you can
+>>make 
+>> room for the new thing and I'm sure it will soon fall into your hands,
+>>or 
+>> cross paths with you...
+>>
+>> It is just a bit of a feeling of depression I guess.. that I'm feeling
+>> right now..
+>>
+>> Kudos,
+>>
+>> Bart.
+>>
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+
+From david at wordshell.net  Fri Sep 12 09:12:26 2014
+From: david at wordshell.net (David Anderson)
+Date: Fri, 12 Sep 2014 10:12:26 +0100
+Subject: [wp-hackers] Action called when a comment is marked as spam?
+Message-ID: <5412B8FA.7050404@wordshell.net>
+
+Hi,
+
+I'm looking at collecting IP information on my servers for IP addresses 
+that send comment spam.
+
+Looking in the hooks database at http://adambrown.info/p/wp_hooks and 
+with some Googling, it looks like the comment_post action is the best 
+place to hook. I'd then need to check the comment status (see if it's 
+spam), and that's about it. If I understand rightly, all plugins (like 
+Akismet) that can mark a comment as spam, will have done their work by 
+this point.
+
+Does that sound right?
+
+Many thanks,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From per at soderlind.no  Fri Sep 12 10:46:52 2014
+From: per at soderlind.no (=?iso-8859-1?Q?Per_S=F8derlind?=)
+Date: Fri, 12 Sep 2014 12:46:52 +0200
+Subject: [wp-hackers] Action called when a comment is marked as spam?
+In-Reply-To: <5412B8FA.7050404@wordshell.net>
+References: <5412B8FA.7050404@wordshell.net>
+Message-ID: <73BDA6E7-2E93-4B12-B458-1B0A2F8EB1A0@soderlind.no>
+
+Hi David,
+
+You can get this information from $wpdb->comments. In my plugin, http://wordpress.org/plugins/wp-denyhost/, I do: 
+
+                $suspect = $this->get_IP();
+                $count = (int) $wpdb->get_var( $wpdb->prepare("SELECT COUNT(comment_ID) FROM $wpdb->comments  WHERE comment_approved = 'spam' AND comment_author_IP = '%s'",$suspect) );
+
+
+../Per
+
+--
+Per S?derlind
+Web: soderlind.no, Twitter: @soderlind, LinkdIn: linkedin.com/in/soderlind
+
+
+
+On 12. sep. 2014, at 11:12, David Anderson <david at wordshell.net> wrote:
+
+> Hi,
+> 
+> I'm looking at collecting IP information on my servers for IP addresses that send comment spam.
+> 
+> Looking in the hooks database at http://adambrown.info/p/wp_hooks and with some Googling, it looks like the comment_post action is the best place to hook. I'd then need to check the comment status (see if it's spam), and that's about it. If I understand rightly, all plugins (like Akismet) that can mark a comment as spam, will have done their work by this point.
+> 
+> Does that sound right?
+> 
+> Many thanks,
+> David
+> 
+> -- 
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From david at wordshell.net  Fri Sep 12 12:07:19 2014
+From: david at wordshell.net (David Anderson)
+Date: Fri, 12 Sep 2014 13:07:19 +0100
+Subject: [wp-hackers]  Action called when a comment is marked as spam?
+In-Reply-To: <mailman.11.1410523202.3091.wp-hackers@lists.automattic.com>
+References: <mailman.11.1410523202.3091.wp-hackers@lists.automattic.com>
+Message-ID: <5412E1F7.9070908@wordshell.net>
+
+
+On 12/09/14 13:00, Per S?derlind wrote:
+
+> You can get this information from $wpdb->comments. In my plugin,http://wordpress.org/plugins/wp-denyhost/, I do:
+Hi Per,
+
+It's real-time tracking across a large number of aggregated sites that 
+I'm looking at. I use a PHP file that is invoked via auto_prepend_file 
+on every site on the server, to hook relevant actions. This saves the 
+effort and performance cost of manual scanning of WP installs and tables 
+(and of maintaining plugins on every single site). So, it's the best 
+hook that I'm really interested in.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+
+From eric.andrew.lewis at gmail.com  Sun Sep 14 18:00:27 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Sun, 14 Sep 2014 14:00:27 -0400
+Subject: [wp-hackers] A new lightweight documentation resource for advanced
+	WordPress development
+Message-ID: <CAMi+fEnvDhQ2+8m=DN+-Q9PyNx+anHODEGmGQfKoJExmAX6rGw@mail.gmail.com>
+
+Hi friends,
+
+I'd like to invite you to make a new resource
+<https://github.com/ericandrewlewis/web-dev-resources/blob/master/wordpress.md>
+with me, for both us and our fellow WordPress developers.
+
+I would like this resource to be as lightweight as possible. I am not
+interested at the moment in creating a new, canonical encyclopedia for
+developer documentation. If we tried to, we might get excited about it,
+assume some responsibility and cobble some notes together. But we would
+realize the project is too ambitious. We would write some stuff, but end up
+with a poor mans Codex. I'd feel sad and beaten down, and you'd feel the
+time you committed to the project was a waste of time.
+
+Therefore it will take the form of a curated collection of links, similar
+to lists like these <https://github.com/dypsilon/frontend-dev-bookmarks>.
+Folks have written articles, tutorials and other forms of documentation on
+specific topics around the web, in detail. Folks have created plugins that
+offer awesome functionality for us. Let's make a table of contents of these
+resources we find absolutely useful in our ongoing effort of being
+world-class WordPress developers.
+
+Here's the list in its current state
+<https://github.com/ericandrewlewis/web-dev-resources/blob/master/wordpress.md>.
+Feel free to create open up an issue sharing resources / thoughts.
+
+To go along with this, I'm hosting a weekly chat about said resources in
+our IRC channel #wordpress, Wednesdays at 1900 - 2000 UTC
+<http://www.timeanddate.com/worldclock/fixedtime.html?hour=19&min=00&sec=0> (3
+PM Eastern).
+
+Eric Andrew Lewis
+ericandrewlewis.com
+610.715.8560
+
+From frank at bueltge.de  Sun Sep 14 18:38:33 2014
+From: frank at bueltge.de (Frank Bueltge)
+Date: Sun, 14 Sep 2014 20:38:33 +0200
+Subject: [wp-hackers] A new lightweight documentation resource for
+ advanced WordPress development
+In-Reply-To: <CAMi+fEnvDhQ2+8m=DN+-Q9PyNx+anHODEGmGQfKoJExmAX6rGw@mail.gmail.com>
+References: <CAMi+fEnvDhQ2+8m=DN+-Q9PyNx+anHODEGmGQfKoJExmAX6rGw@mail.gmail.com>
+Message-ID: <CAH9UVvEOnRCPRXP2Ru=3h5w99rmeSgcJ-5gRS5SKSMhZL9sFJw@mail.gmail.com>
+
+Hi Eric,
+
+thanks to share with us.
+To your idea of a ressources for WP Developers. But do you know the site:
+http://wpgear.org/ - also a site, github repo with links for WP devs.
+
+Liebe Gr??e
+Frank
+
+__
+http://bueltge.de
+http://inpsyde.com
+http://marketpress.com
+
+Privat: +49 36428 169305 | Mobil: +49 170 5322053
+
+Inpsyde GmbH, http://inpsyde.com, Mutzer Heide 3, 51467 Bergisch Gladbach
+Steuernr: 204/5756/0999, Steueridentnr.: DE263849534
+Gesch?ftsf?hrender Gesellschafter: Heinz Roh?, HRB 65224, Amtsgericht K?ln
+
+On Sun, Sep 14, 2014 at 8:00 PM, Eric Andrew Lewis <
+eric.andrew.lewis at gmail.com> wrote:
+
+> Hi friends,
+>
+> I'd like to invite you to make a new resource
+> <
+> https://github.com/ericandrewlewis/web-dev-resources/blob/master/wordpress.md
+> >
+> with me, for both us and our fellow WordPress developers.
+>
+> I would like this resource to be as lightweight as possible. I am not
+> interested at the moment in creating a new, canonical encyclopedia for
+> developer documentation. If we tried to, we might get excited about it,
+> assume some responsibility and cobble some notes together. But we would
+> realize the project is too ambitious. We would write some stuff, but end up
+> with a poor mans Codex. I'd feel sad and beaten down, and you'd feel the
+> time you committed to the project was a waste of time.
+>
+> Therefore it will take the form of a curated collection of links, similar
+> to lists like these <https://github.com/dypsilon/frontend-dev-bookmarks>.
+> Folks have written articles, tutorials and other forms of documentation on
+> specific topics around the web, in detail. Folks have created plugins that
+> offer awesome functionality for us. Let's make a table of contents of these
+> resources we find absolutely useful in our ongoing effort of being
+> world-class WordPress developers.
+>
+> Here's the list in its current state
+> <
+> https://github.com/ericandrewlewis/web-dev-resources/blob/master/wordpress.md
+> >.
+> Feel free to create open up an issue sharing resources / thoughts.
+>
+> To go along with this, I'm hosting a weekly chat about said resources in
+> our IRC channel #wordpress, Wednesdays at 1900 - 2000 UTC
+> <http://www.timeanddate.com/worldclock/fixedtime.html?hour=19&min=00&sec=0>
+> (3
+> PM Eastern).
+>
+> Eric Andrew Lewis
+> ericandrewlewis.com
+> 610.715.8560
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From eric.andrew.lewis at gmail.com  Sun Sep 14 19:57:29 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Sun, 14 Sep 2014 15:57:29 -0400
+Subject: [wp-hackers] A new lightweight documentation resource for
+ advanced WordPress development
+In-Reply-To: <CAH9UVvEOnRCPRXP2Ru=3h5w99rmeSgcJ-5gRS5SKSMhZL9sFJw@mail.gmail.com>
+References: <CAMi+fEnvDhQ2+8m=DN+-Q9PyNx+anHODEGmGQfKoJExmAX6rGw@mail.gmail.com>
+ <CAH9UVvEOnRCPRXP2Ru=3h5w99rmeSgcJ-5gRS5SKSMhZL9sFJw@mail.gmail.com>
+Message-ID: <31B6B29CE9E64469BD891D4CFF538563@gmail.com>
+
+Hey Frank - that is awesome, thanks for sharing!
+
+--  
+Eric Andrew Lewis
+
+
+On Sunday, September 14, 2014 at 2:38 PM, Frank Bueltge wrote:
+
+> Hi Eric,
+>  
+> thanks to share with us.
+> To your idea of a ressources for WP Developers. But do you know the site:
+> http://wpgear.org/ - also a site, github repo with links for WP devs.
+>  
+> Liebe Gr??e
+> Frank
+>  
+> __
+> http://bueltge.de
+> http://inpsyde.com
+> http://marketpress.com
+>  
+> Privat: +49 36428 169305 | Mobil: +49 170 5322053
+>  
+> Inpsyde GmbH, http://inpsyde.com, Mutzer Heide 3, 51467 Bergisch Gladbach
+> Steuernr: 204/5756/0999, Steueridentnr.: DE263849534
+> Gesch?ftsf?hrender Gesellschafter: Heinz Roh?, HRB 65224, Amtsgericht K?ln
+>  
+> On Sun, Sep 14, 2014 at 8:00 PM, Eric Andrew Lewis <
+> eric.andrew.lewis at gmail.com (mailto:eric.andrew.lewis at gmail.com)> wrote:
+>  
+> > Hi friends,
+> >  
+> > I'd like to invite you to make a new resource
+> > <
+> > https://github.com/ericandrewlewis/web-dev-resources/blob/master/wordpress.md
+> > >  
+> >  
+> > with me, for both us and our fellow WordPress developers.
+> >  
+> > I would like this resource to be as lightweight as possible. I am not
+> > interested at the moment in creating a new, canonical encyclopedia for
+> > developer documentation. If we tried to, we might get excited about it,
+> > assume some responsibility and cobble some notes together. But we would
+> > realize the project is too ambitious. We would write some stuff, but end up
+> > with a poor mans Codex. I'd feel sad and beaten down, and you'd feel the
+> > time you committed to the project was a waste of time.
+> >  
+> > Therefore it will take the form of a curated collection of links, similar
+> > to lists like these <https://github.com/dypsilon/frontend-dev-bookmarks>.
+> > Folks have written articles, tutorials and other forms of documentation on
+> > specific topics around the web, in detail. Folks have created plugins that
+> > offer awesome functionality for us. Let's make a table of contents of these
+> > resources we find absolutely useful in our ongoing effort of being
+> > world-class WordPress developers.
+> >  
+> > Here's the list in its current state
+> > <
+> > https://github.com/ericandrewlewis/web-dev-resources/blob/master/wordpress.md
+> > > .
+> >  
+> > Feel free to create open up an issue sharing resources / thoughts.
+> >  
+> > To go along with this, I'm hosting a weekly chat about said resources in
+> > our IRC channel #wordpress, Wednesdays at 1900 - 2000 UTC
+> > <http://www.timeanddate.com/worldclock/fixedtime.html?hour=19&min=00&sec=0>
+> > (3
+> > PM Eastern).
+> >  
+> > Eric Andrew Lewis
+> > ericandrewlewis.com (http://ericandrewlewis.com)
+> > 610.715.8560
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >  
+>  
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>  
+>  
+
+
+
+From rahul.110392 at gmail.com  Thu Sep 18 19:36:37 2014
+From: rahul.110392 at gmail.com (Rahul Raja)
+Date: Fri, 19 Sep 2014 01:06:37 +0530
+Subject: [wp-hackers] Wordcamp Android App
+Message-ID: <CAH7vCCeVDn1ABJ-KdQb9XBjs6UOGsXOW3ynGKaEbs+jZPxvnJw@mail.gmail.com>
+
+Very enthusiastically i have started working on the  Wordcamp Andriod app.
+As a first step,i am getting hands on with Wordpress Meta Environment and
+WP-API ( because i think thats the API i have to rely on to fetch the
+data).
+
+After i am sure of the ways the things have to be done, i will start
+working on the requirements and then  design and development.
+
+So  it will be great if any UI designer or developer would like to join me
+in this development from scratch. A team would be good for this so that we
+could chalk out the plans and then have some great designs built
+ conforming the material design guidelines and then it will be fun to make
+the app.
+
+From david at wordshell.net  Sat Sep 20 07:54:56 2014
+From: david at wordshell.net (David Anderson)
+Date: Sat, 20 Sep 2014 08:54:56 +0100
+Subject: [wp-hackers] Avoiding option cacheing for a specific option
+Message-ID: <541D32D0.20809@wordshell.net>
+
+Hi,
+
+Where in WP core is the architecturally correct place to make sure that 
+a specific option is never cached?
+
+I'm not asking about how to do this via a plugin - I'm working on a 
+patch to do with an issue caused by cacheing an option that would just 
+be better never cached.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From nikolov.tmw at gmail.com  Sat Sep 20 10:15:43 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Sat, 20 Sep 2014 13:15:43 +0300
+Subject: [wp-hackers] Avoiding option cacheing for a specific option
+In-Reply-To: <541D32D0.20809@wordshell.net>
+References: <541D32D0.20809@wordshell.net>
+Message-ID: <CAOwx47emozhwFhHAGkTKrHwkCw2cJ9OtPNT4sk-3WwCuuASWGg@mail.gmail.com>
+
+Sorry for not being directly on topic, but why would something be
+better-off not being cached? As long as you're using update_option() the
+cache will be cleared when neceesary.
+
+On Sat, Sep 20, 2014 at 10:54 AM, David Anderson <david at wordshell.net>
+wrote:
+
+> Hi,
+>
+> Where in WP core is the architecturally correct place to make sure that a
+> specific option is never cached?
+>
+> I'm not asking about how to do this via a plugin - I'm working on a patch
+> to do with an issue caused by cacheing an option that would just be better
+> never cached.
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From collizo4sky at gmail.com  Sat Sep 20 14:32:23 2014
+From: collizo4sky at gmail.com (collizo4sky at gmail.com)
+Date: Sat, 20 Sep 2014 15:32:23 +0100
+Subject: [wp-hackers] Avoiding option cacheing for a specific
+In-Reply-To: <mailman.9.1411214402.2944.wp-hackers@lists.automattic.com>
+References: <mailman.9.1411214402.2944.wp-hackers@lists.automattic.com>
+Message-ID: <20140920143223.6320281.81233.5540@gmail.com>
+
+?Would love to also love to know why the option should never be cached?.
+
+
+? Original Message ?
+From: wp-hackers-request at lists.automattic.com
+Sent: Saturday, 20 September 2014 1:00 PM
+To: wp-hackers at lists.automattic.com
+Reply To: wp-hackers at lists.automattic.com
+Subject: wp-hackers Digest, Vol 116, Issue 11
+
+Send wp-hackers mailing list submissions to
+wp-hackers at lists.automattic.com
+
+To subscribe or unsubscribe via the World Wide Web, visit
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+or, via email, send a message with subject or body 'help' to
+wp-hackers-request at lists.automattic.com
+
+You can reach the person managing the list at
+wp-hackers-owner at lists.automattic.com
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of wp-hackers digest..."
+
+
+Today's Topics:
+
+1. Avoiding option cacheing for a specific option (David Anderson)
+2. Re: Avoiding option cacheing for a specific option
+(Nikola Nikolov)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Sat, 20 Sep 2014 08:54:56 +0100
+From: David Anderson <david at wordshell.net>
+To: wp-hackers at lists.automattic.com
+Subject: [wp-hackers] Avoiding option cacheing for a specific option
+Message-ID: <541D32D0.20809 at wordshell.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+
+Hi,
+
+Where in WP core is the architecturally correct place to make sure that 
+a specific option is never cached?
+
+I'm not asking about how to do this via a plugin - I'm working on a 
+patch to do with an issue caused by cacheing an option that would just 
+be better never cached.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+
+------------------------------
+
+Message: 2
+Date: Sat, 20 Sep 2014 13:15:43 +0300
+From: Nikola Nikolov <nikolov.tmw at gmail.com>
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] Avoiding option cacheing for a specific
+option
+Message-ID:
+<CAOwx47emozhwFhHAGkTKrHwkCw2cJ9OtPNT4sk-3WwCuuASWGg at mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+
+Sorry for not being directly on topic, but why would something be
+better-off not being cached? As long as you're using update_option() the
+cache will be cleared when neceesary.
+
+On Sat, Sep 20, 2014 at 10:54 AM, David Anderson <david at wordshell.net>
+wrote:
+
+> Hi,
+>
+> Where in WP core is the architecturally correct place to make sure that a
+> specific option is never cached?
+>
+> I'm not asking about how to do this via a plugin - I'm working on a patch
+> to do with an issue caused by cacheing an option that would just be better
+> never cached.
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+------------------------------
+
+End of wp-hackers Digest, Vol 116, Issue 11
+*******************************************
+
+From eric.andrew.lewis at gmail.com  Sat Sep 20 15:51:59 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Sat, 20 Sep 2014 11:51:59 -0400
+Subject: [wp-hackers] Avoiding option cacheing for a specific
+In-Reply-To: <20140920143223.6320281.81233.5540@gmail.com>
+References: <mailman.9.1411214402.2944.wp-hackers@lists.automattic.com>
+ <20140920143223.6320281.81233.5540@gmail.com>
+Message-ID: <CAMi+fE=_hmvbz3vrOjMWkeqFFHS=rdYNU6fE5g5gtH_UEsj+KA@mail.gmail.com>
+
+"Should never be cached" sounds like cache invalidation is your real issue.
+
+On Saturday, September 20, 2014, <collizo4sky at gmail.com> wrote:
+
+> ?Would love to also love to know why the option should never be cached?.
+>
+>
+>   Original Message
+> From: wp-hackers-request at lists.automattic.com <javascript:;>
+> Sent: Saturday, 20 September 2014 1:00 PM
+> To: wp-hackers at lists.automattic.com <javascript:;>
+> Reply To: wp-hackers at lists.automattic.com <javascript:;>
+> Subject: wp-hackers Digest, Vol 116, Issue 11
+>
+> Send wp-hackers mailing list submissions to
+> wp-hackers at lists.automattic.com <javascript:;>
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> or, via email, send a message with subject or body 'help' to
+> wp-hackers-request at lists.automattic.com <javascript:;>
+>
+> You can reach the person managing the list at
+> wp-hackers-owner at lists.automattic.com <javascript:;>
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-hackers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. Avoiding option cacheing for a specific option (David Anderson)
+> 2. Re: Avoiding option cacheing for a specific option
+> (Nikola Nikolov)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Sat, 20 Sep 2014 08:54:56 +0100
+> From: David Anderson <david at wordshell.net <javascript:;>>
+> To: wp-hackers at lists.automattic.com <javascript:;>
+> Subject: [wp-hackers] Avoiding option cacheing for a specific option
+> Message-ID: <541D32D0.20809 at wordshell.net <javascript:;>>
+> Content-Type: text/plain; charset=utf-8; format=flowed
+>
+> Hi,
+>
+> Where in WP core is the architecturally correct place to make sure that
+> a specific option is never cached?
+>
+> I'm not asking about how to do this via a plugin - I'm working on a
+> patch to do with an issue caused by cacheing an option that would just
+> be better never cached.
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Sat, 20 Sep 2014 13:15:43 +0300
+> From: Nikola Nikolov <nikolov.tmw at gmail.com <javascript:;>>
+> To: wp-hackers at lists.automattic.com <javascript:;>
+> Subject: Re: [wp-hackers] Avoiding option cacheing for a specific
+> option
+> Message-ID:
+> <CAOwx47emozhwFhHAGkTKrHwkCw2cJ9OtPNT4sk-3WwCuuASWGg at mail.gmail.com
+> <javascript:;>>
+> Content-Type: text/plain; charset=UTF-8
+>
+> Sorry for not being directly on topic, but why would something be
+> better-off not being cached? As long as you're using update_option() the
+> cache will be cleared when neceesary.
+>
+> On Sat, Sep 20, 2014 at 10:54 AM, David Anderson <david at wordshell.net
+> <javascript:;>>
+> wrote:
+>
+> > Hi,
+> >
+> > Where in WP core is the architecturally correct place to make sure that a
+> > specific option is never cached?
+> >
+> > I'm not asking about how to do this via a plugin - I'm working on a patch
+> > to do with an issue caused by cacheing an option that would just be
+> better
+> > never cached.
+> >
+> > Best wishes,
+> > David
+> >
+> > --
+> > UpdraftPlus - best WordPress backups - http://updraftplus.com
+> > WordShell - WordPress fast from the CLI - http://wordshell.net
+> >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com <javascript:;>
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+>
+>
+> ------------------------------
+>
+> Subject: Digest Footer
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com <javascript:;>
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+>
+> ------------------------------
+>
+> End of wp-hackers Digest, Vol 116, Issue 11
+> *******************************************
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com <javascript:;>
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+-- 
+Eric Andrew Lewis
+ericandrewlewis.com
+610.715.8560
+
+From arul.xtremes at gmail.com  Sat Sep 20 19:38:43 2014
+From: arul.xtremes at gmail.com (Arul Xtremes)
+Date: Sun, 21 Sep 2014 01:08:43 +0530
+Subject: [wp-hackers] Wordcamp Android App
+In-Reply-To: <CAH7vCCeVDn1ABJ-KdQb9XBjs6UOGsXOW3ynGKaEbs+jZPxvnJw@mail.gmail.com>
+References: <CAH7vCCeVDn1ABJ-KdQb9XBjs6UOGsXOW3ynGKaEbs+jZPxvnJw@mail.gmail.com>
+Message-ID: <CAJQdvOyWTeF6qV6qaxGQsAfyHWGcc_9HhrLT+nC4O==BwWjR+Q@mail.gmail.com>
+
+Hey Rahul,
+ I am Interested to help you in this Project. I have already made a
+proposal for this Project. Take a look at my proposal her
+http://arulnadhan.byethost12.com/proposal/
+If you need any helping hand in this project ping me :)
+
+
+On Fri, Sep 19, 2014 at 1:06 AM, Rahul Raja <rahul.110392 at gmail.com> wrote:
+
+> Very enthusiastically i have started working on the  Wordcamp Andriod app.
+> As a first step,i am getting hands on with Wordpress Meta Environment and
+> WP-API ( because i think thats the API i have to rely on to fetch the
+> data).
+>
+> After i am sure of the ways the things have to be done, i will start
+> working on the requirements and then  design and development.
+>
+> So  it will be great if any UI designer or developer would like to join me
+> in this development from scratch. A team would be good for this so that we
+> could chalk out the plans and then have some great designs built
+>  conforming the material design guidelines and then it will be fun to make
+> the app.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From pbaylies at gmail.com  Sat Sep 20 19:40:00 2014
+From: pbaylies at gmail.com (peter baylies)
+Date: Sat, 20 Sep 2014 15:40:00 -0400
+Subject: [wp-hackers] Avoiding option cacheing for a specific option
+In-Reply-To: <541D32D0.20809@wordshell.net>
+References: <541D32D0.20809@wordshell.net>
+Message-ID: <CAKkHmjWnokR_iESYcFsum76h5v9+7spxdYyWtuHJx2OgaW3Ncg@mail.gmail.com>
+
+Hi David,
+
+You might be able to handle this with the 'pre_option_$option'
+<http://codex.wordpress.org/index.php?title=Plugin_API/Filter_Reference/pre_option_$option&action=edit&redlink=1>
+filter
+- see The Codex, here,
+http://codex.wordpress.org/Function_Reference/get_option#Notes and here:
+http://codex.wordpress.org/Class_Reference/WP_Object_Cache#wp_cache_functions
+
+Cheers,
+
+ -- Peter
+
+On Sat, Sep 20, 2014 at 3:54 AM, David Anderson <david at wordshell.net> wrote:
+
+> Hi,
+>
+> Where in WP core is the architecturally correct place to make sure that a
+> specific option is never cached?
+>
+> I'm not asking about how to do this via a plugin - I'm working on a patch
+> to do with an issue caused by cacheing an option that would just be better
+> never cached.
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From lists at xenhideout.nl  Sat Sep 20 22:14:11 2014
+From: lists at xenhideout.nl (Bart Schouten)
+Date: Sun, 21 Sep 2014 00:14:11 +0200 (CEST)
+Subject: [wp-hackers] Avoiding option cacheing for a specific option
+In-Reply-To: <541D32D0.20809@wordshell.net>
+References: <541D32D0.20809@wordshell.net>
+Message-ID: <alpine.LNX.0.999.1409210011500.3581@swan.dds.nl>
+
+Generally speaking, seeing that there are two obvious places:
+
+- either in the option handling routines
+- or in the caching routines themselves.
+
+You would think that the option layer would be most suitable since it is 
+the calling agent, BUT, there are many routines and many of them can call 
+wp_cache_set() (or wp_cache_add() ) under various circumstances.
+
+Then the caching functionality itself becomes the proper place to 
+filter... and the only thing that makes sense to me is to add a filter to:
+
+WP_Object_Cache->set();
+
+On the other hand, that would filter everything, not only options. Perhaps 
+the only places where a new option is added is add_option and 
+update_option. Then you only need to add a filter on the option name. 
+There are already various filters on the option /value/ but nothing on the 
+option /name/ and filtering on the value itself (you could set it to zero, 
+or null) does not really semantically coincide with not wanting to set any 
+value at all.
+
+Also, there seems to be a remnant of a named filter:
+
+$value = apply_filters( 'pre_update_option_' . $option, $value, $old_value 
+);
+
+which probably should have been
+
+$value = apply_filters( "pre_update_option_{$option}", $value, $old_value 
+);
+
+Oh, apologies, I'm misreading. The code further down uses this latter 
+syntax instead of the existing.... they are the same :p.
+
+But I don't think you can really use that to filter the option itself. If 
+you set it to null, it will just still get set, it's just getting set to 
+null and retrieved as null. PHP isset() does not coincide with is_null(). 
+Or "=== null". So it won't work.
+
+So my input here would be to add a filter next to these pre_update_option 
+filters called pre_update... something. On the other hand, if the option 
+does not in fact exist, add_option is still called.
+
+Then you just need to add two filters, probably, to remain with the 
+current design, one general one and one named one, to add_option.
+
+Regards,
+
+Bart.
+
+ps. when I wrote this I didn't much think about why you would need it. But 
+I'm not sure you are referring to in-memory database-caching. There is 
+also another form of caching that is sometimes used, which is storing 
+calculated results as options in the option db. This form of caching can 
+invalidate, so to speak, the current database contents because the 
+existing 'cache' will supersede getting new results from the db. This 
+makes it hard to e.g. manually change certain things such as categories in 
+the DB, because category hierarchy-lists get cached and you will see like 
+corrupted category lists all over WordPress. But this form of caching is 
+persistent, not temporary or transient.
+
+If, in fact, your options are getting changed from outside of WP or 
+through some other means than the regular WP calls, I guess the regular 
+in-memory caching could also be a problem...
+
+
+
+On Sat, 20 Sep 2014, David Anderson wrote:
+
+> Hi,
+>
+> Where in WP core is the architecturally correct place to make sure that a 
+> specific option is never cached?
+>
+> I'm not asking about how to do this via a plugin - I'm working on a patch to 
+> do with an issue caused by cacheing an option that would just be better never 
+> cached.
+>
+> Best wishes,
+> David
+>
+> -- 
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From david at wordshell.net  Mon Sep 22 12:28:28 2014
+From: david at wordshell.net (David Anderson)
+Date: Mon, 22 Sep 2014 13:28:28 +0100
+Subject: [wp-hackers] Understanding some interactions between cookies,
+ sessions, nonces, multisite...
+Message-ID: <542015EC.6020503@wordshell.net>
+
+
+I just spent a *very* dull few hours tracing a problem, whereby 
+wp_create_nonce() returned a nonce which wp_verify_nonce() (running via 
+AJAX) did not accept.
+
+This happened as follows:
+
+1) the site was a sub-folder based multisite
+
+2) the nonce was created by a page in the network dashboard, at 
+wp-admin/network/settings.php, and output in some JS on the settings page.
+
+3) the ajaxurl JS variable being output by wp-admin/admin-header.php 
+goes via the main site which in this case lived at /main, and thus 
+ajaxurl was set to wp-admin/main/admin-ajax.url
+
+4) The browser had a different wordpress_logged_in_(hex) cookie value 
+for /main than for /. i.e. Two separate cookies existed in the browser. 
+(The value of (hex) was the same - i.e. neither cookie lookup was empty).
+
+5) This resulted in wp_get_session_token() returning a different value 
+when the nonce was checked (via AJAX, which got the cookie whose path 
+was set to /main) compared to when it was set (via the network dashboard 
+page, which got the cookie whose path was set to /).
+
+I cleared all my cookies, and logged in via /wp-login.php again. Same 
+happened. Both cookies returned.
+
+This site had this in its wp-config.php:
+
+define('ADMIN_COOKIE_PATH', '/');
+define('COOKIE_DOMAIN', '');
+define('COOKIEPATH', '');
+define('SITECOOKIEPATH', '');
+
+After removing those lines, clearing cookies, and logging in again, 
+there was only one cookie, and everything worked.
+
+This only breaks things on recent WP versions where 
+wp_get_session_token() is used in nonces.
+
+I'm familiar with AJAX and nonces, but WP's login stuff is not something 
+I'm familiar with.
+The questions I don't understand the answers too are:
+
+1) Why my customer might have had those defines in his wp-config.php, and
+2) Why this breaks things in this way, and
+3) Is this a bug?
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+

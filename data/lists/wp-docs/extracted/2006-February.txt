@@ -1,0 +1,2353 @@
+From m at mullenweg.com  Wed Feb  1 09:26:33 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed Feb  1 09:28:17 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+Message-ID: <43E07EC9.5040200@mullenweg.com>
+
+I've been seeing a lot of posts similar to this:
+
+http://simon.sp8.org/2006/01/31/wordpress-v201/
+
+"Don?t ask me how, but I wish the upgrade process was easier, didn?t 
+involve de-activating plugins and deleting files. The install is 
+embarassingly easy, in my view its time for the upgrading to be the same."
+
+There is a balance between being ridiculously thorough and not 
+overwhelming people. I think we weigh towards the latter right now.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+From podz at tamba2.org.uk  Wed Feb  1 09:43:37 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Wed Feb  1 09:44:37 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+In-Reply-To: <43E07EC9.5040200@mullenweg.com>
+References: <43E07EC9.5040200@mullenweg.com>
+Message-ID: <43E082C9.7030701@tamba2.org.uk>
+
+Matt Mullenweg wrote:
+> I've been seeing a lot of posts similar to this:
+> 
+> http://simon.sp8.org/2006/01/31/wordpress-v201/
+> 
+> "Don?t ask me how, but I wish the upgrade process was easier
+That comes from the code.
+
+> didn?t involve de-activating plugins
+Authors need to tell people to wrap their fucntions properly. It has
+been posted before. It also means that the core fail more gracefuly - a
+theme problem right now causes a blank screen and a post to the forum
+for instance.
+
+> and deleting files.
+The 'official' instructions have never said to delete files, and have
+always said to overwrite. The deleting came about because of very high
+levels of overwriting problems. It's written to save posts.
+
+> There is a balance between being ridiculously thorough and not
+> overwhelming people. I think we weigh towards the latter right now.
+
+With respect Matt - the upgrade docs are as thorough because of two reasons:
+1 - How the coders put it all together
+2 - the people doing the upgrade
+
+I have certainly written what I have because of forum questions and far
+too many personal emails at these times. It's not been for fun.
+
+P.
+
+
+From podz at tamba2.org.uk  Wed Feb  1 10:10:49 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Wed Feb  1 10:11:47 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+In-Reply-To: <43E07EC9.5040200@mullenweg.com>
+References: <43E07EC9.5040200@mullenweg.com>
+Message-ID: <43E08929.8080909@tamba2.org.uk>
+
+Matt Mullenweg wrote:
+> There is a balance between being ridiculously thorough and not
+> overwhelming people. I think we weigh towards the latter right now.
+> 
+
+What we really need is another article: How to make your upgrading
+easier. For instance, wrapping every function call in if()statements.
+Again though, plugin authors need to play this game too.
+
+Also, what about graded instructions - literally the 'short version' and
+the 'long version' ? A changelog version can be figured out by the
+individual themselves.
+
+It's also possible to write a generic upgrade doc from which all others
+can be quickly built.
+
+P.
+From mhancock at us.net  Wed Feb  1 13:40:35 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Wed Feb  1 13:41:55 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+References: <43E07EC9.5040200@mullenweg.com> <43E082C9.7030701@tamba2.org.uk>
+Message-ID: <016101c62735$14ee7680$6402a8c0@DELL8600>
+
+From: "Podz" <podz@tamba2.org.uk>
+> Matt Mullenweg wrote:
+>
+> > didn?t involve de-activating plugins
+> Authors need to tell people to wrap their fucntions properly. It has
+> been posted before. It also means that the core fail more gracefuly - a
+> theme problem right now causes a blank screen and a post to the forum
+> for instance.
+>
+> > and deleting files.
+> The 'official' instructions have never said to delete files, and have
+> always said to overwrite. The deleting came about because of very high
+> levels of overwriting problems. It's written to save posts.
+
+Interestingly, just after the 2.0 release, Mr. Sharma wrote
+http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade that recommends
+deactivating plugins but overwriting files.
+
+Can we come to a consensus about this (i.e. deactivating plugins and
+deleting files)?
+
+~~~~MichaelH
+
+From podz at tamba2.org.uk  Wed Feb  1 14:24:16 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Wed Feb  1 14:25:19 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+In-Reply-To: <016101c62735$14ee7680$6402a8c0@DELL8600>
+References: <43E07EC9.5040200@mullenweg.com> <43E082C9.7030701@tamba2.org.uk>
+	<016101c62735$14ee7680$6402a8c0@DELL8600>
+Message-ID: <43E0C490.3070800@tamba2.org.uk>
+
+Michael E. Hancock wrote:
+> Interestingly, just after the 2.0 release, Mr. Sharma wrote
+> http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade that recommends
+> deactivating plugins but overwriting files.
+> 
+> Can we come to a consensus about this (i.e. deactivating plugins and
+> deleting files)?
+> 
+
+I don't see how it can happen.
+Deactivating and deleting takes longer but is reliable.
+Deactivating and overwriting does cause problems.
+
+And deactivating plugins makes not a jot of difference unless the actual
+function call is wrapped.
+
+It's too big an issue now - so all instructions must take into account
+the needs of the person. And bear in mind that the people are more
+likely to be reading these things are the ones that need to know the
+most and the most reliable. Step 1-2-3 may not fit with the '5 minute
+install' but then people have got nothing to lose there have they ?
+
+In the end though, if WP could, after being uploaded, deactivate
+everything, delete or at least checksum each new file and rectify then,
+and then do something about plugin code it would be approaching
+something close to the upgrade nirvana.
+
+As it stands:
+Write one decent document and that helps far more people than brief
+instructions and it also saves forum traffic. And it's not exactly
+tricky to write.
+
+P.
+From VOGELAP at UCMAIL.UC.EDU  Wed Feb  1 14:40:18 2006
+From: VOGELAP at UCMAIL.UC.EDU (Vogel, Andrew (vogelap))
+Date: Wed Feb  1 14:41:34 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+Message-ID: <E7340445E0595A418B2F8DE0AE480E2009656E78@ucmail6.ad.uc.edu>
+
+The upgrade documentation is fine, though it would be easier to have a
+list of files that SHOULD be deleted (not just a list of those to KEEP).
+
+It's kinda the upgrade PROCESS that's a pain. Deleting files is scary
+for Joe User. It would be ideal if the files could just be overwritten.
+
+Here's a plugin idea... a plugin that would take a snapshot of the
+activation status of the plugins on the site, and then batch
+activate/deactivate them. Read on...
+
+I see it like this:
+* User activates the "PLUGIN MANAGER" plugin.
+* Within "PLUGIN MANAGER", user creates a 'snapshot' of currently-active
+plugins.
+* Within "PLUGIN MANAGER", user clicks a 'batch deactivate' button to
+deactivate all plugins at once.
+* User deactivates "PLUGIN MANAGER".
+* User upgrades WordPress.
+* User activates "PLUGIN MANAGER", clicks the 'batch activate' button
+and viola! -- all previously-activated plugins are automagically
+reactivated.
+Easy, fast, and user-friendly.
+
+-andrew vogel
+Manager of Professional Programs
+University of Cincinnati
+College of Pharmacy 
+ 
+
+> -----Original Message-----
+> From: wp-docs-bounces@lists.automattic.com 
+> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+> Sent: Wednesday, February 01, 2006 9:24 AM
+> To: WordPress Documentation
+> Subject: Re: [wp-docs] Upgrade instructions too hard?
+> 
+> Michael E. Hancock wrote:
+> > Interestingly, just after the 2.0 release, Mr. Sharma wrote 
+> > http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade that 
+> > recommends deactivating plugins but overwriting files.
+> > 
+> > Can we come to a consensus about this (i.e. deactivating 
+> plugins and 
+> > deleting files)?
+> > 
+> 
+> I don't see how it can happen.
+> Deactivating and deleting takes longer but is reliable.
+> Deactivating and overwriting does cause problems.
+> 
+> And deactivating plugins makes not a jot of difference unless 
+> the actual function call is wrapped.
+> 
+> It's too big an issue now - so all instructions must take 
+> into account the needs of the person. And bear in mind that 
+> the people are more likely to be reading these things are the 
+> ones that need to know the most and the most reliable. Step 
+> 1-2-3 may not fit with the '5 minute install' but then people 
+> have got nothing to lose there have they ?
+> 
+> In the end though, if WP could, after being uploaded, 
+> deactivate everything, delete or at least checksum each new 
+> file and rectify then, and then do something about plugin 
+> code it would be approaching something close to the upgrade nirvana.
+> 
+> As it stands:
+> Write one decent document and that helps far more people than 
+> brief instructions and it also saves forum traffic. And it's 
+> not exactly tricky to write.
+> 
+> P.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+From tg at tannagh.com  Wed Feb  1 16:54:12 2006
+From: tg at tannagh.com (TechGnome)
+Date: Wed Feb  1 16:55:44 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+In-Reply-To: <43E08929.8080909@tamba2.org.uk>
+References: <43E07EC9.5040200@mullenweg.com> <43E08929.8080909@tamba2.org.uk>
+Message-ID: <43E0E7B4.10107@tannagh.com>
+
+It's not just the plugin authors that need to do this.... theme authors 
+need to take responsibility for that as well. IMHO it's not fair to hold 
+the plugin author responsible for something the person who wrote the 
+theme/template (who, for all we know has been warned by the plugin author.
+
+Personaly, I always deactivate plugins before doing anykind of upgrade. 
+You just never know when something in the core has been changed that is 
+going to cause conflict with a plugin. I too have also been plagued 
+(sporaticaly) by the overwrite problem. This despite my telling my FTP 
+client to overwrite all files. For what ever reason it doen't always take.
+
+Sure, I wish there was an easier way. It would be so cool to be able to 
+login to my WP admin dashboard see a big fat link "UPDATE AVAILABLE!" 
+and I could click it, and the changed files would be downloaded and put 
+in to the correct location, and BAM! the upgrade is done (except for 
+maybe running the upgrade.php to get DB changes). But I don't hold any 
+hope that 1) it's possible, or 2) that it will ever get done.
+
+Solution: I don't know. I don't really have one. But I do subscribe to 
+the philosophy that better to be safe than sorry.
+
+-tg
+
+
+Podz wrote:
+
+>Matt Mullenweg wrote:
+>  
+>
+>>There is a balance between being ridiculously thorough and not
+>>overwhelming people. I think we weigh towards the latter right now.
+>>
+>>    
+>>
+>
+>What we really need is another article: How to make your upgrading
+>easier. For instance, wrapping every function call in if()statements.
+>Again though, plugin authors need to play this game too.
+>
+>Also, what about graded instructions - literally the 'short version' and
+>the 'long version' ? A changelog version can be figured out by the
+>individual themselves.
+>
+>It's also possible to write a generic upgrade doc from which all others
+>can be quickly built.
+>
+>P.
+>_______________________________________________
+>wp-docs mailing list
+>wp-docs@lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-docs
+>  
+>
+From ryan at boren.nu  Wed Feb  1 22:31:46 2006
+From: ryan at boren.nu (Ryan Boren)
+Date: Wed Feb  1 22:33:04 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+In-Reply-To: <016101c62735$14ee7680$6402a8c0@DELL8600>
+References: <43E07EC9.5040200@mullenweg.com> <43E082C9.7030701@tamba2.org.uk>
+	<016101c62735$14ee7680$6402a8c0@DELL8600>
+Message-ID: <43E136D2.7080301@boren.nu>
+
+Michael E. Hancock wrote:
+> From: "Podz" <podz@tamba2.org.uk>
+> 
+>>Matt Mullenweg wrote:
+>>
+>>
+>>>didn?t involve de-activating plugins
+>>
+>>Authors need to tell people to wrap their fucntions properly. It has
+>>been posted before. It also means that the core fail more gracefuly - a
+>>theme problem right now causes a blank screen and a post to the forum
+>>for instance.
+>>
+>>
+>>>and deleting files.
+>>
+>>The 'official' instructions have never said to delete files, and have
+>>always said to overwrite. The deleting came about because of very high
+>>levels of overwriting problems. It's written to save posts.
+> 
+> 
+> Interestingly, just after the 2.0 release, Mr. Sharma wrote
+> http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade that recommends
+> deactivating plugins but overwriting files.
+> 
+> Can we come to a consensus about this (i.e. deactivating plugins and
+> deleting files)?
+
+Both suggestions are made to work around external problems.  Files are 
+deleted because people have a high tendency to upload files incorrectly 
+and incompletely.  Plugins are deactivated because so many of them do 
+things that pretty much guarantee that they will break whenever WP 
+internals change.  Personally, I use rsync and a few carefully selected 
+plugins and can upgrade all of my sites with a single button press. 
+That's not typical, of course, but it illustrates how easy WP is to 
+upgrade when you have the proper upload tool and don't use crackheaded 
+plugins. :-)
+
+Ryan
+
+
+
+From eads at invisibleinstitute.com  Thu Feb  2 03:58:57 2006
+From: eads at invisibleinstitute.com (David Eads)
+Date: Thu Feb  2 04:01:14 2006
+Subject: [wp-docs] Upgrade instructions too hard?
+In-Reply-To: <43E136D2.7080301@boren.nu>
+References: <43E07EC9.5040200@mullenweg.com>
+	<43E082C9.7030701@tamba2.org.uk>	<016101c62735$14ee7680$6402a8c0@DELL8600>
+	<43E136D2.7080301@boren.nu>
+Message-ID: <43E18381.8060702@invisibleinstitute.com>
+
+> Both suggestions are made to work around external problems.  Files are 
+> deleted because people have a high tendency to upload files incorrectly 
+> and incompletely.  Plugins are deactivated because so many of them do 
+> things that pretty much guarantee that they will break whenever WP 
+> internals change.  Personally, I use rsync and a few carefully selected 
+> plugins and can upgrade all of my sites with a single button press. 
+> That's not typical, of course, but it illustrates how easy WP is to 
+> upgrade when you have the proper upload tool and don't use crackheaded 
+> plugins. :-)
+
+While I haven't been active on this list in a while, I must say I've 
+been pretty happy with the ugprade process.  I've had far less problems 
+upgrading WP than say, Mediawiki, which I've managed to break for days 
+during upgrades on occasion.
+
+However, I also tested the upgrade for each site on a server that 
+mirrors my production server and essentially started from scratch, no 
+overwriting.
+
+That said, what about a command line or web based upgrade/downgrade 
+script that does a full backup of db and site, disables plugins, and 
+handles all the overwrite/delete issues gently?  The idea would be that 
+it basically spits out a default themed WP instance with plugins 
+disabled, but with all the old data so you can go back and start turning 
+things back on and seeing what breaks.
+
+Of course, a user who would use this probably knows enough to handle the 
+upgrade pretty well on their own.  It would still be useful.  I'm tied 
+up until late Feb so I couldn't work on this, unfortunately.
+
+Seems like WP is experiencing the same sorts of growing pains as PHP has 
+experienced -- it is used widely in a variety of environments by a 
+variety of users with different skill levels, oftentimes users a bit in 
+over their heads.  From a strategic standpoint, seems to me like the 
+best strategy here is simply to continue support for the 1.5.x branch 
+and *not* rush users into upgrading.  A user who is annoyed they aren't 
+in a position to upgrade is *not* a user who is furious because they 
+just nuked their beloved blog.
+
+David
+www.viewfromtheground.com
+From skippy at skippy.net  Sat Feb  4 13:56:21 2006
+From: skippy at skippy.net (Scott Merrill)
+Date: Sat Feb  4 13:57:46 2006
+Subject: [wp-docs] codex theme
+Message-ID: <43E4B285.4030205@skippy.net>
+
+I just noticed that the new Codex theme really gets in the way of the
+Template Tags examples:
+
+http://codex.wordpress.org/Template_Tags/dropdown_cats
+
+Yuck!
+
+What can we do to fix the examples to better fix the theme?
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From carthik at gmail.com  Sat Feb  4 14:02:28 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Sat Feb  4 14:03:50 2006
+Subject: [wp-docs] codex theme
+In-Reply-To: <43E4B285.4030205@skippy.net>
+References: <43E4B285.4030205@skippy.net>
+Message-ID: <80f75db0602040602q270df7ddwd0b99862ab7be739@mail.gmail.com>
+
+On 2/4/06, Scott Merrill <skippy@skippy.net> wrote:
+> I just noticed that the new Codex theme really gets in the way of the
+> Template Tags examples:
+>
+> http://codex.wordpress.org/Template_Tags/dropdown_cats
+>
+> Yuck!
+>
+> What can we do to fix the examples to better fix the theme?
+
+The column on th right can be done without, in my opinion. The width
+of the column for the article itself is very narrow on my 1024x768
+screen. Looks like the designer used a widescreen machine, or one set
+to a very high resolution.
+
+It would be nice to remove the wiki-maint links for someone who's not
+logged in, too, since one needs to login to edit anyways.
+
+Carthik.
+>
+> --
+> skippy@skippy.net | http://skippy.net/
+>
+> gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+> 506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From m at mullenweg.com  Fri Feb 10 03:40:05 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri Feb 10 03:42:33 2006
+Subject: [wp-docs] Wider is better
+Message-ID: <43EC0B15.9010609@mullenweg.com>
+
+I now hide the right sidebar if you're not logged in.
+
+Changes might take a bit to propogate.
+
+Can we please please make the "5 minute upgrade" the default and scare 
+people on a [[Upgrade Troubleshooting]] page?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+From mhancock at us.net  Fri Feb 10 04:14:33 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Fri Feb 10 04:16:05 2006
+Subject: [wp-docs] Wider is better
+References: <43EC0B15.9010609@mullenweg.com>
+Message-ID: <063f01c62df8$7f89bb70$6402a8c0@DELL8600>
+
+From: "Matt Mullenweg" <m@mullenweg.com>
+> Can we please please make the "5 minute upgrade" the default and scare 
+> people on a [[Upgrade Troubleshooting]] page?
+
+Just to clarify--
+
+Are you saying take the contents of this:
+http://codex.wordpress.org/Upgrading_WordPress
+
+and move it to 
+http://codex.wordpress.org/Upgrading_Troubleshooting
+
+then take the contents of this:
+http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade
+
+and move it to:
+http://codex.wordpress.org/Upgrading_WordPress
+
+~~~~MichaelH
+
+From geeker87 at gmail.com  Fri Feb 10 17:53:08 2006
+From: geeker87 at gmail.com (Matt)
+Date: Fri Feb 10 17:54:43 2006
+Subject: [wp-docs] Newbie - Docs
+Message-ID: <2f0736610602100953m5ceb4135ma15e92c653d3f500@mail.gmail.com>
+
+Hi, I've just signed up to Codex and started an entry for the function
+reference. Just one thing I want to clear up - which functions do we
+need docs on? Is it all the functions in the project, just ones
+availible to plugin developers, or just ones listed in the function
+reference?
+
+Cheers for your time,
+
+Matt
+From mhancock at us.net  Fri Feb 10 18:04:40 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Fri Feb 10 18:06:11 2006
+Subject: [wp-docs] Newbie - Docs
+References: <2f0736610602100953m5ceb4135ma15e92c653d3f500@mail.gmail.com>
+Message-ID: <098001c62e6c$76ce1200$6402a8c0@DELL8600>
+
+From: "Matt" <geeker87@gmail.com>
+> Hi, I've just signed up to Codex and started an entry for the function
+> reference. Just one thing I want to clear up - which functions do we
+> need docs on? Is it all the functions in the project, just ones
+> availible to plugin developers, or just ones listed in the function
+> reference?
+
+
+I'd guess anything in http://codex.wordpress.org/Function_Reference is fair
+game to add/enhance.
+
+And thank you for your contributions.
+
+Michael E. Hancock
+
+From carthik at gmail.com  Fri Feb 10 18:45:26 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Fri Feb 10 18:47:01 2006
+Subject: [wp-docs] Newbie - Docs
+In-Reply-To: <2f0736610602100953m5ceb4135ma15e92c653d3f500@mail.gmail.com>
+References: <2f0736610602100953m5ceb4135ma15e92c653d3f500@mail.gmail.com>
+Message-ID: <80f75db0602101045u12bdbf55v3edbf408f3132b93@mail.gmail.com>
+
+On 2/10/06, Matt <geeker87@gmail.com> wrote:
+> Hi, I've just signed up to Codex and started an entry for the function
+> reference. Just one thing I want to clear up - which functions do we
+> need docs on? Is it all the functions in the project, just ones
+> availible to plugin developers, or just ones listed in the function
+> reference?
+
+Matt,
+When I'm faced with a question like that, I decide aftr asking myself
+three questions:
+
+1) What complete subset of the problem will I be able to finish with
+minimal effort (so that I don't leave an incomplete work-in-progress 
+behind)
+2) What complete subset of the problem will be most useful to the most
+people when it is completed?
+3) What problem will I have the most fun finishing?
+
+Replace problem with task, and you have the perfect way to answer the
+question :)
+The superset (of which there are subsets) could be "writing
+documentation for wordpress" or something with a finer granularity,
+like "writing function references for all wordpress functions".
+
+Regards,
+Carthik.
+
+
+> Cheers for your time,
+>
+> Matt
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From fork at herebox.org  Mon Feb 13 20:34:02 2006
+From: fork at herebox.org (. .. ...herebox.org... .. .)
+Date: Mon Feb 13 20:35:46 2006
+Subject: [wp-docs] new page for Akismet -- if and where to put it.
+Message-ID: <85efe87a0602131234p245f612bnf7cc3c97620e9ad8@mail.gmail.com>
+
+I'd like to have a wiki page for Akismet.  The Akismet.com site itself
+is much more broadly focuses and has little functionality for low
+level end-user interaction.  The wordpress forums have answered some
+great questsions, but they are scattered and buried.  Here is an early
+version:
+
+http://codex.wordpress.org/User:Here/Akismet
+
+I'd like to move it out of User namespace, but wanted to inquire as I
+can't find other plugins with their own pages.  My tendency is to give
+pages their own space, as [[Akismet]] , but the existing structure
+tends toward subpages for Plugin related materials (as
+[[Plugins/Spam_Tools]] at
+http://codex.wordpress.org/Plugins/Spam_Tools ).
+
+One of the following will likely work, in order of my preference:
+[[Akismet]]
+[[Plugins/Spam_Tools/Akismet]]
+[[Plugins/Specific/Akismet]]
+
+Any thoughts?  Unless determined a Bad Idea, I will move it out of my
+userspace and change references to Akismet to point to this page
+rather than akismet.com.
+
+best!
+
+-mike waggoner
+http://herebox.org
+From peter.westwood at ftwr.co.uk  Mon Feb 13 21:19:11 2006
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Mon Feb 13 21:20:51 2006
+Subject: [wp-docs] new page for Akismet -- if and where to put it.
+In-Reply-To: <85efe87a0602131234p245f612bnf7cc3c97620e9ad8@mail.gmail.com>
+References: <85efe87a0602131234p245f612bnf7cc3c97620e9ad8@mail.gmail.com>
+Message-ID: <43F0F7CF.2070405@ftwr.co.uk>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+. .. ...herebox.org... .. . wrote:
+> I'd like to have a wiki page for Akismet.  The Akismet.com site itself
+> is much more broadly focuses and has little functionality for low
+> level end-user interaction.  The wordpress forums have answered some
+> great questsions, but they are scattered and buried.  Here is an early
+> version:
+> 
+> http://codex.wordpress.org/User:Here/Akismet
+> 
+
+Looks good.
+
+> I'd like to move it out of User namespace, but wanted to inquire as I
+> can't find other plugins with their own pages.  My tendency is to give
+> pages their own space, as [[Akismet]] , but the existing structure
+> tends toward subpages for Plugin related materials (as
+> [[Plugins/Spam_Tools]] at
+> http://codex.wordpress.org/Plugins/Spam_Tools ).
+> 
+
+I'm not sure plugin specific stuff belongs on the codex.
+
+> One of the following will likely work, in order of my preference:
+> [[Akismet]]
+> [[Plugins/Spam_Tools/Akismet]]
+> [[Plugins/Specific/Akismet]]
+> 
+> Any thoughts?  Unless determined a Bad Idea, I will move it out of my
+> userspace and change references to Akismet to point to this page
+> rather than akismet.com.
+> 
+
+My personal preference would be to put it here on dev.wp-plugins.org and
+akismet's source is hosted there e.g.
+http://dev.wp-plugins.org/wiki/Akismet
+
+westi
+- --
+Peter Westwood
+http://blog.ftwr.co.uk
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.2 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFD8PfPVPRdzag0AcURAj4KAKCTFdfYO/n2/5R7TBzgM5sFF+4vlgCggl5m
+i6cKFiAouyyED6B2zixrRRs=
+=ccZC
+-----END PGP SIGNATURE-----
+
+From m at mullenweg.com  Tue Feb 14 07:55:52 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue Feb 14 07:58:18 2006
+Subject: [wp-docs] new page for Akismet -- if and where to put it.
+In-Reply-To: <43F0F7CF.2070405@ftwr.co.uk>
+References: <85efe87a0602131234p245f612bnf7cc3c97620e9ad8@mail.gmail.com>
+	<43F0F7CF.2070405@ftwr.co.uk>
+Message-ID: <43F18D08.9040701@mullenweg.com>
+
+Peter Westwood wrote:
+> I'm not sure plugin specific stuff belongs on the codex.
+
+It could go under my user page if it really bothered people, but since 
+it's bundled with core it'd probably help more people in the root.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+From m at mullenweg.com  Tue Feb 14 07:59:12 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue Feb 14 08:01:46 2006
+Subject: [wp-docs] Wider is better
+In-Reply-To: <063f01c62df8$7f89bb70$6402a8c0@DELL8600>
+References: <43EC0B15.9010609@mullenweg.com>
+	<063f01c62df8$7f89bb70$6402a8c0@DELL8600>
+Message-ID: <43F18DD0.1090806@mullenweg.com>
+
+Michael E. Hancock wrote:
+> Are you saying take the contents of this:
+> http://codex.wordpress.org/Upgrading_WordPress
+> 
+> and move it to 
+> http://codex.wordpress.org/Upgrading_Troubleshooting
+> 
+> then take the contents of this:
+> http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade
+> 
+> and move it to:
+> http://codex.wordpress.org/Upgrading_WordPress
+
+Carthik's page is much simpler and less scary, maybe it could be made 
+even more so? I think the principle is to have a simple and short page 
+by default, and a more detailed one if people want it.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+From fork at herebox.org  Thu Feb 16 06:06:50 2006
+From: fork at herebox.org (. .. ...herebox.org... .. .)
+Date: Thu Feb 16 06:08:39 2006
+Subject: [wp-docs] new page for Akismet -- if and where to put it.
+In-Reply-To: <43F18D08.9040701@mullenweg.com>
+References: <85efe87a0602131234p245f612bnf7cc3c97620e9ad8@mail.gmail.com>
+	<43F0F7CF.2070405@ftwr.co.uk> <43F18D08.9040701@mullenweg.com>
+Message-ID: <85efe87a0602152206m59cbc2bcp11567b3304f5cf53@mail.gmail.com>
+
+.On 2/14/06, Matt Mullenweg <m@mullenweg.com> wrote:
+.> Peter Westwood wrote:
+.> > I'm not sure plugin specific stuff belongs on the codex.
+.>
+.> It could go under my user page if it really bothered people, but since
+.> it's bundled with core it'd probably help more people in the root.
+
+I tend to agree that a root [[Askimet]] page is warrented,
+particularly as this is bundled with the core.  My own echo of Peter's
+uncertainty about plugin specific content on codex was the reason I
+posted.  However, a page on the trac wiki would not help end users
+nearly as much as information available on the official documentation
+wiki.  Without further objection I will move the page to [[Askimet]]
+on codex and link relevant references.
+
+http://codex.wordpress.org/User:Here/Akismet
+
+-- mike
+From fork at herebox.org  Thu Feb 16 06:13:07 2006
+From: fork at herebox.org (. .. ...herebox.org... .. .)
+Date: Thu Feb 16 06:14:54 2006
+Subject: [wp-docs] Wider is better
+In-Reply-To: <43F18DD0.1090806@mullenweg.com>
+References: <43EC0B15.9010609@mullenweg.com>
+	<063f01c62df8$7f89bb70$6402a8c0@DELL8600>
+	<43F18DD0.1090806@mullenweg.com>
+Message-ID: <85efe87a0602152213h5aecd3b3h456cb17e33450073@mail.gmail.com>
+
+I second / third the moves --  I spent more time upgrading this last
+round than I needed reading the detailed instructions.
+
+-mike
+http://herebox.org
+
+On 2/14/06, Matt Mullenweg <m@mullenweg.com> wrote:
+> Michael E. Hancock wrote:
+> > Are you saying take the contents of this:
+> > http://codex.wordpress.org/Upgrading_WordPress
+> >
+> > and move it to
+> > http://codex.wordpress.org/Upgrading_Troubleshooting
+> >
+> > then take the contents of this:
+> > http://codex.wordpress.org/User:Carthik/Five_Step_Upgrade
+> >
+> > and move it to:
+> > http://codex.wordpress.org/Upgrading_WordPress
+>
+> Carthik's page is much simpler and less scary, maybe it could be made
+> even more so? I think the principle is to have a simple and short page
+> by default, and a more detailed one if people want it.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://automattic.com | http://akismet.com
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+From mhancock at us.net  Thu Feb 16 16:04:45 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Thu Feb 16 16:06:29 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+Message-ID: <358101c63312$b4780430$6402a8c0@DELL8600>
+
+Carthik's 5-steps upgrade is now integrated into
+http://codex.wordpress.org/Upgrading_WordPress
+
+Please feel free to make any changes necessary.
+
+Thanks Carthik for those 5-steps.
+
+Michael E. Hancock
+
+From podz at tamba2.org.uk  Thu Feb 16 16:15:16 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Thu Feb 16 16:17:13 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <358101c63312$b4780430$6402a8c0@DELL8600>
+References: <358101c63312$b4780430$6402a8c0@DELL8600>
+Message-ID: <43F4A514.4040305@tamba2.org.uk>
+
+Michael E. Hancock wrote:
+> Carthik's 5-steps upgrade is now integrated into
+> http://codex.wordpress.org/Upgrading_WordPress
+> 
+> Please feel free to make any changes necessary.
+
+Step 3: Overwrite Files
+
+I've lost count of the number of times I've talked about overwriting and
+errors. I give up.
+
+P.
+From VOGELAP at UCMAIL.UC.EDU  Thu Feb 16 16:43:36 2006
+From: VOGELAP at UCMAIL.UC.EDU (Vogel, Andrew (vogelap))
+Date: Thu Feb 16 16:44:49 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+Message-ID: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+
+What's the risk of overwriting? I've never encountered 'overwriting
+issues' in any other PHP-based software I've run, so I am curious why
+WordPress is different from others...
+
+-andrew vogel
+Manager of Professional Programs
+University of Cincinnati
+College of Pharmacy 
+ 
+
+> -----Original Message-----
+> From: wp-docs-bounces@lists.automattic.com 
+> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+> Sent: Thursday, February 16, 2006 11:15 AM
+> To: WordPress Documentation
+> Subject: Re: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+> 
+> Michael E. Hancock wrote:
+> > Carthik's 5-steps upgrade is now integrated into 
+> > http://codex.wordpress.org/Upgrading_WordPress
+> > 
+> > Please feel free to make any changes necessary.
+> 
+> Step 3: Overwrite Files
+> 
+> I've lost count of the number of times I've talked about 
+> overwriting and errors. I give up.
+> 
+> P.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+From tg at tannagh.com  Thu Feb 16 16:44:38 2006
+From: tg at tannagh.com (TechGnome)
+Date: Thu Feb 16 16:46:58 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+Message-ID: <43F4ABF6.1050709@tannagh.com>
+
+It isn't so much a WP problem, but we've seen issues where the FTP 
+client doesn't properly overwrite the file when it should. I've 
+experienced it from time to time. There have been times where despite me 
+telling it to "Overwrite All" .... it doesn't...and there doesn't seem 
+to be any rhyme or reason for it.
+
+-tg
+
+
+Vogel, Andrew (vogelap) wrote:
+
+>What's the risk of overwriting? I've never encountered 'overwriting
+>issues' in any other PHP-based software I've run, so I am curious why
+>WordPress is different from others...
+>
+>-andrew vogel
+>Manager of Professional Programs
+>University of Cincinnati
+>College of Pharmacy 
+> 
+>
+>  
+>
+>>-----Original Message-----
+>>From: wp-docs-bounces@lists.automattic.com 
+>>[mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+>>Sent: Thursday, February 16, 2006 11:15 AM
+>>To: WordPress Documentation
+>>Subject: Re: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+>>
+>>Michael E. Hancock wrote:
+>>    
+>>
+>>>Carthik's 5-steps upgrade is now integrated into 
+>>>http://codex.wordpress.org/Upgrading_WordPress
+>>>
+>>>Please feel free to make any changes necessary.
+>>>      
+>>>
+>>Step 3: Overwrite Files
+>>
+>>I've lost count of the number of times I've talked about 
+>>overwriting and errors. I give up.
+>>
+>>P.
+>>_______________________________________________
+>>wp-docs mailing list
+>>wp-docs@lists.automattic.com
+>>http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>    
+>>
+>_______________________________________________
+>wp-docs mailing list
+>wp-docs@lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-docs
+>  
+>
+From skippy at skippy.net  Thu Feb 16 16:47:28 2006
+From: skippy at skippy.net (Scott Merrill)
+Date: Thu Feb 16 16:48:59 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+Message-ID: <43F4ACA0.4080703@skippy.net>
+
+Vogel, Andrew (vogelap) wrote:
+> What's the risk of overwriting? I've never encountered 'overwriting
+> issues' in any other PHP-based software I've run, so I am curious why
+> WordPress is different from others...
+
+It's no so much WordPress, as it is the hosts on which WordPress runs.
+
+_Sometimes_ for _some_ users, copying a new file over top an old file
+produces problems.  The site breaks, things don't work, whatever.
+
+In almost all of these instances, deleting the original file first, and
+then copying up the new file, solves the problem(s).
+
+So the instructions to "delete first" were added to ensure a consistent
+approach to trying to prevent this problem in the first place.
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From podz at tamba2.org.uk  Thu Feb 16 16:55:31 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Thu Feb 16 16:57:21 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+Message-ID: <43F4AE83.7030207@tamba2.org.uk>
+
+Vogel, Andrew (vogelap) wrote:
+> What's the risk of overwriting? I've never encountered 'overwriting
+> issues' in any other PHP-based software I've run, so I am curious why
+> WordPress is different from others...
+
+Risk ? None.
+Hassle for users when they get errors because their server screws up ? Yes.
+Forums helpers tired of saying "Delete first" ? Yes.
+Time spent in forums doing so ? Lots.
+Time to alter 1 doc and keep it that way ? Seconds.
+
+Would it hurt for the 'official' docs to say 'Delete' ? NO.
+
+P.
+From VOGELAP at UCMAIL.UC.EDU  Thu Feb 16 18:24:28 2006
+From: VOGELAP at UCMAIL.UC.EDU (Vogel, Andrew (vogelap))
+Date: Thu Feb 16 18:26:12 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+Message-ID: <E7340445E0595A418B2F8DE0AE480E2009BA9ABD@ucmail6.ad.uc.edu>
+
+So if the user uploads an ARCHIVE of the latest release of WordPress and
+extracts it, overwriting (but not deleting) existing files, the
+potential problem is avoided altogether?
+
+This speaks well for a script that automagically checks for and
+(optionally) downloads & installs newer versions.
+
+-andrew vogel
+Manager of Professional Programs
+University of Cincinnati
+College of Pharmacy 
+ 
+
+> -----Original Message-----
+> From: wp-docs-bounces@lists.automattic.com 
+> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+> Sent: Thursday, February 16, 2006 11:56 AM
+> To: WordPress Documentation
+> Subject: Re: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+> 
+> Vogel, Andrew (vogelap) wrote:
+> > What's the risk of overwriting? I've never encountered 'overwriting 
+> > issues' in any other PHP-based software I've run, so I am 
+> curious why 
+> > WordPress is different from others...
+> 
+> Risk ? None.
+> Hassle for users when they get errors because their server 
+> screws up ? Yes.
+> Forums helpers tired of saying "Delete first" ? Yes.
+> Time spent in forums doing so ? Lots.
+> Time to alter 1 doc and keep it that way ? Seconds.
+> 
+> Would it hurt for the 'official' docs to say 'Delete' ? NO.
+> 
+> P.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+From podz at tamba2.org.uk  Thu Feb 16 18:30:09 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Thu Feb 16 18:32:02 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA9ABD@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9ABD@ucmail6.ad.uc.edu>
+Message-ID: <43F4C4B1.9050007@tamba2.org.uk>
+
+Vogel, Andrew (vogelap) wrote:
+> So if the user uploads an ARCHIVE of the latest release of WordPress and
+> extracts it, overwriting (but not deleting) existing files, the
+> potential problem is avoided altogether?
+
+If every user has the right access to do that, possibly.
+I'll bet the _vast_ majority do not.
+
+> 
+> This speaks well for a script that automagically checks for and
+> (optionally) downloads & installs newer versions.
+
+It'll never happen :)
+
+P.
+From ryan at ryanduff.net  Thu Feb 16 18:33:23 2006
+From: ryan at ryanduff.net (Ryan Duff)
+Date: Thu Feb 16 18:34:39 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <43F4AE83.7030207@tamba2.org.uk>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>
+	<43F4AE83.7030207@tamba2.org.uk>
+Message-ID: <43F4C573.60108@ryanduff.net>
+
+Podz wrote:
+> Vogel, Andrew (vogelap) wrote:
+>> What's the risk of overwriting? I've never encountered 'overwriting
+>> issues' in any other PHP-based software I've run, so I am curious why
+>> WordPress is different from others...
+> 
+> Risk ? None.
+> Hassle for users when they get errors because their server screws up ? Yes.
+> Forums helpers tired of saying "Delete first" ? Yes.
+> Time spent in forums doing so ? Lots.
+> Time to alter 1 doc and keep it that way ? Seconds.
+> 
+> Would it hurt for the 'official' docs to say 'Delete' ? NO.
+> 
+> P.
+
+Yes, but the whole point was to trim the install doc down from saying 
+delete this, this and that, oh, and make sure you don't delete your 
+wp-config.php file. Upload the new files then go on. How many other 
+projects tell the users to delete the whole install before uploading the 
+new files? None that I can think of.
+
+Maybe what we need is a "recommended" ftp program and have it documented 
+to say what the settings should be in the codex.
+
+-- 
+Ryan Duff
+http://ryanduff.net
+AIM: ryancduff
+irc.freenode.net #wordpress
+From podz at tamba2.org.uk  Thu Feb 16 18:39:43 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Thu Feb 16 18:41:33 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <43F4C573.60108@ryanduff.net>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA996A@ucmail6.ad.uc.edu>	<43F4AE83.7030207@tamba2.org.uk>
+	<43F4C573.60108@ryanduff.net>
+Message-ID: <43F4C6EF.1040009@tamba2.org.uk>
+
+Ryan Duff wrote:
+> Podz wrote:
+>> Would it hurt for the 'official' docs to say 'Delete' ? NO.
+>>
+>> P.
+> 
+> Yes, but the whole point was to trim the install doc down from saying
+> delete this, this and that, oh, and make sure you don't delete your
+> wp-config.php file. Upload the new files then go on. How many other
+> projects tell the users to delete the whole install before uploading the
+> new files? None that I can think of.
+> 
+> Maybe what we need is a "recommended" ftp program and have it documented
+> to say what the settings should be in the codex.
+> 
+
+Simple management:
+Say it once or Say it dozens and dozens of times.
+I'll pick the former.
+
+What this _actually_ comes down to is trying to portray WP as some magic
+app that only ever needs 1-2-3 to work no matter what or where it works
+because it's just so special. For many that may work. For many it does not.
+
+I actually thought that Codex was there to take load off the forums.
+
+It doesn't matter what other apps do or do not, what matters is that
+every single time WP goes up a version we get a glut of errors caused by
+failed overwriting. It's not rocket science to make a connection is it ?
+Overwriting = possible errors = user frustration = forum use
+
+Maybe we should start answering with
+"Upgrade error ? No idea .... did you follow Codex ?"
+
+P.
+
+P.
+From VOGELAP at UCMAIL.UC.EDU  Thu Feb 16 19:43:56 2006
+From: VOGELAP at UCMAIL.UC.EDU (Vogel, Andrew (vogelap))
+Date: Thu Feb 16 19:45:12 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+Message-ID: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+
+Actually, if the upgrade documentation SPECIFICALLY said what files to
+delete that would be better, IMO, than saying, "Delete the wp-content
+directory, being sure not to delete your xxx sub-directory under
+wp-content". If a user doesn't pre-read (and Lord knows that most of
+them do NOT), they'll miss the exceptions.
+
+I've never seen an app that instructs you to delete everything first. I
+know that WordPress is special; I don't understand what's special about
+it that requires me to delete instead of overwrite.
+
+What is the estimated percentage of installations that encounter the
+"overwrite issue"?
+
+-andrew vogel
+Manager of Professional Programs
+University of Cincinnati
+College of Pharmacy 
+ 
+
+> -----Original Message-----
+> From: wp-docs-bounces@lists.automattic.com 
+> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Ryan Duff
+> Sent: Thursday, February 16, 2006 1:33 PM
+> To: WordPress Documentation
+> Subject: Re: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+> 
+> Podz wrote:
+> > Vogel, Andrew (vogelap) wrote:
+> >> What's the risk of overwriting? I've never encountered 
+> 'overwriting 
+> >> issues' in any other PHP-based software I've run, so I am 
+> curious why 
+> >> WordPress is different from others...
+> > 
+> > Risk ? None.
+> > Hassle for users when they get errors because their server 
+> screws up ? Yes.
+> > Forums helpers tired of saying "Delete first" ? Yes.
+> > Time spent in forums doing so ? Lots.
+> > Time to alter 1 doc and keep it that way ? Seconds.
+> > 
+> > Would it hurt for the 'official' docs to say 'Delete' ? NO.
+> > 
+> > P.
+> 
+> Yes, but the whole point was to trim the install doc down 
+> from saying delete this, this and that, oh, and make sure you 
+> don't delete your wp-config.php file. Upload the new files 
+> then go on. How many other projects tell the users to delete 
+> the whole install before uploading the new files? None that I 
+> can think of.
+> 
+> Maybe what we need is a "recommended" ftp program and have it 
+> documented to say what the settings should be in the codex.
+> 
+> --
+> Ryan Duff
+> http://ryanduff.net
+> AIM: ryancduff
+> irc.freenode.net #wordpress
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+From skippy at skippy.net  Thu Feb 16 19:47:25 2006
+From: skippy at skippy.net (Scott Merrill)
+Date: Thu Feb 16 19:48:58 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+Message-ID: <43F4D6CD.2000508@skippy.net>
+
+Vogel, Andrew (vogelap) wrote:
+> I've never seen an app that instructs you to delete everything first. I
+> know that WordPress is special; I don't understand what's special about
+> it that requires me to delete instead of overwrite.
+
+WordPress is not special.
+
+> What is the estimated percentage of installations that encounter the
+> "overwrite issue"?
+
+I've no idea.
+
+Here's an idea:  Strike the "delete" instructions from the official
+upgrade guide.  Then everyone who's complaining about the verbosity of
+the instructions should commit to spend a week on the support forums
+helping people when the next upgrade comes out.
+
+If you're objecting to the instructions, then please commit to helping
+deal with the consequences of their removal.  Thanks.
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From podz at tamba2.org.uk  Thu Feb 16 19:55:55 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Thu Feb 16 19:57:49 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+Message-ID: <43F4D8CB.9090608@tamba2.org.uk>
+
+Vogel, Andrew (vogelap) wrote:
+> Actually, if the upgrade documentation SPECIFICALLY said what files to
+> delete that would be better, IMO, than saying, "Delete the wp-content
+> directory, being sure not to delete your xxx sub-directory under
+> wp-content". If a user doesn't pre-read (and Lord knows that most of
+> them do NOT), they'll miss the exceptions.
+> 
+> I've never seen an app that instructs you to delete everything first. I
+> know that WordPress is special; I don't understand what's special about
+> it that requires me to delete instead of overwrite.
+> 
+> What is the estimated percentage of installations that encounter the
+> "overwrite issue"?
+
+I'm sure I can find pages in Codex that affect far far fewer people.
+Why the objection ? I can't understand it - myself and others have been
+answering this question for two years now. If we didn't think this was
+worth doing do you think I'd be writing now ?
+
+I will continue to tell people who have problems what they really should
+be doing, and Codex can wander along it's merry deluded little way.
+
+P.
+From tg at tannagh.com  Thu Feb 16 19:57:10 2006
+From: tg at tannagh.com (TechGnome)
+Date: Thu Feb 16 19:59:19 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+Message-ID: <43F4D916.80803@tannagh.com>
+
+Taking only a minute to think about it.... but for the number of times 
+I've upgraded (all the way from .72 days to 1.2.3).... I've probably had 
+this happen to me five or six times..... out of a dozen or so. But 
+what's weird is that it happens on *some files* and never always the 
+same ones, it's a different set each time.
+
+Whether it is me, my ISP or my FTP, I've never been able to figure out. 
+What is so wrong about deleting the files? Granted, it's just one more 
+thing to do, but if it saves hours of agony.... then it's worth 
+90seconds to run the delete.
+
+-tg
+
+
+
+Vogel, Andrew (vogelap) wrote:
+> Actually, if the upgrade documentation SPECIFICALLY said what files to
+> delete that would be better, IMO, than saying, "Delete the wp-content
+> directory, being sure not to delete your xxx sub-directory under
+> wp-content". If a user doesn't pre-read (and Lord knows that most of
+> them do NOT), they'll miss the exceptions.
+>
+> I've never seen an app that instructs you to delete everything first. I
+> know that WordPress is special; I don't understand what's special about
+> it that requires me to delete instead of overwrite.
+>
+> What is the estimated percentage of installations that encounter the
+> "overwrite issue"?
+>
+> -andrew vogel
+> Manager of Professional Programs
+> University of Cincinnati
+> College of Pharmacy 
+>  
+>
+>   
+>> -----Original Message-----
+>> From: wp-docs-bounces@lists.automattic.com 
+>> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Ryan Duff
+>> Sent: Thursday, February 16, 2006 1:33 PM
+>> To: WordPress Documentation
+>> Subject: Re: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+>>
+>> Podz wrote:
+>>     
+>>> Vogel, Andrew (vogelap) wrote:
+>>>       
+>>>> What's the risk of overwriting? I've never encountered 
+>>>>         
+>> 'overwriting 
+>>     
+>>>> issues' in any other PHP-based software I've run, so I am 
+>>>>         
+>> curious why 
+>>     
+>>>> WordPress is different from others...
+>>>>         
+>>> Risk ? None.
+>>> Hassle for users when they get errors because their server 
+>>>       
+>> screws up ? Yes.
+>>     
+>>> Forums helpers tired of saying "Delete first" ? Yes.
+>>> Time spent in forums doing so ? Lots.
+>>> Time to alter 1 doc and keep it that way ? Seconds.
+>>>
+>>> Would it hurt for the 'official' docs to say 'Delete' ? NO.
+>>>
+>>> P.
+>>>       
+>> Yes, but the whole point was to trim the install doc down 
+>> from saying delete this, this and that, oh, and make sure you 
+>> don't delete your wp-config.php file. Upload the new files 
+>> then go on. How many other projects tell the users to delete 
+>> the whole install before uploading the new files? None that I 
+>> can think of.
+>>
+>> Maybe what we need is a "recommended" ftp program and have it 
+>> documented to say what the settings should be in the codex.
+>>
+>> --
+>> Ryan Duff
+>> http://ryanduff.net
+>> AIM: ryancduff
+>> irc.freenode.net #wordpress
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>     
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+From miklb.online at gmail.com  Thu Feb 16 19:58:10 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Thu Feb 16 19:59:59 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <43F4D6CD.2000508@skippy.net>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+Message-ID: <122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+
+On 2/16/06, Scott Merrill <skippy@skippy.net> wrote:
+>
+> Vogel, Andrew (vogelap) wrote:
+> > I've never seen an app that instructs you to delete everything first. I
+> > know that WordPress is special; I don't understand what's special about
+> > it that requires me to delete instead of overwrite.
+>
+> WordPress is not special.
+>
+> > What is the estimated percentage of installations that encounter the
+> > "overwrite issue"?
+>
+> I've no idea.
+>
+> Here's an idea:  Strike the "delete" instructions from the official
+> upgrade guide.  Then everyone who's complaining about the verbosity of
+> the instructions should commit to spend a week on the support forums
+> helping people when the next upgrade comes out.
+>
+> If you're objecting to the instructions, then please commit to helping
+> deal with the consequences of their removal.  Thanks.
+
+
+
+Exactly.
+
+--
+> skippy@skippy.net | http://skippy.net/
+>
+> gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+> 506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+--
+------------------------------------------------------------------
+~Michael Bishop
+
+http://www.miklb.com     http://www.wpstation.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060216/89be604f/attachment.htm
+From miklb.online at gmail.com  Thu Feb 16 20:04:14 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Thu Feb 16 20:06:04 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+Message-ID: <122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+
+What would be wrong with a 10 minute upgrade, vs a 5 minute.  Is there
+competition out there that WP is trying to "beat"?  I'd rather give someone
+more detailed instructions and it have a lower percentage of error, than the
+short and sweet, and then see their frustration level go through the roof,
+and start bad mouthing WP for being too "hard", and posting threads,
+"HELP!!!! UPGRADED VIA CODEX, AND MY BLOG IS
+BROKEN!!!!!!PLEAZEEEEEE!!!!HELP!!!!!!!!"
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060216/6bead7c2/attachment.htm
+From mhancock at us.net  Thu Feb 16 20:13:53 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Thu Feb 16 20:15:37 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D8CB.9090608@tamba2.org.uk>
+Message-ID: <36d601c63335$824fa9e0$6402a8c0@DELL8600>
+
+From: "Podz" <podz@tamba2.org.uk>
+
+> I will continue to tell people who have problems what they really should
+> be doing, and Codex can wander along it's merry deluded little way.
+
+Besides the Overwrite issue, are there any other problems with the 5-step
+instructions?
+
+If there is other incorrect information in Codex, please list that so it can
+be fixed.
+
+MichaelH
+
+
+From tg at tannagh.com  Thu Feb 16 20:22:36 2006
+From: tg at tannagh.com (TechGnome)
+Date: Thu Feb 16 20:24:43 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>	<43F4D6CD.2000508@skippy.net>	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+Message-ID: <43F4DF0C.7040807@tannagh.com>
+
+Here's a thought, and call me crazy if you want.... include the delete 
+files step in the codex directions.... then as a caveat to that 
+direction, include a link to another Codex page that asks and answers 
+the question "Q: Why am I told to delete my files." A: Because it has 
+been our experince over the last few years that FTP clients are not 
+always reliable in actualy overwriting files and some may retain their 
+old code. ... etc..."
+
+Just a thought... Could also be x-referenced with the Upgrade FAQ (if 
+there is one.)
+
+-tg
+
+
+Michael B wrote:
+> What would be wrong with a 10 minute upgrade, vs a 5 minute.  Is there 
+> competition out there that WP is trying to "beat"?  I'd rather give 
+> someone more detailed instructions and it have a lower percentage of 
+> error, than the short and sweet, and then see their frustration level 
+> go through the roof, and start bad mouthing WP for being too "hard", 
+> and posting threads, "HELP!!!! UPGRADED VIA CODEX, AND MY BLOG IS 
+> BROKEN!!!!!!PLEAZEEEEEE!!!!HELP!!!!!!!!"
+>
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+From carthik at gmail.com  Thu Feb 16 21:05:50 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Thu Feb 16 21:07:40 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <43F4DF0C.7040807@tannagh.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+Message-ID: <80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+
+I am not replying to any one question in particular, hence the
+top-posting of this reply.
+
+Every operating system/system software has quirk and special cases on
+different platforms/user setups. Official documentation should deal
+with the most general case, dealing with special cases that are more
+troublesome specifically if required. This is the case with all
+documentation, everywhere. A windows installation/upgrade guide or
+movable type upgrade guide (just examples) do not try to explain how
+to install/upgrade it on EVERY system, but instead just focusses on
+the steps involved, in general.
+
+In general, the idea behind every WP upgrade is that files need to be
+_replaced_. Overwriting is in general, the accepted way of achieving
+this. Some setups may require deletion and then uploading -- BUT -
+even this is not a solution.
+
+I personally help upgrade around 20+ wp installations. One user who I
+help with administration used the previous upgrade guide and dutifully
+deleted all the wp-* documents in the root folder except for the
+wp-config.php file. His upgrade went poorly, since there was a
+subscribe plugin that had a wp-foo.php file in the root folder. This
+wouldn't have happened if he had overwritten files, instead of
+deleting and upgrading. This is a special case where the
+"delete-and-upload" philosophy turned out to be worse than the
+"overwrite" approach. Does this make you lean towards "overwrite" now
+that you know this? I suppose not.
+
+WP support and documentation are such difficult problems in general
+due to the scope that we define for ourselves. A user who does not
+know the basics of hosting a website and adminstering a user account
+(her own) on a server should not expect to get lessons about the same
+from the documentation for a web application! If that hasn't sunk in,
+what I am saying is the equivalent of "User documentation for gmail
+should not include instructions for installing a browser" and the
+like.
+
+There is no reason to feel bad about saying "sorry but that is outside
+our ken". The sooner we learn that the better. At least, the official
+set of documentation resources should not be crippled by this. Setting
+a modest goal (for documentation) is not a crime.
+
+About the upgrade guide - what I wrote was a draft - you can update it
+with links to address the problems posed here. Support volunteers can
+refer people with upgrade problems to the more detailed guide and
+request them to follow that on their restored backup of the
+un-upgraded wp install before proceeding further.
+
+What right does Carthik, who does not spend ANY time on the forums
+have to lecture us about support, you ask? Well, I have been there,
+and I stopped going there from when the number of issues, and the
+kinds of user questions I was assumed to be responsible to support
+outgrew my interest. Remember - this is all voluntary, and the people
+who put the most into support have probably gained more from it than
+people who haven't.
+
+Giving up on improving something, and finding an acceptable via-media
+compromise is negative. I will take my shot at improving the guide for
+which I am responsible now.
+
+Last point -- the usefulness of user documentation approaches zero as
+the length of the articles increases beyond reasonable need. Just like
+an over-cluttered UI, or too many options, this turns people off,
+terribly. So lets keep the essence easily available, and the details
+available for only those who need it.
+
+
+Carthik.
+
+On 2/16/06, TechGnome <tg@tannagh.com> wrote:
+> Here's a thought, and call me crazy if you want.... include the delete
+> files step in the codex directions.... then as a caveat to that
+> direction, include a link to another Codex page that asks and answers
+> the question "Q: Why am I told to delete my files." A: Because it has
+> been our experince over the last few years that FTP clients are not
+> always reliable in actualy overwriting files and some may retain their
+> old code. ... etc..."
+>
+> Just a thought... Could also be x-referenced with the Upgrade FAQ (if
+> there is one.)
+>
+> -tg
+>
+>
+> Michael B wrote:
+> > What would be wrong with a 10 minute upgrade, vs a 5 minute.  Is there
+> > competition out there that WP is trying to "beat"?  I'd rather give
+> > someone more detailed instructions and it have a lower percentage of
+> > error, than the short and sweet, and then see their frustration level
+> > go through the roof, and start bad mouthing WP for being too "hard",
+> > and posting threads, "HELP!!!! UPGRADED VIA CODEX, AND MY BLOG IS
+> > BROKEN!!!!!!PLEAZEEEEEE!!!!HELP!!!!!!!!"
+> >
+> >
+> > ------------------------------------------------------------------------
+> >
+> > _______________________________________________
+> > wp-docs mailing list
+> > wp-docs@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-docs
+> >
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From miklb.online at gmail.com  Thu Feb 16 21:14:23 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Thu Feb 16 21:16:16 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+Message-ID: <122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+
+On 2/16/06, Carthik Sharma <carthik@gmail.com> wrote:
+>
+>
+> There is no reason to feel bad about saying "sorry but that is outside
+> our ken". The sooner we learn that the better. At least, the official
+> set of documentation resources should not be crippled by this. Setting
+> a modest goal (for documentation) is not a crime.
+> ... Support volunteers can
+> refer people with upgrade problems to the more detailed guide and
+> request them to follow that on their restored backup of the
+> un-upgraded wp install before proceeding further.
+
+
+Sure, put the burden on the support forums.
+
+What right does Carthik, who does not spend ANY time on the forums
+> have to lecture us about support, you ask? Well, I have been there,
+> and I stopped going there from when the number of issues, and the
+> kinds of user questions I was assumed to be responsible to support
+> outgrew my interest. Remember - this is all voluntary, and the people
+> who put the most into support have probably gained more from it than
+> people who haven't.
+
+
+
+I take great offense to that statement.
+
+
+>
+> Carthik.
+>
+>
+>
+--
+------------------------------------------------------------------
+~Michael Bishop
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060216/13dc5c66/attachment.htm
+From carthik at gmail.com  Thu Feb 16 21:19:39 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Thu Feb 16 21:21:31 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+Message-ID: <80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+
+On 2/16/06, Michael B <miklb.online@gmail.com> wrote:
+>
+>
+> On 2/16/06, Carthik Sharma <carthik@gmail.com> wrote:
+> >
+> > There is no reason to feel bad about saying "sorry but that is outside
+> > our ken". The sooner we learn that the better. At least, the official
+> > set of documentation resources should not be crippled by this. Setting
+> > a modest goal (for documentation) is not a crime.
+> > ... Support volunteers can
+> > refer people with upgrade problems to the more detailed guide and
+> > request them to follow that on their restored backup of the
+> > un-upgraded wp install before proceeding further.
+>
+> Sure, put the burden on the support forums.
+Did I? All I said is lost, for no good purpose, if that is what you
+got out of it. I can repeat it, just so I get it right -- it is NOT
+the support vols' burden to deal with users who cannot follow
+instructions. Support Vols can direct users to the detailed upgrade
+guide, and expect them to use it before asking any more questions. If
+users can't take the extra effort to get things working, support
+volunteers need not go out of their way.
+
+>
+> > What right does Carthik, who does not spend ANY time on the forums
+> > have to lecture us about support, you ask? Well, I have been there,
+> > and I stopped going there from when the number of issues, and the
+> > kinds of user questions I was assumed to be responsible to support
+> > outgrew my interest. Remember - this is all voluntary, and the people
+> > who put the most into support have probably gained more from it than
+> > people who haven't.
+>
+>
+> I take great offense to that statement.
+I was trying to anticipate what you might feel after you read what I wrote.
+It would be great if you were more verbose about what offended you
+(or, is it just me who's obnoxious?)
+
+Carthik.
+>
+> >
+> >
+> > Carthik.
+> >
+> >
+> >
+>
+> --
+> ------------------------------------------------------------------
+> ~Michael Bishop
+>
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+>
+
+
+--
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From miklb.online at gmail.com  Thu Feb 16 21:34:08 2006
+From: miklb.online at gmail.com (Michael B)
+Date: Thu Feb 16 21:35:57 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+	<80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+Message-ID: <122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+
+On 2/16/06, Carthik Sharma <carthik@gmail.com> wrote:
+>
+>
+> (or, is it just me who's obnoxious?)
+
+
+Yes, in my opinion.  And rather than get into a pissing match, as you've so
+pointed out, this is voluntary, consider me done with this issue, this mail
+list and consider me done with answering questions in the forums.  I'm tired
+of the division between the forum and codex, which in my time, goes back to
+last summer and Lorelle's rough shod control over what, where, how things
+went into the codex.
+
+The obstacles in the forums these days in answering questions is great
+enough, to have more put up by some ego trip of what shouldn't be included
+in an upgrade page is absurd.  So go on dealing with the least common
+denominator, and leave the others to fend for themselves.
+Good Luck.
+
+
+
+--
+------------------------------------------------------------------
+~Michael Bishop
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060216/e6463b23/attachment.htm
+From carthik at gmail.com  Thu Feb 16 21:59:04 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Thu Feb 16 22:00:52 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+	<80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+	<122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+Message-ID: <80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+
+On 2/16/06, Michael B <miklb.online@gmail.com> wrote:
+>
+>
+> On 2/16/06, Carthik Sharma <carthik@gmail.com> wrote:
+> >
+> > (or, is it just me who's obnoxious?)
+>
+> Yes, in my opinion.
+
+That is a first - I suppose I can say with confidence that I have
+tried to be considerate to all opinions, and be extra careful to
+explain myself on public mailing lists, just so that I am not a
+"troll" or someone who easily offends. I'm sorry I was obnoxious.
+I can state my point of view, and argue rationally, but I cannot
+counter invective.
+
+That said, Michael, you are more productive and useful to others
+around here, than me, right now. Please don't give things up because
+of me.
+
+I am not a part of the picture. I itched and I scratched, but I did
+not expect this result - at all. I have been inactive with WP for a
+while (since January), which is why I asked my name to be removed from
+the blogroll, and Matt did that, and removed my name from the
+wp.org/about/ page too. I just didn't see the need to make my private
+decision public before. I felt VERY self-conscious writing the
+previous email, which is why I explained why what I was writing should
+not offend support volunteers who spend time at the forums (when I
+currently don't). That seems to have had the opposite effect. Looks
+like there is nothing I can say to discuss issues without upsetting
+someone emotionally. I am currently not worth you stopping work on WP.
+
+> And rather than get into a pissing match,
+That has NEVER been my intention, not in this thread, or any other.
+Please don't accuse me without first knowing me.
+>as you've so
+> pointed out, this is voluntary, consider me done with this issue, this mail
+> list and consider me done with answering questions in the forums.  I'm tired
+> of the division between the forum and codex, which in my time, goes back to
+> last summer and Lorelle's rough shod control over what, where, how things
+> went into the codex.
+
+You should not discourage volunteers, no matter what you *feel*. Use
+your reason, not emotions to explain what you think is right, and to
+get it accepted. Lorelle never exercised rough-shod control. No one
+did. The period you speak of is from when I was in the business of
+helping out at the codex. This source of information that many are
+proud of, that many refer to, was the answer to the dig "wordpress is
+really cool, but it doesn't have good documentation". Michael -- I
+have spent more hours (than probably two or three people I shall not
+name) at work on the Codex that anyone else, including you. Yet, I
+have never been possessive or protective about this work.  I'm sorry
+you seem to think otherwise about me, Lorelle, and maybe others.
+
+>
+> The obstacles in the forums these days in answering questions is great
+> enough, to have more put up by some ego trip of what shouldn't be included
+> in an upgrade page is absurd.
+
+This is NOT an ego trip. This is a rational conversation.
+
+> So go on dealing with the least common
+> denominator, and leave the others to fend for themselves.
+
+Have you seen my edits to the page (which I made as I said I would in
+the previous mail)? Do you agree to what's there? If not, how can we
+improve it?
+From fork at herebox.org  Fri Feb 17 00:55:50 2006
+From: fork at herebox.org (. .. ...herebox.org... .. .)
+Date: Fri Feb 17 00:58:08 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<43F4D6CD.2000508@skippy.net>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+	<80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+	<122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+	<80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+Message-ID: <85efe87a0602161655gf80f1e8rb26742d60fdf1a02@mail.gmail.com>
+
+To bring the discussion back to a potential worst-case upgrade process --
+
+1) follow simple instructions (including full backup and overwrite) -- FAIL
+2) delete all files, keep directory structure
+3) follow long instructions, but instead of deleting everything /but/
+select files -- start by uploading only the select files.
+4) upload new wordpress version -- FAIL
+5) forums
+
+if we begin with the detailed instructions:
+
+1) follow long instructions, deleting everything /but/ certain files
+.. (for me, this is annoying -- and even tricky, causing failure and
+frustration)
+2) upload new wordpress version -- FAIL
+3) forums
+
+-------------
+
+The 10% (probably higher) of users whose upgrade works using the
+overwrite method will be giddy, the 90% of users who have to upload
+the specific files they need will complete everything in an extra few
+minutes.  I don't see this change will resulting in significant
+increase in forum traffic.
+
+-mike
+From kaf at szub.net  Fri Feb 17 02:24:14 2006
+From: kaf at szub.net (Kaf Oseo)
+Date: Fri Feb 17 02:27:54 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>	<43F4D6CD.2000508@skippy.net>	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>	<43F4DF0C.7040807@tannagh.com>	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>	<80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>	<122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+	<80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+Message-ID: <43F533CE.10909@szub.net>
+
+Everyone,
+
+I hope this doesn't inflame things further (sorry for not stepping in
+before), but I find it amazing so few people here accept that a brief
+upgrade document cannot mention both overwriting and deleting as user
+options.
+
+Step 1 is broken down into two individual steps (which really makes
+this a six step guide, but let's not quibble) while step 3 is a single
+paragraph, less than 100 words. If we can give up another 100 (150,
+maximum) to the art of upgrading, I'll tackle a rewrite on this which
+informs both overwriting and deleting, while stepping around concerns
+over possible user confusion about the two.
+
+Are we fine with that?
+
+-Kaf
+From carthik at gmail.com  Fri Feb 17 03:39:50 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Fri Feb 17 03:41:45 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <43F533CE.10909@szub.net>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+	<80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+	<122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+	<80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+	<43F533CE.10909@szub.net>
+Message-ID: <80f75db0602161939l3115d2f3l788606d8d77e7dac@mail.gmail.com>
+
+On 2/16/06, Kaf Oseo <kaf@szub.net> wrote:
+> Everyone,
+>
+> I hope this doesn't inflame things further (sorry for not stepping in
+> before), but I find it amazing so few people here accept that a brief
+> upgrade document cannot mention both overwriting and deleting as user
+> options.
+>
+> Step 1 is broken down into two individual steps (which really makes
+> this a six step guide, but let's not quibble) while step 3 is a single
+> paragraph, less than 100 words. If we can give up another 100 (150,
+> maximum) to the art of upgrading, I'll tackle a rewrite on this which
+> informs both overwriting and deleting, while stepping around concerns
+> over possible user confusion about the two.
+>
+> Are we fine with that?
+>
+
+Go for it, Kaf. Since when did you have to ask before editing? ;)
+(rhetorical question, of course).
+
+Carthik.
+> -Kaf
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From dmhouse at gmail.com  Fri Feb 17 11:05:17 2006
+From: dmhouse at gmail.com (David House)
+Date: Fri Feb 17 11:07:21 2006
+Subject: [wp-docs] 5-Step Upgrade in Upgrading WordPress
+In-Reply-To: <85efe87a0602161655gf80f1e8rb26742d60fdf1a02@mail.gmail.com>
+References: <E7340445E0595A418B2F8DE0AE480E2009BA9BB1@ucmail6.ad.uc.edu>
+	<122d4b4d0602161158v2eb449e1sa11e2791bf7e6d3@mail.gmail.com>
+	<122d4b4d0602161204i3836bcc8ld981507f368e615b@mail.gmail.com>
+	<43F4DF0C.7040807@tannagh.com>
+	<80f75db0602161305l1730d3c6xf0cf46f7035c4b6b@mail.gmail.com>
+	<122d4b4d0602161314h6660c045ra23f085c12d3f835@mail.gmail.com>
+	<80f75db0602161319mf41ebddvce7e0845957cc388@mail.gmail.com>
+	<122d4b4d0602161334p780b0802tbeabde5a6ee49c66@mail.gmail.com>
+	<80f75db0602161359h51a3e871o4596283a4e4abe61@mail.gmail.com>
+	<85efe87a0602161655gf80f1e8rb26742d60fdf1a02@mail.gmail.com>
+Message-ID: <ebe43d680602170305o3ed4fbf1n@mail.gmail.com>
+
+On 17/02/06, . .. ...herebox.org... .. . <fork@herebox.org> wrote:
+> The 10% (probably higher) of users whose upgrade works using the
+> overwrite method will be giddy, the 90% of users who have to upload
+> the specific files they need will complete everything in an extra few
+> minutes.  I don't see this change will resulting in significant
+> increase in forum traffic.
+
+I _very_ much doubt that the upload will only work in 10% of cases. I
+imagine it to be more like 85%, 90% (although I don't have any figures
+to go by).
+
+--
+-David House, dmhouse@gmail.com, http://xmouse.ithium.net
+From mhancock at us.net  Thu Feb 23 01:58:20 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Thu Feb 23 02:00:20 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+Message-ID: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+
+Codex is likely to be ported into a WordPress like format using the blicki
+plugin (http://svn.wp-plugins.org/blicki/trunk/).
+
+Developers are asking for input into what functions and wiki markup should
+be included in that product.
+
+Please make your comments and wishes known or add to this list:
+http://codex.wordpress.org/User:MichaelH/Blicki_Features
+
+Thanks for any input.
+
+Michael E. Hancock
+
+From mpt at myrealbox.com  Fri Feb 24 12:22:21 2006
+From: mpt at myrealbox.com (Matthew Paul Thomas)
+Date: Fri Feb 24 12:24:33 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+Message-ID: <5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+
+On Feb 23, 2006, at 2:58 PM, Michael E. Hancock wrote:
+>
+> Codex is likely to be ported into a WordPress like format using the 
+> blicki plugin (http://svn.wp-plugins.org/blicki/trunk/).
+> ...
+
+Why? Is it just to make it easier to update the theme across 
+wordpress.org, or are there other reasons?
+
+Cheers
+-- 
+Matthew Paul Thomas
+http://mpt.net.nz/
+
+From justin at wantmoore.com  Fri Feb 24 13:19:53 2006
+From: justin at wantmoore.com (Justin Moore)
+Date: Fri Feb 24 13:23:18 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+	<5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+Message-ID: <43FF07F9.3080704@wantmoore.com>
+
+Matthew Paul Thomas wrote:
+> Why? Is it just to make it easier to update the theme across 
+> wordpress.org, or are there other reasons?
+
+Someone more "in the know" feel free to correct me if I'm wrong, but I 
+think it has to do with problems with the MediaWiki code. There's 
+something special about the Codex that's keeping us from being able to 
+upgrade to newer (faster, safer, etc.) versions. Plus the devs would be 
+more comfortable hacking on something WP-based.
+
+--
+Justin Moore
+www.wantmoore.com
+www.mindstormhosting.com
+From chris.lott at gmail.com  Fri Feb 24 16:30:29 2006
+From: chris.lott at gmail.com (Chris Lott)
+Date: Fri Feb 24 16:32:33 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+Message-ID: <9b1b9dab0602240830r406f4fddjda925bf58ff9fcb1@mail.gmail.com>
+
+On 2/22/06, Michael E. Hancock <mhancock@us.net> wrote:
+> Codex is likely to be ported into a WordPress like format using the blicki
+> plugin (http://svn.wp-plugins.org/blicki/trunk/).
+
+Not that it matters, but a big -1, filed under "wheel, reinvention of"
+
+c
+From m at mullenweg.com  Mon Feb 27 04:37:37 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon Feb 27 04:39:58 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+	<5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+Message-ID: <44028211.1040401@mullenweg.com>
+
+Matthew Paul Thomas wrote:
+> Why? Is it just to make it easier to update the theme across 
+> wordpress.org, or are there other reasons?
+
+* We're working on a wiki plugin anyway
+* User system integration across WP.org (one login)
+* Performance
+* Upgradability (no one has been able to upgrade the current codex)
+* Possible new functionality
+
+As has been discussed in several WP meetups, it's going to be up to the 
+docs group whether to make the change or not. I'm sure lots of people 
+will find a wiki plugin useful regardless.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+From mhancock at us.net  Mon Feb 27 16:58:01 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Mon Feb 27 17:00:28 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600><5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+	<44028211.1040401@mullenweg.com>
+Message-ID: <0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+
+From: "Matt Mullenweg" <m@mullenweg.com>
+> Matthew Paul Thomas wrote:
+> > Why? Is it just to make it easier to update the theme across
+> > wordpress.org, or are there other reasons?
+>
+> * We're working on a wiki plugin anyway
+> * User system integration across WP.org (one login)
+> * Performance
+> * Upgradability (no one has been able to upgrade the current codex)
+> * Possible new functionality
+>
+> As has been discussed in several WP meetups, it's going to be up to the
+> docs group whether to make the change or not. I'm sure lots of people
+> will find a wiki plugin useful regardless.
+
+
+If we have a vote, then I'd say stick with Mediawiki and find out why Codex
+can't be upgraded.
+
+So, to put my money where my mouth is, I will pay a bounty of $350.00 US to
+the first person who upgrades Codex to MediaWiki 1.5.6 before April 1, 2006!
+Two rules:  the dataset you upgrade must be done from the current data and
+you must warn this Email list, in advance, you are doing the actual upgrade,
+so we can halt any edits of Codex until the upgrade is completed.
+
+[[User:MichaelH]]
+
+
+
+
+From carthik at gmail.com  Mon Feb 27 19:11:53 2006
+From: carthik at gmail.com (Carthik Sharma)
+Date: Mon Feb 27 19:14:07 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600>
+	<5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>
+	<44028211.1040401@mullenweg.com>
+	<0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+Message-ID: <80f75db0602271111j61247f23g28ef0cf1fb13f997@mail.gmail.com>
+
+On 2/27/06, Michael E. Hancock <mhancock@us.net> wrote:
+> From: "Matt Mullenweg" <m@mullenweg.com>
+> > Matthew Paul Thomas wrote:
+> > > Why? Is it just to make it easier to update the theme across
+> > > wordpress.org, or are there other reasons?
+> >
+> > * We're working on a wiki plugin anyway
+> > * User system integration across WP.org (one login)
+> > * Performance
+> > * Upgradability (no one has been able to upgrade the current codex)
+> > * Possible new functionality
+> >
+> > As has been discussed in several WP meetups, it's going to be up to the
+> > docs group whether to make the change or not. I'm sure lots of people
+> > will find a wiki plugin useful regardless.
+>
+>
+> If we have a vote, then I'd say stick with Mediawiki and find out why Codex
+> can't be upgraded.
+>
+> So, to put my money where my mouth is, I will pay a bounty of $350.00 US to
+> the first person who upgrades Codex to MediaWiki 1.5.6 before April 1, 2006!
+> Two rules:  the dataset you upgrade must be done from the current data and
+> you must warn this Email list, in advance, you are doing the actual upgrade,
+> so we can halt any edits of Codex until the upgrade is completed.
+
+I would take up on that offer. The biggest problem is that most of us
+don't have access to the database, or the codex php source. When Matt
+said "many have tried", I assume it was the WP devs (Matt, Ryan)
+and/or some other webhost pros that tried and failed.
+
+If I recall correctly, the most significant problem is that all wiki
+pages don't have a /wiki/ prefix - this I learnt from some mediawiki
+devs when troubleshooting some image display problem at the codex.
+This is an installation error, and sometimes I think that with
+mediawiki's documentation, it is a wonder the codex is working at all.
+
+So MichaelH, without access to the codebase and the database, the
+offer is crippled :)
+
+Carthik.
+>
+> [[User:MichaelH]]
+>
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+Ph.D. Candidate
+University of Central Florida
+Homepage: http://carthik.net
+From eads at invisibleinstitute.com  Mon Feb 27 23:51:56 2006
+From: eads at invisibleinstitute.com (David Eads)
+Date: Mon Feb 27 23:55:14 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600><5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>	<44028211.1040401@mullenweg.com>
+	<0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+Message-ID: <4403909C.9090002@invisibleinstitute.com>
+
+> If we have a vote, then I'd say stick with Mediawiki and find out why Codex
+> can't be upgraded.
+
+> So, to put my money where my mouth is, I will pay a bounty of $350.00 US to
+> the first person who upgrades Codex to MediaWiki 1.5.6 before April 1, 2006!
+
+
+Can we get a tarball of the database and mediawiki instance?
+
+Two other caveats:  1) If they do it ON April 1, I think the person 
+deserves a booby prize.   2) If *I* do it, can I please pretty please at 
+least demo a version where the design doesn't put the wiki functionality 
+in a sidebar but instead runs it across the top as tabs?
+
+David
+www.viewfromtheground.com
+From mhancock at us.net  Tue Feb 28 00:56:47 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Tue Feb 28 00:59:10 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600><5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>	<44028211.1040401@mullenweg.com><0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+	<4403909C.9090002@invisibleinstitute.com>
+Message-ID: <11c801c63c01$da2353e0$6402a8c0@DELL8600>
+
+From: "David Eads" <eads@invisibleinstitute.com>
+> 2) If *I* do it, can I please pretty please at
+> least demo a version where the design doesn't put the wiki functionality
+> in a sidebar but instead runs it across the top as tabs?
+
+Mediawiki 1.5.6 comes delivered with these skins:
+Simple, Monobook, MySkin, Classic, Cologne Blue, Nostalgia, and Chick.
+
+The Monobook has the article, discussion, edit, history, protect, delete,
+move, and watch as tabs if that's what you are talking about.
+
+You can also get that now in Codex under Preferences, Skins.
+
+I'd say the more skins the better ;)
+
+
+[[User:MichaelH]]
+
+From m at mullenweg.com  Tue Feb 28 22:21:45 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue Feb 28 22:26:07 2006
+Subject: [wp-docs] Feature requirements for the 'new Codex'
+In-Reply-To: <4403909C.9090002@invisibleinstitute.com>
+References: <777501c6381c$9f8103b0$6402a8c0@DELL8600><5b24b6b6e87f38d506ea62b86cedbc63@myrealbox.com>	<44028211.1040401@mullenweg.com>	<0ff101c63bbe$f83fbeb0$6402a8c0@DELL8600>
+	<4403909C.9090002@invisibleinstitute.com>
+Message-ID: <4404CCF9.4010002@mullenweg.com>
+
+David Eads wrote:
+> Can we get a tarball of the database and mediawiki instance?
+
+I have sent it to trusted people before, for example skippy, but I'm not 
+going to post it because it contains people's login info.
+
+Michael, I appreciate your enthusiasm for MW but you may also want to be 
+a realist.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com

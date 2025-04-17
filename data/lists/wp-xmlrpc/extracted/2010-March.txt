@@ -1,0 +1,198 @@
+From eitanadlerlist at gmail.com  Wed Mar 31 07:08:32 2010
+From: eitanadlerlist at gmail.com (Eitan Adler)
+Date: Wed, 31 Mar 2010 10:08:32 +0300
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+Message-ID: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+
+Per http://codex.wordpress.org/XML-RPC_Support only three (+1 for
+wordpress) APIs are supported.
+Is there anything I could to improve the XML-RPC implementation? Are
+there any services that support XML-RPC that might be useful to have
+in wordpress either as a plugin or in core?
+
+From willmot at gmail.com  Wed Mar 31 08:05:00 2010
+From: willmot at gmail.com (Mr Tom Willmot)
+Date: Wed, 31 Mar 2010 09:05:00 +0100
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+In-Reply-To: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+References: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+Message-ID: <C4D2B4E4-8B7B-4A54-9CEA-15B13466326D@gmail.com>
+
+I would love to see plugin management and support for core/plugin/ 
+theme updating via xmlrpc
+
+Sent from my iPhone.
+
+On 31 Mar 2010, at 08:08, Eitan Adler <eitanadlerlist at gmail.com> wrote:
+
+> Per http://codex.wordpress.org/XML-RPC_Support only three (+1 for
+> wordpress) APIs are supported.
+> Is there anything I could to improve the XML-RPC implementation? Are
+> there any services that support XML-RPC that might be useful to have
+> in wordpress either as a plugin or in core?
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at josephscott.org  Wed Mar 31 15:42:18 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 31 Mar 2010 09:42:18 -0600
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+In-Reply-To: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+References: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+Message-ID: <p2nbbd639f51003310842s36c8cdc6u607c99775af60f64@mail.gmail.com>
+
+On Wed, Mar 31, 2010 at 1:08 AM, Eitan Adler <eitanadlerlist at gmail.com> wrote:
+> Per http://codex.wordpress.org/XML-RPC_Support only three (+1 for
+> wordpress) APIs are supported.
+> Is there anything I could to improve the XML-RPC implementation? Are
+> there any services that support XML-RPC that might be useful to have
+> in wordpress either as a plugin or in core?
+
+
+Looking through the web interface in wp-admin, there are numerous
+things that WordPress doesn't yet expose via XML-RPC.  Someone already
+mentioned plugin/theme management.  Basically any piece of wp-admin
+that isn't already exposed is a potential target for improvement.
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From eric at eamann.com  Wed Mar 31 15:53:04 2010
+From: eric at eamann.com (Eric Mann)
+Date: Wed, 31 Mar 2010 08:53:04 -0700
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+In-Reply-To: <p2nbbd639f51003310842s36c8cdc6u607c99775af60f64@mail.gmail.com>
+References: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+	<p2nbbd639f51003310842s36c8cdc6u607c99775af60f64@mail.gmail.com>
+Message-ID: <01eb01cad0ea$40f2d060$c2d87120$@com>
+
+One thing that I find useful is directly related to plug-ins.  Some plug-ins
+run checks before activation to make sure a particular WP installation can
+support it (checking for the gd image library, checking PHP version
+compatibility, checking to make sure WP is up-to-date, etc).  When those
+checks fail, some plug-ins will refuse to activate.  It's better to display
+a "please upgrade XX feature" than to break a site.  Unfortunately, many
+uses take that kind of failure to mean the plug-in is broken and report it
+as such, leaving a developer scratching his or her head trying to figure out
+what broke.  Other times a plug-in might throw a fatal error during
+operation (maybe the user installed an incompatible javascript library or
+edited their theme to pass the wrong variables).  Once again, users report
+the plug-in as broken and the developer is left with nothing.
+
+I built a rudimentary system that uses XML-RPC in my plug-ins to report back
+to my server.  It's only active in a few private plug-ins right now, but
+here's the gist: When a plug-in is first activated, it uses XML-RPC to
+report back to me what plug-in it is, where it was activated, the admin's
+contact email (in case I need to contact them), and the highest version of
+everything installed (WP, PHP, MySQL, etc).  If installation fails, it sends
+me an error message that ties in to this registration ... that way I can
+contact the blog owner and explain what went wrong and hopefully how to fix
+it.
+
+Ideally I'd be able to hook in to WP's built in error system to report other
+runtime errors as well, but right now I just register activation, error on
+activation, and deactivation through XML-RPC.
+
+Having a full system would be a LIFESAVER for me as a developer.  There have
+been a handful of times where I've released a plug-in for the current
+version of WP only to have users who'd refused to upgrade install it and
+flame me online for distributing a "broken" plug-in.  
+
+-----Original Message-----
+From: wp-xmlrpc-bounces at lists.automattic.com
+[mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Wednesday, March 31, 2010 8:42 AM
+To: wp-xmlrpc at lists.automattic.com
+Subject: Re: [wp-xmlrpc] GSOC - are there any improvements that could be
+made
+
+On Wed, Mar 31, 2010 at 1:08 AM, Eitan Adler <eitanadlerlist at gmail.com>
+wrote:
+> Per http://codex.wordpress.org/XML-RPC_Support only three (+1 for
+> wordpress) APIs are supported.
+> Is there anything I could to improve the XML-RPC implementation? Are
+> there any services that support XML-RPC that might be useful to have
+> in wordpress either as a plugin or in core?
+
+
+Looking through the web interface in wp-admin, there are numerous
+things that WordPress doesn't yet expose via XML-RPC.  Someone already
+mentioned plugin/theme management.  Basically any piece of wp-admin
+that isn't already exposed is a potential target for improvement.
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From willmot at gmail.com  Wed Mar 31 16:14:17 2010
+From: willmot at gmail.com (Mr Tom Willmot)
+Date: Wed, 31 Mar 2010 17:14:17 +0100
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+In-Reply-To: <01eb01cad0ea$40f2d060$c2d87120$@com>
+References: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com>
+	<p2nbbd639f51003310842s36c8cdc6u607c99775af60f64@mail.gmail.com>
+	<01eb01cad0ea$40f2d060$c2d87120$@com>
+Message-ID: <51227D52-F5FC-472F-BA8B-168CCF74C10F@gmail.com>
+
+Has there been any discussion previously about someway to activate xmlrpc via something like oauth so that clients could authenticate and activate the full API without requiring the user to specifically log in to their site and activate it via the settings.
+
+Using an authentication system such as oauth would also mean that the WordPress could keep a record of authorised clients and allow authority to be rescinded.
+
+Kind Regards,
+
+Tom Willmot
+Edge Designs
+
+Edge Designs
+53 Yeoman Street,
+Bonsall,
+Derbyshire,
+England
+DE4 2AA
+
+e tom at edgedesigns.org
+m +44 (0) 7832 296439
+t +44 (0) 1629 820859
+skype edge.designs
+w edgedesigns.org
+
+From joseph at josephscott.org  Wed Mar 31 18:25:12 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 31 Mar 2010 12:25:12 -0600
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+In-Reply-To: <51227D52-F5FC-472F-BA8B-168CCF74C10F@gmail.com>
+References: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com> 
+	<p2nbbd639f51003310842s36c8cdc6u607c99775af60f64@mail.gmail.com> 
+	<01eb01cad0ea$40f2d060$c2d87120$@com>
+	<51227D52-F5FC-472F-BA8B-168CCF74C10F@gmail.com>
+Message-ID: <w2gbbd639f51003311125oee20d519sdea5db34b091a3b@mail.gmail.com>
+
+OAuth is something that we've talked about several times for
+WordPress.  There is even a plugin that works, but still needs lots of
+TLC before it's ready for prime time.
+
+
+On Wed, Mar 31, 2010 at 10:14 AM, Mr Tom Willmot <willmot at gmail.com> wrote:
+> Has there been any discussion previously about someway to activate xmlrpc via something like oauth so that clients could authenticate and activate the full API without requiring the user to specifically log in to their site and activate it via the settings.
+>
+> Using an authentication system such as oauth would also mean that the WordPress could keep a record of authorised clients and allow authority to be rescinded.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

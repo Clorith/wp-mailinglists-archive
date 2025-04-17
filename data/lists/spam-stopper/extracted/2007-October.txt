@@ -1,0 +1,167 @@
+From oldguy at oldguy.us  Fri Oct 26 17:41:21 2007
+From: oldguy at oldguy.us (Richard Williamson)
+Date: Fri, 26 Oct 2007 10:41:21 -0700
+Subject: [spam-stopper] Server delays?
+Message-ID: <7.0.1.0.2.20071026103859.02293108@oldguy.us>
+
+Is anybody else experiencing extraordinarily long response times from 
+the Akismet server?
+
+Me and other users of my application have seen very long delays 
+starting a few days ago. It seems to be an intermittent problem.
+
+www.oldguy.us
+Skype:  noldguy 
+
+
+
+From lloydomattic at gmail.com  Fri Oct 26 20:26:14 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Fri, 26 Oct 2007 13:26:14 -0700
+Subject: [spam-stopper] Server delays?
+In-Reply-To: <7.0.1.0.2.20071026103859.02293108@oldguy.us>
+References: <7.0.1.0.2.20071026103859.02293108@oldguy.us>
+Message-ID: <70ebb7140710261326j2ae80da2sc919b14e1777a945@mail.gmail.com>
+
+On 10/26/07, Richard Williamson <oldguy at oldguy.us> wrote:
+> Is anybody else experiencing extraordinarily long response times from
+> the Akismet server?
+>
+> Me and other users of my application have seen very long delays
+> starting a few days ago. It seems to be an intermittent problem.
+
+Barry has been doing some work that I think relate to resolving this issue.
+
+Thanks,
+-- 
+Lloyd Budd | Digital Entomologist | | Skype:foolswisdom
+WordPress.com | WordPress.org | Automattic.com
+
+
+From mdale at dalegroup.net  Sat Oct 27 00:01:09 2007
+From: mdale at dalegroup.net (Michael Dale)
+Date: Sat, 27 Oct 2007 10:01:09 +1000
+Subject: =?iso-8859-1?Q?Re=3A_=5Bspam-stopper=5D_Server_delays=3F?=
+In-Reply-To: 7.0.1.0.2.20071026103859.02293108@oldguy.us
+Message-ID: <20071027000109.a5bfb040@mail.lttd.net>
+
+Is anybody else experiencing extraordinarily long response times from 
+  the Akismet server?
+    I'm just in the process of talking to Barry about it. It looks like a keep-alive issue. If you can change your akismet class to send HTTP/1.0 and not HTTP/1.1 that should help.
+
+Michael.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20071027/8ca24594/attachment.htm>
+
+From oldguy at oldguy.us  Sat Oct 27 01:39:39 2007
+From: oldguy at oldguy.us (Richard Williamson)
+Date: Fri, 26 Oct 2007 18:39:39 -0700
+Subject: [spam-stopper] Server delays?
+In-Reply-To: <20071027000109.a5bfb040@mail.lttd.net>
+References: <20071027000109.a5bfb040@mail.lttd.net>
+Message-ID: <7.0.1.0.2.20071026183829.02166c38@oldguy.us>
+
+Should that be a permanent change or should I return it to 1.0 after 
+the issue on the server is resolved?
+
+Richard
+
+Michael Dale wrote
+>Is anybody else experiencing extraordinarily long response times from
+>the Akismet server?
+>
+>
+>I'm just in the process of talking to Barry about it. It looks like 
+>a keep-alive issue. If you can change your akismet class to send 
+>HTTP/1.0 and not HTTP/1.1 that should help.
+>
+>Michael.
+
+www.oldguy.us
+Skype:  noldguy 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20071026/79a9177d/attachment.htm>
+
+From mdale at dalegroup.net  Sat Oct 27 01:56:29 2007
+From: mdale at dalegroup.net (Michael Dale)
+Date: Sat, 27 Oct 2007 11:56:29 +1000
+Subject: =?iso-8859-1?Q?Re=3A_=5Bspam-stopper=5D_Server_delays=3F?=
+In-Reply-To: 7.0.1.0.2.20071026183829.02166c38@oldguy.us
+Message-ID: <20071027015629.e8fc68f1@mail.lttd.net>
+
+> Should that be a permanent change or should I return it to 1.0 after 
+> the issue on the server is resolved?
+
+I WAS using 1.1 and changed to 1.0.
+
+>From looking at the akismet class in WordPress they use HTTP/1.0.
+
+I would recommend 1.0 at this stage.
+
+Michael.
+
+
+From oldguy at oldguy.us  Sat Oct 27 02:41:33 2007
+From: oldguy at oldguy.us (Richard Williamson)
+Date: Fri, 26 Oct 2007 19:41:33 -0700
+Subject: [spam-stopper] Server delays?
+In-Reply-To: <20071027015629.e8fc68f1@mail.lttd.net>
+References: <20071027015629.e8fc68f1@mail.lttd.net>
+Message-ID: <7.0.1.0.2.20071026194007.020ee230@oldguy.us>
+
+Thanks. Please post to the list when the issue on the server is 
+resolved. I have some users that have turned off spam checking and I 
+want to notify them when it can be turned back on.
+
+Richard
+
+Michael Dale wrote
+> > Should that be a permanent change or should I return it to 1.0 after
+> > the issue on the server is resolved?
+>
+>I WAS using 1.1 and changed to 1.0.
+>
+> >From looking at the akismet class in WordPress they use HTTP/1.0.
+>
+>I would recommend 1.0 at this stage.
+>
+>Michael.
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+www.oldguy.us
+Skype:  noldguy 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20071026/dd224611/attachment.htm>
+
+From barry at automattic.com  Mon Oct 29 21:45:42 2007
+From: barry at automattic.com (Barry Abrahamson)
+Date: Mon, 29 Oct 2007 14:45:42 -0700
+Subject: [spam-stopper] Server delays?
+In-Reply-To: <70ebb7140710291442yeb1a7cfia58f8962a5ef2e57@mail.gmail.com>
+References: <20071027015629.e8fc68f1@mail.lttd.net>	
+	<7.0.1.0.2.20071026194007.020ee230@oldguy.us>
+	<70ebb7140710291442yeb1a7cfia58f8962a5ef2e57@mail.gmail.com>
+Message-ID: <47265486.6000207@automattic.com>
+
+I would recommend 1.0 at this stage.
+
+It appears there was a temporary network routing problem that affected 
+some traffic between Europe and Africa and one of the Akismet data 
+centers.  The problem has since been resolved.  There should be no need 
+to change anything in your code to force HTTP/1.0.
+
+If you are still experiencing problems, please use the Akismet contact 
+form at http://akismet.com/contact/
+
+Thanks.
+-- 
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+

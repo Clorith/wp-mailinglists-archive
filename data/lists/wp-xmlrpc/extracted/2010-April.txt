@@ -1,0 +1,331 @@
+From eitanadlerlist at gmail.com  Fri Apr  2 08:46:42 2010
+From: eitanadlerlist at gmail.com (Eitan Adler)
+Date: Fri, 2 Apr 2010 11:46:42 +0300
+Subject: [wp-xmlrpc] GSOC - are there any improvements that could be made
+In-Reply-To: <01eb01cad0ea$40f2d060$c2d87120$@com>
+References: <a0777e081003310008q8ce1530w64dbb47babd28739@mail.gmail.com> 
+	<p2nbbd639f51003310842s36c8cdc6u607c99775af60f64@mail.gmail.com> 
+	<01eb01cad0ea$40f2d060$c2d87120$@com>
+Message-ID: <o2ja0777e081004020146wc970b2cu89c7819ac790206e@mail.gmail.com>
+
+> I built a rudimentary system that uses XML-RPC in my plug-ins to report back
+> to my server. ?It's only active in a few private plug-ins right now, but
+> here's the gist: When a plug-in is first activated, it uses XML-RPC to
+> report back to me what plug-in it is, where it was activated, the admin's
+> contact email (in case I need to contact them), and the highest version of
+> everything installed (WP, PHP, MySQL, etc). ?If installation fails, it sends
+> me an error message that ties in to this registration ... that way I can
+> contact the blog owner and explain what went wrong and hopefully how to fix
+> it.
+What about the privacy implications (regarding the contact email
+address)?  If such a system were to be implemented I would imagine
+that all the data would have to get back to wordpress.org (to be
+filtered and/or to avoid spyware plugins) and have the developers
+access it through some kind of web interface.
+
+> Having a full system would be a LIFESAVER for me as a developer. ?There have
+> been a handful of times where I've released a plug-in for the current
+> version of WP only to have users who'd refused to upgrade install it and
+> flame me online for distributing a "broken" plug-in.
+This system sounds very interesting to me.
+
+Here is what I imagine
+1) A new function would be created that gathers the information
+required and serializes it for use in xml-rpc. The information
+required would involve WP-install info and optionally php, mysql, etc
+information.
+2) the user would be presented with a dialog asking if they want to
+submit the report
+3) this information would get sent to some domain (likely
+wordpress.org) and collected in a database
+4) The user gets presented with a "problem report ID" along with the
+normal error message which they could use in reporting bugs.
+Furthermore the developers would have access to aggregate information
+about how their plugins are being used.
+
+From tony at baldwinsoftware.com  Sat Apr 10 19:03:45 2010
+From: tony at baldwinsoftware.com (tony baldwin)
+Date: Sat, 10 Apr 2010 15:03:45 -0400
+Subject: [wp-xmlrpc] new guy on list writing blog client
+Message-ID: <m2o5080587d1004101203h8540c87ag12e5e1ba7d7dde3e@mail.gmail.com>
+
+Hi,
+
+I think I'm the first to write a blog client in tcl/tk.
+Anyway, this weekend I implemented wordpress posting with metaWeblog/xml-rpc to
+Xpostulate (http://baldwinsoftware.com/xpost.html)
+Previously it was only posting to livejournal & clones thereof.
+I intend to add blogger functions, as well.
+I was having difficulty, and joined the list to ask some questions,
+but by the time I received
+verification of membership, I'd sorted everything out.
+
+The only blog client I'd found for linux that did wordpress posting,
+prior to building my own,
+as drivel, so, perhaps my work is relevant in that respect, too.
+I might be missing something...there may be more linux clients. I don't know.
+Mine, being tcl/tk, is pretty well cross-platform, although developed
+on a debian system.
+I have windows users who say it's working for them (haven't tested it
+only thing but
+debian and ubuntu, myself).
+
+I'll stick around and see what develops, all the same.
+
+./tony
+-- 
+http://www.baldwinlinguas.com
+http://www.baldwinsoftware.com
+
+From joseph at josephscott.org  Sun Apr 11 01:13:37 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 10 Apr 2010 19:13:37 -0600
+Subject: [wp-xmlrpc] new guy on list writing blog client
+In-Reply-To: <m2o5080587d1004101203h8540c87ag12e5e1ba7d7dde3e@mail.gmail.com>
+References: <m2o5080587d1004101203h8540c87ag12e5e1ba7d7dde3e@mail.gmail.com>
+Message-ID: <h2sbbd639f51004101813m49f16abfr8da1cdeaf828f9e9@mail.gmail.com>
+
+This list can be a good resource in this area, I know there are other
+blog client authors on this list as well.
+
+On Sat, Apr 10, 2010 at 1:03 PM, tony baldwin <tony at baldwinsoftware.com> wrote:
+> I think I'm the first to write a blog client in tcl/tk.
+> Anyway, this weekend I implemented wordpress posting with metaWeblog/xml-rpc to
+> Xpostulate (http://baldwinsoftware.com/xpost.html)
+> Previously it was only posting to livejournal & clones thereof.
+> I intend to add blogger functions, as well.
+> I was having difficulty, and joined the list to ask some questions,
+> but by the time I received
+> verification of membership, I'd sorted everything out.
+>
+> The only blog client I'd found for linux that did wordpress posting,
+> prior to building my own,
+> as drivel, so, perhaps my work is relevant in that respect, too.
+> I might be missing something...there may be more linux clients. I don't know.
+> Mine, being tcl/tk, is pretty well cross-platform, although developed
+> on a debian system.
+> I have windows users who say it's working for them (haven't tested it
+> only thing but
+> debian and ubuntu, myself).
+>
+> I'll stick around and see what develops, all the same.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From joseph at josephscott.org  Fri Apr 16 22:39:40 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 16 Apr 2010 16:39:40 -0600
+Subject: [wp-xmlrpc] popular ruby XML-RPC app?
+Message-ID: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com>
+
+We track various stats on WordPress.com, one of them is the number new
+posts that come in via XML-RPC.  I like going one step deeper and
+looking at which clients are the most popular.  I'm doing this based
+on the user-agent string provided, which is fine for most situations.
+I'm noticing that we have some clients (reasonably popular ones) that
+aren't setting unique user-agent strings though.  For instance:
+
+    XMLRPC::Client (Ruby 1.8.7)
+
+is a fairly popular one, but I have no idea what app/script/service
+(or combination) this is from.  Obviously it's using a Ruby XML-RPC
+library, but the app isn't setting a custom user-agent so I can't tell
+what it is.
+
+Here's another one:
+
+    Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1)
+Gecko/20061204 Firefox/2.0.0.1
+
+I'd assume that this is a firefox extension app, but again it doesn't
+provide any unique data in the user-agent string.
+
+If you the author of one of these please consider adding some unique
+text to your user-agent string.  Feel free to drop me an email if you
+have any questions.
+
+And if you are the author of an XML-RPC/AtomPub client and just want
+to confirm that you're on my list of clients to track on WordPress.com
+I'm happy to hear from you as well :-)
+
+Thanks.
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From tony at baldwinsoftware.com  Sat Apr 17 00:10:42 2010
+From: tony at baldwinsoftware.com (tony baldwin)
+Date: Fri, 16 Apr 2010 20:10:42 -0400
+Subject: [wp-xmlrpc] popular ruby XML-RPC app?
+In-Reply-To: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com>
+References: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com>
+Message-ID: <y2x5080587d1004161710mb65251e4x320c2f0d3fb7244b@mail.gmail.com>
+
+On Fri, Apr 16, 2010 at 6:39 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> We track various stats on WordPress.com, one of them is the number new
+> posts that come in via XML-RPC. ?I like going one step deeper and
+> looking at which clients are the most popular. ?I'm doing this based
+> on the user-agent string provided, which is fine for most situations.
+> I'm noticing that we have some clients (reasonably popular ones) that
+> aren't setting unique user-agent strings though. ?For instance:
+>
+
+If you start seeing "Xpostulate", it's http://baldwinsoftware.com/xpost.html
+the client I just released, which is written in Tcl, but doesn't use
+the existing Tcl xmlrpc library.
+I wrote my own routines for writing posts.
+
+I think most of my users are using LiveJournal, Dreamwidth, and
+related/clone sites, but it works
+with WordPress, too, and I'm using it there.
+
+./tony
+-- 
+http://www.baldwinlinguas.com
+http://www.baldwinsoftware.com
+
+From joseph at josephscott.org  Sat Apr 17 22:46:35 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 17 Apr 2010 16:46:35 -0600
+Subject: [wp-xmlrpc] popular ruby XML-RPC app?
+In-Reply-To: <y2x5080587d1004161710mb65251e4x320c2f0d3fb7244b@mail.gmail.com>
+References: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com> 
+	<y2x5080587d1004161710mb65251e4x320c2f0d3fb7244b@mail.gmail.com>
+Message-ID: <s2vbbd639f51004171546n91c03721gb5c7876020d00d3e@mail.gmail.com>
+
+Can you send me a sample of what a full user-agent string would look
+like and I'll make sure that it's part of the list.
+
+Thanks!
+
+On Fri, Apr 16, 2010 at 6:10 PM, tony baldwin <tony at baldwinsoftware.com> wrote:
+> If you start seeing "Xpostulate", it's http://baldwinsoftware.com/xpost.html
+> the client I just released, which is written in Tcl, but doesn't use
+> the existing Tcl xmlrpc library.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From tony at baldwinsoftware.com  Sun Apr 18 01:18:15 2010
+From: tony at baldwinsoftware.com (tony baldwin)
+Date: Sat, 17 Apr 2010 21:18:15 -0400
+Subject: [wp-xmlrpc] popular ruby XML-RPC app?
+In-Reply-To: <s2vbbd639f51004171546n91c03721gb5c7876020d00d3e@mail.gmail.com>
+References: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com>
+	<y2x5080587d1004161710mb65251e4x320c2f0d3fb7244b@mail.gmail.com>
+	<s2vbbd639f51004171546n91c03721gb5c7876020d00d3e@mail.gmail.com>
+Message-ID: <w2p5080587d1004171818le4a64a6fk5c787b84281fc293@mail.gmail.com>
+
+On Sat, Apr 17, 2010 at 6:46 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> Can you send me a sample of what a full user-agent string would look
+> like and I'll make sure that it's part of the list.
+
+Should be <member><name>useragent</name><value><string>Xpostulate</string></value></member>
+but it looks like a few tarballs got out without that in there, in which case,
+those versions will likely be identified as Tcl HTTP 2.7 or something.
+All future versions will be certain to identify themselves as Xpostulate.
+
+./tony
+
+
+>
+> Thanks!
+>
+> On Fri, Apr 16, 2010 at 6:10 PM, tony baldwin <tony at baldwinsoftware.com> wrote:
+>> If you start seeing "Xpostulate", it's http://baldwinsoftware.com/xpost.html
+>> the client I just released, which is written in Tcl, but doesn't use
+>> the existing Tcl xmlrpc library.
+>
+
+-- 
+http://www.baldwinlinguas.com
+http://www.baldwinsoftware.com
+
+From joseph at josephscott.org  Mon Apr 19 15:05:56 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 19 Apr 2010 09:05:56 -0600
+Subject: [wp-xmlrpc] popular ruby XML-RPC app?
+In-Reply-To: <w2p5080587d1004171818le4a64a6fk5c787b84281fc293@mail.gmail.com>
+References: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com> 
+	<y2x5080587d1004161710mb65251e4x320c2f0d3fb7244b@mail.gmail.com> 
+	<s2vbbd639f51004171546n91c03721gb5c7876020d00d3e@mail.gmail.com> 
+	<w2p5080587d1004171818le4a64a6fk5c787b84281fc293@mail.gmail.com>
+Message-ID: <j2obbd639f51004190805r29c863a7xe2342e199c20315f@mail.gmail.com>
+
+Are you sending that in the body of the XML-RPC request?  I was
+referring to the HTTP user-agent string.
+
+On Sat, Apr 17, 2010 at 7:18 PM, tony baldwin <tony at baldwinsoftware.com> wrote:
+> Should be <member><name>useragent</name><value><string>Xpostulate</string></value></member>
+> but it looks like a few tarballs got out without that in there, in which case,
+> those versions will likely be identified as Tcl HTTP 2.7 or something.
+> All future versions will be certain to identify themselves as Xpostulate.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From tony at baldwinsoftware.com  Mon Apr 19 17:38:38 2010
+From: tony at baldwinsoftware.com (tony baldwin)
+Date: Mon, 19 Apr 2010 13:38:38 -0400
+Subject: [wp-xmlrpc] popular ruby XML-RPC app?
+In-Reply-To: <j2obbd639f51004190805r29c863a7xe2342e199c20315f@mail.gmail.com>
+References: <j2ubbd639f51004161539idfb82ccdq34e81c0ddd5138c3@mail.gmail.com>
+	<y2x5080587d1004161710mb65251e4x320c2f0d3fb7244b@mail.gmail.com>
+	<s2vbbd639f51004171546n91c03721gb5c7876020d00d3e@mail.gmail.com>
+	<w2p5080587d1004171818le4a64a6fk5c787b84281fc293@mail.gmail.com>
+	<j2obbd639f51004190805r29c863a7xe2342e199c20315f@mail.gmail.com>
+Message-ID: <w2r5080587d1004191038sef0d67f9z94dd573ea7c2a99f@mail.gmail.com>
+
+On Mon, Apr 19, 2010 at 11:05 AM, Joseph Scott <joseph at josephscott.org> wrote:
+> Are you sending that in the body of the XML-RPC request? ?I was
+> referring to the HTTP user-agent string.
+
+
+Yeah, I was sending user-agent = Xpostulate within the xml-rpc body.
+The HTTP request is only sending the xml-rpc body, but should, iirc, identify
+itself as Tcl HTTP 2.7.
+
+be well,
+tony baldwin
+
+>
+> On Sat, Apr 17, 2010 at 7:18 PM, tony baldwin <tony at baldwinsoftware.com> wrote:
+>> Should be <member><name>useragent</name><value><string>Xpostulate</string></value></member>
+>> but it looks like a few tarballs got out without that in there, in which case,
+>> those versions will likely be identified as Tcl HTTP 2.7 or something.
+>> All future versions will be certain to identify themselves as Xpostulate.
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+
+
+
+-- 
+http://www.baldwinlinguas.com
+http://www.baldwinsoftware.com
+

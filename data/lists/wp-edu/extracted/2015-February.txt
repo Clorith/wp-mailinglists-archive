@@ -1,0 +1,424 @@
+From steph at sillybean.net  Wed Feb  4 07:23:29 2015
+From: steph at sillybean.net (Stephanie Leary)
+Date: Wed, 4 Feb 2015 01:23:29 -0600
+Subject: [wp-edu] Wordpress hosting with LTI integration
+In-Reply-To: <868C3940-02D9-4848-BCAB-40E4B407E1E4@georgian.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C15D7E191@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+ <29a0191061ed4aedbe2b86e6d73afd97@BLUPR05MB420.namprd05.prod.outlook.com>
+ <4965C3B8EB883049A36054C99C0225C2788F3202@S-ITSV-MBX04P.ead.ubc.ca>
+ <2208EDF2-6983-487B-B15F-C236476B6598@skidmore.edu>
+ <868C3940-02D9-4848-BCAB-40E4B407E1E4@georgian.edu>
+Message-ID: <CAEfaHGRRfW-G0ZbX5+XaAVr-x5O3i3DmpAe12MS+2fNyRv-yVQ@mail.gmail.com>
+
+My favorite search replacement plugin is Relevanssi, but it doesn't index
+media files.
+
+SearchWP (premium, but inexpensive) does handle PDFs and has weighting
+systems similar to Relevanssi. Its method of creating secondary search
+engines (e.g. search limited to a custom post type) is more cumbersome than
+it needs to be, and I've been struggling with it on a client project. In
+theory, it also works with FacetWP (sold separately) to display filters on
+your search results. In practice, this has also been challenging to
+configure.
+
+Wordpress.com VIP uses Elastic search. There's a plugin to help you
+integrate it, and a NetTuts article if you prefer going down that road.
+
+(I know the question was a month old. I've been sick and just noticed it!)
+
+
+
+On Monday, December 29, 2014, Berardi, Richard <rberardi at georgian.edu>
+wrote:
+
+>  Good morning all,
+> What search solution/plugin are you using on your Wordpress site? The
+> default WP search is lacking. Being in higher ed, we use a lot of PDFs,
+> which the default search doesn't return. I have tried implementing Google
+> Custom Search, but I need it to work with the default search box - not as a
+> widget. (I can't have the search box say "Google custom search" within the
+> search box)
+>
+>  Any help/advice would be appreciated.
+> Rich Berardi
+> Georgian Court University
+>
+>
+> On Nov 6, 2014, at 7:47 PM, Benjamin Harwood <bharwood at skidmore.edu
+> <javascript:_e(%7B%7D,'cvml','bharwood at skidmore.edu');>> wrote:
+>
+>   Good evening,
+>
+>  As a newcomer to LTI and WordPress, which objectives are being advanced
+> and perhaps fulfilled by such integration? Is the goal to push WP to
+> provide analytics feedback in reports like the performance dashboard in
+> LMS's? Trying to better understand how students and faculty benefit from
+> this independent of where their data is hosted.
+>
+>  Ben
+>
+>  Ben Harwood
+> Skidmore College
+>
+>
+> On Nov 6, 2014, at 12:20 PM, Mcmillan, Scott <scott.mcmillan at ubc.ca
+> <javascript:_e(%7B%7D,'cvml','scott.mcmillan at ubc.ca');>> wrote:
+>
+>   Hi David,
+>
+>  We run LTI on http://blogs.ubc.ca and integrated to Blackboard .
+>
+>  It's just a plugin. I think any host that allows you to install plugins
+> and run Multisite you are good to go with.
+>
+>  WPEngine might be worth checking out?
+>
+>  -Scott
+>  ------------------------------
+> *From:* wp-edu [wp-edu-bounces at lists.automattic.com
+> <javascript:_e(%7B%7D,'cvml','wp-edu-bounces at lists.automattic.com');>] on
+> behalf of Hillary Meister [hmeister at gsu.edu
+> <javascript:_e(%7B%7D,'cvml','hmeister at gsu.edu');>]
+> *Sent:* Thursday, November 06, 2014 9:13 AM
+> *To:* Low-traffic list discussing WordPress in education.
+> *Subject:* Re: [wp-edu] Wordpress hosting with LTI integration
+>
+>   Hi David,
+>
+>
+>
+> From what I?ve been reading Rackspace does not support wildcat subdomains,
+> which means you?ll need to use sub-directories for mu, but if you?re
+> leaning towards them, ask about that. Other cloud hosting services I?ve
+> heard about include Amazon?s EC2 (http://aws.amazon.com/ec2/) and vps.net,
+> but this is only from what I?ve read and not from experience.
+>
+>
+>
+> h.
+>
+>
+>
+> *Hillary Meister, M.Ed.*
+>
+> *Web Coordinator*
+>
+> *GSU College of Education*
+>
+> 30 Pryor Street
+> Georgia State University
+> Atlanta, GA 30303-3083
+>
+> hmeister at gsu.edu <javascript:_e(%7B%7D,'cvml','hmeister at gsu.edu');>
+>
+> http://education.gsu.edu/
+>
+> <image001.png> 404-413-8112
+>
+>
+>
+>
+>
+> *From:* wp-edu [mailto:wp-edu-bounces at lists.automattic.com
+> <javascript:_e(%7B%7D,'cvml','wp-edu-bounces at lists.automattic.com');>] *On
+> Behalf Of *Grogan, David
+> *Sent:* Wednesday, October 08, 2014 9:18 AM
+> *To:* 'wp-edu at lists.automattic.com
+> <javascript:_e(%7B%7D,'cvml','wp-edu at lists.automattic.com');>'
+> *Subject:* [wp-edu] Wordpress hosting with LTI integration
+>
+>
+>
+> Hello WP-Edu-ers,
+>
+>
+>
+> We are looking at integrating WordPress more tightly with our LMS via LTI (
+> http://www.imsglobal.org/toolsinteroperability2.cfm).
+>
+>
+>
+> Although we have our own internally hosted multisite instance that allows
+> any of our users to serve themselves with new WP sites we are looking at
+> cloud hosting that would provide the LTI integration.
+>
+>
+>
+> Anyone have any experience with commercial WordPress hosters and/or LTI?
+> If so any info you have would be appreciated.
+>
+>
+>
+> Thanks,
+>
+>
+>
+> David
+>
+>
+>
+> --------------------------------------------------------------
+>
+> David Grogan
+>
+> Senior Solutions Specialist
+>
+> Educational & Scholarly Technology Services (ESTS) Tufts Technology
+> Service (TTS) Tufts University
+>
+> 108 Bromfield Rd
+>
+> Somerville, MA  02144
+>
+>
+>
+> Phone: 617.627.2859
+>
+> Fax: 617.627.3082
+>
+> http://it.tufts.edu/ests
+>
+>
+>
+>  _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> <javascript:_e(%7B%7D,'cvml','wp-edu at lists.automattic.com');>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>   _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> <javascript:_e(%7B%7D,'cvml','wp-edu at lists.automattic.com');>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+
+-- 
+Stephanie Leary, @sleary
+stephanieleary.com <http://sillybean.net>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150204/eaa2939a/attachment.html>
+
+From rberardi at georgian.edu  Wed Feb  4 17:20:48 2015
+From: rberardi at georgian.edu (Berardi, Richard)
+Date: Wed, 4 Feb 2015 17:20:48 +0000
+Subject: [wp-edu] Wordpress hosting with LTI integration
+In-Reply-To: <CAEfaHGRRfW-G0ZbX5+XaAVr-x5O3i3DmpAe12MS+2fNyRv-yVQ@mail.gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C15D7E191@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+ <29a0191061ed4aedbe2b86e6d73afd97@BLUPR05MB420.namprd05.prod.outlook.com>
+ <4965C3B8EB883049A36054C99C0225C2788F3202@S-ITSV-MBX04P.ead.ubc.ca>
+ <2208EDF2-6983-487B-B15F-C236476B6598@skidmore.edu>
+ <868C3940-02D9-4848-BCAB-40E4B407E1E4@georgian.edu>
+ <CAEfaHGRRfW-G0ZbX5+XaAVr-x5O3i3DmpAe12MS+2fNyRv-yVQ@mail.gmail.com>
+Message-ID: <D0F7BAE4.B334%rberardi@georgian.edu>
+
+Thanks so much Stephanie,
+I am currently tapping into Google custom search, and testing it.
+My goal was to use the WP builtin search, and return GCS results into a custom page that I could add additional elements to (sidebar, etc.)
+I've got it all working, and styling with CSS and Google fonts (to match the look and feel of the site)
+I have
+
+I like this approach, because I can see what is going on through Google?s backend.
+I don?t have a lot of data up on the testing site yet, so my results are minimal.
+
+If I have links pointing to pdfs, Google SHOULD return their results. Correct?
+
+Richard Berardi
+Web Administrator
+Marketing & Communications
+Georgian Court University
+900 Lakewood Ave.
+Lakewood, NJ 08701
+p: 732-987-2469<tel:732-987-2469>
+e: rberardi at georgian.edu<mailto:rberardi at georgian.edu>
+
+From: Stephanie Leary <steph at sillybean.net<mailto:steph at sillybean.net>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, February 4, 2015 at 2:23 AM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] Wordpress hosting with LTI integration
+
+My favorite search replacement plugin is Relevanssi, but it doesn't index media files.
+
+SearchWP (premium, but inexpensive) does handle PDFs and has weighting systems similar to Relevanssi. Its method of creating secondary search engines (e.g. search limited to a custom post type) is more cumbersome than it needs to be, and I've been struggling with it on a client project. In theory, it also works with FacetWP (sold separately) to display filters on your search results. In practice, this has also been challenging to configure.
+
+Wordpress.com VIP uses Elastic search. There's a plugin to help you integrate it, and a NetTuts article if you prefer going down that road.
+
+(I know the question was a month old. I've been sick and just noticed it!)
+
+
+
+On Monday, December 29, 2014, Berardi, Richard <rberardi at georgian.edu<mailto:rberardi at georgian.edu>> wrote:
+Good morning all,
+What search solution/plugin are you using on your Wordpress site? The default WP search is lacking. Being in higher ed, we use a lot of PDFs, which the default search doesn't return. I have tried implementing Google Custom Search, but I need it to work with the default search box - not as a widget. (I can't have the search box say "Google custom search" within the search box)
+
+Any help/advice would be appreciated.
+Rich Berardi
+Georgian Court University
+
+
+On Nov 6, 2014, at 7:47 PM, Benjamin Harwood <bharwood at skidmore.edu<javascript:_e(%7B%7D,'cvml','bharwood at skidmore.edu');>> wrote:
+
+Good evening,
+
+As a newcomer to LTI and WordPress, which objectives are being advanced and perhaps fulfilled by such integration? Is the goal to push WP to provide analytics feedback in reports like the performance dashboard in LMS's? Trying to better understand how students and faculty benefit from this independent of where their data is hosted.
+
+Ben
+
+Ben Harwood
+Skidmore College
+
+
+On Nov 6, 2014, at 12:20 PM, Mcmillan, Scott <scott.mcmillan at ubc.ca<javascript:_e(%7B%7D,'cvml','scott.mcmillan at ubc.ca');>> wrote:
+
+Hi David,
+
+We run LTI on http://blogs.ubc.ca and integrated to Blackboard .
+
+It's just a plugin. I think any host that allows you to install plugins and run Multisite you are good to go with.
+
+WPEngine might be worth checking out?
+
+-Scott
+________________________________
+From: wp-edu [wp-edu-bounces at lists.automattic.com<javascript:_e(%7B%7D,'cvml','wp-edu-bounces at lists.automattic.com');>] on behalf of Hillary Meister [hmeister at gsu.edu<javascript:_e(%7B%7D,'cvml','hmeister at gsu.edu');>]
+Sent: Thursday, November 06, 2014 9:13 AM
+To: Low-traffic list discussing WordPress in education.
+Subject: Re: [wp-edu] Wordpress hosting with LTI integration
+
+Hi David,
+
+>From what I?ve been reading Rackspace does not support wildcat subdomains, which means you?ll need to use sub-directories for mu, but if you?re leaning towards them, ask about that. Other cloud hosting services I?ve heard about include Amazon?s EC2 (http://aws.amazon.com/ec2/) and vps.net<http://vps.net>, but this is only from what I?ve read and not from experience.
+
+h.
+
+Hillary Meister, M.Ed.
+Web Coordinator
+GSU College of Education
+30 Pryor Street
+Georgia State University
+Atlanta, GA 30303-3083
+hmeister at gsu.edu<javascript:_e(%7B%7D,'cvml','hmeister at gsu.edu');>
+http://education.gsu.edu/
+<image001.png> 404-413-8112
+
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com<javascript:_e(%7B%7D,'cvml','wp-edu-bounces at lists.automattic.com');>] On Behalf Of Grogan, David
+Sent: Wednesday, October 08, 2014 9:18 AM
+To: 'wp-edu at lists.automattic.com<javascript:_e(%7B%7D,'cvml','wp-edu at lists.automattic.com');>'
+Subject: [wp-edu] Wordpress hosting with LTI integration
+
+Hello WP-Edu-ers,
+
+We are looking at integrating WordPress more tightly with our LMS via LTI (http://www.imsglobal.org/toolsinteroperability2.cfm).
+
+Although we have our own internally hosted multisite instance that allows any of our users to serve themselves with new WP sites we are looking at cloud hosting that would provide the LTI integration.
+
+Anyone have any experience with commercial WordPress hosters and/or LTI? If so any info you have would be appreciated.
+
+Thanks,
+
+David
+
+--------------------------------------------------------------
+David Grogan
+Senior Solutions Specialist
+Educational & Scholarly Technology Services (ESTS) Tufts Technology Service (TTS) Tufts University
+108 Bromfield Rd
+Somerville, MA  02144
+
+Phone: 617.627.2859
+Fax: 617.627.3082
+http://it.tufts.edu/ests
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<javascript:_e(%7B%7D,'cvml','wp-edu at lists.automattic.com');>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<javascript:_e(%7B%7D,'cvml','wp-edu at lists.automattic.com');>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+--
+Stephanie Leary, @sleary
+stephanieleary.com<http://sillybean.net>
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150204/8584aaee/attachment.html>
+
+From dbashaw at uwo.ca  Fri Feb  6 16:08:35 2015
+From: dbashaw at uwo.ca (Dan Bashaw)
+Date: Fri, 06 Feb 2015 11:08:35 -0500
+Subject: [wp-edu] Google Search Integration with WordPress
+In-Reply-To: <mailman.1.1423137601.2667.wp-edu@lists.automattic.com>
+Message-ID: <0NJC00M52Y6BIY00@gz24mta1.its.uwo.pri>
+
+Hi Richard,
+
+At Brescia University College are using Google Custom Search via the Google CSE plugin, and it is doing a good job of indexing PDFs across our various sites.
+
+Robust, simple, reliable and outsourced... Definitely my favorite way to handle search!
+
+Cheers, Dan
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Wed, 4 Feb 2015 17:20:48 +0000
+From: "Berardi, Richard" <rberardi at georgian.edu>
+To: Low-traffic list discussing WordPress in education.
+	<wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Wordpress hosting with LTI integration
+Message-ID: <D0F7BAE4.B334%rberardi at georgian.edu>
+Content-Type: text/plain; charset="windows-1252"
+
+Thanks so much Stephanie,
+I am currently tapping into Google custom search, and testing it.
+My goal was to use the WP builtin search, and return GCS results into a custom page that I could add additional elements to (sidebar, etc.) I've got it all working, and styling with CSS and Google fonts (to match the look and feel of the site) I have
+
+I like this approach, because I can see what is going on through Google?s backend.
+I don?t have a lot of data up on the testing site yet, so my results are minimal.
+
+If I have links pointing to pdfs, Google SHOULD return their results. Correct?
+
+Richard Berardi
+Web Administrator
+Marketing & Communications
+Georgian Court University
+900 Lakewood Ave.
+Lakewood, NJ 08701
+p: 732-987-2469<tel:732-987-2469>
+e: rberardi at georgian.edu<mailto:rberardi at georgian.edu>
+
+From: Stephanie Leary <steph at sillybean.net<mailto:steph at sillybean.net>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, February 4, 2015 at 2:23 AM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] Wordpress hosting with LTI integration
+
+My favorite search replacement plugin is Relevanssi, but it doesn't index media files.
+
+SearchWP (premium, but inexpensive) does handle PDFs and has weighting systems similar to Relevanssi. Its method of creating secondary search engines (e.g. search limited to a custom post type) is more cumbersome than it needs to be, and I've been struggling with it on a client project. In theory, it also works with FacetWP (sold separately) to display filters on your search results. In practice, this has also been challenging to configure.
+
+Wordpress.com VIP uses Elastic search. There's a plugin to help you integrate it, and a NetTuts article if you prefer going down that road.
+
+(I know the question was a month old. I've been sick and just noticed it!)
+
+
+
+On Monday, December 29, 2014, Berardi, Richard <rberardi at georgian.edu<mailto:rberardi at georgian.edu>> wrote:
+Good morning all,
+What search solution/plugin are you using on your Wordpress site? The default WP search is lacking. Being in higher ed, we use a lot of PDFs, which the default search doesn't return. I have tried implementing Google Custom Search, but I need it to work with the default search box - not as a widget. (I can't have the search box say "Google custom search" within the search box)
+
+Any help/advice would be appreciated.
+Rich Berardi
+Georgian Court University
+
+*******
+
+

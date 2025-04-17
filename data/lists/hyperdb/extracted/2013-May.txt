@@ -1,0 +1,41 @@
+From gavin at nous.com.au  Fri May 17 01:11:26 2013
+From: gavin at nous.com.au (Gavin Jaynes NOUS)
+Date: Fri, 17 May 2013 11:11:26 +1000
+Subject: [HyperDB] HELP - is it possible to split a table across 2 databases
+Message-ID: <CDBBC0DE.64D6%gavin@nous.com.au>
+
+
+Hi all, 
+
+I need to separate my wp_posts table into two databases based on post type.
+So that post_type 'products' are in one DB and the rest reside in another
+DB. 
+
+Is this possible? Any suggestions or advice is very much appreciated.
+
+Thanks
+
+Gavin 
+
+
+
+From skeltoac at gmail.com  Fri May 17 13:23:16 2013
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Fri, 17 May 2013 09:23:16 -0400
+Subject: [HyperDB] HELP - is it possible to split a table across 2
+	databases
+In-Reply-To: <CDBBC0DE.64D6%gavin@nous.com.au>
+References: <CDBBC0DE.64D6%gavin@nous.com.au>
+Message-ID: <CABVyDWWCj4+5+yvujHHh3XBPOS+a-uHS78yzpO6jPKRrj76PnQ@mail.gmail.com>
+
+On Thu, May 16, 2013 at 9:11 PM, Gavin Jaynes NOUS <gavin at nous.com.au> wrote:
+> I need to separate my wp_posts table into two databases based on post type.
+> So that post_type 'products' are in one DB and the rest reside in another
+> DB.
+
+HyperDB can not help you with that. The core-supported pattern for
+multiple posts tables is multisite.
+
+Good luck,
+Andy
+

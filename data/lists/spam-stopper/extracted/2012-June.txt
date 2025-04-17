@@ -1,0 +1,116 @@
+From mt at wishlist24.org  Sat Jun  2 21:57:19 2012
+From: mt at wishlist24.org (Michael Temeschinko)
+Date: Sat, 02 Jun 2012 23:57:19 +0200
+Subject: [spam-stopper] using php5 plugin / API
+Message-ID: <4FCA8C3F.5050601@wishlist24.org>
+
+Hi all,
+
+don't understand the following method
+
+$akismet->setCommentAuthorURL($url);
+
+
+which URL goes here?  if someone post in my application I don't have a author URL or do I fill in the Users URL (if this Author created an user n my site?
+but how could the late be useful for akismet?
+
+thanks
+Michael
+
+
+
+
+From alex at achingbrain.net  Sun Jun  3 00:20:52 2012
+From: alex at achingbrain.net (Alex Potsides)
+Date: Sun, 3 Jun 2012 01:20:52 +0100
+Subject: [spam-stopper] using php5 plugin / API
+In-Reply-To: <4FCA8C3F.5050601@wishlist24.org>
+References: <4FCA8C3F.5050601@wishlist24.org>
+Message-ID: <C7FE3210-FCD1-4F68-95E9-34CAEB75B781@achingbrain.net>
+
+
+It's for when the commenter submits a URL with their comment - eg. their blog or whatever.
+
+The field is optional and from what you say below it sounds like you don't need to set it.
+
+a.
+
+
+
+On 2 Jun 2012, at 22:57, Michael Temeschinko <mt at wishlist24.org> wrote:
+
+> Hi all,
+> 
+> don't understand the following method
+> 
+> $akismet->setCommentAuthorURL($url);
+> 
+> 
+> which URL goes here?  if someone post in my application I don't have a author URL or do I fill in the Users URL (if this Author created an user n my site?
+> but how could the late be useful for akismet?
+> 
+> thanks
+> Michael
+> 
+> 
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From michiel at phplist.com  Sun Jun  3 00:23:46 2012
+From: michiel at phplist.com (Michiel Dethmers)
+Date: Sat, 02 Jun 2012 21:23:46 -0300
+Subject: [spam-stopper] using php5 plugin / API
+In-Reply-To: <4FCA8C3F.5050601@wishlist24.org>
+References: <4FCA8C3F.5050601@wishlist24.org>
+Message-ID: <4FCAAE92.3020909@phplist.com>
+
+
+If you don't have a URL then you don't need to put anything, or not even
+call the method.
+
+Afaict it only makes sense to use a URL entered by the user, to tell
+more about themselves, not one pointing to your own system.
+
+The API doesn't need all data, but it's kind of "the more the merrier"
+in matter of determining whether it's spam
+
+I only use IP, name, email and agent on my site, and I still get Spam hits.
+
+Michiel
+
+http://www.phplist.com/formspamclass
+
+On 02/06/12 18:57, Michael Temeschinko wrote:
+> Hi all,
+>
+> don't understand the following method
+>
+> $akismet->setCommentAuthorURL($url);
+>
+>
+> which URL goes here?  if someone post in my application I don't have a
+> author URL or do I fill in the Users URL (if this Author created an
+> user n my site?
+> but how could the late be useful for akismet?
+>
+> thanks
+> Michael
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+-- 
+
+Michiel Dethmers
+michiel at phplist.com
+http://www.phplist.com
+Open Source newsletter manager
+
+
+

@@ -1,0 +1,440 @@
+From jalkut at red-sweater.com  Sun Sep  2 14:39:36 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun Sep  2 14:39:43 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] XMLRPC rework
+In-Reply-To: <6CFF6945-BA15-49C8-A03C-DB3C2C9572DE@randomnetworks.com>
+References: <46D6F03F.6080909@buayacorp.com>
+	<6CFF6945-BA15-49C8-A03C-DB3C2C9572DE@randomnetworks.com>
+Message-ID: <563B594B-CA08-40C7-A85D-46B92A90CC70@red-sweater.com>
+
+On Aug 31, 2007, at 2:51 PM, Joseph Scott wrote:
+
+> When returning post data I'd suggest limiting it to anyone that can  
+> edit the post (the post author and anyone with editor and  
+> administrator role).  This would make any of the methods that return  
+> post data do the same sort of checks that mw_editPost does.  Is  
+> there any reason why a user who can't edit a post should still be  
+> able to get the post data via XML-RPC?
+
+I'm not too familiar with the roles in WP, but I can imagine a  
+collaborative environment where it makes sense to be able to fetch  
+posts which you can't edit, in order to have context for editing/ 
+submitting posts of one's own.
+
+So the user should be able to fetch any post from XML-RPC that they  
+would be able to browse in "Manage Posts" from wp-admin.
+
+Daniel
+From joseph at randomnetworks.com  Tue Sep  4 04:47:27 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Sep  4 05:15:31 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] XMLRPC rework
+In-Reply-To: <563B594B-CA08-40C7-A85D-46B92A90CC70@red-sweater.com>
+References: <46D6F03F.6080909@buayacorp.com>
+	<6CFF6945-BA15-49C8-A03C-DB3C2C9572DE@randomnetworks.com>
+	<563B594B-CA08-40C7-A85D-46B92A90CC70@red-sweater.com>
+Message-ID: <AA649485-62E1-4482-8EEC-EA13055A4C3C@randomnetworks.com>
+
+
+On Sep 2, 2007, at 8:39 AM, Daniel Jalkut wrote:
+
+> On Aug 31, 2007, at 2:51 PM, Joseph Scott wrote:
+>
+>> When returning post data I'd suggest limiting it to anyone that  
+>> can edit the post (the post author and anyone with editor and  
+>> administrator role).  This would make any of the methods that  
+>> return post data do the same sort of checks that mw_editPost  
+>> does.  Is there any reason why a user who can't edit a post should  
+>> still be able to get the post data via XML-RPC?
+>
+> I'm not too familiar with the roles in WP, but I can imagine a  
+> collaborative environment where it makes sense to be able to fetch  
+> posts which you can't edit, in order to have context for editing/ 
+> submitting posts of one's own.
+>
+> So the user should be able to fetch any post from XML-RPC that they  
+> would be able to browse in "Manage Posts" from wp-admin.
+
+
+That seems reasonable.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Sat Sep 15 20:05:23 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Sep 15 20:05:37 2007
+Subject: [wp-xmlrpc] Expose draft status of posts...
+Message-ID: <F4C0C36E-4D63-4928-B016-9C611B10C6ED@red-sweater.com>
+
+
+I know this is going to come "for free" with Atom support, but in the  
+mean time it would be great to finally have the draft/published status  
+of posts definitively described in the post attributes.
+
+http://trac.wordpress.org/ticket/4982
+
+Does anybody have a problem with just adding a "wp_draft" boolean  
+attribute to the posts returned by getRecentPosts?
+
+I guess one gotcha is that to be consistent it would then have to also  
+check for that attribute on posts, and interpret it the same way it  
+currently interprets the "publish" argument to newPost.
+
+Daniel
+From joseph at randomnetworks.com  Mon Sep 17 16:11:15 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Sep 17 16:12:37 2007
+Subject: [wp-xmlrpc] Expose draft status of posts...
+In-Reply-To: <F4C0C36E-4D63-4928-B016-9C611B10C6ED@red-sweater.com>
+References: <F4C0C36E-4D63-4928-B016-9C611B10C6ED@red-sweater.com>
+Message-ID: <53976F58-86AD-465B-9AE4-B27F80A2593B@randomnetworks.com>
+
+
+On Sep 15, 2007, at 2:05 PM, Daniel Jalkut wrote:
+
+>
+> I know this is going to come "for free" with Atom support, but in  
+> the mean time it would be great to finally have the draft/published  
+> status of posts definitively described in the post attributes.
+>
+> http://trac.wordpress.org/ticket/4982
+>
+> Does anybody have a problem with just adding a "wp_draft" boolean  
+> attribute to the posts returned by getRecentPosts?
+>
+> I guess one gotcha is that to be consistent it would then have to  
+> also check for that attribute on posts, and interpret it the same  
+> way it currently interprets the "publish" argument to newPost.
+
+
+Would it be helpful to know the other possible states? Ryan mentioned  
+5: http://boren.nu/archives/2007/09/05/post-status-transitions/
+
+     * publish
+     * draft
+     * private
+     * future
+     * pending
+
+
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Mon Sep 17 16:21:39 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon Sep 17 16:22:00 2007
+Subject: [wp-xmlrpc] Expose draft status of posts...
+In-Reply-To: <53976F58-86AD-465B-9AE4-B27F80A2593B@randomnetworks.com>
+References: <F4C0C36E-4D63-4928-B016-9C611B10C6ED@red-sweater.com>
+	<53976F58-86AD-465B-9AE4-B27F80A2593B@randomnetworks.com>
+Message-ID: <9082677A-E07C-4BBD-8E6E-49F8AF09842E@red-sweater.com>
+
+Oh yes - very good point. I was looking at the issue pretty  
+myopically. We definitely should expose all the possible states, and  
+as appropriate also allow those states to be changed via the API, too.
+
+So maybe some kind of "wp_publishState" ? That contains a text value  
+corresponding to one of those?
+
+Daniel
+
+On Sep 17, 2007, at 12:11 PM, Joseph Scott wrote:
+
+> Would it be helpful to know the other possible states? Ryan  
+> mentioned 5: http://boren.nu/archives/2007/09/05/post-status-transitions/
+>
+>    * publish
+>    * draft
+>    * private
+>    * future
+>    * pending
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20070917/6360fb5c/attachment.htm
+From Joe.Cheng at microsoft.com  Mon Sep 17 18:16:23 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Sep 17 18:16:32 2007
+Subject: [wp-xmlrpc] Expose draft status of posts...
+In-Reply-To: <9082677A-E07C-4BBD-8E6E-49F8AF09842E@red-sweater.com>
+References: <F4C0C36E-4D63-4928-B016-9C611B10C6ED@red-sweater.com>
+	<53976F58-86AD-465B-9AE4-B27F80A2593B@randomnetworks.com>
+	<9082677A-E07C-4BBD-8E6E-49F8AF09842E@red-sweater.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21053B5853@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+We'd need to be careful to document the behavior if the different but related states disagree. (For example, publish=1 but wp_draft=true and wp_publishState=pending?) Or at the very least, list the valid combinations of states.
+
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Daniel Jalkut
+Sent: Monday, September 17, 2007 9:22 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Expose draft status of posts...
+
+Oh yes - very good point. I was looking at the issue pretty myopically. We definitely should expose all the possible states, and as appropriate also allow those states to be changed via the API, too.
+
+So maybe some kind of "wp_publishState" ? That contains a text value corresponding to one of those?
+
+Daniel
+
+On Sep 17, 2007, at 12:11 PM, Joseph Scott wrote:
+
+
+Would it be helpful to know the other possible states? Ryan mentioned 5: http://boren.nu/archives/2007/09/05/post-status-transitions/
+
+   * publish
+   * draft
+   * private
+   * future
+   * pending
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20070917/4ce57705/attachment.htm
+From joseph at randomnetworks.com  Tue Sep 18 02:52:37 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Sep 18 02:54:01 2007
+Subject: [wp-xmlrpc] Expose draft status of posts...
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21053B5853@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <F4C0C36E-4D63-4928-B016-9C611B10C6ED@red-sweater.com>
+	<53976F58-86AD-465B-9AE4-B27F80A2593B@randomnetworks.com>
+	<9082677A-E07C-4BBD-8E6E-49F8AF09842E@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A21053B5853@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <1B653913-3559-4FE1-9CA7-6CA12D8C928C@randomnetworks.com>
+
+
+On Sep 17, 2007, at 12:16 PM, Joe Cheng wrote:
+
+> We?d need to be careful to document the behavior if the different  
+> but related states disagree. (For example, publish=1 but  
+> wp_draft=true and wp_publishState=pending?) Or at the very least,  
+> list the valid combinations of states.
+
+
+See my recent comment on the ticket:
+
+http://trac.wordpress.org/ticket/4982#comment:7
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Wed Sep 26 17:05:30 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Sep 26 17:07:05 2007
+Subject: [wp-xmlrpc] Current XML-RPC tickets
+Message-ID: <A0CCDD47-2479-4080-8005-4DE6C8C2DFEF@randomnetworks.com>
+
+
+Just an FYI, you can view all of the current XML-RPC (as selected in  
+the component field) tickets in trac at:
+
+http://trac.wordpress.org/query? 
+status=new&status=assigned&status=reopened&groupdesc=1&group=component&c 
+omponent=XML-RPC&order=id
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Wed Sep 26 17:11:43 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Sep 26 17:12:04 2007
+Subject: [wp-xmlrpc] Current XML-RPC tickets
+In-Reply-To: <A0CCDD47-2479-4080-8005-4DE6C8C2DFEF@randomnetworks.com>
+References: <A0CCDD47-2479-4080-8005-4DE6C8C2DFEF@randomnetworks.com>
+Message-ID: <C54C98C1-5179-42BC-A769-68CC91DACA4F@red-sweater.com>
+
+It's also worth pointing out that Trac lets you subscribe to an RSS  
+feed for any search, including this one.  Just look at the very bottom  
+of the page.
+
+I've found it convenient to subscribe to the feed for XMLRPC tickets,  
+just to keep a casual eye on things.
+
+Daniel
+
+On Sep 26, 2007, at 1:05 PM, Joseph Scott wrote:
+
+>
+> Just an FYI, you can view all of the current XML-RPC (as selected in  
+> the component field) tickets in trac at:
+>
+> http://trac.wordpress.org/query?status=new&status=assigned&status=reopened&groupdesc=1&group=component&component=XML-RPC&order=id
+>
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From dougal at gunters.org  Fri Sep 28 21:42:18 2007
+From: dougal at gunters.org (Dougal Campbell)
+Date: Fri Sep 28 21:42:25 2007
+Subject: [wp-xmlrpc] Dropping in
+Message-ID: <46FD753A.20506@gunters.org>
+
+Hi there,
+
+I thought I'd drop in and see if I could stick my fingers back into WP
+development for a bit.
+
+Some background: Among other things, I did the original implementation
+of the metaWeblog and Moveable Type API support. Plus, some of the
+underlying work I did there (helper functions like wp_insert_post(),
+wp_update_post(), and friends) was later moved into the main core
+functions, to provide a higher level of abstraction. I also did the
+initial integration of the Atom Publishing Protocol on the wordpress.com
+side of things (I didn't write that code, I mainly just modified it to
+work in the wordpress.com lighttpd environment).
+
+I don't often have a lot of free time, and consequently, I can sometimes
+be slow to move on things. But I'd like to try to contribute in whatever
+ways I can.
+
+-- 
+Dougal Campbell <dougal@gunters.org <mailto:dougal@gunters.org>>
+http://dougal.gunters.org/ <http://dougal.gunters.org>
+From jalkut at red-sweater.com  Fri Sep 28 21:44:17 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Sep 28 21:44:34 2007
+Subject: [wp-xmlrpc] Dropping in
+In-Reply-To: <46FD753A.20506@gunters.org>
+References: <46FD753A.20506@gunters.org>
+Message-ID: <8D31AF23-2679-494E-AEA7-DC287E765FBF@red-sweater.com>
+
+Hi Doug - welcome on board! I can tell you'll be great to have around,  
+if only because you must have tons of historical perspective. Often  
+Joseph ends up grappling with what the intent of certain API behaviors  
+is, and I bet you'll have opinions about that when such issues come up.
+
+D
+
+On Sep 28, 2007, at 5:42 PM, Dougal Campbell wrote:
+
+> Hi there,
+>
+> I thought I'd drop in and see if I could stick my fingers back into WP
+> development for a bit.
+>
+> Some background: Among other things, I did the original implementation
+> of the metaWeblog and Moveable Type API support. Plus, some of the
+> underlying work I did there (helper functions like wp_insert_post(),
+> wp_update_post(), and friends) was later moved into the main core
+> functions, to provide a higher level of abstraction. I also did the
+> initial integration of the Atom Publishing Protocol on the  
+> wordpress.com
+> side of things (I didn't write that code, I mainly just modified it to
+> work in the wordpress.com lighttpd environment).
+>
+> I don't often have a lot of free time, and consequently, I can  
+> sometimes
+> be slow to move on things. But I'd like to try to contribute in  
+> whatever
+> ways I can.
+From joseph at randomnetworks.com  Fri Sep 28 23:33:48 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Sep 28 23:35:35 2007
+Subject: [wp-xmlrpc] Dropping in
+In-Reply-To: <46FD753A.20506@gunters.org>
+References: <46FD753A.20506@gunters.org>
+Message-ID: <652A2A25-42B3-45F2-8597-637A21E4C77A@randomnetworks.com>
+
+
+On Sep 28, 2007, at 3:42 PM, Dougal Campbell wrote:
+
+> I thought I'd drop in and see if I could stick my fingers back into WP
+> development for a bit.
+>
+> Some background: Among other things, I did the original implementation
+> of the metaWeblog and Moveable Type API support. Plus, some of the
+> underlying work I did there (helper functions like wp_insert_post(),
+> wp_update_post(), and friends) was later moved into the main core
+> functions, to provide a higher level of abstraction. I also did the
+> initial integration of the Atom Publishing Protocol on the  
+> wordpress.com
+> side of things (I didn't write that code, I mainly just modified it to
+> work in the wordpress.com lighttpd environment).
+
+
+Having your input would be terrific!  Some of the historical "whys"  
+have been bit difficult to figure out.
+
+
+> I don't often have a lot of free time, and consequently, I can  
+> sometimes
+> be slow to move on things. But I'd like to try to contribute in  
+> whatever
+> ways I can.
+
+
+I've been trying to direct people who are developing clients that  
+work with WordPress XML-RPC to this list, with specific patches  
+usually run through Trac.  What ever time and input you have would  
+truly be welcomed.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From supporto at pixline.net  Sat Sep 29 14:30:51 2007
+From: supporto at pixline.net (Pixline)
+Date: Sat Sep 29 14:31:04 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] Looking for more XML-RPC developers
+In-Reply-To: <6A4EB172-FEAB-4273-9CE2-232752B2D5CA@randomnetworks.com>
+References: <6A4EB172-FEAB-4273-9CE2-232752B2D5CA@randomnetworks.com>
+Message-ID: <3DFB5C3F-CB90-43BE-B7CA-75976880EB59@pixline.net>
+
+> A list was started recently (http://lists.automattic.com/mailman/ 
+> listinfo/wp-xmlrpc) to work with others (some of the client  
+> developers are on the list) that make use of WP XML-RPC.  If any of  
+> the above items are an interesting to you please feel free to sign  
+> up for the wp-xmlrpc list and introduce yourself and what you'd be  
+> interested in working on.
+
+Hi all,
+
+I'm Paolo, almost 29r, the only one surviving founder of Pixline  
+Coding Collective (http://pixline.net), web tweaker since 1998 and  
+actually just a php coder.
+
+I just signed myself into the list, even if I'm not really an  
+experienced xml-rpc developer, but I'm willing to know more and maybe  
+be helpful, as I'm just beginning to work on xml-rpc by myself and  
+I'm quite pleased of its power.
+
+More, I'm going to work hard on xml-rpc in my next working project  
+(in the radio automation and scheduling area, and somehow  related/ 
+linked with WordPress), so I hope to have at least something to say  
+or to contribute in the next future.
+
+Please excuse me if I'll need some time to fit better and be concrete  
+in this list, I'll try to be more than a lurker.
+I've just installed my first xmlrpc blogging client, just to know  
+better what I'm going to play with :-)
+
+
+Bests,
+Paolo
+
+
+Paolo Tresso
+Pixline.net coder
+--------------------------------------------
+http://linkedin.com/in/paolotresso
+http://pixline.net
+

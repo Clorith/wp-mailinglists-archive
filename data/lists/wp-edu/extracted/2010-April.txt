@@ -1,0 +1,3593 @@
+From stas at nerd.ro  Sun Apr  4 00:22:37 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 04 Apr 2010 03:22:37 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+Message-ID: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+
+During the last #wordpress-gsoc chat, Jane pointed me to the
+ScholarPress, a community of WordPress plugins developers that are
+writing code to make WordPress useful in education. Their plugin,
+Courseware is built for WordPress and currently offers the following
+features:
+
+      * manage schedules
+      * manage bibliography
+      * manage assignments
+      * manage general course information
+
+>From what I heard the plugin also works with BuddyPress, but making it
+depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+integration. The idea what came is to port ScholarPress to BuddyPress.
+In details, to make SP aware of BP groups, and treat them as classes of
+students. Assign schedules per group, add bibliography to scheduled
+courses, so on for assignments. From the upstream TODO list, I also saw
+the need of a grade-book and I would also add a notification system
+(send a private message if a course is upcoming or a new grade was
+posted).
+
+
+More on the internal part?
+It will require changes like, split the courses apart from schedules.
+Because SP will be groups aware, it will be more logical to create
+courses and link bibliographies and assignments to them, after what
+publish them in a schedule. Also I would consider adding an upload
+option for the courses that require annexes or attachments (later, you
+can bundle those with Google Docs viewer or psview).
+About the gradebook, I liked the idea used for kb-gradebook, and I think
+it?s the bare minimal implementation of grades assignment I can consider
+as a starting point (read the csv file, and assign group members to
+marks).
+
+
+About users?
+In most of the education centers students are managed using a LDAP or
+ActiveDirectory. So bringing some core functionality into such a plugin
+also should be considered. I know you?ll jump that there are plenty of
+plugins that offer LDAP integration, but hey, none of them (afaik) will
+offer you options to integrate two baseDN?s into the same instance (this
+can be really useful for role mappings also, divide students from
+teachers).
+
+I?m a student and at our university I had the opportunity to play a
+little with Moodle, so the above idea is based on my experience. It
+would be nice to hear some opinions from persons who are really involved
+into teaching process and what would they like to see in such a new
+ScholarPress.
+
+There's also a post I wrote (this is a copycat) about this idea at:
+http://sushkov.wordpress.com/2010/04/04/scholarpress-buddypress/
+
+Thanks.
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Sun Apr  4 01:40:19 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Sat, 03 Apr 2010 19:40:19 -0600
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+Message-ID: <4BB7EE03.5030508@portallanguageservices.com>
+
+Hi, I just recently joined the wp-edu list and got your comments on the 
+Scholarpress plugin.  I was very excited to see that others were trying 
+to use Wordpress for courses beyond kb-gradebook.
+I installed it on my ESL/EFL site and went to configure it to discover 
+that it was more of a reference tool for offline classes than a plugin 
+designed for giving courses completely online using Wordpress. I'm not 
+saying it is bad. I found what it does very interesting even though it 
+is not what I've been looking for.
+I have been working on my own  testing & gradebook plugin with the goal 
+of teaching online so the quiz scores get posted to the gradebook as 
+soon as a test is taken not something that requires a CSV file or other 
+manual entry.
+I still have to try to set up course descriptions and homework schedules 
+for mine so I was very interested in checking out Scholar press.  I only 
+saw the option to set up one course description and the scheduling seems 
+to be for fixed dates.
+
+I'd like homework scheduling and all related tasks to be flexible for 
+days from enrollment so I could have students starting on different 
+days, but their assignments and tasks would be different because they 
+are in different stages yet it would be manageable since it would be 
+following a syllabus.
+
+While Kb-gradebook is ideal for an off-line course to post grades, it is 
+impractical for true online classes to force the teacher to go through 
+that busy work of manually updating a csv and uploading it instead of 
+creating his or her course content online and adding grades as needed.
+
+I have also been trying to use Moodle (after trying Atutor) to design a 
+course over much of the last year, but I find its administration to be 
+more than frustrating which is why I've gone to programming my own 
+plugins for Wordpress which I already know and can use for content 
+management. This way at least I can have something up and working for 
+people to use even if it only serves the testing and gradebook function.
+
+I'm curious how much conflict there is in design and planning of plugins 
+from the off-line course resource to the completely online course. I'm 
+also curious about how much teachers who normally give courses off-line 
+bring their fixed-exact-date-linear thinking to their online course design.
+
+Are there any AJAX programmers on the list? I'd like to extend my 
+testing to include adding javascript based quizzes (drag and drop, 
+ordering, matching), but I don't know how to take the results and pass 
+them to a PHP script for processing.
+
+Christopher
+
+On 4/3/2010 6:22 PM, Stas Su?cov wrote:
+> During the last #wordpress-gsoc chat, Jane pointed me to the
+> ScholarPress, a community of WordPress plugins developers that are
+> writing code to make WordPress useful in education. Their plugin,
+> Courseware is built for WordPress and currently offers the following
+> features:
+>
+>        * manage schedules
+>        * manage bibliography
+>        * manage assignments
+>        * manage general course information
+>
+> > From what I heard the plugin also works with BuddyPress, but making it
+> depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+> integration. The idea what came is to port ScholarPress to BuddyPress.
+> In details, to make SP aware of BP groups, and treat them as classes of
+> students. Assign schedules per group, add bibliography to scheduled
+> courses, so on for assignments. From the upstream TODO list, I also saw
+> the need of a grade-book and I would also add a notification system
+> (send a private message if a course is upcoming or a new grade was
+> posted).
+>
+>
+> More on the internal part?
+> It will require changes like, split the courses apart from schedules.
+> Because SP will be groups aware, it will be more logical to create
+> courses and link bibliographies and assignments to them, after what
+> publish them in a schedule. Also I would consider adding an upload
+> option for the courses that require annexes or attachments (later, you
+> can bundle those with Google Docs viewer or psview).
+> About the gradebook, I liked the idea used for kb-gradebook, and I think
+> it?s the bare minimal implementation of grades assignment I can consider
+> as a starting point (read the csv file, and assign group members to
+> marks).
+>
+>
+> About users?
+> In most of the education centers students are managed using a LDAP or
+> ActiveDirectory. So bringing some core functionality into such a plugin
+> also should be considered. I know you?ll jump that there are plenty of
+> plugins that offer LDAP integration, but hey, none of them (afaik) will
+> offer you options to integrate two baseDN?s into the same instance (this
+> can be really useful for role mappings also, divide students from
+> teachers).
+>
+> I?m a student and at our university I had the opportunity to play a
+> little with Moodle, so the above idea is based on my experience. It
+> would be nice to hear some opinions from persons who are really involved
+> into teaching process and what would they like to see in such a new
+> ScholarPress.
+>
+> There's also a post I wrote (this is a copycat) about this idea at:
+> http://sushkov.wordpress.com/2010/04/04/scholarpress-buddypress/
+>
+> Thanks.
+>
+>    
+
+
+From stas at nerd.ro  Sun Apr  4 10:47:37 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 04 Apr 2010 13:47:37 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <4BB7EE03.5030508@portallanguageservices.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+Message-ID: <1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+
+?n data de Sb, 03-04-2010 la 19:40 -0600, Christopher a scris:
+> Hi, I just recently joined the wp-edu list and got your comments on the 
+> Scholarpress plugin.  I was very excited to see that others were trying 
+> to use Wordpress for courses beyond kb-gradebook.
+
+Hey, thanks for quick reply. I'm also new here so there are a lot of
+things I need to know to understand the demands. Hope I'll get some of
+the answers here.
+
+> I installed it on my ESL/EFL site and went to configure it to discover 
+> that it was more of a reference tool for offline classes than a plugin 
+> designed for giving courses completely online using Wordpress. I'm not 
+> saying it is bad. I found what it does very interesting even though it 
+> is not what I've been looking for.
+> I have been working on my own  testing & gradebook plugin with the goal 
+> of teaching online so the quiz scores get posted to the gradebook as 
+> soon as a test is taken not something that requires a CSV file or other 
+> manual entry.
+
+About your plugins, did you publish them to plugins directory?
+
+> I still have to try to set up course descriptions and homework schedules 
+> for mine so I was very interested in checking out Scholar press.  I only 
+> saw the option to set up one course description and the scheduling seems 
+> to be for fixed dates.
+> 
+> I'd like homework scheduling and all related tasks to be flexible for 
+> days from enrollment so I could have students starting on different 
+> days, but their assignments and tasks would be different because they 
+> are in different stages yet it would be manageable since it would be 
+> following a syllabus.
+> 
+
+Yes, that was the first thing I saw just by reading the existing code/db
+schema. As I wrote already, splitting courses from scheduling process,
+should bring the flexibility you were looking for. The idea is to start
+with defining courses, and select them from a drop down list (sort of)
+when creating schedules. Also this approach, will leave more space for
+options for schedules (of any kind).
+
+> While Kb-gradebook is ideal for an off-line course to post grades, it is 
+> impractical for true online classes to force the teacher to go through 
+> that busy work of manually updating a csv and uploading it instead of 
+> creating his or her course content online and adding grades as needed.
+> 
+
+You're right. I just think kb-gradebook was created for cases when
+mid-terms or exams are given in written, what you want is more like test
+papers?
+
+> I have also been trying to use Moodle (after trying Atutor) to design a 
+> course over much of the last year, but I find its administration to be 
+> more than frustrating which is why I've gone to programming my own 
+> plugins for Wordpress which I already know and can use for content 
+> management. This way at least I can have something up and working for 
+> people to use even if it only serves the testing and gradebook function.
+> 
+
+That's why I brought this discussion, let's make something that beats
+moodle.
+
+> I'm curious how much conflict there is in design and planning of plugins 
+> from the off-line course resource to the completely online course. I'm 
+> also curious about how much teachers who normally give courses off-line 
+> bring their fixed-exact-date-linear thinking to their online course design.
+> 
+> Are there any AJAX programmers on the list? I'd like to extend my 
+> testing to include adding javascript based quizzes (drag and drop, 
+> ordering, matching), but I don't know how to take the results and pass 
+> them to a PHP script for processing.
+
+I know ajax, and can help. Christopher, I'm trying to make from this
+idea a proposal for Google Summer of Code, so would be really cool to
+get a list of features you would like to see in
+current ScholarPress plugin. Also, if there are any plugins that in
+someway are useful to you as a teacher and require upgrades,
+improvements, list them (I will consider adding them to the proposal
+list, port them to BuddyPress). Although the idea is for BuddyPress,
+don't take it as an overhead, BuddyPress already has plugins for
+Group Wikis and Forums, and bringing learning tools into it, is exactly
+what a modern Moodle should look like. WordPress is cool, but using
+BuddyPress makes it just more powerful.
+
+Looking forward you reply. 
+
+> 
+> Christopher
+> 
+> On 4/3/2010 6:22 PM, Stas Su?cov wrote:
+> > During the last #wordpress-gsoc chat, Jane pointed me to the
+> > ScholarPress, a community of WordPress plugins developers that are
+> > writing code to make WordPress useful in education. Their plugin,
+> > Courseware is built for WordPress and currently offers the following
+> > features:
+> >
+> >        * manage schedules
+> >        * manage bibliography
+> >        * manage assignments
+> >        * manage general course information
+> >
+> > > From what I heard the plugin also works with BuddyPress, but making it
+> > depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+> > integration. The idea what came is to port ScholarPress to BuddyPress.
+> > In details, to make SP aware of BP groups, and treat them as classes of
+> > students. Assign schedules per group, add bibliography to scheduled
+> > courses, so on for assignments. From the upstream TODO list, I also saw
+> > the need of a grade-book and I would also add a notification system
+> > (send a private message if a course is upcoming or a new grade was
+> > posted).
+> >
+> >
+> > More on the internal part?
+> > It will require changes like, split the courses apart from schedules.
+> > Because SP will be groups aware, it will be more logical to create
+> > courses and link bibliographies and assignments to them, after what
+> > publish them in a schedule. Also I would consider adding an upload
+> > option for the courses that require annexes or attachments (later, you
+> > can bundle those with Google Docs viewer or psview).
+> > About the gradebook, I liked the idea used for kb-gradebook, and I think
+> > it?s the bare minimal implementation of grades assignment I can consider
+> > as a starting point (read the csv file, and assign group members to
+> > marks).
+> >
+> >
+> > About users?
+> > In most of the education centers students are managed using a LDAP or
+> > ActiveDirectory. So bringing some core functionality into such a plugin
+> > also should be considered. I know you?ll jump that there are plenty of
+> > plugins that offer LDAP integration, but hey, none of them (afaik) will
+> > offer you options to integrate two baseDN?s into the same instance (this
+> > can be really useful for role mappings also, divide students from
+> > teachers).
+> >
+> > I?m a student and at our university I had the opportunity to play a
+> > little with Moodle, so the above idea is based on my experience. It
+> > would be nice to hear some opinions from persons who are really involved
+> > into teaching process and what would they like to see in such a new
+> > ScholarPress.
+> >
+> > There's also a post I wrote (this is a copycat) about this idea at:
+> > http://sushkov.wordpress.com/2010/04/04/scholarpress-buddypress/
+> >
+> > Thanks.
+> >
+> >    
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Sun Apr  4 14:38:34 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Sun, 04 Apr 2010 09:38:34 -0500
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+Message-ID: <4BB8A46A.2040809@portallanguageservices.com>
+
+On 4/4/2010 5:47 AM, Stas Su?cov wrote:
+> ?n data de Sb, 03-04-2010 la 19:40 -0600, Christopher a scris:
+>    
+>> Hi, I just recently joined the wp-edu list and got your comments on the
+>> Scholarpress plugin.  I was very excited to see that others were trying
+>> to use Wordpress for courses beyond kb-gradebook.
+>>      
+> Hey, thanks for quick reply. I'm also new here so there are a lot of
+> things I need to know to understand the demands. Hope I'll get some of
+> the answers here.
+>
+>    
+it will be interesting to see who else joins the conversation. :-)
+>> I installed it on my ESL/EFL site and went to configure it to discover
+>> that it was more of a reference tool for offline classes than a plugin
+>> designed for giving courses completely online using Wordpress. I'm not
+>> saying it is bad. I found what it does very interesting even though it
+>> is not what I've been looking for.
+>> I have been working on my own  testing&  gradebook plugin with the goal
+>> of teaching online so the quiz scores get posted to the gradebook as
+>> soon as a test is taken not something that requires a CSV file or other
+>> manual entry.
+>>      
+> About your plugins, did you publish them to plugins directory?
+>    
+I haven't one because I only started a few days ago so I'm still making 
+rather big changes. It all works for creating the database tables, 
+updating the gradebook, adding off-line homework grades, and deleting 
+grades, but I still need to figure out how courses would work. Would I 
+want separate gradebooks for each course?  Right now I just have fields 
+for group and series id(course)   yes it would be easy to add the series 
+ID to the course table name, but all the previous entries would still be 
+in the old gradebook table and I wouldn't want to deal with angry users 
+e-mailing me that their gradebook is now empty.
+Also most of the variables are set in my php code instead of options in 
+a wordpress options page.  I plan to create one which can override the 
+defaults if set, but that requires more investigation.
+
+Currently I'm using a script which uses HTML forms and a separate file 
+for the answers. I like this system because it means I'll always have my 
+quizzes, but I'm not sure if the general public would want to create and 
+upload those files to their plugin directory. I know that most tasks 
+that I think are normal and easy like editing HTML, changing a 
+variable's value in a script,  and using FTP are extraordinary concepts 
+to your average internet user.   I'll probably need a script that will 
+generate the question form and answer list file for them.  The functions 
+for adding and updating the gradebook are separate so it could be 
+replaced with a different quiz system as long as the information can be 
+passed to a function in php.
+>    
+>> I still have to try to set up course descriptions and homework schedules
+>> for mine so I was very interested in checking out Scholar press.  I only
+>> saw the option to set up one course description and the scheduling seems
+>> to be for fixed dates.
+>>
+>> I'd like homework scheduling and all related tasks to be flexible for
+>> days from enrollment so I could have students starting on different
+>> days, but their assignments and tasks would be different because they
+>> are in different stages yet it would be manageable since it would be
+>> following a syllabus.
+>>
+>>      
+> Yes, that was the first thing I saw just by reading the existing code/db
+> schema. As I wrote already, splitting courses from scheduling process,
+> should bring the flexibility you were looking for. The idea is to start
+> with defining courses, and select them from a drop down list (sort of)
+> when creating schedules. Also this approach, will leave more space for
+> options for schedules (of any kind).
+>
+>    
+Personally I'd want to have a general course info page and a page for 
+each course, but there really is no need to do that in a plugin since 
+wordpress pages would work fine for that, but a plugin would need to 
+have a way to check enrollment for the course perhaps using a custom 
+field with the course ID to call the plugin and then check a course 
+enrollment table.  If the visitor is not enrolled they would need to 
+sign up (and need someway to have paypal integrated on signup or place 
+the membership in a pending status at first.)
+The only issue I see with this idea (which is what I'll probably do 
+eventually) is that someone would need to first sign up with the site 
+for the system to check to see if they are enrolled. If they are members 
+but logged out of wordpress, the system wouldn't know what to look for.
+of course if you don't want to have any control, you could just assume 
+that everyone who joins the site is part of each and every course and 
+they will take quizzes and tests as they desire. That works fine until 
+you get to the issue of giving homework. You don't want every person who 
+joins your site to get homework for every course!
+
+
+>> While Kb-gradebook is ideal for an off-line course to post grades, it is
+>> impractical for true online classes to force the teacher to go through
+>> that busy work of manually updating a csv and uploading it instead of
+>> creating his or her course content online and adding grades as needed.
+>>
+>>      
+> You're right. I just think kb-gradebook was created for cases when
+> mid-terms or exams are given in written, what you want is more like test
+> papers?
+>
+>    
+I have my quizzes online so when someone takes them, the score is 
+calculated and the gradebook is updated right away. Obviously not every 
+assignment can be checked by the server, but most can if the test is 
+online. That's why kb-gradebook is not right for online courses. It just 
+wasn't designed for that purpose.  I'm still hoping to learn how to send 
+scores to the updating script for a javascript based activity. I'd like 
+to have activities appear too.   I imagine having a page with a course 
+syllabus telling the student to read certain pages  and doing certain 
+activities which would just take advantage of Wordpress page 
+management.  When games are run, the game would update the gradebook 
+with a score of 100, etc.  for the logged in student upon completion, 
+but if a game is not php, I don't know how to send that information 
+through so for the moment I'm stuck with true/false and multiple choice.
+
+>> I have also been trying to use Moodle (after trying Atutor) to design a
+>> course over much of the last year, but I find its administration to be
+>> more than frustrating which is why I've gone to programming my own
+>> plugins for Wordpress which I already know and can use for content
+>> management. This way at least I can have something up and working for
+>> people to use even if it only serves the testing and gradebook function.
+>>
+>>      
+> That's why I brought this discussion, let's make something that beats
+> moodle.
+>    
+That's a big goal :) so it is important to let wordpress do what it does 
+best and only add the features that are missing like payment, testing, 
+homework, task updates, and gradebook.
+>    
+>> I'm curious how much conflict there is in design and planning of plugins
+>> from the off-line course resource to the completely online course. I'm
+>> also curious about how much teachers who normally give courses off-line
+>> bring their fixed-exact-date-linear thinking to their online course design.
+>>
+>> Are there any AJAX programmers on the list? I'd like to extend my
+>> testing to include adding javascript based quizzes (drag and drop,
+>> ordering, matching), but I don't know how to take the results and pass
+>> them to a PHP script for processing.
+>>      
+> I know ajax, and can help. Christopher, I'm trying to make from this
+> idea a proposal for Google Summer of Code, so would be really cool to
+> get a list of features you would like to see in
+> current ScholarPress plugin. Also, if there are any plugins that in
+> someway are useful to you as a teacher and require upgrades,
+> improvements, list them (I will consider adding them to the proposal
+> list, port them to BuddyPress). Although the idea is for BuddyPress,
+> don't take it as an overhead, BuddyPress already has plugins for
+> Group Wikis and Forums, and bringing learning tools into it, is exactly
+> what a modern Moodle should look like. WordPress is cool, but using
+> BuddyPress makes it just more powerful.
+>
+> Looking forward you reply.
+>    
+I like Buddypress, but I don't think it is currently a good option for 
+course management. It is great for more interaction (like the messaging 
+system)  and forum integration, but the code is very new and Buddypress 
+generates a huge amount of mysql queries so you'd almost have to have a 
+dedicated server for more than a few students on the site at a time.  
+Why force the user to have Buddypress to use a plugin?  Making a plugin 
+depend on another plugin to work is not great design. If that other 
+plugin breaks or changes in a way that is incompatible, your plugin 
+stops working too!
+It would be for the best to let the plugin do what it is supposed to do 
+with or without Buddypress so no functionality would be lost if 
+Buddypress has to be disabled due to server load or compatibility issues.
+
+Well, for scholarpress to work for me, it would need to be redesigned to:
+1. give homework and other tasks based on days from course enrollment 
+(I'd like to see email updates sent to enrolled students. It really 
+isn't practical to expect students to log in to the site frequently to 
+know what they should do.)
+The mailpress plugin added an autoresponder option, which is great, but 
+I am not sure how to automatically add someone to an autoresponder 
+series since I've only just set that up for a general list.  Perhaps it 
+would be good to check with that plugin developer and see how that is 
+done perhaps the same code could be integrated and the tables could be 
+shared so that when a logged in wordpress user joins a course, they are 
+auto-added to the autoresponder series for that course? Yet again I 
+wouldn't want to have to have Mailpress installed to get the alerts sent 
+out.
+I suppose this would require learning how the wordpress mail and cron is 
+set up.
+2. set membership to pending and/or have a paypal option. There should 
+be a course id number which can be changed by the admin so I can later 
+use the same table info in my own plugin(s)
+3. allow more than one course be added.
+4. not force me to use the plugin's course pages since Wordpress is the 
+CMS. I don't need bloatware! The plugin should not manage content. It 
+should manage the course features... I hope that makes sense.  Wordpress 
+should continue to manage site registration and user profiles (an issue 
+I have with Buddypress for using separate profile data)
+
+
+>    
+>> Christopher
+>>
+>> On 4/3/2010 6:22 PM, Stas Su?cov wrote:
+>>      
+>>> During the last #wordpress-gsoc chat, Jane pointed me to the
+>>> ScholarPress, a community of WordPress plugins developers that are
+>>> writing code to make WordPress useful in education. Their plugin,
+>>> Courseware is built for WordPress and currently offers the following
+>>> features:
+>>>
+>>>         * manage schedules
+>>>         * manage bibliography
+>>>         * manage assignments
+>>>         * manage general course information
+>>>
+>>>        
+>>>>  From what I heard the plugin also works with BuddyPress, but making it
+>>>>          
+>>> depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+>>> integration. The idea what came is to port ScholarPress to BuddyPress.
+>>> In details, to make SP aware of BP groups, and treat them as classes of
+>>> students. Assign schedules per group, add bibliography to scheduled
+>>> courses, so on for assignments. From the upstream TODO list, I also saw
+>>> the need of a grade-book and I would also add a notification system
+>>> (send a private message if a course is upcoming or a new grade was
+>>> posted).
+>>>
+>>>
+>>> More on the internal part?
+>>> It will require changes like, split the courses apart from schedules.
+>>> Because SP will be groups aware, it will be more logical to create
+>>> courses and link bibliographies and assignments to them, after what
+>>> publish them in a schedule. Also I would consider adding an upload
+>>> option for the courses that require annexes or attachments (later, you
+>>> can bundle those with Google Docs viewer or psview).
+>>> About the gradebook, I liked the idea used for kb-gradebook, and I think
+>>> it?s the bare minimal implementation of grades assignment I can consider
+>>> as a starting point (read the csv file, and assign group members to
+>>> marks).
+>>>
+>>>
+>>> About users?
+>>> In most of the education centers students are managed using a LDAP or
+>>> ActiveDirectory. So bringing some core functionality into such a plugin
+>>> also should be considered. I know you?ll jump that there are plenty of
+>>> plugins that offer LDAP integration, but hey, none of them (afaik) will
+>>> offer you options to integrate two baseDN?s into the same instance (this
+>>> can be really useful for role mappings also, divide students from
+>>> teachers).
+>>>
+>>> I?m a student and at our university I had the opportunity to play a
+>>> little with Moodle, so the above idea is based on my experience. It
+>>> would be nice to hear some opinions from persons who are really involved
+>>> into teaching process and what would they like to see in such a new
+>>> ScholarPress.
+>>>
+>>> There's also a post I wrote (this is a copycat) about this idea at:
+>>> http://sushkov.wordpress.com/2010/04/04/scholarpress-buddypress/
+>>>
+>>> Thanks.
+>>>
+>>>
+>>>        
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>      
+>
+>    
+
+
+From joseph.ugoretz at mhc.cuny.edu  Sun Apr  4 15:45:57 2010
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Sun, 4 Apr 2010 11:45:57 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <4BB8A46A.2040809@portallanguageservices.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+Message-ID: <07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+
+I'm very excited to see where this can go.  WordPress as a course management system is really already quite viable--for more experienced and skilled users.  For the average teacher, there is still some smoothing out to do.
+
+Let me add a little to the discussion, not from the programmer's point of view (I am decidedly a novice in that area!) but from the teacher's point of view.  I've been teaching fully online courses since 2000, and teaching in the classroom for much longer than that (decades, I hate to admit!).
+
+I am currently teaching a fully online course using WordPress as the platform http://macaulay.cuny.edu/eportfolios/alternateworlds (and I've blogged about it extensively and will continue to do so at http://prestidigitation.commons.gc.cuny.edu ) --and yes, I am using KB Gradebook, yes, the class is fully online, and yes, it's been quite successful.
+
+That point, I think illustrates a critical item that should be included in this project.  In providing what teachers need, it's important not to imagine that the way one teaches himself is the only or even the most desirable way.  This is true whether we're talking about enhancing classroom courses or teaching fully online courses.
+
+I understand Christopher's (excellent) points about having quizzes that are created online and graded automatically and the grades automatically entered into the gradebook.  That would be a terrific feature to have--but it's not necessarily only for fully online classes.  Many face-to-face classes could use that feature, too.  And it's not at all true that all fully online classes work in that way or anything like it.  It's only an essential feature IF your class uses that kind of quiz (with limited options--very specific fill-in-the-blank, multiple choice, or true/false).
+
+For many online classes, including mine, the majority of the assignments and grading are not of that type at all.  In a literature class (which I usually teach) or an interdisciplinary seminar (which I'm currently teaching), the assignments are papers and projects, which absolutely require the kind of functionality which KB Gradebook provides and which an automatic-grading plugin would NOT provide.  Specifically, I'm talking about the ability to provide students with extended feedback and comments, not just a score or letter grade.  Any gradebook which does not provide that ability, would not be very useful for this kind of class.
+
+I'm also a little worried about the idea of having any "one-size-fits-all" solution.  There are many, many different models of classes and programs.  From stand-alone independent-learners, to k-12 classes, to proprietary training programs, to "traditional" higher education in established universities, the variety is huge.  And the needs--in terms of assignments, enrollment, assessment, organization, scheduling, etc. etc. are all very different.
+
+It would be a shame to even try to recreate Blackboard or Moodle or any of the other monolithic LMS's that already exist.  The beauty of using WordPress (or any small-pieces-loosely-joined solution) is that it can be accommodating to all the different models and approaches.
+
+So I would recommend, very strongly, that any approach to making new LMS-type plugins for WordPress should keep them atomized and specifically tailored to specific tasks.
+
+Let's not have one gradebook to rule them all, or assume that every online course operates in the same way--or every face-to-face course operates in the same way.  Let's have the option to use fixed-exact-date as necessary.  Self-paced as necessary.  Payment, testing, etc. as SEPARATE modules--and many different varieties of each one.
+
+We really should not be thinking of beating moodle or blackboard at their own game.  It's not a good game or one that has much of a future.
+
+Again--none of this is meant to be critical in the sense of stopping progress!  I'm just ecstatic to see the project getting rolling, and we should see it as opening up possibilities, rather than closing than down.
+
+--
+Joseph Ugoretz, PhD
+Director of Technology and Learning
+William E. Macaulay Honors College (CUNY)
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+On Apr 4, 2010, at 10:38 AM, Christopher wrote:
+
+> On 4/4/2010 5:47 AM, Stas Su?cov wrote:
+>> ?n data de Sb, 03-04-2010 la 19:40 -0600, Christopher a scris:
+>>
+>>> Hi, I just recently joined the wp-edu list and got your comments on the
+>>> Scholarpress plugin.  I was very excited to see that others were trying
+>>> to use Wordpress for courses beyond kb-gradebook.
+>>>
+>> Hey, thanks for quick reply. I'm also new here so there are a lot of
+>> things I need to know to understand the demands. Hope I'll get some of
+>> the answers here.
+>>
+>>
+> it will be interesting to see who else joins the conversation. :-)
+>>> I installed it on my ESL/EFL site and went to configure it to discover
+>>> that it was more of a reference tool for offline classes than a plugin
+>>> designed for giving courses completely online using Wordpress. I'm not
+>>> saying it is bad. I found what it does very interesting even though it
+>>> is not what I've been looking for.
+>>> I have been working on my own  testing&  gradebook plugin with the goal
+>>> of teaching online so the quiz scores get posted to the gradebook as
+>>> soon as a test is taken not something that requires a CSV file or other
+>>> manual entry.
+>>>
+>> About your plugins, did you publish them to plugins directory?
+>>
+> I haven't one because I only started a few days ago so I'm still making
+> rather big changes. It all works for creating the database tables,
+> updating the gradebook, adding off-line homework grades, and deleting
+> grades, but I still need to figure out how courses would work. Would I
+> want separate gradebooks for each course?  Right now I just have fields
+> for group and series id(course)   yes it would be easy to add the series
+> ID to the course table name, but all the previous entries would still be
+> in the old gradebook table and I wouldn't want to deal with angry users
+> e-mailing me that their gradebook is now empty.
+> Also most of the variables are set in my php code instead of options in
+> a wordpress options page.  I plan to create one which can override the
+> defaults if set, but that requires more investigation.
+>
+> Currently I'm using a script which uses HTML forms and a separate file
+> for the answers. I like this system because it means I'll always have my
+> quizzes, but I'm not sure if the general public would want to create and
+> upload those files to their plugin directory. I know that most tasks
+> that I think are normal and easy like editing HTML, changing a
+> variable's value in a script,  and using FTP are extraordinary concepts
+> to your average internet user.   I'll probably need a script that will
+> generate the question form and answer list file for them.  The functions
+> for adding and updating the gradebook are separate so it could be
+> replaced with a different quiz system as long as the information can be
+> passed to a function in php.
+>>
+>>> I still have to try to set up course descriptions and homework schedules
+>>> for mine so I was very interested in checking out Scholar press.  I only
+>>> saw the option to set up one course description and the scheduling seems
+>>> to be for fixed dates.
+>>>
+>>> I'd like homework scheduling and all related tasks to be flexible for
+>>> days from enrollment so I could have students starting on different
+>>> days, but their assignments and tasks would be different because they
+>>> are in different stages yet it would be manageable since it would be
+>>> following a syllabus.
+>>>
+>>>
+>> Yes, that was the first thing I saw just by reading the existing code/db
+>> schema. As I wrote already, splitting courses from scheduling process,
+>> should bring the flexibility you were looking for. The idea is to start
+>> with defining courses, and select them from a drop down list (sort of)
+>> when creating schedules. Also this approach, will leave more space for
+>> options for schedules (of any kind).
+>>
+>>
+> Personally I'd want to have a general course info page and a page for
+> each course, but there really is no need to do that in a plugin since
+> wordpress pages would work fine for that, but a plugin would need to
+> have a way to check enrollment for the course perhaps using a custom
+> field with the course ID to call the plugin and then check a course
+> enrollment table.  If the visitor is not enrolled they would need to
+> sign up (and need someway to have paypal integrated on signup or place
+> the membership in a pending status at first.)
+> The only issue I see with this idea (which is what I'll probably do
+> eventually) is that someone would need to first sign up with the site
+> for the system to check to see if they are enrolled. If they are members
+> but logged out of wordpress, the system wouldn't know what to look for.
+> of course if you don't want to have any control, you could just assume
+> that everyone who joins the site is part of each and every course and
+> they will take quizzes and tests as they desire. That works fine until
+> you get to the issue of giving homework. You don't want every person who
+> joins your site to get homework for every course!
+>
+>
+>>> While Kb-gradebook is ideal for an off-line course to post grades, it is
+>>> impractical for true online classes to force the teacher to go through
+>>> that busy work of manually updating a csv and uploading it instead of
+>>> creating his or her course content online and adding grades as needed.
+>>>
+>>>
+>> You're right. I just think kb-gradebook was created for cases when
+>> mid-terms or exams are given in written, what you want is more like test
+>> papers?
+>>
+>>
+> I have my quizzes online so when someone takes them, the score is
+> calculated and the gradebook is updated right away. Obviously not every
+> assignment can be checked by the server, but most can if the test is
+> online. That's why kb-gradebook is not right for online courses. It just
+> wasn't designed for that purpose.  I'm still hoping to learn how to send
+> scores to the updating script for a javascript based activity. I'd like
+> to have activities appear too.   I imagine having a page with a course
+> syllabus telling the student to read certain pages  and doing certain
+> activities which would just take advantage of Wordpress page
+> management.  When games are run, the game would update the gradebook
+> with a score of 100, etc.  for the logged in student upon completion,
+> but if a game is not php, I don't know how to send that information
+> through so for the moment I'm stuck with true/false and multiple choice.
+>
+>>> I have also been trying to use Moodle (after trying Atutor) to design a
+>>> course over much of the last year, but I find its administration to be
+>>> more than frustrating which is why I've gone to programming my own
+>>> plugins for Wordpress which I already know and can use for content
+>>> management. This way at least I can have something up and working for
+>>> people to use even if it only serves the testing and gradebook function.
+>>>
+>>>
+>> That's why I brought this discussion, let's make something that beats
+>> moodle.
+>>
+> That's a big goal :) so it is important to let wordpress do what it does
+> best and only add the features that are missing like payment, testing,
+> homework, task updates, and gradebook.
+>>
+>>> I'm curious how much conflict there is in design and planning of plugins
+>>> from the off-line course resource to the completely online course. I'm
+>>> also curious about how much teachers who normally give courses off-line
+>>> bring their fixed-exact-date-linear thinking to their online course design.
+>>>
+>>> Are there any AJAX programmers on the list? I'd like to extend my
+>>> testing to include adding javascript based quizzes (drag and drop,
+>>> ordering, matching), but I don't know how to take the results and pass
+>>> them to a PHP script for processing.
+>>>
+>> I know ajax, and can help. Christopher, I'm trying to make from this
+>> idea a proposal for Google Summer of Code, so would be really cool to
+>> get a list of features you would like to see in
+>> current ScholarPress plugin. Also, if there are any plugins that in
+>> someway are useful to you as a teacher and require upgrades,
+>> improvements, list them (I will consider adding them to the proposal
+>> list, port them to BuddyPress). Although the idea is for BuddyPress,
+>> don't take it as an overhead, BuddyPress already has plugins for
+>> Group Wikis and Forums, and bringing learning tools into it, is exactly
+>> what a modern Moodle should look like. WordPress is cool, but using
+>> BuddyPress makes it just more powerful.
+>>
+>> Looking forward you reply.
+>>
+> I like Buddypress, but I don't think it is currently a good option for
+> course management. It is great for more interaction (like the messaging
+> system)  and forum integration, but the code is very new and Buddypress
+> generates a huge amount of mysql queries so you'd almost have to have a
+> dedicated server for more than a few students on the site at a time.
+> Why force the user to have Buddypress to use a plugin?  Making a plugin
+> depend on another plugin to work is not great design. If that other
+> plugin breaks or changes in a way that is incompatible, your plugin
+> stops working too!
+> It would be for the best to let the plugin do what it is supposed to do
+> with or without Buddypress so no functionality would be lost if
+> Buddypress has to be disabled due to server load or compatibility issues.
+>
+> Well, for scholarpress to work for me, it would need to be redesigned to:
+> 1. give homework and other tasks based on days from course enrollment
+> (I'd like to see email updates sent to enrolled students. It really
+> isn't practical to expect students to log in to the site frequently to
+> know what they should do.)
+> The mailpress plugin added an autoresponder option, which is great, but
+> I am not sure how to automatically add someone to an autoresponder
+> series since I've only just set that up for a general list.  Perhaps it
+> would be good to check with that plugin developer and see how that is
+> done perhaps the same code could be integrated and the tables could be
+> shared so that when a logged in wordpress user joins a course, they are
+> auto-added to the autoresponder series for that course? Yet again I
+> wouldn't want to have to have Mailpress installed to get the alerts sent
+> out.
+> I suppose this would require learning how the wordpress mail and cron is
+> set up.
+> 2. set membership to pending and/or have a paypal option. There should
+> be a course id number which can be changed by the admin so I can later
+> use the same table info in my own plugin(s)
+> 3. allow more than one course be added.
+> 4. not force me to use the plugin's course pages since Wordpress is the
+> CMS. I don't need bloatware! The plugin should not manage content. It
+> should manage the course features... I hope that makes sense.  Wordpress
+> should continue to manage site registration and user profiles (an issue
+> I have with Buddypress for using separate profile data)
+>
+>
+>>
+>>> Christopher
+>>>
+>>> On 4/3/2010 6:22 PM, Stas Su?cov wrote:
+>>>
+>>>> During the last #wordpress-gsoc chat, Jane pointed me to the
+>>>> ScholarPress, a community of WordPress plugins developers that are
+>>>> writing code to make WordPress useful in education. Their plugin,
+>>>> Courseware is built for WordPress and currently offers the following
+>>>> features:
+>>>>
+>>>>        * manage schedules
+>>>>        * manage bibliography
+>>>>        * manage assignments
+>>>>        * manage general course information
+>>>>
+>>>>
+>>>>> From what I heard the plugin also works with BuddyPress, but making it
+>>>>>
+>>>> depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+>>>> integration. The idea what came is to port ScholarPress to BuddyPress.
+>>>> In details, to make SP aware of BP groups, and treat them as classes of
+>>>> students. Assign schedules per group, add bibliography to scheduled
+>>>> courses, so on for assignments. From the upstream TODO list, I also saw
+>>>> the need of a grade-book and I would also add a notification system
+>>>> (send a private message if a course is upcoming or a new grade was
+>>>> posted).
+>>>>
+>>>>
+>>>> More on the internal part?
+>>>> It will require changes like, split the courses apart from schedules.
+>>>> Because SP will be groups aware, it will be more logical to create
+>>>> courses and link bibliographies and assignments to them, after what
+>>>> publish them in a schedule. Also I would consider adding an upload
+>>>> option for the courses that require annexes or attachments (later, you
+>>>> can bundle those with Google Docs viewer or psview).
+>>>> About the gradebook, I liked the idea used for kb-gradebook, and I think
+>>>> it?s the bare minimal implementation of grades assignment I can consider
+>>>> as a starting point (read the csv file, and assign group members to
+>>>> marks).
+>>>>
+>>>>
+>>>> About users?
+>>>> In most of the education centers students are managed using a LDAP or
+>>>> ActiveDirectory. So bringing some core functionality into such a plugin
+>>>> also should be considered. I know you?ll jump that there are plenty of
+>>>> plugins that offer LDAP integration, but hey, none of them (afaik) will
+>>>> offer you options to integrate two baseDN?s into the same instance (this
+>>>> can be really useful for role mappings also, divide students from
+>>>> teachers).
+>>>>
+>>>> I?m a student and at our university I had the opportunity to play a
+>>>> little with Moodle, so the above idea is based on my experience. It
+>>>> would be nice to hear some opinions from persons who are really involved
+>>>> into teaching process and what would they like to see in such a new
+>>>> ScholarPress.
+>>>>
+>>>> There's also a post I wrote (this is a copycat) about this idea at:
+>>>> http://sushkov.wordpress.com/2010/04/04/scholarpress-buddypress/
+>>>>
+>>>> Thanks.
+>>>>
+>>>>
+>>>>
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>>
+>>
+>>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From christopher at portallanguageservices.com  Sun Apr  4 16:16:49 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Sun, 04 Apr 2010 11:16:49 -0500
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>	<4BB7EE03.5030508@portallanguageservices.com>	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+Message-ID: <4BB8BB71.7070107@portallanguageservices.com>
+
+thank you for your comment on gradebook feedback.  in my test/gradebook 
+plugin concept which is still in a very early non-public version  I 
+added a way to add external tests/homework grades external in this case 
+meaning anything that can't be graded by the scripts on the server.  I 
+basically want to get away from the kb-gradebook model for my online 
+courses since I hate busy work, but of course if it is the best solution 
+for someone they should use it!
+You mentioned needing to give feedback in the gradebook. Could you 
+explain that a little?  I imagined that feedback would be given by email 
+or messenger.
+" ...the assignments are papers and projects, which absolutely require 
+the kind of functionality which KB Gradebook provides and which an 
+automatic-grading plugin would NOT provide. Specifically, I'm talking 
+about the ability to provide students with extended feedback and 
+comments, not just a score or letter grade. Any gradebook which does not 
+provide that ability, would not be very useful for this kind of class."
+
+What feedback/functionality would you want added to a testing/gradebook 
+solution? Just a text comment to appear by a grade when viewed by a 
+student? I don't remember reading on the kbgradebook plugin page about 
+it having a feedback function at all!
+
+I agree that it would be best to keep those different tasks as separate 
+plugins, but if there is no interaction between them like sharing 
+database tables and/or options then manual data entry would be required 
+for more tasks which goes against what I am hoping for in an LMS.
+
+On 4/4/2010 10:45 AM, Joseph Ugoretz wrote:
+> I'm very excited to see where this can go.  WordPress as a course management system is really already quite viable--for more experienced and skilled users.  For the average teacher, there is still some smoothing out to do.
+>
+> Let me add a little to the discussion, not from the programmer's point of view (I am decidedly a novice in that area!) but from the teacher's point of view.  I've been teaching fully online courses since 2000, and teaching in the classroom for much longer than that (decades, I hate to admit!).
+>
+> I am currently teaching a fully online course using WordPress as the platform http://macaulay.cuny.edu/eportfolios/alternateworlds (and I've blogged about it extensively and will continue to do so at http://prestidigitation.commons.gc.cuny.edu ) --and yes, I am using KB Gradebook, yes, the class is fully online, and yes, it's been quite successful.
+>
+> That point, I think illustrates a critical item that should be included in this project.  In providing what teachers need, it's important not to imagine that the way one teaches himself is the only or even the most desirable way.  This is true whether we're talking about enhancing classroom courses or teaching fully online courses.
+>
+> I understand Christopher's (excellent) points about having quizzes that are created online and graded automatically and the grades automatically entered into the gradebook.  That would be a terrific feature to have--but it's not necessarily only for fully online classes.  Many face-to-face classes could use that feature, too.  And it's not at all true that all fully online classes work in that way or anything like it.  It's only an essential feature IF your class uses that kind of quiz (with limited options--very specific fill-in-the-blank, multiple choice, or true/false).
+>
+> For many online classes, including mine, the majority of the assignments and grading are not of that type at all.  In a literature class (which I usually teach) or an interdisciplinary seminar (which I'm currently teaching), the assignments are papers and projects, which absolutely require the kind of functionality which KB Gradebook provides and which an automatic-grading plugin would NOT provide.  Specifically, I'm talking about the ability to provide students with extended feedback and comments, not just a score or letter grade.  Any gradebook which does not provide that ability, would not be very useful for this kind of class.
+>
+> I'm also a little worried about the idea of having any "one-size-fits-all" solution.  There are many, many different models of classes and programs.  From stand-alone independent-learners, to k-12 classes, to proprietary training programs, to "traditional" higher education in established universities, the variety is huge.  And the needs--in terms of assignments, enrollment, assessment, organization, scheduling, etc. etc. are all very different.
+>
+> It would be a shame to even try to recreate Blackboard or Moodle or any of the other monolithic LMS's that already exist.  The beauty of using WordPress (or any small-pieces-loosely-joined solution) is that it can be accommodating to all the different models and approaches.
+>
+> So I would recommend, very strongly, that any approach to making new LMS-type plugins for WordPress should keep them atomized and specifically tailored to specific tasks.
+>
+> Let's not have one gradebook to rule them all, or assume that every online course operates in the same way--or every face-to-face course operates in the same way.  Let's have the option to use fixed-exact-date as necessary.  Self-paced as necessary.  Payment, testing, etc. as SEPARATE modules--and many different varieties of each one.
+>
+> We really should not be thinking of beating moodle or blackboard at their own game.  It's not a good game or one that has much of a future.
+>
+> Again--none of this is meant to be critical in the sense of stopping progress!  I'm just ecstatic to see the project getting rolling, and we should see it as opening up possibilities, rather than closing than down.
+>
+> --
+> Joseph Ugoretz, PhD
+> Director of Technology and Learning
+> William E. Macaulay Honors College (CUNY)
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+>
+>
+>
+>
+> On Apr 4, 2010, at 10:38 AM, Christopher wrote:
+>
+>    
+>> On 4/4/2010 5:47 AM, Stas Su?cov wrote:
+>>      
+>>> ?n data de Sb, 03-04-2010 la 19:40 -0600, Christopher a scris:
+>>>
+>>>        
+>>>> Hi, I just recently joined the wp-edu list and got your comments on the
+>>>> Scholarpress plugin.  I was very excited to see that others were trying
+>>>> to use Wordpress for courses beyond kb-gradebook.
+>>>>
+>>>>          
+>>> Hey, thanks for quick reply. I'm also new here so there are a lot of
+>>> things I need to know to understand the demands. Hope I'll get some of
+>>> the answers here.
+>>>
+>>>
+>>>        
+>> it will be interesting to see who else joins the conversation. :-)
+>>      
+>>>> I installed it on my ESL/EFL site and went to configure it to discover
+>>>> that it was more of a reference tool for offline classes than a plugin
+>>>> designed for giving courses completely online using Wordpress. I'm not
+>>>> saying it is bad. I found what it does very interesting even though it
+>>>> is not what I've been looking for.
+>>>> I have been working on my own  testing&   gradebook plugin with the goal
+>>>> of teaching online so the quiz scores get posted to the gradebook as
+>>>> soon as a test is taken not something that requires a CSV file or other
+>>>> manual entry.
+>>>>
+>>>>          
+>>> About your plugins, did you publish them to plugins directory?
+>>>
+>>>        
+>> I haven't one because I only started a few days ago so I'm still making
+>> rather big changes. It all works for creating the database tables,
+>> updating the gradebook, adding off-line homework grades, and deleting
+>> grades, but I still need to figure out how courses would work. Would I
+>> want separate gradebooks for each course?  Right now I just have fields
+>> for group and series id(course)   yes it would be easy to add the series
+>> ID to the course table name, but all the previous entries would still be
+>> in the old gradebook table and I wouldn't want to deal with angry users
+>> e-mailing me that their gradebook is now empty.
+>> Also most of the variables are set in my php code instead of options in
+>> a wordpress options page.  I plan to create one which can override the
+>> defaults if set, but that requires more investigation.
+>>
+>> Currently I'm using a script which uses HTML forms and a separate file
+>> for the answers. I like this system because it means I'll always have my
+>> quizzes, but I'm not sure if the general public would want to create and
+>> upload those files to their plugin directory. I know that most tasks
+>> that I think are normal and easy like editing HTML, changing a
+>> variable's value in a script,  and using FTP are extraordinary concepts
+>> to your average internet user.   I'll probably need a script that will
+>> generate the question form and answer list file for them.  The functions
+>> for adding and updating the gradebook are separate so it could be
+>> replaced with a different quiz system as long as the information can be
+>> passed to a function in php.
+>>      
+>>>        
+>>>> I still have to try to set up course descriptions and homework schedules
+>>>> for mine so I was very interested in checking out Scholar press.  I only
+>>>> saw the option to set up one course description and the scheduling seems
+>>>> to be for fixed dates.
+>>>>
+>>>> I'd like homework scheduling and all related tasks to be flexible for
+>>>> days from enrollment so I could have students starting on different
+>>>> days, but their assignments and tasks would be different because they
+>>>> are in different stages yet it would be manageable since it would be
+>>>> following a syllabus.
+>>>>
+>>>>
+>>>>          
+>>> Yes, that was the first thing I saw just by reading the existing code/db
+>>> schema. As I wrote already, splitting courses from scheduling process,
+>>> should bring the flexibility you were looking for. The idea is to start
+>>> with defining courses, and select them from a drop down list (sort of)
+>>> when creating schedules. Also this approach, will leave more space for
+>>> options for schedules (of any kind).
+>>>
+>>>
+>>>        
+>> Personally I'd want to have a general course info page and a page for
+>> each course, but there really is no need to do that in a plugin since
+>> wordpress pages would work fine for that, but a plugin would need to
+>> have a way to check enrollment for the course perhaps using a custom
+>> field with the course ID to call the plugin and then check a course
+>> enrollment table.  If the visitor is not enrolled they would need to
+>> sign up (and need someway to have paypal integrated on signup or place
+>> the membership in a pending status at first.)
+>> The only issue I see with this idea (which is what I'll probably do
+>> eventually) is that someone would need to first sign up with the site
+>> for the system to check to see if they are enrolled. If they are members
+>> but logged out of wordpress, the system wouldn't know what to look for.
+>> of course if you don't want to have any control, you could just assume
+>> that everyone who joins the site is part of each and every course and
+>> they will take quizzes and tests as they desire. That works fine until
+>> you get to the issue of giving homework. You don't want every person who
+>> joins your site to get homework for every course!
+>>
+>>
+>>      
+>>>> While Kb-gradebook is ideal for an off-line course to post grades, it is
+>>>> impractical for true online classes to force the teacher to go through
+>>>> that busy work of manually updating a csv and uploading it instead of
+>>>> creating his or her course content online and adding grades as needed.
+>>>>
+>>>>
+>>>>          
+>>> You're right. I just think kb-gradebook was created for cases when
+>>> mid-terms or exams are given in written, what you want is more like test
+>>> papers?
+>>>
+>>>
+>>>        
+>> I have my quizzes online so when someone takes them, the score is
+>> calculated and the gradebook is updated right away. Obviously not every
+>> assignment can be checked by the server, but most can if the test is
+>> online. That's why kb-gradebook is not right for online courses. It just
+>> wasn't designed for that purpose.  I'm still hoping to learn how to send
+>> scores to the updating script for a javascript based activity. I'd like
+>> to have activities appear too.   I imagine having a page with a course
+>> syllabus telling the student to read certain pages  and doing certain
+>> activities which would just take advantage of Wordpress page
+>> management.  When games are run, the game would update the gradebook
+>> with a score of 100, etc.  for the logged in student upon completion,
+>> but if a game is not php, I don't know how to send that information
+>> through so for the moment I'm stuck with true/false and multiple choice.
+>>
+>>      
+>>>> I have also been trying to use Moodle (after trying Atutor) to design a
+>>>> course over much of the last year, but I find its administration to be
+>>>> more than frustrating which is why I've gone to programming my own
+>>>> plugins for Wordpress which I already know and can use for content
+>>>> management. This way at least I can have something up and working for
+>>>> people to use even if it only serves the testing and gradebook function.
+>>>>
+>>>>
+>>>>          
+>>> That's why I brought this discussion, let's make something that beats
+>>> moodle.
+>>>
+>>>        
+>> That's a big goal :) so it is important to let wordpress do what it does
+>> best and only add the features that are missing like payment, testing,
+>> homework, task updates, and gradebook.
+>>      
+>>>        
+>>>> I'm curious how much conflict there is in design and planning of plugins
+>>>> from the off-line course resource to the completely online course. I'm
+>>>> also curious about how much teachers who normally give courses off-line
+>>>> bring their fixed-exact-date-linear thinking to their online course design.
+>>>>
+>>>> Are there any AJAX programmers on the list? I'd like to extend my
+>>>> testing to include adding javascript based quizzes (drag and drop,
+>>>> ordering, matching), but I don't know how to take the results and pass
+>>>> them to a PHP script for processing.
+>>>>
+>>>>          
+>>> I know ajax, and can help. Christopher, I'm trying to make from this
+>>> idea a proposal for Google Summer of Code, so would be really cool to
+>>> get a list of features you would like to see in
+>>> current ScholarPress plugin. Also, if there are any plugins that in
+>>> someway are useful to you as a teacher and require upgrades,
+>>> improvements, list them (I will consider adding them to the proposal
+>>> list, port them to BuddyPress). Although the idea is for BuddyPress,
+>>> don't take it as an overhead, BuddyPress already has plugins for
+>>> Group Wikis and Forums, and bringing learning tools into it, is exactly
+>>> what a modern Moodle should look like. WordPress is cool, but using
+>>> BuddyPress makes it just more powerful.
+>>>
+>>> Looking forward you reply.
+>>>
+>>>        
+>> I like Buddypress, but I don't think it is currently a good option for
+>> course management. It is great for more interaction (like the messaging
+>> system)  and forum integration, but the code is very new and Buddypress
+>> generates a huge amount of mysql queries so you'd almost have to have a
+>> dedicated server for more than a few students on the site at a time.
+>> Why force the user to have Buddypress to use a plugin?  Making a plugin
+>> depend on another plugin to work is not great design. If that other
+>> plugin breaks or changes in a way that is incompatible, your plugin
+>> stops working too!
+>> It would be for the best to let the plugin do what it is supposed to do
+>> with or without Buddypress so no functionality would be lost if
+>> Buddypress has to be disabled due to server load or compatibility issues.
+>>
+>> Well, for scholarpress to work for me, it would need to be redesigned to:
+>> 1. give homework and other tasks based on days from course enrollment
+>> (I'd like to see email updates sent to enrolled students. It really
+>> isn't practical to expect students to log in to the site frequently to
+>> know what they should do.)
+>> The mailpress plugin added an autoresponder option, which is great, but
+>> I am not sure how to automatically add someone to an autoresponder
+>> series since I've only just set that up for a general list.  Perhaps it
+>> would be good to check with that plugin developer and see how that is
+>> done perhaps the same code could be integrated and the tables could be
+>> shared so that when a logged in wordpress user joins a course, they are
+>> auto-added to the autoresponder series for that course? Yet again I
+>> wouldn't want to have to have Mailpress installed to get the alerts sent
+>> out.
+>> I suppose this would require learning how the wordpress mail and cron is
+>> set up.
+>> 2. set membership to pending and/or have a paypal option. There should
+>> be a course id number which can be changed by the admin so I can later
+>> use the same table info in my own plugin(s)
+>> 3. allow more than one course be added.
+>> 4. not force me to use the plugin's course pages since Wordpress is the
+>> CMS. I don't need bloatware! The plugin should not manage content. It
+>> should manage the course features... I hope that makes sense.  Wordpress
+>> should continue to manage site registration and user profiles (an issue
+>> I have with Buddypress for using separate profile data)
+>>
+>>
+>>      
+>>>        
+>>>> Christopher
+>>>>
+>>>> On 4/3/2010 6:22 PM, Stas Su?cov wrote:
+>>>>
+>>>>          
+>>>>> During the last #wordpress-gsoc chat, Jane pointed me to the
+>>>>> ScholarPress, a community of WordPress plugins developers that are
+>>>>> writing code to make WordPress useful in education. Their plugin,
+>>>>> Courseware is built for WordPress and currently offers the following
+>>>>> features:
+>>>>>
+>>>>>         * manage schedules
+>>>>>         * manage bibliography
+>>>>>         * manage assignments
+>>>>>         * manage general course information
+>>>>>
+>>>>>
+>>>>>            
+>>>>>>  From what I heard the plugin also works with BuddyPress, but making it
+>>>>>>
+>>>>>>              
+>>>>> depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+>>>>> integration. The idea what came is to port ScholarPress to BuddyPress.
+>>>>> In details, to make SP aware of BP groups, and treat them as classes of
+>>>>> students. Assign schedules per group, add bibliography to scheduled
+>>>>> courses, so on for assignments. From the upstream TODO list, I also saw
+>>>>> the need of a grade-book and I would also add a notification system
+>>>>> (send a private message if a course is upcoming or a new grade was
+>>>>> posted).
+>>>>>
+>>>>>
+>>>>> More on the internal part?
+>>>>> It will require changes like, split the courses apart from schedules.
+>>>>> Because SP will be groups aware, it will be more logical to create
+>>>>> courses and link bibliographies and assignments to them, after what
+>>>>> publish them in a schedule. Also I would consider adding an upload
+>>>>> option for the courses that require annexes or attachments (later, you
+>>>>> can bundle those with Google Docs viewer or psview).
+>>>>> About the gradebook, I liked the idea used for kb-gradebook, and I think
+>>>>> it?s the bare minimal implementation of grades assignment I can consider
+>>>>> as a starting point (read the csv file, and assign group members to
+>>>>> marks).
+>>>>>
+>>>>>
+>>>>> About users?
+>>>>> In most of the education centers students are managed using a LDAP or
+>>>>> ActiveDirectory. So bringing some core functionality into such a plugin
+>>>>> also should be considered. I know you?ll jump that there are plenty of
+>>>>> plugins that offer LDAP integration, but hey, none of them (afaik) will
+>>>>> offer you options to integrate two baseDN?s into the same instance (this
+>>>>> can be really useful for role mappings also, divide students from
+>>>>> teachers).
+>>>>>
+>>>>> I?m a student and at our university I had the opportunity to play a
+>>>>> little with Moodle, so the above idea is based on my experience. It
+>>>>> would be nice to hear some opinions from persons who are really involved
+>>>>> into teaching process and what would they like to see in such a new
+>>>>> ScholarPress.
+>>>>>
+>>>>> There's also a post I wrote (this is a copycat) about this idea at:
+>>>>> http://sushkov.wordpress.com/2010/04/04/scholarpress-buddypress/
+>>>>>
+>>>>> Thanks.
+>>>>>
+>>>>>
+>>>>>
+>>>>>            
+>>>> _______________________________________________
+>>>> wp-edu mailing list
+>>>> wp-edu at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>>>
+>>>>          
+>>>
+>>>        
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>      
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>    
+
+
+From sknox at boisestate.edu  Sun Apr  4 16:28:47 2010
+From: sknox at boisestate.edu (Skip Knox)
+Date: Sun, 4 Apr 2010 10:28:47 -0600
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+Message-ID: <w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>
+
+Just wanted to add my voice to Joseph's. Don't try to make WP into an LMS.
+It won't work anyway (for example, you have to choose your authentication
+method and there can be only one, so you're either an open system or a
+closed one--no way to have partly-open, partly-closed). But if we can find
+areas where the full library of WP, including plugins and widgets, is weak
+in terms of higher education, then improving those would be most welcome.
+
+I too am an advocate of mixed systems. My virtual courses all, consist of an
+open area that anyone can read, with a closed discussion forum (to respect
+students' privacy). Even there, authentication is an additional burden, but
+as my classes have only about 30 students, I'm willing to put in the extra
+time.
+
+My courses are old (oldest dates to 1994) and are showing their age--web
+pages with an external forum, and no WordPress in sight--but they might
+serve as an instructive comparison to the really excellent work Joe has
+done. The home page of each has links to the others, so I'll just list one.
+http://boisestate.edu/courses/crusades/
+I do blog about this a bit
+http://knoxhistory.blogspot.com/
+and yeah that's Blogger. I'll get it moved one of these Fine Days.
+
+Anyway, folks can look at mine and Joe's and see even in these two areas how
+radically different approaches can be -- and the range would be greater if
+we had someone from Health Sciences or Architecture or the Performing Arts
+or Physics. I echo Joe's basic objection to the big LMS systems: one size
+doesn't fit all and going down that road is actually a significant deviation
+from the basic principle of a university (which is a collection of different
+disciplines). And I second his preference for the loose collection approach.
+
+I have a couple of things I'd love to see as improvements. One, a way for
+*me* to rate posts in discussion and to have those accumulate. Secondary to
+that, a way for me to reference my rubric quickly while rating, and a way to
+browse on two axes: by student and by thread. Nobody does this really
+elegantly yet.
+
+The second thing I'd love to see is a versioning system. I've modified my
+courses over the years and in so doing I simply overwrite what was there
+before. I'd like to be able to have kept each version of my course *and* to
+have kept each forum with each course, so that any of my students could
+return not only to the course the way it is today, but the way it was when
+*they* took the course. Imagine how useful this would be if all students
+could do this with all their courses.
+
+Skip Knox
+Boise State University
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100404/6e146be2/attachment-0001.htm>
+
+From sknox at boisestate.edu  Sun Apr  4 16:35:24 2010
+From: sknox at boisestate.edu (Skip Knox)
+Date: Sun, 4 Apr 2010 10:35:24 -0600
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <4BB8BB71.7070107@portallanguageservices.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+	<4BB8BB71.7070107@portallanguageservices.com>
+Message-ID: <t2s785f6c6c1004040935ua9f78e27v7e511dcb1d0d8363@mail.gmail.com>
+
+FWIW, Christopher, I don't need a feedback system in a gradebook. I don't
+actually use a gradebook, as I never have all that many assignments. In my
+upper division courses, just the single term paper. In my lower division,
+three essays. A gradebook is overkill, and comments of course go directly
+into the paper or essay (which come to me as attachments). Another example,
+I guess, of diversity of method among teachers and across disciplines.
+
+I do, however, give "progress reports", which are really just feedback on
+how they are doing in discussion. I only do that twice, so again I don't
+need a gradebook, but if I were giving grades weekly, then perhaps there. At
+the very least, an easy way to quote would be helpful, or maybe links back
+to the post that I'm commenting on. This is just standard scholarly dialog
+stuff -- cite your sources. In this case, the sources are the students'
+posts.
+
+I again agree with Joe. Grades without comments are not of much help to the
+student, they only benefit the administrator.
+
+
+
+Skip Knox
+Boise State University
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100404/4bfde59f/attachment.htm>
+
+From kylejones at thecorkboard.org  Sun Apr  4 16:38:21 2010
+From: kylejones at thecorkboard.org (Kyle M. Jones)
+Date: Sun, 4 Apr 2010 12:38:21 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <mailman.9.1270382402.12026.wp-edu@lists.automattic.com>
+References: <mailman.9.1270382402.12026.wp-edu@lists.automattic.com>
+Message-ID: <76777EBF-8120-4775-965E-A76A0FA18196@thecorkboard.org>
+
+Stas-
+
+Like Joseph mentions in a later response, I too am ecstatic that this idea has been brought up for a GSOC proposal.  Also like Joseph, my developer skills are near to none but we both have institutional experience working with LMS supporting professors/teachers and looking at the LMS from a student's perspective.  I've been using BuddyPress/WordPress as a LMS for two semesters and have had much success (side note: I develop and maintain the site, I'm not the professor).  You can find out all about my views on WP as LMS and how I've used it here: http://wpmu.org/wordpress-as-a-learning-management-system-move-over-blackboard/
+
+Let me put this out there for you: I can't develop but I'd be more than willing to work side-by-side with you to conceptualize, mockup, and thoroughly test what you're looking to achieve.  In fact, I've been mocking up a LMS type theme that incorporates some of the things you talk about (I'll e-mail it to you if you're interested).  Basically, I'm here to help.   I'd venture to guess Joseph would volunteer some time as well ;)
+
+For now though I'll respond to some of your comments below and will respond to Joseph in a later response.
+
+Thanks,
+
+~kyle~
+
+> During the last #wordpress-gsoc chat, Jane pointed me to the
+> ScholarPress, a community of WordPress plugins developers that are
+> writing code to make WordPress useful in education. Their plugin,
+> Courseware is built for WordPress and currently offers the following
+> features:
+> 
+>       * manage schedules
+>       * manage bibliography
+>       * manage assignments
+>       * manage general course information
+> 
+> >From what I heard the plugin also works with BuddyPress, but making it
+> depends on WordPress (shortcodes, wp-admin) isn?t exactly a perfect
+> integration. 
+I think you're right on here.  Shortcodes aren't seamless.  And when we're talking about using WP-as-LMS with a wide user audience with differing skills, shortcodes wouldn't be the best way to go.  We need something that has a comprehensive, UX-focused admin panel.
+> The idea what came is to port ScholarPress to BuddyPress.
+> In details, to make SP aware of BP groups, and treat them as classes of
+> students. Assign schedules per group, add bibliography to scheduled
+> courses, so on for assignments. 
+I look at groups with the same lens you do and it makes a lot of sense to me.  I know Joseph writes in a later post that we shouldn't focus any kind of LMS functionality on BuddyPress, but I think we can agree that the organization is logical.
+> From the upstream TODO list, I also saw
+> the need of a grade-book and I would also add a notification system
+> (send a private message if a course is upcoming or a new grade was
+> posted).
+Good lord does WP need a gradebook. A comprehensive, secure, stable gradebook.  KB-gradebook is our only option and it fails every time for me, as Joseph documented here: http://prestidigitation.commons.gc.cuny.edu/2010/03/15/kb-gradebook/
+> 
+> 
+> More on the internal part?
+> It will require changes like, split the courses apart from schedules.
+> Because SP will be groups aware, it will be more logical to create
+> courses and link bibliographies and assignments to them, after what
+> publish them in a schedule. Also I would consider adding an upload
+> option for the courses that require annexes or attachments (later, you
+> can bundle those with Google Docs viewer or psview).
+As for the docs, I'm starting to use BP Group Documents for this: http://wordpress.org/extend/plugins/buddypress-group-documents/
+But this is on the front end and I'd like something to be on the backend (or both?).
+> About the gradebook, I liked the idea used for kb-gradebook, and I think
+> it?s the bare minimal implementation of grades assignment I can consider
+> as a starting point (read the csv file, and assign group members to
+> marks).
+> 
+> 
+> About users?
+> In most of the education centers students are managed using a LDAP or
+> ActiveDirectory. So bringing some core functionality into such a plugin
+> also should be considered. I know you?ll jump that there are plenty of
+> plugins that offer LDAP integration, but hey, none of them (afaik) will
+> offer you options to integrate two baseDN?s into the same instance (this
+> can be really useful for role mappings also, divide students from
+> teachers).
+I think you'll find as you dig into this that user roles might become complex - at least I see them as such.  Especially when it comes to the backend options for managing the LMS plugin/suite of modules.  I.e., you might need these roles with descending amounts of functionality:
+-Super admin = full site functionality
+-Instructional technologist = full LMS functionality (control over LDAP, course creation, user creation, assign students to courses, everything else/etc.)
+-Professor/instructor = limited LMS functionality (gradebook, assignment creation, general course moderation, archive course/assign course visibility)
+-TA = same as professor sans gradebook?, or maybe the professor can choose the functionality available to the TA
+-Student = basic user role, content creator (but has access to their grades on the backend, ability to comment on grades directly to professor)
+> 
+> I?m a student and at our university I had the opportunity to play a
+> little with Moodle, so the above idea is based on my experience. It
+> would be nice to hear some opinions from persons who are really involved
+> into teaching process and what would they like to see in such a new
+> ScholarPress.
+Stas, I think it's great that you're thinking this way and see the inherent opportunities in a WP/BuddyPress combination as an LMS.  Let me know how I can help.
+> 
+> There's also a post I wrote (this is a copycat) about this idea at:
+> 
+> 
+> Thanks.
+> 
+> -- 
+> ()  Campania Panglicii ?n ASCII
+> /\  http://stas.nerd.ro/ascii/
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100404/df6f2bf5/attachment.htm>
+
+From joseph.ugoretz at mhc.cuny.edu  Sun Apr  4 16:59:41 2010
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Sun, 4 Apr 2010 12:59:41 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+Message-ID: <2EB57E5B-8240-4A1F-BDF6-64C7808D65D9@mhc.cuny.edu>
+
+Thanks, Skip, for the link to your course.  I had heard of your work but somehow had never actually seen your course sites, and they really provide an excellent set of models.  The idea of partly open and partly closed is an important one for me (and for my students). And using the variety of resources and evolving as the options change is just as important. I also would like a truly elegant discussion board grading solution...none of the lms solutions really have that.
+
+As far as the gradebook itself, Christopher, I think we might be running into a disconnect between scoring and grading. Comments and extended feedback are really the heart of what grading can be if it is a tool for development and improvement beyond assessment. KB gradebook, because it is just taking anything the instructor enters, gives the opportunity for those comments and detailed responses right there on the grades page for the students, not just letter grades or numeric scores.  From the instructor's point of view, this is much less than work than composing a separate email or message to each student, because the feedback is all there in one place and saved so on assignment number three i can look back and see (it is in the same row on the spreadsheet) exactly what i said to the student about assignment number one. It is also more secure than email (important, because grades are federally-protected student information for public institutions), and easier to back up in multiple locations.
+
+From the student's point of view, too, they can see the representation of their progress and the comments and feedback in a single word press page.
+
+It is definitely busywork to grade multiple choice or numeric quizzes, and I am all in favor of avoiding that. But grading papers and projects is the bulk of the work i do in a course and that is not busywork! So anything that helps make that easier in terms of staying organized and getting the info out to students efficiently and securely is really important.
+
+To go back to discussion forums for a minute...I can't say enough about the simple press forum plugin. It doesn't quite have the refined discussion grading that Skip is talking about, but it does have ratings by stars or thumbs-up/thumbs-down. And the privacy options are fine-grained and controllable.
+
+What I think I would like most but am still missing is a good full-featured dropbox plugin for students to submit assignments and have the instructor (and other students? Groups?) receive and send them back. I'm currently using a plugin that I tegrates with dropbox.com<http://dropbox.com>. It is ok but not ideal, because it is really only one-way.
+
+Joe
+
+--
+Joseph Ugoretz, PhD
+Director of Technology and Learning
+William E. Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+<http://macaulay.cuny.edu>http://macaulay.cuny.edu
+
+On Apr 4, 2010, at 12:28 PM, "Skip Knox" <<mailto:sknox at boisestate.edu>sknox at boisestate.edu<mailto:sknox at boisestate.edu>> wrote:
+
+Just wanted to add my voice to Joseph's. Don't try to make WP into an LMS. It won't work anyway (for example, you have to choose your authentication method and there can be only one, so you're either an open system or a closed one--no way to have partly-open, partly-closed). But if we can find areas where the full library of WP, including plugins and widgets, is weak in terms of higher education, then improving those would be most welcome.
+
+I too am an advocate of mixed systems. My virtual courses all, consist of an open area that anyone can read, with a closed discussion forum (to respect students' privacy). Even there, authentication is an additional burden, but as my classes have only about 30 students, I'm willing to put in the extra time.
+
+My courses are old (oldest dates to 1994) and are showing their age--web pages with an external forum, and no WordPress in sight--but they might serve as an instructive comparison to the really excellent work Joe has done. The home page of each has links to the others, so I'll just list one.
+<http://boisestate.edu/courses/crusades/><http://boisestate.edu/courses/crusades/>http://boisestate.edu/courses/crusades/
+I do blog about this a bit
+<http://knoxhistory.blogspot.com/><http://knoxhistory.blogspot.com/>http://knoxhistory.blogspot.com/
+and yeah that's Blogger. I'll get it moved one of these Fine Days.
+
+Anyway, folks can look at mine and Joe's and see even in these two areas how radically different approaches can be -- and the range would be greater if we had someone from Health Sciences or Architecture or the Performing Arts or Physics. I echo Joe's basic objection to the big LMS systems: one size doesn't fit all and going down that road is actually a significant deviation from the basic principle of a university (which is a collection of different disciplines). And I second his preference for the loose collection approach.
+
+I have a couple of things I'd love to see as improvements. One, a way for *me* to rate posts in discussion and to have those accumulate. Secondary to that, a way for me to reference my rubric quickly while rating, and a way to browse on two axes: by student and by thread. Nobody does this really elegantly yet.
+
+The second thing I'd love to see is a versioning system. I've modified my courses over the years and in so doing I simply overwrite what was there before. I'd like to be able to have kept each version of my course *and* to have kept each forum with each course, so that any of my students could return not only to the course the way it is today, but the way it was when *they* took the course. Imagine how useful this would be if all students could do this with all their courses.
+
+Skip Knox
+Boise State University
+
+
+<ATT00002.c>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100404/22cc43e8/attachment-0001.htm>
+
+From kylejones at thecorkboard.org  Sun Apr  4 17:09:00 2010
+From: kylejones at thecorkboard.org (Kyle M. Jones)
+Date: Sun, 4 Apr 2010 13:09:00 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>
+Message-ID: <2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>
+
+@Christopher
+
+> I like Buddypress, but I don't think it is currently a good option for 
+> course management. It is great for more interaction (like the messaging 
+> system)  and forum integration, but the code is very new and Buddypress 
+> generates a huge amount of mysql queries so you'd almost have to have a 
+> dedicated server for more than a few students on the site at a time.
+
+From an admin perspective this is probably true.  BuddyPress tends to run slowly when pushed - at least on my shared hosting account even with W3cache enabled and WP-DBmanager doing some cleanup occasionally.
+
+But from an instructor's angle, BuddyPress increases communication peer-to-peer and peer-to-professor in non-standard ways that a typical LMS usually doesn't enable.  This interaction, as I have observed, leads to more class engagement and anecdotally more learning.
+
+>  
+> Why force the user to have Buddypress to use a plugin?  Making a plugin 
+> depend on another plugin to work is not great design. If that other 
+> plugin breaks or changes in a way that is incompatible, your plugin 
+> stops working too!
+> It would be for the best to let the plugin do what it is supposed to do 
+> with or without Buddypress so no functionality would be lost if 
+> Buddypress has to be disabled due to server load or compatibility issues.
+
+I see your concern with this.  I'd counter by saying that BuddyPress has WordPress (the Organization) support since Andy Peatling and JJ Scooby are involved.  This isn't a plugin that is going to go by the wayside.
+
+I guess I see groups & courses as having this natural relationship and that it's tough to envision a non-BuddyPress WP-as-LMS.  But you're right, not everyone would want the BuddyPress features (but why not?!).
+
+> 
+> Well, for scholarpress to work for me, it would need to be redesigned to:
+> 1. give homework and other tasks based on days from course enrollment 
+> (I'd like to see email updates sent to enrolled students. It really 
+> isn't practical to expect students to log in to the site frequently to 
+> know what they should do.)
+
+But logging into the site is de facto practice in my experience with Blackboard.  However, extending notifications beyond e-mail to RSS and maybe SMS would be a nice change.  I'm in agreement with you though, we need to provide multiple ways to keep track of dynamic course content like assignment and grade updates.
+
+> 4. not force me to use the plugin's course pages since Wordpress is the 
+> CMS. I don't need bloatware! The plugin should not manage content. It 
+> should manage the course features... I hope that makes sense.  Wordpress 
+> should continue to manage site registration and user profiles (an issue 
+> I have with Buddypress for using separate profile data)
+
+Ah, but again BuddyPress adds key functionality with its profile data.  Completely customizable - something WP doesn't do out of the box.  I know I create a lot of profile fields for input so that the professor I assist can get some key information on his students (if they provide it, which most do).
+
+
+@Joseph
+
+> I'm very excited to see where this can go.  
+
+Glad our paths continue to cross. :)
+
+> WordPress as a course management system is really already quite viable--for more experienced and skilled users.  For the average teacher, there is still some smoothing out to do.
+
+Yep.  They way you and I use BP/WP as LMS isn't something that a general user can pick up and run with on the fly.  It does take a bit of courtship....
+
+> So I would recommend, very strongly, that any approach to making new LMS-type plugins for WordPress should keep them atomized and specifically tailored to specific tasks.
+
+I couldn't agree more.  Keep it focused on modules (parts of the plugin as a whole) that can be switched on and off depending on need.  I advocate for complete customization of the LMS for the professor but also for the student.  Of course, this granularity of customization, I imagine, increases complexity with the plugin as a whole.
+
+> We really should not be thinking of beating moodle or blackboard at their own game.  It's not a good game or one that has much of a future.
+
+That's an interesting statement...  I think my approach to WP-as-LMS is motivated by the fact that I do in fact want to beat Blackboard and create a separate alternative to Moodle.  It's about options - preferably free options created by a community that truly cares about their online learning environment.  I'd agree that Blackboard doesn't have a happy future years away, but institutions still buy-in to this behemoth because it has a solid foothold in the LMS domain and it will stay as such in the present unless more and better options (like WP or a better Moodle) start to break it down, or it implodes.  God, I hope it implodes....
+
+> 
+> Again--none of this is meant to be critical in the sense of stopping progress!  I'm just ecstatic to see the project getting rolling, and we should see it as opening up possibilities, rather than closing than down.
+
+Same here!  If there's any criticism from me, it's only constructive.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100404/917f230b/attachment.htm>
+
+From stas at nerd.ro  Sun Apr  4 19:00:59 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 04 Apr 2010 22:00:59 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <t2s785f6c6c1004040935ua9f78e27v7e511dcb1d0d8363@mail.gmail.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+	<4BB8BB71.7070107@portallanguageservices.com>
+	<t2s785f6c6c1004040935ua9f78e27v7e511dcb1d0d8363@mail.gmail.com>
+Message-ID: <1270407659.2126.122.camel@rivalry.c7.campus.utcluj.ro>
+
+
+Hey, glad to see so much interest in this idea, I can't reply to every
+message but I'll try to summarize the main points that brought
+arguments.
+
+1. The WordPress/BuddyPress thingy
+==================================
+You must understand that it's not only the shortcodes problem.
+BuddyPress brings a wrapper when it comes to grouping users, discussions
+and data structuring. BuddyPress also is able to treat privacy aspects,
+notifications control and per user preferences. With BuddyPress I can
+make difference between who's a teacher and who's a student and show
+control panels to one and another without messing all the data and
+keeping the things clean. Be there a full LMS or a simple blog used to
+publish some courses, BuddyPress can handle both, while building it on
+WordPress we'll face constraints when it comes to growth and
+scalability. So I would place use of BuddyPress as a must. To prove it
+as a dependency I can create mockups and list you infinite possibilities
+on how it can be extended [(c) jjj], but that's nothing when it comes to
+data structuring and keeping things clean while handling a lot of user
+generated content!
+The last not the least, BuddyPress groups provide levels of privacy,
+from public to hidden or moderated so its something a virtual school
+must have.
+
+2. Flexibility and modularity
+=============================
+I understand that every instance of learning tools you have/need will be
+different, and I propose us to focus on some most common features such a
+learning tool needs, make them work flawlessly and make them flexible in
+options. I understand that a feature like tests/quizes creation tool
+would be nice to have, but that's only a small part of our target users,
+and I would propose us to focus on a more general tool where teachers
+will be able to upload, list assignments and deliver them in a fast and
+easy way to students. Making it a simple and easy to use tool, will
+bring more interest than a complex and advanced tool that creates a lot
+of magic but will be used in only 1/3 of the situations.
+
+3. Gradebook
+============
+I'm afraid it's a must have and I would like some more opinions on
+possible usages of it. So far I saw that some people are happy with its
+features, others want something more complex. Also as Joseph mentioned,
+things like rating forum posts isn't exactly what we should focus on.
+My first idea was to offer a UI for a teacher inside an assignment
+screen (or more general screen) to "grade the group users with marks".
+CSV upload can be left as a backup solution, If we'll treat groups as
+classes correctly, I think we won't deal with huge number of entries, so
+creating a CSV and then uploading it will make less sense compared to
+using a simple UI.
+
+4. Notifications
+================
+The notification system from BuddyPress is our saviour. If in time a
+developer will decide to write a SMS-delivery plugin for BuddyPress, we
+will be able to use it with no problems. For courses, schedules and
+grades notifications we can use private messaging or define our own
+types of notifications and the end-user (student) will be able to simply
+select what kind of notification he will receive (email, sms, rss).
+Also there's already a plugin for group activity notifications.
+
+5. User roles and mappings
+==========================
+LDAP/AD integration will be the second feature everyone will look for if
+any of the discussed features will be implemented, and building from the
+very beginning our tools with this in mind will save us a lot of time.
+Kyle is right, messing with WP user roles is a bit complex, what about
+using BuddyPress xprofile for that? :)
+It's exactly what we need. Tag users just as Teacher/Student
+and that's all. Make our plugin aware of that tags and we're saved.
+So we can add LDAP integration and upon account creation, students and
+teachers will get tagged. A SuperAdmin will also be able to change that
+just by browsing users.
+
+In short...
+===========
+Use BuddyPress because it will integrate perfectly the content and user
+profiles. Keep it simple and let's target the main audience, not
+specific problems. Make it flexible.
+
+Don't worry, any criticism is welcomed. 
+
+
+
+P.S.: Thanks a lot for sharing your experience and implementations. And
+I'm happy to know that there are people ready to mentor/help me. Thanks
+a lot.
+
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Sun Apr  4 20:12:19 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Sun, 04 Apr 2010 15:12:19 -0500
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>
+	<2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>
+Message-ID: <4BB8F2A3.1070000@portallanguageservices.com>
+
+It seems I'm the only person here who doesn't want a REQUIRED dependency 
+on Buddypress so I will wish you all the very best of luck on your 
+project while I continue to work on mine. It is too bad I won't be able 
+to help with it.
+
+
+@stas
+There are normal wordpress functions for checking users so admins and 
+students get different views. I've already done that in my script. Just 
+use the current user can check. Assign students as subscribers, teachers 
+as admin or editor depending on how much control you want to give.  
+There is a wordpress codex page to show what abilities each level has.  
+It wasn't very difficult.
+
+@Joseph
+Thank you for explaining how you use kbgradebook for showing feedback 
+instead of actual grades/scores. Since I'm having my plugin create 
+averages, I am keeping my score field for having percents (although I 
+admit I'm not limiting it to 100), but I'm adding a varchar(200) field 
+to my database table for teacher feedback.
+"From the student's point of view, too, they can see the representation 
+of their progress and the comments and feedback in a single word press 
+page. "
+good point!
+
+@kyle
+"
+ From an admin perspective this is probably true.  BuddyPress tends to 
+run slowly when pushed - at least on my shared hosting account even with 
+W3cache enabled and WP-DBmanager doing some cleanup occasionally.
+
+But from an instructor's angle, BuddyPress increases communication 
+peer-to-peer and peer-to-professor in non-standard ways that a typical 
+LMS usually doesn't enable.  This interaction, as I have observed, leads 
+to more class engagement and anecdotally more learning."
+----------
+I'm glad to see we agree on this point even though we expressed the same 
+idea differently :-)
+
+"
+I see your concern with this.  I'd counter by saying that BuddyPress has 
+WordPress (the Organization) support since Andy Peatling and JJ Scooby 
+are involved.  This isn't a plugin that is going to go by the wayside.
+
+I guess I see groups & courses as having this natural relationship and 
+that it's tough to envision a non-BuddyPress WP-as-LMS.  But you're 
+right, not everyone would want the BuddyPress features (but why not?!)."
+-------
+my concern here is the REQUIREMENT of Buddypress to use a plugin for 
+managing courses. It should be used for what it is a social plugin for 
+interaction. Just because it is an automattic project, that doesn't mean 
+it is stable or will be optimized. I'm pretty sure it isn't optimized at 
+all. :-)  I have it running on one of my websites that has only a few 
+users, but I don't dare try to launch a big course with many users with 
+BuddyPress without a dedicated server. I've been testing BuddyPress on 
+one of my websites and in the last few months I've had to redesign my 
+blog theme twice due to the big changes they make every time it updates 
+and the sitewide posts widget (which was awesome) complete broke with 
+the 1.2 update. I wish they had warned us of that huge bug before 
+upgrading *sigh*  Buddypress also does very strange things to page 
+titles which I reported at least twice but I guess fixing functionality 
+bugs is low priority right now.
+
+"But logging into the site is de facto practice in my experience with 
+Blackboard.  However, extending notifications beyond e-mail to RSS and 
+maybe SMS would be a nice change.  I'm in agreement with you though, we 
+need to provide multiple ways to keep track of dynamic course content 
+like assignment and grade updates."
+-------
+wow, I really like the idea of using RSS for assignment/homework feeds, 
+but I wonder how many people really understand how to use them. That was 
+why I was thinking about e-mail. Even my parents know how to send an 
+e-mail, but I doubt they have a clue about "new" technologies.   Being 
+in Mexico where many people have limited access to the internet, I try 
+to think about what they would know how to use and could quickly see and 
+do from an internet cafe or from work during their lunch break (which is 
+why I'm mostly focused on quizzes and automation)
+
+
+"Ah, but again BuddyPress adds key functionality with its profile data. 
+  Completely customizable - something WP doesn't do out of the box.  I 
+know I create a lot of profile fields for input so that the professor I 
+assist can get some key information on his students (if they provide it, 
+which most do)."
+
+Actually you can easily add new profile fields to regular plain old 
+Wordpress with just a little code in your functions.php (in your theme 
+directory).
+here's a page where I learned how to do it. It is quite simple to make a 
+list of fields with this method.
+  http://yoast.com/user-contact-fields-wp29/
+yes, that post describes adding new contact methods, but you could add 
+fields for whatever you want and they will appear as profile options.
+
+
+
+
+
+
+
+On 4/4/2010 12:09 PM, Kyle M. Jones wrote:
+> @Christopher
+>
+>> I like Buddypress, but I don't think it is currently a good option for
+>> course management. It is great for more interaction (like the messaging
+>> system)  and forum integration, but the code is very new and Buddypress
+>> generates a huge amount of mysql queries so you'd almost have to have a
+>> dedicated server for more than a few students on the site at a time. 
+>
+> From an admin perspective this is probably true.  BuddyPress tends to 
+> run slowly when pushed - at least on my shared hosting account even 
+> with W3cache enabled and WP-DBmanager doing some cleanup occasionally.
+>
+> But from an instructor's angle, BuddyPress increases communication 
+> peer-to-peer and peer-to-professor in non-standard ways that a typical 
+> LMS usually doesn't enable.  This interaction, as I have observed, 
+> leads to more class engagement and anecdotally more learning.
+>
+>>
+>> Why force the user to have Buddypress to use a plugin?  Making a plugin
+>> depend on another plugin to work is not great design. If that other
+>> plugin breaks or changes in a way that is incompatible, your plugin
+>> stops working too!
+>> It would be for the best to let the plugin do what it is supposed to do
+>> with or without Buddypress so no functionality would be lost if
+>> Buddypress has to be disabled due to server load or compatibility issues.
+>
+> I see your concern with this.  I'd counter by saying that BuddyPress 
+> has WordPress (the Organization) support since Andy Peatling and JJ 
+> Scooby are involved.  This isn't a plugin that is going to go by the 
+> wayside.
+>
+> I guess I see groups & courses as having this natural relationship and 
+> that it's tough to envision a non-BuddyPress WP-as-LMS.  But you're 
+> right, not everyone would want the BuddyPress features (but why not?!).
+>
+>>
+>> Well, for scholarpress to work for me, it would need to be redesigned to:
+>> 1. give homework and other tasks based on days from course enrollment
+>> (I'd like to see email updates sent to enrolled students. It really
+>> isn't practical to expect students to log in to the site frequently to
+>> know what they should do.)
+>
+> But logging into the site is de facto practice in my experience with 
+> Blackboard.  However, extending notifications beyond e-mail to RSS and 
+> maybe SMS would be a nice change.  I'm in agreement with you though, 
+> we need to provide multiple ways to keep track of dynamic course 
+> content like assignment and grade updates.
+>
+>> 4. not force me to use the plugin's course pages since Wordpress is the
+>> CMS. I don't need bloatware! The plugin should not manage content. It
+>> should manage the course features... I hope that makes sense.  Wordpress
+>> should continue to manage site registration and user profiles (an issue
+>> I have with Buddypress for using separate profile data)
+>
+> Ah, but again BuddyPress adds key functionality with its profile data. 
+>  Completely customizable - something WP doesn't do out of the box.  I 
+> know I create a lot of profile fields for input so that the professor 
+> I assist can get some key information on his students (if they provide 
+> it, which most do).
+>
+>
+> @Joseph
+>
+>> I'm very excited to see where this can go. 
+>
+> Glad our paths continue to cross. :)
+>
+>> WordPress as a course management system is really already quite 
+>> viable--for more experienced and skilled users.  For the average 
+>> teacher, there is still some smoothing out to do.
+>
+> Yep.  They way you and I use BP/WP as LMS isn't something that a 
+> general user can pick up and run with on the fly.  It does take a bit 
+> of courtship....
+>
+>> So I would recommend, very strongly, that any approach to making new 
+>> LMS-type plugins for WordPress should keep them atomized and 
+>> specifically tailored to specific tasks.
+>
+> I couldn't agree more.  Keep it focused on modules (parts of the 
+> plugin as a whole) that can be switched on and off depending on need. 
+>  I advocate for complete customization of the LMS for the professor 
+> but also for the student.  Of course, this granularity of 
+> customization, I imagine, increases complexity with the plugin as a whole.
+>
+>> We really should not be thinking of beating moodle or blackboard at 
+>> their own game.  It's not a good game or one that has much of a future.
+>
+> That's an interesting statement...  I think my approach to WP-as-LMS 
+> is motivated by the fact that I /do/ in fact want to beat Blackboard 
+> and create a separate alternative to Moodle.  It's about options - 
+> preferably free options created by a community that truly cares about 
+> their online learning environment.  I'd agree that Blackboard doesn't 
+> have a happy future years away, but institutions still buy-in to this 
+> behemoth because it has a solid foothold in the LMS domain and it will 
+> stay as such in the present unless more and better options (like WP or 
+> a better Moodle) start to break it down, or it implodes.  God, I hope 
+> it implodes....
+>
+>>
+>> Again--none of this is meant to be critical in the sense of stopping 
+>> progress!  I'm just ecstatic to see the project getting rolling, and 
+>> we should see it as opening up possibilities, rather than closing 
+>> than down.
+>
+> Same here!  If there's any criticism from me, it's only constructive.
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>    
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100404/2358fb1a/attachment-0001.htm>
+
+From stas at nerd.ro  Sun Apr  4 20:23:54 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 04 Apr 2010 23:23:54 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <4BB8F2A3.1070000@portallanguageservices.com>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>
+	<2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>
+	<4BB8F2A3.1070000@portallanguageservices.com>
+Message-ID: <1270412634.2126.127.camel@rivalry.c7.campus.utcluj.ro>
+
+?n data de Du, 04-04-2010 la 15:12 -0500, Christopher a scris:
+> It seems I'm the only person here who doesn't want a REQUIRED
+> dependency on Buddypress so I will wish you all the very best of luck
+> on your project while I continue to work on mine. It is too bad I
+> won't be able to help with it.
+
+I wouldn't take it so seriously. I think your experience can be helpful,
+and the fact that development will be done for BuddyPress, that doesn't
+mean that the code can't be backported. 
+
+Thanks a lot.
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Tue Apr  6 17:01:17 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Tue, 06 Apr 2010 12:01:17 -0500
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <1270412634.2126.127.camel@rivalry.c7.campus.utcluj.ro>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>	<2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>	<4BB8F2A3.1070000@portallanguageservices.com>
+	<1270412634.2126.127.camel@rivalry.c7.campus.utcluj.ro>
+Message-ID: <4BBB68DD.6020707@portallanguageservices.com>
+
+I've been making good progress on my Buddypress - optional - LMS plugin 
+system and got my course info, syllabus, course sign up, and student 
+management system working (only took two days!) and getting ready to 
+start on a system for showing tasks in currently enrolled courses which 
+I'd send to students by e-mail once a week and show when they go to a 
+certain page when logged in.
+
+I'd like to know what information and classification you'd find useful 
+if I am able to later get these plugins ready to share in the next few 
+months because honestly once it is all complete and working, I doubt 
+I'll add any new fields or options.  It will all be clean up and details 
+from then on.
+
+Thank you
+Christopher
+
+From stas at nerd.ro  Tue Apr  6 17:30:29 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Tue, 06 Apr 2010 20:30:29 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <4BBB68DD.6020707@portallanguageservices.com>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>
+	<2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>
+	<4BB8F2A3.1070000@portallanguageservices.com>
+	<1270412634.2126.127.camel@rivalry.c7.campus.utcluj.ro>
+	<4BBB68DD.6020707@portallanguageservices.com>
+Message-ID: <1270575029.16944.13.camel@rivalry>
+
+?n data de Ma, 06-04-2010 la 12:01 -0500, Christopher a scris:
+> I've been making good progress on my Buddypress - optional - LMS plugin 
+> system and got my course info, syllabus, course sign up, and student 
+> management system working (only took two days!) and getting ready to 
+> start on a system for showing tasks in currently enrolled courses which 
+> I'd send to students by e-mail once a week and show when they go to a 
+> certain page when logged in.
+> 
+> I'd like to know what information and classification you'd find useful 
+> if I am able to later get these plugins ready to share in the next few 
+> months because honestly once it is all complete and working, I doubt 
+> I'll add any new fields or options.  It will all be clean up and details 
+> from then on.
+
+I can see your installation is pretty handcrafted for your personal
+needs and its pretty cool to see you managed that. The main thing I'm
+afraid of is that I'm from a different country and I'm almost 100% sure
+the things are different over here compared to other countries, so if I
+start some coding I will find very useful experience you already have in
+both managing online courses/datas and tools for interacting with
+students (gradebook, assignments and schedules).
+
+For me, so far, is pretty clear the workflow and management of
+informations using ScholarPress, but I believe there's space for
+improvements (like already mentioned separation of courses from
+schedules) and thats where your input will matter a lot.
+
+Also I would like to see your code published and understand approaches
+you used, lets say, for tasks/assignments.
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Tue Apr  6 18:28:36 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Tue, 06 Apr 2010 13:28:36 -0500
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <1270575029.16944.13.camel@rivalry>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>	<2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>	<4BB8F2A3.1070000@portallanguageservices.com>	<1270412634.2126.127.camel@rivalry.c7.campus.utcluj.ro>	<4BBB68DD.6020707@portallanguageservices.com>
+	<1270575029.16944.13.camel@rivalry>
+Message-ID: <4BBB7D54.8050500@portallanguageservices.com>
+
+On 4/6/2010 12:30 PM, Stas Su?cov wrote:
+> ?n data de Ma, 06-04-2010 la 12:01 -0500, Christopher a scris:
+>    
+>> I've been making good progress on my Buddypress - optional - LMS plugin
+>> system and got my course info, syllabus, course sign up, and student
+>> management system working (only took two days!) and getting ready to
+>> start on a system for showing tasks in currently enrolled courses which
+>> I'd send to students by e-mail once a week and show when they go to a
+>> certain page when logged in.
+>>
+>> I'd like to know what information and classification you'd find useful
+>> if I am able to later get these plugins ready to share in the next few
+>> months because honestly once it is all complete and working, I doubt
+>> I'll add any new fields or options.  It will all be clean up and details
+>> from then on.
+>>      
+> I can see your installation is pretty handcrafted for your personal
+> needs and its pretty cool to see you managed that. The main thing I'm
+> afraid of is that I'm from a different country and I'm almost 100% sure
+> the things are different over here compared to other countries, so if I
+> start some coding I will find very useful experience you already have in
+> both managing online courses/datas and tools for interacting with
+> students (gradebook, assignments and schedules).
+>    
+I've been adding grades to a table as a percentage which could later be 
+converted for grading scales when displayed. No one has mentioned any 
+specific needs for gradebooks other than to be able to include feedback 
+which I added before starting the course management plugin.
+> For me, so far, is pretty clear the workflow and management of
+> informations using ScholarPress, but I believe there's space for
+> improvements (like already mentioned separation of courses from
+> schedules) and thats where your input will matter a lot.
+>    
+I really don't understand the separation of courses from schedules. 
+There should always be some kind of schedule even if you don't require 
+the student to follow one, it is still useful for the student to have a 
+guide. The start date should be flexible unless the course needs to 
+match the activities of an offline group.
+   I'm going to try to set up this next plugin (very tempted to just add 
+this feature to the course management one as a separate .php file or 
+two)  to use the student's enrollment date (saved as YYYY-MM-DD ) as a 
+basis for showing what to do since I personally don't see a need for a 
+fixed start date for 100% online courses and probably set a variable in 
+the script that  would skip the enrollment date check and use the date 
+in the variable instead.  Hopefully using this method, I could set 
+course info according to the need.
+I do everything in php mostly using forms for the signup and "post" for 
+sending the data through the processing scripts. As I said, I don't know 
+javascript or ajax, but I saw there are some tutorials online now so I 
+might try converting it later if I can get everything working right with 
+just PHP & mysql.
+
+I'm just using the functions included in plain old Wordpress for member 
+lookup, manage students, to show different info to students and 
+teachers, or have custom profiles. I'm also experimenting with creating 
+"dashboard widgets" for students. Right now each plugin just shows a 
+dashboard widget with a link to the important page one for checking 
+their grades and one for seeing which courses they are enrolled in. I'm 
+not showing that info directly because I don't want to have all those 
+extra queries on a shared host every time they log in.
+
+> Also I would like to see your code published and understand approaches
+> you used, lets say, for tasks/assignments.
+>
+>    
+This is probably the most complicated part since I can do it so many 
+ways. I've spent the last couple hours trying to decide if I want to 
+create a task/assignment table for each course or one table with all of 
+them with a course id field.  I guess I'll see what happens.  I won't be 
+posting any complete scripts until I add them to the plugin directory or 
+perhaps get help to fund my efforts since I do have to spend some time 
+on other activities to make enough money to eat and pay the rent.  
+Setting this up is just for fun and practice until I get some complete 
+courses set up and even then there is no guarantee.
+Once I get this third plugin working I'll send the list info for how to 
+register/login and signup for a course to get feedback. How I set up 
+this plugin might cause me to rethink parts of the first two.
+
+My approach this week has been to keep it simple and flexible using what 
+I know how to do to get it up and working even if not tidy or following 
+plugin recommendations.  I've been spending time brainstorming and 
+writing down steps I think would be needed to do a task then I try to 
+code it. If it doesn't work I try another way.  I've been writing quite 
+a few functions even though I normally use more include files. Right now 
+I have several sheets of paper with my ideas for this next part working 
+on a flow chart for the assignment/task/activity page and email 
+notification and how they will interact with the enrollment table and 
+course activity table where I'll store each activity... *sigh*
+
+
+
+From stas at nerd.ro  Tue Apr  6 20:58:00 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Tue, 06 Apr 2010 23:58:00 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <4BBB7D54.8050500@portallanguageservices.com>
+References: <mailman.7226.1270395971.1345.wp-edu@lists.automattic.com>
+	<2D6A0EB4-B4AF-4BCA-8F20-C3D90BAAF568@thecorkboard.org>
+	<4BB8F2A3.1070000@portallanguageservices.com>
+	<1270412634.2126.127.camel@rivalry.c7.campus.utcluj.ro>
+	<4BBB68DD.6020707@portallanguageservices.com>
+	<1270575029.16944.13.camel@rivalry>
+	<4BBB7D54.8050500@portallanguageservices.com>
+Message-ID: <1270587480.3884.10.camel@rivalry.c7.campus.utcluj.ro>
+
+?n data de Ma, 06-04-2010 la 13:28 -0500, Christopher a scris:
+> On 4/6/2010 12:30 PM, Stas Su?cov wrote:
+> > ?n data de Ma, 06-04-2010 la 12:01 -0500, Christopher a scris:
+> >    
+> >> I've been making good progress on my Buddypress - optional - LMS plugin
+> >> system and got my course info, syllabus, course sign up, and student
+> >> management system working (only took two days!) and getting ready to
+> >> start on a system for showing tasks in currently enrolled courses which
+> >> I'd send to students by e-mail once a week and show when they go to a
+> >> certain page when logged in.
+> >>
+> >> I'd like to know what information and classification you'd find useful
+> >> if I am able to later get these plugins ready to share in the next few
+> >> months because honestly once it is all complete and working, I doubt
+> >> I'll add any new fields or options.  It will all be clean up and details
+> >> from then on.
+> >>      
+> > I can see your installation is pretty handcrafted for your personal
+> > needs and its pretty cool to see you managed that. The main thing I'm
+> > afraid of is that I'm from a different country and I'm almost 100% sure
+> > the things are different over here compared to other countries, so if I
+> > start some coding I will find very useful experience you already have in
+> > both managing online courses/datas and tools for interacting with
+> > students (gradebook, assignments and schedules).
+> >    
+> I've been adding grades to a table as a percentage which could later be 
+> converted for grading scales when displayed. No one has mentioned any 
+> specific needs for gradebooks other than to be able to include feedback 
+> which I added before starting the course management plugin.
+> > For me, so far, is pretty clear the workflow and management of
+> > informations using ScholarPress, but I believe there's space for
+> > improvements (like already mentioned separation of courses from
+> > schedules) and thats where your input will matter a lot.
+> >    
+> I really don't understand the separation of courses from schedules. 
+> There should always be some kind of schedule even if you don't require 
+> the student to follow one, it is still useful for the student to have a 
+> guide. The start date should be flexible unless the course needs to 
+> match the activities of an offline group.
+>    I'm going to try to set up this next plugin (very tempted to just add 
+> this feature to the course management one as a separate .php file or 
+> two)  to use the student's enrollment date (saved as YYYY-MM-DD ) as a 
+> basis for showing what to do since I personally don't see a need for a 
+> fixed start date for 100% online courses and probably set a variable in 
+> the script that  would skip the enrollment date check and use the date 
+> in the variable instead.  Hopefully using this method, I could set 
+> course info according to the need.
+> I do everything in php mostly using forms for the signup and "post" for 
+> sending the data through the processing scripts. As I said, I don't know 
+> javascript or ajax, but I saw there are some tutorials online now so I 
+> might try converting it later if I can get everything working right with 
+> just PHP & mysql.
+> 
+> I'm just using the functions included in plain old Wordpress for member 
+> lookup, manage students, to show different info to students and 
+> teachers, or have custom profiles. I'm also experimenting with creating 
+> "dashboard widgets" for students. Right now each plugin just shows a 
+> dashboard widget with a link to the important page one for checking 
+> their grades and one for seeing which courses they are enrolled in. I'm 
+> not showing that info directly because I don't want to have all those 
+> extra queries on a shared host every time they log in.
+> 
+> > Also I would like to see your code published and understand approaches
+> > you used, lets say, for tasks/assignments.
+> >
+> >    
+> This is probably the most complicated part since I can do it so many 
+> ways. I've spent the last couple hours trying to decide if I want to 
+> create a task/assignment table for each course or one table with all of 
+> them with a course id field.  I guess I'll see what happens.  I won't be 
+> posting any complete scripts until I add them to the plugin directory or 
+> perhaps get help to fund my efforts since I do have to spend some time 
+> on other activities to make enough money to eat and pay the rent.  
+> Setting this up is just for fun and practice until I get some complete 
+> courses set up and even then there is no guarantee.
+> Once I get this third plugin working I'll send the list info for how to 
+> register/login and signup for a course to get feedback. How I set up 
+> this plugin might cause me to rethink parts of the first two.
+> 
+> My approach this week has been to keep it simple and flexible using what 
+> I know how to do to get it up and working even if not tidy or following 
+> plugin recommendations.  I've been spending time brainstorming and 
+> writing down steps I think would be needed to do a task then I try to 
+> code it. If it doesn't work I try another way.  I've been writing quite 
+> a few functions even though I normally use more include files. Right now 
+> I have several sheets of paper with my ideas for this next part working 
+> on a flow chart for the assignment/task/activity page and email 
+> notification and how they will interact with the enrollment table and 
+> course activity table where I'll store each activity... *sigh*
+> 
+
+Yep that helped me understand your approach.
+The idea of courses and schedules separation...
+Suppose you got several teachers that will manage some classes, so
+offering an option first to define a course and then just use it (drop
+down list or drag'n'drop) when creating a schedule should save time. Its
+pretty much like creating posts and categories, except the categories
+are those with dates and location infos and posts are just content. So
+making modifications in schedules with courses being apart, will allow
+easier changes and will bring dynamic results.
+
+About the assignments... Just an idea... I would implement them same way
+you did with gradebook (if the tables got relationships), link table
+IDs.
+
+Thanks.
+
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From kylejones at thecorkboard.org  Wed Apr  7 13:28:54 2010
+From: kylejones at thecorkboard.org (Kyle M. Jones)
+Date: Wed, 7 Apr 2010 09:28:54 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <mailman.9.1270641602.25599.wp-edu@lists.automattic.com>
+References: <mailman.9.1270641602.25599.wp-edu@lists.automattic.com>
+Message-ID: <5220FE93-6EE9-4FB0-9810-4BCAA1C0C1D4@thecorkboard.org>
+
+Hey Christopher-
+
+I just wanted to say thank you for your continued work on this.  I've got a lot of free time coming up starting next week so maybe I can start to draft ideas regarding information, classification, and some further structure if this will help you out.
+
+Additionally, I'd love to be a bug tester for you offline and privately if you need any help with that.
+
+Many thanks for your hard work,
+
+~kyle~
+
+p.s. should we change the subjet from "GSoc..." to something a bit more relevant to your purposes?
+
+On Apr 7, 2010, at 8:00 AM, wp-edu-request at lists.automattic.com wrote:
+
+> I've been making good progress on my Buddypress - optional - LMS plugin 
+> system and got my course info, syllabus, course sign up, and student 
+> management system working
+
+
+From damon.cook at esc.edu  Thu Apr  8 12:45:24 2010
+From: damon.cook at esc.edu (Damon Cook)
+Date: Thu, 8 Apr 2010 08:45:24 -0400
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching (Damon Cook)
+Message-ID: <h2w1bc4cc8b1004080545m9e0851e7r8d8d9a957632c523@mail.gmail.com>
+
+Please sign me up for bug-testing.  I love this idea and hope, wish, pray
+for a robust BP LMS plugin.  Our school currently uses ANGEL (recently
+merged with Blackboard), and we're evaluating next steps, or as our
+committee is called: "Life after ANGEL".  I got excited when I first saw
+CourseWare for WP, but after installing quickly realized it was not what I
+needed.  I'm going to try and get back to this list and read through all of
+the threads, because I'm sure I'm missing the larger context of this
+proposal, and will be glad to provide more input.
+
+One idea...it would be awesome if you could somehow include a BP/LMS to
+Google Wave extension?  I know this is all the hype in higher-ed ;)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100408/064854fb/attachment.htm>
+
+From stas at nerd.ro  Thu Apr  8 13:14:31 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Thu, 08 Apr 2010 16:14:31 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching (Damon Cook)
+In-Reply-To: <h2w1bc4cc8b1004080545m9e0851e7r8d8d9a957632c523@mail.gmail.com>
+References: <h2w1bc4cc8b1004080545m9e0851e7r8d8d9a957632c523@mail.gmail.com>
+Message-ID: <1270732471.26874.62.camel@rivalry.c7.campus.utcluj.ro>
+
+?n data de Jo, 08-04-2010 la 08:45 -0400, Damon Cook a scris:
+> Please sign me up for bug-testing.  I love this idea and hope, wish,
+> pray for a robust BP LMS plugin.  Our school currently uses ANGEL
+> (recently merged with Blackboard), and we're evaluating next steps, or
+> as our committee is called: "Life after ANGEL".  I got excited when I
+> first saw CourseWare for WP, but after installing quickly realized it
+> was not what I needed.  I'm going to try and get back to this list and
+> read through all of the threads, because I'm sure I'm missing the
+> larger context of this proposal, and will be glad to provide more
+> input.  
+> 
+Hey, welcome and thanks a lot for getting in.
+> 
+> One idea...it would be awesome if you could somehow include a BP/LMS
+> to Google Wave extension?  I know this is all the hype in higher-ed ;)
+> 
+I think that can be easily plugged by a third-party plugin like
+buddypress-facebook. I also think its just a matter of time how fast it
+gets written :)
+
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From stas at nerd.ro  Thu Apr 15 21:09:32 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Fri, 16 Apr 2010 00:09:32 +0300
+Subject: [wp-edu] GSoC 2010, BuddyPress for teaching
+In-Reply-To: <w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+	<w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>
+Message-ID: <1271365772.2206.14.camel@rivalry.c7.campus.utcluj.ro>
+
+Hello,
+because WordPress vs. BuddyPress raised some discussions about
+performance issues and resource usage, I asked about that and received
+some positive replies.
+
+Most interesting is this webpage where a couple of options are
+described. Some of them are included or pluggable.
+
+http://codex.buddypress.org/getting-started/improving-performance/
+
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Sun Apr 18 14:14:44 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Sun, 18 Apr 2010 09:14:44 -0500
+Subject: [wp-edu]  Wordpress (Buddypress optional) for teaching
+In-Reply-To: <1271365772.2206.14.camel@rivalry.c7.campus.utcluj.ro>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>	<4BB7EE03.5030508@portallanguageservices.com>	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>	<4BB8A46A.2040809@portallanguageservices.com>	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>	<w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>
+	<1271365772.2206.14.camel@rivalry.c7.campus.utcluj.ro>
+Message-ID: <4BCB13D4.1080105@portallanguageservices.com>
+
+
+Just a quick update on my project (since we have the difference in 
+opinion regarding requirements)
+
+I've been without internet at home for the last week. I have a bad ISP 
+and I've been trying to switch to another for months so  I haven't made 
+much progress on it.  I do all my testing on my webhosting account since 
+we only have one working computer here.  Before that I had just finished 
+getting weekly e-mail updates for students based on syllabus info and 
+the student's start date.  For example if the syllabus says that on day 
+5 the student should read a page and take a quiz, the (text) email for 
+that week will tell them to do that.
+
+At this time, I'm thinking about how to set up a point/motivational 
+system separate from grades for example a point for every activity 
+completed.
+
+I'm also focused on learning how to add other activities to the 
+gradebook (not just quizzes and tests) so I guess I need to start 
+learning AJAX so this might take forever. I know how to send scores from 
+PHP scripts, but most games are in javascript so this is where I'm 
+stuck. There isn't much point in getting bug testers and feedback until 
+I have more activity types integrated.
+
+Specifically I've been thinking about the HotPotatoes activities which 
+are javascript. HotPotatoes is now free to use. Of course if any of you 
+know of any PHP based games that are scored and free to use, please let 
+me know. :-)
+
+
+On 4/15/2010 4:09 PM, Stas Su?cov wrote:
+> Hello,
+> because WordPress vs. BuddyPress raised some discussions about
+> performance issues and resource usage, I asked about that and received
+> some positive replies.
+>
+> Most interesting is this webpage where a couple of options are
+> described. Some of them are included or pluggable.
+>
+> http://codex.buddypress.org/getting-started/improving-performance/
+>
+>
+>    
+If you look at the info provided, those ideas are for Wordpress. They 
+don't specifically make Buddypress less intensive or make fewer queries 
+so I'm not yet convinced that requiring Buddypress is good since not 
+everyone can afford a dedicated server (I know I can't!).  :-)
+
+
+From stas at nerd.ro  Sun Apr 18 14:35:32 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 18 Apr 2010 17:35:32 +0300
+Subject: [wp-edu] Wordpress (Buddypress optional) for teaching
+In-Reply-To: <4BCB13D4.1080105@portallanguageservices.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+	<w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>
+	<1271365772.2206.14.camel@rivalry.c7.campus.utcluj.ro>
+	<4BCB13D4.1080105@portallanguageservices.com>
+Message-ID: <1271601332.2156.21.camel@rivalry.c7.campus.utcluj.ro>
+
+?n data de Du, 18-04-2010 la 09:14 -0500, Christopher a scris:
+> Just a quick update on my project (since we have the difference in 
+> opinion regarding requirements)
+> 
+> I've been without internet at home for the last week. I have a bad ISP 
+> and I've been trying to switch to another for months so  I haven't made 
+> much progress on it.  I do all my testing on my webhosting account since 
+> we only have one working computer here.  Before that I had just finished 
+> getting weekly e-mail updates for students based on syllabus info and 
+> the student's start date.  For example if the syllabus says that on day 
+> 5 the student should read a page and take a quiz, the (text) email for 
+> that week will tell them to do that.
+> 
+> At this time, I'm thinking about how to set up a point/motivational 
+> system separate from grades for example a point for every activity 
+> completed.
+> 
+> I'm also focused on learning how to add other activities to the 
+> gradebook (not just quizzes and tests) so I guess I need to start 
+> learning AJAX so this might take forever. I know how to send scores from 
+> PHP scripts, but most games are in javascript so this is where I'm 
+> stuck. There isn't much point in getting bug testers and feedback until 
+> I have more activity types integrated.
+> 
+> Specifically I've been thinking about the HotPotatoes activities which 
+> are javascript. HotPotatoes is now free to use. Of course if any of you 
+> know of any PHP based games that are scored and free to use, please let 
+> me know. :-)
+> 
+
+A bit offtopic maybe,
+but I would suggest taking a look at jQuery and it's .ajax() method.
+It's not that rocket science like it seems, and jQuery makes it even
+easier to use.
+api.jquery.com/jQuery.ajax/
+
+Btw, good to hear news from your project :)
+Keep it up!
+
+> 
+> On 4/15/2010 4:09 PM, Stas Su?cov wrote:
+> > Hello,
+> > because WordPress vs. BuddyPress raised some discussions about
+> > performance issues and resource usage, I asked about that and received
+> > some positive replies.
+> >
+> > Most interesting is this webpage where a couple of options are
+> > described. Some of them are included or pluggable.
+> >
+> > http://codex.buddypress.org/getting-started/improving-performance/
+> >
+> >
+> >    
+> If you look at the info provided, those ideas are for Wordpress. They 
+> don't specifically make Buddypress less intensive or make fewer queries 
+> so I'm not yet convinced that requiring Buddypress is good since not 
+> everyone can afford a dedicated server (I know I can't!).  :-)
+
+You might be right, unfortunately I didn't get a chance to benchmark a
+heavy WordPress vs BuddyPress install, but hey, I trust the guys behind
+the project and I'm sure they do their best :)
+
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From christopher at portallanguageservices.com  Sun Apr 18 16:36:42 2010
+From: christopher at portallanguageservices.com (Christopher)
+Date: Sun, 18 Apr 2010 11:36:42 -0500
+Subject: [wp-edu] Wordpress (Buddypress optional) for teaching
+In-Reply-To: <1271601332.2156.21.camel@rivalry.c7.campus.utcluj.ro>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>	<4BB7EE03.5030508@portallanguageservices.com>	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>	<4BB8A46A.2040809@portallanguageservices.com>	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>	<w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>	<1271365772.2206.14.camel@rivalry.c7.campus.utcluj.ro>	<4BCB13D4.1080105@portallanguageservices.com>
+	<1271601332.2156.21.camel@rivalry.c7.campus.utcluj.ro>
+Message-ID: <4BCB351A.7030104@portallanguageservices.com>
+
+I was looking at that page, but it isn't very clear to me how to use it 
+since I come from  PHP not javascript.
+
+I suppose I'd include some jquery file in the page head and I saw the 
+example:
+
+|$.ajax({
+    type: "POST",
+    url: "some.php",
+    data: "name=John&location=Boston",
+    success: function(msg){
+      alert( "Data Saved: " + msg );
+    }
+  });|||
+
+||I really don't know how to integrate that in a game to send the score, 
+name of the game, and the user's ID or email address over. I suppose if 
+that were PHP I'd understand, but it isn't. :-)
+I'd like to have a simple form included for the student to add their id 
+and email and when they click a button it would send the info including 
+the score. Yes, I could do a normal HTML form and have it "post" to my  
+PHP page, but again I don't know how to get the score from javascript to 
+go with it so it doesn't really make a difference. Without having the 
+score, I could only report it as a completed activity.
+
+
+||
+> A bit offtopic maybe,
+> but I would suggest taking a look at jQuery and it's .ajax() method.
+> It's not that rocket science like it seems, and jQuery makes it even
+> easier to use.
+> api.jquery.com/jQuery.ajax/
+>
+>    
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100418/36dd3d3b/attachment.htm>
+
+From stas at nerd.ro  Mon Apr 26 22:35:04 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Tue, 27 Apr 2010 01:35:04 +0300
+Subject: [wp-edu] Wordpress (Buddypress optional) for teaching
+In-Reply-To: <4BCB351A.7030104@portallanguageservices.com>
+References: <1270340557.5928.12.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB7EE03.5030508@portallanguageservices.com>
+	<1270378057.2126.40.camel@rivalry.c7.campus.utcluj.ro>
+	<4BB8A46A.2040809@portallanguageservices.com>
+	<07B7845A-042E-4296-A399-2E8C9FB11202@mhc.cuny.edu>
+	<w2j785f6c6c1004040928n356c22eeifdbbb112c6f05fed@mail.gmail.com>
+	<1271365772.2206.14.camel@rivalry.c7.campus.utcluj.ro>
+	<4BCB13D4.1080105@portallanguageservices.com>
+	<1271601332.2156.21.camel@rivalry.c7.campus.utcluj.ro>
+	<4BCB351A.7030104@portallanguageservices.com>
+Message-ID: <1272321304.7579.10.camel@rivalry>
+
+
+Hi everyone,
+I'm happy to announce that my idea got accepted for this summer of
+coding, and hopefully soon, mentored by Jeremy Boggs and Boone Gorges,
+BuddyPress will offer teaching tools for everyone.
+
+I will come with more updates when our schedule and milestones are
+defined. Thank you all for supporting this idea.
+
+-- 
+()  Campania Panglicii ?n ASCII
+/\  http://stas.nerd.ro/ascii/
+
+
+From kylejones at thecorkboard.org  Tue Apr 27 21:44:27 2010
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Tue, 27 Apr 2010 16:44:27 -0500
+Subject: [wp-edu] Wordpress (Buddypress optional) for teaching (Stas
+	Su?cov)
+In-Reply-To: <mailman.11.1272369602.2439.wp-edu@lists.automattic.com>
+References: <mailman.11.1272369602.2439.wp-edu@lists.automattic.com>
+Message-ID: <39AD1DEE-62E1-47D7-928F-17FD795F2B73@thecorkboard.org>
+
+CONGRATS!!!!!
+You've got two great mentors there in the BuddyPress/Edu world.
+
+Let me know if I can be of any assistance,
+
+~k~
+
+On Apr 27, 2010, at 7:00 AM, wp-edu-request at lists.automattic.com wrote:
+
+> Send wp-edu mailing list submissions to
+> 	wp-edu at lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+> 	wp-edu-request at lists.automattic.com
+>
+> You can reach the person managing the list at
+> 	wp-edu-owner at lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Re: Wordpress (Buddypress optional) for teaching (Stas Su?cov)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Tue, 27 Apr 2010 01:35:04 +0300
+> From: Stas Su?cov <stas at nerd.ro>
+> Subject: Re: [wp-edu] Wordpress (Buddypress optional) for teaching
+> To: wp-edu at lists.automattic.com
+> Message-ID: <1272321304.7579.10.camel at rivalry>
+> Content-Type: text/plain; charset="UTF-8"
+>
+>
+> Hi everyone,
+> I'm happy to announce that my idea got accepted for this summer of
+> coding, and hopefully soon, mentored by Jeremy Boggs and Boone Gorges,
+> BuddyPress will offer teaching tools for everyone.
+>
+> I will come with more updates when our schedule and milestones are
+> defined. Thank you all for supporting this idea.
+>
+> -- 
+> ()  Campania Panglicii ?n ASCII
+> /\  http://stas.nerd.ro/ascii/
+>
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+> End of wp-edu Digest, Vol 11, Issue 12
+> **************************************
+
+
+From bogus@does.not.exist.com  Tue Apr 20 23:23:57 2010
+From: bogus@does.not.exist.com ()
+Date: Tue, 20 Apr 2010 23:23:57 -0000
+Subject: No subject
+Message-ID: <mailman.64.1286566168.1335.wp-edu@lists.automattic.com>
+
+need.  I almost always install Tiny MCE advanced in my WP3.0.1 stand-alone
+sites and have never had any issues.  The table creation and formatting
+functionality that it provides is quite solid and complete.  
+
+All the best.
+
+Loren
+
+ 
+
+From: wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Whisler, Dave
+Sent: October 8, 2010 11:42 AM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] Creation of Tables in WP via WP-Table-Reloaded
+
+ 
+
+Loren,
+
+ 
+
+Thanks for the suggestion to try WP-Table-Reloaded, but I had seen that one
+previously and opted not to try it.   
+
+I saw that this plugin is pretty popular and so thought it  might work for
+me.   However.. not didn't seem to be optimal for what I had in mind (though
+I could be wrong).
+
+ 
+
+Here's my reasoning:   It seems to suggest that it stores each "table" that
+you create ( I guess for re-use purposes) and then you reference that table
+in your post/page using a special shortcode.   
+
+Am I correct in this?    If so, that might work for some situations, but I'm
+thinking that most times you'd want the actual content in the table to be
+stored in the actual post/page and not simply hitting a reference to where
+it's stored somewhere else.   What if someone removes the actual table data
+in the "plugin" backend - or deinstalled the plugin (or it stops working due
+to a upgrade or the plugin dev. Stops.)
+
+ 
+
+What I'm pursuing is simply a way to generate the html needed for formatting
+in the front-end editor - thus, even if the editor plugin I use to do this
+function "goes away", breaks, or I deinstall it, the content in the
+page/post is not dependent on it - since it's just standard HTML.     
+
+ 
+
+Thanks,
+
+ 
+
+Dave
+
+ 
+
+ 
+
+David K. Whisler | Oracle & MySQL DBA/Developer & Joomla Administrator
+
+UNC Charlotte | The William States Lee College of Engineering
+
+9201 University City Blvd. | Charlotte, NC 28223
+
+Phone: 704-687-3964 | Fax: 704-687-2352
+
+dkwhisle at uncc.edu | http://www.uncc.edu
+
+---------------------------------------------------------------------------
+
+If you are not the intended recipient of this transmission or a person
+responsible for delivering it to the intended recipient, any
+
+disclosure, copying, distribution, or other use of any of the information in
+this transmission is strictly prohibited. If you have
+
+received this transmission in error, please notify me immediately by reply
+e-mail or by telephone at 704-687-3964. Thank you.
+
+ 
+
+
+------=_NextPart_000_001E_01CB66E4.5F6D3400
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii">
+<meta name=3DGenerator content=3D"Microsoft Word 12 (filtered medium)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext=3D"edit">
+  <o:idmap v:ext=3D"edit" data=3D"1" />
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=3DEN-US link=3Dblue vlink=3Dpurple>
+
+<div class=3DWordSection1>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Dave,&nbsp; =
+<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>From your description =
+below I
+think Tiny MCE Advanced would fulfill what you need. &nbsp;I almost =
+always
+install Tiny MCE advanced in my WP3.0.1 stand-alone sites and have never =
+had any
+issues.&nbsp; The table creation and formatting functionality that it =
+provides
+is quite solid and complete.&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>All the =
+best.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Loren<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<div>
+
+<div style=3D'border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt =
+0in 0in 0in'>
+
+<p class=3DMsoNormal><b><span =
+style=3D'font-size:10.0pt;font-family:"Tahoma","sans-serif"'>From:</span>=
+</b><span
+style=3D'font-size:10.0pt;font-family:"Tahoma","sans-serif"'> =
+wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] <b>On Behalf Of =
+</b>Whisler, Dave<br>
+<b>Sent:</b> October 8, 2010 11:42 AM<br>
+<b>To:</b> wp-edu at lists.automattic.com<br>
+<b>Subject:</b> [wp-edu] Creation of Tables in WP via =
+WP-Table-Reloaded<o:p></o:p></span></p>
+
+</div>
+
+</div>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Loren,<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Thanks for the =
+suggestion to try
+WP-Table-Reloaded, but I had seen that one previously and opted not to =
+try
+it.&nbsp;&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>I saw that this =
+plugin is pretty
+popular and so thought it &nbsp;might work for me.&nbsp;&nbsp;
+However&#8230;&#8230; not didn&#8217;t seem to be optimal for what I had =
+in
+mind (though I could be wrong).<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Here&#8217;s my
+reasoning:&nbsp;&nbsp; It seems to suggest that it stores each
+&#8220;table&#8221; that you create ( I guess for re-use purposes) and =
+then you
+reference that table in your post/page using a special =
+shortcode.&nbsp;&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Am I correct in
+this?&nbsp;&nbsp;&nbsp; If so, that might work for some situations, but
+I&#8217;m thinking that most times you&#8217;d want the actual content =
+in the
+table to be stored in the actual post/page and not simply hitting a =
+reference
+to where it&#8217;s stored somewhere else.&nbsp;&nbsp; What if someone =
+removes
+the actual table data in the &#8220;plugin&#8221; backend &#8211; or
+deinstalled the plugin (or it stops working due to a upgrade or the =
+plugin dev.
+Stops&#8230;)<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>What I&#8217;m =
+pursuing is
+simply a way to generate the html needed for formatting in the front-end =
+editor
+&#8211; thus, even if the editor plugin I use to do this function =
+&#8220;goes
+away&#8221;, breaks, or I deinstall it, the content in the page/post is =
+not
+dependent on it &#8211; since it&#8217;s just standard
+HTML.&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Thanks,<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Dave<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><span =
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif"'>David
+K. Whisler <b>| </b>Oracle &amp; MySQL DBA/Developer &amp; Joomla =
+Administrator<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif"'>UNC
+Charlotte <b>| </b>The William States Lee College of =
+Engineering<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>9201 University City Blvd. <b>| =
+</b>Charlotte,
+NC 28223<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>Phone: 704-687-3964 <b>|</b> Fax:
+704-687-2352</span><span =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p></o:p></=
+span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><u><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:blue'>dkwhisle at uncc.edu</span></u>=
+<span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'> =
+</span><b><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:black'>| =
+</span></b><u><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'>htt=
+p://www.uncc.edu</span></u><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'><o:=
+p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-family:"Arial","sans-serif";
+color:black'>------------------------------------------------------------=
+---------------</span><span
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><=
+o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>If you are not the intended recipient =
+of this
+transmission or a person responsible for delivering it to the intended
+recipient, any<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>disclosure, copying, distribution, or =
+other
+use of any of the information in this transmission is strictly =
+prohibited. If
+you have<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>received this transmission in error, =
+please
+notify me immediately by reply e-mail or by telephone at 704-687-3964. =
+Thank
+you.</span><span =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p></o:p></=
+span></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
+</body>
+
+</html>
+
+------=_NextPart_000_001E_01CB66E4.5F6D3400--
+
+
+From bogus@does.not.exist.com  Tue Apr 20 23:23:57 2010
+From: bogus@does.not.exist.com ()
+Date: Tue, 20 Apr 2010 23:23:57 -0000
+Subject: No subject
+Message-ID: <mailman.65.1286566771.1335.wp-edu@lists.automattic.com>
+
+you need.  I almost always install Tiny MCE advanced in my WP3.0.1
+stand-alone sites and have never had any issues.  The table creation and
+formatting functionality that it provides is quite solid and complete. =20
+
+All the best.
+
+Loren
+
+=20
+
+From: wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Whisler, Dave
+Sent: October 8, 2010 11:42 AM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] Creation of Tables in WP via WP-Table-Reloaded
+
+=20
+
+Loren,
+
+=20
+
+Thanks for the suggestion to try WP-Table-Reloaded, but I had seen that
+one previously and opted not to try it.  =20
+
+I saw that this plugin is pretty popular and so thought it  might work
+for me.   However...... not didn't seem to be optimal for what I had in
+mind (though I could be wrong).
+
+=20
+
+Here's my reasoning:   It seems to suggest that it stores each "table"
+that you create ( I guess for re-use purposes) and then you reference
+that table in your post/page using a special shortcode.  =20
+
+Am I correct in this?    If so, that might work for some situations, but
+I'm thinking that most times you'd want the actual content in the table
+to be stored in the actual post/page and not simply hitting a reference
+to where it's stored somewhere else.   What if someone removes the
+actual table data in the "plugin" backend - or deinstalled the plugin
+(or it stops working due to a upgrade or the plugin dev. Stops...)
+
+=20
+
+What I'm pursuing is simply a way to generate the html needed for
+formatting in the front-end editor - thus, even if the editor plugin I
+use to do this function "goes away", breaks, or I deinstall it, the
+content in the page/post is not dependent on it - since it's just
+standard HTML.    =20
+
+=20
+
+Thanks,
+
+=20
+
+Dave
+
+=20
+
+=20
+
+David K. Whisler | Oracle & MySQL DBA/Developer & Joomla Administrator
+
+UNC Charlotte | The William States Lee College of Engineering
+
+9201 University City Blvd. | Charlotte, NC 28223
+
+Phone: 704-687-3964 | Fax: 704-687-2352
+
+dkwhisle at uncc.edu | http://www.uncc.edu
+
+------------------------------------------------------------------------
+---
+
+If you are not the intended recipient of this transmission or a person
+responsible for delivering it to the intended recipient, any
+
+disclosure, copying, distribution, or other use of any of the
+information in this transmission is strictly prohibited. If you have
+
+received this transmission in error, please notify me immediately by
+reply e-mail or by telephone at 704-687-3964. Thank you.
+
+=20
+
+
+------_=_NextPart_001_01CB6720.7FF615A1
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" =
+xmlns:p=3D"urn:schemas-microsoft-com:office:powerpoint" =
+xmlns:a=3D"urn:schemas-microsoft-com:office:access" =
+xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" =
+xmlns:s=3D"uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" =
+xmlns:rs=3D"urn:schemas-microsoft-com:rowset" xmlns:z=3D"#RowsetSchema" =
+xmlns:b=3D"urn:schemas-microsoft-com:office:publisher" =
+xmlns:ss=3D"urn:schemas-microsoft-com:office:spreadsheet" =
+xmlns:c=3D"urn:schemas-microsoft-com:office:component:spreadsheet" =
+xmlns:odc=3D"urn:schemas-microsoft-com:office:odc" =
+xmlns:oa=3D"urn:schemas-microsoft-com:office:activation" =
+xmlns:html=3D"http://www.w3.org/TR/REC-html40" =
+xmlns:q=3D"http://schemas.xmlsoap.org/soap/envelope/" =
+xmlns:rtc=3D"http://microsoft.com/officenet/conferencing" =
+xmlns:D=3D"DAV:" xmlns:Repl=3D"http://schemas.microsoft.com/repl/" =
+xmlns:mt=3D"http://schemas.microsoft.com/sharepoint/soap/meetings/" =
+xmlns:x2=3D"http://schemas.microsoft.com/office/excel/2003/xml" =
+xmlns:ppda=3D"http://www.passport.com/NameSpace.xsd" =
+xmlns:ois=3D"http://schemas.microsoft.com/sharepoint/soap/ois/" =
+xmlns:dir=3D"http://schemas.microsoft.com/sharepoint/soap/directory/" =
+xmlns:ds=3D"http://www.w3.org/2000/09/xmldsig#" =
+xmlns:dsp=3D"http://schemas.microsoft.com/sharepoint/dsp" =
+xmlns:udc=3D"http://schemas.microsoft.com/data/udc" =
+xmlns:xsd=3D"http://www.w3.org/2001/XMLSchema" =
+xmlns:sub=3D"http://schemas.microsoft.com/sharepoint/soap/2002/1/alerts/"=
+ xmlns:ec=3D"http://www.w3.org/2001/04/xmlenc#" =
+xmlns:sp=3D"http://schemas.microsoft.com/sharepoint/" =
+xmlns:sps=3D"http://schemas.microsoft.com/sharepoint/soap/" =
+xmlns:xsi=3D"http://www.w3.org/2001/XMLSchema-instance" =
+xmlns:udcs=3D"http://schemas.microsoft.com/data/udc/soap" =
+xmlns:udcxf=3D"http://schemas.microsoft.com/data/udc/xmlfile" =
+xmlns:udcp2p=3D"http://schemas.microsoft.com/data/udc/parttopart" =
+xmlns:wf=3D"http://schemas.microsoft.com/sharepoint/soap/workflow/" =
+xmlns:dsss=3D"http://schemas.microsoft.com/office/2006/digsig-setup" =
+xmlns:dssi=3D"http://schemas.microsoft.com/office/2006/digsig" =
+xmlns:mdssi=3D"http://schemas.openxmlformats.org/package/2006/digital-sig=
+nature" =
+xmlns:mver=3D"http://schemas.openxmlformats.org/markup-compatibility/2006=
+" xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns:mrels=3D"http://schemas.openxmlformats.org/package/2006/relationshi=
+ps" xmlns:spwp=3D"http://microsoft.com/sharepoint/webpartpages" =
+xmlns:ex12t=3D"http://schemas.microsoft.com/exchange/services/2006/types"=
+ =
+xmlns:ex12m=3D"http://schemas.microsoft.com/exchange/services/2006/messag=
+es" =
+xmlns:pptsl=3D"http://schemas.microsoft.com/sharepoint/soap/SlideLibrary/=
+" =
+xmlns:spsl=3D"http://microsoft.com/webservices/SharePointPortalServer/Pub=
+lishedLinksService" xmlns:Z=3D"urn:schemas-microsoft-com:" =
+xmlns:st=3D"&#1;" xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Dus-ascii">
+<meta name=3DGenerator content=3D"Microsoft Word 12 (filtered medium)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext=3D"edit">
+  <o:idmap v:ext=3D"edit" data=3D"1" />
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=3DEN-US link=3Dblue vlink=3Dpurple>
+
+<div class=3DWordSection1>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Thanks for the =
+feedback.&nbsp;&nbsp; Yes,
+it will probably do the trick.&nbsp;&nbsp; Good to know that some =
+multi-site WP 3.0 sites
+are using it.&nbsp;&nbsp;&nbsp;&nbsp; However, anyone do a head-to-head =
+comparison of it against
+others (WP Super Edit or others)?<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<div>
+
+<p class=3DMsoNormal><span =
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";
+color:#1F497D'>David K. Whisler <b>| </b>Oracle &amp; MySQL =
+DBA/Developer &amp;
+Joomla Administrator<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";
+color:#1F497D'>UNC Charlotte <b>| </b>The William States Lee College of
+Engineering<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:#1F497D'>9201 University City =
+Blvd. <b>|
+</b>Charlotte, NC 28223<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:#1F497D'>Phone: 704-687-3964 =
+<b>|</b>
+Fax: 704-687-2352</span><span =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#1F497D'><o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><u><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:blue'>dkwhisle at uncc.edu</span></u>=
+<span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'> =
+</span><b><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:black'>| =
+</span></b><u><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'>htt=
+p://www.uncc.edu</span></u><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'><o:=
+p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-family:"Arial","sans-serif";
+color:black'>------------------------------------------------------------=
+---------------</span><span
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><=
+o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:#1F497D'>If you are not the =
+intended
+recipient of this transmission or a person responsible for delivering it =
+to the
+intended recipient, any<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:#1F497D'>disclosure, copying,
+distribution, or other use of any of the information in this =
+transmission is
+strictly prohibited. If you have<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:#1F497D'>received this =
+transmission in
+error, please notify me immediately by reply e-mail or by telephone at
+704-687-3964. Thank you.</span><span =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";
+color:#1F497D'><o:p></o:p></span></p>
+
+</div>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<div>
+
+<div style=3D'border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt =
+0in 0in 0in'>
+
+<p class=3DMsoNormal><b><span =
+style=3D'font-size:10.0pt;font-family:"Tahoma","sans-serif"'>From:</span>=
+</b><span
+style=3D'font-size:10.0pt;font-family:"Tahoma","sans-serif"'>
+wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] <b>On Behalf Of =
+</b>loren at nbseminary.com<br>
+<b>Sent:</b> Friday, October 08, 2010 3:29 PM<br>
+<b>To:</b> wp-edu at lists.automattic.com<br>
+<b>Subject:</b> Re: [wp-edu] Creation of Tables in WP via =
+WP-Table-Reloaded<o:p></o:p></span></p>
+
+</div>
+
+</div>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Dave,&nbsp; =
+<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>From your description =
+below I
+think Tiny MCE Advanced would fulfill what you need. &nbsp;I almost =
+always
+install Tiny MCE advanced in my WP3.0.1 stand-alone sites and have never =
+had
+any issues.&nbsp; The table creation and formatting functionality that =
+it
+provides is quite solid and complete.&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>All the =
+best.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Loren<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<div>
+
+<div style=3D'border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt =
+0in 0in 0in'>
+
+<p class=3DMsoNormal><b><span =
+style=3D'font-size:10.0pt;font-family:"Tahoma","sans-serif"'>From:</span>=
+</b><span
+style=3D'font-size:10.0pt;font-family:"Tahoma","sans-serif"'> =
+wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] <b>On Behalf Of =
+</b>Whisler, Dave<br>
+<b>Sent:</b> October 8, 2010 11:42 AM<br>
+<b>To:</b> wp-edu at lists.automattic.com<br>
+<b>Subject:</b> [wp-edu] Creation of Tables in WP via =
+WP-Table-Reloaded<o:p></o:p></span></p>
+
+</div>
+
+</div>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Loren,<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Thanks for the =
+suggestion to try
+WP-Table-Reloaded, but I had seen that one previously and opted not to =
+try
+it.&nbsp;&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>I saw that this =
+plugin is pretty
+popular and so thought it &nbsp;might work for me.&nbsp;&nbsp; =
+However&#8230;&#8230; not
+didn&#8217;t seem to be optimal for what I had in mind (though I could =
+be wrong).<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Here&#8217;s my =
+reasoning:&nbsp;&nbsp;
+It seems to suggest that it stores each &#8220;table&#8221; that you =
+create ( I guess for
+re-use purposes) and then you reference that table in your post/page =
+using a
+special shortcode.&nbsp;&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>Am I correct in
+this?&nbsp;&nbsp;&nbsp; If so, that might work for some situations, but =
+I&#8217;m
+thinking that most times you&#8217;d want the actual content in the =
+table to be
+stored in the actual post/page and not simply hitting a reference to =
+where it&#8217;s
+stored somewhere else.&nbsp;&nbsp; What if someone removes the actual =
+table
+data in the &#8220;plugin&#8221; backend &#8211; or deinstalled the =
+plugin (or it stops working
+due to a upgrade or the plugin dev. Stops&#8230;)<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span style=3D'color:#1F497D'>What I&#8217;m =
+pursuing is simply a
+way to generate the html needed for formatting in the front-end editor =
+&#8211; thus,
+even if the editor plugin I use to do this function &#8220;goes =
+away&#8221;, breaks, or I
+deinstall it, the content in the page/post is not dependent on it =
+&#8211; since it&#8217;s
+just standard HTML.&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Thanks,<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'color:#1F497D'>Dave<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><span =
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif"'>David
+K. Whisler <b>| </b>Oracle &amp; MySQL DBA/Developer &amp; Joomla =
+Administrator<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><span =
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif"'>UNC
+Charlotte <b>| </b>The William States Lee College of =
+Engineering<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>9201 University City Blvd. <b>| =
+</b>Charlotte,
+NC 28223<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>Phone: 704-687-3964 <b>|</b> Fax:
+704-687-2352</span><span =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p></o:p></=
+span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><u><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif";color:blue'>dkwhisle at uncc.edu</span></u>=
+<span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'> =
+</span><b><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:black'>| =
+</span></b><u><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'>htt=
+p://www.uncc.edu</span></u><span
+style=3D'font-size:8.0pt;font-family:"Arial","sans-serif";color:blue'><o:=
+p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-family:"Arial","sans-serif";
+color:black'>------------------------------------------------------------=
+---------------</span><span
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><=
+o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>If you are not the intended recipient =
+of this
+transmission or a person responsible for delivering it to the intended
+recipient, any<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>disclosure, copying, distribution, or =
+other
+use of any of the information in this transmission is strictly =
+prohibited. If
+you have<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'text-autospace:none'><span =
+style=3D'font-size:8.0pt;
+font-family:"Arial","sans-serif"'>received this transmission in error, =
+please
+notify me immediately by reply e-mail or by telephone at 704-687-3964. =
+Thank
+you.</span><span =
+style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p></o:p></=
+span></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
+</body>
+
+</html>
+
+------_=_NextPart_001_01CB6720.7FF615A1--
+

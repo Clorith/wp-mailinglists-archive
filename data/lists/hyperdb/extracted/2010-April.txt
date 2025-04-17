@@ -1,0 +1,58 @@
+From jim at jimmcq.com  Fri Apr  9 16:21:03 2010
+From: jim at jimmcq.com (Jim McQuillan)
+Date: Fri, 09 Apr 2010 09:21:03 -0700
+Subject: [HyperDB] advice on HyperDB partitioning?
+Message-ID: <4BBF53EF.20803@jimmcq.com>
+
+
+We are looking to migrate an existing proprietary system of about 25,000
+blogs to Wordpress... either Wordpress MU or more likely Wordpress 3.0
+once it is released.
+
+My research into performance and scalability has led me to HyperDB.  I
+wanted to see if I could get some advice on the database partitioning. 
+To start with we were thinking of splitting the blogs into 256 different
+databases on a single db server.  Any thoughts or advice on that?  Is
+that too many databases? not enough?
+
+From irfan_area47 at yahoo.co.id  Wed Apr 28 07:16:02 2010
+From: irfan_area47 at yahoo.co.id (irfan irfan)
+Date: Wed, 28 Apr 2010 15:16:02 +0800 (SGT)
+Subject: [HyperDB] hyperdb add new database
+Message-ID: <597600.61225.qm@web76501.mail.sg1.yahoo.com>
+
+Any one can help me, how to add new database to hyperdb. Now i have 3 database is configure to db-setting.php. How to add 4th database to db-setting.php.
+Thanks
+
+
+
+      
+
+From Joe_Beck at Comcast.com  Wed Apr 28 13:05:57 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Wed, 28 Apr 2010 09:05:57 -0400
+Subject: [HyperDB] hyperdb add new database
+In-Reply-To: <597600.61225.qm@web76501.mail.sg1.yahoo.com>
+Message-ID: <C7FDAAF5.16475%Joe_Beck@Comcast.com>
+
+grep ^add_db db-settings.php
+
+and send the output to the list
+
+
+On 4/28/10 3:16 AM, "irfan irfan" <irfan_area47 at yahoo.co.id> wrote:
+
+> Any one can help me, how to add new database to hyperdb. Now i have 3 database
+> is configure to db-setting.php. How to add 4th database to db-setting.php.
+> Thanks
+> 
+> 
+> 
+>      
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+
+

@@ -1,0 +1,333 @@
+From nonplus at gmail.com  Fri Apr  7 18:12:12 2006
+From: nonplus at gmail.com (Stepan Riha)
+Date: Fri, 7 Apr 2006 13:12:12 -0500
+Subject: [spam-stopper] Akismet for MovableType
+Message-ID: <a3f6c3180604071112r53b6345do47778881dc6d50ec@mail.gmail.com>
+
+I just wanted to introduce myself and let people know that I've
+created an Akismet plugin for MovableType.  It uses the Net::Akismet
+CPAN module and enables MT users to score feedback (Comments and
+Trackbacks) based on Akismet's Ham/Spam response.
+
+Version 1.0 does not yet have the ability to give feedback back to
+Akismet.com, but I'm working on that...
+
+http://www.nonplus.net/software/mt/Akismet.htm
+
+   - Stepan
+
+--
+Stepan Riha
+nonplus at gmail.com
+
+
+From m at mullenweg.com  Fri Apr 14 07:19:23 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 14 Apr 2006 00:19:23 -0700
+Subject: [spam-stopper] Akismet for MovableType
+In-Reply-To: <a3f6c3180604071112r53b6345do47778881dc6d50ec@mail.gmail.com>
+References: <a3f6c3180604071112r53b6345do47778881dc6d50ec@mail.gmail.com>
+Message-ID: <443F4CFB.8070102@mullenweg.com>
+
+Stepan Riha wrote:
+> I just wanted to introduce myself and let people know that I've
+> created an Akismet plugin for MovableType.  It uses the Net::Akismet
+> CPAN module and enables MT users to score feedback (Comments and
+> Trackbacks) based on Akismet's Ham/Spam response.
+
+Very cool, I just added you to the development page. :)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From ttech5593 at gmail.com  Sat Apr 15 00:24:57 2006
+From: ttech5593 at gmail.com (ttech5593)
+Date: Fri, 14 Apr 2006 17:24:57 -0700
+Subject: [spam-stopper] Spam by Trackbacks
+Message-ID: <002f01c66023$07560e80$6500a8c0@joeys>
+
+Hello, 
+I think Akismet is wonderful I've never had a false positive. But now the
+one place where Akismet does not monitor (Trackbacks / Pingbacks) spam is
+coming in. I do not know how it gets through or even how it only show what
+is shows but here it is. This is exactly what I see from the comment
+moderation area : 
+ 
+____________________________________________________________________________
+__________________________________________
+
+*	Name: Anonymous | URI:
+http://blog.fileville.net/wp-trackback.php?p=32
+<http://blog.fileville.net/wp-trackback.php?p=56>  | IP: 200.118.2.219 
+
+jewelry gift.
+
+. 
+
+Posted Apr 14, 4:33 PM | Edit Comment | Delete Comment - Edit Post "WYSIWYG"
+| View Post
+
+____________________________________________________________________________
+__________________________________________
+
+Now the email I got from Wordpress (my blog) was :
+
+____________________________________________________________________________
+__________________________________________
+
+New trackback on your post #32 "WYSIWYG "
+
+Website: (IP: 200.118.2.219 , 200.118.2.219)
+
+URI : http://blog.fileville.net/wp-trackback.php?p=32
+<http://blog.fileville.net/wp-trackback.php?p=32> 
+
+Excerpt: 
+
+<strong>gift idea...</strong>
+
+...
+
+You can see all trackbacks on this post here: 
+
+____________________________________________________________________________
+__________________________________________
+
+The exact same message as a comment (not sent by me) was identified as spam.
+But the trackbacks slip right by and are posted with out a check. If this is
+already being worked on. Sorry.  I just thought I'd give every one a heads
+up. Thanks...
+
+
+
+
+From stebet at gmail.com  Tue Apr 18 11:34:16 2006
+From: stebet at gmail.com (=?ISO-8859-1?Q?Stef=E1n_J=F6kull_Sigur=F0arson?=)
+Date: Tue, 18 Apr 2006 11:34:16 +0000
+Subject: [spam-stopper] Calling Akismet from non-PHP applications.
+Message-ID: <b089c59e0604180434r1aa82f1fv8a16b51c97d46683@mail.gmail.com>
+
+I was wondering what kind of headers we should send to Akismet instead
+of the PHP $_SERVER attributes (in my case i'm creating a .NET (C#)
+library to be used from ASP.NET).
+
+Also, how important is this server data, i.e. is it a very important
+factor when determining if a message is spam or not?
+
+I'm looking forward to working with this, since after trying WordPress
+this would obviously be my comment spam filter of choice. Much better
+than those image generation verifiers i.m.o. (less noise).
+
+regards.
+Stef?n J?kull.
+
+
+From sbishop at trinitybiblecollege.edu  Wed Apr 26 20:24:10 2006
+From: sbishop at trinitybiblecollege.edu (Shane Bishop)
+Date: Wed, 26 Apr 2006 15:24:10 -0500
+Subject: [spam-stopper] lyceum
+Message-ID: <444FD6EA.8020602@trinitybiblecollege.edu>
+
+We're looking at deploying lyceum (a multi-user derivative of 
+wordpress), and we need a good spam plugin. I've installed it, and it 
+appears to be active, but my question is this: How do I know it is 
+working properly?
+I tried leaving a comment that I thought would be 'spammy' enough, but 
+it went through anyway. I can move comments to the 'spam' section, so 
+obviously, some of the plugin is functioning correctly, but so far, 
+nothing is getting caught, so I don't know for sure.
+
+Is there a good way to monitor this, or do I just have to 'wait and 
+see'? JJB (from lyceum) has already agreed to help me out with getting 
+it working (if it doesn't), but I currently have no idea of how to test 
+this out. Help, please!
+Shane
+
+
+From andrew at fergcorp.com  Thu Apr 27 02:07:42 2006
+From: andrew at fergcorp.com (Andrew Ferguson)
+Date: Wed, 26 Apr 2006 20:07:42 -0600
+Subject: [spam-stopper] lyceum
+In-Reply-To: <444FD6EA.8020602@trinitybiblecollege.edu>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>
+Message-ID: <4450276E.2050003@fergcorp.com>
+
+use "viagra-test-123" as the name an Akismet will always return it as spam.
+
+Andrew Ferguson
+
+andrew at fergcorp.com
+http://www.AndrewFerguson.net
+206-948-1701
+
+
+
+Shane Bishop wrote:
+> We're looking at deploying lyceum (a multi-user derivative of 
+> wordpress), and we need a good spam plugin. I've installed it, and it 
+> appears to be active, but my question is this: How do I know it is 
+> working properly?
+> I tried leaving a comment that I thought would be 'spammy' enough, but 
+> it went through anyway. I can move comments to the 'spam' section, so 
+> obviously, some of the plugin is functioning correctly, but so far, 
+> nothing is getting caught, so I don't know for sure.
+>
+> Is there a good way to monitor this, or do I just have to 'wait and 
+> see'? JJB (from lyceum) has already agreed to help me out with getting 
+> it working (if it doesn't), but I currently have no idea of how to 
+> test this out. Help, please!
+> Shane
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From sbishop at trinitybiblecollege.edu  Thu Apr 27 13:31:07 2006
+From: sbishop at trinitybiblecollege.edu (Shane Bishop)
+Date: Thu, 27 Apr 2006 08:31:07 -0500
+Subject: [spam-stopper] lyceum
+In-Reply-To: <4450276E.2050003@fergcorp.com>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>
+	<4450276E.2050003@fergcorp.com>
+Message-ID: <4450C79B.5040209@trinitybiblecollege.edu>
+
+So...is that just a dealy written in to the script, or is that a 
+central-server rule? What I'm trying to get at is this:
+Does that test verify that the comment was submitted to the akismet 
+servers, and returned as spam, or just verify that the akismet plugin 
+script is installed and semi-functioning?
+
+Shane
+
+Andrew Ferguson wrote:
+> use "viagra-test-123" as the name an Akismet will always return it as spam.
+> 
+> Andrew Ferguson
+> 
+> andrew at fergcorp.com
+> http://www.AndrewFerguson.net
+> 206-948-1701
+> 
+> 
+> 
+> Shane Bishop wrote:
+>> We're looking at deploying lyceum (a multi-user derivative of 
+>> wordpress), and we need a good spam plugin. I've installed it, and it 
+>> appears to be active, but my question is this: How do I know it is 
+>> working properly?
+>> I tried leaving a comment that I thought would be 'spammy' enough, but 
+>> it went through anyway. I can move comments to the 'spam' section, so 
+>> obviously, some of the plugin is functioning correctly, but so far, 
+>> nothing is getting caught, so I don't know for sure.
+>>
+>> Is there a good way to monitor this, or do I just have to 'wait and 
+>> see'? JJB (from lyceum) has already agreed to help me out with getting 
+>> it working (if it doesn't), but I currently have no idea of how to 
+>> test this out. Help, please!
+>> Shane
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From mattweyant at gmail.com  Thu Apr 27 13:35:21 2006
+From: mattweyant at gmail.com (Matt Weyant)
+Date: Thu, 27 Apr 2006 09:35:21 -0400
+Subject: [spam-stopper] lyceum
+In-Reply-To: <4450C79B.5040209@trinitybiblecollege.edu>
+References: <444FD6EA.8020602@trinitybiblecollege.edu>
+	<4450276E.2050003@fergcorp.com>
+	<4450C79B.5040209@trinitybiblecollege.edu>
+Message-ID: <1b8feca10604270635o4bb186adqbba854af2155182d@mail.gmail.com>
+
+That's a central server rule.  The test verifies that the comment was
+submitted to Akismet and returned as spam.  If you disconnect from the
+internet, the plug-in breaks and even this test won't work.
+
+Matt
+
+On 4/27/06, Shane Bishop <sbishop at trinitybiblecollege.edu> wrote:
+> So...is that just a dealy written in to the script, or is that a
+> central-server rule? What I'm trying to get at is this:
+> Does that test verify that the comment was submitted to the akismet
+> servers, and returned as spam, or just verify that the akismet plugin
+> script is installed and semi-functioning?
+>
+> Shane
+>
+> Andrew Ferguson wrote:
+> > use "viagra-test-123" as the name an Akismet will always return it as spam.
+> >
+> > Andrew Ferguson
+> >
+> > andrew at fergcorp.com
+> > http://www.AndrewFerguson.net
+> > 206-948-1701
+> >
+> >
+> >
+> > Shane Bishop wrote:
+> >> We're looking at deploying lyceum (a multi-user derivative of
+> >> wordpress), and we need a good spam plugin. I've installed it, and it
+> >> appears to be active, but my question is this: How do I know it is
+> >> working properly?
+> >> I tried leaving a comment that I thought would be 'spammy' enough, but
+> >> it went through anyway. I can move comments to the 'spam' section, so
+> >> obviously, some of the plugin is functioning correctly, but so far,
+> >> nothing is getting caught, so I don't know for sure.
+> >>
+> >> Is there a good way to monitor this, or do I just have to 'wait and
+> >> see'? JJB (from lyceum) has already agreed to help me out with getting
+> >> it working (if it doesn't), but I currently have no idea of how to
+> >> test this out. Help, please!
+> >> Shane
+> >> _______________________________________________
+> >> spam-stopper mailing list
+> >> spam-stopper at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+--
+-------------------------------------------------------
+"Any sufficiently advanced technology is indistinguishable from
+magic." - Arthur C. Clark
+
+
+From stebet at gmail.com  Thu Apr 27 13:38:21 2006
+From: stebet at gmail.com (=?ISO-8859-1?Q?Stef=E1n_J=F6kull_Sigur=F0arson?=)
+Date: Thu, 27 Apr 2006 13:38:21 +0000
+Subject: [spam-stopper] Typical PHP Server Headers
+Message-ID: <b089c59e0604270638y1ffe7b6ax540aef312457da98@mail.gmail.com>
+
+Can someone send me or point me to a list of typical PHP headers from
+the $_SERVER variable that are sent to the Akismet service?
+
+I'm working on a .NET library for the service and since PHP won't be
+used i'd like a list if the variables and typical values so i could
+send the equivalent headers from an ASP.NET app.
+
+>From the documentation i took it that these headers (or some of them)
+are fairly important for determining if a message is spam or not.
+
+regards.
+Stef?n J?kull.
+
+

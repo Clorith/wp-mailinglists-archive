@@ -1,0 +1,173 @@
+From jim.dalton at furrybrains.com  Wed Dec 12 06:10:32 2007
+From: jim.dalton at furrybrains.com (Jim Dalton)
+Date: Wed, 12 Dec 2007 01:10:32 -0500
+Subject: [spam-stopper] triggering a "false" response from api for testing
+	purposes?
+Message-ID: <5824D875-E3F3-41AE-999C-9DCF465FEA98@furrybrains.com>
+
+hi there,
+
+i'm new to this list so forgive me if for any reason i'm not  
+following protocol in some way in my first message.
+
+anyhow, i'm working on an application in which I would like to use  
+akismet to filter a certain kind of person-to-person reminder message  
+for spam. i'm trying to work a bit with the api in my testing  
+environment to see if akismet will be able to handle these kinds of  
+messages effectively.
+
+the problem i'm having at the moment is that i can get nothing but a  
+"true" response from the api...and since that's all i can get i'm  
+having a hard time testing.
+
+i see the suggestion about how to get a "true" response using "viagra- 
+test-123" ... is there a way anyone is aware of that i can trigger a  
+"false" response?
+
+thanks for any help you can provide.
+
+jim d
+jim.dalton at furrybrains.com
+
+
+From m at mullenweg.com  Sat Dec 15 21:52:23 2007
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat, 15 Dec 2007 13:52:23 -0800
+Subject: [spam-stopper] triggering a "false" response from api for testing
+	purposes?
+In-Reply-To: <5824D875-E3F3-41AE-999C-9DCF465FEA98@furrybrains.com>
+References: <5824D875-E3F3-41AE-999C-9DCF465FEA98@furrybrains.com>
+Message-ID: <47644C97.5090307@mullenweg.com>
+
+Jim Dalton wrote:
+> i'm new to this list so forgive me if for any reason i'm not following 
+> protocol in some way in my first message.
+
+No this is fine.
+
+> the problem i'm having at the moment is that i can get nothing but a 
+> "true" response from the api...and since that's all i can get i'm having 
+> a hard time testing.
+
+This is odd, usually by sending just normal info you get false, maybe 
+your API call is missing a variable?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From jim.dalton at furrybrains.com  Sun Dec 16 14:54:55 2007
+From: jim.dalton at furrybrains.com (Jim Dalton)
+Date: Sun, 16 Dec 2007 09:54:55 -0500
+Subject: [spam-stopper] Re: triggering a "false" response from api for
+	testing purposes?
+In-Reply-To: <20071216120022.2E168E337@comox.textdrive.com>
+References: <20071216120022.2E168E337@comox.textdrive.com>
+Message-ID: <9ACD5B80-6FB5-45F2-847D-5175160A34B4@furrybrains.com>
+
+>> the problem i'm having at the moment is that i can get nothing but a
+>> "true" response from the api...and since that's all i can get i'm  
+>> having
+>> a hard time testing.
+>
+> This is odd, usually by sending just normal info you get false, maybe
+> your API call is missing a variable?
+>
+
+Thanks for taking the time to reply Matt.
+
+I actually did resolve the issue after I posted it, and you are  
+actually correct -- it was returning "true" until I started passing  
+comment_author and comment_email, at which point I was able to get a  
+"false" return. (I didn't realize these were required -- that might  
+be something worth noting in the API documentation in a future  
+revision.)
+
+As  I mentioned in my last email, I'm attempting to use akismet to  
+filter spam in the context of a certain kind of reminder message. The  
+challenge is that the application I'm developing does not require or  
+even ask for a name or email from the sender.
+
+This makes me wonder then, will my application really be able to use  
+Akismet effectively without comment_author and comment_email (for now  
+I am just passing the same dummy name/email for every request, for  
+testing purposes)? Or is there a good name/email to use if one  
+doesn't exist (but a value nevertheless must be passed)?
+
+Well if anyone has any insights to share, I would appreciate it.
+
+
+From m at mullenweg.com  Sun Dec 16 18:01:49 2007
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 16 Dec 2007 10:01:49 -0800
+Subject: [spam-stopper] Re: triggering a "false" response from api for
+	testing purposes?
+In-Reply-To: <9ACD5B80-6FB5-45F2-847D-5175160A34B4@furrybrains.com>
+References: <20071216120022.2E168E337@comox.textdrive.com>
+	<9ACD5B80-6FB5-45F2-847D-5175160A34B4@furrybrains.com>
+Message-ID: <4765680D.3020806@mullenweg.com>
+
+Jim Dalton wrote:
+> As  I mentioned in my last email, I'm attempting to use akismet to 
+> filter spam in the context of a certain kind of reminder message. The 
+> challenge is that the application I'm developing does not require or 
+> even ask for a name or email from the sender.
+
+If your messages have subjects or titles, that's often good to use for 
+the author.
+
+What's an example message look like?
+
+Before were you passing blank values, or just not sending the arguments 
+at all?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From jim.dalton at furrybrains.com  Mon Dec 17 14:42:26 2007
+From: jim.dalton at furrybrains.com (Jim Dalton)
+Date: Mon, 17 Dec 2007 09:42:26 -0500
+Subject: [spam-stopper] Re: spam-stopper Digest, Vol 24, Issue 3
+In-Reply-To: <20071217120104.08964E3B6@comox.textdrive.com>
+References: <20071217120104.08964E3B6@comox.textdrive.com>
+Message-ID: <CCFAE509-F77C-4335-A35F-8F9B94A8FA85@furrybrains.com>
+
+On Dec 17, 2007, at 7:01 AM, spam-stopper- 
+request at lists.automattic.com wrote:
+>
+>> As  I mentioned in my last email, I'm attempting to use akismet to
+>> filter spam in the context of a certain kind of reminder message. The
+>> challenge is that the application I'm developing does not require or
+>> even ask for a name or email from the sender.
+>
+> If your messages have subjects or titles, that's often good to use for
+> the author.
+>
+> What's an example message look like?
+
+The messages are very simple: body (which has a character limit of  
+under 255) and the person the message is going to. As a parallel, it  
+would almost be like running a "email this article to a friend" email  
+through Akismet, where a from name/email wasn't required, and all  
+there really was was a "to" email and a note.
+
+>
+> Before were you passing blank values, or just not sending the  
+> arguments
+> at all?
+>
+
+That's a good question -- looking back at my code, I believe I was  
+not passing the arguments at all, thinking they were optional. Later  
+perhaps I will try passing the arguments with blank values to see if  
+I can still get a "false".
+
+
+
+
+

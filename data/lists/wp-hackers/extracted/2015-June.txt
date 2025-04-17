@@ -1,0 +1,1152 @@
+From pavelevap at gmail.com  Mon Jun  1 17:20:03 2015
+From: pavelevap at gmail.com (Pavel Hejn)
+Date: Mon, 01 Jun 2015 19:20:03 +0200
+Subject: [wp-hackers] XML-RPC POST attack
+Message-ID: <556C9443.7010308@gmail.com>
+
+Hi,
+
+I found many ideas how to protect website from XML-RPC attacks (POST hits).
+They suggest .htaccess protection, using filter, delete file, use special security plugin, ban IP 
+address, etc.
+But I want to use this protocol on my website and wanted to ask if there is any way to protect 
+XML-RPC from Ddos attacks directly on server side (Apache)?
+I am searching for something which can be usable for many different websites on one server.
+I do not want to allow only specific IP address, etc.
+Do you have any working solution?
+
+Thank you very much for ideas!
+
+Pavel
+
+From Or at incapsula.com  Mon Jun  1 17:23:44 2015
+From: Or at incapsula.com (Or Wilder)
+Date: Mon, 1 Jun 2015 17:23:44 +0000
+Subject: [wp-hackers] XML-RPC POST attack
+In-Reply-To: <556C9443.7010308@gmail.com>
+References: <556C9443.7010308@gmail.com>
+Message-ID: <BN3PR0601MB12491D492140A305AC56AF9BD6B60@BN3PR0601MB1249.namprd06.prod.outlook.com>
+
+I suggest you use an oriented anti DDoS service, such as Incapsula.com, we provide protections from XML-RPC attacks.
+It would be much trickier to implement your own protections without stopping or disrupting the service.
+
+-----Original Message-----
+From: wp-hackers [mailto:wp-hackers-bounces at lists.automattic.com] On Behalf Of Pavel Hejn
+Sent: Monday, June 01, 2015 8:20 PM
+To: wp-hackers at lists.automattic.com
+Subject: [wp-hackers] XML-RPC POST attack
+
+Hi,
+
+I found many ideas how to protect website from XML-RPC attacks (POST hits).
+They suggest .htaccess protection, using filter, delete file, use special security plugin, ban IP address, etc.
+But I want to use this protocol on my website and wanted to ask if there is any way to protect XML-RPC from Ddos attacks directly on server side (Apache)?
+I am searching for something which can be usable for many different websites on one server.
+I do not want to allow only specific IP address, etc.
+Do you have any working solution?
+
+Thank you very much for ideas!
+
+Pavel
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From mike at mikevanwinkle.com  Mon Jun  1 18:35:54 2015
+From: mike at mikevanwinkle.com (Michael Van Winkle)
+Date: Mon, 1 Jun 2015 11:35:54 -0700
+Subject: [wp-hackers] XML-RPC POST attack
+In-Reply-To: <BN3PR0601MB12491D492140A305AC56AF9BD6B60@BN3PR0601MB1249.namprd06.prod.outlook.com>
+References: <556C9443.7010308@gmail.com>
+ <BN3PR0601MB12491D492140A305AC56AF9BD6B60@BN3PR0601MB1249.namprd06.prod.outlook.com>
+Message-ID: <CALVAUkXo6w_jauFNyRZjvXi6gfgf2kERxSVSnuuUhmT8D351WQ@mail.gmail.com>
+
+I would agree with Or Wilder, but if you want to do it yourself I recommend
+blocking via iptables if possible. Here's a write-up of how I do it:
+
+http://www.mikevanwinkle.com/block-a-hacker-post-attack-on-wordpress-xmlrpc-php/
+
+On Mon, Jun 1, 2015 at 10:23 AM, Or Wilder <Or at incapsula.com> wrote:
+
+> I suggest you use an oriented anti DDoS service, such as Incapsula.com, we
+> provide protections from XML-RPC attacks.
+> It would be much trickier to implement your own protections without
+> stopping or disrupting the service.
+>
+> -----Original Message-----
+> From: wp-hackers [mailto:wp-hackers-bounces at lists.automattic.com] On
+> Behalf Of Pavel Hejn
+> Sent: Monday, June 01, 2015 8:20 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: [wp-hackers] XML-RPC POST attack
+>
+> Hi,
+>
+> I found many ideas how to protect website from XML-RPC attacks (POST hits).
+> They suggest .htaccess protection, using filter, delete file, use special
+> security plugin, ban IP address, etc.
+> But I want to use this protocol on my website and wanted to ask if there
+> is any way to protect XML-RPC from Ddos attacks directly on server side
+> (Apache)?
+> I am searching for something which can be usable for many different
+> websites on one server.
+> I do not want to allow only specific IP address, etc.
+> Do you have any working solution?
+>
+> Thank you very much for ideas!
+>
+> Pavel
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+Mike Van Winkle
+708-289-3136
+mike at mikevanwinkle.com
+http://www.mikevanwinkle.com
+http://www.twitter.com/mpvanwinkle
+http://www.facebook.com/mpvanwinkle
+
+
+"All excellent things are as difficult as they are rare." -Spinoza
+
+From ryan.frankel at gmail.com  Thu Jun  4 09:33:29 2015
+From: ryan.frankel at gmail.com (ryan.frankel at gmail.com)
+Date: Thu, 4 Jun 2015 11:33:29 +0200
+Subject: [wp-hackers] From: ryan.frankel@gmail.com
+Message-ID: <6C7F28D5-E14A-4D0E-9FDC-D72C1C7E4B66@oi.com.br>
+
+Greetings wp
+
+
+
+http://jane.perftech.com/passage.php?doesnt=ds7fkp19x6mx
+
+
+
+
+
+ryan.frankel at gmail.com
+
+
+Sent from my iPhone
+
+From chris at rudzki.org  Thu Jun  4 19:49:20 2015
+From: chris at rudzki.org (Chris Rudzki)
+Date: Thu, 04 Jun 2015 15:49:20 -0400
+Subject: [wp-hackers] wp-hackers Digest, Vol 125, Issue 1
+In-Reply-To: <mailman.12.1433246402.28361.wp-hackers@lists.automattic.com>
+References: <mailman.12.1433246402.28361.wp-hackers@lists.automattic.com>
+Message-ID: <5570ABC0.6070505@rudzki.org>
+
+You can also whitelist, or increase the threshold, on Automattic ranges 
+if you like:
+http://whois.arin.net/rest/org/AUTOM-93/nets
+
+
+-Chris
+
+> wp-hackers-request at lists.automattic.com 
+> <mailto:wp-hackers-request at lists.automattic.com>
+> June 2, 2015 at 8:00 AM
+> Send wp-hackers mailing list submissions to
+> wp-hackers at lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> or, via email, send a message with subject or body 'help' to
+> wp-hackers-request at lists.automattic.com
+>
+> You can reach the person managing the list at
+> wp-hackers-owner at lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-hackers digest..."
+>
+>
+> Today's Topics:
+>
+> 1. XML-RPC POST attack (Pavel Hejn)
+> 2. Re: XML-RPC POST attack (Or Wilder)
+> 3. Re: XML-RPC POST attack (Michael Van Winkle)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 01 Jun 2015 19:20:03 +0200
+> From: Pavel Hejn <pavelevap at gmail.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: [wp-hackers] XML-RPC POST attack
+> Message-ID: <556C9443.7010308 at gmail.com>
+> Content-Type: text/plain; charset=iso-8859-2; format=flowed
+>
+> Hi,
+>
+> I found many ideas how to protect website from XML-RPC attacks (POST 
+> hits).
+> They suggest .htaccess protection, using filter, delete file, use 
+> special security plugin, ban IP
+> address, etc.
+> But I want to use this protocol on my website and wanted to ask if 
+> there is any way to protect
+> XML-RPC from Ddos attacks directly on server side (Apache)?
+> I am searching for something which can be usable for many different 
+> websites on one server.
+> I do not want to allow only specific IP address, etc.
+> Do you have any working solution?
+>
+> Thank you very much for ideas!
+>
+> Pavel
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Mon, 1 Jun 2015 17:23:44 +0000
+> From: Or Wilder <Or at incapsula.com>
+> To: "wp-hackers at lists.automattic.com"
+> <wp-hackers at lists.automattic.com>
+> Subject: Re: [wp-hackers] XML-RPC POST attack
+> Message-ID:
+> <BN3PR0601MB12491D492140A305AC56AF9BD6B60 at BN3PR0601MB1249.namprd06.prod.outlook.com>
+>
+> Content-Type: text/plain; charset="us-ascii"
+>
+> I suggest you use an oriented anti DDoS service, such as 
+> Incapsula.com, we provide protections from XML-RPC attacks.
+> It would be much trickier to implement your own protections without 
+> stopping or disrupting the service.
+>
+> -----Original Message-----
+> From: wp-hackers [mailto:wp-hackers-bounces at lists.automattic.com] On 
+> Behalf Of Pavel Hejn
+> Sent: Monday, June 01, 2015 8:20 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: [wp-hackers] XML-RPC POST attack
+>
+> Hi,
+>
+> I found many ideas how to protect website from XML-RPC attacks (POST 
+> hits).
+> They suggest .htaccess protection, using filter, delete file, use 
+> special security plugin, ban IP address, etc.
+> But I want to use this protocol on my website and wanted to ask if 
+> there is any way to protect XML-RPC from Ddos attacks directly on 
+> server side (Apache)?
+> I am searching for something which can be usable for many different 
+> websites on one server.
+> I do not want to allow only specific IP address, etc.
+> Do you have any working solution?
+>
+> Thank you very much for ideas!
+>
+> Pavel
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+>
+> ------------------------------
+>
+> Message: 3
+> Date: Mon, 1 Jun 2015 11:35:54 -0700
+> From: Michael Van Winkle <mike at mikevanwinkle.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] XML-RPC POST attack
+> Message-ID:
+> <CALVAUkXo6w_jauFNyRZjvXi6gfgf2kERxSVSnuuUhmT8D351WQ at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+>
+> I would agree with Or Wilder, but if you want to do it yourself I 
+> recommend
+> blocking via iptables if possible. Here's a write-up of how I do it:
+>
+> http://www.mikevanwinkle.com/block-a-hacker-post-attack-on-wordpress-xmlrpc-php/
+>
+>
+>
+>
+
+-- 
+Automattic, chris at automattic.com
+
+From wp-hackers at striderweb.com  Thu Jun  4 22:37:52 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Thu, 4 Jun 2015 17:37:52 -0500
+Subject: [wp-hackers] Customize Uploads directory?
+Message-ID: <0A69D60B-C9C9-4253-A1A8-FDB0BF7A8C30@striderweb.com>
+
+Hi ?
+
+There used to be a simple setting within the Admin to change the uploads directory, but it?s gone in current versions of WP.  So how are we supposed to do this, officially?
+
+I see that there?s a constant that can be set, but that method appears to be frowned upon by TPtB.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+
+
+From otto at ottodestruct.com  Thu Jun  4 22:59:59 2015
+From: otto at ottodestruct.com (Otto)
+Date: Thu, 4 Jun 2015 17:59:59 -0500
+Subject: [wp-hackers] Customize Uploads directory?
+In-Reply-To: <0A69D60B-C9C9-4253-A1A8-FDB0BF7A8C30@striderweb.com>
+References: <0A69D60B-C9C9-4253-A1A8-FDB0BF7A8C30@striderweb.com>
+Message-ID: <CAD-Fghyb-WZ_2UTtbHSFSsrdZv3njcZUruG=NDG93CEaHj0LyQ@mail.gmail.com>
+
+Generally speaking, you should not change the uploads directory. The
+user-facing settings were removed because users were constantly changing
+them incorrectly, and thus, instantly breaking their uploads because they
+don't understand how web hosting works.
+
+But if you do know what you're doing, then you can edit them directly in
+the database. The options are still there and still used, there's just no
+easy interface to change them. They're in the options table,
+named upload_path and upload_url_path.
+
+There is also the hidden /wp-admin/options.php screen where you can edit
+all the options directly. Be careful with that one.
+
+-Otto
+
+
+
+On Thu, Jun 4, 2015 at 5:37 PM, Stephen Rider <wp-hackers at striderweb.com>
+wrote:
+
+> Hi ?
+>
+> There used to be a simple setting within the Admin to change the uploads
+> directory, but it?s gone in current versions of WP.  So how are we supposed
+> to do this, officially?
+>
+> I see that there?s a constant that can be set, but that method appears to
+> be frowned upon by TPtB.
+>
+> --
+> Stephen Rider
+>
+> wp-hackers at striderweb.com
+> http://striderweb.com/nerdaphernalia
+>
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wp-hackers at striderweb.com  Sat Jun  6 06:08:46 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Sat, 6 Jun 2015 01:08:46 -0500
+Subject: [wp-hackers] Customize Uploads directory?
+In-Reply-To: <CAD-Fghyb-WZ_2UTtbHSFSsrdZv3njcZUruG=NDG93CEaHj0LyQ@mail.gmail.com>
+References: <0A69D60B-C9C9-4253-A1A8-FDB0BF7A8C30@striderweb.com>
+ <CAD-Fghyb-WZ_2UTtbHSFSsrdZv3njcZUruG=NDG93CEaHj0LyQ@mail.gmail.com>
+Message-ID: <CD37EC24-0E35-424C-BD27-495EDC332FAF@striderweb.com>
+
+Ack ? How did I forget about the options.php screen.  I?ve been out of this stuff for too long.
+
+Thanks, Otto.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+
+> On Jun 4, 2015, at 5:59 PM, Otto <otto at ottodestruct.com> wrote:
+> 
+> Generally speaking, you should not change the uploads directory. The
+> user-facing settings were removed because users were constantly changing
+> them incorrectly, and thus, instantly breaking their uploads because they
+> don't understand how web hosting works.
+> 
+> But if you do know what you're doing, then you can edit them directly in
+> the database. The options are still there and still used, there's just no
+> easy interface to change them. They're in the options table,
+> named upload_path and upload_url_path.
+> 
+> There is also the hidden /wp-admin/options.php screen where you can edit
+> all the options directly. Be careful with that one.
+> 
+> -Otto
+> 
+> 
+> 
+> On Thu, Jun 4, 2015 at 5:37 PM, Stephen Rider <wp-hackers at striderweb.com>
+> wrote:
+> 
+>> Hi ?
+>> 
+>> There used to be a simple setting within the Admin to change the uploads
+>> directory, but it?s gone in current versions of WP.  So how are we supposed
+>> to do this, officially?
+>> 
+>> I see that there?s a constant that can be set, but that method appears to
+>> be frowned upon by TPtB.
+>> 
+>> --
+>> Stephen Rider
+>> 
+>> wp-hackers at striderweb.com
+>> http://striderweb.com/nerdaphernalia
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From lukebryan at sharefaith.com  Fri Jun 12 22:37:26 2015
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Fri, 12 Jun 2015 15:37:26 -0700
+Subject: [wp-hackers] wp_get_image_editor
+Message-ID: <CAFnKAk10gv6Qd66p4sG5nnGNz3aniPpDwfKPwif9cEU+9Kqotw@mail.gmail.com>
+
+Greetings all,
+
+I had noticed something odd in the documentation for wp_get_image_editor -
+while it says "This function is the main function that you use when you
+want to edit an image by url", the example doesn't give a url as the
+parameter. Why is a url expected instead of a local file path?
+
+It seems odd that it expects url and fetches them, as local file is more
+efficient and less likely to be blocked. Any specific reason it is built
+this way?
+
+Best regards,
+Luke
+
+From halukkaramete at gmail.com  Sat Jun 13 02:06:05 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Fri, 12 Jun 2015 19:06:05 -0700
+Subject: [wp-hackers] $wpdb->prefix
+Message-ID: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+
+I installed 2 WordPress sites but pointed the 2nd WordPress install to the
+1st one's database. Since I used a different table prefix for the 2nd one,
+everything works.
+
+This results that  I got 2 set of WordPress tables in the same database
+while the 2nd one uses just a different wpdb prefix.
+
+The question is...
+
+How can I use the get_posts() ( or WP_Query for that matter) to query to
+1st WordPress's posts from the 2nd one?
+
+Is there an argument that I can pass to the get_posts or to WP_query to
+tell the WP to use a different prefix than the current installs
+wpdb->prefix default?
+
+
+Ideally, this ios what I'm looking for;
+
+$args = array(
+'db_prefix' => 'xyz',
+'posts_per_page' => -1,
+);
+
+Is there something like the 'db_prefix' above ?
+
+From needle at haystack.co.uk  Sat Jun 13 10:10:55 2015
+From: needle at haystack.co.uk (Christian Wach)
+Date: Sat, 13 Jun 2015 11:10:55 +0100
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+Message-ID: <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+
+Sounds to me like you should host both sites in a multisite instance.
+
+Cheers,
+
+Christian
+
+
+On 13 Jun 2015, at 03:06, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> I installed 2 WordPress sites but pointed the 2nd WordPress install to the
+> 1st one's database. Since I used a different table prefix for the 2nd one,
+> everything works.
+> 
+> This results that  I got 2 set of WordPress tables in the same database
+> while the 2nd one uses just a different wpdb prefix.
+> 
+> The question is...
+> 
+> How can I use the get_posts() ( or WP_Query for that matter) to query to
+> 1st WordPress's posts from the 2nd one?
+> 
+> Is there an argument that I can pass to the get_posts or to WP_query to
+> tell the WP to use a different prefix than the current installs
+> wpdb->prefix default?
+> 
+> 
+> Ideally, this ios what I'm looking for;
+> 
+> $args = array(
+> 'db_prefix' => 'xyz',
+> 'posts_per_page' => -1,
+> );
+> 
+> Is there something like the 'db_prefix' above ?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jdg at codesymphony.co  Sat Jun 13 13:00:36 2015
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Sat, 13 Jun 2015 09:00:36 -0400
+Subject: [wp-hackers] wp_get_image_editor
+In-Reply-To: <CAFnKAk10gv6Qd66p4sG5nnGNz3aniPpDwfKPwif9cEU+9Kqotw@mail.gmail.com>
+References: <CAFnKAk10gv6Qd66p4sG5nnGNz3aniPpDwfKPwif9cEU+9Kqotw@mail.gmail.com>
+Message-ID: <B8A582E4-3E94-44ED-8E53-6A03235816EE@codesymphony.co>
+
+Don't believe a word the codex tells you. If you want the truth, go to the source. (I'm exaggerating slightly. ;-)
+
+The docs for the function don't even mention the word URL: https://developer.wordpress.org/reference/functions/wp_get_image_editor/
+
+The name of the parameter is even $path. So of course it accepts a local file path. But it does accept URLs too: https://developer.wordpress.org/reference/classes/wp_image_editor_gd/load/
+
+Feel free to update the codex to clarify this. :-)
+
+-J.D.
+
+> On Jun 12, 2015, at 6:37 PM, Luke Bryan <lukebryan at sharefaith.com> wrote:
+> 
+> Greetings all,
+> 
+> I had noticed something odd in the documentation for wp_get_image_editor -
+> while it says "This function is the main function that you use when you
+> want to edit an image by url", the example doesn't give a url as the
+> parameter. Why is a url expected instead of a local file path?
+> 
+> It seems odd that it expects url and fetches them, as local file is more
+> efficient and less likely to be blocked. Any specific reason it is built
+> this way?
+> 
+> Best regards,
+> Luke
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jdg at codesymphony.co  Sat Jun 13 13:04:27 2015
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Sat, 13 Jun 2015 09:04:27 -0400
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+ <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+Message-ID: <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+
+Depending on what you are doing, you might not want or need multisite. In that case, this should work:
+
+
+
+$old_prefix = $wpdb->set_prefix( $site_1_prefix );
+
+// get posts, etc., here.
+
+$wpdb->set_prefix( $old_prefix );
+
+
+
+See wpdb::set_prefix(): https://developer.wordpress.org/reference/classes/wpdb/set_prefix/
+
+-J.D.
+
+> On Jun 13, 2015, at 6:10 AM, Christian Wach <needle at haystack.co.uk> wrote:
+> 
+> Sounds to me like you should host both sites in a multisite instance.
+> 
+> Cheers,
+> 
+> Christian
+> 
+> 
+> On 13 Jun 2015, at 03:06, Haluk Karamete <halukkaramete at gmail.com> wrote:
+> 
+>> I installed 2 WordPress sites but pointed the 2nd WordPress install to the
+>> 1st one's database. Since I used a different table prefix for the 2nd one,
+>> everything works.
+>> 
+>> This results that  I got 2 set of WordPress tables in the same database
+>> while the 2nd one uses just a different wpdb prefix.
+>> 
+>> The question is...
+>> 
+>> How can I use the get_posts() ( or WP_Query for that matter) to query to
+>> 1st WordPress's posts from the 2nd one?
+>> 
+>> Is there an argument that I can pass to the get_posts or to WP_query to
+>> tell the WP to use a different prefix than the current installs
+>> wpdb->prefix default?
+>> 
+>> 
+>> Ideally, this ios what I'm looking for;
+>> 
+>> $args = array(
+>> 'db_prefix' => 'xyz',
+>> 'posts_per_page' => -1,
+>> );
+>> 
+>> Is there something like the 'db_prefix' above ?
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From contact at stephenharris.info  Sat Jun 13 16:02:40 2015
+From: contact at stephenharris.info (Stephen Harris)
+Date: Sat, 13 Jun 2015 17:02:40 +0100
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+ <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+ <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+Message-ID: <557C5420.40708@stephenharris.info>
+
+This method isn't without it's difficulties, because of caching and 
+globals and the like.
+
+You could attempt to mimic WordPress' switch_to_bog() adapted for a 
+non-multisite instance. E.g. flush cache, reinitialise use roles etc. 
+This would involve flushing the cache completely 
+($wp_object_cache->switch_to_blog()) won't work here because you're not 
+in a multisite environment).
+
+But I'm not convinced it would be plain sailing from there either :).
+
+Depending on what is required, simply reading the first site's RSS feed 
+and rendering that might the most straightforward solution.
+
+Stephen
+
+
+On 13/06/15 14:04, J.D. Grimes wrote:
+> Depending on what you are doing, you might not want or need multisite. In that case, this should work:
+>
+>
+>
+> $old_prefix = $wpdb->set_prefix( $site_1_prefix );
+>
+> // get posts, etc., here.
+>
+> $wpdb->set_prefix( $old_prefix );
+>
+>
+>
+> See wpdb::set_prefix(): https://developer.wordpress.org/reference/classes/wpdb/set_prefix/
+>
+> -J.D.
+
+
+From halukkaramete at gmail.com  Sat Jun 13 20:27:47 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sat, 13 Jun 2015 13:27:47 -0700
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <557C5420.40708@stephenharris.info>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+ <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+ <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+ <557C5420.40708@stephenharris.info>
+Message-ID: <CAHERW=0qzLqow2TVw7Xf4zNbmWvFP0D5t0dF5xAqF5c-E6M=Sw@mail.gmail.com>
+
+Actually using wpdb->get_results could have just done the job for me ( but
+I need a more complex SQL that a simple one as follows )
+
+ $SQL = "
+    SELECT other_prefix_posts.*
+    FROM other_prefix_posts
+    WHERE ( other_prefix_posts.ID < 10 )
+    AND other_prefix_posts.post_status = 'publish'
+    AND other_prefix_posts.post_type = 'post'
+    ORDER BY other_prefix_posts.post_date DESC
+ ";
+
+ $posts = $wpdb->get_results($querystr, OBJECT);
+
+This won't cut my need cause I need post_tags and category terms sprinkled
+over this SQL & that's where the buck stops.
+
+
+
+
+
+
+
+On Sat, Jun 13, 2015 at 9:02 AM, Stephen Harris <contact at stephenharris.info>
+wrote:
+
+> This method isn't without it's difficulties, because of caching and
+> globals and the like.
+>
+> You could attempt to mimic WordPress' switch_to_bog() adapted for a
+> non-multisite instance. E.g. flush cache, reinitialise use roles etc. This
+> would involve flushing the cache completely
+> ($wp_object_cache->switch_to_blog()) won't work here because you're not in
+> a multisite environment).
+>
+> But I'm not convinced it would be plain sailing from there either :).
+>
+> Depending on what is required, simply reading the first site's RSS feed
+> and rendering that might the most straightforward solution.
+>
+> Stephen
+>
+>
+> On 13/06/15 14:04, J.D. Grimes wrote:
+>
+>> Depending on what you are doing, you might not want or need multisite. In
+>> that case, this should work:
+>>
+>>
+>>
+>> $old_prefix = $wpdb->set_prefix( $site_1_prefix );
+>>
+>> // get posts, etc., here.
+>>
+>> $wpdb->set_prefix( $old_prefix );
+>>
+>>
+>>
+>> See wpdb::set_prefix():
+>> https://developer.wordpress.org/reference/classes/wpdb/set_prefix/
+>>
+>> -J.D.
+>>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From chrismccoy at cogeco.ca  Sat Jun 13 21:14:29 2015
+From: chrismccoy at cogeco.ca (Chris McCoy)
+Date: Sat, 13 Jun 2015 17:14:29 -0400
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <CAHERW=0qzLqow2TVw7Xf4zNbmWvFP0D5t0dF5xAqF5c-E6M=Sw@mail.gmail.com>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+ <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+ <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+ <557C5420.40708@stephenharris.info>
+ <CAHERW=0qzLqow2TVw7Xf4zNbmWvFP0D5t0dF5xAqF5c-E6M=Sw@mail.gmail.com>
+Message-ID: <B72E9EDF-4208-4735-873E-0C59B089FF59@cogeco.ca>
+
+you would apply a join
+
+http://wordpress.stackexchange.com/questions/8503/optimize-multiple-taxonomy-term-mysql-query 
+
+
+here are a few examples in here.
+
+
+
+
+
+
+On 2015-06-13, 4:27 PM, "wp-hackers on behalf of Haluk Karamete" <wp-hackers-bounces at lists.automattic.com on behalf of halukkaramete at gmail.com> wrote:
+
+>Actually using wpdb->get_results could have just done the job for me ( but
+>I need a more complex SQL that a simple one as follows )
+>
+> $SQL = "
+>    SELECT other_prefix_posts.*
+>    FROM other_prefix_posts
+>    WHERE ( other_prefix_posts.ID < 10 )
+>    AND other_prefix_posts.post_status = 'publish'
+>    AND other_prefix_posts.post_type = 'post'
+>    ORDER BY other_prefix_posts.post_date DESC
+> ";
+>
+> $posts = $wpdb->get_results($querystr, OBJECT);
+>
+>This won't cut my need cause I need post_tags and category terms sprinkled
+>over this SQL & that's where the buck stops.
+>
+>
+>
+>
+>
+>
+>
+>On Sat, Jun 13, 2015 at 9:02 AM, Stephen Harris <contact at stephenharris.info>
+>wrote:
+>
+>> This method isn't without it's difficulties, because of caching and
+>> globals and the like.
+>>
+>> You could attempt to mimic WordPress' switch_to_bog() adapted for a
+>> non-multisite instance. E.g. flush cache, reinitialise use roles etc. This
+>> would involve flushing the cache completely
+>> ($wp_object_cache->switch_to_blog()) won't work here because you're not in
+>> a multisite environment).
+>>
+>> But I'm not convinced it would be plain sailing from there either :).
+>>
+>> Depending on what is required, simply reading the first site's RSS feed
+>> and rendering that might the most straightforward solution.
+>>
+>> Stephen
+>>
+>>
+>> On 13/06/15 14:04, J.D. Grimes wrote:
+>>
+>>> Depending on what you are doing, you might not want or need multisite. In
+>>> that case, this should work:
+>>>
+>>>
+>>>
+>>> $old_prefix = $wpdb->set_prefix( $site_1_prefix );
+>>>
+>>> // get posts, etc., here.
+>>>
+>>> $wpdb->set_prefix( $old_prefix );
+>>>
+>>>
+>>>
+>>> See wpdb::set_prefix():
+>>> https://developer.wordpress.org/reference/classes/wpdb/set_prefix/
+>>>
+>>> -J.D.
+>>>
+>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From list at xenhideout.nl  Sun Jun 14 07:29:35 2015
+From: list at xenhideout.nl (Xen)
+Date: Sun, 14 Jun 2015 09:29:35 +0200
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <CAHERW=0qzLqow2TVw7Xf4zNbmWvFP0D5t0dF5xAqF5c-E6M=Sw@mail.gmail.com>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+ <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+ <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+ <557C5420.40708@stephenharris.info>
+ <CAHERW=0qzLqow2TVw7Xf4zNbmWvFP0D5t0dF5xAqF5c-E6M=Sw@mail.gmail.com>
+Message-ID: <557D2D5F.7040908@xenhideout.nl>
+
+Yes you can apply a few joins.
+
+The database structure is fairly easily set up. I believe you need to do 
+two joins to marry the terms with the term_taxonomy (terms contains the 
+name and the slug, term_taxonomy the description and the 
+term_taxonomy_id (which is usually the same) which is then used in the 
+...) and the term_relationships.
+
+In term_relationships you find the taxonomy_id coupled to post_ids 
+(object_id).
+
+So your JOIN will be something of the kind that:
+
+SELECT ... FROM ... AS p JOIN prefix_term_relationships AS r ON p.ID = 
+r.object_id JOIN prefix_term_taxonomy AS tax ON r.term_taxonomy_id = 
+tax.term_taxonomy_id JOIN prefix_terms AS term ON tax.term_id = term.term_ID
+
+That's three.
+
+In your statement you then have access to term.slug (for example) or 
+tax.taxonomy (to differentiate tags and categories).
+
+You can probably write this nicer with
+
+SELECT ... FROM ... AS p JOIN (prefix_term_relationships AS, 
+prefix_term_taxonomy AS tax, prefix_terms AS term) ON (r ON p.ID = 
+r.object_id AND r.term_taxonomy_id = tax.term_taxonomy_id AND 
+tax.term_id = term.term_ID)
+
+If you need extra material from the other tables, apart from just a 
+WHERE check, you may need to make an inner statement:
+
+SELECT .., ..., .. FROM ( ... )
+
+but I'm not sure about that, I'm sure you can just supply:
+
+SELECT p.ID, term.slug FROM ..... JOIN ( .... ) ON ( ... )
+
+Good luck.
+
+Bart.
+
+
+On 13-06-15 22:27, Haluk Karamete wrote:
+> Actually using wpdb->get_results could have just done the job for me ( but
+> I need a more complex SQL that a simple one as follows )
+>
+>   $SQL = "
+>      SELECT other_prefix_posts.*
+>      FROM other_prefix_posts
+>      WHERE ( other_prefix_posts.ID < 10 )
+>      AND other_prefix_posts.post_status = 'publish'
+>      AND other_prefix_posts.post_type = 'post'
+>      ORDER BY other_prefix_posts.post_date DESC
+>   ";
+>
+>   $posts = $wpdb->get_results($querystr, OBJECT);
+>
+> This won't cut my need cause I need post_tags and category terms sprinkled
+> over this SQL & that's where the buck stops.
+>
+>
+>
+>
+>
+>
+>
+> On Sat, Jun 13, 2015 at 9:02 AM, Stephen Harris <contact at stephenharris.info>
+> wrote:
+>
+>> This method isn't without it's difficulties, because of caching and
+>> globals and the like.
+>>
+>> You could attempt to mimic WordPress' switch_to_bog() adapted for a
+>> non-multisite instance. E.g. flush cache, reinitialise use roles etc. This
+>> would involve flushing the cache completely
+>> ($wp_object_cache->switch_to_blog()) won't work here because you're not in
+>> a multisite environment).
+>>
+>> But I'm not convinced it would be plain sailing from there either :).
+>>
+>> Depending on what is required, simply reading the first site's RSS feed
+>> and rendering that might the most straightforward solution.
+>>
+>> Stephen
+>>
+>>
+>> On 13/06/15 14:04, J.D. Grimes wrote:
+>>
+>>> Depending on what you are doing, you might not want or need multisite. In
+>>> that case, this should work:
+>>>
+>>>
+>>>
+>>> $old_prefix = $wpdb->set_prefix( $site_1_prefix );
+>>>
+>>> // get posts, etc., here.
+>>>
+>>> $wpdb->set_prefix( $old_prefix );
+>>>
+>>>
+>>>
+>>> See wpdb::set_prefix():
+>>> https://developer.wordpress.org/reference/classes/wpdb/set_prefix/
+>>>
+>>> -J.D.
+>>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From list at xenhideout.nl  Sun Jun 14 07:32:07 2015
+From: list at xenhideout.nl (Xen)
+Date: Sun, 14 Jun 2015 09:32:07 +0200
+Subject: [wp-hackers] $wpdb->prefix
+In-Reply-To: <557D2D5F.7040908@xenhideout.nl>
+References: <CAHERW=24cQ6_ZfFkMH-H+mwqbq1v4mhbwPG4A1vp=0fyvtZ7vg@mail.gmail.com>
+ <E7488461-34C6-46B7-9685-441BD11A0C74@haystack.co.uk>
+ <31FB864B-15BE-4D93-95B8-D61C452CF1D1@codesymphony.co>
+ <557C5420.40708@stephenharris.info>
+ <CAHERW=0qzLqow2TVw7Xf4zNbmWvFP0D5t0dF5xAqF5c-E6M=Sw@mail.gmail.com>
+ <557D2D5F.7040908@xenhideout.nl>
+Message-ID: <557D2DF7.3020106@xenhideout.nl>
+
+Slight error in this SQL:
+
+
+SELECT ... FROM ... AS p JOIN (prefix_term_relationships AS, 
+prefix_term_taxonomy AS tax, prefix_terms AS term) ON (p.ID = 
+r.object_id AND r.term_taxonomy_id = tax.term_taxonomy_id AND 
+tax.term_id = term.term_ID)
+
+
+Fixed.
+
+
+On 14-06-15 09:29, Xen wrote:
+> Yes you can apply a few joins.
+>
+> The database structure is fairly easily set up. I believe you need to 
+> do two joins to marry the terms with the term_taxonomy (terms contains 
+> the name and the slug, term_taxonomy the description and the 
+> term_taxonomy_id (which is usually the same) which is then used in the 
+> ...) and the term_relationships.
+>
+> In term_relationships you find the taxonomy_id coupled to post_ids 
+> (object_id).
+>
+> So your JOIN will be something of the kind that:
+>
+> SELECT ... FROM ... AS p JOIN prefix_term_relationships AS r ON p.ID = 
+> r.object_id JOIN prefix_term_taxonomy AS tax ON r.term_taxonomy_id = 
+> tax.term_taxonomy_id JOIN prefix_terms AS term ON tax.term_id = 
+> term.term_ID
+>
+> That's three.
+>
+> In your statement you then have access to term.slug (for example) or 
+> tax.taxonomy (to differentiate tags and categories).
+>
+> You can probably write this nicer with
+>
+> SELECT ... FROM ... AS p JOIN (prefix_term_relationships AS, 
+> prefix_term_taxonomy AS tax, prefix_terms AS term) ON (r ON p.ID = 
+> r.object_id AND r.term_taxonomy_id = tax.term_taxonomy_id AND 
+> tax.term_id = term.term_ID)
+>
+> If you need extra material from the other tables, apart from just a 
+> WHERE check, you may need to make an inner statement:
+>
+> SELECT .., ..., .. FROM ( ... )
+>
+> but I'm not sure about that, I'm sure you can just supply:
+>
+> SELECT p.ID, term.slug FROM ..... JOIN ( .... ) ON ( ... )
+>
+> Good luck.
+>
+> Bart.
+>
+>
+> On 13-06-15 22:27, Haluk Karamete wrote:
+>> Actually using wpdb->get_results could have just done the job for me 
+>> ( but
+>> I need a more complex SQL that a simple one as follows )
+>>
+>>   $SQL = "
+>>      SELECT other_prefix_posts.*
+>>      FROM other_prefix_posts
+>>      WHERE ( other_prefix_posts.ID < 10 )
+>>      AND other_prefix_posts.post_status = 'publish'
+>>      AND other_prefix_posts.post_type = 'post'
+>>      ORDER BY other_prefix_posts.post_date DESC
+>>   ";
+>>
+>>   $posts = $wpdb->get_results($querystr, OBJECT);
+>>
+>> This won't cut my need cause I need post_tags and category terms 
+>> sprinkled
+>> over this SQL & that's where the buck stops.
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>> On Sat, Jun 13, 2015 at 9:02 AM, Stephen Harris 
+>> <contact at stephenharris.info>
+>> wrote:
+>>
+>>> This method isn't without it's difficulties, because of caching and
+>>> globals and the like.
+>>>
+>>> You could attempt to mimic WordPress' switch_to_bog() adapted for a
+>>> non-multisite instance. E.g. flush cache, reinitialise use roles 
+>>> etc. This
+>>> would involve flushing the cache completely
+>>> ($wp_object_cache->switch_to_blog()) won't work here because you're 
+>>> not in
+>>> a multisite environment).
+>>>
+>>> But I'm not convinced it would be plain sailing from there either :).
+>>>
+>>> Depending on what is required, simply reading the first site's RSS feed
+>>> and rendering that might the most straightforward solution.
+>>>
+>>> Stephen
+>>>
+>>>
+>>> On 13/06/15 14:04, J.D. Grimes wrote:
+>>>
+>>>> Depending on what you are doing, you might not want or need 
+>>>> multisite. In
+>>>> that case, this should work:
+>>>>
+>>>>
+>>>>
+>>>> $old_prefix = $wpdb->set_prefix( $site_1_prefix );
+>>>>
+>>>> // get posts, etc., here.
+>>>>
+>>>> $wpdb->set_prefix( $old_prefix );
+>>>>
+>>>>
+>>>>
+>>>> See wpdb::set_prefix():
+>>>> https://developer.wordpress.org/reference/classes/wpdb/set_prefix/
+>>>>
+>>>> -J.D.
+>>>>
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+

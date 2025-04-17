@@ -1,0 +1,370 @@
+From arrariv at gmail.com  Thu Oct 23 12:02:21 2008
+From: arrariv at gmail.com (Mustafa Suphi Yilmaz)
+Date: Thu Oct 23 12:04:55 2008
+Subject: [HyperDB] Replication and Failover
+Message-ID: <54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com>
+
+Dear Masters,
+We are planning to setup two servers acting both as master and slave. To do
+so, we were planning to manually configure both servers but we had a lot of
+worries like auto-increment values, failover and so on. Then, we found out
+about HyperDB, you might imagine that we got really excited. But the
+installation guide is quite poor, so, I want to share my concerns and await
+for your help on this matter.
+
+Our plan is the following :
+
+1)  2 IP addresses in DNS, one for each server.  When DNS is set up with
+more than 1 IP address, they are given out by the DNS servers in round robin
+order.  This will spread the load randomly over both servers.
+
+2)  Both servers set up as a MySQL master and as a slave to the other one.
+As I mentioned earlier, the problem with this is only auto-increment
+columns. Each server will check the other once per minute and obtain any
+updates (only new MySQL writes).
+
+3)  There needs to be some mechanism to synchronize file system writes and
+uploads.  There are many ways to do this.  The most sophisticated way would
+be to set up server to server mirroring of one partition, where the Word
+Press files are.  I would use the same software already in use for disk
+mirroring, ggated.  However, I have never worked with this and there may be
+pitfalls. rsync might be a better idea.  One minor disadvantage of all the
+synchronization software I know about is that a master - slave relationship
+is always assumed.
+
+When I looked up on the db_settings.php of HyperDB, add_server() values
+don't include any options about failover, and when I look into the code of
+db.php, I don't see how HyberDB handles auto-increment. Should the following
+configuration works for this kinda setup? What do you think?
+
+add_db_server( 'global', 0, 'nyc1',  0, 1,  'global.db.example.com:3722',
+   'global.db.example.lan:3722',      'global-db1',  'global-db1-user',
+password');
+add_db_server( 'slave',  0, 'nyc1,  1, 1,  'global.db.example.com:3722',
+   'global.db.example.lan:3722',      'slave-db1',  'slave-db1-user',
+'password');
+add_db_server( 'global', 0, 'nyc2', 0, 1,  'slave.db.example.com:3509',
+'slave.db.example.lan:3509',       'global-db2', 'global-db2-user',
+'password');
+add_db_server( 'slave',  0, 'nyc2', 1, 1,  'slave.db.example.com:3509',
+'slave.db.example.lan:3509',       'slave-db2',   'slave-db2-user',
+'password');
+
+I also want to add a way of disabling writes to the databases when one of
+the servers is down. Any ideas?
+
+Best Wishes,
+Mustafa Suphi Yilmaz
+http://paulocoelhoblog.com
+From skeltoac at gmail.com  Thu Oct 23 16:06:41 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Oct 23 16:06:53 2008
+Subject: [HyperDB] Replication and Failover
+In-Reply-To: <54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com>
+References: <54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com>
+Message-ID: <e6ec604d0810230906p2620378ak54470498f62acdef@mail.gmail.com>
+
+On Thu, Oct 23, 2008 at 7:02 AM, Mustafa Suphi Yilmaz <arrariv@gmail.com> wrote:
+> 2)  Both servers set up as a MySQL master and as a slave to the other one.
+
+AFAIK we don't do this anywhere on WordPress.com. If a master fails,
+somebody has to switch the masters and reconfigure hyperdb.
+
+I've heard of master-master replication in which auto-increment is
+elegantly done but I don't think that's what you have set up.
+Unfortunately I can't advise you because I don't know about it.
+
+Maybe Barry can be more helpful.
+
+Andy
+From lists.automattic.com at callum-macdonald.com  Fri Oct 24 05:24:41 2008
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Fri Oct 24 05:24:56 2008
+Subject: [HyperDB] Replication and Failover
+In-Reply-To: <54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com>
+References: <54e76e300810230502v1a0aecc1m7919cf7289fe25b2@mail.gmail.com>
+Message-ID: <1224825881.8136.43.camel@lap1>
+
+G'day,
+
+Are you perhaps over complicating things?
+
+Is your aim to provide high availability or high performance? The system
+you've described doesn't seem to achieve either as far as I can see. Is
+your primary aim fault tolerance (one server fails, whole system stays
+online) or high performance (spread the load between as many servers as
+possible)?
+
+Are you suggesting to run two separate instances of MySQL on each
+server? One as a master and one as a slave for the other server?
+
+If you're looking for a high performance system, I'd suggest
+partitioning your data between the servers using HyperDB. No need to
+over complicate things with multiple mysql instances or replication.
+
+If you want to create a highly available, fault tolerant system, would
+simple master-master replication work for you?
+
+I'm not sure about round robin DNS as a method of spreading load. If you
+only have a small number of web nodes, then you may end up with a very
+uneven load spread. Also, if DNS fails, your whole db system goes down,
+thereby negating the advantages of being highly available.
+
+How will you take an entry out of the dns list if a server goes down?
+
+In terms of spreading filesystem writes between two machines, there are
+a few options. Are you running the web nodes on separate servers from
+the database? Or all on the same machines?
+
+We have a cluster of 3 web nodes which all serve files from an NFS share
+which is hosted by a SAN. It works relatively well in production.
+
+I'm not an expert in these matters by any means, but if you outline your
+overall aim I'll be happy to share my thoughts. :)
+
+Cheers - Callum.
+
+On Thu, 2008-10-23 at 14:02 +0200, Mustafa Suphi Yilmaz wrote:
+> Dear Masters,
+> We are planning to setup two servers acting both as master and slave. To do
+> so, we were planning to manually configure both servers but we had a lot of
+> worries like auto-increment values, failover and so on. Then, we found out
+> about HyperDB, you might imagine that we got really excited. But the
+> installation guide is quite poor, so, I want to share my concerns and await
+> for your help on this matter.
+> 
+> Our plan is the following :
+> 
+> 1)  2 IP addresses in DNS, one for each server.  When DNS is set up with
+> more than 1 IP address, they are given out by the DNS servers in round robin
+> order.  This will spread the load randomly over both servers.
+> 
+> 2)  Both servers set up as a MySQL master and as a slave to the other one.
+> As I mentioned earlier, the problem with this is only auto-increment
+> columns. Each server will check the other once per minute and obtain any
+> updates (only new MySQL writes).
+> 
+> 3)  There needs to be some mechanism to synchronize file system writes and
+> uploads.  There are many ways to do this.  The most sophisticated way would
+> be to set up server to server mirroring of one partition, where the Word
+> Press files are.  I would use the same software already in use for disk
+> mirroring, ggated.  However, I have never worked with this and there may be
+> pitfalls. rsync might be a better idea.  One minor disadvantage of all the
+> synchronization software I know about is that a master - slave relationship
+> is always assumed.
+> 
+> When I looked up on the db_settings.php of HyperDB, add_server() values
+> don't include any options about failover, and when I look into the code of
+> db.php, I don't see how HyberDB handles auto-increment. Should the following
+> configuration works for this kinda setup? What do you think?
+> 
+> add_db_server( 'global', 0, 'nyc1',  0, 1,  'global.db.example.com:3722',
+>    'global.db.example.lan:3722',      'global-db1',  'global-db1-user',
+> password');
+> add_db_server( 'slave',  0, 'nyc1,  1, 1,  'global.db.example.com:3722',
+>    'global.db.example.lan:3722',      'slave-db1',  'slave-db1-user',
+> 'password');
+> add_db_server( 'global', 0, 'nyc2', 0, 1,  'slave.db.example.com:3509',
+> 'slave.db.example.lan:3509',       'global-db2', 'global-db2-user',
+> 'password');
+> add_db_server( 'slave',  0, 'nyc2', 1, 1,  'slave.db.example.com:3509',
+> 'slave.db.example.lan:3509',       'slave-db2',   'slave-db2-user',
+> 'password');
+> 
+> I also want to add a way of disabling writes to the databases when one of
+> the servers is down. Any ideas?
+> 
+> Best Wishes,
+> Mustafa Suphi Yilmaz
+> http://paulocoelhoblog.com
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From arrariv at gmail.com  Fri Oct 24 16:45:39 2008
+From: arrariv at gmail.com (Mustafa Suphi Yilmaz)
+Date: Fri Oct 24 16:45:51 2008
+Subject: [HyperDB] Replication and Failover - v.2
+Message-ID: <54e76e300810240945p70b03897r7f8d267a270a993e@mail.gmail.com>
+
+Dear Masters,
+I talked with my hosting-master and he gave me one of his long replies. =)
+I understand what he tries to accomplish but I have doubts to protect the
+system in case of a failover. What I want mostly is to create a two-server
+system to resist most of the major problems ( an ddos attack, a cross-script
+attack, or any kinda intrusion ).  I know that nothing can resist to a
+long/complex ddos attack or all the open systems can be exploited in some
+way - there is always bugs - but I want to have maximum performance from a
+two-server setup with Wordpress. If you can read my hosting-master's plan
+and share your knowledge over this matter, I'll be more than glad.
+
+" It's actually fairly simple.  More simple than the explanation you gave
+them.
+I don't see a problem with achieving both high availability and high
+performance.  I'm just a bit concerned about the auto-increment problem.  It
+may be simpler to use HyperDB than get into it.
+
+Hyperdb may not be needed and might be counter-productive if the
+auto-increment problem can be solved gracefully.  Of course proponents will
+probably hotly disagree.
+
+First of all, we will be using CARP, pfsync and ifstated.  Each server will
+have it's both IP addresses and traffic will randomly go to either server as
+a
+function of DNS.  What CARP, pfsync and ifstated accomplish are:
+
+1) CARP and pfsync allow both servers to have both IP addresses.  When both
+are available only one will answer on each IP.  pfsync monitors load and
+balances it by redirecting traffic to the IP on which fewer connection
+states
+exist.  In other words, the load can't help but be nearly perfectly balanced
+between the the servers when both are available because either of them can
+answer on either IP address.
+
+2) ifstated is for fail-over and monitors availability of services on ports.
+For example, if MySQL or Apache goes down on server 1, it will notify CARP
+and
+pfsync and the result will be that server 2 is now handling all traffic.
+ The
+switch will take less than 1 second and will be transparent to users.
+
+The servers each have 2 1 GB network interfaces.  One to the Internet and
+the
+other only to each other, as a back-end.  pfsync uses the back-end NICs to
+exchange state information.  The back-end NICs will also be used by the
+MySQL
+Master-Slave process.
+
+If each server is a slave and a master to the other one (having solved the
+auto-increment problem) then MySQL traffic stays on a server except for
+replication.  Only writes will need to cross an Interface.  In this case,
+HyperDB is not needed.
+
+The potential advantage of HyperDB is that it simplifies things.  The setup
+can be such that MySQL on one server is entirely a master and the other
+entirely a slave.  No auto-increment problem exists.  The potential cost is
+that MySQL may consistently have more load on the master server.  HyperDB
+probably has the potential to mitigate this.  That's the question. "
+
+Best Wishes,
+Mustafa Suphi Yilmaz
+http://paulocoelhoblog.com
+
+P.S. Thank you Andy and Callum for your responses!
+From lists.automattic.com at callum-macdonald.com  Mon Oct 27 01:40:06 2008
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Mon Oct 27 01:40:28 2008
+Subject: [HyperDB] Replication and Failover - v.2
+In-Reply-To: <54e76e300810240945p70b03897r7f8d267a270a993e@mail.gmail.com>
+References: <54e76e300810240945p70b03897r7f8d267a270a993e@mail.gmail.com>
+Message-ID: <1225071606.27671.39.camel@lap1>
+
+G'day,
+
+I think this is getting slightly off the topic of HyperDB, perhaps we
+could move the discussion to a more relevant forum. I'm not sure what
+that might be though.
+
+I would suggest looking again at the aims of your setup. If you can be
+clear on your priorities, the rest can be figured out. But with muddy
+priorities, you will most likely have a muddy system.
+
+If you want to be attack resistant, I'm not sure that two fully
+replicated systems achieves that aim.
+
+If your primary aim is fault tolerance, then two fully replicated
+servers adds some value. But remember any software bugs or issues will
+be replicated. So really what are you protected from?
+
+If you want to maximise performance, I would suggest two fully
+replicated systems will greatly over-complicate the system and the
+complication will outweigh any performance gain.
+
+I recently watched Robert Scoble's interview on avoiding the fail
+whale[1]. The speakers all seemed to agree on one point. Build a system,
+then modify or improve based on performance. Track everything, figure
+out where your issues lie, and then solve them. You cannot design a
+perfect system on paper, without real life testing.
+
+So my advice would be to start with a simpler system. Split your
+database / web server and see how you go. Measure performance
+obsessively. Then make improvements based on real world data, rather
+than theoretical postulation.
+
+Best of luck with your setup.
+
+Cheers - Callum.
+
+[1] http://www.fastcompany.com/scalability
+
+On Fri, 2008-10-24 at 18:45 +0200, Mustafa Suphi Yilmaz wrote:
+> Dear Masters,
+> I talked with my hosting-master and he gave me one of his long replies. =)
+> I understand what he tries to accomplish but I have doubts to protect the
+> system in case of a failover. What I want mostly is to create a two-server
+> system to resist most of the major problems ( an ddos attack, a cross-script
+> attack, or any kinda intrusion ).  I know that nothing can resist to a
+> long/complex ddos attack or all the open systems can be exploited in some
+> way - there is always bugs - but I want to have maximum performance from a
+> two-server setup with Wordpress. If you can read my hosting-master's plan
+> and share your knowledge over this matter, I'll be more than glad.
+> 
+> " It's actually fairly simple.  More simple than the explanation you gave
+> them.
+> I don't see a problem with achieving both high availability and high
+> performance.  I'm just a bit concerned about the auto-increment problem.  It
+> may be simpler to use HyperDB than get into it.
+> 
+> Hyperdb may not be needed and might be counter-productive if the
+> auto-increment problem can be solved gracefully.  Of course proponents will
+> probably hotly disagree.
+> 
+> First of all, we will be using CARP, pfsync and ifstated.  Each server will
+> have it's both IP addresses and traffic will randomly go to either server as
+> a
+> function of DNS.  What CARP, pfsync and ifstated accomplish are:
+> 
+> 1) CARP and pfsync allow both servers to have both IP addresses.  When both
+> are available only one will answer on each IP.  pfsync monitors load and
+> balances it by redirecting traffic to the IP on which fewer connection
+> states
+> exist.  In other words, the load can't help but be nearly perfectly balanced
+> between the the servers when both are available because either of them can
+> answer on either IP address.
+> 
+> 2) ifstated is for fail-over and monitors availability of services on ports.
+> For example, if MySQL or Apache goes down on server 1, it will notify CARP
+> and
+> pfsync and the result will be that server 2 is now handling all traffic.
+>  The
+> switch will take less than 1 second and will be transparent to users.
+> 
+> The servers each have 2 1 GB network interfaces.  One to the Internet and
+> the
+> other only to each other, as a back-end.  pfsync uses the back-end NICs to
+> exchange state information.  The back-end NICs will also be used by the
+> MySQL
+> Master-Slave process.
+> 
+> If each server is a slave and a master to the other one (having solved the
+> auto-increment problem) then MySQL traffic stays on a server except for
+> replication.  Only writes will need to cross an Interface.  In this case,
+> HyperDB is not needed.
+> 
+> The potential advantage of HyperDB is that it simplifies things.  The setup
+> can be such that MySQL on one server is entirely a master and the other
+> entirely a slave.  No auto-increment problem exists.  The potential cost is
+> that MySQL may consistently have more load on the master server.  HyperDB
+> probably has the potential to mitigate this.  That's the question. "
+> 
+> Best Wishes,
+> Mustafa Suphi Yilmaz
+> http://paulocoelhoblog.com
+> 
+> P.S. Thank you Andy and Callum for your responses!
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+

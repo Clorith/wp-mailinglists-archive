@@ -1,0 +1,186 @@
+From tony.dillon at gmail.com  Wed Sep 16 08:31:09 2009
+From: tony.dillon at gmail.com (Tony Dillon)
+Date: Wed, 16 Sep 2009 09:31:09 +0100
+Subject: [HyperDB] Invalid argument supplied for foreach() in db.php on line
+	638
+In-Reply-To: <d57e35bd0909150825v4a1e6adfm4faa25191fb4fab1@mail.gmail.com>
+References: <d57e35bd0909150825v4a1e6adfm4faa25191fb4fab1@mail.gmail.com>
+Message-ID: <d57e35bd0909160131w39cf188fq668425e46c1d117b@mail.gmail.com>
+
+Hello everybody,
+
+I've run into a problem installing HyperDB in our production environment.
+ The configuration is the same as on our development environment, so I'm
+struggling to work out what's going wrong.
+
+This is my "db-settings.php" config for the moment.  I've reduced it down to
+bare minimum of one RW server for the moment while debugging.  Of course the
+appropriate RW_DB_HOST variable has been defined.
+
+*add_db_server('global', 0,    '', 1, 1,  RW_DB_HOST,    RW_DB_HOST,
+    DB_NAME,     DB_USER,     DB_PASSWORD);*
+
+As soon as I drop "db.php" into the wp-content folder the site stops working
+with the following error appearing in the error logs.
+
+*PHP Warning:  Invalid argument supplied for foreach() in
+/var/www/vhosts/site/wordpress/wp-content/db.php on line 638*
+*
+*
+At first glance this appears to indicate that there are no servers added for
+the loop to enumerate, but that's about all I can tell.
+
+Can anybody help?
+
+Many thanks,
+Tony
+
+From skeltoac at gmail.com  Wed Sep 16 12:38:21 2009
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 16 Sep 2009 07:38:21 -0500
+Subject: [HyperDB] Invalid argument supplied for foreach() in db.php on
+	line 638
+In-Reply-To: <d57e35bd0909160131w39cf188fq668425e46c1d117b@mail.gmail.com>
+References: <d57e35bd0909150825v4a1e6adfm4faa25191fb4fab1@mail.gmail.com>
+	<d57e35bd0909160131w39cf188fq668425e46c1d117b@mail.gmail.com>
+Message-ID: <e6ec604d0909160538v5fbc977dw2dedef60df367de0@mail.gmail.com>
+
+> *add_db_server('global', 0, ? ?'', 1, 1, ?RW_DB_HOST, ? ?RW_DB_HOST,
+> ? ?DB_NAME, ? ? DB_USER, ? ? DB_PASSWORD);*
+
+What is in $db_servers after that line?
+
+What is $this->single_db at db.php line 249?
+
+What is $GLOBALS['db_servers'] at db.php line 244?
+
+Andy
+
+From oren at triond.com  Wed Sep 16 13:02:02 2009
+From: oren at triond.com (Oren)
+Date: Wed, 16 Sep 2009 16:02:02 +0300
+Subject: [HyperDB] Invalid argument supplied for foreach() in db.php on
+	line	638
+In-Reply-To: <mailman.7.1253102402.32364.hyperdb@lists.automattic.com>
+References: <mailman.7.1253102402.32364.hyperdb@lists.automattic.com>
+Message-ID: <4AB0E1CA.2060202@triond.com>
+
+
+Tony,
+
+Could it be that on production servers your wp-config.php is missing 
+require('db-settings.php'); ?
+
+Oren
+
+
+
+hyperdb-request at lists.automattic.com wrote:
+> Hello everybody,
+>
+> I've run into a problem installing HyperDB in our production environment.
+>  The configuration is the same as on our development environment, so I'm
+> struggling to work out what's going wrong.
+>
+> This is my "db-settings.php" config for the moment.  I've reduced it down to
+> bare minimum of one RW server for the moment while debugging.  Of course the
+> appropriate RW_DB_HOST variable has been defined.
+>
+> *add_db_server('global', 0,    '', 1, 1,  RW_DB_HOST,    RW_DB_HOST,
+>     DB_NAME,     DB_USER,     DB_PASSWORD);*
+>
+> As soon as I drop "db.php" into the wp-content folder the site stops working
+> with the following error appearing in the error logs.
+>
+> *PHP Warning:  Invalid argument supplied for foreach() in
+> /var/www/vhosts/site/wordpress/wp-content/db.php on line 638*
+> *
+> *
+> At first glance this appears to indicate that there are no servers added for
+> the loop to enumerate, but that's about all I can tell.
+>
+> Can anybody help?
+>
+> Many thanks,
+> Tony
+>
+>   
+
+From tony.dillon at gmail.com  Wed Sep 16 13:08:22 2009
+From: tony.dillon at gmail.com (Tony Dillon)
+Date: Wed, 16 Sep 2009 14:08:22 +0100
+Subject: [HyperDB] Invalid argument supplied for foreach() in db.php on
+	line 638
+In-Reply-To: <4AB0E1CA.2060202@triond.com>
+References: <mailman.7.1253102402.32364.hyperdb@lists.automattic.com> 
+	<4AB0E1CA.2060202@triond.com>
+Message-ID: <d57e35bd0909160608u38ce374cq1b09503e6760ea61@mail.gmail.com>
+
+Hi Oren, Andy
+I'm sure that db-settings.php is included in wp-config.php.  Thanks for your
+suggestion.
+
+I will retrieve the values of these variables you have asked for and post
+them here ASAP.
+
+Many thanks,
+Tony
+
+
+Tony
+
+
+On Wed, Sep 16, 2009 at 2:02 PM, Oren <oren at triond.com> wrote:
+
+>
+> Tony,
+>
+> Could it be that on production servers your wp-config.php is missing
+> require('db-settings.php'); ?
+>
+> Oren
+>
+>
+>
+> hyperdb-request at lists.automattic.com wrote:
+>
+>> Hello everybody,
+>>
+>> I've run into a problem installing HyperDB in our production environment.
+>>  The configuration is the same as on our development environment, so I'm
+>> struggling to work out what's going wrong.
+>>
+>> This is my "db-settings.php" config for the moment.  I've reduced it down
+>> to
+>> bare minimum of one RW server for the moment while debugging.  Of course
+>> the
+>> appropriate RW_DB_HOST variable has been defined.
+>>
+>> *add_db_server('global', 0,    '', 1, 1,  RW_DB_HOST,    RW_DB_HOST,
+>>    DB_NAME,     DB_USER,     DB_PASSWORD);*
+>>
+>> As soon as I drop "db.php" into the wp-content folder the site stops
+>> working
+>> with the following error appearing in the error logs.
+>>
+>> *PHP Warning:  Invalid argument supplied for foreach() in
+>> /var/www/vhosts/site/wordpress/wp-content/db.php on line 638*
+>> *
+>> *
+>> At first glance this appears to indicate that there are no servers added
+>> for
+>> the loop to enumerate, but that's about all I can tell.
+>>
+>> Can anybody help?
+>>
+>> Many thanks,
+>> Tony
+>>
+>>
+>>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+

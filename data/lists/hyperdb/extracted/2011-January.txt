@@ -1,0 +1,262 @@
+From liz at duke.edu  Mon Jan 24 17:05:07 2011
+From: liz at duke.edu (Liz Wendland)
+Date: Mon, 24 Jan 2011 12:05:07 -0500
+Subject: [HyperDB] tcp_responsiveness - what's it all about?
+Message-ID: <4D3DB143.4020605@duke.edu>
+
+Hi,
+
+We have a WordPress installation using a semi-complicated MySQL database 
+setup facilitated by HyperDB.  It mostly works great, but we have 
+periodic failures where one of the databases starts to refuse 
+connections from one of the web front-ends.  It was in the pursuit of 
+debugging this issue that we noticed we were collecting a huge number of 
+'aborted connections' in our databases.
+
+We have tracked this down to the 'check_tcp_responsiveness' function in 
+db.php.  Apparently this function will open a socket connection to the 
+database at the mysql port and as soon as it responds, it disconnects.  
+MySQL doesn't really like this teasing approach to ping and counts that 
+as an aborted connection.
+
+We aren't sure if the number of aborted connections is causing our 
+problem, but it seems like a strange way to check database 
+responsiveness.  I am hoping someone can help shed some light on the 
+following:
+
+1) Is the tcp_responsiveness code left over debug?  The variable names 
+in db-config.php and db.php do not match:
+db-config.php has
+
+$wpdb->tcp_responsiveness_check = true;
+
+db.php has
+
+var $check_tcp_responsiveness = true;
+
+2) There is a clause in db.php (function check_tcp_responsiveness) that 
+seems like it will always evaluate to false...
+     if ( 1 == 2 && function_exists('apc_store') ) {
+
+3) The code says something about this function being necessary because 
+"This was added because PHP's mysql functions do not provide a variable 
+timeout setting"  Couldn't the mysql.connect_timeout value in php.ini 
+provide this?
+
+We currently have fixed db-config.php so it has:
+$wpdb->check_tcp_responsiveness = false;
+
+and we are no longer seeing the aborted connections increasing.  Only 
+time will tell if this fixes the random database lockouts.
+
+Thanks for any additional information,
+Liz
+
+
+From hyperdb at thecodecave.com  Tue Jan 25 18:03:41 2011
+From: hyperdb at thecodecave.com (Brian Layman)
+Date: Tue, 25 Jan 2011 13:03:41 -0500
+Subject: [HyperDB] Sharding scheme
+Message-ID: <4D3F107D.3010904@thecodecave.com>
+
+I have an install that will likely grow to 10,000 sites by year's end.  
+There's potential in this market space for that number to be 
+significantly higher.  In the last week, it has doubled in size to 2200 
+sites. The database now has over 20,000 tables.  Obviously, there is a 
+need for sharding here. There were extenuating circumstances that 
+prevented sharding on the initial launch but I would like to activate it 
+now.
+
+I was wondering what you thought would be a good breakdown of the 
+sites...  I was thinking 100 sites per dataset would be a fair number. 
+That puts each databases at 1500-ish tables per dataset.  It would 
+result in my having 100 databases in the end, it has a nice even ring to 
+it and is easily comprehended at a glance. My worry is that I am 
+creating too many database connections and will a bottle neck of another 
+kind.  Is this a concern? I don't want to create a problem where one 
+doesn't currently exist. The hardware is keeping up just fine at the 
+moment and I am getting sub 3 or 2 second load times.
+
+So I was thinking of functions like this in db-config.php:
+
+for ( $counter = 0; $counter <= 30; $counter++) { // Allow for 3000 
+sites for now
+     // Add the connection to the Master
+     $wpdb->add_database(array(
+         'host' => DB_HOST,
+         'user' => DB_USER,
+         'password' => DB_PASSWORD,
+         'name' => DB_NAME . '_' . $counter,
+         'write' => 1,
+         'read' => 1,
+         'dataset' => DB_NAME . '_' . $counter,
+         'timeout' => 0.2, ));
+
+     // Add the connection to the Slave(s)
+     $wpdb->add_database(array(
+         'host' => DB_HOST2,
+         'user' => DB_USER,
+         'password' => DB_PASSWORD,
+         'name' => DB_NAME . '_' . $counter,
+         'write' => 0,
+         'read' => 1,
+         'dataset' => DB_NAME . '_' . $counter,
+         'timeout' => 0.2,
+     ));
+}
+
+$wpdb->add_callback('ehi_dbname');
+
+function ehi_dbname($query, $wpdb) {
+     if ( preg_match("/^{$wpdb->base_prefix}\d+_/i", $wpdb->table) ) {
+         $dbid = intval($wpdb->blogid/100);
+         $NEW_DB_NAME = DB_NAME . "_" . $dbid;
+         error_log ($wpdb->table . " would use :" . $NEW_DB_NAME);
+     } else {
+         $NEW_DB_NAME = DB_NAME . "_common";
+         error_log ($wpdb->table . " would use :" . $NEW_DB_NAME);
+     }
+
+     return $NEW_DB_NAME;
+
+}
+
+
+Other than the fact that I wouldn't create all 100 database connections 
+immediately, does that make sense? I'll probably make a foreach loop to 
+make adding read servers an easy task. But I think I've got the basic 
+concepts all there.  Does this seem to be a reasonable configuration 
+with 1 read and 1 read/write server. These are currently running on hand 
+built Amazon m1.large ec2 servers - though I am considering switching 
+them over to RDS during this process.
+
+One more thought...  Moving forward, as the need arises to create more 
+read servers, does it make sense to have all of the datasets active on 
+all of the read servers in order to keep reads evenly distributed? Or 
+would it be better to assign odd datasets to odd numbered read servers 
+and even to even numbered read servers and thus divide the connections 
+needed  and evenly reduce the databases being accessed on each machines. 
+Would this perhaps improve caching?
+
+I'd love to gain from the expertise of people who have been down this 
+road before.
+
+Thanks!
+
+-Brian Layman
+The eHermit
+eHermitsInc.com
+
+
+From bulk at thecodecave.com  Mon Jan 31 01:47:34 2011
+From: bulk at thecodecave.com (Brian Layman)
+Date: Sun, 30 Jan 2011 20:47:34 -0500
+Subject: [HyperDB] Sharding scheme
+In-Reply-To: <4D3F107D.3010904@thecodecave.com>
+References: <4D3F107D.3010904@thecodecave.com>
+Message-ID: <4D4614B6.2010402@thecodecave.com>
+
+On 1/25/2011 1:03 PM, Brian Layman wrote:
+> I have an install that will likely grow to 10,000 sites by year's 
+> end.  There's potential in this market space for that number to be 
+> significantly higher.  In the last week, it has doubled in size to 
+> 2200 sites. The database now has over 20,000 tables.  Obviously, there 
+> is a need for sharding here. There were extenuating circumstances that 
+> prevented sharding on the initial launch but I would like to activate 
+> it now.
+>
+> I was wondering what you thought would be a good breakdown of the 
+> sites...  I was thinking 100 sites per dataset would be a fair number. 
+> That puts each databases at 1500-ish tables per dataset.  It would 
+> result in my having 100 databases in the end, it has a nice even ring 
+> to it and is easily comprehended at a glance. My worry is that I am 
+> creating too many database connections and will a bottle neck of 
+> another kind.  Is this a concern? I don't want to create a problem 
+> where one doesn't currently exist. The hardware is keeping up just 
+> fine at the moment and I am getting sub 3 or 2 second load times.
+>
+> So I was thinking of functions like this in db-config.php:
+>
+> for ( $counter = 0; $counter <= 30; $counter++) { // Allow for 3000 
+> sites for now
+>     // Add the connection to the Master
+>     $wpdb->add_database(array(
+>         'host' => DB_HOST,
+>         'user' => DB_USER,
+>         'password' => DB_PASSWORD,
+>         'name' => DB_NAME . '_' . $counter,
+>         'write' => 1,
+>         'read' => 1,
+>         'dataset' => DB_NAME . '_' . $counter,
+>         'timeout' => 0.2, ));
+>
+>     // Add the connection to the Slave(s)
+>     $wpdb->add_database(array(
+>         'host' => DB_HOST2,
+>         'user' => DB_USER,
+>         'password' => DB_PASSWORD,
+>         'name' => DB_NAME . '_' . $counter,
+>         'write' => 0,
+>         'read' => 1,
+>         'dataset' => DB_NAME . '_' . $counter,
+>         'timeout' => 0.2,
+>     ));
+> }
+>
+> $wpdb->add_callback('ehi_dbname');
+>
+> function ehi_dbname($query, $wpdb) {
+>     if ( preg_match("/^{$wpdb->base_prefix}\d+_/i", $wpdb->table) ) {
+>         $dbid = intval($wpdb->blogid/100);
+>         $NEW_DB_NAME = DB_NAME . "_" . $dbid;
+>         error_log ($wpdb->table . " would use :" . $NEW_DB_NAME);
+>     } else {
+>         $NEW_DB_NAME = DB_NAME . "_common";
+>         error_log ($wpdb->table . " would use :" . $NEW_DB_NAME);
+>     }
+>
+>     return $NEW_DB_NAME;
+>
+> }
+>
+>
+> Other than the fact that I wouldn't create all 100 database 
+> connections immediately, does that make sense? I'll probably make a 
+> foreach loop to make adding read servers an easy task. But I think 
+> I've got the basic concepts all there.  Does this seem to be a 
+> reasonable configuration with 1 read and 1 read/write server. These 
+> are currently running on hand built Amazon m1.large ec2 servers - 
+> though I am considering switching them over to RDS during this process.
+>
+> One more thought...  Moving forward, as the need arises to create more 
+> read servers, does it make sense to have all of the datasets active on 
+> all of the read servers in order to keep reads evenly distributed? Or 
+> would it be better to assign odd datasets to odd numbered read servers 
+> and even to even numbered read servers and thus divide the connections 
+> needed  and evenly reduce the databases being accessed on each 
+> machines. Would this perhaps improve caching?
+>
+> I'd love to gain from the expertise of people who have been down this 
+> road before.
+>
+> Thanks!
+>
+Nobody has replied to this, but in the meantime I went and read the 
+entirety of this mailing list's archive.  In August of last year
+Andy had said:
+
+"Without further information I'd say proceed without partitioning.
+Don't try to do all your scaling in advance; it doesn't work."
+experiments once you have real-world data and traffic.
+
+when talking about a potentially 50K site database.
+
+Later Callum mentioned:
+
+"we partitioned the data (for about 300k blogs at that point) across multiple databases
+on a single database server."
+
+Soooooo, since I am having no noticeable slow downs (With the exception of phpmyadmin which calls "show tables") with our database of 22K tables - a mere 2426 sites, I'm thinking I should not even consider sharding.  Is that correct?
+
+
+

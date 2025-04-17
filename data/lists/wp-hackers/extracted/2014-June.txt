@@ -1,0 +1,3709 @@
+From dino at duechiacchiere.it  Mon Jun  2 16:26:05 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Mon, 02 Jun 2014 12:26:05 -0400
+Subject: [wp-hackers] Cannot figure this out: user_has_cap
+Message-ID: <538CA59D.2030000@duechiacchiere.it>
+
+Hi list,
+
+For the life of me, I can't figure this out. I want to prevent my 
+authors to edit a bunch of pages on my website.
+
+Aside from using pre_get_posts to change wp_query, I'd also tweak 
+current_user_can "on the fly" and remove "edit_pages" from the user's 
+capabilities, if the ID is in my blacklist.
+
+So I created a plugin with the following code:
+
+function tweak_edit_page_capability( $allcaps, $caps, $args ) {
+     file_put_contents( '/file/somewhere', 'it works!', FILE_APPEND );
+     return $allcaps;
+}
+add_filter( 'user_has_cap', 'tweak_edit_page_capability', 10, 3 );
+
+However the function is not called! What am I doing wrong? I've 
+deactivated all plugins and reset the theme, but nothing helps!
+
+Dino.
+
+From johnbillion+wp at gmail.com  Mon Jun  2 16:52:59 2014
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Mon, 2 Jun 2014 17:52:59 +0100
+Subject: [wp-hackers] Cannot figure this out: user_has_cap
+In-Reply-To: <538CA59D.2030000@duechiacchiere.it>
+References: <538CA59D.2030000@duechiacchiere.it>
+Message-ID: <CAOqAKWA2VMcypCHxhYVcJCYpr0mfNGVfmiXWb59zNXWPYXGmsg@mail.gmail.com>
+
+Are you logged in as a super admin on multisite? The user_has_cap filter
+doesn't get called in that situation.
+
+My User Switching plugin has a nice bit of documentation with its callback
+functions for this filter and the corresponding map_meta_cap filter, which
+may help you. See here and here:
+
+https://github.com/johnbillion/user-switching/blob/0.8.8/user-switching.php#L36-L37
+https://github.com/johnbillion/user-switching/blob/0.8.8/user-switching.php#L533-L576
+
+John
+
+
+On 2 June 2014 17:26, Dino Termini <dino at duechiacchiere.it> wrote:
+
+> Hi list,
+>
+> For the life of me, I can't figure this out. I want to prevent my authors
+> to edit a bunch of pages on my website.
+>
+> Aside from using pre_get_posts to change wp_query, I'd also tweak
+> current_user_can "on the fly" and remove "edit_pages" from the user's
+> capabilities, if the ID is in my blacklist.
+>
+> So I created a plugin with the following code:
+>
+> function tweak_edit_page_capability( $allcaps, $caps, $args ) {
+>     file_put_contents( '/file/somewhere', 'it works!', FILE_APPEND );
+>     return $allcaps;
+> }
+> add_filter( 'user_has_cap', 'tweak_edit_page_capability', 10, 3 );
+>
+> However the function is not called! What am I doing wrong? I've
+> deactivated all plugins and reset the theme, but nothing helps!
+>
+> Dino.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From dino at duechiacchiere.it  Mon Jun  2 16:55:14 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Mon, 02 Jun 2014 12:55:14 -0400
+Subject: [wp-hackers] Cannot figure this out: user_has_cap
+In-Reply-To: <CAOqAKWA2VMcypCHxhYVcJCYpr0mfNGVfmiXWb59zNXWPYXGmsg@mail.gmail.com>
+References: <538CA59D.2030000@duechiacchiere.it>
+ <CAOqAKWA2VMcypCHxhYVcJCYpr0mfNGVfmiXWb59zNXWPYXGmsg@mail.gmail.com>
+Message-ID: <538CAC72.3080700@duechiacchiere.it>
+
+THANK YOU!!! :) I was indeed logged in as a super admin on mu :/
+
+On 6/2/14, 12:52 PM, John Blackbourn wrote:
+> Are you logged in as a super admin on multisite? The user_has_cap filter
+> doesn't get called in that situation.
+>
+> My User Switching plugin has a nice bit of documentation with its callback
+> functions for this filter and the corresponding map_meta_cap filter, which
+> may help you. See here and here:
+>
+> https://github.com/johnbillion/user-switching/blob/0.8.8/user-switching.php#L36-L37
+> https://github.com/johnbillion/user-switching/blob/0.8.8/user-switching.php#L533-L576
+>
+> John
+>
+>
+> On 2 June 2014 17:26, Dino Termini <dino at duechiacchiere.it> wrote:
+>
+>> Hi list,
+>>
+>> For the life of me, I can't figure this out. I want to prevent my authors
+>> to edit a bunch of pages on my website.
+>>
+>> Aside from using pre_get_posts to change wp_query, I'd also tweak
+>> current_user_can "on the fly" and remove "edit_pages" from the user's
+>> capabilities, if the ID is in my blacklist.
+>>
+>> So I created a plugin with the following code:
+>>
+>> function tweak_edit_page_capability( $allcaps, $caps, $args ) {
+>>      file_put_contents( '/file/somewhere', 'it works!', FILE_APPEND );
+>>      return $allcaps;
+>> }
+>> add_filter( 'user_has_cap', 'tweak_edit_page_capability', 10, 3 );
+>>
+>> However the function is not called! What am I doing wrong? I've
+>> deactivated all plugins and reset the theme, but nothing helps!
+>>
+>> Dino.
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From nikolov.tmw at gmail.com  Wed Jun  4 21:27:07 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 5 Jun 2014 00:27:07 +0300
+Subject: [wp-hackers] Sharing codebase between plugins
+Message-ID: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+
+What do you do when you want to avoid code duplication by sharing the same
+code base between multiple plugins?
+
+Here's the situation that I'm in:
+
+I have a plugin that adds some custom post types and functionality. Another
+plugin that uses similar functionality is going to be developed. Possibly
+in the future more plugins that use those post types will also be created.
+
+So the idea is to separate out a "core" plugin that will allow any of the
+plugins to function both on their own and combined, without having to ship
+the code with each one(well - probably we'll need at least an archive of
+the core plugin).
+
+Now my question is how to handle that dependency(note that my client would
+prefer if the core plugin is not listed on the plugins page - not sure if
+that's really possible).
+
+Right now I've thought about the following solutions:
+ - Have each of the plugins contain a .zip archive with the core plugin.
+Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation in
+order to define the dependency in each plugin. I'm just not sure how it
+would handle updates - so when the user updates a sub-plugin it should
+update the core plugin if the sub-plugin is bundled with an updated version
+ - Copy the core plugin as a mu-plugin if it's not already there. Again not
+sure how to handle updates. Also when should I copy the plugin files - what
+if FTP credentials are required?
+
+I think my main concern are updates.
+
+For instance how to make sure that I'm using the correct core base? What if
+the user updates one of the sub-plugins and that updates the core plugin,
+but they don't update the rest of the sub-plugins? Ideally I should have
+things compatible between versions, but what if I have to introduce a
+change that is not compatible?
+
+I also looked at the Plugin Dependencies plugin (
+https://wordpress.org/plugins/plugin-dependencies/ ), but I don't really
+want to add another plugin to the bundle.
+
+Thanks,
+Nikola
+
+From guus at inspiration-for-success.com  Thu Jun  5 13:52:45 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Thu, 5 Jun 2014 21:52:45 +0800
+Subject: [wp-hackers] Sharing codebase between plugins
+In-Reply-To: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+References: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+Message-ID: <584696F521F54279BED3FFBB619CE274@megaheights.net>
+
+I am using a library file with some useful stuff in multiple plugins and 
+just set a constant to check if the code is already included.
+
+<?php // start of library file
+if (!defined('_MY_LIBRARY_FILE_INCLUDED')) {
+    #define('_MY_LIBRARY_FILE_INCLUDED',true);
+    libraryFunction1() {
+        // code
+    }
+    libraryFunction2() {
+        // code
+    }
+}
+// end of library file
+?>
+
+-----Original Message----- 
+From: Nikola Nikolov
+Sent: Thursday, June 05, 2014 5:27 AM
+To: wp-hackers at lists.automattic.com
+Subject: [wp-hackers] Sharing codebase between plugins
+
+What do you do when you want to avoid code duplication by sharing the same
+code base between multiple plugins?
+
+Here's the situation that I'm in:
+
+I have a plugin that adds some custom post types and functionality. Another
+plugin that uses similar functionality is going to be developed. Possibly
+in the future more plugins that use those post types will also be created.
+
+So the idea is to separate out a "core" plugin that will allow any of the
+plugins to function both on their own and combined, without having to ship
+the code with each one(well - probably we'll need at least an archive of
+the core plugin).
+
+Now my question is how to handle that dependency(note that my client would
+prefer if the core plugin is not listed on the plugins page - not sure if
+that's really possible).
+
+Right now I've thought about the following solutions:
+- Have each of the plugins contain a .zip archive with the core plugin.
+Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation in
+order to define the dependency in each plugin. I'm just not sure how it
+would handle updates - so when the user updates a sub-plugin it should
+update the core plugin if the sub-plugin is bundled with an updated version
+- Copy the core plugin as a mu-plugin if it's not already there. Again not
+sure how to handle updates. Also when should I copy the plugin files - what
+if FTP credentials are required?
+
+I think my main concern are updates.
+
+For instance how to make sure that I'm using the correct core base? What if
+the user updates one of the sub-plugins and that updates the core plugin,
+but they don't update the rest of the sub-plugins? Ideally I should have
+things compatible between versions, but what if I have to introduce a
+change that is not compatible?
+
+I also looked at the Plugin Dependencies plugin (
+https://wordpress.org/plugins/plugin-dependencies/ ), but I don't really
+want to add another plugin to the bundle.
+
+Thanks,
+Nikola
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From nikolov.tmw at gmail.com  Thu Jun  5 13:56:53 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 5 Jun 2014 16:56:53 +0300
+Subject: [wp-hackers] Sharing codebase between plugins
+In-Reply-To: <584696F521F54279BED3FFBB619CE274@megaheights.net>
+References: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+ <584696F521F54279BED3FFBB619CE274@megaheights.net>
+Message-ID: <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+
+I see,
+
+I have a couple of concerns with such an approach though:
+
+#1 Size - the core plugin is actually going to consist of multiple
+directories, scripts, images, etc. so it's not really efficient to have it
+included in each and every one of the extra plugins.
+#2 Updates - using your approach is difficult to use a specific version of
+the library. Say the user updates one of your plugins, but not the rest.
+Then you might use the latest version of the library, or an old version of
+the library(in which case, you might get fatal errors, due to undefined
+functions, etc.)
+
+Thanks for sharing though,
+Nikola
+
+
+On Thu, Jun 5, 2014 at 4:52 PM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> I am using a library file with some useful stuff in multiple plugins and
+> just set a constant to check if the code is already included.
+>
+> <?php // start of library file
+> if (!defined('_MY_LIBRARY_FILE_INCLUDED')) {
+>    #define('_MY_LIBRARY_FILE_INCLUDED',true);
+>    libraryFunction1() {
+>        // code
+>    }
+>    libraryFunction2() {
+>        // code
+>    }
+> }
+> // end of library file
+> ?>
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Thursday, June 05, 2014 5:27 AM
+> To: wp-hackers at lists.automattic.com
+> Subject: [wp-hackers] Sharing codebase between plugins
+>
+>
+> What do you do when you want to avoid code duplication by sharing the same
+> code base between multiple plugins?
+>
+> Here's the situation that I'm in:
+>
+> I have a plugin that adds some custom post types and functionality. Another
+> plugin that uses similar functionality is going to be developed. Possibly
+> in the future more plugins that use those post types will also be created.
+>
+> So the idea is to separate out a "core" plugin that will allow any of the
+> plugins to function both on their own and combined, without having to ship
+> the code with each one(well - probably we'll need at least an archive of
+> the core plugin).
+>
+> Now my question is how to handle that dependency(note that my client would
+> prefer if the core plugin is not listed on the plugins page - not sure if
+> that's really possible).
+>
+> Right now I've thought about the following solutions:
+> - Have each of the plugins contain a .zip archive with the core plugin.
+> Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation in
+> order to define the dependency in each plugin. I'm just not sure how it
+> would handle updates - so when the user updates a sub-plugin it should
+> update the core plugin if the sub-plugin is bundled with an updated version
+> - Copy the core plugin as a mu-plugin if it's not already there. Again not
+> sure how to handle updates. Also when should I copy the plugin files - what
+> if FTP credentials are required?
+>
+> I think my main concern are updates.
+>
+> For instance how to make sure that I'm using the correct core base? What if
+> the user updates one of the sub-plugins and that updates the core plugin,
+> but they don't update the rest of the sub-plugins? Ideally I should have
+> things compatible between versions, but what if I have to introduce a
+> change that is not compatible?
+>
+> I also looked at the Plugin Dependencies plugin (
+> https://wordpress.org/plugins/plugin-dependencies/ ), but I don't really
+> want to add another plugin to the bundle.
+>
+> Thanks,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From guus at inspiration-for-success.com  Thu Jun  5 14:18:47 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Thu, 5 Jun 2014 22:18:47 +0800
+Subject: [wp-hackers] Sharing codebase between plugins
+In-Reply-To: <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+References: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+ <584696F521F54279BED3FFBB619CE274@megaheights.net>
+ <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+Message-ID: <B3E80DBFFEC0436EA52D1D291217C76C@megaheights.net>
+
+Thanks for your comments. I agree with you as I indeed experienced the 
+problems you describe with different versions, but over the years I have 
+developed e.g. a 'mini library' with some stuff that is very basic and 
+doesn't really change, so that's why I use that trick. So yes, you need to 
+know when, why and how to do this.
+
+Related to performance I don't think Wordpress is that efficient in general, 
+although I don't know the core code. With just skipping the code in the 
+second file with the define or just including another file after the check 
+shouldn't take much processing time.
+
+-----Original Message----- 
+From: Nikola Nikolov
+Sent: Thursday, June 05, 2014 9:56 PM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] Sharing codebase between plugins
+
+I see,
+
+I have a couple of concerns with such an approach though:
+
+#1 Size - the core plugin is actually going to consist of multiple
+directories, scripts, images, etc. so it's not really efficient to have it
+included in each and every one of the extra plugins.
+#2 Updates - using your approach is difficult to use a specific version of
+the library. Say the user updates one of your plugins, but not the rest.
+Then you might use the latest version of the library, or an old version of
+the library(in which case, you might get fatal errors, due to undefined
+functions, etc.)
+
+Thanks for sharing though,
+Nikola
+
+
+On Thu, Jun 5, 2014 at 4:52 PM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> I am using a library file with some useful stuff in multiple plugins and
+> just set a constant to check if the code is already included.
+>
+> <?php // start of library file
+> if (!defined('_MY_LIBRARY_FILE_INCLUDED')) {
+>    #define('_MY_LIBRARY_FILE_INCLUDED',true);
+>    libraryFunction1() {
+>        // code
+>    }
+>    libraryFunction2() {
+>        // code
+>    }
+> }
+> // end of library file
+> ?>
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Thursday, June 05, 2014 5:27 AM
+> To: wp-hackers at lists.automattic.com
+> Subject: [wp-hackers] Sharing codebase between plugins
+>
+>
+> What do you do when you want to avoid code duplication by sharing the same
+> code base between multiple plugins?
+>
+> Here's the situation that I'm in:
+>
+> I have a plugin that adds some custom post types and functionality. 
+> Another
+> plugin that uses similar functionality is going to be developed. Possibly
+> in the future more plugins that use those post types will also be created.
+>
+> So the idea is to separate out a "core" plugin that will allow any of the
+> plugins to function both on their own and combined, without having to ship
+> the code with each one(well - probably we'll need at least an archive of
+> the core plugin).
+>
+> Now my question is how to handle that dependency(note that my client would
+> prefer if the core plugin is not listed on the plugins page - not sure if
+> that's really possible).
+>
+> Right now I've thought about the following solutions:
+> - Have each of the plugins contain a .zip archive with the core plugin.
+> Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation in
+> order to define the dependency in each plugin. I'm just not sure how it
+> would handle updates - so when the user updates a sub-plugin it should
+> update the core plugin if the sub-plugin is bundled with an updated 
+> version
+> - Copy the core plugin as a mu-plugin if it's not already there. Again not
+> sure how to handle updates. Also when should I copy the plugin files - 
+> what
+> if FTP credentials are required?
+>
+> I think my main concern are updates.
+>
+> For instance how to make sure that I'm using the correct core base? What 
+> if
+> the user updates one of the sub-plugins and that updates the core plugin,
+> but they don't update the rest of the sub-plugins? Ideally I should have
+> things compatible between versions, but what if I have to introduce a
+> change that is not compatible?
+>
+> I also looked at the Plugin Dependencies plugin (
+> https://wordpress.org/plugins/plugin-dependencies/ ), but I don't really
+> want to add another plugin to the bundle.
+>
+> Thanks,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From nikolov.tmw at gmail.com  Thu Jun  5 15:46:20 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 5 Jun 2014 18:46:20 +0300
+Subject: [wp-hackers] Sharing codebase between plugins
+In-Reply-To: <B3E80DBFFEC0436EA52D1D291217C76C@megaheights.net>
+References: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+ <584696F521F54279BED3FFBB619CE274@megaheights.net>
+ <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+ <B3E80DBFFEC0436EA52D1D291217C76C@megaheights.net>
+Message-ID: <CAOwx47eUNWmF1XrQh+Yq-vPcH+OOijtxcUfe4jfTKShpd+hLyA@mail.gmail.com>
+
+Right, having a more or less non-changing library is a good use case.
+I meant more like the size of each individual plugin and the fact that it
+will be increased by the full size of the core plugin. Again in my case I'm
+talking about a full-size plugin that gets some of it's functionality
+chopped away into separate smaller plugins.
+
+I'll keep on thinking and post here if I find a good solution.
+Nikola
+
+
+On Thu, Jun 5, 2014 at 5:18 PM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Thanks for your comments. I agree with you as I indeed experienced the
+> problems you describe with different versions, but over the years I have
+> developed e.g. a 'mini library' with some stuff that is very basic and
+> doesn't really change, so that's why I use that trick. So yes, you need to
+> know when, why and how to do this.
+>
+> Related to performance I don't think Wordpress is that efficient in
+> general, although I don't know the core code. With just skipping the code
+> in the second file with the define or just including another file after the
+> check shouldn't take much processing time.
+>
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Thursday, June 05, 2014 9:56 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] Sharing codebase between plugins
+>
+>
+> I see,
+>
+> I have a couple of concerns with such an approach though:
+>
+> #1 Size - the core plugin is actually going to consist of multiple
+> directories, scripts, images, etc. so it's not really efficient to have it
+> included in each and every one of the extra plugins.
+> #2 Updates - using your approach is difficult to use a specific version of
+> the library. Say the user updates one of your plugins, but not the rest.
+> Then you might use the latest version of the library, or an old version of
+> the library(in which case, you might get fatal errors, due to undefined
+> functions, etc.)
+>
+> Thanks for sharing though,
+> Nikola
+>
+>
+> On Thu, Jun 5, 2014 at 4:52 PM, Guus (IFS) <guus at inspiration-for-success.
+> com
+>
+>> wrote:
+>>
+>
+>  I am using a library file with some useful stuff in multiple plugins and
+>> just set a constant to check if the code is already included.
+>>
+>> <?php // start of library file
+>> if (!defined('_MY_LIBRARY_FILE_INCLUDED')) {
+>>    #define('_MY_LIBRARY_FILE_INCLUDED',true);
+>>    libraryFunction1() {
+>>        // code
+>>    }
+>>    libraryFunction2() {
+>>        // code
+>>    }
+>> }
+>> // end of library file
+>> ?>
+>>
+>> -----Original Message----- From: Nikola Nikolov
+>> Sent: Thursday, June 05, 2014 5:27 AM
+>> To: wp-hackers at lists.automattic.com
+>> Subject: [wp-hackers] Sharing codebase between plugins
+>>
+>>
+>> What do you do when you want to avoid code duplication by sharing the same
+>> code base between multiple plugins?
+>>
+>> Here's the situation that I'm in:
+>>
+>> I have a plugin that adds some custom post types and functionality.
+>> Another
+>> plugin that uses similar functionality is going to be developed. Possibly
+>> in the future more plugins that use those post types will also be created.
+>>
+>> So the idea is to separate out a "core" plugin that will allow any of the
+>> plugins to function both on their own and combined, without having to ship
+>> the code with each one(well - probably we'll need at least an archive of
+>> the core plugin).
+>>
+>> Now my question is how to handle that dependency(note that my client would
+>> prefer if the core plugin is not listed on the plugins page - not sure if
+>> that's really possible).
+>>
+>> Right now I've thought about the following solutions:
+>> - Have each of the plugins contain a .zip archive with the core plugin.
+>> Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation
+>> in
+>> order to define the dependency in each plugin. I'm just not sure how it
+>> would handle updates - so when the user updates a sub-plugin it should
+>> update the core plugin if the sub-plugin is bundled with an updated
+>> version
+>> - Copy the core plugin as a mu-plugin if it's not already there. Again not
+>> sure how to handle updates. Also when should I copy the plugin files -
+>> what
+>> if FTP credentials are required?
+>>
+>> I think my main concern are updates.
+>>
+>> For instance how to make sure that I'm using the correct core base? What
+>> if
+>> the user updates one of the sub-plugins and that updates the core plugin,
+>> but they don't update the rest of the sub-plugins? Ideally I should have
+>> things compatible between versions, but what if I have to introduce a
+>> change that is not compatible?
+>>
+>> I also looked at the Plugin Dependencies plugin (
+>> https://wordpress.org/plugins/plugin-dependencies/ ), but I don't really
+>> want to add another plugin to the bundle.
+>>
+>> Thanks,
+>> Nikola
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From dino at duechiacchiere.it  Wed Jun 11 13:07:09 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 11 Jun 2014 09:07:09 -0400
+Subject: [wp-hackers] Excerpt output
+Message-ID: <5398547D.70508@duechiacchiere.it>
+
+Hi,
+
+my website uses shortcodes to define the structure of each page (Visual 
+Composer). Since I don't use excerpts, search results display the 
+content generated by those shortcodes. Is there a way to tweak 
+the_excerpt so that all but one shortcode are stripped from the output?
+
+Example:
+
+[vc_row][vc_column width="1/4" el_class="sidebar"]sidebar content 
+here[/vc_column][vc_column width="3/4"][vc_column_text 
+el_class="use-as-excerpt"]main content[/vc_column_text][/vc_column][/vc_row]
+
+When the excerpt is displayed, it should return just what's inside the 
+vc_column_text shortcode: main content.
+
+When inspecting the content passed to the function by add_filter( 
+'the_excerpt', 'strip_shortcodes' ), 100 ) , I see the shortcodes have 
+already been executed :/
+
+Thanks,
+Dino.
+
+From nl at thoughtrefinery.com  Wed Jun 11 15:10:47 2014
+From: nl at thoughtrefinery.com (Nicholas Ciske)
+Date: Wed, 11 Jun 2014 10:10:47 -0500
+Subject: [wp-hackers] Excerpt output
+In-Reply-To: <5398547D.70508@duechiacchiere.it>
+References: <5398547D.70508@duechiacchiere.it>
+Message-ID: <6CCA9FF9-7D0C-4384-92E1-7C28A7A26D94@thoughtrefinery.com>
+
+A filter running at priority 100 is going to run after anything in core (which generally defaults to 10, but not always)... and anything added with the default priority (10).
+
+Find where your theme or plugin adds do_shortcode to the_excerpt filter and hook in earlier (e.g. priority 5).
+
+Keep in mind that strip_shortcodes removes all shortcodes and their content. You'll probably need a regex to strip out everything but the shortcode you want -- then let the do_shortcodes filter do it's job up the stack.
+
+Related and possibly useful:
+
+Stripping shortcodes, keeping the content
+http://wordpress.org/support/topic/stripping-shortcodes-keeping-the-content
+
+_________________________
+Nick Ciske
+http://thoughtrefinery.com/
+@nciske	
+
+On Jun 11, 2014, at 8:07 AM, Dino Termini <dino at duechiacchiere.it> wrote:
+
+> Is there a way to tweak the_excerpt so that all but one shortcode are stripped from the output?
+> 
+> Example:
+> 
+> [vc_row][vc_column width="1/4" el_class="sidebar"]sidebar content here[/vc_column][vc_column width="3/4"][vc_column_text el_class="use-as-excerpt"]main content[/vc_column_text][/vc_column][/vc_row]
+> 
+> When the excerpt is displayed, it should return just what's inside the vc_column_text shortcode: main content.
+> 
+> When inspecting the content passed to the function by add_filter( 'the_excerpt', 'strip_shortcodes' ), 100 ) , I see the shortcodes have already been executed :/
+
+
+From halukkaramete at gmail.com  Fri Jun 13 05:26:52 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 12 Jun 2014 22:26:52 -0700
+Subject: [wp-hackers] varchar(64) on transient names
+Message-ID: <CAHERW=0pRsZ5zz2md9ZugDpJ-+GjBDd3aSQzETWMv+5-3UdmXQ@mail.gmail.com>
+
+Schema says that it's got room for 64 chars.
+But we are also advised to keep it at max of 45 chars
+What takes up the 64-45?
+$transient (*string*
+<http://codex.wordpress.org/How_to_Pass_Tag_Parameters#String>) (*required*)
+Transient name. Expected to not be SQL-escaped. Should be 45 characters or
+less in length <http://core.trac.wordpress.org/ticket/15058>. @
+http://codex.wordpress.org/Function_Reference/set_transient#Parameters
+
+From nl at thoughtrefinery.com  Fri Jun 13 05:46:17 2014
+From: nl at thoughtrefinery.com (Nicholas Ciske)
+Date: Fri, 13 Jun 2014 00:46:17 -0500
+Subject: [wp-hackers] varchar(64) on transient names
+In-Reply-To: <CAHERW=0pRsZ5zz2md9ZugDpJ-+GjBDd3aSQzETWMv+5-3UdmXQ@mail.gmail.com>
+References: <CAHERW=0pRsZ5zz2md9ZugDpJ-+GjBDd3aSQzETWMv+5-3UdmXQ@mail.gmail.com>
+Message-ID: <34CF08C0-ACC9-4832-854F-01AD6E5066CA@thoughtrefinery.com>
+
+A transient that doesn't expire has a max name length of 53 characters yet a transient that does expire has a max name length of 45 characters. So 45 is always safe.
+
+This is because transients are just options with a prefix:
+
+_transient_ = 11 chars
+
+64 - 11 = 53
+
+_transient_timeout_ = 19 chars
+
+64 - 19 = 45
+
+More:
+http://stackoverflow.com/a/12416710
+
+Trac:
+https://core.trac.wordpress.org/ticket/15058
+
+
+_________________________
+Nick Ciske
+http://thoughtrefinery.com/
+@nciske	
+
+On Jun 13, 2014, at 12:26 AM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> Schema says that it's got room for 64 chars.
+> But we are also advised to keep it at max of 45 chars
+> What takes up the 64-45?
+> $transient (*string*
+> <http://codex.wordpress.org/How_to_Pass_Tag_Parameters#String>) (*required*)
+> Transient name. Expected to not be SQL-escaped. Should be 45 characters or
+> less in length <http://core.trac.wordpress.org/ticket/15058>. @
+> http://codex.wordpress.org/Function_Reference/set_transient#Parameters
+
+
+From halukkaramete at gmail.com  Fri Jun 13 05:59:54 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 12 Jun 2014 22:59:54 -0700
+Subject: [wp-hackers] varchar(64) on transient names
+In-Reply-To: <34CF08C0-ACC9-4832-854F-01AD6E5066CA@thoughtrefinery.com>
+References: <CAHERW=0pRsZ5zz2md9ZugDpJ-+GjBDd3aSQzETWMv+5-3UdmXQ@mail.gmail.com>
+ <34CF08C0-ACC9-4832-854F-01AD6E5066CA@thoughtrefinery.com>
+Message-ID: <CAHERW=0TYmOjwD7Gzibj=9h9jqSt_dpZL3=N2CepYK=3PpAbHg@mail.gmail.com>
+
+excellent answer. thx.
+
+
+On Thu, Jun 12, 2014 at 10:46 PM, Nicholas Ciske <nl at thoughtrefinery.com>
+wrote:
+
+> A transient that doesn't expire has a max name length of 53 characters yet
+> a transient that does expire has a max name length of 45 characters. So 45
+> is always safe.
+>
+> This is because transients are just options with a prefix:
+>
+> _transient_ = 11 chars
+>
+> 64 - 11 = 53
+>
+> _transient_timeout_ = 19 chars
+>
+> 64 - 19 = 45
+>
+> More:
+> http://stackoverflow.com/a/12416710
+>
+> Trac:
+> https://core.trac.wordpress.org/ticket/15058
+>
+>
+> _________________________
+> Nick Ciske
+> http://thoughtrefinery.com/
+> @nciske
+>
+> On Jun 13, 2014, at 12:26 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Schema says that it's got room for 64 chars.
+> > But we are also advised to keep it at max of 45 chars
+> > What takes up the 64-45?
+> > $transient (*string*
+> > <http://codex.wordpress.org/How_to_Pass_Tag_Parameters#String>)
+> (*required*)
+> > Transient name. Expected to not be SQL-escaped. Should be 45 characters
+> or
+> > less in length <http://core.trac.wordpress.org/ticket/15058>. @
+> > http://codex.wordpress.org/Function_Reference/set_transient#Parameters
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From advisor18b at yahoo.com  Fri Jun 13 21:39:57 2014
+From: advisor18b at yahoo.com (dave rupp)
+Date: Fri, 13 Jun 2014 14:39:57 -0700 (PDT)
+Subject: [wp-hackers] need partner....
+Message-ID: <1402695597.34321.YahooMailNeo@web162401.mail.bf1.yahoo.com>
+
+im in alaska. need partner for WU transfer work.... real. no games.... :)
+
+From advisor18b at yahoo.com  Fri Jun 13 21:42:47 2014
+From: advisor18b at yahoo.com (dave rupp)
+Date: Fri, 13 Jun 2014 14:42:47 -0700 (PDT)
+Subject: [wp-hackers] arrow in need of partners
+Message-ID: <1402695767.23465.YahooMailNeo@web162404.mail.bf1.yahoo.com>
+
+WU transfer mule. In alaska.... E me.
+
+From yok2504 at gmail.com  Fri Jun 13 22:21:21 2014
+From: yok2504 at gmail.com (Sinan)
+Date: Sat, 14 Jun 2014 01:21:21 +0300
+Subject: [wp-hackers] arrow in need of partners
+In-Reply-To: <1402695767.23465.YahooMailNeo@web162404.mail.bf1.yahoo.com>
+References: <1402695767.23465.YahooMailNeo@web162404.mail.bf1.yahoo.com>
+Message-ID: <CABmkrsE5fuKtosVR=zXo3-DQeFN4bYgh97obgJX-w9npPdFvnw@mail.gmail.com>
+
+srsly
+
+
+2014-06-14 0:42 GMT+03:00 dave rupp <advisor18b at yahoo.com>:
+
+> WU transfer mule. In alaska.... E me.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+Sinan ??LER
+sinanisler.com <http://www.sinanisler.com/>
+
+From otto at ottodestruct.com  Fri Jun 13 23:06:26 2014
+From: otto at ottodestruct.com (Otto)
+Date: Fri, 13 Jun 2014 18:06:26 -0500
+Subject: [wp-hackers] arrow in need of partners
+In-Reply-To: <CABmkrsE5fuKtosVR=zXo3-DQeFN4bYgh97obgJX-w9npPdFvnw@mail.gmail.com>
+References: <1402695767.23465.YahooMailNeo@web162404.mail.bf1.yahoo.com>
+ <CABmkrsE5fuKtosVR=zXo3-DQeFN4bYgh97obgJX-w9npPdFvnw@mail.gmail.com>
+Message-ID: <CAD-FghzO6Lkais3BY+GZP0aThvFNiyOHAmukj6j1Rd1o9tc3fw@mail.gmail.com>
+
+Don't reply to these sorts of things on the list. When we see them, we
+force-unsubscribe those senders. Just delete it and get on with life. :)
+
+-Otto
+
+
+
+On Fri, Jun 13, 2014 at 5:21 PM, Sinan <yok2504 at gmail.com> wrote:
+
+> srsly
+>
+>
+> 2014-06-14 0:42 GMT+03:00 dave rupp <advisor18b at yahoo.com>:
+>
+> > WU transfer mule. In alaska.... E me.
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+>
+>
+>
+> --
+> Sinan ??LER
+> sinanisler.com <http://www.sinanisler.com/>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From mmischa2000 at hotmail.com  Sun Jun 15 19:16:04 2014
+From: mmischa2000 at hotmail.com (mmischa2000 . . . . .)
+Date: Sun, 15 Jun 2014 21:16:04 +0200
+Subject: [wp-hackers] wp-hackers Digest, Vol 113, Issue 6
+In-Reply-To: <mailman.7.1402747202.32397.wp-hackers@lists.automattic.com>
+References: <mailman.7.1402747202.32397.wp-hackers@lists.automattic.com>
+Message-ID: <DUB122-W3488D7D739D5FEA7841AC2BD170@phx.gbl>
+
+Need help in entering a "discriminating site" ...
+
+> From: wp-hackers-request at lists.automattic.com
+> Subject: wp-hackers Digest, Vol 113, Issue 6
+> To: wp-hackers at lists.automattic.com
+> Date: Sat, 14 Jun 2014 12:00:02 +0000
+> 
+> Send wp-hackers mailing list submissions to
+> 	wp-hackers at lists.automattic.com
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-hackers
+> or, via email, send a message with subject or body 'help' to
+> 	wp-hackers-request at lists.automattic.com
+> 
+> You can reach the person managing the list at
+> 	wp-hackers-owner at lists.automattic.com
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-hackers digest..."
+> 
+> 
+> Today's Topics:
+> 
+>    1. need partner.... (dave rupp)
+>    2. arrow in need of partners (dave rupp)
+>    3. Re: arrow in need of partners (Sinan)
+>    4. Re: arrow in need of partners (Otto)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Fri, 13 Jun 2014 14:39:57 -0700 (PDT)
+> From: dave rupp <advisor18b at yahoo.com>
+> To: "wp-hackers at lists.automattic.com"
+> 	<wp-hackers at lists.automattic.com>
+> Subject: [wp-hackers] need partner....
+> Message-ID:
+> 	<1402695597.34321.YahooMailNeo at web162401.mail.bf1.yahoo.com>
+> Content-Type: text/plain; charset=us-ascii
+> 
+> im in alaska. need partner for WU transfer work.... real. no games.... :)
+> 
+> 
+> ------------------------------
+> 
+> Message: 2
+> Date: Fri, 13 Jun 2014 14:42:47 -0700 (PDT)
+> From: dave rupp <advisor18b at yahoo.com>
+> To: "wp-hackers at lists.automattic.com"
+> 	<wp-hackers at lists.automattic.com>
+> Subject: [wp-hackers] arrow in need of partners
+> Message-ID:
+> 	<1402695767.23465.YahooMailNeo at web162404.mail.bf1.yahoo.com>
+> Content-Type: text/plain; charset=us-ascii
+> 
+> WU transfer mule. In alaska.... E me.
+> 
+> 
+> ------------------------------
+> 
+> Message: 3
+> Date: Sat, 14 Jun 2014 01:21:21 +0300
+> From: Sinan <yok2504 at gmail.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] arrow in need of partners
+> Message-ID:
+> 	<CABmkrsE5fuKtosVR=zXo3-DQeFN4bYgh97obgJX-w9npPdFvnw at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+> 
+> srsly
+> 
+> 
+> 2014-06-14 0:42 GMT+03:00 dave rupp <advisor18b at yahoo.com>:
+> 
+> > WU transfer mule. In alaska.... E me.
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> 
+> 
+> 
+> -- 
+> Sinan ??LER
+> sinanisler.com <http://www.sinanisler.com/>
+> 
+> 
+> ------------------------------
+> 
+> Message: 4
+> Date: Fri, 13 Jun 2014 18:06:26 -0500
+> From: Otto <otto at ottodestruct.com>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] arrow in need of partners
+> Message-ID:
+> 	<CAD-FghzO6Lkais3BY+GZP0aThvFNiyOHAmukj6j1Rd1o9tc3fw at mail.gmail.com>
+> Content-Type: text/plain; charset=UTF-8
+> 
+> Don't reply to these sorts of things on the list. When we see them, we
+> force-unsubscribe those senders. Just delete it and get on with life. :)
+> 
+> -Otto
+> 
+> 
+> 
+> On Fri, Jun 13, 2014 at 5:21 PM, Sinan <yok2504 at gmail.com> wrote:
+> 
+> > srsly
+> >
+> >
+> > 2014-06-14 0:42 GMT+03:00 dave rupp <advisor18b at yahoo.com>:
+> >
+> > > WU transfer mule. In alaska.... E me.
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> >
+> >
+> >
+> > --
+> > Sinan ??LER
+> > sinanisler.com <http://www.sinanisler.com/>
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> 
+> 
+> ------------------------------
+> 
+> Subject: Digest Footer
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> 
+> ------------------------------
+> 
+> End of wp-hackers Digest, Vol 113, Issue 6
+> ******************************************
+ 		 	   		  
+
+From wp-hackers at striderweb.com  Mon Jun 16 21:03:44 2014
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Mon, 16 Jun 2014 16:03:44 -0500
+Subject: [wp-hackers] Sharing codebase between plugins
+In-Reply-To: <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+References: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+ <584696F521F54279BED3FFBB619CE274@megaheights.net>
+ <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+Message-ID: <D9CC3790-1085-406A-B99E-2D0688AB6D19@striderweb.com>
+
+Hi Nikola --
+
+#1 -- I wouldn't worry too terribly about size.  Is the plugin multiple megabytes of data?
+
+#2 -- You might take a look at my own Strider Core. https://code.google.com/p/strider-core/
+Feel free to borrow the "best version" mechanism for your own purposes, but if you do, PLEASE be sure to change all "strider_core" strings to something else -- Very Important.
+
+Stephen Rider
+
+
+On Jun 5, 2014, at 8:56 AM, Nikola Nikolov <nikolov.tmw at gmail.com> wrote:
+
+> I see,
+> 
+> I have a couple of concerns with such an approach though:
+> 
+> #1 Size - the core plugin is actually going to consist of multiple
+> directories, scripts, images, etc. so it's not really efficient to have it
+> included in each and every one of the extra plugins.
+> #2 Updates - using your approach is difficult to use a specific version of
+> the library. Say the user updates one of your plugins, but not the rest.
+> Then you might use the latest version of the library, or an old version of
+> the library(in which case, you might get fatal errors, due to undefined
+> functions, etc.)
+> 
+> Thanks for sharing though,
+> Nikola
+> 
+> 
+> On Thu, Jun 5, 2014 at 4:52 PM, Guus (IFS) <guus at inspiration-for-success.com
+>> wrote:
+> 
+>> I am using a library file with some useful stuff in multiple plugins and
+>> just set a constant to check if the code is already included.
+>> 
+>> <?php // start of library file
+>> if (!defined('_MY_LIBRARY_FILE_INCLUDED')) {
+>>   #define('_MY_LIBRARY_FILE_INCLUDED',true);
+>>   libraryFunction1() {
+>>       // code
+>>   }
+>>   libraryFunction2() {
+>>       // code
+>>   }
+>> }
+>> // end of library file
+>> ?>
+>> 
+>> -----Original Message----- From: Nikola Nikolov
+>> Sent: Thursday, June 05, 2014 5:27 AM
+>> To: wp-hackers at lists.automattic.com
+>> Subject: [wp-hackers] Sharing codebase between plugins
+>> 
+>> 
+>> What do you do when you want to avoid code duplication by sharing the same
+>> code base between multiple plugins?
+>> 
+>> Here's the situation that I'm in:
+>> 
+>> I have a plugin that adds some custom post types and functionality. Another
+>> plugin that uses similar functionality is going to be developed. Possibly
+>> in the future more plugins that use those post types will also be created.
+>> 
+>> So the idea is to separate out a "core" plugin that will allow any of the
+>> plugins to function both on their own and combined, without having to ship
+>> the code with each one(well - probably we'll need at least an archive of
+>> the core plugin).
+>> 
+>> Now my question is how to handle that dependency(note that my client would
+>> prefer if the core plugin is not listed on the plugins page - not sure if
+>> that's really possible).
+>> 
+>> Right now I've thought about the following solutions:
+>> - Have each of the plugins contain a .zip archive with the core plugin.
+>> Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation in
+>> order to define the dependency in each plugin. I'm just not sure how it
+>> would handle updates - so when the user updates a sub-plugin it should
+>> update the core plugin if the sub-plugin is bundled with an updated version
+>> - Copy the core plugin as a mu-plugin if it's not already there. Again not
+>> sure how to handle updates. Also when should I copy the plugin files - what
+>> if FTP credentials are required?
+>> 
+>> I think my main concern are updates.
+>> 
+>> For instance how to make sure that I'm using the correct core base? What if
+>> the user updates one of the sub-plugins and that updates the core plugin,
+>> but they don't update the rest of the sub-plugins? Ideally I should have
+>> things compatible between versions, but what if I have to introduce a
+>> change that is not compatible?
+>> 
+>> I also looked at the Plugin Dependencies plugin (
+>> https://wordpress.org/plugins/plugin-dependencies/ ), but I don't really
+>> want to add another plugin to the bundle.
+>> 
+>> Thanks,
+>> Nikola
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From nikolov.tmw at gmail.com  Tue Jun 17 08:48:45 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 17 Jun 2014 11:48:45 +0300
+Subject: [wp-hackers] Sharing codebase between plugins
+In-Reply-To: <D9CC3790-1085-406A-B99E-2D0688AB6D19@striderweb.com>
+References: <CAOwx47fSgQDzwuKYqBbEni20tZxNopW-xgpsMbKECL7ikA=OVQ@mail.gmail.com>
+ <584696F521F54279BED3FFBB619CE274@megaheights.net>
+ <CAOwx47eyVoy3f8e1Wz3xp8JfgQiUtxt0-uXpZ1HQsupwcWUeEA@mail.gmail.com>
+ <D9CC3790-1085-406A-B99E-2D0688AB6D19@striderweb.com>
+Message-ID: <CAOwx47fu-FBvWo=y_O7uHLjmG6ohScB58V5Aq0Mg-0WSQz7Qbg@mail.gmail.com>
+
+Hi Stephen,
+
+I think in the end I'll have core shipped with every plugin by using
+svn:external in each project that uses the core in order to keep everything
+synced. And then I guess I'll figure out a way to load the newest version
+of core in order to provide the best conflict-free functionality(since I
+should be keeping some backwards-compatibility, but plugins that require
+the newer version might break).
+
+Thanks everyone for their comments,
+Nikola
+
+
+On Tue, Jun 17, 2014 at 12:03 AM, Stephen Rider <wp-hackers at striderweb.com>
+wrote:
+
+> Hi Nikola --
+>
+> #1 -- I wouldn't worry too terribly about size.  Is the plugin multiple
+> megabytes of data?
+>
+> #2 -- You might take a look at my own Strider Core.
+> https://code.google.com/p/strider-core/
+> Feel free to borrow the "best version" mechanism for your own purposes,
+> but if you do, PLEASE be sure to change all "strider_core" strings to
+> something else -- Very Important.
+>
+> Stephen Rider
+>
+>
+> On Jun 5, 2014, at 8:56 AM, Nikola Nikolov <nikolov.tmw at gmail.com> wrote:
+>
+> > I see,
+> >
+> > I have a couple of concerns with such an approach though:
+> >
+> > #1 Size - the core plugin is actually going to consist of multiple
+> > directories, scripts, images, etc. so it's not really efficient to have
+> it
+> > included in each and every one of the extra plugins.
+> > #2 Updates - using your approach is difficult to use a specific version
+> of
+> > the library. Say the user updates one of your plugins, but not the rest.
+> > Then you might use the latest version of the library, or an old version
+> of
+> > the library(in which case, you might get fatal errors, due to undefined
+> > functions, etc.)
+> >
+> > Thanks for sharing though,
+> > Nikola
+> >
+> >
+> > On Thu, Jun 5, 2014 at 4:52 PM, Guus (IFS) <
+> guus at inspiration-for-success.com
+> >> wrote:
+> >
+> >> I am using a library file with some useful stuff in multiple plugins and
+> >> just set a constant to check if the code is already included.
+> >>
+> >> <?php // start of library file
+> >> if (!defined('_MY_LIBRARY_FILE_INCLUDED')) {
+> >>   #define('_MY_LIBRARY_FILE_INCLUDED',true);
+> >>   libraryFunction1() {
+> >>       // code
+> >>   }
+> >>   libraryFunction2() {
+> >>       // code
+> >>   }
+> >> }
+> >> // end of library file
+> >> ?>
+> >>
+> >> -----Original Message----- From: Nikola Nikolov
+> >> Sent: Thursday, June 05, 2014 5:27 AM
+> >> To: wp-hackers at lists.automattic.com
+> >> Subject: [wp-hackers] Sharing codebase between plugins
+> >>
+> >>
+> >> What do you do when you want to avoid code duplication by sharing the
+> same
+> >> code base between multiple plugins?
+> >>
+> >> Here's the situation that I'm in:
+> >>
+> >> I have a plugin that adds some custom post types and functionality.
+> Another
+> >> plugin that uses similar functionality is going to be developed.
+> Possibly
+> >> in the future more plugins that use those post types will also be
+> created.
+> >>
+> >> So the idea is to separate out a "core" plugin that will allow any of
+> the
+> >> plugins to function both on their own and combined, without having to
+> ship
+> >> the code with each one(well - probably we'll need at least an archive of
+> >> the core plugin).
+> >>
+> >> Now my question is how to handle that dependency(note that my client
+> would
+> >> prefer if the core plugin is not listed on the plugins page - not sure
+> if
+> >> that's really possible).
+> >>
+> >> Right now I've thought about the following solutions:
+> >> - Have each of the plugins contain a .zip archive with the core plugin.
+> >> Then perhaps use https://github.com/thomasgriffin/TGM-Plugin-Activation
+> in
+> >> order to define the dependency in each plugin. I'm just not sure how it
+> >> would handle updates - so when the user updates a sub-plugin it should
+> >> update the core plugin if the sub-plugin is bundled with an updated
+> version
+> >> - Copy the core plugin as a mu-plugin if it's not already there. Again
+> not
+> >> sure how to handle updates. Also when should I copy the plugin files -
+> what
+> >> if FTP credentials are required?
+> >>
+> >> I think my main concern are updates.
+> >>
+> >> For instance how to make sure that I'm using the correct core base?
+> What if
+> >> the user updates one of the sub-plugins and that updates the core
+> plugin,
+> >> but they don't update the rest of the sub-plugins? Ideally I should have
+> >> things compatible between versions, but what if I have to introduce a
+> >> change that is not compatible?
+> >>
+> >> I also looked at the Plugin Dependencies plugin (
+> >> https://wordpress.org/plugins/plugin-dependencies/ ), but I don't
+> really
+> >> want to add another plugin to the bundle.
+> >>
+> >> Thanks,
+> >> Nikola
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >>
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From roberto at digitalbrands.com  Fri Jun 20 14:05:12 2014
+From: roberto at digitalbrands.com (Roberto Sanchez)
+Date: Fri, 20 Jun 2014 10:05:12 -0400
+Subject: [wp-hackers] Page slug for page template
+Message-ID: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+
+I want to set a page slug that applies to pages with a specific template.
+For example, say I have a template named Case Study in case-study.php. When
+I add a new Case Study page and assign to it the Case Study template, I
+want the permalink of the page to now include case-study in the slug, like
+this: http://example.com/case-study/q1-2014.
+
+
+I would appreciate any tips on how to get this done. Thanks.
+
+From nikolov.tmw at gmail.com  Fri Jun 20 14:12:12 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 20 Jun 2014 17:12:12 +0300
+Subject: [wp-hackers] Page slug for page template
+In-Reply-To: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+References: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+Message-ID: <CAOwx47c2hXiJ4wGig=c3aFs2_pvt86cjhiBguD+MeYjrp5YGLg@mail.gmail.com>
+
+Not a complete answer on the original question, but I'd just suggest that
+you use a Custom Post Type
+<http://codex.wordpress.org/Function_Reference/register_post_type> for the
+job. There you can set the rewrite slug option to "case-study" and that
+will make any posts from that post type have the correct permalink.
+
+Nikola
+
+
+On Fri, Jun 20, 2014 at 5:05 PM, Roberto Sanchez <roberto at digitalbrands.com>
+wrote:
+
+> I want to set a page slug that applies to pages with a specific template.
+> For example, say I have a template named Case Study in case-study.php. When
+> I add a new Case Study page and assign to it the Case Study template, I
+> want the permalink of the page to now include case-study in the slug, like
+> this: http://example.com/case-study/q1-2014.
+>
+>
+> I would appreciate any tips on how to get this done. Thanks.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From hendronix at gmail.com  Fri Jun 20 14:37:09 2014
+From: hendronix at gmail.com (Eric Hendrix)
+Date: Fri, 20 Jun 2014 10:37:09 -0400
+Subject: [wp-hackers] Page slug for page template
+In-Reply-To: <CAOwx47c2hXiJ4wGig=c3aFs2_pvt86cjhiBguD+MeYjrp5YGLg@mail.gmail.com>
+References: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+ <CAOwx47c2hXiJ4wGig=c3aFs2_pvt86cjhiBguD+MeYjrp5YGLg@mail.gmail.com>
+Message-ID: <CAAkktv0jO-MT46Ufv0k43ujagFY1LCYv-LnvtHG+sY8NJvWz7Q@mail.gmail.com>
+
+Difficult situation since you're trying to get your slug to include a
+directory followed by the post slug. I'm stumped.
+
+
+On Fri, Jun 20, 2014 at 10:12 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> Not a complete answer on the original question, but I'd just suggest that
+> you use a Custom Post Type
+> <http://codex.wordpress.org/Function_Reference/register_post_type> for the
+> job. There you can set the rewrite slug option to "case-study" and that
+> will make any posts from that post type have the correct permalink.
+>
+> Nikola
+>
+>
+> On Fri, Jun 20, 2014 at 5:05 PM, Roberto Sanchez <
+> roberto at digitalbrands.com>
+> wrote:
+>
+> > I want to set a page slug that applies to pages with a specific template.
+> > For example, say I have a template named Case Study in case-study.php.
+> When
+> > I add a new Case Study page and assign to it the Case Study template, I
+> > want the permalink of the page to now include case-study in the slug,
+> like
+> > this: http://example.com/case-study/q1-2014.
+> >
+> >
+> > I would appreciate any tips on how to get this done. Thanks.
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+
+
+*Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+(910) 644-8940
+
+*"Non Timebo Mala"*
+
+From nikolov.tmw at gmail.com  Fri Jun 20 14:48:56 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 20 Jun 2014 17:48:56 +0300
+Subject: [wp-hackers] Page slug for page template
+In-Reply-To: <CAAkktv0jO-MT46Ufv0k43ujagFY1LCYv-LnvtHG+sY8NJvWz7Q@mail.gmail.com>
+References: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+ <CAOwx47c2hXiJ4wGig=c3aFs2_pvt86cjhiBguD+MeYjrp5YGLg@mail.gmail.com>
+ <CAAkktv0jO-MT46Ufv0k43ujagFY1LCYv-LnvtHG+sY8NJvWz7Q@mail.gmail.com>
+Message-ID: <CAOwx47dEw+4x7Rg97sgY24eF4z=iZRAURGZFC2BJV2uuZPJ=qg@mail.gmail.com>
+
+Alternatively have a parent page called Case Study? What you're trying to
+do in the way you're trying to achieve it is if not impossible, then very
+very difficult and there's no point in making your life that hard :)
+
+
+On Fri, Jun 20, 2014 at 5:37 PM, Eric Hendrix <hendronix at gmail.com> wrote:
+
+> Difficult situation since you're trying to get your slug to include a
+> directory followed by the post slug. I'm stumped.
+>
+>
+> On Fri, Jun 20, 2014 at 10:12 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > Not a complete answer on the original question, but I'd just suggest that
+> > you use a Custom Post Type
+> > <http://codex.wordpress.org/Function_Reference/register_post_type> for
+> the
+> > job. There you can set the rewrite slug option to "case-study" and that
+> > will make any posts from that post type have the correct permalink.
+> >
+> > Nikola
+> >
+> >
+> > On Fri, Jun 20, 2014 at 5:05 PM, Roberto Sanchez <
+> > roberto at digitalbrands.com>
+> > wrote:
+> >
+> > > I want to set a page slug that applies to pages with a specific
+> template.
+> > > For example, say I have a template named Case Study in case-study.php.
+> > When
+> > > I add a new Case Study page and assign to it the Case Study template, I
+> > > want the permalink of the page to now include case-study in the slug,
+> > like
+> > > this: http://example.com/case-study/q1-2014.
+> > >
+> > >
+> > > I would appreciate any tips on how to get this done. Thanks.
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+>
+>
+>
+> --
+>
+>
+> *Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+> (910) 644-8940
+>
+> *"Non Timebo Mala"*
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From hendronix at gmail.com  Fri Jun 20 14:58:32 2014
+From: hendronix at gmail.com (Eric Hendrix)
+Date: Fri, 20 Jun 2014 10:58:32 -0400
+Subject: [wp-hackers] Page slug for page template
+In-Reply-To: <CAOwx47dEw+4x7Rg97sgY24eF4z=iZRAURGZFC2BJV2uuZPJ=qg@mail.gmail.com>
+References: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+ <CAOwx47c2hXiJ4wGig=c3aFs2_pvt86cjhiBguD+MeYjrp5YGLg@mail.gmail.com>
+ <CAAkktv0jO-MT46Ufv0k43ujagFY1LCYv-LnvtHG+sY8NJvWz7Q@mail.gmail.com>
+ <CAOwx47dEw+4x7Rg97sgY24eF4z=iZRAURGZFC2BJV2uuZPJ=qg@mail.gmail.com>
+Message-ID: <CAAkktv0WE1KqsDqCSHkFkJPFDAXHYCd3SixkyWCU_i9KL=b2jQ@mail.gmail.com>
+
+Parent page is the correct term - thanks Nikola. Is there any way you'd
+settle for a slug prefaced with your template name?
+
+
+On Fri, Jun 20, 2014 at 10:48 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> Alternatively have a parent page called Case Study? What you're trying to
+> do in the way you're trying to achieve it is if not impossible, then very
+> very difficult and there's no point in making your life that hard :)
+>
+>
+> On Fri, Jun 20, 2014 at 5:37 PM, Eric Hendrix <hendronix at gmail.com> wrote:
+>
+> > Difficult situation since you're trying to get your slug to include a
+> > directory followed by the post slug. I'm stumped.
+> >
+> >
+> > On Fri, Jun 20, 2014 at 10:12 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> > wrote:
+> >
+> > > Not a complete answer on the original question, but I'd just suggest
+> that
+> > > you use a Custom Post Type
+> > > <http://codex.wordpress.org/Function_Reference/register_post_type> for
+> > the
+> > > job. There you can set the rewrite slug option to "case-study" and that
+> > > will make any posts from that post type have the correct permalink.
+> > >
+> > > Nikola
+> > >
+> > >
+> > > On Fri, Jun 20, 2014 at 5:05 PM, Roberto Sanchez <
+> > > roberto at digitalbrands.com>
+> > > wrote:
+> > >
+> > > > I want to set a page slug that applies to pages with a specific
+> > template.
+> > > > For example, say I have a template named Case Study in
+> case-study.php.
+> > > When
+> > > > I add a new Case Study page and assign to it the Case Study
+> template, I
+> > > > want the permalink of the page to now include case-study in the slug,
+> > > like
+> > > > this: http://example.com/case-study/q1-2014.
+> > > >
+> > > >
+> > > > I would appreciate any tips on how to get this done. Thanks.
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> >
+> >
+> >
+> > --
+> >
+> >
+> > *Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+> > (910) 644-8940
+> >
+> > *"Non Timebo Mala"*
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+
+
+*Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+(910) 644-8940
+
+*"Non Timebo Mala"*
+
+From paul at codehooligans.com  Fri Jun 20 16:38:12 2014
+From: paul at codehooligans.com (Paul Menard)
+Date: Fri, 20 Jun 2014 12:38:12 -0400
+Subject: [wp-hackers] Page slug for page template
+In-Reply-To: <CAAkktv0WE1KqsDqCSHkFkJPFDAXHYCd3SixkyWCU_i9KL=b2jQ@mail.gmail.com>
+References: <CAKHCZSU-o-eZh+MqYftLQVLuXd7D6Z4aAm4SG-AVOJ=RjeeKew@mail.gmail.com>
+ <CAOwx47c2hXiJ4wGig=c3aFs2_pvt86cjhiBguD+MeYjrp5YGLg@mail.gmail.com>
+ <CAAkktv0jO-MT46Ufv0k43ujagFY1LCYv-LnvtHG+sY8NJvWz7Q@mail.gmail.com>
+ <CAOwx47dEw+4x7Rg97sgY24eF4z=iZRAURGZFC2BJV2uuZPJ=qg@mail.gmail.com>
+ <CAAkktv0WE1KqsDqCSHkFkJPFDAXHYCd3SixkyWCU_i9KL=b2jQ@mail.gmail.com>
+Message-ID: <CAHTDVPnz0nhLPv+XdsjRapuxgMKfuk9NDvtnaGf7w+eHUi+ruA@mail.gmail.com>
+
+Actually this is totally do able. You just attach a rewrite rule to a page
+URL. I've done this before. The trick is to NOT have any child pages off
+that parent. So for what you want you can have the default page template
+associated with the /case-study/ page slug. If no query_var for the
+'q1-2014, q3-1999, etc is not provided your template can just default to
+some latest var and redirect.
+
+The difficult page is that you are not going to be able to do this via the
+template itself. You need to add the hooks to the theme functions.php so it
+loads before the page template is called.
+
+Let me dig up me code and provide a clean example.
+
+P-
+
+
+
+On Fri, Jun 20, 2014 at 10:58 AM, Eric Hendrix <hendronix at gmail.com> wrote:
+
+> Parent page is the correct term - thanks Nikola. Is there any way you'd
+> settle for a slug prefaced with your template name?
+>
+>
+> On Fri, Jun 20, 2014 at 10:48 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > Alternatively have a parent page called Case Study? What you're trying to
+> > do in the way you're trying to achieve it is if not impossible, then very
+> > very difficult and there's no point in making your life that hard :)
+> >
+> >
+> > On Fri, Jun 20, 2014 at 5:37 PM, Eric Hendrix <hendronix at gmail.com>
+> wrote:
+> >
+> > > Difficult situation since you're trying to get your slug to include a
+> > > directory followed by the post slug. I'm stumped.
+> > >
+> > >
+> > > On Fri, Jun 20, 2014 at 10:12 AM, Nikola Nikolov <
+> nikolov.tmw at gmail.com>
+> > > wrote:
+> > >
+> > > > Not a complete answer on the original question, but I'd just suggest
+> > that
+> > > > you use a Custom Post Type
+> > > > <http://codex.wordpress.org/Function_Reference/register_post_type>
+> for
+> > > the
+> > > > job. There you can set the rewrite slug option to "case-study" and
+> that
+> > > > will make any posts from that post type have the correct permalink.
+> > > >
+> > > > Nikola
+> > > >
+> > > >
+> > > > On Fri, Jun 20, 2014 at 5:05 PM, Roberto Sanchez <
+> > > > roberto at digitalbrands.com>
+> > > > wrote:
+> > > >
+> > > > > I want to set a page slug that applies to pages with a specific
+> > > template.
+> > > > > For example, say I have a template named Case Study in
+> > case-study.php.
+> > > > When
+> > > > > I add a new Case Study page and assign to it the Case Study
+> > template, I
+> > > > > want the permalink of the page to now include case-study in the
+> slug,
+> > > > like
+> > > > > this: http://example.com/case-study/q1-2014.
+> > > > >
+> > > > >
+> > > > > I would appreciate any tips on how to get this done. Thanks.
+> > > > > _______________________________________________
+> > > > > wp-hackers mailing list
+> > > > > wp-hackers at lists.automattic.com
+> > > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > > >
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >
+> > >
+> > >
+> > >
+> > > --
+> > >
+> > >
+> > > *Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+> > > (910) 644-8940
+> > >
+> > > *"Non Timebo Mala"*
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+>
+>
+>
+> --
+>
+>
+> *Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+> (910) 644-8940
+>
+> *"Non Timebo Mala"*
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From roberto at digitalbrands.com  Fri Jun 20 16:52:49 2014
+From: roberto at digitalbrands.com (Roberto Sanchez)
+Date: Fri, 20 Jun 2014 12:52:49 -0400
+Subject: [wp-hackers] Page slug for page template
+Message-ID: <CAKHCZSVJGmKuzkuCPsLDaTs_3JbnGnSzP8j4=NfNGKY8Uj7wCA@mail.gmail.com>
+
+Hi all,
+
+Thank you for your suggestions. I decided to follow Nikola's advice
+and just use a custom post type instead. It was the easiest option
+that worked for me.
+
+Thanks again!
+
+From yok2504 at gmail.com  Sat Jun 21 14:44:07 2014
+From: yok2504 at gmail.com (Sinan)
+Date: Sat, 21 Jun 2014 17:44:07 +0300
+Subject: [wp-hackers] How can I hook search head
+Message-ID: <CABmkrsHxP=c3yV+eLp=VjANdU6avUj9C2hOLxv-EaDFVcSRyZg@mail.gmail.com>
+
+Hello,
+
+How can I hook someting on search head. I need to make csutom meta desc and
+meta keywords for searchs.
+
+This is like ultimate seo for wordpress :)
+
+Bu I dont know how to do. Any suggestions ?
+
+-- 
+Sinan ??LER
+sinanisler.com <http://www.sinanisler.com/>
+
+From halukkaramete at gmail.com  Tue Jun 24 13:42:44 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 24 Jun 2014 06:42:44 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+Message-ID: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+
+Is there a harm to change the options table so that the field names for the
+transients  can have varchar 128 as opposed to varchar 64  and  if that's
+okay, what's the best way to do this?
+
+In other words, what would be  the best or the earliest hook for this kind
+of s change? Or should this be done at wp-config?
+
+From jdg at codesymphony.co  Tue Jun 24 14:06:02 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Tue, 24 Jun 2014 10:06:02 -0400
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+Message-ID: <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+
+This is something that you need to change in the database table?s schema directly. So you need to run a single ALTER TABLE query. You don?t want to be running this every page load. If this is part of a plugin, you should do it on activation.
+
+Also, see https://core.trac.wordpress.org/ticket/13310
+
+-J.D.
+
+On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> Is there a harm to change the options table so that the field names for the
+> transients  can have varchar 128 as opposed to varchar 64  and  if that's
+> okay, what's the best way to do this?
+> 
+> In other words, what would be  the best or the earliest hook for this kind
+> of s change? Or should this be done at wp-config?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From halukkaramete at gmail.com  Tue Jun 24 17:23:52 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 24 Jun 2014 10:23:52 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+Message-ID: <CAHERW=06u6qSM2x5V7mDErUT-OM5A6uLZ1FqoR62CbCnvRWnKQ@mail.gmail.com>
+
+It makes total sense to me to do this on plug-in activation, as opposed to
+wp-config.
+Thank you for your advise.
+
+
+On Tue, Jun 24, 2014 at 7:06 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+
+> This is something that you need to change in the database table?s schema
+> directly. So you need to run a single ALTER TABLE query. You don?t want to
+> be running this every page load. If this is part of a plugin, you should do
+> it on activation.
+>
+> Also, see https://core.trac.wordpress.org/ticket/13310
+>
+> -J.D.
+>
+> On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Is there a harm to change the options table so that the field names for
+> the
+> > transients  can have varchar 128 as opposed to varchar 64  and  if that's
+> > okay, what's the best way to do this?
+> >
+> > In other words, what would be  the best or the earliest hook for this
+> kind
+> > of s change? Or should this be done at wp-config?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue Jun 24 17:27:27 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 24 Jun 2014 10:27:27 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=06u6qSM2x5V7mDErUT-OM5A6uLZ1FqoR62CbCnvRWnKQ@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+ <CAHERW=06u6qSM2x5V7mDErUT-OM5A6uLZ1FqoR62CbCnvRWnKQ@mail.gmail.com>
+Message-ID: <CAHERW=0AvJ7feK1_4cz9HPoEu3KcZBThfpokjmHmTah9ku9kqw@mail.gmail.com>
+
+On the trac page (https://core.trac.wordpress.org/ticket/13310) , it is
+said that "This schema change would have a significant impact on large WP
+networks."
+
+Could someone eloborate on this as to why the problem occurs on 'large WP
+networks' as opposed to 'large WP sites'? So it's problematic on
+multi-sites only?
+
+
+
+
+On Tue, Jun 24, 2014 at 10:23 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> It makes total sense to me to do this on plug-in activation, as opposed to
+> wp-config.
+> Thank you for your advise.
+>
+>
+> On Tue, Jun 24, 2014 at 7:06 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+>
+>> This is something that you need to change in the database table?s schema
+>> directly. So you need to run a single ALTER TABLE query. You don?t want to
+>> be running this every page load. If this is part of a plugin, you should do
+>> it on activation.
+>>
+>> Also, see https://core.trac.wordpress.org/ticket/13310
+>>
+>> -J.D.
+>>
+>> On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+>> wrote:
+>>
+>> > Is there a harm to change the options table so that the field names for
+>> the
+>> > transients  can have varchar 128 as opposed to varchar 64  and  if
+>> that's
+>> > okay, what's the best way to do this?
+>> >
+>> > In other words, what would be  the best or the earliest hook for this
+>> kind
+>> > of s change? Or should this be done at wp-config?
+>> > _______________________________________________
+>> > wp-hackers mailing list
+>> > wp-hackers at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>
+>
+
+From wp at andrewnacin.com  Tue Jun 24 17:35:22 2014
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Tue, 24 Jun 2014 13:35:22 -0400
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=0AvJ7feK1_4cz9HPoEu3KcZBThfpokjmHmTah9ku9kqw@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+ <CAHERW=06u6qSM2x5V7mDErUT-OM5A6uLZ1FqoR62CbCnvRWnKQ@mail.gmail.com>
+ <CAHERW=0AvJ7feK1_4cz9HPoEu3KcZBThfpokjmHmTah9ku9kqw@mail.gmail.com>
+Message-ID: <CAP29PvgdA3=hqE4nTQkAxEnG=NK+_SnHFPkjCU4EpPgqWA0H4w@mail.gmail.com>
+
+Large networks have a lot of options tables. For a sufficiently large table
+(which might depend also on the storage engine), things could lock up or go
+awry. Rather than just doing it once, we're doing it n times, where n is
+the number of sites. More chances for things to go wrong.
+
+My take is this:
+If you are in a position to be able to run an ALTER TABLE query, you are
+also probably hosting your own thing, which means you should stop storing
+transients in the database. Instead, install an object cache. Transients in
+the database are a last-resort kind of thing. If you're doing heavy stuff
+with transients, look for alternatives.
+
+Also, if your transient names are too long, use a prefix plus a hash of the
+name. It'll make it constant-length.
+
+Nacin
+
+
+On Tue, Jun 24, 2014 at 1:27 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> On the trac page (https://core.trac.wordpress.org/ticket/13310) , it is
+> said that "This schema change would have a significant impact on large WP
+> networks."
+>
+> Could someone eloborate on this as to why the problem occurs on 'large WP
+> networks' as opposed to 'large WP sites'? So it's problematic on
+> multi-sites only?
+>
+>
+>
+>
+> On Tue, Jun 24, 2014 at 10:23 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > It makes total sense to me to do this on plug-in activation, as opposed
+> to
+> > wp-config.
+> > Thank you for your advise.
+> >
+> >
+> > On Tue, Jun 24, 2014 at 7:06 AM, J.D. Grimes <jdg at codesymphony.co>
+> wrote:
+> >
+> >> This is something that you need to change in the database table?s schema
+> >> directly. So you need to run a single ALTER TABLE query. You don?t want
+> to
+> >> be running this every page load. If this is part of a plugin, you
+> should do
+> >> it on activation.
+> >>
+> >> Also, see https://core.trac.wordpress.org/ticket/13310
+> >>
+> >> -J.D.
+> >>
+> >> On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> >> wrote:
+> >>
+> >> > Is there a harm to change the options table so that the field names
+> for
+> >> the
+> >> > transients  can have varchar 128 as opposed to varchar 64  and  if
+> >> that's
+> >> > okay, what's the best way to do this?
+> >> >
+> >> > In other words, what would be  the best or the earliest hook for this
+> >> kind
+> >> > of s change? Or should this be done at wp-config?
+> >> > _______________________________________________
+> >> > wp-hackers mailing list
+> >> > wp-hackers at lists.automattic.com
+> >> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >>
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >>
+> >
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From morgan.tocker at oracle.com  Tue Jun 24 18:01:26 2014
+From: morgan.tocker at oracle.com (Morgan Tocker)
+Date: Tue, 24 Jun 2014 11:01:26 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+Message-ID: <CCF324CB-3B00-4C2F-B02B-72D1B2FAD4FF@oracle.com>
+
+Hi!
+
+On Jun 24, 2014, at 6:42 AM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> Is there a harm to change the options table so that the field names for the
+> transients  can have varchar 128 as opposed to varchar 64  and  if that's
+> okay, what's the best way to do this?
+
+It will lock up the table to extend the VARCHAR, while in the background it fills a temporary table to replace the existing table.
+
+I loaded the wp_options table with 104994 dummy records to test how long this would take.  On my local machine:
+
+ * 1.71 sec using InnoDB
+* ~2.84 sec when using MyISAM.
+
+Gist available for anyone wanting to try and reproduce:
+https://gist.github.com/morgo/4f23b48fd3df09fb47f6
+
+In MySQL 5.7 this will be online for InnoDB tables:
+http://dev.mysql.com/worklog/task/?id=6554
+
+- Morgan
+
+-- 
+Morgan Tocker
+MySQL Community Manager
+Oracle Canada - Hardware and Software, Engineered to Work Together.
+Office: Toronto, Canada
+
+From halukkaramete at gmail.com  Tue Jun 24 18:21:55 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 24 Jun 2014 11:21:55 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CCF324CB-3B00-4C2F-B02B-72D1B2FAD4FF@oracle.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <CCF324CB-3B00-4C2F-B02B-72D1B2FAD4FF@oracle.com>
+Message-ID: <CAHERW=0L7qhXkcSU-6yiMg6wW+a5e_F=et87eZBG-s9dLiu21A@mail.gmail.com>
+
+THank you Morgan.
+
+So, assuming if it's a 100 site, multi-site network where each site has as
+many options as you described, this one time pain of schema change will
+come at the expense of a 2.87*100 sec?
+
+Is this understanding correct in a nut-shell?
+
+
+
+
+On Tue, Jun 24, 2014 at 11:01 AM, Morgan Tocker <morgan.tocker at oracle.com>
+wrote:
+
+> Hi!
+>
+> On Jun 24, 2014, at 6:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Is there a harm to change the options table so that the field names for
+> the
+> > transients  can have varchar 128 as opposed to varchar 64  and  if that's
+> > okay, what's the best way to do this?
+>
+> It will lock up the table to extend the VARCHAR, while in the background
+> it fills a temporary table to replace the existing table.
+>
+> I loaded the wp_options table with 104994 dummy records to test how long
+> this would take.  On my local machine:
+>
+>  * 1.71 sec using InnoDB
+> * ~2.84 sec when using MyISAM.
+>
+> Gist available for anyone wanting to try and reproduce:
+> https://gist.github.com/morgo/4f23b48fd3df09fb47f6
+>
+> In MySQL 5.7 this will be online for InnoDB tables:
+> http://dev.mysql.com/worklog/task/?id=6554
+>
+> - Morgan
+>
+> --
+> Morgan Tocker
+> MySQL Community Manager
+> Oracle Canada - Hardware and Software, Engineered to Work Together.
+> Office: Toronto, Canada
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From morgan.tocker at oracle.com  Tue Jun 24 18:37:14 2014
+From: morgan.tocker at oracle.com (Morgan Tocker)
+Date: Tue, 24 Jun 2014 11:37:14 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=0L7qhXkcSU-6yiMg6wW+a5e_F=et87eZBG-s9dLiu21A@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <CCF324CB-3B00-4C2F-B02B-72D1B2FAD4FF@oracle.com>
+ <CAHERW=0L7qhXkcSU-6yiMg6wW+a5e_F=et87eZBG-s9dLiu21A@mail.gmail.com>
+Message-ID: <2A1F6509-56E4-473F-8FCA-900B9F3E5D6B@oracle.com>
+
+Hi Haluk,
+
+> So, assuming if it's a 100 site, multi-site network where each site has as
+> many options as you described, this one time pain of schema change will
+> come at the expense of a 2.87*100 sec?
+
+On my blog, I only have 163 rows in wp_options, but in my test I generated 104994 rows of dummy data.
+
+(Others will have more than 163 rows - I am probably a simple use case.)
+
+> Is this understanding correct in a nut-shell?
+
+I tried to create the test so any skew showed closer to the worst-case than the best case.  This is not always easy to do, and I can already identify two cases where this will not be true:
+
+- My local machine is more powerful than virtual machines / VPS hosting environments.
+- There might be some very long option_value texts creating a larger table.  I used REPEAT('a', 200), but should have probably gone for REPEAT(?a?, 1889), as this is the average option_value length in my installation.
+
+TL;DR: I think it will be less than 2.87*100.  You can try it for yourself though:
+https://gist.github.com/morgo/4f23b48fd3df09fb47f6
+
+- Morgan
+
+From halukkaramete at gmail.com  Tue Jun 24 19:47:13 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 24 Jun 2014 12:47:13 -0700
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+Message-ID: <CAHERW=2HEXGqrSusR_p+5z1cOaYTeFN6qo0_Db2L13NmT7+TmA@mail.gmail.com>
+
+Now giving it a second thought, and considering what Morgan has brought
+into the picture on this very quesition, doing this at a plug-in activation
+time does not sound to me as good of an idea as it did an hour ago.  :)
+
+If it's gonna take that much of time, then every time WP updates, ( and as
+part of this update, all plugins are automatically deactivated and then
+re-activated ) a nd as a result of this, some users will experience such
+slowness, and my plug in would be the one causing that, it's hard for me to
+take that route... See what I mean?
+
+I think if that code were to be planted in the wp-config.php file instead,
+then that would have been better.
+
+At wp-config, and every time it runs ( meaning at each page load), a
+constant can be probed to see if it is defined or not.
+
+If that constant is defined, I can drive the fact that the  option names
+has already been upped to varchar(128).
+
+What say you?
+
+
+On Tue, Jun 24, 2014 at 7:06 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+
+> This is something that you need to change in the database table?s schema
+> directly. So you need to run a single ALTER TABLE query. You don?t want to
+> be running this every page load. If this is part of a plugin, you should do
+> it on activation.
+>
+> Also, see https://core.trac.wordpress.org/ticket/13310
+>
+> -J.D.
+>
+> On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Is there a harm to change the options table so that the field names for
+> the
+> > transients  can have varchar 128 as opposed to varchar 64  and  if that's
+> > okay, what's the best way to do this?
+> >
+> > In other words, what would be  the best or the earliest hook for this
+> kind
+> > of s change? Or should this be done at wp-config?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From wp at andrewnacin.com  Tue Jun 24 19:52:28 2014
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Tue, 24 Jun 2014 15:52:28 -0400
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=2HEXGqrSusR_p+5z1cOaYTeFN6qo0_Db2L13NmT7+TmA@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+ <CAHERW=2HEXGqrSusR_p+5z1cOaYTeFN6qo0_Db2L13NmT7+TmA@mail.gmail.com>
+Message-ID: <CAP29Pvin7J_+Z6f_aor0TyBLSWzjngosq1K0fUsnfQxephGSXQ@mail.gmail.com>
+
+I don't understand why you require anything more than 64 characters. It
+would be *nice to have*, but it's not a requirement.
+
+Stick to the existing limits and wait to see if core makes an adjustment in
+https://core.trac.wordpress.org/ticket/13310.
+
+
+On Tue, Jun 24, 2014 at 3:47 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Now giving it a second thought, and considering what Morgan has brought
+> into the picture on this very quesition, doing this at a plug-in activation
+> time does not sound to me as good of an idea as it did an hour ago.  :)
+>
+> If it's gonna take that much of time, then every time WP updates, ( and as
+> part of this update, all plugins are automatically deactivated and then
+> re-activated ) a nd as a result of this, some users will experience such
+> slowness, and my plug in would be the one causing that, it's hard for me to
+> take that route... See what I mean?
+>
+> I think if that code were to be planted in the wp-config.php file instead,
+> then that would have been better.
+>
+> At wp-config, and every time it runs ( meaning at each page load), a
+> constant can be probed to see if it is defined or not.
+>
+> If that constant is defined, I can drive the fact that the  option names
+> has already been upped to varchar(128).
+>
+> What say you?
+>
+>
+> On Tue, Jun 24, 2014 at 7:06 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+>
+> > This is something that you need to change in the database table?s schema
+> > directly. So you need to run a single ALTER TABLE query. You don?t want
+> to
+> > be running this every page load. If this is part of a plugin, you should
+> do
+> > it on activation.
+> >
+> > Also, see https://core.trac.wordpress.org/ticket/13310
+> >
+> > -J.D.
+> >
+> > On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> > wrote:
+> >
+> > > Is there a harm to change the options table so that the field names for
+> > the
+> > > transients  can have varchar 128 as opposed to varchar 64  and  if
+> that's
+> > > okay, what's the best way to do this?
+> > >
+> > > In other words, what would be  the best or the earliest hook for this
+> > kind
+> > > of s change? Or should this be done at wp-config?
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Tue Jun 24 20:06:57 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 24 Jun 2014 23:06:57 +0300
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAP29Pvin7J_+Z6f_aor0TyBLSWzjngosq1K0fUsnfQxephGSXQ@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+ <CAHERW=2HEXGqrSusR_p+5z1cOaYTeFN6qo0_Db2L13NmT7+TmA@mail.gmail.com>
+ <CAP29Pvin7J_+Z6f_aor0TyBLSWzjngosq1K0fUsnfQxephGSXQ@mail.gmail.com>
+Message-ID: <CAOwx47c3wEEBEdDTANd6Sj_XAkNuBNwMXwc2JW7t8+Ri1LTNTw@mail.gmail.com>
+
+What I've used before(and now I see is not the best) is to simply do
+
+$key = md5( "my_{$complicated}_{$multi}_component_{$key}" );
+
+Instead a better approach is
+
+// Should not be longer than 13 characters, since md5() returns 32
+characters => 32+13 = 45, which is the limit
+$prefix = 'my_';
+$key = $prefix . md5( "{$complicated}_{$multi}_component_{$key}" );
+
+This way you can
+
+DELETE FROM $wpdb->options WHERE option_name LIKE '$prefix%';
+
+Which is good to do when your plugin is deactivated.
+
+
+On Tue, Jun 24, 2014 at 10:52 PM, Andrew Nacin <wp at andrewnacin.com> wrote:
+
+> I don't understand why you require anything more than 64 characters. It
+> would be *nice to have*, but it's not a requirement.
+>
+> Stick to the existing limits and wait to see if core makes an adjustment in
+> https://core.trac.wordpress.org/ticket/13310.
+>
+>
+> On Tue, Jun 24, 2014 at 3:47 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > Now giving it a second thought, and considering what Morgan has brought
+> > into the picture on this very quesition, doing this at a plug-in
+> activation
+> > time does not sound to me as good of an idea as it did an hour ago.  :)
+> >
+> > If it's gonna take that much of time, then every time WP updates, ( and
+> as
+> > part of this update, all plugins are automatically deactivated and then
+> > re-activated ) a nd as a result of this, some users will experience such
+> > slowness, and my plug in would be the one causing that, it's hard for me
+> to
+> > take that route... See what I mean?
+> >
+> > I think if that code were to be planted in the wp-config.php file
+> instead,
+> > then that would have been better.
+> >
+> > At wp-config, and every time it runs ( meaning at each page load), a
+> > constant can be probed to see if it is defined or not.
+> >
+> > If that constant is defined, I can drive the fact that the  option names
+> > has already been upped to varchar(128).
+> >
+> > What say you?
+> >
+> >
+> > On Tue, Jun 24, 2014 at 7:06 AM, J.D. Grimes <jdg at codesymphony.co>
+> wrote:
+> >
+> > > This is something that you need to change in the database table?s
+> schema
+> > > directly. So you need to run a single ALTER TABLE query. You don?t want
+> > to
+> > > be running this every page load. If this is part of a plugin, you
+> should
+> > do
+> > > it on activation.
+> > >
+> > > Also, see https://core.trac.wordpress.org/ticket/13310
+> > >
+> > > -J.D.
+> > >
+> > > On Jun 24, 2014, at 9:42 AM, Haluk Karamete <halukkaramete at gmail.com>
+> > > wrote:
+> > >
+> > > > Is there a harm to change the options table so that the field names
+> for
+> > > the
+> > > > transients  can have varchar 128 as opposed to varchar 64  and  if
+> > that's
+> > > > okay, what's the best way to do this?
+> > > >
+> > > > In other words, what would be  the best or the earliest hook for this
+> > > kind
+> > > > of s change? Or should this be done at wp-config?
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jdg at codesymphony.co  Tue Jun 24 20:16:32 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Tue, 24 Jun 2014 16:16:32 -0400
+Subject: [wp-hackers] Options table' varchar 64.
+In-Reply-To: <CAHERW=2HEXGqrSusR_p+5z1cOaYTeFN6qo0_Db2L13NmT7+TmA@mail.gmail.com>
+References: <CAHERW=3Sfg7Nvfov_-+537sHSwK0arBbx-ZfjW3wNN6=u8Phqw@mail.gmail.com>
+ <F7A28A3B-09A2-499F-9306-22F40BDE5773@codesymphony.co>
+ <CAHERW=2HEXGqrSusR_p+5z1cOaYTeFN6qo0_Db2L13NmT7+TmA@mail.gmail.com>
+Message-ID: <949FD7AC-814D-46C0-8357-DBFAC9286E83@codesymphony.co>
+
+Nacin and Nikola are right.
+
+But I?d also like to add that I think you have a misconception about the plugin activation when WordPress is updated. I don?t think the activation hooks actually get fired, it is just a silent de/activation (someone correct me if I?m wrong). You are correct though, that you wouldn?t want to run this every time. You would ideally check the length of the column, and only change it if it wasn?t at the desired length already. Or, you could set an option in the database after the first time, and only run the update if it did not exist (this is how many plugins keep track of their database version).
+
+Of course, you really shouldn?t try to do this anyway. :0)
+
+-J.D.
+
+On Jun 24, 2014, at 3:47 PM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> Now giving it a second thought, and considering what Morgan has brought
+> into the picture on this very quesition, doing this at a plug-in activation
+> time does not sound to me as good of an idea as it did an hour ago.  :)
+> 
+> If it's gonna take that much of time, then every time WP updates, ( and as
+> part of this update, all plugins are automatically deactivated and then
+> re-activated ) a nd as a result of this, some users will experience such
+> slowness, and my plug in would be the one causing that, it's hard for me to
+> take that route... See what I mean?
+> 
+> I think if that code were to be planted in the wp-config.php file instead,
+> then that would have been better.
+> 
+> At wp-config, and every time it runs ( meaning at each page load), a
+> constant can be probed to see if it is defined or not.
+> 
+> If that constant is defined, I can drive the fact that the  option names
+> has already been upped to varchar(128).
+> 
+> What say you?
+> 
+
+From harry at dxw.com  Wed Jun 25 11:59:57 2014
+From: harry at dxw.com (Harry Metcalfe)
+Date: Wed, 25 Jun 2014 12:59:57 +0100
+Subject: [wp-hackers] New aribtrary code vulnerability in TimThumb (not
+ quite as bad as last time)
+Message-ID: <53AAB9BD.9090004@dxw.com>
+
+Just a heads-up. If you're using Webshots, you're vulnerable. No new 
+version yet.
+
+Here's the report: http://seclists.org/fulldisclosure/2014/Jun/117
+
+And my writeup with instructions for fix: 
+http://www.dxw.com/2014/06/timthumb-raises-its-ugly-head-once-again/
+
+Harry
+
+-- 
+Harry Metcalfe
+07790 559 876
+@harrym
+
+
+From halukkaramete at gmail.com  Thu Jun 26 18:21:26 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 26 Jun 2014 11:21:26 -0700
+Subject: [wp-hackers] getting the expiration value of a transient when
+	OBJECT_CACHE is involved
+Message-ID: <CAHERW=2-C++9Y+DeSSoQ1Fe-8MotaRPDfKNfKAKwdjiFyn8KeQ@mail.gmail.com>
+
+In the code segment that I pasted below ( which is straight from the core -
+> option.php  ), I 'm trying to understand how I can pull the expire_time (
+the unix time stamp ) for the transient I'm after.
+
+When there is no object_cache is involved, that's a piece of ccake as
+*get_option(
+$transient_timeout )* just gets me that.
+
+<begin_snippet>
+
+    if ( wp_using_ext_object_cache() ) {
+        $value = wp_cache_get( $transient, 'transient' );
+    } else {
+        $transient_option = '_transient_' . $transient;
+        if ( ! defined( 'WP_INSTALLING' ) ) {
+            // If option is not in alloptions, it is not autoloaded and
+thus has a timeout
+            $alloptions = wp_load_alloptions();
+            if ( !isset( $alloptions[$transient_option] ) ) {
+                $transient_timeout = '_transient_timeout_' . $transient;
+                if ( get_option( $transient_timeout ) < time() ) {
+                    delete_option( $transient_option  );
+                    delete_option( $transient_timeout );
+                    $value = false;
+                }
+            }
+        }
+
+        if ( ! isset( $value ) )
+            $value = get_option( $transient_option );
+    }
+
+
+<end_snippet>
+
+But on an object cache situation, such as total_cache, that's been a uphill
+battle for me.
+
+All I got there for inspiration is this;
+
+$value = wp_cache_get( $transient, 'transient' );
+
+When I traced that function ( wp_cache_get() ) down to its roots,  I end up
+with the following which did not produce any fruits neither.
+
+    /**
+     * Retrieves the cache contents from the cache by key and group.
+     *
+     * @since 2.0.0
+     * @uses $wp_object_cache Object Cache Class
+     * @see WP_Object_Cache::get()
+     *
+     * @param int|string $key What the contents in the cache are called
+     * @param string $group Where the cache contents are grouped
+     * @param bool $force Whether to force an update of the local cache
+from the persistent cache (default is false)
+     * @param &bool $found Whether key was found in the cache.
+Disambiguates a return of false, a storable value.
+     * @return bool|mixed False on failure to retrieve contents or the cache
+     *        contents on success
+     */
+    function wp_cache_get( $key, $group = '', $force = false, &$found =
+null ) {
+        global $wp_object_cache;
+
+        return $wp_object_cache->get( $key, $group, $force, $found );
+    }
+
+
+As you see, there is no talk on $expire there neither.
+
+Then the ball is sent to $wp_object_cache->get court...  and I got lost in
+there.
+
+Could someone shed some light where to go to get that timestamp?
+
+My goal is to be able to report back to me when the current transient will
+expire for the current page.
+
+On my local host, I display this at the bottom of the page without sweat:
+
+    This page's transient will expire in 0 day(s) 0 hour(s) 0 min(s) 30
+sec(s)
+
+
+But for the development server, I got nada. :(
+
+From nikolov.tmw at gmail.com  Thu Jun 26 19:27:02 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 26 Jun 2014 22:27:02 +0300
+Subject: [wp-hackers] getting the expiration value of a transient when
+ OBJECT_CACHE is involved
+In-Reply-To: <CAHERW=2-C++9Y+DeSSoQ1Fe-8MotaRPDfKNfKAKwdjiFyn8KeQ@mail.gmail.com>
+References: <CAHERW=2-C++9Y+DeSSoQ1Fe-8MotaRPDfKNfKAKwdjiFyn8KeQ@mail.gmail.com>
+Message-ID: <CAOwx47eZ-01YaXqq_bfwnons26gERvR+JcwPOPqJ8oUMYCmobg@mail.gmail.com>
+
+It's not going to be very easy to do that.
+
+First of all wp_cache_add() can actually be using different storage
+mechanisms, or at least different implementations of the clients. For
+instance the most common object cache as far as I'm aware is the Memcached
+(Memcache Daemon).
+In PHP there are two general classes that act as clients for - Memcache and
+Memcached. Memcache is pretty plain and doesn't really give you a whole lot
+to work with. Memcached I think has more possibilities, but I don't think
+getting the expiration date would be one of the built-in ones.
+
+But then there could be a caching plugin that uses a different back-end to
+store objects in memory, so unless you cover all of the possibilities, then
+it's not really possible to do what you're looking to do.
+
+Is it really necessary to know when a transient will expire? You might have
+to look for a way to avoid going that way :)
+
+
+On Thu, Jun 26, 2014 at 9:21 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> In the code segment that I pasted below ( which is straight from the core -
+> > option.php  ), I 'm trying to understand how I can pull the expire_time (
+> the unix time stamp ) for the transient I'm after.
+>
+> When there is no object_cache is involved, that's a piece of ccake as
+> *get_option(
+> $transient_timeout )* just gets me that.
+>
+> <begin_snippet>
+>
+>     if ( wp_using_ext_object_cache() ) {
+>         $value = wp_cache_get( $transient, 'transient' );
+>     } else {
+>         $transient_option = '_transient_' . $transient;
+>         if ( ! defined( 'WP_INSTALLING' ) ) {
+>             // If option is not in alloptions, it is not autoloaded and
+> thus has a timeout
+>             $alloptions = wp_load_alloptions();
+>             if ( !isset( $alloptions[$transient_option] ) ) {
+>                 $transient_timeout = '_transient_timeout_' . $transient;
+>                 if ( get_option( $transient_timeout ) < time() ) {
+>                     delete_option( $transient_option  );
+>                     delete_option( $transient_timeout );
+>                     $value = false;
+>                 }
+>             }
+>         }
+>
+>         if ( ! isset( $value ) )
+>             $value = get_option( $transient_option );
+>     }
+>
+>
+> <end_snippet>
+>
+> But on an object cache situation, such as total_cache, that's been a uphill
+> battle for me.
+>
+> All I got there for inspiration is this;
+>
+> $value = wp_cache_get( $transient, 'transient' );
+>
+> When I traced that function ( wp_cache_get() ) down to its roots,  I end up
+> with the following which did not produce any fruits neither.
+>
+>     /**
+>      * Retrieves the cache contents from the cache by key and group.
+>      *
+>      * @since 2.0.0
+>      * @uses $wp_object_cache Object Cache Class
+>      * @see WP_Object_Cache::get()
+>      *
+>      * @param int|string $key What the contents in the cache are called
+>      * @param string $group Where the cache contents are grouped
+>      * @param bool $force Whether to force an update of the local cache
+> from the persistent cache (default is false)
+>      * @param &bool $found Whether key was found in the cache.
+> Disambiguates a return of false, a storable value.
+>      * @return bool|mixed False on failure to retrieve contents or the
+> cache
+>      *        contents on success
+>      */
+>     function wp_cache_get( $key, $group = '', $force = false, &$found =
+> null ) {
+>         global $wp_object_cache;
+>
+>         return $wp_object_cache->get( $key, $group, $force, $found );
+>     }
+>
+>
+> As you see, there is no talk on $expire there neither.
+>
+> Then the ball is sent to $wp_object_cache->get court...  and I got lost in
+> there.
+>
+> Could someone shed some light where to go to get that timestamp?
+>
+> My goal is to be able to report back to me when the current transient will
+> expire for the current page.
+>
+> On my local host, I display this at the bottom of the page without sweat:
+>
+>     This page's transient will expire in 0 day(s) 0 hour(s) 0 min(s) 30
+> sec(s)
+>
+>
+> But for the development server, I got nada. :(
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Thu Jun 26 22:10:38 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 26 Jun 2014 15:10:38 -0700
+Subject: [wp-hackers] getting the expiration value of a transient when
+ OBJECT_CACHE is involved
+In-Reply-To: <CAOwx47eZ-01YaXqq_bfwnons26gERvR+JcwPOPqJ8oUMYCmobg@mail.gmail.com>
+References: <CAHERW=2-C++9Y+DeSSoQ1Fe-8MotaRPDfKNfKAKwdjiFyn8KeQ@mail.gmail.com>
+ <CAOwx47eZ-01YaXqq_bfwnons26gERvR+JcwPOPqJ8oUMYCmobg@mail.gmail.com>
+Message-ID: <CAHERW=0igXsNgaCEKCZSbX5_U=Q53doWuZktBfw_R_BPgkPZOQ@mail.gmail.com>
+
+I had kind of sensed that Nikola that it would not be easy to get that
+information - for the reasons that you eloborately explained. Thank you for
+that.
+
+Since it was way too cool to have that sort of insight displayed at the
+bottom of pages, I had to find another way.
+
+When there is a will, there is a way as they say...
+
+So what I ended up doing was this;
+
+Attach a piece of HTML like:  <!--timestamp:1455454343--> right within the
+HTML I'm saving.
+Since I'm the one who sets the transient, and I'm the one who gets it
+back,  this technique guarantees that the time-stamp wwould be part of the
+meal-deal, and when I retrieve the transient, then it would be a string
+extract to get what I want. :)
+
+Tested and works like a charm - no matter what the internal mechanism is...
+
+before setting:
+    $expire_time = time()+$expire;
+    $transient_data = $transient_data . '<!--blp:expires{' . $expire_time .
+'}-->';
+    $ret_val =    set_transient($id,$transient_data,$expire);
+
+after getting:
+                $when_to_expire = blp_getinbetween
+($transient_data,'<!--blp:expires{','}-->');
+                $transient_data =
+blp_replace($transient_data,'<!--blp:expires{' . $when_to_expire .
+'}-->','');
+
+
+
+
+
+On Thu, Jun 26, 2014 at 12:27 PM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> It's not going to be very easy to do that.
+>
+> First of all wp_cache_add() can actually be using different storage
+> mechanisms, or at least different implementations of the clients. For
+> instance the most common object cache as far as I'm aware is the Memcached
+> (Memcache Daemon).
+> In PHP there are two general classes that act as clients for - Memcache and
+> Memcached. Memcache is pretty plain and doesn't really give you a whole lot
+> to work with. Memcached I think has more possibilities, but I don't think
+> getting the expiration date would be one of the built-in ones.
+>
+> But then there could be a caching plugin that uses a different back-end to
+> store objects in memory, so unless you cover all of the possibilities, then
+> it's not really possible to do what you're looking to do.
+>
+> Is it really necessary to know when a transient will expire? You might have
+> to look for a way to avoid going that way :)
+>
+>
+> On Thu, Jun 26, 2014 at 9:21 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > In the code segment that I pasted below ( which is straight from the
+> core -
+> > > option.php  ), I 'm trying to understand how I can pull the
+> expire_time (
+> > the unix time stamp ) for the transient I'm after.
+> >
+> > When there is no object_cache is involved, that's a piece of ccake as
+> > *get_option(
+> > $transient_timeout )* just gets me that.
+> >
+> > <begin_snippet>
+> >
+> >     if ( wp_using_ext_object_cache() ) {
+> >         $value = wp_cache_get( $transient, 'transient' );
+> >     } else {
+> >         $transient_option = '_transient_' . $transient;
+> >         if ( ! defined( 'WP_INSTALLING' ) ) {
+> >             // If option is not in alloptions, it is not autoloaded and
+> > thus has a timeout
+> >             $alloptions = wp_load_alloptions();
+> >             if ( !isset( $alloptions[$transient_option] ) ) {
+> >                 $transient_timeout = '_transient_timeout_' . $transient;
+> >                 if ( get_option( $transient_timeout ) < time() ) {
+> >                     delete_option( $transient_option  );
+> >                     delete_option( $transient_timeout );
+> >                     $value = false;
+> >                 }
+> >             }
+> >         }
+> >
+> >         if ( ! isset( $value ) )
+> >             $value = get_option( $transient_option );
+> >     }
+> >
+> >
+> > <end_snippet>
+> >
+> > But on an object cache situation, such as total_cache, that's been a
+> uphill
+> > battle for me.
+> >
+> > All I got there for inspiration is this;
+> >
+> > $value = wp_cache_get( $transient, 'transient' );
+> >
+> > When I traced that function ( wp_cache_get() ) down to its roots,  I end
+> up
+> > with the following which did not produce any fruits neither.
+> >
+> >     /**
+> >      * Retrieves the cache contents from the cache by key and group.
+> >      *
+> >      * @since 2.0.0
+> >      * @uses $wp_object_cache Object Cache Class
+> >      * @see WP_Object_Cache::get()
+> >      *
+> >      * @param int|string $key What the contents in the cache are called
+> >      * @param string $group Where the cache contents are grouped
+> >      * @param bool $force Whether to force an update of the local cache
+> > from the persistent cache (default is false)
+> >      * @param &bool $found Whether key was found in the cache.
+> > Disambiguates a return of false, a storable value.
+> >      * @return bool|mixed False on failure to retrieve contents or the
+> > cache
+> >      *        contents on success
+> >      */
+> >     function wp_cache_get( $key, $group = '', $force = false, &$found =
+> > null ) {
+> >         global $wp_object_cache;
+> >
+> >         return $wp_object_cache->get( $key, $group, $force, $found );
+> >     }
+> >
+> >
+> > As you see, there is no talk on $expire there neither.
+> >
+> > Then the ball is sent to $wp_object_cache->get court...  and I got lost
+> in
+> > there.
+> >
+> > Could someone shed some light where to go to get that timestamp?
+> >
+> > My goal is to be able to report back to me when the current transient
+> will
+> > expire for the current page.
+> >
+> > On my local host, I display this at the bottom of the page without sweat:
+> >
+> >     This page's transient will expire in 0 day(s) 0 hour(s) 0 min(s) 30
+> > sec(s)
+> >
+> >
+> > But for the development server, I got nada. :(
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Thu Jun 26 23:22:49 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 27 Jun 2014 02:22:49 +0300
+Subject: [wp-hackers] getting the expiration value of a transient when
+ OBJECT_CACHE is involved
+In-Reply-To: <CAHERW=0igXsNgaCEKCZSbX5_U=Q53doWuZktBfw_R_BPgkPZOQ@mail.gmail.com>
+References: <CAHERW=2-C++9Y+DeSSoQ1Fe-8MotaRPDfKNfKAKwdjiFyn8KeQ@mail.gmail.com>
+ <CAOwx47eZ-01YaXqq_bfwnons26gERvR+JcwPOPqJ8oUMYCmobg@mail.gmail.com>
+ <CAHERW=0igXsNgaCEKCZSbX5_U=Q53doWuZktBfw_R_BPgkPZOQ@mail.gmail.com>
+Message-ID: <CAOwx47cQ8o9c84JE60dMO302YiXFKj69RkzsmOTATTSB_Qwerw@mail.gmail.com>
+
+Nicely done! That's a very elegant solution - I like it :)
+
+
+On Fri, Jun 27, 2014 at 1:10 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> I had kind of sensed that Nikola that it would not be easy to get that
+> information - for the reasons that you eloborately explained. Thank you for
+> that.
+>
+> Since it was way too cool to have that sort of insight displayed at the
+> bottom of pages, I had to find another way.
+>
+> When there is a will, there is a way as they say...
+>
+> So what I ended up doing was this;
+>
+> Attach a piece of HTML like:  <!--timestamp:1455454343--> right within the
+> HTML I'm saving.
+> Since I'm the one who sets the transient, and I'm the one who gets it
+> back,  this technique guarantees that the time-stamp wwould be part of the
+> meal-deal, and when I retrieve the transient, then it would be a string
+> extract to get what I want. :)
+>
+> Tested and works like a charm - no matter what the internal mechanism is...
+>
+> before setting:
+>     $expire_time = time()+$expire;
+>     $transient_data = $transient_data . '<!--blp:expires{' . $expire_time .
+> '}-->';
+>     $ret_val =    set_transient($id,$transient_data,$expire);
+>
+> after getting:
+>                 $when_to_expire = blp_getinbetween
+> ($transient_data,'<!--blp:expires{','}-->');
+>                 $transient_data =
+> blp_replace($transient_data,'<!--blp:expires{' . $when_to_expire .
+> '}-->','');
+>
+>
+>
+>
+>
+> On Thu, Jun 26, 2014 at 12:27 PM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > It's not going to be very easy to do that.
+> >
+> > First of all wp_cache_add() can actually be using different storage
+> > mechanisms, or at least different implementations of the clients. For
+> > instance the most common object cache as far as I'm aware is the
+> Memcached
+> > (Memcache Daemon).
+> > In PHP there are two general classes that act as clients for - Memcache
+> and
+> > Memcached. Memcache is pretty plain and doesn't really give you a whole
+> lot
+> > to work with. Memcached I think has more possibilities, but I don't think
+> > getting the expiration date would be one of the built-in ones.
+> >
+> > But then there could be a caching plugin that uses a different back-end
+> to
+> > store objects in memory, so unless you cover all of the possibilities,
+> then
+> > it's not really possible to do what you're looking to do.
+> >
+> > Is it really necessary to know when a transient will expire? You might
+> have
+> > to look for a way to avoid going that way :)
+> >
+> >
+> > On Thu, Jun 26, 2014 at 9:21 PM, Haluk Karamete <halukkaramete at gmail.com
+> >
+> > wrote:
+> >
+> > > In the code segment that I pasted below ( which is straight from the
+> > core -
+> > > > option.php  ), I 'm trying to understand how I can pull the
+> > expire_time (
+> > > the unix time stamp ) for the transient I'm after.
+> > >
+> > > When there is no object_cache is involved, that's a piece of ccake as
+> > > *get_option(
+> > > $transient_timeout )* just gets me that.
+> > >
+> > > <begin_snippet>
+> > >
+> > >     if ( wp_using_ext_object_cache() ) {
+> > >         $value = wp_cache_get( $transient, 'transient' );
+> > >     } else {
+> > >         $transient_option = '_transient_' . $transient;
+> > >         if ( ! defined( 'WP_INSTALLING' ) ) {
+> > >             // If option is not in alloptions, it is not autoloaded and
+> > > thus has a timeout
+> > >             $alloptions = wp_load_alloptions();
+> > >             if ( !isset( $alloptions[$transient_option] ) ) {
+> > >                 $transient_timeout = '_transient_timeout_' .
+> $transient;
+> > >                 if ( get_option( $transient_timeout ) < time() ) {
+> > >                     delete_option( $transient_option  );
+> > >                     delete_option( $transient_timeout );
+> > >                     $value = false;
+> > >                 }
+> > >             }
+> > >         }
+> > >
+> > >         if ( ! isset( $value ) )
+> > >             $value = get_option( $transient_option );
+> > >     }
+> > >
+> > >
+> > > <end_snippet>
+> > >
+> > > But on an object cache situation, such as total_cache, that's been a
+> > uphill
+> > > battle for me.
+> > >
+> > > All I got there for inspiration is this;
+> > >
+> > > $value = wp_cache_get( $transient, 'transient' );
+> > >
+> > > When I traced that function ( wp_cache_get() ) down to its roots,  I
+> end
+> > up
+> > > with the following which did not produce any fruits neither.
+> > >
+> > >     /**
+> > >      * Retrieves the cache contents from the cache by key and group.
+> > >      *
+> > >      * @since 2.0.0
+> > >      * @uses $wp_object_cache Object Cache Class
+> > >      * @see WP_Object_Cache::get()
+> > >      *
+> > >      * @param int|string $key What the contents in the cache are called
+> > >      * @param string $group Where the cache contents are grouped
+> > >      * @param bool $force Whether to force an update of the local cache
+> > > from the persistent cache (default is false)
+> > >      * @param &bool $found Whether key was found in the cache.
+> > > Disambiguates a return of false, a storable value.
+> > >      * @return bool|mixed False on failure to retrieve contents or the
+> > > cache
+> > >      *        contents on success
+> > >      */
+> > >     function wp_cache_get( $key, $group = '', $force = false, &$found =
+> > > null ) {
+> > >         global $wp_object_cache;
+> > >
+> > >         return $wp_object_cache->get( $key, $group, $force, $found );
+> > >     }
+> > >
+> > >
+> > > As you see, there is no talk on $expire there neither.
+> > >
+> > > Then the ball is sent to $wp_object_cache->get court...  and I got lost
+> > in
+> > > there.
+> > >
+> > > Could someone shed some light where to go to get that timestamp?
+> > >
+> > > My goal is to be able to report back to me when the current transient
+> > will
+> > > expire for the current page.
+> > >
+> > > On my local host, I display this at the bottom of the page without
+> sweat:
+> > >
+> > >     This page's transient will expire in 0 day(s) 0 hour(s) 0 min(s) 30
+> > > sec(s)
+> > >
+> > >
+> > > But for the development server, I got nada. :(
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jayarjo at gmail.com  Fri Jun 27 06:43:36 2014
+From: jayarjo at gmail.com (Davit Barbakadze)
+Date: Fri, 27 Jun 2014 10:43:36 +0400
+Subject: [wp-hackers] Is there any reason why theme editor can edit files
+ only one level deep?
+Message-ID: <CAM0WtjcrGUJr0vj6u3RWdfE9NT31w9Ssnetoh6FJp7w+a_2SFg@mail.gmail.com>
+
+Hi,
+
+Is there any reason why theme editor can edit files only one level deep?
+
+Davit Barbakadze
+
+From eric.andrew.lewis at gmail.com  Sat Jun 28 13:33:41 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Sat, 28 Jun 2014 09:33:41 -0400
+Subject: [wp-hackers] Advanced Javascript development in core
+Message-ID: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+
+I've been working on the media grid feature for 4.0, and would like to talk
+about Javascript in WordPress.
+
+Our recent Javascript developments have been undoubtedly great for users.
+The Media modal is the strongest UI change we've made in recent years (not
+counting MP6 which was really a fresh coat of paint). However, becoming a
+core javascript developer has a steep learning curve, and working with any
+of the media code has confounded most WordPress developers.
+
+There's reason to this - you can create top-notch themes and plugins with a
+wheelhouse of PHP/CSS/HTML, without diving deep into modern Javascript
+practices.
+
+Even if that is the case, we should make a better developer experience in
+our Javascript stack, and transition WP developers into an era of
+Javascript development smoothly.
+
+The biggest changes we should make are discussing architectural decisions
+and documentation.
+
+*Architectural decisions*
+
+How we structure our MV* objects is terribly important. In media and theme
+experience, we combine top-level controllers with the top-level views.
+Should we be doing this? I don't particularly think so. We should nail down
+general module structure, so that when you switch from one module to
+another there's familiar architecture. Essentially, we need a City Planning
+department for our Javascript.
+
+We need to recognize that we're still just out of the starting gate with
+our Javascript modules. Could you imagine if you had the opportunity to
+discuss the creation of WP_Query in 2005? That's where we are.
+
+*Documentation*
+
+Without documentation it's just interpretive dance. We probably shouldn't
+accept code to core that doesn't have enough documentation - although that
+begs the question "what is enough?"
+
+I made an interactive documentation plugin for Media
+<https://github.com/ericandrewlewis/wp-media-javascript-guide>, with live
+examples in the browser right next to the boilerplate code. Maybe we should
+consider more documentation that sits inside of WordPress, rather than
+abstracting it out.
+
+*Application Framework*
+
+We currently use Backbone.js as an MV* utility library, and build
+abstractions on top of it. There are a slew of application frameworks on
+the JS scene, including Marionette.js which builds on top of Backbone. Do
+you think we should adopt one? We are reinventing the wheel in a lot of
+ways. We roll our own region management, custom events bussing, and
+handling subviews - all out of the box in any app framework. We can
+eliminate boilerplate by using composite/collection views, and provide for
+more reusable subcomponents with something like behaviors
+<http://marionettejs.com/docs/marionette.behavior.html>.
+
+
+Eric Andrew Lewis
+ericandrewlewis.com
+610.715.8560
+
+From kadamwhite at gmail.com  Sat Jun 28 13:56:31 2014
+From: kadamwhite at gmail.com (K.Adam White)
+Date: Sat, 28 Jun 2014 09:56:31 -0400
+Subject: [wp-hackers] Advanced Javascript development in core
+In-Reply-To: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+References: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+Message-ID: <CACYBCrr43P8CGB6rSN=W_d3pk9tVsi9NmG+rKM7=TRGp-68JtA@mail.gmail.com>
+
+This is *awesome*, thank you for broaching the topic.
+
+I'm very excited to check out the documentation plugin; I'm pretty familiar
+with JavaScript, but WordPress is already a large JS codebase and I still
+find it hard to make sense of how we do things. This looks like a very
+smart and community-oriented way to begin opening up that black box to more
+contributors. To paraphrase Siobhan McKeown, the more types of
+documentation we have for the JS, the better! API docs and reading through
+code barely work even for me, so I'd definitely support more plugin-style
+documentation. We've also talked in the past about having more
+usage-oriented JavaScript information in the handbook?whether or not that's
+the right place for it, if we could put together some common use-cases for
+the core JS code we can illustrate how those problems would be tackled.
+
+The question of application framework is an interesting one. I'm lucky to
+work with both the creator of LayoutManager
+<https://github.com/tbranyen/backbone.layoutmanager> and one of the
+Marionette team members, and will ask them for some feedback on this.
+
+This may be premature, but a couple times now at WordCamps I've discussed
+the possibilities of having a JS-oriented WordPress event: part lectures,
+part contributor day, possibly part training. I'd be interested in helping
+to organize something like that, if it's of interest to the community; I
+know we'll touch on these things at the dev summit, WCSF, and so on, but it
+might be easier to work through some of the architectural questions in
+person. It'd also give us a venue to pull in experts from outside the
+traditional WP community to discuss the framework question.
+
+Long story short, count me in?and I'll see how many folks I can drag along
+with me!
+
+K. Adam White
+kadamwhite at gmail.com
+401.575.7829
+
+
+On Sat, Jun 28, 2014 at 9:33 AM, Eric Andrew Lewis <
+eric.andrew.lewis at gmail.com> wrote:
+
+> I've been working on the media grid feature for 4.0, and would like to talk
+> about Javascript in WordPress.
+>
+> Our recent Javascript developments have been undoubtedly great for users.
+> The Media modal is the strongest UI change we've made in recent years (not
+> counting MP6 which was really a fresh coat of paint). However, becoming a
+> core javascript developer has a steep learning curve, and working with any
+> of the media code has confounded most WordPress developers.
+>
+> There's reason to this - you can create top-notch themes and plugins with a
+> wheelhouse of PHP/CSS/HTML, without diving deep into modern Javascript
+> practices.
+>
+> Even if that is the case, we should make a better developer experience in
+> our Javascript stack, and transition WP developers into an era of
+> Javascript development smoothly.
+>
+> The biggest changes we should make are discussing architectural decisions
+> and documentation.
+>
+> *Architectural decisions*
+>
+> How we structure our MV* objects is terribly important. In media and theme
+> experience, we combine top-level controllers with the top-level views.
+> Should we be doing this? I don't particularly think so. We should nail down
+> general module structure, so that when you switch from one module to
+> another there's familiar architecture. Essentially, we need a City Planning
+> department for our Javascript.
+>
+> We need to recognize that we're still just out of the starting gate with
+> our Javascript modules. Could you imagine if you had the opportunity to
+> discuss the creation of WP_Query in 2005? That's where we are.
+>
+> *Documentation*
+>
+> Without documentation it's just interpretive dance. We probably shouldn't
+> accept code to core that doesn't have enough documentation - although that
+> begs the question "what is enough?"
+>
+> I made an interactive documentation plugin for Media
+> <https://github.com/ericandrewlewis/wp-media-javascript-guide>, with live
+> examples in the browser right next to the boilerplate code. Maybe we should
+> consider more documentation that sits inside of WordPress, rather than
+> abstracting it out.
+>
+> *Application Framework*
+>
+> We currently use Backbone.js as an MV* utility library, and build
+> abstractions on top of it. There are a slew of application frameworks on
+> the JS scene, including Marionette.js which builds on top of Backbone. Do
+> you think we should adopt one? We are reinventing the wheel in a lot of
+> ways. We roll our own region management, custom events bussing, and
+> handling subviews - all out of the box in any app framework. We can
+> eliminate boilerplate by using composite/collection views, and provide for
+> more reusable subcomponents with something like behaviors
+> <http://marionettejs.com/docs/marionette.behavior.html>.
+>
+>
+> Eric Andrew Lewis
+> ericandrewlewis.com
+> 610.715.8560
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jayarjo at gmail.com  Sun Jun 29 10:45:36 2014
+From: jayarjo at gmail.com (Davit Barbakadze)
+Date: Sun, 29 Jun 2014 14:45:36 +0400
+Subject: [wp-hackers] Advanced Javascript development in core
+In-Reply-To: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+References: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+Message-ID: <CAM0WtjeR7OCn59rJ+AnEarJ4Su=wvAHryRvfzE5cOZc3k1CJcg@mail.gmail.com>
+
+I think one thing that you guys can do, is providing hooks -
+structured, namespaced javascript events for all kind of things and
+interactions that happen on client side. That alone can hugely improve
+the situation.
+Davit Barbakadze
+
+
+On Sat, Jun 28, 2014 at 5:33 PM, Eric Andrew Lewis
+<eric.andrew.lewis at gmail.com> wrote:
+> I've been working on the media grid feature for 4.0, and would like to talk
+> about Javascript in WordPress.
+>
+> Our recent Javascript developments have been undoubtedly great for users.
+> The Media modal is the strongest UI change we've made in recent years (not
+> counting MP6 which was really a fresh coat of paint). However, becoming a
+> core javascript developer has a steep learning curve, and working with any
+> of the media code has confounded most WordPress developers.
+>
+> There's reason to this - you can create top-notch themes and plugins with a
+> wheelhouse of PHP/CSS/HTML, without diving deep into modern Javascript
+> practices.
+>
+> Even if that is the case, we should make a better developer experience in
+> our Javascript stack, and transition WP developers into an era of
+> Javascript development smoothly.
+>
+> The biggest changes we should make are discussing architectural decisions
+> and documentation.
+>
+> *Architectural decisions*
+>
+> How we structure our MV* objects is terribly important. In media and theme
+> experience, we combine top-level controllers with the top-level views.
+> Should we be doing this? I don't particularly think so. We should nail down
+> general module structure, so that when you switch from one module to
+> another there's familiar architecture. Essentially, we need a City Planning
+> department for our Javascript.
+>
+> We need to recognize that we're still just out of the starting gate with
+> our Javascript modules. Could you imagine if you had the opportunity to
+> discuss the creation of WP_Query in 2005? That's where we are.
+>
+> *Documentation*
+>
+> Without documentation it's just interpretive dance. We probably shouldn't
+> accept code to core that doesn't have enough documentation - although that
+> begs the question "what is enough?"
+>
+> I made an interactive documentation plugin for Media
+> <https://github.com/ericandrewlewis/wp-media-javascript-guide>, with live
+> examples in the browser right next to the boilerplate code. Maybe we should
+> consider more documentation that sits inside of WordPress, rather than
+> abstracting it out.
+>
+> *Application Framework*
+>
+> We currently use Backbone.js as an MV* utility library, and build
+> abstractions on top of it. There are a slew of application frameworks on
+> the JS scene, including Marionette.js which builds on top of Backbone. Do
+> you think we should adopt one? We are reinventing the wheel in a lot of
+> ways. We roll our own region management, custom events bussing, and
+> handling subviews - all out of the box in any app framework. We can
+> eliminate boilerplate by using composite/collection views, and provide for
+> more reusable subcomponents with something like behaviors
+> <http://marionettejs.com/docs/marionette.behavior.html>.
+>
+>
+> Eric Andrew Lewis
+> ericandrewlewis.com
+> 610.715.8560
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From chloe.desoutter+wphackers at gmail.com  Sun Jun 29 12:29:09 2014
+From: chloe.desoutter+wphackers at gmail.com (=?UTF-8?Q?Chlo=C3=A9_Desoutter?=)
+Date: Sun, 29 Jun 2014 14:29:09 +0200
+Subject: [wp-hackers] Advanced Javascript development in core
+In-Reply-To: <CAM0WtjeR7OCn59rJ+AnEarJ4Su=wvAHryRvfzE5cOZc3k1CJcg@mail.gmail.com>
+References: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+ <CAM0WtjeR7OCn59rJ+AnEarJ4Su=wvAHryRvfzE5cOZc3k1CJcg@mail.gmail.com>
+Message-ID: <CAH9U35=v1wfj_y09L3_96v6EOsp8mKMebeCZ45Lb4nTdvMwxDA@mail.gmail.com>
+
+Hi,
+
+I completely approve of what Davit says. Altering the JS-bound behaviours
+in WordPress is a pain. JavaScript is callbacks-native, so splitting the
+different functionalities properly and working with hooks, events and
+actions would not be a huge functional change and would allow for extending
+functionalities cleanly w/o having to base our work on plug-ins. As an
+example, I wanted to add a second featured image to posts : duplicating the
+core feature was a pain as all was tightly bound to given DOM items and
+this was not documented.
+
+I would not like WordPress too tightly bound to a high-level, full-featured
+third party product. This would mean dependency on a third party,
+commitment to either upgrading WordPress as the third-party API evolves or
+to ensure ourselves that a given subset of the API is stable. Maybe it's
+too early with such technologies. I don't want to promote the "Not Invented
+Here" doctrine but with such "new" technologies it's better to be careful
+and to build things slowly, checking what the practices of the community
+are before commiting the whole WordPress stack to a given tech choice.
+
+Yours sincerely
+
+
+
+
+2014-06-29 12:45 GMT+02:00 Davit Barbakadze <jayarjo at gmail.com>:
+
+> I think one thing that you guys can do, is providing hooks -
+> structured, namespaced javascript events for all kind of things and
+> interactions that happen on client side. That alone can hugely improve
+> the situation.
+> Davit Barbakadze
+>
+>
+> On Sat, Jun 28, 2014 at 5:33 PM, Eric Andrew Lewis
+> <eric.andrew.lewis at gmail.com> wrote:
+> > I've been working on the media grid feature for 4.0, and would like to
+> talk
+> > about Javascript in WordPress.
+> >
+> > Our recent Javascript developments have been undoubtedly great for users.
+> > The Media modal is the strongest UI change we've made in recent years
+> (not
+> > counting MP6 which was really a fresh coat of paint). However, becoming a
+> > core javascript developer has a steep learning curve, and working with
+> any
+> > of the media code has confounded most WordPress developers.
+> >
+> > There's reason to this - you can create top-notch themes and plugins
+> with a
+> > wheelhouse of PHP/CSS/HTML, without diving deep into modern Javascript
+> > practices.
+> >
+> > Even if that is the case, we should make a better developer experience in
+> > our Javascript stack, and transition WP developers into an era of
+> > Javascript development smoothly.
+> >
+> > The biggest changes we should make are discussing architectural decisions
+> > and documentation.
+> >
+> > *Architectural decisions*
+> >
+> > How we structure our MV* objects is terribly important. In media and
+> theme
+> > experience, we combine top-level controllers with the top-level views.
+> > Should we be doing this? I don't particularly think so. We should nail
+> down
+> > general module structure, so that when you switch from one module to
+> > another there's familiar architecture. Essentially, we need a City
+> Planning
+> > department for our Javascript.
+> >
+> > We need to recognize that we're still just out of the starting gate with
+> > our Javascript modules. Could you imagine if you had the opportunity to
+> > discuss the creation of WP_Query in 2005? That's where we are.
+> >
+> > *Documentation*
+> >
+> > Without documentation it's just interpretive dance. We probably shouldn't
+> > accept code to core that doesn't have enough documentation - although
+> that
+> > begs the question "what is enough?"
+> >
+> > I made an interactive documentation plugin for Media
+> > <https://github.com/ericandrewlewis/wp-media-javascript-guide>, with
+> live
+> > examples in the browser right next to the boilerplate code. Maybe we
+> should
+> > consider more documentation that sits inside of WordPress, rather than
+> > abstracting it out.
+> >
+> > *Application Framework*
+> >
+> > We currently use Backbone.js as an MV* utility library, and build
+> > abstractions on top of it. There are a slew of application frameworks on
+> > the JS scene, including Marionette.js which builds on top of Backbone. Do
+> > you think we should adopt one? We are reinventing the wheel in a lot of
+> > ways. We roll our own region management, custom events bussing, and
+> > handling subviews - all out of the box in any app framework. We can
+> > eliminate boilerplate by using composite/collection views, and provide
+> for
+> > more reusable subcomponents with something like behaviors
+> > <http://marionettejs.com/docs/marionette.behavior.html>.
+> >
+> >
+> > Eric Andrew Lewis
+> > ericandrewlewis.com
+> > 610.715.8560
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From eric.andrew.lewis at gmail.com  Sun Jun 29 13:19:38 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Sun, 29 Jun 2014 09:19:38 -0400
+Subject: [wp-hackers] Advanced Javascript development in core
+In-Reply-To: <CAH9U35=v1wfj_y09L3_96v6EOsp8mKMebeCZ45Lb4nTdvMwxDA@mail.gmail.com>
+References: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+ <CAM0WtjeR7OCn59rJ+AnEarJ4Su=wvAHryRvfzE5cOZc3k1CJcg@mail.gmail.com>
+ <CAH9U35=v1wfj_y09L3_96v6EOsp8mKMebeCZ45Lb4nTdvMwxDA@mail.gmail.com>
+Message-ID: <AC7DB9DF26154FDCAC17DF30399E88F2@gmail.com>
+
+Kadam - agree on all points. Maybe Bocoup wants to host an event this fall? Otherwise we?d be glad to host here in New York. Discussion will definitely happen at WCNYC contributor day/weekend in August, as we?ll have Gregory Cornelius, Scott Taylor, myself and others around. Hope you?re coming to that!  
+
+Regarding hooks in JS, I agree this will be the pathway to customizing JS-driven UI. See #21170 (https://core.trac.wordpress.org/ticket/21170) and Carl Danley?s WP JS Hooks (https://github.com/carldanley/wp-js-hooks) which is a fine implementation in my opinion.   
+
+Chlo? - thanks for your thoughts on not coupling too tightly with a third party product, and I agree. We would not adopt a framework that does not match our project?s philosophical and practical goals. However, instead of blanket statements, specific feedback about the software at hand is probably more helpful (see Consider a CSS preprocessor (http://make.wordpress.org/core/2013/11/05/22862-consider-a-css-preprocessor/)).
+
+--  
+Eric Andrew Lewis
+
+
+On Sunday, June 29, 2014 at 8:29 AM, Chlo? Desoutter wrote:
+
+> Hi,
+>  
+> I completely approve of what Davit says. Altering the JS-bound behaviours
+> in WordPress is a pain. JavaScript is callbacks-native, so splitting the
+> different functionalities properly and working with hooks, events and
+> actions would not be a huge functional change and would allow for extending
+> functionalities cleanly w/o having to base our work on plug-ins. As an
+> example, I wanted to add a second featured image to posts : duplicating the
+> core feature was a pain as all was tightly bound to given DOM items and
+> this was not documented.
+>  
+> I would not like WordPress too tightly bound to a high-level, full-featured
+> third party product. This would mean dependency on a third party,
+> commitment to either upgrading WordPress as the third-party API evolves or
+> to ensure ourselves that a given subset of the API is stable. Maybe it's
+> too early with such technologies. I don't want to promote the "Not Invented
+> Here" doctrine but with such "new" technologies it's better to be careful
+> and to build things slowly, checking what the practices of the community
+> are before commiting the whole WordPress stack to a given tech choice.
+>  
+> Yours sincerely
+>  
+>  
+>  
+>  
+> 2014-06-29 12:45 GMT+02:00 Davit Barbakadze <jayarjo at gmail.com (mailto:jayarjo at gmail.com)>:
+>  
+> > I think one thing that you guys can do, is providing hooks -
+> > structured, namespaced javascript events for all kind of things and
+> > interactions that happen on client side. That alone can hugely improve
+> > the situation.
+> > Davit Barbakadze
+> >  
+> >  
+> > On Sat, Jun 28, 2014 at 5:33 PM, Eric Andrew Lewis
+> > <eric.andrew.lewis at gmail.com (mailto:eric.andrew.lewis at gmail.com)> wrote:
+> > > I've been working on the media grid feature for 4.0, and would like to
+> >  
+> > talk
+> > > about Javascript in WordPress.
+> > >  
+> > > Our recent Javascript developments have been undoubtedly great for users.
+> > > The Media modal is the strongest UI change we've made in recent years
+> > >  
+> >  
+> > (not
+> > > counting MP6 which was really a fresh coat of paint). However, becoming a
+> > > core javascript developer has a steep learning curve, and working with
+> > >  
+> >  
+> > any
+> > > of the media code has confounded most WordPress developers.
+> > >  
+> > > There's reason to this - you can create top-notch themes and plugins
+> > with a
+> > > wheelhouse of PHP/CSS/HTML, without diving deep into modern Javascript
+> > > practices.
+> > >  
+> > > Even if that is the case, we should make a better developer experience in
+> > > our Javascript stack, and transition WP developers into an era of
+> > > Javascript development smoothly.
+> > >  
+> > > The biggest changes we should make are discussing architectural decisions
+> > > and documentation.
+> > >  
+> > > *Architectural decisions*
+> > >  
+> > > How we structure our MV* objects is terribly important. In media and
+> > theme
+> > > experience, we combine top-level controllers with the top-level views.
+> > > Should we be doing this? I don't particularly think so. We should nail
+> > >  
+> >  
+> > down
+> > > general module structure, so that when you switch from one module to
+> > > another there's familiar architecture. Essentially, we need a City
+> > >  
+> >  
+> > Planning
+> > > department for our Javascript.
+> > >  
+> > > We need to recognize that we're still just out of the starting gate with
+> > > our Javascript modules. Could you imagine if you had the opportunity to
+> > > discuss the creation of WP_Query in 2005? That's where we are.
+> > >  
+> > > *Documentation*
+> > >  
+> > > Without documentation it's just interpretive dance. We probably shouldn't
+> > > accept code to core that doesn't have enough documentation - although
+> > >  
+> >  
+> > that
+> > > begs the question "what is enough?"
+> > >  
+> > > I made an interactive documentation plugin for Media
+> > > <https://github.com/ericandrewlewis/wp-media-javascript-guide>, with
+> > >  
+> >  
+> > live
+> > > examples in the browser right next to the boilerplate code. Maybe we
+> >  
+> > should
+> > > consider more documentation that sits inside of WordPress, rather than
+> > > abstracting it out.
+> > >  
+> > > *Application Framework*
+> > >  
+> > > We currently use Backbone.js as an MV* utility library, and build
+> > > abstractions on top of it. There are a slew of application frameworks on
+> > > the JS scene, including Marionette.js which builds on top of Backbone. Do
+> > > you think we should adopt one? We are reinventing the wheel in a lot of
+> > > ways. We roll our own region management, custom events bussing, and
+> > > handling subviews - all out of the box in any app framework. We can
+> > > eliminate boilerplate by using composite/collection views, and provide
+> > >  
+> >  
+> > for
+> > > more reusable subcomponents with something like behaviors
+> > > <http://marionettejs.com/docs/marionette.behavior.html>.
+> > >  
+> > >  
+> > > Eric Andrew Lewis
+> > > ericandrewlewis.com (http://ericandrewlewis.com)
+> > > 610.715.8560
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >  
+> >  
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >  
+>  
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>  
+>  
+
+
+
+From funkatronic at gmail.com  Mon Jun 30 13:46:22 2014
+From: funkatronic at gmail.com (Funkatron)
+Date: Mon, 30 Jun 2014 06:46:22 -0700 (PDT)
+Subject: [wp-hackers] Advanced Javascript development in core
+In-Reply-To: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+References: <CAMi+fEkTfdpTc5hEvZLhux3hC+uYJasBvcwdLCbt33MdLTtqYQ@mail.gmail.com>
+Message-ID: <1404135982324-44060.post@n5.nabble.com>
+
+Another place that needs work related to Javascript development is the image
+editor that's built into attachment pages and the image details modal. 
+There is a lot of archaic code in this: the html elements have hard coded
+event attributes and suffer from iditis.  The code is also seriously coupled
+to the page its on.  They added a view to make it work in the image details
+modal but its just a wrapper for the current code.  I would love to see this
+as a proper Backbone view where you just put in an attachment model and you
+are on your way.
+
+
+
+--
+View this message in context: http://wordpress-hackers.1065353.n5.nabble.com/Advanced-Javascript-development-in-core-tp44052p44060.html
+Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+

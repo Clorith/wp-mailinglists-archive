@@ -1,0 +1,329 @@
+From bughunter at riseup.net  Mon Jul  1 21:49:14 2013
+From: bughunter at riseup.net (BUGHUNTER)
+Date: Mon, 1 Jul 2013 23:49:14 +0200
+Subject: [wp-docs] Where can I git clone the docs?
+Message-ID: <1226806796.20130701234914@riseup.net>
+
+Hi,
+
+I just wanted to ask if the documentation is available via git,
+meanwhile... there are still many occasions where I would like to use
+it offline.
+
+Thanks!
+
+Bughunter
+
+
+From goldenapplesdesign at gmail.com  Thu Jul  4 00:06:04 2013
+From: goldenapplesdesign at gmail.com (Nathaniel Taintor)
+Date: Wed, 3 Jul 2013 17:06:04 -0700
+Subject: [wp-docs] Where can I git clone the docs?
+In-Reply-To: <1226806796.20130701234914@riseup.net>
+References: <1226806796.20130701234914@riseup.net>
+Message-ID: <CAH+NfoBrO8B=nOj1jX4Tco3KF66OAd9RzYm1DdUMSk_FuA_=hw@mail.gmail.com>
+
+I have a copy of a subset of the Codex which I scraped a little while ago
+to build in to my editor. You can clone
+https://github.com/goldenapples/wpman to get a partial set of docs.
+
+I have a plan to go back to this in a while and build an updater function
+that checks the Codex "Recent Changes" and updates these man pages, but for
+now this is all it is.
+
+Nathaniel Taintor, Designer/Developer
+*Golden Apples Design*
+http://goldenapplesdesign.com
+
+@GoldenApples | 717.434.3226
+goldenapplesdesign at gmail.com
+
+
+On Mon, Jul 1, 2013 at 2:49 PM, BUGHUNTER <bughunter at riseup.net> wrote:
+
+> Hi,
+>
+> I just wanted to ask if the documentation is available via git,
+> meanwhile... there are still many occasions where I would like to use
+> it offline.
+>
+> Thanks!
+>
+> Bughunter
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20130703/066d5bc7/attachment.html>
+
+From jdg at efieldguide.com  Sat Jul 13 22:09:34 2013
+From: jdg at efieldguide.com (J.D. Grimes)
+Date: Sat, 13 Jul 2013 18:09:34 -0400
+Subject: [wp-docs] Codex tools/tips
+Message-ID: <1737CC87-6542-4C20-9F7E-EDBD02D3CCB3@efieldguide.com>
+
+Hi everyone,
+
+I'm wondering if any of you have any tips/tools that you use to make contributing to codex easier. Like pre made templates, etc. I got tired of typing some things over and over, so I decided to let JavaScript do the job for me. I've added the following as bookmarks (using FireFox browser), and they have made some of the simple things simpler. To use them, just select some text in the edit textarea and then click the bookmark. (Sorry they look a little messy.)
+
+Format code ("code" becomes "<tt>code</tt>":
+
+javascript:function%20__replaceIt_tt()%20{%20var%20textarea%20%20=%20document.getElementsByTagName(%20'textarea'%20)[0];%20var%20tag%20%20%20%20%20%20%20=%20'tt';%20var%20before%20%20%20%20=%20textarea.value.substring(%200,%20textarea.selectionStart%20);%20var%20after%20%20%20%20%20=%20textarea.value.substring(%20textarea.selectionEnd%20);%20var%20selection%20=%20textarea.value.substring(%20textarea.selectionStart,%20textarea.selectionEnd%20);%20%20textarea.value%20=%20before%20+%20'<'%20+%20tag%20+%20'>'%20+%20selection%20+%20'</'%20+%20tag%20+%20'>'%20+%20after;%20%20return%20undefined;%20}%20__replaceIt_tt();
+
+Link to the page for a class ("Class" becomes "<tt>[[Class_Reference/Class | Class]]</tt>"):
+
+javascript:function%20__replaceIt_class()%20{%20var%20textarea%20%20=%20document.getElementsByTagName(%20'textarea'%20)[0];%20var%20before%20%20%20%20=%20textarea.value.substring(%200,%20textarea.selectionStart%20);%20var%20after%20%20%20%20%20=%20textarea.value.substring(%20textarea.selectionEnd%20);%20var%20selection%20=%20textarea.value.substring(%20textarea.selectionStart,%20textarea.selectionEnd%20);%20%20textarea.value%20=%20before%20+%20'<tt>[[Class_Reference/'%20+%20selection%20+%20'%20|%20'%20+%20selection%20+%20']]</tt>'%20+%20after;%20%20return%20undefined;%20}%20__replaceIt_class();
+
+Link to the page for a function ("function" becomes "<tt>[[Function_Reference/function | function()]]</tt>"):
+
+javascript:function%20__replaceIt_function()%20{%20var%20textarea%20%20=%20document.getElementsByTagName(%20'textarea'%20)[0];%20var%20before%20%20%20%20=%20textarea.value.substring(%200,%20textarea.selectionStart%20);%20var%20after%20%20%20%20%20=%20textarea.value.substring(%20textarea.selectionEnd%20);%20var%20selection%20=%20textarea.value.substring(%20textarea.selectionStart,%20textarea.selectionEnd%20);%20%20textarea.value%20=%20before%20+%20'<tt>[[Function_Reference/'%20+%20selection%20+%20'%20|%20'%20+%20selection%20+%20'()]]</tt>'%20+%20after;%20%20return%20undefined;%20}%20__replaceIt_function();
+
+Link to the page for a filter ("filter" becomes "<tt>[[Plugin_API/Filter_Reference/filter | 'filter']]</tt>"):
+
+javascript:function%20__replaceIt_filter()%20{%20var%20textarea%20%20=%20document.getElementsByTagName(%20'textarea'%20)[0];%20var%20before%20%20%20%20=%20textarea.value.substring(%200,%20textarea.selectionStart%20);%20var%20after%20%20%20%20%20=%20textarea.value.substring(%20textarea.selectionEnd%20);%20var%20selection%20=%20textarea.value.substring(%20textarea.selectionStart,%20textarea.selectionEnd%20);%20%20textarea.value%20=%20before%20+%20'<tt>[[Plugin_API/Filter_Reference/'%20+%20selection%20+%20'%20|%20\''%20+%20selection%20+%20'\']]</tt>'%20+%20after;%20%20return%20undefined;%20}%20__replaceIt_filter();
+
+Link to the page for an action ("action" becomes "<tt>[[Plugin_API/Action_Reference/action | 'action']]</tt>"):
+
+javascript:function%20__replaceIt_action()%20{%20var%20textarea%20%20=%20document.getElementsByTagName(%20'textarea'%20)[0];%20var%20before%20%20%20%20=%20textarea.value.substring(%200,%20textarea.selectionStart%20);%20var%20after%20%20%20%20%20=%20textarea.value.substring(%20textarea.selectionEnd%20);%20var%20selection%20=%20textarea.value.substring(%20textarea.selectionStart,%20textarea.selectionEnd%20);%20%20textarea.value%20=%20before%20+%20'<tt>[[Plugin_API/Action_Reference/'%20+%20selection%20+%20'%20|%20\''%20+%20selection%20+%20'\']]</tt>'%20+%20after;%20%20return%20undefined;%20}%20__replaceIt_action();
+
+Sorry that is so messy!
+
+I would love to know if anyone has a better idea, or other tools or tips. I know that we'll be migrating away from mediawiki, and I don't know how things will change.
+
+-J.D.
+
+From r at rami.nu  Thu Jul 18 15:01:10 2013
+From: r at rami.nu (Rami Abraham)
+Date: Thu, 18 Jul 2013 11:01:10 -0400
+Subject: [wp-docs] Edit / review request for Codex pages merge
+Message-ID: <CANVYYOiHX8TqjOX0D--SatD6N5LmbWhW0Ktgjwuo6g4hz2EhQw@mail.gmail.com>
+
+Hi everyone,
+
+I'm working on merging two codex pages. I figured I'd stop waiting on
+adopted page buddies, since they appear to be busy, and make this request
+for review / edits on what I have thus far:
+
+This edit merges two pages:
+
+1. http://codex.wordpress.org/New_To_WordPress_-_Where_to_Start
+
+2. http://codex.wordpress.org/Getting_Started_with_WordPress
+
+Into one page:
+http://codex.wordpress.org/User:Ramiabraham/Getting_Started_with_WordPress
+
+The primary reason for the merge is that both pages are focused on
+providing *pre-installation* information, and much of the content is the
+same between the two disparate pages. No content has been omitted from
+either page, but more information and clarity has been added in various
+areas.
+
+At the end of the page, we could then link to the page detailing *
+post-installation* information:
+
+http://codex.wordpress.org/First_Steps_With_WordPress
+
+
+I'll be on #wordpress-sfd as well today. Thanks everyone!
+
+Thanks,
+
+Rami
+@ramiabraham
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20130718/4065e20f/attachment.html>
+
+From lorelleonwordpress at gmail.com  Fri Jul 19 02:48:36 2013
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu, 18 Jul 2013 19:48:36 -0700
+Subject: [wp-docs] Edit / review request for Codex pages merge
+In-Reply-To: <CANVYYOiHX8TqjOX0D--SatD6N5LmbWhW0Ktgjwuo6g4hz2EhQw@mail.gmail.com>
+References: <CANVYYOiHX8TqjOX0D--SatD6N5LmbWhW0Ktgjwuo6g4hz2EhQw@mail.gmail.com>
+Message-ID: <CAN2v4ZTQfKBQATJnO_v+meupkdO81Ppu5gLOS9z8dbtroczZ+Q@mail.gmail.com>
+
+I believe that "Getting Stared with WordPress" is a menu - table of
+contents, not an article. "New to WordPress..." is a step by step article
+laying out all the steps to install and run WordPress. That needs updating,
+and new menu items should be added as appropriate to the first one, but
+merging them would break the main navigation for the Codex as so many
+articles like to that table of contents as part of the key organizational
+structure.
+
+Updating "New to WordPress..." would be brilliant, but a discussion on the
+Make WordPress/Support site would be good for evaluating and adjusting the
+entire navigational structure of the Codex regarding that article.
+
+Consider joining the discussion there as this mailing list has been
+"officially" retired. Thanks!
+
+Lorelle VanFossen
+
+<http://family.cameraontheroad.com/>
+
+
+On Thu, Jul 18, 2013 at 8:01 AM, Rami Abraham <r at rami.nu> wrote:
+
+> Hi everyone,
+>
+> I'm working on merging two codex pages. I figured I'd stop waiting on
+> adopted page buddies, since they appear to be busy, and make this request
+> for review / edits on what I have thus far:
+>
+> This edit merges two pages:
+>
+> 1. http://codex.wordpress.org/New_To_WordPress_-_Where_to_Start
+>
+> 2. http://codex.wordpress.org/Getting_Started_with_WordPress
+>
+> Into one page:
+> http://codex.wordpress.org/User:Ramiabraham/Getting_Started_with_WordPress
+>
+> The primary reason for the merge is that both pages are focused on
+> providing *pre-installation* information, and much of the content is the
+> same between the two disparate pages. No content has been omitted from
+> either page, but more information and clarity has been added in various
+> areas.
+>
+> At the end of the page, we could then link to the page detailing *
+> post-installation* information:
+>
+> http://codex.wordpress.org/First_Steps_With_WordPress
+>
+>
+> I'll be on #wordpress-sfd as well today. Thanks everyone!
+>
+> Thanks,
+>
+> Rami
+> @ramiabraham
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20130718/2991efea/attachment.html>
+
+From nick at techdoode.com  Sat Jul 20 10:51:56 2013
+From: nick at techdoode.com (Nick)
+Date: Sat, 20 Jul 2013 06:51:56 -0400
+Subject: [wp-docs] Edit / review request for Codex pages merge
+In-Reply-To: <CAN2v4ZTQfKBQATJnO_v+meupkdO81Ppu5gLOS9z8dbtroczZ+Q@mail.gmail.com>
+References: <CANVYYOiHX8TqjOX0D--SatD6N5LmbWhW0Ktgjwuo6g4hz2EhQw@mail.gmail.com>
+ <CAN2v4ZTQfKBQATJnO_v+meupkdO81Ppu5gLOS9z8dbtroczZ+Q@mail.gmail.com>
+Message-ID: <000001ce8537$2806c1b0$78144510$@techdoode.com>
+
+http://make.wordpress.org/docs/ 
+
+ 
+
+From: wp-docs [mailto:wp-docs-bounces at lists.automattic.com] On Behalf Of
+Lorelle on WordPress
+Sent: Thursday, July 18, 2013 10:49 PM
+To: [Retired] See http://make.wordpress.org/docs/
+Subject: Re: [wp-docs] Edit / review request for Codex pages merge
+
+ 
+
+I believe that "Getting Stared with WordPress" is a menu - table of
+contents, not an article. "New to WordPress..." is a step by step article
+laying out all the steps to install and run WordPress. That needs updating,
+and new menu items should be added as appropriate to the first one, but
+merging them would break the main navigation for the Codex as so many
+articles like to that table of contents as part of the key organizational
+structure.
+
+Updating "New to WordPress..." would be brilliant, but a discussion on the
+Make WordPress/Support site would be good for evaluating and adjusting the
+entire navigational structure of the Codex regarding that article.
+
+Consider joining the discussion there as this mailing list has been
+"officially" retired. Thanks! 
+
+
+
+Lorelle VanFossen
+
+ 
+
+On Thu, Jul 18, 2013 at 8:01 AM, Rami Abraham <r at rami.nu <mailto:r at rami.nu>
+> wrote:
+
+Hi everyone,
+
+ 
+
+I'm working on merging two codex pages. I figured I'd stop waiting on
+adopted page buddies, since they appear to be busy, and make this request
+for review / edits on what I have thus far:
+
+ 
+
+This edit merges two pages:
+
+ 
+
+1. http://codex.wordpress.org/New_To_WordPress_-_Where_to_Start
+
+ 
+
+2. http://codex.wordpress.org/Getting_Started_with_WordPress
+
+ 
+
+Into one page:
+http://codex.wordpress.org/User:Ramiabraham/Getting_Started_with_WordPress
+
+ 
+
+The primary reason for the merge is that both pages are focused on providing
+pre-installation information, and much of the content is the same between
+the two disparate pages. No content has been omitted from either page, but
+more information and clarity has been added in various areas.
+
+ 
+
+At the end of the page, we could then link to the page detailing
+post-installation information:
+
+ 
+
+http://codex.wordpress.org/First_Steps_With_WordPress
+
+ 
+
+ 
+
+I'll be on #wordpress-sfd as well today. Thanks everyone!
+
+ 
+
+Thanks,
+
+ 
+
+Rami
+
+@ramiabraham
+
+
+_______________________________________________
+wp-docs mailing list
+wp-docs at lists.automattic.com <mailto:wp-docs at lists.automattic.com> 
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20130720/7769a6c3/attachment.html>
+

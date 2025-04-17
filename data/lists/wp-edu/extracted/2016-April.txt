@@ -1,0 +1,597 @@
+From jackie at sdiwc.info  Tue Apr  5 01:56:52 2016
+From: jackie at sdiwc.info (Jackie Blanco)
+Date: Mon, 04 Apr 2016 19:56:52 -0600
+Subject: [wp-edu] Call for Papers and Posters: CSCESM2016 - Greece
+Message-ID: <5937125c64d9a0670c0a3387294e8a55@sdiwc.info>
+
+====================================================
+Paper and Poster Submission Deadline: April 13, 2016
+====================================================
+
+The Third International Conference on Computer Science, Computer 
+Engineering, and Social Media (CSCESM2016)
+
+Metropolitan College, Thessaloniki, Greece
+May 13-15, 2016
+http://www.sdiwc.net/conferences/cscesm2016/
+cscesm16 at sdiwc.net
+
+The conference welcomes papers on the following (but not limited to) 
+research topics:
+
+*Computer Science
+Access Controls
+Biometrics Technologies
+Computer Forensics
+Computer Security
+Data Mining
+Cryptography and Data Protection
+E-Learning
+Network Security
+Wireless Communications
+
+*Computer Engineering
+Computer Architecture
+Computer-aided Design
+Computer Networks
+Multimedia Applications
+Network Security and Cryptography
+Computer Animation
+Expert Systems
+
+*Social Media
+Image / multimedia processing
+Human-computer interaction
+Social networking sites
+Social innovation and effecting change
+Collaborative filtering
+Social networks and online education
+
+Researchers are encouraged to submit their work electronically.
+
+IMPORTANT DATES
+Final Notification	April 23, 2016
+Camera Ready Deadline	May 3, 2016
+Registration Deadline	May 3, 2016
+
+
+From Ian.Altgilbers at tufts.edu  Thu Apr 28 16:12:37 2016
+From: Ian.Altgilbers at tufts.edu (Altgilbers, Ian M)
+Date: Thu, 28 Apr 2016 16:12:37 +0000
+Subject: [wp-edu] LDAP account synchronization/Permissions for users that
+ don't yet exist
+Message-ID: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+
+Hello all,
+
+We currently use LDAP for authentication to our WordPress multi-site installation, and user accounts are created when the user first logs in.  However, we often need to be able to add users to a site before they?ve logged in.  We have been doing this via a separate custom portal that creates the user accounts ?as needed?, but we?re trying to retire that tool and break that dependency.
+
+Does anyone do any sort of account synchronization with a directory (LDAP or AD)?   If not, how do/would you handle granting users access before they?ve logged in?
+
+
+Thanks,
+
+
+Ian Altgilbers
+Senior Systems Administrator
+Educational Technology Services
+Tufts Technology Services
+Tufts University
+
+Phone: 617.627.0388
+http://it.tufts.edu/ests
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160428/ca87eb00/attachment.html>
+
+From mbarnard at mtholyoke.edu  Thu Apr 28 16:33:06 2016
+From: mbarnard at mtholyoke.edu (Michael Barnard)
+Date: Thu, 28 Apr 2016 12:33:06 -0400
+Subject: [wp-edu] LDAP account synchronization/Permissions for users
+ that don't yet exist
+In-Reply-To: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+References: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+Message-ID: <CAD7ia+5R6jDh5JzJfDsFS+1Af743ayWCFy8AObambUXsq9Mkuw@mail.gmail.com>
+
+I'd love to hear if anyone else has solved this problem, too. In my
+opinion, Wordpress continues to suffer from its single-user heritage and as
+a result tends to lack a lot of the "glue" that's necessary to do
+multi-user at scale, and that problem tends to crop up often in higher-ed
+environments. I've configured Wordpress to use both LDAP and Shibboleth and
+none of the available plugins do exactly what we need all the time, so
+we've had to use a combination of custom hacks and user education ("Make
+sure the user you want to add as an author on your blog has logged in at
+least once before you try to add them") to work around these issues. If
+Wordpress had a comprehensive web service API of some sort this would be a
+pretty straightforward thing to do, but since it still doesn't, we're stuck
+with various hacks and workarounds.
+
+On a related note, last I looked there weren't any decent LDAP plugins
+left. The ones I found were either unmaintained or didn't provide the
+functionality I needed (which really isn't very complicated - authenticate,
+and use a few LDAP attributes to populate user data such as name,
+basically). If anyone has any suggestions for something I might have
+missed, I'd love to hear about it.
+
+On Thu, Apr 28, 2016 at 12:12 PM, Altgilbers, Ian M <
+Ian.Altgilbers at tufts.edu> wrote:
+
+> Hello all,
+>
+> We currently use LDAP for authentication to our WordPress multi-site
+> installation, and user accounts are created when the user first logs in.
+> However, we often need to be able to add users to a site before they?ve
+> logged in.  We have been doing this via a separate custom portal that
+> creates the user accounts ?as needed?, but we?re trying to retire that tool
+> and break that dependency.
+>
+> Does anyone do any sort of account synchronization with a directory (LDAP
+> or AD)?   If not, how do/would you handle granting users access before
+> they?ve logged in?
+>
+>
+> Thanks,
+>
+>
+> Ian Altgilbers
+> Senior Systems Administrator
+> Educational Technology Services
+> Tufts Technology Services
+> Tufts University
+>
+> Phone: 617.627.0388
+> http://it.tufts.edu/ests
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160428/6c65376e/attachment.html>
+
+From d at danielbachhuber.com  Thu Apr 28 16:59:36 2016
+From: d at danielbachhuber.com (Daniel Bachhuber)
+Date: Thu, 28 Apr 2016 09:59:36 -0700
+Subject: [wp-edu] LDAP account synchronization/Permissions for users
+ that don't yet exist
+In-Reply-To: <CAD7ia+5R6jDh5JzJfDsFS+1Af743ayWCFy8AObambUXsq9Mkuw@mail.gmail.com>
+References: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+ <CAD7ia+5R6jDh5JzJfDsFS+1Af743ayWCFy8AObambUXsq9Mkuw@mail.gmail.com>
+Message-ID: <CAA2UhPSiMsBpjAm20wYKxHJRdA3CGi8NNWEw=cmw_a8mPNdXAw@mail.gmail.com>
+
+Hey folks,
+
+I'm working WP SAML Auth <https://github.com/pantheon-systems/wp-saml-auth/> on
+behalf of Pantheon to solve exactly this problem. While it's still early
+days, the plugin is functional and I'd love to hear your feedback on it.
+Happy to take questions in Github issues, or schedule a demo Hangout
+
+Cheers,
+
+Daniel
+
+On Thu, Apr 28, 2016 at 9:33 AM, Michael Barnard <mbarnard at mtholyoke.edu>
+wrote:
+
+> I'd love to hear if anyone else has solved this problem, too. In my
+> opinion, Wordpress continues to suffer from its single-user heritage and as
+> a result tends to lack a lot of the "glue" that's necessary to do
+> multi-user at scale, and that problem tends to crop up often in higher-ed
+> environments. I've configured Wordpress to use both LDAP and Shibboleth and
+> none of the available plugins do exactly what we need all the time, so
+> we've had to use a combination of custom hacks and user education ("Make
+> sure the user you want to add as an author on your blog has logged in at
+> least once before you try to add them") to work around these issues. If
+> Wordpress had a comprehensive web service API of some sort this would be a
+> pretty straightforward thing to do, but since it still doesn't, we're stuck
+> with various hacks and workarounds.
+>
+> On a related note, last I looked there weren't any decent LDAP plugins
+> left. The ones I found were either unmaintained or didn't provide the
+> functionality I needed (which really isn't very complicated - authenticate,
+> and use a few LDAP attributes to populate user data such as name,
+> basically). If anyone has any suggestions for something I might have
+> missed, I'd love to hear about it.
+>
+> On Thu, Apr 28, 2016 at 12:12 PM, Altgilbers, Ian M <
+> Ian.Altgilbers at tufts.edu> wrote:
+>
+>> Hello all,
+>>
+>> We currently use LDAP for authentication to our WordPress multi-site
+>> installation, and user accounts are created when the user first logs in.
+>> However, we often need to be able to add users to a site before they?ve
+>> logged in.  We have been doing this via a separate custom portal that
+>> creates the user accounts ?as needed?, but we?re trying to retire that tool
+>> and break that dependency.
+>>
+>> Does anyone do any sort of account synchronization with a directory (LDAP
+>> or AD)?   If not, how do/would you handle granting users access before
+>> they?ve logged in?
+>>
+>>
+>> Thanks,
+>>
+>>
+>> Ian Altgilbers
+>> Senior Systems Administrator
+>> Educational Technology Services
+>> Tufts Technology Services
+>> Tufts University
+>>
+>> Phone: 617.627.0388
+>> http://it.tufts.edu/ests
+>>
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160428/280d8fde/attachment.html>
+
+From ces4 at williams.edu  Thu Apr 28 17:00:59 2016
+From: ces4 at williams.edu (Carl Strolle)
+Date: Thu, 28 Apr 2016 13:00:59 -0400
+Subject: [wp-edu] LDAP account synchronization/Permissions for users
+ that don't yet exist
+In-Reply-To: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+References: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+Message-ID: <CAPSc=gNmzxBf0XHpCwVudMHOmX_jrPUbJmqsjzxdkHGQRKX64g@mail.gmail.com>
+
+Hi Ian,
+
+Here at Williams we use the LDAP authentication plugin found here:
+
+http://wpmuldap.tuxdocs.net
+
+It allows us to create users prior to login and even allows bulk user
+creation. It was added to our site before I arrived here, so I don't know
+whether we needed to customize it at all. Also, looks like public version
+hasn't been updated in a few years.
+
+Regards,
+Carl
+-- 
+Carl Strolle
+Director of Web Strategy
+Williams College
+413.597.4565
+ces4 at williams.edu
+
+On Thu, Apr 28, 2016 at 12:12 PM, Altgilbers, Ian M <
+Ian.Altgilbers at tufts.edu> wrote:
+
+> Hello all,
+>
+> We currently use LDAP for authentication to our WordPress multi-site
+> installation, and user accounts are created when the user first logs in.
+> However, we often need to be able to add users to a site before they?ve
+> logged in.  We have been doing this via a separate custom portal that
+> creates the user accounts ?as needed?, but we?re trying to retire that tool
+> and break that dependency.
+>
+> Does anyone do any sort of account synchronization with a directory (LDAP
+> or AD)?   If not, how do/would you handle granting users access before
+> they?ve logged in?
+>
+>
+> Thanks,
+>
+>
+> Ian Altgilbers
+> Senior Systems Administrator
+> Educational Technology Services
+> Tufts Technology Services
+> Tufts University
+>
+> Phone: 617.627.0388
+> http://it.tufts.edu/ests
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160428/fe0d42a4/attachment-0001.html>
+
+From mbarnard at mtholyoke.edu  Thu Apr 28 17:13:28 2016
+From: mbarnard at mtholyoke.edu (Michael Barnard)
+Date: Thu, 28 Apr 2016 13:13:28 -0400
+Subject: [wp-edu] LDAP account synchronization/Permissions for users
+ that don't yet exist
+In-Reply-To: <CAPSc=gNmzxBf0XHpCwVudMHOmX_jrPUbJmqsjzxdkHGQRKX64g@mail.gmail.com>
+References: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+ <CAPSc=gNmzxBf0XHpCwVudMHOmX_jrPUbJmqsjzxdkHGQRKX64g@mail.gmail.com>
+Message-ID: <CAD7ia+6sswDt0GY+fx+-WTjze=ouvaMzEz=fXvmXNoQ3DPkzUg@mail.gmail.com>
+
+A plugin like that sounds great in terms of functionality, but the fact
+that it hasn't been updated since 2012 makes it a non-starter for us,
+unfortunately.
+
+
+On Thu, Apr 28, 2016 at 1:00 PM, Carl Strolle <ces4 at williams.edu> wrote:
+
+> Hi Ian,
+>
+> Here at Williams we use the LDAP authentication plugin found here:
+>
+> http://wpmuldap.tuxdocs.net
+>
+> It allows us to create users prior to login and even allows bulk user
+> creation. It was added to our site before I arrived here, so I don't know
+> whether we needed to customize it at all. Also, looks like public version
+> hasn't been updated in a few years.
+>
+> Regards,
+> Carl
+> --
+> Carl Strolle
+> Director of Web Strategy
+> Williams College
+> 413.597.4565
+> ces4 at williams.edu
+>
+> On Thu, Apr 28, 2016 at 12:12 PM, Altgilbers, Ian M <
+> Ian.Altgilbers at tufts.edu> wrote:
+>
+>> Hello all,
+>>
+>> We currently use LDAP for authentication to our WordPress multi-site
+>> installation, and user accounts are created when the user first logs in.
+>> However, we often need to be able to add users to a site before they?ve
+>> logged in.  We have been doing this via a separate custom portal that
+>> creates the user accounts ?as needed?, but we?re trying to retire that tool
+>> and break that dependency.
+>>
+>> Does anyone do any sort of account synchronization with a directory (LDAP
+>> or AD)?   If not, how do/would you handle granting users access before
+>> they?ve logged in?
+>>
+>>
+>> Thanks,
+>>
+>>
+>> Ian Altgilbers
+>> Senior Systems Administrator
+>> Educational Technology Services
+>> Tufts Technology Services
+>> Tufts University
+>>
+>> Phone: 617.627.0388
+>> http://it.tufts.edu/ests
+>>
+>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>
+>>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160428/b85ef7ba/attachment.html>
+
+From fultonc at lafayette.edu  Thu Apr 28 17:30:09 2016
+From: fultonc at lafayette.edu (Charles Fulton)
+Date: Thu, 28 Apr 2016 13:30:09 -0400
+Subject: [wp-edu] LDAP account synchronization/Permissions for users
+	that don't yet exist
+In-Reply-To: <CAD7ia+6sswDt0GY+fx+-WTjze=ouvaMzEz=fXvmXNoQ3DPkzUg@mail.gmail.com>
+References: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+ <CAPSc=gNmzxBf0XHpCwVudMHOmX_jrPUbJmqsjzxdkHGQRKX64g@mail.gmail.com>
+ <CAD7ia+6sswDt0GY+fx+-WTjze=ouvaMzEz=fXvmXNoQ3DPkzUg@mail.gmail.com>
+Message-ID: <417AEFBB-CBDC-4F89-9642-0639A3A7AF43@lafayette.edu>
+
+We?ve used wpmuldap at Lafayette for years and while its deprecation gives us pause it hasn?t broken (yet). We?ve made very few customizations to it. 
+
+Charles
+
+
+--
+Charles Fulton
+Senior Web Applications Developer
+Lafayette College
+
+> On Apr 28, 2016, at 1:13 PM, Michael Barnard <mbarnard at mtholyoke.edu> wrote:
+> 
+> A plugin like that sounds great in terms of functionality, but the fact that it hasn't been updated since 2012 makes it a non-starter for us, unfortunately.
+> 
+> 
+> On Thu, Apr 28, 2016 at 1:00 PM, Carl Strolle <ces4 at williams.edu <mailto:ces4 at williams.edu>> wrote:
+> Hi Ian,
+> 
+> Here at Williams we use the LDAP authentication plugin found here:
+> 
+> http://wpmuldap.tuxdocs.net <http://wpmuldap.tuxdocs.net/>
+> 
+> It allows us to create users prior to login and even allows bulk user creation. It was added to our site before I arrived here, so I don't know whether we needed to customize it at all. Also, looks like public version hasn't been updated in a few years.
+> 
+> Regards,
+> Carl
+> -- 
+> Carl Strolle
+> Director of Web Strategy
+> Williams College
+> 413.597.4565
+> ces4 at williams.edu <mailto:ces4 at williams.edu>
+> 
+> On Thu, Apr 28, 2016 at 12:12 PM, Altgilbers, Ian M <Ian.Altgilbers at tufts.edu <mailto:Ian.Altgilbers at tufts.edu>> wrote:
+> Hello all,
+> 
+> We currently use LDAP for authentication to our WordPress multi-site installation, and user accounts are created when the user first logs in.  However, we often need to be able to add users to a site before they?ve logged in.  We have been doing this via a separate custom portal that creates the user accounts ?as needed?, but we?re trying to retire that tool and break that dependency.  
+> 
+> Does anyone do any sort of account synchronization with a directory (LDAP or AD)?   If not, how do/would you handle granting users access before they?ve logged in?   
+> 
+> 
+> Thanks,
+> 
+> 
+> Ian Altgilbers
+> Senior Systems Administrator
+> Educational Technology Services
+> Tufts Technology Services
+> Tufts University
+> 
+> Phone: 617.627.0388 <tel:617.627.0388>
+> http://it.tufts.edu/ests <http://it.tufts.edu/ests>
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com <mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu <http://lists.automattic.com/mailman/listinfo/wp-edu>
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com <mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu <http://lists.automattic.com/mailman/listinfo/wp-edu>
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160428/89e2e1f8/attachment.html>
+
+From annettep at hum.ku.dk  Fri Apr 29 07:49:55 2016
+From: annettep at hum.ku.dk (Annette Pedersen)
+Date: Fri, 29 Apr 2016 07:49:55 +0000
+Subject: [wp-edu] LDAP account synchronization/Permissions for users
+ that don't yet exist
+In-Reply-To: <CAD7ia+6sswDt0GY+fx+-WTjze=ouvaMzEz=fXvmXNoQ3DPkzUg@mail.gmail.com>
+References: <7AE330FE-19B9-4265-BAEC-41F2E5C7EC55@tufts.edu>
+ <CAPSc=gNmzxBf0XHpCwVudMHOmX_jrPUbJmqsjzxdkHGQRKX64g@mail.gmail.com>
+ <CAD7ia+6sswDt0GY+fx+-WTjze=ouvaMzEz=fXvmXNoQ3DPkzUg@mail.gmail.com>
+Message-ID: <6BB11BB8-7FBD-47DA-BA85-0EB4418E85EE@hum.ku.dk>
+
+Well, here?s another olden one: We use
+WPMU Ldap Authentication
+It works great.
+Maybe there just isn?t a lot of running changes to LDAP-integrations?
+And I?m guessing a lot of institutions using LDAP will be running servers etc are run behind their usual firewalls & security?
+
+Best regards
+Annette
+
+Annette Pedersen
+E-Learning Consulent
+
+K?benhavns Universitet
+Faculty of Humanities
+TEACH
+Karen Blixensvej 4, KUA 16.2.10
+DK-2300 K?benhavn S
+
+TLF (+45) 35 38 58 02
+<mailto:pbu at adm.ku.dk>annettep at hum.ku.dk<mailto:annettep at hum.ku.dk>
+LinkedIn: http://www.linkedin.com/in/annetteq
+
+[cid:6B6EB83A-584D-4E07-9110-09C997CC5BAC]
+Teaching is not rocket science. It is, in fact, far more complex and demanding work than rocket science. (Richard F. Elmore)
+
+Fra: wp-edu <wp-edu-bounces at lists.automattic.com<mailto:wp-edu-bounces at lists.automattic.com>> p? vegne af Michael Barnard <mbarnard at mtholyoke.edu<mailto:mbarnard at mtholyoke.edu>>
+Svar til: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Dato: torsdag den 28. april 2016 kl. 19.13
+Til: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Emne: Re: [wp-edu] LDAP account synchronization/Permissions for users that don't yet exist
+
+A plugin like that sounds great in terms of functionality, but the fact that it hasn't been updated since 2012 makes it a non-starter for us, unfortunately.
+
+
+On Thu, Apr 28, 2016 at 1:00 PM, Carl Strolle <ces4 at williams.edu<mailto:ces4 at williams.edu>> wrote:
+Hi Ian,
+
+Here at Williams we use the LDAP authentication plugin found here:
+
+http://wpmuldap.tuxdocs.net
+
+It allows us to create users prior to login and even allows bulk user creation. It was added to our site before I arrived here, so I don't know whether we needed to customize it at all. Also, looks like public version hasn't been updated in a few years.
+
+Regards,
+Carl
+--
+Carl Strolle
+Director of Web Strategy
+Williams College
+413.597.4565
+ces4 at williams.edu<mailto:ces4 at williams.edu>
+
+On Thu, Apr 28, 2016 at 12:12 PM, Altgilbers, Ian M <Ian.Altgilbers at tufts.edu<mailto:Ian.Altgilbers at tufts.edu>> wrote:
+Hello all,
+
+We currently use LDAP for authentication to our WordPress multi-site installation, and user accounts are created when the user first logs in.  However, we often need to be able to add users to a site before they?ve logged in.  We have been doing this via a separate custom portal that creates the user accounts ?as needed?, but we?re trying to retire that tool and break that dependency.
+
+Does anyone do any sort of account synchronization with a directory (LDAP or AD)?   If not, how do/would you handle granting users access before they?ve logged in?
+
+
+Thanks,
+
+
+Ian Altgilbers
+Senior Systems Administrator
+Educational Technology Services
+Tufts Technology Services
+Tufts University
+
+Phone: 617.627.0388<tel:617.627.0388>
+http://it.tufts.edu/ests
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160429/a2f0b8bd/attachment-0001.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: 5B379F68-F0C1-4A54-982F-4281A659BEEF[4].png
+Type: image/png
+Size: 7697 bytes
+Desc: 5B379F68-F0C1-4A54-982F-4281A659BEEF[4].png
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160429/a2f0b8bd/attachment-0001.png>
+

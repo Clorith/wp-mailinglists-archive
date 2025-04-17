@@ -1,0 +1,1334 @@
+From luke at lukem.co.uk  Fri May 14 12:51:39 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Fri, 14 May 2010 13:51:39 +0100
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+Message-ID: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+
+Hi,
+
+I have been tasked with creating an API for retrieving and adding content to Wordpress from a flash application and legacy CMS (non-PHP). My plan is to utilise the existing default xmlrpc endpoint and add any additional functionality by creating a plugin which hooks into xmlrpc_methods.
+
+A previous attempt had been made by another developer based on the following code:
+
+http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+
+This code looks unwieldy and poorly documented to me and my preference would be to use this approach:
+
+http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+
+I would be grateful if anyone with experience in this area could confirm that:
+
+- I will be able to distinguish between separate blogs in an MU installation when both retrieving and posting data via XMLRPC
+- I will be able to retrieve and post to custom fields
+- writing a plugin is the way to go. 
+
+We do not have the option of using Wordpress 3 as it is still in Beta and we are under time pressure.
+
+I would greatly appreciate appreciate any input / advice.
+
+Many thanks,
+
+Luke.
+
+
+
+From eric at eamann.com  Fri May 14 13:26:00 2010
+From: eric at eamann.com (Eric Mann)
+Date: Fri, 14 May 2010 06:26:00 -0700
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+In-Reply-To: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+Message-ID: <009201caf369$00bca880$0235f980$@com>
+
+Luke,
+
+I've worked with WordPress' XMLRPC system before (using a WP-Hive
+installation with multiple separate blogs similar to a WPMU set-up).  The
+new approach you're using is definitely simpler and easier to implement (I
+tried the 5ubliminal one as well the first time).
+
+Whether or not you can distinguish between separate blogs in a MU
+installation depends entirely on how you build your handler function.  You
+can build it to distinguish the separate blogs, to only function on specific
+blogs, or to treat the entire system as a single WordPress site.  It's all
+up to you.
+
+Yes, you can retrieve and post to custom fields.
+
+Absolutely writing a plug-in is the way to go.  The only other options are
+to change core files (BAD idea) or to build it into your theme, in which
+case it could ONLY be used on MU sites using that theme.  Build it as a
+site-wide MU plug-in that can be controlled on a site-by-site basis by the
+global admin.
+
+~Eric
+
+Eric Mann
+www.eamann.com
+
+
+-----Original Message-----
+From: wp-xmlrpc-bounces at lists.automattic.com
+[mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke Mackenzie
+Sent: Friday, May 14, 2010 5:52 AM
+To: wp-xmlrpc at lists.automattic.com
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+
+Hi,
+
+I have been tasked with creating an API for retrieving and adding content to
+Wordpress from a flash application and legacy CMS (non-PHP). My plan is to
+utilise the existing default xmlrpc endpoint and add any additional
+functionality by creating a plugin which hooks into xmlrpc_methods.
+
+A previous attempt had been made by another developer based on the following
+code:
+
+http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+
+This code looks unwieldy and poorly documented to me and my preference would
+be to use this approach:
+
+http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+
+I would be grateful if anyone with experience in this area could confirm
+that:
+
+- I will be able to distinguish between separate blogs in an MU installation
+when both retrieving and posting data via XMLRPC
+- I will be able to retrieve and post to custom fields
+- writing a plugin is the way to go. 
+
+We do not have the option of using Wordpress 3 as it is still in Beta and we
+are under time pressure.
+
+I would greatly appreciate appreciate any input / advice.
+
+Many thanks,
+
+Luke.
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From luke at lukem.co.uk  Fri May 14 13:55:53 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Fri, 14 May 2010 14:55:53 +0100
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+In-Reply-To: <009201caf369$00bca880$0235f980$@com>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+Message-ID: <B87DD5EC-36A5-481E-AC03-ACEC22CBCD6C@lukem.co.uk>
+
+Thanks Eric - this is music to my ears. Your  reply is much appreciated.
+
+All the best,
+
+Luke.
+
+
+On 14 May 2010, at 14:26, Eric Mann wrote:
+
+> Luke,
+> 
+> I've worked with WordPress' XMLRPC system before (using a WP-Hive
+> installation with multiple separate blogs similar to a WPMU set-up).  The
+> new approach you're using is definitely simpler and easier to implement (I
+> tried the 5ubliminal one as well the first time).
+> 
+> Whether or not you can distinguish between separate blogs in a MU
+> installation depends entirely on how you build your handler function.  You
+> can build it to distinguish the separate blogs, to only function on specific
+> blogs, or to treat the entire system as a single WordPress site.  It's all
+> up to you.
+> 
+> Yes, you can retrieve and post to custom fields.
+> 
+> Absolutely writing a plug-in is the way to go.  The only other options are
+> to change core files (BAD idea) or to build it into your theme, in which
+> case it could ONLY be used on MU sites using that theme.  Build it as a
+> site-wide MU plug-in that can be controlled on a site-by-site basis by the
+> global admin.
+> 
+> ~Eric
+> 
+> Eric Mann
+> www.eamann.com
+> 
+> 
+> -----Original Message-----
+> From: wp-xmlrpc-bounces at lists.automattic.com
+> [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke Mackenzie
+> Sent: Friday, May 14, 2010 5:52 AM
+> To: wp-xmlrpc at lists.automattic.com
+> Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+> 
+> Hi,
+> 
+> I have been tasked with creating an API for retrieving and adding content to
+> Wordpress from a flash application and legacy CMS (non-PHP). My plan is to
+> utilise the existing default xmlrpc endpoint and add any additional
+> functionality by creating a plugin which hooks into xmlrpc_methods.
+> 
+> A previous attempt had been made by another developer based on the following
+> code:
+> 
+> http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+> 
+> This code looks unwieldy and poorly documented to me and my preference would
+> be to use this approach:
+> 
+> http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+> 
+> I would be grateful if anyone with experience in this area could confirm
+> that:
+> 
+> - I will be able to distinguish between separate blogs in an MU installation
+> when both retrieving and posting data via XMLRPC
+> - I will be able to retrieve and post to custom fields
+> - writing a plugin is the way to go. 
+> 
+> We do not have the option of using Wordpress 3 as it is still in Beta and we
+> are under time pressure.
+> 
+> I would greatly appreciate appreciate any input / advice.
+> 
+> Many thanks,
+> 
+> Luke.
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From luke at lukem.co.uk  Fri May 14 14:42:28 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Fri, 14 May 2010 15:42:28 +0100
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+In-Reply-To: <009201caf369$00bca880$0235f980$@com>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+Message-ID: <DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+
+Could you expand on what you mean by the handler function?
+
+I'm trying this call as an example:
+
+http://codex.wordpress.org/XML-RPC/wp.getComments
+
+Altering the blog_id has no effect on the comments returned. I have read elsewhere that the blog_id parameter is ignored. Is that still the case?
+
+An alternative would be to use different endpoints per blog as I believe these are separate in MU?
+
+
+Thanks again,
+
+Luke.
+
+
+On 14 May 2010, at 14:26, Eric Mann wrote:
+
+> Luke,
+> 
+> I've worked with WordPress' XMLRPC system before (using a WP-Hive
+> installation with multiple separate blogs similar to a WPMU set-up).  The
+> new approach you're using is definitely simpler and easier to implement (I
+> tried the 5ubliminal one as well the first time).
+> 
+> Whether or not you can distinguish between separate blogs in a MU
+> installation depends entirely on how you build your handler function.  You
+> can build it to distinguish the separate blogs, to only function on specific
+> blogs, or to treat the entire system as a single WordPress site.  It's all
+> up to you.
+> 
+> Yes, you can retrieve and post to custom fields.
+> 
+> Absolutely writing a plug-in is the way to go.  The only other options are
+> to change core files (BAD idea) or to build it into your theme, in which
+> case it could ONLY be used on MU sites using that theme.  Build it as a
+> site-wide MU plug-in that can be controlled on a site-by-site basis by the
+> global admin.
+> 
+> ~Eric
+> 
+> Eric Mann
+> www.eamann.com
+> 
+> 
+> -----Original Message-----
+> From: wp-xmlrpc-bounces at lists.automattic.com
+> [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke Mackenzie
+> Sent: Friday, May 14, 2010 5:52 AM
+> To: wp-xmlrpc at lists.automattic.com
+> Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+> 
+> Hi,
+> 
+> I have been tasked with creating an API for retrieving and adding content to
+> Wordpress from a flash application and legacy CMS (non-PHP). My plan is to
+> utilise the existing default xmlrpc endpoint and add any additional
+> functionality by creating a plugin which hooks into xmlrpc_methods.
+> 
+> A previous attempt had been made by another developer based on the following
+> code:
+> 
+> http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+> 
+> This code looks unwieldy and poorly documented to me and my preference would
+> be to use this approach:
+> 
+> http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+> 
+> I would be grateful if anyone with experience in this area could confirm
+> that:
+> 
+> - I will be able to distinguish between separate blogs in an MU installation
+> when both retrieving and posting data via XMLRPC
+> - I will be able to retrieve and post to custom fields
+> - writing a plugin is the way to go. 
+> 
+> We do not have the option of using Wordpress 3 as it is still in Beta and we
+> are under time pressure.
+> 
+> I would greatly appreciate appreciate any input / advice.
+> 
+> Many thanks,
+> 
+> Luke.
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From eric at eamann.com  Fri May 14 14:51:50 2010
+From: eric at eamann.com (eric at eamann.com)
+Date: Fri, 14 May 2010 07:51:50 -0700 (PDT)
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+In-Reply-To: <DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+Message-ID: <61570159.611749.1273848710733.JavaMail.open-xchange@oxusltgw07.schlund.de>
+
+You can define your own XML-RPC methods and the functions that handle those
+method calls.? That's what I meant by the handler function.? For example, I use
+XML-RPC in all my plug-ins to report back installation progress and errors -
+each plug-in makes an XML-RPC call to a custom handler (method) on my server.
+?
+Basically, you can define your own version of wp.getComments (maybe
+wpCustom.getComments) that focuses on MU blogs in whatever way you choose
+(identifying one blog by blog ID or getting information universally).
+?
+
+On May 14, 2010 at 2:42 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+
+> Could you expand on what you mean by the handler function?
+>
+> I'm trying this call as an example:
+>
+> http://codex.wordpress.org/XML-RPC/wp.getComments
+>
+> Altering the blog_id has no effect on the comments returned. I have read
+> elsewhere that the blog_id parameter is ignored. Is that still the case?
+>
+> An alternative would be to use different endpoints per blog as I believe these
+> are separate in MU?
+>
+>
+> Thanks again,
+>
+> Luke.
+>
+>
+> On 14 May 2010, at 14:26, Eric Mann wrote:
+>
+> > Luke,
+> >
+> > I've worked with WordPress' XMLRPC system before (using a WP-Hive
+> > installation with multiple separate blogs similar to a WPMU set-up).? The
+> > new approach you're using is definitely simpler and easier to implement (I
+> > tried the 5ubliminal one as well the first time).
+> >
+> > Whether or not you can distinguish between separate blogs in a MU
+> > installation depends entirely on how you build your handler function.? You
+> > can build it to distinguish the separate blogs, to only function on specific
+> > blogs, or to treat the entire system as a single WordPress site.? It's all
+> > up to you.
+> >
+> > Yes, you can retrieve and post to custom fields.
+> >
+> > Absolutely writing a plug-in is the way to go.? The only other options are
+> > to change core files (BAD idea) or to build it into your theme, in which
+> > case it could ONLY be used on MU sites using that theme.? Build it as a
+> > site-wide MU plug-in that can be controlled on a site-by-site basis by the
+> > global admin.
+> >
+> > ~Eric
+> >
+> > Eric Mann
+> > www.eamann.com
+> >
+> >
+> > -----Original Message-----
+> > From: wp-xmlrpc-bounces at lists.automattic.com
+> > [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke Mackenzie
+> > Sent: Friday, May 14, 2010 5:52 AM
+> > To: wp-xmlrpc at lists.automattic.com
+> > Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+> >
+> > Hi,
+> >
+> > I have been tasked with creating an API for retrieving and adding content to
+> > Wordpress from a flash application and legacy CMS (non-PHP). My plan is to
+> > utilise the existing default xmlrpc endpoint and add any additional
+> > functionality by creating a plugin which hooks into xmlrpc_methods.
+> >
+> > A previous attempt had been made by another developer based on the following
+> > code:
+> >
+> > http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+> >
+> > This code looks unwieldy and poorly documented to me and my preference would
+> > be to use this approach:
+> >
+> > http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+> >
+> > I would be grateful if anyone with experience in this area could confirm
+> > that:
+> >
+> > - I will be able to distinguish between separate blogs in an MU installation
+> > when both retrieving and posting data via XMLRPC
+> > - I will be able to retrieve and post to custom fields
+> > - writing a plugin is the way to go.
+> >
+> > We do not have the option of using Wordpress 3 as it is still in Beta and we
+> > are under time pressure.
+> >
+> > I would greatly appreciate appreciate any input / advice.
+> >
+> > Many thanks,
+> >
+> > Luke.
+> >
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100514/bfe46fd6/attachment-0001.htm>
+
+From luke at lukem.co.uk  Fri May 14 15:57:33 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Fri, 14 May 2010 16:57:33 +0100
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu - blog_id parameter
+In-Reply-To: <61570159.611749.1273848710733.JavaMail.open-xchange@oxusltgw07.schlund.de>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+	<61570159.611749.1273848710733.JavaMail.open-xchange@oxusltgw07.schlund.de>
+Message-ID: <B9B35B82-5195-486A-816E-467D50B68D79@lukem.co.uk>
+
+Thanks again,
+
+Can anyone confirm if the blog_id parameter should work in the wp.getComments call? This is what I'm doing to test it:
+
+I've tried passing the blog ID as both a string and an integer. Wordpress MU version is 2.9.2
+
+I always get the comments from the default blog.
+
+<?php
+
+error_reporting(E_ALL);
+
+$method= 'wp.getComments';
+
+$username = 'admin';
+
+$password = 'disney75';
+
+
+$blog_id = 2;
+
+$params = array($blog_id, $username, $password, array('status'=>'approve'));
+
+$service_url = 'http://wpmu.localhost/xmlrpc.php';
+
+//Using the XML-RPC extension to format the XML package
+
+$request = xmlrpc_encode_request($method, $params);
+
+//var_dump($request);
+
+$req = curl_init($service_url);
+
+// Using the cURL extension to send it off,  first creating a custom header block
+
+$headers = array();
+
+array_push($headers,"Content-Type: text/xml");
+
+array_push($headers,"Content-Length: ".strlen($request));
+
+array_push($headers,"\r\n");
+
+//URL to post to
+
+curl_setopt($req, CURLOPT_URL, $service_url);
+
+//Setting options for a secure SSL based xmlrpc server
+
+curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
+
+curl_setopt($req, CURLOPT_SSL_VERIFYHOST, 2);
+
+curl_setopt( $req, CURLOPT_CUSTOMREQUEST, 'POST' );
+
+curl_setopt($req, CURLOPT_RETURNTRANSFER, 1 );
+
+curl_setopt($req, CURLOPT_HTTPHEADER, $headers );
+
+curl_setopt( $req, CURLOPT_POSTFIELDS, $request );
+
+//Finally run
+
+$response = curl_exec($req);
+
+//Close the cURL connection
+
+curl_close($req);
+
+//Decoding the response to be displayed
+
+var_dump($response);
+
+
+
+On 14 May 2010, at 15:51, eric at eamann.com wrote:
+
+> You can define your own XML-RPC methods and the functions that handle those method calls.  That's what I meant by the handler function.  For example, I use XML-RPC in all my plug-ins to report back installation progress and errors - each plug-in makes an XML-RPC call to a custom handler (method) on my server.
+>  
+> Basically, you can define your own version of wp.getComments (maybe wpCustom.getComments) that focuses on MU blogs in whatever way you choose (identifying one blog by blog ID or getting information universally).
+>  
+> On May 14, 2010 at 2:42 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+> 
+> > Could you expand on what you mean by the handler function?
+> >
+> > I'm trying this call as an example:
+> >
+> > http://codex.wordpress.org/XML-RPC/wp.getComments
+> >
+> > Altering the blog_id has no effect on the comments returned. I have read elsewhere that the blog_id parameter is ignored. Is that still the case?
+> >
+> > An alternative would be to use different endpoints per blog as I believe these are separate in MU?
+> >
+> >
+> > Thanks again,
+> >
+> > Luke.
+> >
+> >
+> > On 14 May 2010, at 14:26, Eric Mann wrote:
+> >
+> > > Luke,
+> > >
+> > > I've worked with WordPress' XMLRPC system before (using a WP-Hive
+> > > installation with multiple separate blogs similar to a WPMU set-up).  The
+> > > new approach you're using is definitely simpler and easier to implement (I
+> > > tried the 5ubliminal one as well the first time).
+> > >
+> > > Whether or not you can distinguish between separate blogs in a MU
+> > > installation depends entirely on how you build your handler function.  You
+> > > can build it to distinguish the separate blogs, to only function on specific
+> > > blogs, or to treat the entire system as a single WordPress site.  It's all
+> > > up to you.
+> > >
+> > > Yes, you can retrieve and post to custom fields.
+> > >
+> > > Absolutely writing a plug-in is the way to go.  The only other options are
+> > > to change core files (BAD idea) or to build it into your theme, in which
+> > > case it could ONLY be used on MU sites using that theme.  Build it as a
+> > > site-wide MU plug-in that can be controlled on a site-by-site basis by the
+> > > global admin.
+> > >
+> > > ~Eric
+> > >
+> > > Eric Mann
+> > > www.eamann.com
+> > >
+> > >
+> > > -----Original Message-----
+> > > From: wp-xmlrpc-bounces at lists.automattic.com
+> > > [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke Mackenzie
+> > > Sent: Friday, May 14, 2010 5:52 AM
+> > > To: wp-xmlrpc at lists.automattic.com
+> > > Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+> > >
+> > > Hi,
+> > >
+> > > I have been tasked with creating an API for retrieving and adding content to
+> > > Wordpress from a flash application and legacy CMS (non-PHP). My plan is to
+> > > utilise the existing default xmlrpc endpoint and add any additional
+> > > functionality by creating a plugin which hooks into xmlrpc_methods.
+> > >
+> > > A previous attempt had been made by another developer based on the following
+> > > code:
+> > >
+> > > http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+> > >
+> > > This code looks unwieldy and poorly documented to me and my preference would
+> > > be to use this approach:
+> > >
+> > > http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+> > >
+> > > I would be grateful if anyone with experience in this area could confirm
+> > > that:
+> > >
+> > > - I will be able to distinguish between separate blogs in an MU installation
+> > > when both retrieving and posting data via XMLRPC
+> > > - I will be able to retrieve and post to custom fields
+> > > - writing a plugin is the way to go.
+> > >
+> > > We do not have the option of using Wordpress 3 as it is still in Beta and we
+> > > are under time pressure.
+> > >
+> > > I would greatly appreciate appreciate any input / advice.
+> > >
+> > > Many thanks,
+> > >
+> > > Luke.
+> > >
+> > >
+> > > _______________________________________________
+> > > wp-xmlrpc mailing list
+> > > wp-xmlrpc at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > >
+> > > _______________________________________________
+> > > wp-xmlrpc mailing list
+> > > wp-xmlrpc at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100514/14a21dd2/attachment.htm>
+
+From eric at eamann.com  Fri May 14 16:31:15 2010
+From: eric at eamann.com (eric at eamann.com)
+Date: Fri, 14 May 2010 09:31:15 -0700 (PDT)
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu - blog_id parameter
+In-Reply-To: <B9B35B82-5195-486A-816E-467D50B68D79@lukem.co.uk>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+	<61570159.611749.1273848710733.JavaMail.open-xchange@oxusltgw07.schlund.de>
+	<B9B35B82-5195-486A-816E-467D50B68D79@lukem.co.uk>
+Message-ID: <1448591275.615462.1273854675701.JavaMail.open-xchange@oxusltgw07.schlund.de>
+
+You're certainly going about this the hard way.? Why not just use the IXR
+library already bundled with WordPress?
+?
+<?php
+?
+include_once(ABSPATH . WPINC . '/class-IXR.php');
+
+$rpc = new IXR_Client( "http://wpmu.localhost/xmlrpc.php" );
+$status = $rpc->query(
+??? "wp.getComments",?? // method name
+??? "2",??????????????? // blog id
+??? "admin",?? // username
+??? "disney75", // password
+??? array(
+??????? "status"?? => "approve"
+??? )
+);
+
+if( !$status ) {
+??? print "Error ( " . $rpc->getErrorCode( ) . " ) : ";
+??? print $rpc->getErrorMessage( ) . "\n";
+??? exit;
+}
+
+$response= $rpc->getResponse( );
+print_r( $response );
+?
+?>
+?
+This is a tested setup and should work regardless of any issue you might face
+instantiating a CURL request and setting your headers from scratch.
+
+?
+
+On May 14, 2010 at 3:57 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+
+> Thanks again,
+>
+> Can anyone confirm if the blog_id parameter should work in the wp.getComments
+> call? This is what I'm doing to test it:
+>
+> I've tried passing the blog ID as both a string and an integer. Wordpress MU
+> version is 2.9.2
+>
+> I always get the comments from the default blog.
+>
+> <?php
+>
+> error_reporting(E_ALL);
+>
+> $method= 'wp.getComments';
+>
+> $username = 'admin';
+>
+> $password = 'disney75';
+>
+>
+> $blog_id = 2;
+>
+> $params = array($blog_id, $username, $password, array('status'=>'approve'));
+>
+> $service_url = 'http://wpmu.localhost/xmlrpc.php';
+>
+> //Using the XML-RPC extension to format the XML package
+>
+> $request = xmlrpc_encode_request($method, $params);
+>
+> //var_dump($request);
+>
+> $req = curl_init($service_url);
+>
+> // Using the cURL extension to send it off,? first creating a custom header
+> block
+>
+> $headers = array();
+>
+> array_push($headers,"Content-Type: text/xml");
+>
+> array_push($headers,"Content-Length: ".strlen($request));
+>
+> array_push($headers,"\r\n");
+>
+> //URL to post to
+>
+> curl_setopt($req, CURLOPT_URL, $service_url);
+>
+> //Setting options for a secure SSL based xmlrpc server
+>
+> curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
+>
+> curl_setopt($req, CURLOPT_SSL_VERIFYHOST, 2);
+>
+> curl_setopt( $req, CURLOPT_CUSTOMREQUEST, 'POST' );
+>
+> curl_setopt($req, CURLOPT_RETURNTRANSFER, 1 );
+>
+> curl_setopt($req, CURLOPT_HTTPHEADER, $headers );
+>
+> curl_setopt( $req, CURLOPT_POSTFIELDS, $request );
+>
+> //Finally run
+>
+> $response = curl_exec($req);
+>
+> //Close the cURL connection
+>
+> curl_close($req);
+>
+> //Decoding the response to be displayed
+>
+> var_dump($response);
+>
+>
+>
+> On 14 May 2010, at 15:51, eric at eamann.com wrote:
+>
+> > You can define your own XML-RPC methods and the functions that handle those
+> > method calls.? That's what I meant by the handler function.? For example, I
+> > use XML-RPC in all my plug-ins to report back installation progress and
+> > errors - each plug-in makes an XML-RPC call to a custom handler (method) on
+> > my server.
+> >?
+> > Basically, you can define your own version of wp.getComments (maybe
+> > wpCustom.getComments) that focuses on MU blogs in whatever way you choose
+> > (identifying one blog by blog ID or getting information universally).
+> >?
+> > On May 14, 2010 at 2:42 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+> >
+> > > Could you expand on what you mean by the handler function?
+> > >
+> > > I'm trying this call as an example:
+> > >
+> > > http://codex.wordpress.org/XML-RPC/wp.getComments
+> > >
+> > > Altering the blog_id has no effect on the comments returned. I have read
+> > > elsewhere that the blog_id parameter is ignored. Is that still the case?
+> > >
+> > > An alternative would be to use different endpoints per blog as I believe
+> > > these are separate in MU?
+> > >
+> > >
+> > > Thanks again,
+> > >
+> > > Luke.
+> > >
+> > >
+> > > On 14 May 2010, at 14:26, Eric Mann wrote:
+> > >
+> > > > Luke,
+> > > >
+> > > > I've worked with WordPress' XMLRPC system before (using a WP-Hive
+> > > > installation with multiple separate blogs similar to a WPMU set-up).?
+> > > > The
+> > > > new approach you're using is definitely simpler and easier to implement
+> > > > (I
+> > > > tried the 5ubliminal one as well the first time).
+> > > >
+> > > > Whether or not you can distinguish between separate blogs in a MU
+> > > > installation depends entirely on how you build your handler function.?
+> > > > You
+> > > > can build it to distinguish the separate blogs, to only function on
+> > > > specific
+> > > > blogs, or to treat the entire system as a single WordPress site.? It's
+> > > > all
+> > > > up to you.
+> > > >
+> > > > Yes, you can retrieve and post to custom fields.
+> > > >
+> > > > Absolutely writing a plug-in is the way to go.? The only other options
+> > > > are
+> > > > to change core files (BAD idea) or to build it into your theme, in which
+> > > > case it could ONLY be used on MU sites using that theme.? Build it as a
+> > > > site-wide MU plug-in that can be controlled on a site-by-site basis by
+> > > > the
+> > > > global admin.
+> > > >
+> > > > ~Eric
+> > > >
+> > > > Eric Mann
+> > > > www.eamann.com
+> > > >
+> > > >
+> > > > -----Original Message-----
+> > > > From: wp-xmlrpc-bounces at lists.automattic.com
+> > > > [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke
+> > > > Mackenzie
+> > > > Sent: Friday, May 14, 2010 5:52 AM
+> > > > To: wp-xmlrpc at lists.automattic.com
+> > > > Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+> > > >
+> > > > Hi,
+> > > >
+> > > > I have been tasked with creating an API for retrieving and adding
+> > > > content to
+> > > > Wordpress from a flash application and legacy CMS (non-PHP). My plan is
+> > > > to
+> > > > utilise the existing default xmlrpc endpoint and add any additional
+> > > > functionality by creating a plugin which hooks into xmlrpc_methods.
+> > > >
+> > > > A previous attempt had been made by another developer based on the
+> > > > following
+> > > > code:
+> > > >
+> > > > http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+> > > >
+> > > > This code looks unwieldy and poorly documented to me and my preference
+> > > > would
+> > > > be to use this approach:
+> > > >
+> > > > http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+> > > >
+> > > > I would be grateful if anyone with experience in this area could confirm
+> > > > that:
+> > > >
+> > > > - I will be able to distinguish between separate blogs in an MU
+> > > > installation
+> > > > when both retrieving and posting data via XMLRPC
+> > > > - I will be able to retrieve and post to custom fields
+> > > > - writing a plugin is the way to go.
+> > > >
+> > > > We do not have the option of using Wordpress 3 as it is still in Beta
+> > > > and we
+> > > > are under time pressure.
+> > > >
+> > > > I would greatly appreciate appreciate any input / advice.
+> > > >
+> > > > Many thanks,
+> > > >
+> > > > Luke.
+> > > >
+> > > >
+> > > > _______________________________________________
+> > > > wp-xmlrpc mailing list
+> > > > wp-xmlrpc at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > > >
+> > > > _______________________________________________
+> > > > wp-xmlrpc mailing list
+> > > > wp-xmlrpc at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > >
+> > > _______________________________________________
+> > > wp-xmlrpc mailing list
+> > > wp-xmlrpc at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100514/5bb7a9db/attachment-0001.htm>
+
+From luke at lukem.co.uk  Sat May 15 06:28:54 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Sat, 15 May 2010 07:28:54 +0100
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu - blog_id parameter
+In-Reply-To: <1448591275.615462.1273854675701.JavaMail.open-xchange@oxusltgw07.schlund.de>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+	<61570159.611749.1273848710733.JavaMail.open-xchange@oxusltgw07.schlund.de>
+	<B9B35B82-5195-486A-816E-467D50B68D79@lukem.co.uk>
+	<1448591275.615462.1273854675701.JavaMail.open-xchange@oxusltgw07.schlund.de>
+Message-ID: <89C2ACB5-4BAC-4ADE-8B02-8D5FD59DC305@lukem.co.uk>
+
+Thanks Eric - I was just using curl as a test as I am familiar with it. The requests in the live environment will actually be coming from a flash application but thanks for the heads-up on the IXR library.
+
+
+On 14 May 2010, at 17:31, eric at eamann.com wrote:
+
+> You're certainly going about this the hard way.  Why not just use the IXR library already bundled with WordPress?
+>  
+> <?php
+>  
+> include_once(ABSPATH . WPINC . '/class-IXR.php');
+> 
+> $rpc = new IXR_Client( "http://wpmu.localhost/xmlrpc.php" );
+> $status = $rpc->query(
+>     "wp.getComments",   // method name
+>     "2",                // blog id
+>     "admin",   // username
+>     "disney75", // password
+>     array(
+>         "status"   => "approve"
+>     )
+> );
+> 
+> if( !$status ) {
+>     print "Error ( " . $rpc->getErrorCode( ) . " ) : ";
+>     print $rpc->getErrorMessage( ) . "\n";
+>     exit;
+> }
+> 
+> $response= $rpc->getResponse( );
+> print_r( $response );
+>  
+> ?>
+>  
+> This is a tested setup and should work regardless of any issue you might face instantiating a CURL request and setting your headers from scratch.
+>  
+> On May 14, 2010 at 3:57 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+> 
+> > Thanks again,
+> >
+> > Can anyone confirm if the blog_id parameter should work in the wp.getComments call? This is what I'm doing to test it:
+> >
+> > I've tried passing the blog ID as both a string and an integer. Wordpress MU version is 2.9.2
+> >
+> > I always get the comments from the default blog.
+> >
+> > <?php
+> >
+> > error_reporting(E_ALL);
+> >
+> > $method= 'wp.getComments';
+> >
+> > $username = 'admin';
+> >
+> > $password = 'disney75';
+> >
+> >
+> > $blog_id = 2;
+> >
+> > $params = array($blog_id, $username, $password, array('status'=>'approve'));
+> >
+> > $service_url = 'http://wpmu.localhost/xmlrpc.php';
+> >
+> > //Using the XML-RPC extension to format the XML package
+> >
+> > $request = xmlrpc_encode_request($method, $params);
+> >
+> > //var_dump($request);
+> >
+> > $req = curl_init($service_url);
+> >
+> > // Using the cURL extension to send it off,  first creating a custom header block
+> >
+> > $headers = array();
+> >
+> > array_push($headers,"Content-Type: text/xml");
+> >
+> > array_push($headers,"Content-Length: ".strlen($request));
+> >
+> > array_push($headers,"\r\n");
+> >
+> > //URL to post to
+> >
+> > curl_setopt($req, CURLOPT_URL, $service_url);
+> >
+> > //Setting options for a secure SSL based xmlrpc server
+> >
+> > curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
+> >
+> > curl_setopt($req, CURLOPT_SSL_VERIFYHOST, 2);
+> >
+> > curl_setopt( $req, CURLOPT_CUSTOMREQUEST, 'POST' );
+> >
+> > curl_setopt($req, CURLOPT_RETURNTRANSFER, 1 );
+> >
+> > curl_setopt($req, CURLOPT_HTTPHEADER, $headers );
+> >
+> > curl_setopt( $req, CURLOPT_POSTFIELDS, $request );
+> >
+> > //Finally run
+> >
+> > $response = curl_exec($req);
+> >
+> > //Close the cURL connection
+> >
+> > curl_close($req);
+> >
+> > //Decoding the response to be displayed
+> >
+> > var_dump($response);
+> >
+> >
+> >
+> > On 14 May 2010, at 15:51, eric at eamann.com wrote:
+> >
+> > > You can define your own XML-RPC methods and the functions that handle those method calls.  That's what I meant by the handler function.  For example, I use XML-RPC in all my plug-ins to report back installation progress and errors - each plug-in makes an XML-RPC call to a custom handler (method) on my server.
+> > > 
+> > > Basically, you can define your own version of wp.getComments (maybe wpCustom.getComments) that focuses on MU blogs in whatever way you choose (identifying one blog by blog ID or getting information universally).
+> > > 
+> > > On May 14, 2010 at 2:42 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+> > >
+> > > > Could you expand on what you mean by the handler function?
+> > > >
+> > > > I'm trying this call as an example:
+> > > >
+> > > > http://codex.wordpress.org/XML-RPC/wp.getComments
+> > > >
+> > > > Altering the blog_id has no effect on the comments returned. I have read elsewhere that the blog_id parameter is ignored. Is that still the case?
+> > > >
+> > > > An alternative would be to use different endpoints per blog as I believe these are separate in MU?
+> > > >
+> > > >
+> > > > Thanks again,
+> > > >
+> > > > Luke.
+> > > >
+> > > >
+> > > > On 14 May 2010, at 14:26, Eric Mann wrote:
+> > > >
+> > > > > Luke,
+> > > > >
+> > > > > I've worked with WordPress' XMLRPC system before (using a WP-Hive
+> > > > > installation with multiple separate blogs similar to a WPMU set-up).  The
+> > > > > new approach you're using is definitely simpler and easier to implement (I
+> > > > > tried the 5ubliminal one as well the first time).
+> > > > >
+> > > > > Whether or not you can distinguish between separate blogs in a MU
+> > > > > installation depends entirely on how you build your handler function.  You
+> > > > > can build it to distinguish the separate blogs, to only function on specific
+> > > > > blogs, or to treat the entire system as a single WordPress site.  It's all
+> > > > > up to you.
+> > > > >
+> > > > > Yes, you can retrieve and post to custom fields.
+> > > > >
+> > > > > Absolutely writing a plug-in is the way to go.  The only other options are
+> > > > > to change core files (BAD idea) or to build it into your theme, in which
+> > > > > case it could ONLY be used on MU sites using that theme.  Build it as a
+> > > > > site-wide MU plug-in that can be controlled on a site-by-site basis by the
+> > > > > global admin.
+> > > > >
+> > > > > ~Eric
+> > > > >
+> > > > > Eric Mann
+> > > > > www.eamann.com
+> > > > >
+> > > > >
+> > > > > -----Original Message-----
+> > > > > From: wp-xmlrpc-bounces at lists.automattic.com
+> > > > > [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Luke Mackenzie
+> > > > > Sent: Friday, May 14, 2010 5:52 AM
+> > > > > To: wp-xmlrpc at lists.automattic.com
+> > > > > Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+> > > > >
+> > > > > Hi,
+> > > > >
+> > > > > I have been tasked with creating an API for retrieving and adding content to
+> > > > > Wordpress from a flash application and legacy CMS (non-PHP). My plan is to
+> > > > > utilise the existing default xmlrpc endpoint and add any additional
+> > > > > functionality by creating a plugin which hooks into xmlrpc_methods.
+> > > > >
+> > > > > A previous attempt had been made by another developer based on the following
+> > > > > code:
+> > > > >
+> > > > > http://blog.5ubliminal.com/posts/remote-control-wordpress-blog-xmlrpc-api/
+> > > > >
+> > > > > This code looks unwieldy and poorly documented to me and my preference would
+> > > > > be to use this approach:
+> > > > >
+> > > > > http://kovshenin.com/archives/custom-xml-rpc-methods-in-wordpress/
+> > > > >
+> > > > > I would be grateful if anyone with experience in this area could confirm
+> > > > > that:
+> > > > >
+> > > > > - I will be able to distinguish between separate blogs in an MU installation
+> > > > > when both retrieving and posting data via XMLRPC
+> > > > > - I will be able to retrieve and post to custom fields
+> > > > > - writing a plugin is the way to go.
+> > > > >
+> > > > > We do not have the option of using Wordpress 3 as it is still in Beta and we
+> > > > > are under time pressure.
+> > > > >
+> > > > > I would greatly appreciate appreciate any input / advice.
+> > > > >
+> > > > > Many thanks,
+> > > > >
+> > > > > Luke.
+> > > > >
+> > > > >
+> > > > > _______________________________________________
+> > > > > wp-xmlrpc mailing list
+> > > > > wp-xmlrpc at lists.automattic.com
+> > > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > > > >
+> > > > > _______________________________________________
+> > > > > wp-xmlrpc mailing list
+> > > > > wp-xmlrpc at lists.automattic.com
+> > > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > > >
+> > > > _______________________________________________
+> > > > wp-xmlrpc mailing list
+> > > > wp-xmlrpc at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> > > _______________________________________________
+> > > wp-xmlrpc mailing list
+> > > wp-xmlrpc at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100515/8cd0e0e7/attachment.htm>
+
+From joseph at josephscott.org  Sat May 15 06:56:34 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 15 May 2010 00:56:34 -0600
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+In-Reply-To: <DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk> 
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+Message-ID: <AANLkTilVCdWn2yK7i4Zwl_z1m6N7GCRe4HAyITfuokct@mail.gmail.com>
+
+On Fri, May 14, 2010 at 8:42 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+> Altering the blog_id has no effect on the comments returned. I have read elsewhere that the blog_id parameter is ignored. Is that still the case?
+
+WordPress doesn't use the blog_id provided in XML-RPC methods.  In
+most cases it was put there to maintain method signature compatibility
+with other systems that implemented the same methods.
+
+Understandably this can get confusing for people used to dealing with
+WordPressMU because in that context blog_id does have a particular
+meaning in the rest of the code base.
+
+
+> An alternative would be to use different endpoints per blog as I believe these are separate in MU?
+
+This is the right approach to take.  From the XML-RPC client point of
+view each blog on a MU install is a really a stand alone site, each
+has it's own RSD URL and XML-RPC end point.
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From joseph at josephscott.org  Sat May 15 06:59:30 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 15 May 2010 00:59:30 -0600
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu - blog_id parameter
+In-Reply-To: <B9B35B82-5195-486A-816E-467D50B68D79@lukem.co.uk>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk> 
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk> 
+	<61570159.611749.1273848710733.JavaMail.open-xchange@oxusltgw07.schlund.de>
+	<B9B35B82-5195-486A-816E-467D50B68D79@lukem.co.uk>
+Message-ID: <AANLkTilc62iARTbe3FRCGJkIwHoH4g-5Kc8958EU9ueH@mail.gmail.com>
+
+Yes the blog_id parameter needs to be included in the method call, but
+it's value can be anything, including blank.
+
+We've talked in the past about actually making the XML-RPC methods do
+something with blog_id, but for now it is just a place holder.
+
+
+On Fri, May 14, 2010 at 9:57 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+> Can anyone confirm if the blog_id parameter should work in the
+> wp.getComments call? This is what I'm doing to test it:
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From luke at lukem.co.uk  Sat May 15 07:23:23 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Sat, 15 May 2010 08:23:23 +0100
+Subject: [wp-xmlrpc] XMLRPC for Wordpress Mu
+In-Reply-To: <AANLkTilVCdWn2yK7i4Zwl_z1m6N7GCRe4HAyITfuokct@mail.gmail.com>
+References: <CF0FDC20-9A6C-42A6-B076-CC5ACBE3566C@lukem.co.uk>
+	<009201caf369$00bca880$0235f980$@com>
+	<DBD66F96-2E2B-45D3-8025-9C830FFB3AEC@lukem.co.uk>
+	<AANLkTilVCdWn2yK7i4Zwl_z1m6N7GCRe4HAyITfuokct@mail.gmail.com>
+Message-ID: <53AEA4D8-8956-4AB4-9403-91E320852519@lukem.co.uk>
+
+Thanks Joseph - much appreciated.
+
+Luke.
+
+
+On 15 May 2010, at 07:56, Joseph Scott wrote:
+
+> On Fri, May 14, 2010 at 8:42 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+>> Altering the blog_id has no effect on the comments returned. I have read elsewhere that the blog_id parameter is ignored. Is that still the case?
+> 
+> WordPress doesn't use the blog_id provided in XML-RPC methods.  In
+> most cases it was put there to maintain method signature compatibility
+> with other systems that implemented the same methods.
+> 
+> Understandably this can get confusing for people used to dealing with
+> WordPressMU because in that context blog_id does have a particular
+> meaning in the rest of the code base.
+> 
+> 
+>> An alternative would be to use different endpoints per blog as I believe these are separate in MU?
+> 
+> This is the right approach to take.  From the XML-RPC client point of
+> view each blog on a MU install is a really a stand alone site, each
+> has it's own RSD URL and XML-RPC end point.
+> 
+> 
+> -- 
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From luke at lukem.co.uk  Mon May 24 08:19:07 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Mon, 24 May 2010 09:19:07 +0100
+Subject: [wp-xmlrpc] XMLRPC Security
+Message-ID: <17BA68E3-C8F1-47B6-ABC2-F4667AAB67F0@lukem.co.uk>
+
+Hi,
+
+I've got a couple of questions regarding locking down XMLRPC access to Wordpress (2.9.2 MU)
+
+Is the best way to do this by IP address in the .htaccess file / web server config?
+
+Is it possible to only allow one user access to the XMLRPC endpoint?
+
+Should / can the XMLRPC traffic be encrypted? I'm concerned that the user/pass are plain text in the POST operation. However, this may not be a problem if we lock access down by IP.
+
+Many thanks,
+
+Luke.
+
+From joseph at josephscott.org  Mon May 24 16:19:11 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 24 May 2010 10:19:11 -0600
+Subject: [wp-xmlrpc] XMLRPC Security
+In-Reply-To: <17BA68E3-C8F1-47B6-ABC2-F4667AAB67F0@lukem.co.uk>
+References: <17BA68E3-C8F1-47B6-ABC2-F4667AAB67F0@lukem.co.uk>
+Message-ID: <AANLkTikQOyJvGEYcsJ5step1V-XK44yTKaTeLCi6hhjj@mail.gmail.com>
+
+On Mon, May 24, 2010 at 2:19 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+> I've got a couple of questions regarding locking down XMLRPC access to Wordpress (2.9.2 MU)
+>
+> Is the best way to do this by IP address in the .htaccess file / web server config?
+
+There's nothing in the WP XML-RPC code to limit to a single IP, so
+doing this as the web server level is likely your best bet.
+
+
+> Is it possible to only allow one user access to the XMLRPC endpoint?
+
+A WordPress plugin could look at XML-RPC authentication requests and
+only approve a specific user.
+
+
+> Should / can the XMLRPC traffic be encrypted? I'm concerned that the user/pass are plain text in the POST operation. However, this may not be a problem if we lock access down by IP.
+
+Yes, SSL is always recommended when ever possible.  There's nothing in
+XML-RPC that requires it to be done in the clear.
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

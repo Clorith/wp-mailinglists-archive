@@ -1,0 +1,945 @@
+From shacker at berkeley.edu  Tue Nov  9 19:48:18 2010
+From: shacker at berkeley.edu (Scot Hacker)
+Date: Tue, 9 Nov 2010 11:48:18 -0800
+Subject: [wp-edu] Lots of domains, single sign-in
+Message-ID: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+
+We have around 30 WordPress domains in a .edu environment and we need  
+to get wp-admin behind https for all of them.  We can't get a separate  
+IP for  each domain.
+
+Using the university's CAS (central sign-in service) via a plugin  
+would be an ideal solution, but we have many users with logins who are  
+not part of the university. Facebook login would be another option,  
+but this isn't ideal for various reasons.
+
+The university network officials want us to find a way to redirect  
+users to a single sign-in domain, then back to the domain they're  
+logging into. My question is, how can this be done with WordPress?  
+Does anyone have experience with this?
+
+Thanks,
+Scot
+
+--
+Scot Hacker, Webmaster
+Knight Digital Media Center	
+UC Berkeley Graduate School of Journalism	
+http://kdmc.berkeley.edu
+http://twitter.com/kdmcinfo
+http://journalism.berkeley.edu
+
+
+
+
+
+From jimgroom at gmail.com  Tue Nov  9 19:56:46 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Tue, 9 Nov 2010 14:56:46 -0500
+Subject: [wp-edu] Lots of domains, single sign-in
+In-Reply-To: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+References: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+Message-ID: <AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+
+Scot,
+
+I'm pretty sure UBC blogs does this very thing:
+
+http://blogs.ubc.ca
+
+I would ask Novak Rogic how they did it. He rules, and you can find his
+contact info here:
+http://blogs.ubc.ca/novak/
+
+Jim
+
+On Tue, Nov 9, 2010 at 2:48 PM, Scot Hacker <shacker at berkeley.edu> wrote:
+
+> We have around 30 WordPress domains in a .edu environment and we need to
+> get wp-admin behind https for all of them.  We can't get a separate IP for
+>  each domain.
+>
+> Using the university's CAS (central sign-in service) via a plugin would be
+> an ideal solution, but we have many users with logins who are not part of
+> the university. Facebook login would be another option, but this isn't ideal
+> for various reasons.
+>
+> The university network officials want us to find a way to redirect users to
+> a single sign-in domain, then back to the domain they're logging into. My
+> question is, how can this be done with WordPress? Does anyone have
+> experience with this?
+>
+> Thanks,
+> Scot
+>
+> --
+> Scot Hacker, Webmaster
+> Knight Digital Media Center
+> UC Berkeley Graduate School of Journalism
+> http://kdmc.berkeley.edu
+> http://twitter.com/kdmcinfo
+> http://journalism.berkeley.edu
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20101109/edb80990/attachment.htm>
+
+From michael.ha at ubc.ca  Tue Nov  9 20:14:40 2010
+From: michael.ha at ubc.ca (Ha, Michael)
+Date: Tue, 9 Nov 2010 12:14:40 -0800
+Subject: [wp-edu] Lots of domains, single sign-in
+In-Reply-To: <AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+References: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+	<AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+Message-ID: <A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+
+Hi Scot,
+
+So you are trying to avoid SSL certificate error by using a single sign-on?
+
+I doubt it will work because after the user login and being redirected to the original domain dashboard (/wp-admin) the URL will be https without certificate. Right?
+
+Michael
+
+On 2010-11-09, at 11:56 AM, James Groom wrote:
+
+Scot,
+
+I'm pretty sure UBC blogs does this very thing:
+
+http://blogs.ubc.ca<http://blogs.ubc.ca/>
+
+I would ask Novak Rogic how they did it. He rules, and you can find his contact info here:
+http://blogs.ubc.ca/novak/
+
+Jim
+
+On Tue, Nov 9, 2010 at 2:48 PM, Scot Hacker <shacker at berkeley.edu<mailto:shacker at berkeley.edu>> wrote:
+We have around 30 WordPress domains in a .edu environment and we need to get wp-admin behind https for all of them.  We can't get a separate IP for  each domain.
+
+Using the university's CAS (central sign-in service) via a plugin would be an ideal solution, but we have many users with logins who are not part of the university. Facebook login would be another option, but this isn't ideal for various reasons.
+
+The university network officials want us to find a way to redirect users to a single sign-in domain, then back to the domain they're logging into. My question is, how can this be done with WordPress? Does anyone have experience with this?
+
+Thanks,
+Scot
+
+--
+Scot Hacker, Webmaster
+Knight Digital Media Center
+UC Berkeley Graduate School of Journalism
+http://kdmc.berkeley.edu<http://kdmc.berkeley.edu/>
+http://twitter.com/kdmcinfo
+http://journalism.berkeley.edu<http://journalism.berkeley.edu/>
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20101109/c0b58103/attachment.htm>
+
+From dennen at gmail.com  Tue Nov  9 20:17:48 2010
+From: dennen at gmail.com (Bill Dennen)
+Date: Tue, 9 Nov 2010 15:17:48 -0500
+Subject: [wp-edu] Lots of domains, single sign-in
+In-Reply-To: <A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+References: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+	<AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+	<A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+Message-ID: <AANLkTi=iYjcci1WMRKhvatuLfG2Q1m6piaHUiK7CivNt@mail.gmail.com>
+
+This might not be the best way, but you could get an SSL cert that has
+multiple domains in it. Go Daddy sells one that covers 100 domains for
+$89.
+
+From shacker at berkeley.edu  Tue Nov  9 21:46:54 2010
+From: shacker at berkeley.edu (Scot Hacker)
+Date: Tue, 9 Nov 2010 13:46:54 -0800
+Subject: [wp-edu] Lots of domains, single sign-in
+In-Reply-To: <A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+References: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+	<AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+	<A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+Message-ID: <F6B9BA30-F8E6-43D1-8F55-18782018119B@berkeley.edu>
+
+On Nov 9, 2010, at 12:14 PM, Ha, Michael wrote:
+
+> Hi Scot,
+>
+> So you are trying to avoid SSL certificate error by using a single  
+> sign-on?
+>
+> I doubt it will work because after the user login and being  
+> redirected to the original domain dashboard (/wp-admin) the URL will  
+> be https without certificate. Right?
+
+I know it's not ideal, but we would probably keep the wp-admins on  
+http. It's the user/password credentials that really need protecting.
+
+We're also looking into the possiblity of using a multi-domain cert -  
+just need to make sure that's compatible with cPanel.
+
+Thanks,
+Scot
+
+
+--
+Scot Hacker, Webmaster
+Knight Digital Media Center	
+UC Berkeley Graduate School of Journalism	
+http://kdmc.berkeley.edu
+http://twitter.com/kdmcinfo
+http://journalism.berkeley.edu
+
+
+
+
+
+From mmuro at advance.ua.edu  Tue Nov  9 21:59:16 2010
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Tue, 9 Nov 2010 15:59:16 -0600
+Subject: [wp-edu] Lots of domains, single sign-in
+In-Reply-To: <F6B9BA30-F8E6-43D1-8F55-18782018119B@berkeley.edu>
+References: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+	<AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+	<A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+	<F6B9BA30-F8E6-43D1-8F55-18782018119B@berkeley.edu>
+Message-ID: <F6B74931-B4F9-41C5-976A-8FC41499AC8A@ur.ua.edu>
+
+I would just get an SSL that is compatible for all of your domains and then enforce SSL on login.
+
+http://codex.wordpress.org/Administration_Over_SSL
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+
+
+
+
+
+On Nov 9, 2010, at 3:46 PM, Scot Hacker wrote:
+
+On Nov 9, 2010, at 12:14 PM, Ha, Michael wrote:
+
+Hi Scot,
+
+So you are trying to avoid SSL certificate error by using a single
+sign-on?
+
+I doubt it will work because after the user login and being
+redirected to the original domain dashboard (/wp-admin) the URL will
+be https without certificate. Right?
+
+I know it's not ideal, but we would probably keep the wp-admins on
+http. It's the user/password credentials that really need protecting.
+
+We're also looking into the possiblity of using a multi-domain cert -
+just need to make sure that's compatible with cPanel.
+
+Thanks,
+Scot
+
+
+--
+Scot Hacker, Webmaster
+Knight Digital Media Center
+UC Berkeley Graduate School of Journalism
+http://kdmc.berkeley.edu
+http://twitter.com/kdmcinfo
+http://journalism.berkeley.edu
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From casey.bisson at gmail.com  Wed Nov 10 05:47:58 2010
+From: casey.bisson at gmail.com (Casey Bisson)
+Date: Tue, 9 Nov 2010 21:47:58 -0800
+Subject: [wp-edu] Lots of domains, single sign-in
+In-Reply-To: <F6B74931-B4F9-41C5-976A-8FC41499AC8A@ur.ua.edu>
+References: <23B966FA-8403-4F2F-A9AB-403EF4CE4395@berkeley.edu>
+	<AANLkTinEutAZPdTYQyhJmypNJXjPTc4pG1ZEE+0+kV=p@mail.gmail.com>
+	<A1A8F468-75A0-4EF5-B82F-19B4045107D8@ubc.ca>
+	<F6B9BA30-F8E6-43D1-8F55-18782018119B@berkeley.edu>
+	<F6B74931-B4F9-41C5-976A-8FC41499AC8A@ur.ua.edu>
+Message-ID: <3257BA68-F4D5-4DB2-8122-D55F18E5C6C7@gmail.com>
+
+
+If the only concern is in ensuring the logins are all https, then you could get a wildcard cert for *.domain.edu. They're more expensive than single site certs, but still cheap and much more useful. Godaddy sells them for about $200.
+
+MU/3.0MS sets the login cookie so that it works across all blogs on that site/domain, so users won't have to repeatedly authenticate. 
+
+If you want to force all log-ins to go through a single page at a well known URL, you might want to check out the work I did for my previous employer:
+
+http://maisonbisson.com/blog/post/14110/wordpress-user-authentication-hacks/
+
+There are some good reasons to send everybody through the same auth page, but I'd balance that against the effort necessary to make it work. Especially if a wildcard cert will solve your immediate problem (and won't hurt later if you decide to invest more time). 
+
+--Casey Bisson
+
+http://MaisonBisson.com
+http://pro.GigaOM.com
+
+On Nov 9, 2010, at 1:59 PM, "Muro, Matthew" <mmuro at advance.ua.edu> wrote:
+
+> I would just get an SSL that is compatible for all of your domains and then enforce SSL on login.
+> 
+> http://codex.wordpress.org/Administration_Over_SSL
+> 
+> Matthew Muro
+> Web Developer
+> UA Office of Web Communications
+> 
+> 
+> 
+> 
+> 
+> On Nov 9, 2010, at 3:46 PM, Scot Hacker wrote:
+> 
+> On Nov 9, 2010, at 12:14 PM, Ha, Michael wrote:
+> 
+> Hi Scot,
+> 
+> So you are trying to avoid SSL certificate error by using a single
+> sign-on?
+> 
+> I doubt it will work because after the user login and being
+> redirected to the original domain dashboard (/wp-admin) the URL will
+> be https without certificate. Right?
+> 
+> I know it's not ideal, but we would probably keep the wp-admins on
+> http. It's the user/password credentials that really need protecting.
+> 
+> We're also looking into the possiblity of using a multi-domain cert -
+> just need to make sure that's compatible with cPanel.
+> 
+> Thanks,
+> Scot
+> 
+> 
+> --
+> Scot Hacker, Webmaster
+> Knight Digital Media Center
+> UC Berkeley Graduate School of Journalism
+> http://kdmc.berkeley.edu
+> http://twitter.com/kdmcinfo
+> http://journalism.berkeley.edu
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From jane at automattic.com  Mon Nov 15 18:27:01 2010
+From: jane at automattic.com (Jane Wells)
+Date: Mon, 15 Nov 2010 13:27:01 -0500
+Subject: [wp-edu] Hosting WordCamps
+Message-ID: <4CE17B75.9090002@automattic.com>
+
+One of the biggest hurdles for organizing a WordCamp in any city is 
+finding a venue. Ideally, venues are donated, so that the organizers can 
+focus on content rather than raising lots of money for room rentals, and 
+one of the best sources of venue donation is college and university 
+campuses. They tend to have various room sizes, projectors, etc. and are 
+usually easy to get to. Since academia is a growing area of WordPress 
+use, it frequently happens that hosting a WordCamp at a college campus 
+is possible because someone at the college wanted to be involved in 
+bringing a WordCamp to their school. A faculty member who wants his/her 
+department to host/sponsor a WordCamp has built-in access to facilities 
+and services, while an outside organizer would be handed off to 
+conference rentals, when what is usually appealing about campuses is the 
+classroom format.
+
+Why am I telling you this? If you are on this list, chances are you're 
+using WordPress in an academic setting. Some WordCamps, like New York 
+City, feature an academic track due to close collaboration with college 
+personnel, and I'd like to see this trend continue.
+
+If you work for a college with a campus that would make a good setting 
+for a WordCamp and would be interested in getting involved, let me know. 
+I can try to put you together with local people who are also interested 
+in organizing a WordCamp. Whether you try to include an academic track 
+or not, bringing WordCamp to your campus has benefits on all sides.
+
+While I'm at it, is anyone here affiliated with any San Francisco 
+universities? :)
+
+Jane
+
+From michael.ha at ubc.ca  Mon Nov 15 18:33:31 2010
+From: michael.ha at ubc.ca (Ha, Michael)
+Date: Mon, 15 Nov 2010 10:33:31 -0800
+Subject: [wp-edu] Hosting WordCamps
+In-Reply-To: <5957_1289845635_1289845635_4CE17B75.9090002@automattic.com>
+References: <5957_1289845635_1289845635_4CE17B75.9090002@automattic.com>
+Message-ID: <F0BD1AB4-BCAD-46EE-9B2B-1819E18553B8@ubc.ca>
+
+Hi Jane,
+
+I'm a developer at UBC Vancouver and I am really excited about the opportunity to get WordCamp hosted on my campus.
+
+Michael Ha, Web Applications Developer
+Centre for Teaching, Learning and Technology, UBC
+Tel: 604.822.9897
+http://blogs.ubc.ca | http://sites.olt.ubc.ca/
+
+On 2010-11-15, at 10:27 AM, Jane Wells wrote:
+
+One of the biggest hurdles for organizing a WordCamp in any city is
+finding a venue. Ideally, venues are donated, so that the organizers can
+focus on content rather than raising lots of money for room rentals, and
+one of the best sources of venue donation is college and university
+campuses. They tend to have various room sizes, projectors, etc. and are
+usually easy to get to. Since academia is a growing area of WordPress
+use, it frequently happens that hosting a WordCamp at a college campus
+is possible because someone at the college wanted to be involved in
+bringing a WordCamp to their school. A faculty member who wants his/her
+department to host/sponsor a WordCamp has built-in access to facilities
+and services, while an outside organizer would be handed off to
+conference rentals, when what is usually appealing about campuses is the
+classroom format.
+
+Why am I telling you this? If you are on this list, chances are you're
+using WordPress in an academic setting. Some WordCamps, like New York
+City, feature an academic track due to close collaboration with college
+personnel, and I'd like to see this trend continue.
+
+If you work for a college with a campus that would make a good setting
+for a WordCamp and would be interested in getting involved, let me know.
+I can try to put you together with local people who are also interested
+in organizing a WordCamp. Whether you try to include an academic track
+or not, bringing WordCamp to your campus has benefits on all sides.
+
+While I'm at it, is anyone here affiliated with any San Francisco
+universities? :)
+
+Jane
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20101115/723ef890/attachment.htm>
+
+From dlnorman at ucalgary.ca  Mon Nov 15 18:37:44 2010
+From: dlnorman at ucalgary.ca (D'Arcy Norman)
+Date: Mon, 15 Nov 2010 11:37:44 -0700
+Subject: [wp-edu] Hosting WordCamps
+In-Reply-To: <F0BD1AB4-BCAD-46EE-9B2B-1819E18553B8@ubc.ca>
+References: <5957_1289845635_1289845635_4CE17B75.9090002@automattic.com>
+	<F0BD1AB4-BCAD-46EE-9B2B-1819E18553B8@ubc.ca>
+Message-ID: <C5B51421-5C58-458D-A20B-640719468416@ucalgary.ca>
+
+I may be able to access facilities at the University of Calgary, if someone's looking to do a WordCamp Calgary.
+
+- D'Arcy
+
+From helen.y.hou at gmail.com  Mon Nov 15 21:44:44 2010
+From: helen.y.hou at gmail.com (Helen Hou-Sandi)
+Date: Mon, 15 Nov 2010 16:44:44 -0500
+Subject: [wp-edu] Hosting WordCamps
+In-Reply-To: <4CE17B75.9090002@automattic.com>
+References: <4CE17B75.9090002@automattic.com>
+Message-ID: <AANLkTinxZtuNKabgZLM=d7d8WBYD+8nkm-bs8WKW5GVB@mail.gmail.com>
+
+Looks like we'd probably be able to scare up some interest and resources at
+the University of Rochester! Jane, maybe you still know some locals :)
+
+Helen
+
+--
+Helen Hou-Sandi
+757.288.8767 (cell)
+http://www.helenhousandi.com
+
+
+
+On Mon, Nov 15, 2010 at 1:27 PM, Jane Wells <jane at automattic.com> wrote:
+
+> One of the biggest hurdles for organizing a WordCamp in any city is finding
+> a venue. Ideally, venues are donated, so that the organizers can focus on
+> content rather than raising lots of money for room rentals, and one of the
+> best sources of venue donation is college and university campuses. They tend
+> to have various room sizes, projectors, etc. and are usually easy to get to.
+> Since academia is a growing area of WordPress use, it frequently happens
+> that hosting a WordCamp at a college campus is possible because someone at
+> the college wanted to be involved in bringing a WordCamp to their school. A
+> faculty member who wants his/her department to host/sponsor a WordCamp has
+> built-in access to facilities and services, while an outside organizer would
+> be handed off to conference rentals, when what is usually appealing about
+> campuses is the classroom format.
+>
+> Why am I telling you this? If you are on this list, chances are you're
+> using WordPress in an academic setting. Some WordCamps, like New York City,
+> feature an academic track due to close collaboration with college personnel,
+> and I'd like to see this trend continue.
+>
+> If you work for a college with a campus that would make a good setting for
+> a WordCamp and would be interested in getting involved, let me know. I can
+> try to put you together with local people who are also interested in
+> organizing a WordCamp. Whether you try to include an academic track or not,
+> bringing WordCamp to your campus has benefits on all sides.
+>
+> While I'm at it, is anyone here affiliated with any San Francisco
+> universities? :)
+>
+> Jane
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20101115/8305dc36/attachment.htm>
+
+From james at wanless.info  Tue Nov 16 17:12:02 2010
+From: james at wanless.info (James Wanless)
+Date: Tue, 16 Nov 2010 09:12:02 -0800
+Subject: [wp-edu] Hosting WordCamps
+In-Reply-To: <F0BD1AB4-BCAD-46EE-9B2B-1819E18553B8@ubc.ca>
+References: <5957_1289845635_1289845635_4CE17B75.9090002@automattic.com>
+	<F0BD1AB4-BCAD-46EE-9B2B-1819E18553B8@ubc.ca>
+Message-ID: <AANLkTimoZ48ggAdXdxYbe0KZZZmT7nxD4LBsA4m+ojYK@mail.gmail.com>
+
+I'm a Senior Analyst at BCIT and would be interested in spearheading
+something here as well.  Perhaps, given Michael's interest, a lower mainland
+Word-edu-Camp might be doable.
+
+We haven't gone as far down the Wordpress road as UBC, but do have it in
+place and are slowly moving forward.  I'm trying to push forward with a
+Wordpress strategy, so a WordCamp would be ideal!
+
+-----------------------------------------------------------------------------------------------------------
+James Wanless  |  Senior Analyst  |  User Experience Design & Project
+Manager
+Web Services  |  IT Services  |  British Columbia Institute of Technology
+T: 604.456.1119  |  E: jwanless at bcit.ca
+
+
+On Mon, Nov 15, 2010 at 10:33 AM, Ha, Michael <michael.ha at ubc.ca> wrote:
+
+> Hi Jane,
+>
+> I'm a developer at UBC Vancouver and I am really excited about the
+> opportunity to get WordCamp hosted on my campus.
+>
+> Michael Ha, Web Applications Developer
+> Centre for Teaching, Learning and Technology, UBC
+> Tel: 604.822.9897
+>  http://blogs.ubc.ca | http://sites.olt.ubc.ca/
+>
+> On 2010-11-15, at 10:27 AM, Jane Wells wrote:
+>
+> One of the biggest hurdles for organizing a WordCamp in any city is
+> finding a venue. Ideally, venues are donated, so that the organizers can
+> focus on content rather than raising lots of money for room rentals, and
+> one of the best sources of venue donation is college and university
+> campuses. They tend to have various room sizes, projectors, etc. and are
+> usually easy to get to. Since academia is a growing area of WordPress
+> use, it frequently happens that hosting a WordCamp at a college campus
+> is possible because someone at the college wanted to be involved in
+> bringing a WordCamp to their school. A faculty member who wants his/her
+> department to host/sponsor a WordCamp has built-in access to facilities
+> and services, while an outside organizer would be handed off to
+> conference rentals, when what is usually appealing about campuses is the
+> classroom format.
+>
+> Why am I telling you this? If you are on this list, chances are you're
+> using WordPress in an academic setting. Some WordCamps, like New York
+> City, feature an academic track due to close collaboration with college
+> personnel, and I'd like to see this trend continue.
+>
+> If you work for a college with a campus that would make a good setting
+> for a WordCamp and would be interested in getting involved, let me know.
+> I can try to put you together with local people who are also interested
+> in organizing a WordCamp. Whether you try to include an academic track
+> or not, bringing WordCamp to your campus has benefits on all sides.
+>
+> While I'm at it, is anyone here affiliated with any San Francisco
+> universities? :)
+>
+> Jane
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20101116/f659a0b5/attachment.htm>
+
+From mmuro at advance.ua.edu  Tue Nov 16 21:32:11 2010
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Tue, 16 Nov 2010 15:32:11 -0600
+Subject: [wp-edu] Hosting WordCamps
+In-Reply-To: <4CE17B75.9090002@automattic.com>
+References: <4CE17B75.9090002@automattic.com>
+Message-ID: <62157A58-263C-4791-99C5-51DD4401AA3E@ur.ua.edu>
+
+Jane,
+
+I'd be interested in learning more in order to get the University of Alabama involved.
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+205-348-0304
+
+
+
+
+
+On Nov 15, 2010, at 12:27 PM, Jane Wells wrote:
+
+One of the biggest hurdles for organizing a WordCamp in any city is
+finding a venue. Ideally, venues are donated, so that the organizers can
+focus on content rather than raising lots of money for room rentals, and
+one of the best sources of venue donation is college and university
+campuses. They tend to have various room sizes, projectors, etc. and are
+usually easy to get to. Since academia is a growing area of WordPress
+use, it frequently happens that hosting a WordCamp at a college campus
+is possible because someone at the college wanted to be involved in
+bringing a WordCamp to their school. A faculty member who wants his/her
+department to host/sponsor a WordCamp has built-in access to facilities
+and services, while an outside organizer would be handed off to
+conference rentals, when what is usually appealing about campuses is the
+classroom format.
+
+Why am I telling you this? If you are on this list, chances are you're
+using WordPress in an academic setting. Some WordCamps, like New York
+City, feature an academic track due to close collaboration with college
+personnel, and I'd like to see this trend continue.
+
+If you work for a college with a campus that would make a good setting
+for a WordCamp and would be interested in getting involved, let me know.
+I can try to put you together with local people who are also interested
+in organizing a WordCamp. Whether you try to include an academic track
+or not, bringing WordCamp to your campus has benefits on all sides.
+
+While I'm at it, is anyone here affiliated with any San Francisco
+universities? :)
+
+Jane
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From cyrijones2 at gmail.com  Thu Nov 18 02:43:26 2010
+From: cyrijones2 at gmail.com (Cyri Jones)
+Date: Wed, 17 Nov 2010 18:43:26 -0800
+Subject: [wp-edu] wp-edu Digest, Vol 18,
+	Issue 2 -- Hosting Education focused WordCamps
+Message-ID: <AANLkTimrn6FRgrVMtq54VmkDLaGBnCZgrjNXq+LPPhLX@mail.gmail.com>
+
+Hello Jane,
+
+I would be interested in helping organize a WordCamp if possible focused on
+using BuddyPress for internal social networks in schools.
+
+I am a faculty member at the British Columbia Institute of Technology (BCIT)
+in Burnaby and Capilano University in North Vancouver and could help with
+arranging hosting at either school.  Looks like there is a lot of interest
+in Vancouver area!
+
+At BCIT, we have an interesting pilot project using BuddyPress for an
+internal social network, bcitcommons.ca inspired by CUNY academic commons
+and UMW blogs.  It would be great to gather together others that are using
+WordPress/BuddyPress in this way and learn from each other.
+
+Thanks,
+Cyri Jones
+
+On Tue, Nov 16, 2010 at 4:00 AM, <wp-edu-request at lists.automattic.com>wrote:
+
+> Send wp-edu mailing list submissions to
+>        wp-edu at lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+>        wp-edu-request at lists.automattic.com
+>
+> You can reach the person managing the list at
+>        wp-edu-owner at lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Hosting WordCamps (Jane Wells)
+>   2. Re: Hosting WordCamps (Ha, Michael)
+>   3. Re: Hosting WordCamps (D'Arcy Norman)
+>   4. Re: Hosting WordCamps (Helen Hou-Sandi)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 15 Nov 2010 13:27:01 -0500
+> From: Jane Wells <jane at automattic.com>
+> Subject: [wp-edu] Hosting WordCamps
+> To: wp-edu at lists.automattic.com
+> Message-ID: <4CE17B75.9090002 at automattic.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> One of the biggest hurdles for organizing a WordCamp in any city is
+> finding a venue. Ideally, venues are donated, so that the organizers can
+> focus on content rather than raising lots of money for room rentals, and
+> one of the best sources of venue donation is college and university
+> campuses. They tend to have various room sizes, projectors, etc. and are
+> usually easy to get to. Since academia is a growing area of WordPress
+> use, it frequently happens that hosting a WordCamp at a college campus
+> is possible because someone at the college wanted to be involved in
+> bringing a WordCamp to their school. A faculty member who wants his/her
+> department to host/sponsor a WordCamp has built-in access to facilities
+> and services, while an outside organizer would be handed off to
+> conference rentals, when what is usually appealing about campuses is the
+> classroom format.
+>
+> Why am I telling you this? If you are on this list, chances are you're
+> using WordPress in an academic setting. Some WordCamps, like New York
+> City, feature an academic track due to close collaboration with college
+> personnel, and I'd like to see this trend continue.
+>
+> If you work for a college with a campus that would make a good setting
+> for a WordCamp and would be interested in getting involved, let me know.
+> I can try to put you together with local people who are also interested
+> in organizing a WordCamp. Whether you try to include an academic track
+> or not, bringing WordCamp to your campus has benefits on all sides.
+>
+> While I'm at it, is anyone here affiliated with any San Francisco
+> universities? :)
+>
+> Jane
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Mon, 15 Nov 2010 10:33:31 -0800
+> From: "Ha, Michael" <michael.ha at ubc.ca>
+> Subject: Re: [wp-edu] Hosting WordCamps
+> To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+> Message-ID: <F0BD1AB4-BCAD-46EE-9B2B-1819E18553B8 at ubc.ca>
+> Content-Type: text/plain; charset="us-ascii"
+>
+> Hi Jane,
+>
+> I'm a developer at UBC Vancouver and I am really excited about the
+> opportunity to get WordCamp hosted on my campus.
+>
+> Michael Ha, Web Applications Developer
+> Centre for Teaching, Learning and Technology, UBC
+> Tel: 604.822.9897
+> http://blogs.ubc.ca | http://sites.olt.ubc.ca/
+>
+> On 2010-11-15, at 10:27 AM, Jane Wells wrote:
+>
+> One of the biggest hurdles for organizing a WordCamp in any city is
+> finding a venue. Ideally, venues are donated, so that the organizers can
+> focus on content rather than raising lots of money for room rentals, and
+> one of the best sources of venue donation is college and university
+> campuses. They tend to have various room sizes, projectors, etc. and are
+> usually easy to get to. Since academia is a growing area of WordPress
+> use, it frequently happens that hosting a WordCamp at a college campus
+> is possible because someone at the college wanted to be involved in
+> bringing a WordCamp to their school. A faculty member who wants his/her
+> department to host/sponsor a WordCamp has built-in access to facilities
+> and services, while an outside organizer would be handed off to
+> conference rentals, when what is usually appealing about campuses is the
+> classroom format.
+>
+> Why am I telling you this? If you are on this list, chances are you're
+> using WordPress in an academic setting. Some WordCamps, like New York
+> City, feature an academic track due to close collaboration with college
+> personnel, and I'd like to see this trend continue.
+>
+> If you work for a college with a campus that would make a good setting
+> for a WordCamp and would be interested in getting involved, let me know.
+> I can try to put you together with local people who are also interested
+> in organizing a WordCamp. Whether you try to include an academic track
+> or not, bringing WordCamp to your campus has benefits on all sides.
+>
+> While I'm at it, is anyone here affiliated with any San Francisco
+> universities? :)
+>
+> Jane
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <
+> http://lists.automattic.com/pipermail/wp-edu/attachments/20101115/723ef890/attachment-0001.htm
+> >
+>
+> ------------------------------
+>
+> Message: 3
+> Date: Mon, 15 Nov 2010 11:37:44 -0700
+> From: D'Arcy Norman <dlnorman at ucalgary.ca>
+> Subject: Re: [wp-edu] Hosting WordCamps
+> To: wp-edu at lists.automattic.com
+> Message-ID: <C5B51421-5C58-458D-A20B-640719468416 at ucalgary.ca>
+> Content-Type: text/plain; charset=us-ascii
+>
+> I may be able to access facilities at the University of Calgary, if
+> someone's looking to do a WordCamp Calgary.
+>
+> - D'Arcy
+>
+> ------------------------------
+>
+> Message: 4
+> Date: Mon, 15 Nov 2010 16:44:44 -0500
+> From: Helen Hou-Sandi <helen.y.hou at gmail.com>
+> Subject: Re: [wp-edu] Hosting WordCamps
+> To: wp-edu at lists.automattic.com
+> Message-ID:
+>        <AANLkTinxZtuNKabgZLM=d7d8WBYD+8nkm-bs8WKW5GVB at mail.gmail.com<d7d8WBYD%2B8nkm-bs8WKW5GVB at mail.gmail.com>
+> >
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Looks like we'd probably be able to scare up some interest and resources at
+> the University of Rochester! Jane, maybe you still know some locals :)
+>
+> Helen
+>
+> --
+> Helen Hou-Sandi
+> 757.288.8767 (cell)
+> http://www.helenhousandi.com
+>
+>
+>
+> On Mon, Nov 15, 2010 at 1:27 PM, Jane Wells <jane at automattic.com> wrote:
+>
+> > One of the biggest hurdles for organizing a WordCamp in any city is
+> finding
+> > a venue. Ideally, venues are donated, so that the organizers can focus on
+> > content rather than raising lots of money for room rentals, and one of
+> the
+> > best sources of venue donation is college and university campuses. They
+> tend
+> > to have various room sizes, projectors, etc. and are usually easy to get
+> to.
+> > Since academia is a growing area of WordPress use, it frequently happens
+> > that hosting a WordCamp at a college campus is possible because someone
+> at
+> > the college wanted to be involved in bringing a WordCamp to their school.
+> A
+> > faculty member who wants his/her department to host/sponsor a WordCamp
+> has
+> > built-in access to facilities and services, while an outside organizer
+> would
+> > be handed off to conference rentals, when what is usually appealing about
+> > campuses is the classroom format.
+> >
+> > Why am I telling you this? If you are on this list, chances are you're
+> > using WordPress in an academic setting. Some WordCamps, like New York
+> City,
+> > feature an academic track due to close collaboration with college
+> personnel,
+> > and I'd like to see this trend continue.
+> >
+> > If you work for a college with a campus that would make a good setting
+> for
+> > a WordCamp and would be interested in getting involved, let me know. I
+> can
+> > try to put you together with local people who are also interested in
+> > organizing a WordCamp. Whether you try to include an academic track or
+> not,
+> > bringing WordCamp to your campus has benefits on all sides.
+> >
+> > While I'm at it, is anyone here affiliated with any San Francisco
+> > universities? :)
+> >
+> > Jane
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <
+> http://lists.automattic.com/pipermail/wp-edu/attachments/20101115/8305dc36/attachment-0001.htm
+> >
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+> End of wp-edu Digest, Vol 18, Issue 2
+> *************************************
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20101117/4847db68/attachment.htm>
+
+From jane at automattic.com  Mon Nov 22 03:09:38 2010
+From: jane at automattic.com (Jane Wells)
+Date: Sun, 21 Nov 2010 22:09:38 -0500
+Subject: [wp-edu] Boston universities?
+Message-ID: <4CE9DEF2.7060601@automattic.com>
+
+WordCamp Boston was being planned for April of 2011, and apparently has 
+missed out on the venues they were pursuing. Anyone on this list from a 
+school in Boston that might be able to host the WordCamp? It's the same 
+organizing team as last year, when it was held at the NERD center at MIT.
+j
+

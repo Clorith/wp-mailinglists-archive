@@ -1,0 +1,519 @@
+From mbarr at interactiveone.com  Tue Feb  3 18:34:21 2009
+From: mbarr at interactiveone.com (Matthew Barr)
+Date: Tue Feb  3 18:34:32 2009
+Subject: [HyperDB] WP 2.7 testing?
+Message-ID: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+
+I just wanted to see if anyone had any problems with the the HyperDB  
+plugin on 2.7?  I saw the change that was committed in Nov, but anyone  
+have any luck with it in production?
+
+Matthew
+------------------
+Matthew Barr
+InteractiveOne  - Senior System Engineer
+e:mbarr@interactiveone.com
+c:646.765.6878
+aim: matthewbarr1
+
+
+
+
+
+
+From barry at automattic.com  Tue Feb  3 18:46:33 2009
+From: barry at automattic.com (Barry Abrahamson)
+Date: Tue Feb  3 18:46:49 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+Message-ID: <A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+
+
+On Feb 3, 2009, at 1:34 PM, Matthew Barr wrote:
+
+> I just wanted to see if anyone had any problems with the the HyperDB  
+> plugin on 2.7?  I saw the change that was committed in Nov, but  
+> anyone have any luck with it in production?
+
+We are using HyperDB with WP 2.7 and WPMU 2.7 in production without  
+any issues.
+
+
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+
+
+
+
+
+From jed at deafnation.com  Tue Feb  3 18:51:55 2009
+From: jed at deafnation.com (Jed Barish)
+Date: Tue Feb  3 18:52:06 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+Message-ID: <a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+
+Glad to hear that it worked very well. How would you compare to Multi-DB
+from WPMU Dev group with HyperDB ?
+Jed
+
+On Tue, Feb 3, 2009 at 12:46 PM, Barry Abrahamson <barry@automattic.com>wrote:
+
+>
+> On Feb 3, 2009, at 1:34 PM, Matthew Barr wrote:
+>
+>  I just wanted to see if anyone had any problems with the the HyperDB
+>> plugin on 2.7?  I saw the change that was committed in Nov, but anyone have
+>> any luck with it in production?
+>>
+>
+> We are using HyperDB with WP 2.7 and WPMU 2.7 in production without any
+> issues.
+>
+>
+> --
+> Barry Abrahamson | Systems Wrangler | Automattic
+> Blog: http://barry.wordpress.com
+>
+>
+>
+>
+>
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From barry at automattic.com  Tue Feb  3 18:54:21 2009
+From: barry at automattic.com (Barry Abrahamson)
+Date: Tue Feb  3 19:18:44 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+Message-ID: <D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+
+
+On Feb 3, 2009, at 1:51 PM, Jed Barish wrote:
+
+> Glad to hear that it worked very well. How would you compare to  
+> Multi-DB
+> from WPMU Dev group with HyperDB ?
+
+Better, but I may be biased.
+
+--
+Barry Abrahamson | Systems Wrangler | Automattic
+Blog: http://barry.wordpress.com
+
+
+
+
+
+
+From jed at deafnation.com  Tue Feb  3 19:21:14 2009
+From: jed at deafnation.com (Jed Barish)
+Date: Tue Feb  3 19:21:29 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+	<D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+Message-ID: <a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+
+I just wanted to make sure that the hyperdb continues to be updated not left
+behind later on. Why don't hyperdb integrated with WPMU/WP 2.7 by default?
+Jed
+
+On Tue, Feb 3, 2009 at 12:54 PM, Barry Abrahamson <barry@automattic.com>wrote:
+
+>
+> On Feb 3, 2009, at 1:51 PM, Jed Barish wrote:
+>
+>  Glad to hear that it worked very well. How would you compare to Multi-DB
+>> from WPMU Dev group with HyperDB ?
+>>
+>
+> Better, but I may be biased.
+>
+>
+> --
+> Barry Abrahamson | Systems Wrangler | Automattic
+> Blog: http://barry.wordpress.com
+>
+>
+>
+>
+>
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From lists.automattic.com at callum-macdonald.com  Thu Feb  5 02:11:52 2009
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Thu Feb  5 02:12:09 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+	<D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+	<a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+Message-ID: <1233799912.1691.1.camel@clara>
+
+HyperDB is only really applicable to super high traffic clusters, so it
+wouldn't make sense to distribute by default.
+
+I'm a MultiDB developer so I'm also biased, I think it's more
+appropriate for a mid-size site. I think HyperDB is better for wp.com
+type scale, but for the "average" WPMU site, I think MultiDB has an
+edge.
+
+Cheers - Callum.
+
+On Tue, 2009-02-03 at 13:21 -0600, Jed Barish wrote:
+> I just wanted to make sure that the hyperdb continues to be updated not left
+> behind later on. Why don't hyperdb integrated with WPMU/WP 2.7 by default?
+> Jed
+> 
+> On Tue, Feb 3, 2009 at 12:54 PM, Barry Abrahamson <barry@automattic.com>wrote:
+> 
+> >
+> > On Feb 3, 2009, at 1:51 PM, Jed Barish wrote:
+> >
+> >  Glad to hear that it worked very well. How would you compare to Multi-DB
+> >> from WPMU Dev group with HyperDB ?
+> >>
+> >
+> > Better, but I may be biased.
+> >
+> >
+> > --
+> > Barry Abrahamson | Systems Wrangler | Automattic
+> > Blog: http://barry.wordpress.com
+> >
+> >
+> >
+> >
+> >
+> >
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> >
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From sufehmi at gmail.com  Fri Feb 20 01:55:33 2009
+From: sufehmi at gmail.com (Harry Sufehmi)
+Date: Fri Feb 20 01:55:42 2009
+Subject: [HyperDB] HyperDB instead of HSCALE
+Message-ID: <34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com>
+
+Hi,
+
+A client of mine (we offer managed dedicated server) managed to
+overload his server when his website became too successful.  We then
+optimized his server and the load went down - but after a while it
+started to climb up again.
+
+Turned out that with faster performance, came even more traffic.
+Needless to say, he's very happy, but also concerned. So he asked us
+about a multiple server setup.
+
+I researched the topic and found out about HSCALE. I was interested to
+utilize it to implement horizontal partitioning. I like its
+loose-coupling approach, compared to MySQL's own solutions : (1)
+clustering: requires you to shutdown the whole stuff to set up a new
+node, (2) replication: doesn't seem to scale too well (3) vertical
+partitioning : definitely doesn't scale well.
+
+Unfortunately, there are several minor problems with HSCALE, but a
+showstopper for his case.
+So I looked around again, and found HyperDB.
+
+My plan is :
+
+(1) duplicate his database to another server
+
+(2) setup HyperDB so :
+# writes (new posts/comments/pages/etc) would be done to both database servers
+# reads would be split 50:50 between DBs
+
+After reading the docs, I assume that this is possible.
+
+Could someone please do a quick confirmation to this assumption?
+Many thanks in advance.
+
+
+
+Thanks,
+Harry
+From sufehmi at gmail.com  Fri Feb 20 01:55:48 2009
+From: sufehmi at gmail.com (Harry Sufehmi)
+Date: Fri Feb 20 01:55:56 2009
+Subject: [HyperDB] HyperDB instead of HSCALE
+Message-ID: <34c80ff40902191755x7f6c5f61ne92de584f8f65ac5@mail.gmail.com>
+
+Hi,
+
+A client of mine (we offer managed dedicated server) managed to
+overload his server when his website became too successful.  We then
+optimized his server and the load went down - but after a while it
+started to climb up again.
+
+Turned out that with faster performance, came even more traffic.
+Needless to say, he's very happy, but also concerned. So he asked us
+about a multiple server setup.
+
+I researched the topic and found out about HSCALE. I was interested to
+utilize it to implement horizontal partitioning. I like its
+loose-coupling approach, compared to MySQL's own solutions : (1)
+clustering: requires you to shutdown the whole stuff to set up a new
+node, (2) replication: doesn't seem to scale too well (3) vertical
+partitioning : definitely doesn't scale well.
+
+Unfortunately, there are several minor problems with HSCALE, but a
+showstopper for his case.
+So I looked around again, and found HyperDB.
+
+My plan is :
+
+(1) duplicate his database to another server
+
+(2) setup HyperDB so :
+# writes (new posts/comments/pages/etc) would be done to both database servers
+# reads would be split 50:50 between DBs
+
+After reading the docs and this list's archive, I assume that this is possible.
+
+Could someone please do a quick confirmation to this assumption?
+Many thanks in advance.
+
+
+
+Thanks,
+Harry
+From skeltoac at gmail.com  Fri Feb 20 04:12:09 2009
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Fri Feb 20 04:12:21 2009
+Subject: [HyperDB] HyperDB instead of HSCALE
+In-Reply-To: <34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com>
+References: <34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com>
+Message-ID: <e6ec604d0902192012m76480e26waed9a7033e2f60aa@mail.gmail.com>
+
+On Thu, Feb 19, 2009 at 7:55 PM, Harry Sufehmi <sufehmi@gmail.com> wrote:
+> (2) setup HyperDB so :
+> # writes (new posts/comments/pages/etc) would be done to both database servers
+> # reads would be split 50:50 between DBs
+>
+> After reading the docs, I assume that this is possible.
+
+HyperDB does not do replication for you. You must set up MySQL
+replication and only send writes to a master.
+
+All writes for a database go to a single server (master), but reads
+can be spread out across master and slaves.
+
+Cheers,
+Andy
+From sufehmi at gmail.com  Fri Feb 20 04:22:14 2009
+From: sufehmi at gmail.com (Harry Sufehmi)
+Date: Fri Feb 20 04:22:24 2009
+Subject: [HyperDB] HyperDB instead of HSCALE
+In-Reply-To: <e6ec604d0902192012m76480e26waed9a7033e2f60aa@mail.gmail.com>
+References: <34c80ff40902191755o3317ef88u417c81edc67ddaed@mail.gmail.com>
+	<e6ec604d0902192012m76480e26waed9a7033e2f60aa@mail.gmail.com>
+Message-ID: <34c80ff40902192022n1994234if23f8e3a28448f6@mail.gmail.com>
+
+On Fri, Feb 20, 2009 at 11:12 AM, Andy Skelton <skeltoac@gmail.com> wrote:
+> On Thu, Feb 19, 2009 at 7:55 PM, Harry Sufehmi <sufehmi@gmail.com> wrote:
+>> (2) setup HyperDB so :
+>> # writes (new posts/comments/pages/etc) would be done to both database servers
+>> # reads would be split 50:50 between DBs
+>> After reading the docs, I assume that this is possible.
+>
+> HyperDB does not do replication for you. You must set up MySQL
+> replication and only send writes to a master.
+>
+> All writes for a database go to a single server (master), but reads
+> can be spread out across master and slaves.
+
+Ah, thank you for correcting me on this.
+
+I read that HyperDB **support** replication, and assumed that it
+**does** replication. My mistake.
+
+Thank you, I'll start working to try this out in our testlab then.
+
+Anyway, I'm seeing more and more of my clients closing to overload
+their server. Nice to see that so many people are enjoying success
+with help from Wordpress.
+
+
+
+cheers,
+Harry
+From m at mullenweg.com  Wed Feb 25 08:02:35 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed Feb 25 14:09:55 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <1233799912.1691.1.camel@clara>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>	<D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>	<a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+	<1233799912.1691.1.camel@clara>
+Message-ID: <49A4FB1B.9020205@mullenweg.com>
+
+Callum Macdonald wrote:
+> I'm a MultiDB developer so I'm also biased, I think it's more
+> appropriate for a mid-size site. I think HyperDB is better for wp.com
+> type scale, but for the "average" WPMU site, I think MultiDB has an
+> edge.
+
+What exactly does it do that HyperDB doesn't?
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+
+From lists.automattic.com at callum-macdonald.com  Wed Feb 25 17:47:29 2009
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Wed Feb 25 18:15:27 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <49A4FB1B.9020205@mullenweg.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+	<D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+	<a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+	<1233799912.1691.1.camel@clara>  <49A4FB1B.9020205@mullenweg.com>
+Message-ID: <1235584049.8614.89.camel@clara>
+
+On Wed, 2009-02-25 at 00:02 -0800, Matt Mullenweg wrote: 
+> Callum Macdonald wrote:
+> > I'm a MultiDB developer so I'm also biased, I think it's more
+> > appropriate for a mid-size site. I think HyperDB is better for wp.com
+> > type scale, but for the "average" WPMU site, I think MultiDB has an
+> > edge.
+> 
+> What exactly does it do that HyperDB doesn't?
+
+I'm adding a feature to MultiDB that checks for existing connections at
+the same priority and uses them if available. Both classes spread
+queries at random between servers at the same priority level. Good
+practice, but for an individual request, I think it makes sense to reuse
+an existing connection if it already exists.
+
+The method that maps a blog to a dataset is simpler in MultiDB. It can
+be easily overwritten if a user wants to use their own custom method.
+This is probably true of HyperDB also, but I think HyperDB's addition of
+hashes makes it a little more complicated. Both an advantage and a
+disadvantage I think. 
+
+MultiDB comes with tools to create multiple databases (16/256/4096) and
+create the config files automatically. I think that's a big help for new
+users.
+
+I was able to install MultiDB in about an hour whereas I'm not clear on
+the process with HyperDB. I understand the steps to install, but how
+blogs are split between servers, etc is not clear to me from the
+documentation. I haven't read the code in sufficient detail to fully
+understand it.
+
+Cheers - Callum.
+
+
+From jed at deafnation.com  Wed Feb 25 18:19:32 2009
+From: jed at deafnation.com (Jed Barish)
+Date: Wed Feb 25 18:19:45 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <1235584049.8614.89.camel@clara>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+	<D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+	<a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+	<1233799912.1691.1.camel@clara> <49A4FB1B.9020205@mullenweg.com>
+	<1235584049.8614.89.camel@clara>
+Message-ID: <a8665d70902251019i52502b72u2200ce6256e07a5c@mail.gmail.com>
+
+my main concern is that MultiDB has not been working well with Buddypress
+yet. I havent got any responses from Buddypress users with HyperDB too.
+Can you guys confirm either of them worked well with Buddypress as of today?
+
+Jed
+
+On Wed, Feb 25, 2009 at 11:47 AM, Callum Macdonald <lists.automattic.com@
+callum-macdonald.com> wrote:
+
+> On Wed, 2009-02-25 at 00:02 -0800, Matt Mullenweg wrote:
+> > Callum Macdonald wrote:
+> > > I'm a MultiDB developer so I'm also biased, I think it's more
+> > > appropriate for a mid-size site. I think HyperDB is better for wp.com
+> > > type scale, but for the "average" WPMU site, I think MultiDB has an
+> > > edge.
+> >
+> > What exactly does it do that HyperDB doesn't?
+>
+> I'm adding a feature to MultiDB that checks for existing connections at
+> the same priority and uses them if available. Both classes spread
+> queries at random between servers at the same priority level. Good
+> practice, but for an individual request, I think it makes sense to reuse
+> an existing connection if it already exists.
+>
+> The method that maps a blog to a dataset is simpler in MultiDB. It can
+> be easily overwritten if a user wants to use their own custom method.
+> This is probably true of HyperDB also, but I think HyperDB's addition of
+> hashes makes it a little more complicated. Both an advantage and a
+> disadvantage I think.
+>
+> MultiDB comes with tools to create multiple databases (16/256/4096) and
+> create the config files automatically. I think that's a big help for new
+> users.
+>
+> I was able to install MultiDB in about an hour whereas I'm not clear on
+> the process with HyperDB. I understand the steps to install, but how
+> blogs are split between servers, etc is not clear to me from the
+> documentation. I haven't read the code in sufficient detail to fully
+> understand it.
+>
+> Cheers - Callum.
+>
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From trent.adams at gmail.com  Wed Feb 25 18:26:37 2009
+From: trent.adams at gmail.com (Trent Adams)
+Date: Wed Feb 25 18:26:48 2009
+Subject: [HyperDB] WP 2.7 testing?
+In-Reply-To: <a8665d70902251019i52502b72u2200ce6256e07a5c@mail.gmail.com>
+References: <B859061E-D280-4345-BDA4-D69359A48372@interactiveone.com>
+	<A514E36F-4AAD-4F19-8A62-BC7C918C1EB9@automattic.com>
+	<a8665d70902031051m1e5decdqd7798e0d6661a895@mail.gmail.com>
+	<D32FD3E4-7E89-47A4-BB64-3538A82C6F7B@automattic.com>
+	<a8665d70902031121v47d20c24i4c75861352d63e84@mail.gmail.com>
+	<1233799912.1691.1.camel@clara> <49A4FB1B.9020205@mullenweg.com>
+	<1235584049.8614.89.camel@clara>
+	<a8665d70902251019i52502b72u2200ce6256e07a5c@mail.gmail.com>
+Message-ID: <1478c5740902251026r50934f25ifa264cc4e872c9c8@mail.gmail.com>
+
+I think the reason that most people are interested in the Multi-DB solution
+from Incsub is the ease of installation.   It also has all the code to
+transfer existing tables from your current DB to split across multiple
+databases by blog hash.    The code is already there to redirect incoming
+requests to the correct DB as well out of the box.

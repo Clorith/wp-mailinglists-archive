@@ -1,0 +1,895 @@
+From leocharre at gmail.com  Tue Jul  6 15:02:07 2010
+From: leocharre at gmail.com (Leo Charre)
+Date: Tue, 6 Jul 2010 11:02:07 -0400
+Subject: [wp-xmlrpc] wordpress via the command line beta
+Message-ID: <AANLkTikK63SNK_LEdkheyGkSjnkZ9AuWCJ5EYH8WNBUx@mail.gmail.com>
+
+I released a beta version of wordpress command line tools. You can
+upload posts, upload media, fetch some info, etc.
+
+I wrote a loose post about it here:
+http://leocharre.com/articles/command-line-wordpress-via-wordpresscli/
+
+The distro/download resides at:
+http://search.cpan.org/dist/WordPress-CLI/
+
+Enjoy.
+
+Feedback/comments/suggestions/crits/etc welcome.
+
+===========================
+Leo Charre
+Developer
+http://leocharre.com/resume
+http://search.cpan.org/~leocharre/
+
+From dave at daveweiss.net  Thu Jul  8 01:06:57 2010
+From: dave at daveweiss.net (David Weiss)
+Date: Wed, 7 Jul 2010 20:06:57 -0500
+Subject: [wp-xmlrpc] Handling Custom Post Types in WP 3.0 via XMLRPC
+Message-ID: <AANLkTil84aA2xYFerZ0hcndT1KgdCYr-KVX3rWj5_ow8@mail.gmail.com>
+
+FYI, I wanted to use Custom Post Types and WP 3.0 in a new blog and manage
+content via XMLRPC.
+
+XMLRPC.php isn't updated to handle this, it seems.
+
+mw_NewPost just needs a tweak to get it to work.
+
+1993          $post_type <_variables/post_type.html> = 'post';1994
+     $page_template <_variables/page_template.html> = '';1995
+if ( !empty <_functions/empty.html>( $content_struct
+<_variables/content_struct.html>['post_type'] ) ) {1996
+if ( $content_struct <_variables/content_struct.html>['post_type'] ==
+'page' ) {1997                  $cap <_variables/cap.html> = (
+$publish <_variables/publish.html> ) ? 'publish_pages' :
+'edit_pages';1998                  $error_message
+<_variables/error_message.html> = __ <_functions/__.html>( 'Sorry, you
+are not allowed to publish pages on this site.' );1999
+ $post_type <_variables/post_type.html> = 'page';2000
+if ( !empty <_functions/empty.html>( $content_struct
+<_variables/content_struct.html>['wp_page_template'] ) )2001
+           $page_template <_variables/page_template.html> =
+$content_struct
+<_variables/content_struct.html>['wp_page_template'];2002
+} elseif ( $content_struct
+<_variables/content_struct.html>['post_type'] == 'post' ) {2003
+          // This is the default, no changes needed2004              }
+else {2005                  // No other post_type values are allowed
+here2006                  return new IXR_Error
+<_classes/ixr_error.html>( 401, __ <_functions/__.html>( 'Invalid post
+type.' ) );2007              }2008          }
+
+
+I just edited up the if/elseif/else to take into account my custom
+post type names, and set the post_type key/value to the appropriate
+post type in my client.
+
+Works fine so far.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100707/6cff28b7/attachment.htm>
+
+From devin at moviepartners.com  Thu Jul  8 01:41:44 2010
+From: devin at moviepartners.com (Devin Watson)
+Date: Wed, 07 Jul 2010 20:41:44 -0500
+Subject: [wp-xmlrpc] Plugin Management API functions
+Message-ID: <4C352CD8.1040603@moviepartners.com>
+
+     Hello everyone!
+
+     I had originally posted this on the Support Forums, but josephscott 
+asked if I wouldn't mind posting it here either. Attached are some diffs 
+for xmlrpc.php and /wp-admin/includes/plugin.php which add Plugin 
+Management capabilities to the XML-RPC API. A Trac ticket is in the 
+works but I thought I would put these out on the list for everyone to 
+try out.
+
+     There's a bunch more functions that I have written for the API but 
+they cover different areas.
+
+_______________________
+Best Regards,
+
+Devin Watson
+
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: get-plugin-data.diff
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100707/65aa7a80/attachment.asc>
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: xmlrpc-plugin-funcs.diff
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100707/65aa7a80/attachment.txt>
+
+From eric at eamann.com  Thu Jul  8 03:42:30 2010
+From: eric at eamann.com (Eric Mann)
+Date: Wed, 7 Jul 2010 20:42:30 -0700
+Subject: [wp-xmlrpc] Handling Custom Post Types in WP 3.0 via XMLRPC
+In-Reply-To: <AANLkTil84aA2xYFerZ0hcndT1KgdCYr-KVX3rWj5_ow8@mail.gmail.com>
+References: <AANLkTil84aA2xYFerZ0hcndT1KgdCYr-KVX3rWj5_ow8@mail.gmail.com>
+Message-ID: <005001cb1e4f$98bc0660$ca341320$@com>
+
+David,
+
+ 
+
+Any chance you can post a snippet (better yet a diff) showing what exactly
+you changed to support your custom post types?  If possible, I'd like to
+generalize it and submit a formal patch .
+
+ 
+
+From: wp-xmlrpc-bounces at lists.automattic.com
+[mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of David Weiss
+Sent: Wednesday, July 07, 2010 6:07 PM
+To: wp-xmlrpc at lists.automattic.com
+Subject: [wp-xmlrpc] Handling Custom Post Types in WP 3.0 via XMLRPC
+
+ 
+
+FYI, I wanted to use Custom Post Types and WP 3.0 in a new blog and manage
+content via XMLRPC.
+
+ 
+
+XMLRPC.php isn't updated to handle this, it seems.
+
+ 
+
+mw_NewPost just needs a tweak to get it to work.
+
+ 
+
+1993          $post_type = 'post';
+1994          $page_template = '';
+1995          if ( !empty( $content_struct['post_type'] ) ) {
+1996              if ( $content_struct['post_type'] == 'page' ) {
+1997                  $cap = ( $publish ) ? 'publish_pages' : 'edit_pages';
+1998                  $error_message = __( 'Sorry, you are not allowed to
+publish pages on this site.' );
+1999                  $post_type = 'page';
+2000                  if ( !empty( $content_struct['wp_page_template'] ) )
+2001                      $page_template =
+$content_struct['wp_page_template'];
+2002              } elseif ( $content_struct['post_type'] == 'post' ) {
+2003                  // This is the default, no changes needed
+2004              } else {
+2005                  // No other post_type values are allowed here
+2006                  return new IXR_Error( 401, __( 'Invalid post type.' )
+);
+2007              }
+2008          }
+ 
+I just edited up the if/elseif/else to take into account my custom post type
+names, and set the post_type key/value to the appropriate post type in my
+client.
+Works fine so far.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100707/4cc9cbd4/attachment.htm>
+
+From dave at daveweiss.net  Thu Jul  8 04:43:56 2010
+From: dave at daveweiss.net (David Weiss)
+Date: Wed, 7 Jul 2010 23:43:56 -0500
+Subject: [wp-xmlrpc] Handling Custom Post Types in WP 3.0 via XMLRPC
+In-Reply-To: <005001cb1e4f$98bc0660$ca341320$@com>
+References: <AANLkTil84aA2xYFerZ0hcndT1KgdCYr-KVX3rWj5_ow8@mail.gmail.com>
+	<005001cb1e4f$98bc0660$ca341320$@com>
+Message-ID: <AANLkTik1smT5lAganVT9YrrM5DTDltUtzf6P6-cTRqAP@mail.gmail.com>
+
+It's really just a total hack - I added elseif statements and hard-coded
+post types, assigning them to $post_type.
+
+I suppose the right thing to do is take the
+$content_struct<http://_variables/content_struct.html>['post_type']
+and test it against registered post types, test for permission, and assign
+it to the $post_type or return the error.
+
+If I get around to doing that some time soon, I'll send it along.
+
+
+
+On Wed, Jul 7, 2010 at 10:42 PM, Eric Mann <eric at eamann.com> wrote:
+
+>  David,
+>
+>
+>
+> Any chance you can post a snippet (better yet a diff) showing what exactly
+> you changed to support your custom post types?  If possible, I?d like to
+> generalize it and submit a formal patch ?
+>
+>
+>
+> *From:* wp-xmlrpc-bounces at lists.automattic.com [mailto:
+> wp-xmlrpc-bounces at lists.automattic.com] *On Behalf Of *David Weiss
+> *Sent:* Wednesday, July 07, 2010 6:07 PM
+> *To:* wp-xmlrpc at lists.automattic.com
+> *Subject:* [wp-xmlrpc] Handling Custom Post Types in WP 3.0 via XMLRPC
+>
+>
+>
+> FYI, I wanted to use Custom Post Types and WP 3.0 in a new blog and manage
+> content via XMLRPC.
+>
+>
+>
+> XMLRPC.php isn't updated to handle this, it seems.
+>
+>
+>
+> mw_NewPost just needs a tweak to get it to work.
+>
+>
+>
+> 1993          $post_type <http://_variables/post_type.html> = 'post';
+>
+> 1994          $page_template <http://_variables/page_template.html> = '';
+>
+> 1995          if ( !empty <http://_functions/empty.html>( $content_struct <http://_variables/content_struct.html>['post_type'] ) ) {
+>
+> 1996              if ( $content_struct <http://_variables/content_struct.html>['post_type'] == 'page' ) {
+>
+> 1997                  $cap <http://_variables/cap.html> = ( $publish <http://_variables/publish.html> ) ? 'publish_pages' : 'edit_pages';
+>
+> 1998                  $error_message <http://_variables/error_message.html> = __ <http://_functions/__.html>( 'Sorry, you are not allowed to publish pages on this site.' );
+>
+> 1999                  $post_type <http://_variables/post_type.html> = 'page';
+>
+> 2000                  if ( !empty <http://_functions/empty.html>( $content_struct <http://_variables/content_struct.html>['wp_page_template'] ) )
+>
+> 2001                      $page_template <http://_variables/page_template.html> = $content_struct <http://_variables/content_struct.html>['wp_page_template'];
+>
+> 2002              } elseif ( $content_struct <http://_variables/content_struct.html>['post_type'] == 'post' ) {
+>
+> 2003  *                // This is the default, no changes needed*
+>
+> 2004              } else {
+>
+> 2005  *                // No other post_type values are allowed here*
+>
+> 2006                  return *new *IXR_Error <http://_classes/ixr_error.html>( 401, __ <http://_functions/__.html>( 'Invalid post type.' ) );
+>
+> 2007              }
+>
+> 2008          }
+>
+>
+>
+> I just edited up the if/elseif/else to take into account my custom post type names, and set the post_type key/value to the appropriate post type in my client.
+>
+> Works fine so far.
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100707/5b9e35f9/attachment-0001.htm>
+
+From willmot at gmail.com  Thu Jul  8 10:04:02 2010
+From: willmot at gmail.com (Mr Tom Willmot)
+Date: Thu, 8 Jul 2010 11:04:02 +0100
+Subject: [wp-xmlrpc] Plugin Management API functions
+In-Reply-To: <4C352CD8.1040603@moviepartners.com>
+References: <4C352CD8.1040603@moviepartners.com>
+Message-ID: <16615C72-4A0C-4B23-9C34-600E21682ED1@gmail.com>
+
+Hi Devin,
+
+There is already a trac ticket open for adding plugin management capabilities, you could post your diffs to that.
+
+http://core.trac.wordpress.org/ticket/10789
+
+The current patch on that ticket is something we wrote for one of our web apps, it only exposes reading plugin information currently.
+
+I would be more than happy to test out your code and feedback on whichever trac ticket you do end up using.
+
+Kind Regards,
+
+Tom Willmot
+Managing Director
+humanmade
+
+Human Made Limited
+53 Yeomans Street,
+Bonsall,
+Derbyshire,
+England
+DE4 2AA
+
+e tom at humanmade.co.uk
+t +44 (0) 7832 296439
+skype edge.designs
+w humanmade.co.uk
+On 8 Jul 2010, at 02:41, Devin Watson wrote:
+
+>    Hello everyone!
+> 
+>    I had originally posted this on the Support Forums, but josephscott asked if I wouldn't mind posting it here either. Attached are some diffs for xmlrpc.php and /wp-admin/includes/plugin.php which add Plugin Management capabilities to the XML-RPC API. A Trac ticket is in the works but I thought I would put these out on the list for everyone to try out.
+> 
+>    There's a bunch more functions that I have written for the API but they cover different areas.
+> 
+> _______________________
+> Best Regards,
+> 
+> Devin Watson
+> 
+> <get-plugin-data.diff><xmlrpc-plugin-funcs.diff>_______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From devin at moviepartners.com  Thu Jul  8 10:20:21 2010
+From: devin at moviepartners.com (Devin Watson)
+Date: Thu, 08 Jul 2010 05:20:21 -0500
+Subject: [wp-xmlrpc] Plugin Management API functions
+In-Reply-To: <16615C72-4A0C-4B23-9C34-600E21682ED1@gmail.com>
+References: <4C352CD8.1040603@moviepartners.com>
+	<16615C72-4A0C-4B23-9C34-600E21682ED1@gmail.com>
+Message-ID: <4C35A665.7050708@moviepartners.com>
+
+     Hi Tom,
+
+     Thanks. I've just put the diff file up on ticket #10789. This diff 
+adds the following API calls:
+
+    * wp.getPluginList
+    * wp.activatePlugin
+    * wp.deactivatePlugin
+
+
+     If there is further interest, I'll be more than happy to share my 
+other patches for the WP XML-RPC API. I didn't think it would be prudent 
+to add a wp.deletePlugin function just yet until there is some consensus 
+as to the roadmap for the API.
+
+_______________________
+Best Regards,
+
+Devin Watson
+
+
+On 7/8/2010 5:04 AM, Mr Tom Willmot wrote:
+> Hi Devin,
+>
+> There is already a trac ticket open for adding plugin management capabilities, you could post your diffs to that.
+>
+> http://core.trac.wordpress.org/ticket/10789
+>
+> The current patch on that ticket is something we wrote for one of our web apps, it only exposes reading plugin information currently.
+>
+> I would be more than happy to test out your code and feedback on whichever trac ticket you do end up using.
+>
+> Kind Regards,
+>
+> Tom Willmot
+> Managing Director
+> humanmade
+>
+> Human Made Limited
+> 53 Yeomans Street,
+> Bonsall,
+> Derbyshire,
+> England
+> DE4 2AA
+>
+> e tom at humanmade.co.uk
+> t +44 (0) 7832 296439
+> skype edge.designs
+> w humanmade.co.uk
+> On 8 Jul 2010, at 02:41, Devin Watson wrote:
+>
+>    
+>>     Hello everyone!
+>>
+>>     I had originally posted this on the Support Forums, but josephscott asked if I wouldn't mind posting it here either. Attached are some diffs for xmlrpc.php and /wp-admin/includes/plugin.php which add Plugin Management capabilities to the XML-RPC API. A Trac ticket is in the works but I thought I would put these out on the list for everyone to try out.
+>>
+>>     There's a bunch more functions that I have written for the API but they cover different areas.
+>>
+>> _______________________
+>> Best Regards,
+>>
+>> Devin Watson
+>>
+>> <get-plugin-data.diff><xmlrpc-plugin-funcs.diff>_______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>      
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>    
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100708/fd09ddaf/attachment.htm>
+
+From joseph at josephscott.org  Thu Jul  8 17:53:31 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Thu, 8 Jul 2010 11:53:31 -0600
+Subject: [wp-xmlrpc] Handling Custom Post Types in WP 3.0 via XMLRPC
+In-Reply-To: <AANLkTik1smT5lAganVT9YrrM5DTDltUtzf6P6-cTRqAP@mail.gmail.com>
+References: <AANLkTil84aA2xYFerZ0hcndT1KgdCYr-KVX3rWj5_ow8@mail.gmail.com> 
+	<005001cb1e4f$98bc0660$ca341320$@com>
+	<AANLkTik1smT5lAganVT9YrrM5DTDltUtzf6P6-cTRqAP@mail.gmail.com>
+Message-ID: <AANLkTik8CK1c8zX-zMQcnxjlU9_Ap2DXkcnUdFLNW2Cw@mail.gmail.com>
+
+There is a bit more involved here.  Someone needs to go through and
+test custom post type support via the XML-RPC APIs.  For the time
+being they are hidden from XML-RPC clients, but that's something that
+certainly needs to change in the future.
+
+
+
+On Wed, Jul 7, 2010 at 10:43 PM, David Weiss <dave at daveweiss.net> wrote:
+> It's really just a total hack - I added elseif statements and hard-coded
+> post types, assigning them to $post_type.
+> I suppose the right thing to do is take the?$content_struct['post_type'] and
+> test it against registered post types, test for permission, and assign it to
+> the $post_type or return the error.
+>
+> If I get around to doing that some time soon, I'll send it along.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From m at mullenweg.com  Tue Jul 13 18:37:20 2010
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 13 Jul 2010 14:37:20 -0400
+Subject: [wp-xmlrpc] wordpress via the command line beta
+In-Reply-To: <AANLkTikK63SNK_LEdkheyGkSjnkZ9AuWCJ5EYH8WNBUx@mail.gmail.com>
+References: <AANLkTikK63SNK_LEdkheyGkSjnkZ9AuWCJ5EYH8WNBUx@mail.gmail.com>
+Message-ID: <4C3CB260.6080505@mullenweg.com>
+
+On 7/6/2010 11:02 AM, Leo Charre wrote:
+> I released a beta version of wordpress command line tools. You can
+> upload posts, upload media, fetch some info, etc.
+
+Very cool. :)
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+
+From leocharre at gmail.com  Tue Jul 13 21:31:55 2010
+From: leocharre at gmail.com (Leo Charre)
+Date: Tue, 13 Jul 2010 17:31:55 -0400
+Subject: [wp-xmlrpc] wordpress via the command line beta
+In-Reply-To: <4C3CB260.6080505@mullenweg.com>
+References: <AANLkTikK63SNK_LEdkheyGkSjnkZ9AuWCJ5EYH8WNBUx@mail.gmail.com>
+	<4C3CB260.6080505@mullenweg.com>
+Message-ID: <AANLkTimdZexDGwodqK34AHbv7kagXNduAVm0y95pqBlP@mail.gmail.com>
+
+Matt,
+
+Thanks, I really hope to get more feedback on this distro.
+I had a previous version that reall packed a ton of muscle, let your
+edit the blog via the command line also, not just upload.
+So you can edit what's already there, edit categories, etc- really
+wild, actually. When you realize that when you have cli, you can
+script this stuff!
+Imagine that in the hands of unix pipes and daemons!
+
+But I just want to make this distro solid, so I want to add features
+slow, as I get a feel for what people need.
+
+===========================
+Leo Charre
+Developer
+http://leocharre.com/resume
+http://search.cpan.org/~leocharre/
+
+
+
+On Tue, Jul 13, 2010 at 2:37 PM, Matt Mullenweg <m at mullenweg.com> wrote:
+> On 7/6/2010 11:02 AM, Leo Charre wrote:
+>>
+>> I released a beta version of wordpress command line tools. You can
+>> upload posts, upload media, fetch some info, etc.
+>
+> Very cool. :)
+>
+> --
+> Matt Mullenweg
+> http://ma.tt | http://wordpress.org | http://automattic.com
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+From joseph at josephscott.org  Wed Jul 14 03:58:04 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue, 13 Jul 2010 21:58:04 -0600
+Subject: [wp-xmlrpc] wordpress via the command line beta
+In-Reply-To: <AANLkTimdZexDGwodqK34AHbv7kagXNduAVm0y95pqBlP@mail.gmail.com>
+References: <AANLkTikK63SNK_LEdkheyGkSjnkZ9AuWCJ5EYH8WNBUx@mail.gmail.com> 
+	<4C3CB260.6080505@mullenweg.com>
+	<AANLkTimdZexDGwodqK34AHbv7kagXNduAVm0y95pqBlP@mail.gmail.com>
+Message-ID: <AANLkTikcad-D-DCRxKDMCzsWhM5Q5yan6NVikk9PvMJy@mail.gmail.com>
+
+A FUSE layer for WordPress would be neat, then you could mount your
+site as a filesystem.
+
+On Tue, Jul 13, 2010 at 3:31 PM, Leo Charre <leocharre at gmail.com> wrote:
+> Imagine that in the hands of unix pipes and daemons!
+>
+> But I just want to make this distro solid, so I want to add features
+> slow, as I get a feel for what people need.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From luke at lukem.co.uk  Tue Jul 20 14:26:38 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Tue, 20 Jul 2010 15:26:38 +0100
+Subject: [wp-xmlrpc] Decoupling xmlrpc endpoint from Wordpress installation
+Message-ID: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+
+Hi,
+
+I'm working on a Wordpress MU install (2.9.2) and have developed some custom XMLRPC methods which are working fine. However, we're in a situation where the XMLRPC endpoint is serving live clients (flash kiosks) and the actual wordpress website is not yet live so is still being developed (theme development, new /updated plugins etc). Updates to the live server (templates, new custom fields, people adding new content) are occasionally causing instabilities with the flash kiosks (the flash is expecting a custom field to exist, for example, and someone has removed it from the authoring interface or someone adds content with a vital image missing).
+
+Can anyone suggest a strategy for decoupling the XMLRPC interface from the live site? Would this need database replication or something similar? Maybe we could have an additional blog which only serves the kiosks and replicate data to that at 24 hour intervals?
+
+Many thanks,
+
+Luke.
+
+From eric at eamann.com  Tue Jul 20 14:39:45 2010
+From: eric at eamann.com (Eric Mann)
+Date: Tue, 20 Jul 2010 07:39:45 -0700 (PDT)
+Subject: [wp-xmlrpc] Decoupling xmlrpc endpoint from Wordpress
+ installation
+In-Reply-To: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+References: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+Message-ID: <2041668522.439768.1279636785994.JavaMail.open-xchange@oxusltgw09.schlund.de>
+
+I'd need to see some pseudocode describing how your XMLRPC interface is working.
+?A well-decoupled interface would work whether data was missing or not ... so it
+sounds like you're just not handling cases where incomplete data is passed to
+the system.
+
+On July 20, 2010 at 2:26 PM Luke Mackenzie <luke at lukem.co.uk> wrote:
+
+> Hi,
+>
+> I'm working on a Wordpress MU install (2.9.2) and have developed some custom
+> XMLRPC methods which are working fine. However, we're in a situation where the
+> XMLRPC endpoint is serving live clients (flash kiosks) and the actual
+> wordpress website is not yet live so is still being developed (theme
+> development, new /updated plugins etc). Updates to the live server (templates,
+> new custom fields, people adding new content) are occasionally causing
+> instabilities with the flash kiosks (the flash is expecting a custom field to
+> exist, for example, and someone has removed it from the authoring interface or
+> someone adds content with a vital image missing).
+>
+> Can anyone suggest a strategy for decoupling the XMLRPC interface from the
+> live site? Would this need database replication or something similar? Maybe we
+> could have an additional blog which only serves the kiosks and replicate data
+> to that at 24 hour intervals?
+>
+> Many thanks,
+>
+> Luke.
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at josephscott.org  Tue Jul 20 15:56:59 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue, 20 Jul 2010 09:56:59 -0600
+Subject: [wp-xmlrpc] Decoupling xmlrpc endpoint from Wordpress
+	installation
+In-Reply-To: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+References: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+Message-ID: <AANLkTimtNp9WIC72NKsODI_85FQKLf3uosbZfuYh9_Vo@mail.gmail.com>
+
+I'd either be more defensive in your flash app (degrade gracefully if
+the custom field is missing) and/or do the theme development on a
+separate WP install.
+
+On Tue, Jul 20, 2010 at 8:26 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+> I'm working on a Wordpress MU install (2.9.2) and have developed some custom XMLRPC methods which are working fine. However, we're in a situation where the XMLRPC endpoint is serving live clients (flash kiosks) and the actual wordpress website is not yet live so is still being developed (theme development, new /updated plugins etc). Updates to the live server (templates, new custom fields, people adding new content) are occasionally causing instabilities with the flash kiosks (the flash is expecting a custom field to exist, for example, and someone has removed it from the authoring interface or someone adds content with a vital image missing).
+>
+> Can anyone suggest a strategy for decoupling the XMLRPC interface from the live site? Would this need database replication or something similar? Maybe we could have an additional blog which only serves the kiosks and replicate data to that at 24 hour intervals?
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From eric at eamann.com  Tue Jul 20 16:01:10 2010
+From: eric at eamann.com (Eric Mann)
+Date: Tue, 20 Jul 2010 09:01:10 -0700 (PDT)
+Subject: [wp-xmlrpc] Decoupling xmlrpc endpoint from Wordpress
+ installation
+In-Reply-To: <AANLkTimtNp9WIC72NKsODI_85FQKLf3uosbZfuYh9_Vo@mail.gmail.com>
+References: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+	<AANLkTimtNp9WIC72NKsODI_85FQKLf3uosbZfuYh9_Vo@mail.gmail.com>
+Message-ID: <531868869.442087.1279641670372.JavaMail.open-xchange@oxusltgw09.schlund.de>
+
++1 on working with a separate WP installation.
+?
+It's bad form to blend a development environment with a live system ...?
+
+On July 20, 2010 at 3:56 PM Joseph Scott <joseph at josephscott.org> wrote:
+
+> I'd either be more defensive in your flash app (degrade gracefully if
+> the custom field is missing) and/or do the theme development on a
+> separate WP install.
+>
+> On Tue, Jul 20, 2010 at 8:26 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+> > I'm working on a Wordpress MU install (2.9.2) and have developed some custom
+> > XMLRPC methods which are working fine. However, we're in a situation where
+> > the XMLRPC endpoint is serving live clients (flash kiosks) and the actual
+> > wordpress website is not yet live so is still being developed (theme
+> > development, new /updated plugins etc). Updates to the live server
+> > (templates, new custom fields, people adding new content) are occasionally
+> > causing instabilities with the flash kiosks (the flash is expecting a custom
+> > field to exist, for example, and someone has removed it from the authoring
+> > interface or someone adds content with a vital image missing).
+> >
+> > Can anyone suggest a strategy for decoupling the XMLRPC interface from the
+> > live site? Would this need database replication or something similar? Maybe
+> > we could have an additional blog which only serves the kiosks and replicate
+> > data to that at 24 hour intervals?
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From luke at lukem.co.uk  Wed Jul 21 08:31:09 2010
+From: luke at lukem.co.uk (Luke Mackenzie)
+Date: Wed, 21 Jul 2010 09:31:09 +0100
+Subject: [wp-xmlrpc] Decoupling xmlrpc endpoint from Wordpress
+	installation
+In-Reply-To: <531868869.442087.1279641670372.JavaMail.open-xchange@oxusltgw09.schlund.de>
+References: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk>
+	<AANLkTimtNp9WIC72NKsODI_85FQKLf3uosbZfuYh9_Vo@mail.gmail.com>
+	<531868869.442087.1279641670372.JavaMail.open-xchange@oxusltgw09.schlund.de>
+Message-ID: <C8A8A56B-D81A-4687-99F2-68C8E54496EC@lukem.co.uk>
+
+Themes are being developed on a separate system and then moved to the live system when deemed stable. However, due to inconsistencies in plugins across servers, something working on dev is not a reliable indicator that it will work on live.
+
+I was therefore wondering about replication or some kind of mirrored instance for the XMLRPC stuff. Obviously, the real solution is to have a staging server and a suite of automated tests which can be a reliable benchmark of how things will behave on live. However, we are not in that situation yet.
+
+
+
+
+On 20 Jul 2010, at 17:01, Eric Mann wrote:
+
+> +1 on working with a separate WP installation.
+>  
+> It's bad form to blend a development environment with a live system ... 
+> 
+> On July 20, 2010 at 3:56 PM Joseph Scott <joseph at josephscott.org> wrote:
+> 
+>> I'd either be more defensive in your flash app (degrade gracefully if
+>> the custom field is missing) and/or do the theme development on a
+>> separate WP install.
+>> 
+>> On Tue, Jul 20, 2010 at 8:26 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+>>> I'm working on a Wordpress MU install (2.9.2) and have developed some custom
+>>> XMLRPC methods which are working fine. However, we're in a situation where
+>>> the XMLRPC endpoint is serving live clients (flash kiosks) and the actual
+>>> wordpress website is not yet live so is still being developed (theme
+>>> development, new /updated plugins etc). Updates to the live server
+>>> (templates, new custom fields, people adding new content) are occasionally
+>>> causing instabilities with the flash kiosks (the flash is expecting a custom
+>>> field to exist, for example, and someone has removed it from the authoring
+>>> interface or someone adds content with a vital image missing).
+>>> 
+>>> Can anyone suggest a strategy for decoupling the XMLRPC interface from the
+>>> live site? Would this need database replication or something similar? Maybe
+>>> we could have an additional blog which only serves the kiosks and replicate
+>>> data to that at 24 hour intervals?
+>> 
+>> 
+>> 
+>> --
+>> Joseph Scott
+>> joseph at josephscott.org
+>> http://josephscott.org/
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From joseph at josephscott.org  Wed Jul 21 15:10:15 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 21 Jul 2010 09:10:15 -0600
+Subject: [wp-xmlrpc] Decoupling xmlrpc endpoint from Wordpress
+	installation
+In-Reply-To: <C8A8A56B-D81A-4687-99F2-68C8E54496EC@lukem.co.uk>
+References: <BAE74194-1483-48F8-BAF1-598D7ABEC097@lukem.co.uk> 
+	<AANLkTimtNp9WIC72NKsODI_85FQKLf3uosbZfuYh9_Vo@mail.gmail.com> 
+	<531868869.442087.1279641670372.JavaMail.open-xchange@oxusltgw09.schlund.de>
+	<C8A8A56B-D81A-4687-99F2-68C8E54496EC@lukem.co.uk>
+Message-ID: <AANLkTimIcUgJaLkKQFddak5rZu6WLGFFNZydj4H4OW-Q@mail.gmail.com>
+
+Why are the plugins inconsistent between servers?  Even if you did
+setup some sort of replication, have inconsistencies between
+development and production servers is bound to cause problems.
+
+
+On Wed, Jul 21, 2010 at 2:31 AM, Luke Mackenzie <luke at lukem.co.uk> wrote:
+> Themes are being developed on a separate system and then moved to the live system when deemed stable. However, due to inconsistencies in plugins across servers, something working on dev is not a reliable indicator that it will work on live.
+>
+> I was therefore wondering about replication or some kind of mirrored instance for the XMLRPC stuff. Obviously, the real solution is to have a staging server and a suite of automated tests which can be a reliable benchmark of how things will behave on live. However, we are not in that situation yet.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From oli at olikenobi.com  Tue Jul 27 02:13:28 2010
+From: oli at olikenobi.com (Oli Kenobi)
+Date: Mon, 26 Jul 2010 22:13:28 -0400
+Subject: [wp-xmlrpc] Custom taxonomy implementation
+Message-ID: <B185F28E-5DB0-4EDA-A1B8-D863F62ED3CF@me.com>
+
+Hi,
+
+Has anyone worked on (or heard of) implementing Custom Taxonomy support in the XML-RPC API?
+
+I will need to publish posts with custom taxonomy, and I'd like to avoid starting from scratch if someone has already done the job.
+
+Also, any guidelines and recommendation to implement it are welcome!
+
+Thanks,
+Oli
+
+
+From joseph at josephscott.org  Tue Jul 27 03:39:38 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 26 Jul 2010 21:39:38 -0600
+Subject: [wp-xmlrpc] Custom taxonomy implementation
+In-Reply-To: <B185F28E-5DB0-4EDA-A1B8-D863F62ED3CF@me.com>
+References: <B185F28E-5DB0-4EDA-A1B8-D863F62ED3CF@me.com>
+Message-ID: <AANLkTi=01yuwTk3SLfHAujDd9Matx1D+g0JZX9a8fQeV@mail.gmail.com>
+
+It has been brought up, but I don't think anyone has added the code to
+make that work.  I'd double check core.trac.wordpress.org though to
+see if there are any tickets on this.
+
+
+On Mon, Jul 26, 2010 at 8:13 PM, Oli Kenobi <oli at olikenobi.com> wrote:
+> Has anyone worked on (or heard of) implementing Custom Taxonomy support in the XML-RPC API?
+>
+> I will need to publish posts with custom taxonomy, and I'd like to avoid starting from scratch if someone has already done the job.
+>
+> Also, any guidelines and recommendation to implement it are welcome!
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From tim at golen.net  Tue Jul 27 17:44:13 2010
+From: tim at golen.net (Tim Golen)
+Date: Tue, 27 Jul 2010 11:44:13 -0600
+Subject: [wp-xmlrpc] Retrieving a list of all comments needing approval
+Message-ID: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+
+Hello,
+
+I was wondering if it was possible with the XMLRPC API to get a list of all
+the comments needing approval. The getCommentCount method gives you the
+number of comments, and the getComments method only gives you comments for a
+specific post. Is this possible?
+
+Thanks,
+Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100727/bfc73ade/attachment.htm>
+
+From eric at eamann.com  Tue Jul 27 17:59:38 2010
+From: eric at eamann.com (Eric Mann)
+Date: Tue, 27 Jul 2010 10:59:38 -0700 (PDT)
+Subject: [wp-xmlrpc] Retrieving a list of all comments needing approval
+In-Reply-To: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+References: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+Message-ID: <1996041704.596926.1280253578826.JavaMail.open-xchange@oxusltgw05.schlund.de>
+
+My first instinct is to get a list of published posts and then iterate through
+the list of post IDs with the getComments method. ?There's not a native
+getPendingComments method ... though you could always write one and add it
+through a plug-in ...
+
+
+On July 27, 2010 at 5:44 PM Tim Golen <tim at golen.net> wrote:
+
+
+> Hello, 
+> 
+> I was wondering if it was possible with the XMLRPC API to get a list of all
+> the comments needing approval. The getCommentCount method gives you the number
+> of comments, and the getComments method only gives you comments for a specific
+> post. Is this possible?
+> 
+> 
+> Thanks,
+> Tim
+>
+
+From lloydomattic at gmail.com  Tue Jul 27 18:14:15 2010
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Tue, 27 Jul 2010 11:14:15 -0700
+Subject: [wp-xmlrpc] Retrieving a list of all comments needing approval
+In-Reply-To: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+References: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+Message-ID: <AANLkTimarVoS5ji=E6vpC949ZaPnLbRMBvLHhtyBQiXe@mail.gmail.com>
+
+I imagine there are some insights to be had if you are brave enough to see how
+http://iphone.wordpress.org/ does it.
+
+From joseph at josephscott.org  Tue Jul 27 19:55:34 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue, 27 Jul 2010 13:55:34 -0600
+Subject: [wp-xmlrpc] Retrieving a list of all comments needing approval
+In-Reply-To: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+References: <AANLkTimpm_Pms-3ikKL_ZGUxy0LSbOn85trV6-QCk=B=@mail.gmail.com>
+Message-ID: <AANLkTikR3TAaqd2mXMHxYJuuLS92GwzUeA3CEoGuyPec@mail.gmail.com>
+
+You can do this with the wp.getComments method.  The fourth parameter
+is used to filter which comments you want to get back (it is a
+struct).  For instance if you provide a 'post_id' it will only give
+you comments back for that specific post.  Providing a 'status' value
+will return comments with that particular status.
+
+It will return an array, with each entry the same data provided by
+wp.getComment (it actually calls wp.getComment internally to gather up
+all of the data).
+
+On Tue, Jul 27, 2010 at 11:44 AM, Tim Golen <tim at golen.net> wrote:
+> I was wondering if it was possible with the XMLRPC API to get a list of all
+> the comments needing approval. The getCommentCount method gives you the
+> number of comments, and the getComments method only gives you comments for a
+> specific post. Is this possible?
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

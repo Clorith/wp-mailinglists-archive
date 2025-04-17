@@ -1,0 +1,422 @@
+From peter.westwood at ftwr.co.uk  Thu Aug  6 17:59:58 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Thu, 6 Aug 2009 18:59:58 +0100
+Subject: [wp-accessibility] [wp-hackers] Request for new mailing list
+	wp-accessibility
+In-Reply-To: <427667db0905030102i653393e0k4a79d2b66700ce68@mail.gmail.com>
+References: <427667db0905030102i653393e0k4a79d2b66700ce68@mail.gmail.com>
+Message-ID: <267D461C-7D55-45BC-8E1D-F3F2D58D1F2C@ftwr.co.uk>
+
+
+On 3 May 2009, at 09:02, Lynne Pope wrote:
+
+> This is a request for a new mailing list please.
+>
+> To date, anyone raising accessibility issues and proposing fixes is  
+> doing so
+> either on wp-hackers, wp-testers, on the forums or in responses to  
+> surveys.
+> Accessibility is an aspect of WP development that would benefit from  
+> an
+> informal "working group" and having its own mailing list would  
+> enable those
+> of us who know ATAG, WCAG and the other accessibility guidelines  
+> well, and
+> how to implement them, to bring forward issues and reach agreement  
+> on the
+> most appropriate fixes.
+>
+> There are a number of people outside of wp-hackers who are  
+> interested in
+> seeing WordPress become accessible and having a mailing list may  
+> encourage
+> these people to contribute.
+>
+> Getting all accessibility issues into one place would be a great step
+> forward on its own. Too much inaccurate advice is being given  
+> elsewhere,
+> including on the tracker, and this creates the risk that the core  
+> team can
+> end up wasting time on code that they think will aid accessibility,  
+> but
+> which does not - thereby compounding the problems.
+>
+> I hope you will view this request favourably and set up a new
+> wp-accessibility mailing list.
+> Apologies if this is not the right place to ask - I couldn't see  
+> where else
+> I should direct this request.
+>
+
+This is/was a really good idea.
+
+And now we have working mailing list admin again we now have the list  
+created.
+
+So please come and join the party.
+
+http://lists.automattic.com/mailman/listinfo/wp-accessibility
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From lynne.pope at gmail.com  Fri Aug  7 02:38:52 2009
+From: lynne.pope at gmail.com (Lynne Pope)
+Date: Fri, 7 Aug 2009 14:38:52 +1200
+Subject: [wp-accessibility] Let's get started on improving WordPress
+	accessibility
+Message-ID: <427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com>
+
+First off, I wish to thank "the powers that be" for responding to my request
+for this mailing list.
+I believe that by discussing and proposing changes to improve WordPress
+accessibility those of us with expertise in this area can make a significant
+difference.
+
+Let's see if we can gather together all reports of accessibility issues
+and/or concerns, look at what needs to be done at the code level to correct
+these, and get moving on bringing WordPress into ATAG and WCAG2.0
+compliance.
+
+I'm excited to see this underway!
+
+Lynne
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-accessibility/attachments/20090807/aba3c38e/attachment.htm>
+
+From junsuijin at gmail.com  Fri Aug  7 04:42:46 2009
+From: junsuijin at gmail.com (Tynan Colin Beatty)
+Date: Thu, 6 Aug 2009 23:42:46 -0500
+Subject: [wp-accessibility] Let's get started on improving WordPress
+	accessibility
+In-Reply-To: <427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com>
+References: <427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com>
+Message-ID: <4f9525dc0908062142n33c3a458j5772672faa08ea96@mail.gmail.com>
+
+Let's see, since I'm jumping in here completely unaware of previous reports,
+I'll get the ball rolling by bringing up one of the most glaring issues that
+I've encountered:
+Repetetive/non-descriptive link anchors need to be more descriptive and
+unique. This applies to comment 'reply' links, 'read more' links, etc. The
+current preferred technique is to place excess text into a span and then use
+css to make that span 1 pixel and place it outside of the viewable screen
+area as describe here:
+http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/C7
+I'm uncertain as to how this would affect the 'reply' situation, should
+WordPress Trac ticket #10550 ( http://core.trac.wordpress.org/ticket/10550 )
+be resolved by changing the links to form inputs; but as it is now, this
+particular case should be resolved by adding comment id #s into the hidden
+spans, like <a>reply <span class="hide-me">to comment #</span></a> or
+similar.
+'Read more' can be supplemented by titles. Any other repetetive / unclear
+anchors should also be similarly supplemented to comply with this guideline.
+Thoughts?
+
+On Thu, Aug 6, 2009 at 9:38 PM, Lynne Pope <lynne.pope at gmail.com> wrote:
+
+> First off, I wish to thank "the powers that be" for responding to my
+> request for this mailing list.
+> I believe that by discussing and proposing changes to improve WordPress
+> accessibility those of us with expertise in this area can make a significant
+> difference.
+>
+> Let's see if we can gather together all reports of accessibility issues
+> and/or concerns, look at what needs to be done at the code level to correct
+> these, and get moving on bringing WordPress into ATAG and WCAG2.0
+> compliance.
+>
+> I'm excited to see this underway!
+>
+> Lynne
+>
+>
+> _______________________________________________
+> wp-accessibility mailing list
+> wp-accessibility at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-accessibility/attachments/20090806/23b076f8/attachment.htm>
+
+From aaron at xavisys.com  Sat Aug  8 14:00:38 2009
+From: aaron at xavisys.com (Aaron D. Campbell)
+Date: Sat, 08 Aug 2009 07:00:38 -0700
+Subject: [wp-accessibility] Let's get started on improving
+	WordPress	accessibility
+In-Reply-To: <4f9525dc0908062142n33c3a458j5772672faa08ea96@mail.gmail.com>
+References: <427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com>
+	<4f9525dc0908062142n33c3a458j5772672faa08ea96@mail.gmail.com>
+Message-ID: <4A7D8506.60906@xavisys.com>
+
+The read more links can be easily adjusted by doing something like:
+the_content('Read the rest of <em>'.the_title('','',false).'</em> &raquo;');
+
+However, while the reply link text can be changed, you can't make it 
+specific to the comment.  It seemed like a quick patch was in order, 
+which I made and posted on trac 
+(http://core.trac.wordpress.org/ticket/10569).  Please give it a look, 
+test it, and comment on trac.
+
+Tynan Colin Beatty wrote:
+> Let's see, since I'm jumping in here completely unaware of previous 
+> reports, I'll get the ball rolling by bringing up one of the most 
+> glaring issues that I've encountered:
+> Repetetive/non-descriptive link anchors need to be more descriptive 
+> and unique. This applies to comment 'reply' links, 'read more' links, 
+> etc. The current preferred technique is to place excess text into a 
+> span and then use css to make that span 1 pixel and place it outside 
+> of the viewable screen area as describe here: 
+> http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/C7
+> I'm uncertain as to how this would affect the 'reply' situation, 
+> should WordPress Trac ticket #10550 ( 
+> http://core.trac.wordpress.org/ticket/10550 ) be resolved by changing 
+> the links to form inputs; but as it is now, this particular case 
+> should be resolved by adding comment id #s into the hidden spans, like 
+> <a>reply <span class="hide-me">to comment #</span></a> or similar.
+> 'Read more' can be supplemented by titles. Any other repetetive / 
+> unclear anchors should also be similarly supplemented to comply with 
+> this guideline. Thoughts?
+>
+> On Thu, Aug 6, 2009 at 9:38 PM, Lynne Pope <lynne.pope at gmail.com 
+> <mailto:lynne.pope at gmail.com>> wrote:
+>
+>     First off, I wish to thank "the powers that be" for responding to
+>     my request for this mailing list.
+>     I believe that by discussing and proposing changes to improve
+>     WordPress accessibility those of us with expertise in this area
+>     can make a significant difference.
+>
+>     Let's see if we can gather together all reports of accessibility
+>     issues and/or concerns, look at what needs to be done at the code
+>     level to correct these, and get moving on bringing WordPress into
+>     ATAG and WCAG2.0 compliance.
+>
+>     I'm excited to see this underway!
+>
+>     Lynne
+>
+>
+>     _______________________________________________
+>     wp-accessibility mailing list
+>     wp-accessibility at lists.automattic.com
+>     <mailto:wp-accessibility at lists.automattic.com>
+>     http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> wp-accessibility mailing list
+> wp-accessibility at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>   
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-accessibility/attachments/20090808/e0a6ec0b/attachment.htm>
+
+From junsuijin at gmail.com  Sat Aug  8 18:35:18 2009
+From: junsuijin at gmail.com (Tynan Colin Beatty)
+Date: Sat, 8 Aug 2009 13:35:18 -0500
+Subject: [wp-accessibility] Let's get started on improving WordPress
+	accessibility
+In-Reply-To: <4A7D8506.60906@xavisys.com>
+References: <427667db0908061938h2f4f1fei65bb92fc145b6e43@mail.gmail.com>
+	<4f9525dc0908062142n33c3a458j5772672faa08ea96@mail.gmail.com>
+	<4A7D8506.60906@xavisys.com>
+Message-ID: <4f9525dc0908081135i529c2b06ia8adcbefcb8ff03c@mail.gmail.com>
+
+Aaron,
+I took care of adding the id easily since I chose to override the entire
+comment walker with my theme (as wp_list_comments already allows). Something
+to consider instead of patching to include another filter. I think if the
+goal is to make WordPress as a whole more accessible, the best choice would
+be to just add in the id into the default comment walker class' generated
+reply links.
+
+On Sat, Aug 8, 2009 at 9:00 AM, Aaron D. Campbell <aaron at xavisys.com> wrote:
+
+>  The read more links can be easily adjusted by doing something like:
+> the_content('Read the rest of <em>'.the_title('','',false).'</em>
+> &raquo;');
+>
+> However, while the reply link text can be changed, you can't make it
+> specific to the comment.  It seemed like a quick patch was in order, which I
+> made and posted on trac (http://core.trac.wordpress.org/ticket/10569).
+> Please give it a look, test it, and comment on trac.
+>
+> Tynan Colin Beatty wrote:
+>
+> Let's see, since I'm jumping in here completely unaware of previous
+> reports, I'll get the ball rolling by bringing up one of the most glaring
+> issues that I've encountered:
+> Repetetive/non-descriptive link anchors need to be more descriptive and
+> unique. This applies to comment 'reply' links, 'read more' links, etc. The
+> current preferred technique is to place excess text into a span and then use
+> css to make that span 1 pixel and place it outside of the viewable screen
+> area as describe here:
+> http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/C7
+> I'm uncertain as to how this would affect the 'reply' situation, should
+> WordPress Trac ticket #10550 ( http://core.trac.wordpress.org/ticket/10550) be resolved by changing the links to form inputs; but as it is now, this
+> particular case should be resolved by adding comment id #s into the hidden
+> spans, like <a>reply <span class="hide-me">to comment #</span></a> or
+> similar.
+> 'Read more' can be supplemented by titles. Any other repetetive / unclear
+> anchors should also be similarly supplemented to comply with this guideline.
+> Thoughts?
+>
+> On Thu, Aug 6, 2009 at 9:38 PM, Lynne Pope <lynne.pope at gmail.com> wrote:
+>
+>> First off, I wish to thank "the powers that be" for responding to my
+>> request for this mailing list.
+>> I believe that by discussing and proposing changes to improve WordPress
+>> accessibility those of us with expertise in this area can make a significant
+>> difference.
+>>
+>> Let's see if we can gather together all reports of accessibility issues
+>> and/or concerns, look at what needs to be done at the code level to correct
+>> these, and get moving on bringing WordPress into ATAG and WCAG2.0
+>> compliance.
+>>
+>> I'm excited to see this underway!
+>>
+>> Lynne
+>>
+>>
+>> _______________________________________________
+>> wp-accessibility mailing list
+>> wp-accessibility at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>>
+>>
+> ------------------------------
+>
+> _______________________________________________
+> wp-accessibility mailing listwp-accessibility at lists.automattic.comhttp://lists.automattic.com/mailman/listinfo/wp-accessibility
+>
+>
+>
+> _______________________________________________
+> wp-accessibility mailing list
+> wp-accessibility at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-accessibility
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-accessibility/attachments/20090808/f5afd3f6/attachment.htm>
+
+From alastc at gmail.com  Sun Aug  9 12:27:04 2009
+From: alastc at gmail.com (Alastair Campbell)
+Date: Sun, 9 Aug 2009 13:27:04 +0100
+Subject: [wp-accessibility] Let's get started on improving WordPress
+	accessibility
+Message-ID: <e4e1f3bd0908090527s46a9381cxb745834d1b46fc34@mail.gmail.com>
+
+Tynan Colin Beatty wrote:
+> Repetetive/non-descriptive link anchors need to be more descriptive and
+> unique.
+
+I'd advise a little caution before jumping in and changing all of
+them, the relevant accessibility advice on this is:
+http://www.w3.org/TR/WCAG20/#navigation-mechanisms-refs
+"The purpose of each link can be determined from the link text alone
+or from the link text together with its programmatically determined
+link context, except where the purpose of the link would be ambiguous
+to users in general."
+
+I.e. if the repetitive links are in an HTML structure that makes it
+apparent what each one is related to, adding more description can
+simply slow people down.
+
+Jim Thatcher did a great explanation of this:
+http://jimthatcher.com/news-061607.htm
+
+For example, I don't think that the actions in the recent comments
+area of the dashboard would benefit from extra text. The code of a
+comment down to the first link is something like:
+<div class="dashboard-comment-wrap">
+<h4 class="comment-meta">From <cite
+class="comment-author">PersonA</cite> on <a href="#">Article</a> </h4>
+<blockquote>The comment</blockquote>
+<p class="row-actions"><span class="approve"><a title="Approve this
+comment" class="..." href="#">Approve</a></span>
+[more links]
+</p>
+</div>
+
+The heading above the comments fulfills the 'link context', in the
+same way as the W3C's example:
+http://www.w3.org/TR/2008/NOTE-WCAG20-TECHS-20081211/H80
+
+It would probably help to make the actions use list markup (p becomes
+ul, span becomes li), but that's probably an easier change, and more
+useful than adding hidden text.
+
+(NB: Those links could really do with better onfocus indicators - try
+using them with the keyboard-only and working out which link you're
+on!)
+
+Anyway, sorry to jump straight in like that, it just caught my eye!
+
+The accessibility of an app like Wordpress is quite a wide ranging
+challenge, I guess it's best to pick areas and try and improve the
+core coding? I would struggle to find time to do a proper review (as
+Joe Clark did a few years ago
+(http://joeclark.org/access/webaccess/WordPress-ATAG-evaluation.html).
+The admin area and accessibility guidelines have moved on since then,
+so that probably isn't relevant anymore.
+
+Kind regards,
+
+-Alastair
+--
+http://alastairc.ac/
+
+From lynne.pope at gmail.com  Sun Aug  9 12:54:49 2009
+From: lynne.pope at gmail.com (Lynne Pope)
+Date: Mon, 10 Aug 2009 00:54:49 +1200
+Subject: [wp-accessibility] Let's get started on improving WordPress
+	accessibility
+In-Reply-To: <427667db0908090553l682702d2p8c2b6046ea8e2ad1@mail.gmail.com>
+References: <e4e1f3bd0908090527s46a9381cxb745834d1b46fc34@mail.gmail.com> 
+	<427667db0908090553l682702d2p8c2b6046ea8e2ad1@mail.gmail.com>
+Message-ID: <427667db0908090554l51812a89xdbc64d6d53c06cc4@mail.gmail.com>
+
+2009/8/10 Alastair Campbell <alastc at gmail.com>
+
+>
+> The accessibility of an app like Wordpress is quite a wide ranging
+> challenge, I guess it's best to pick areas and try and improve the
+> core coding? I would struggle to find time to do a proper review (as
+> Joe Clark did a few years ago
+> (http://joeclark.org/access/webaccess/WordPress-ATAG-evaluation.html).
+> The admin area and accessibility guidelines have moved on since then,
+> so that probably isn't relevant anymore.
+>
+>
+WordPress has moved on, and so has both the understanding of accessibility
+and the guidelines themselves.
+
+The three sets of guidelines we really need to focus on are:
+
+ATAG (specifically the backend)  http://www.w3.org/WAI/intro/atag;
+WCAG 2 (both frontend and backend) http://www.w3.org/WAI/intro/wcag;
+WAI-ARIA (again, applies to both frontend and backend)
+http://www.w3.org/WAI/intro/aria
+
+Ironically, since Joe wrote that evaluation, WordPress has gone backwards in
+some areas, despite making up a lot of ground in others.
+It would be great to do a new evaluation against the current guidelines -
+this could help provide focus for this group.
+
+Lynne
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-accessibility/attachments/20090810/5f88e25a/attachment.htm>
+

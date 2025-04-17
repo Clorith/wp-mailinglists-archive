@@ -1,0 +1,979 @@
+From joseph at randomnetworks.com  Fri Nov  9 00:02:13 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 00:02:32 2007
+Subject: [wp-xmlrpc] New method, wp.deleteCategory
+Message-ID: <BB8881DC-537A-4C08-81A6-C6C7AD86EE35@randomnetworks.com>
+
+
+I've submitted a patch to implement a new method, wp.deleteCategory  
+( blog_id, username, password, category_id ).
+
+http://trac.wordpress.org/ticket/4599
+
+Does just what you'd expect it to do :-)
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From Joe.Cheng at microsoft.com  Fri Nov  9 00:04:12 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Fri Nov  9 00:04:29 2007
+Subject: [wp-xmlrpc] New method, wp.deleteCategory
+In-Reply-To: <BB8881DC-537A-4C08-81A6-C6C7AD86EE35@randomnetworks.com>
+References: <BB8881DC-537A-4C08-81A6-C6C7AD86EE35@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A210DBE0D1A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Cool. What happens to child categories?
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Thursday, November 08, 2007 4:02 PM
+To: wp-xmlrpc@lists.automattic.com
+Subject: [wp-xmlrpc] New method, wp.deleteCategory
+
+
+I've submitted a patch to implement a new method, wp.deleteCategory
+( blog_id, username, password, category_id ).
+
+http://trac.wordpress.org/ticket/4599
+
+Does just what you'd expect it to do :-)
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From joseph at randomnetworks.com  Fri Nov  9 00:18:10 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 00:18:29 2007
+Subject: [wp-xmlrpc] exposing the post status
+Message-ID: <7F402D7E-71DE-428F-A998-E9B6DAB74665@randomnetworks.com>
+
+
+I've submitted a patch for exposing the post status from  
+metaWeblog.getPost and metaWeblog.getRecentPosts.
+
+http://trac.wordpress.org/ticket/4982
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Fri Nov  9 00:29:54 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 00:30:44 2007
+Subject: [wp-xmlrpc] New method, wp.deleteCategory
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A210DBE0D1A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <BB8881DC-537A-4C08-81A6-C6C7AD86EE35@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210DBE0D1A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <D263C21D-51A1-430C-83FE-06D199A211EA@randomnetworks.com>
+
+
+On Nov 8, 2007, at 5:04 PM, Joe Cheng wrote:
+
+> Cool. What happens to child categories?
+
+This is what happens when I try to end my emails with a smart alec  
+line :-)
+
+Testing this out on -trunk here's what I see happen.  When a category  
+is deleted that has children, all of the children are bumped up one.
+
+So if you delete a top level category, all of the immediate children  
+now become top level categories.  If you delete a category out of the  
+middle of the hierarchy all of the direct children of the deleted  
+category move up one level.
+
+When a category gets deleted, all children get promoted up on level.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From Joe.Cheng at microsoft.com  Fri Nov  9 00:38:09 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Fri Nov  9 00:38:20 2007
+Subject: [wp-xmlrpc] New method, wp.deleteCategory
+In-Reply-To: <D263C21D-51A1-430C-83FE-06D199A211EA@randomnetworks.com>
+References: <BB8881DC-537A-4C08-81A6-C6C7AD86EE35@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210DBE0D1A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<D263C21D-51A1-430C-83FE-06D199A211EA@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A210DBE0D45@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> This is what happens when I try to end my emails with a smart
+> alec line :-)
+
+Yeah, you were kind of asking for it ;)
+
+What happens if the promotion of an "orphaned" category results
+in two categories having the same name and the same parent?
+Might it make more sense to either 1) refuse to delete a
+category until its child categories are all gone, or 2) delete
+all the child categories automatically as well? Both of those
+behaviors would be more analogous to how deleting filesystem
+directories work (not that categories are that much like
+directories, I suppose).
+From joseph at randomnetworks.com  Fri Nov  9 03:33:29 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 03:33:48 2007
+Subject: [wp-xmlrpc] New method, wp.deleteCategory
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A210DBE0D45@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <BB8881DC-537A-4C08-81A6-C6C7AD86EE35@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210DBE0D1A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<D263C21D-51A1-430C-83FE-06D199A211EA@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210DBE0D45@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <D614EA21-7B57-48C5-884E-D702ECCD9D4F@randomnetworks.com>
+
+
+On Nov 8, 2007, at 5:38 PM, Joe Cheng wrote:
+
+>> This is what happens when I try to end my emails with a smart
+>> alec line :-)
+>
+> Yeah, you were kind of asking for it ;)
+>
+> What happens if the promotion of an "orphaned" category results
+> in two categories having the same name and the same parent?
+> Might it make more sense to either 1) refuse to delete a
+> category until its child categories are all gone, or 2) delete
+> all the child categories automatically as well? Both of those
+> behaviors would be more analogous to how deleting filesystem
+> directories work (not that categories are that much like
+> directories, I suppose).
+
+
+More excellent questions.  I love this list!
+
+Categories at the same level can have the same name, because what  
+needs to be unique is the category slug.  And WordPress will enforce  
+this automatically.  If you try to add a category with a slug that is  
+in use by another category already (at any level, sibling, parent,  
+child) then WP will append a dash and a number, like -2, making the  
+slug unique.
+
+This makes the deleting case easier.  The children categories of the  
+one that was deleted will all be promoted and their slugs will all be  
+kept the same.  There is no problem have four top level categories  
+called 'WordPress' because they will each have a unique slug.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Fri Nov  9 04:25:30 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 04:25:50 2007
+Subject: [wp-xmlrpc] metaWeblog.getCategories,
+	not returning struct of structs, problem?
+Message-ID: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+
+
+We've got a ticket from earlier this year about  
+metaWeblog.getCategories:
+
+	http://trac.wordpress.org/ticket/3994
+
+The complaint is that we aren't following the spec:
+
+	http://www.xmlrpc.com/metaWeblogApi
+
+which says that it shall return a struct of structs.  I've confirmed  
+that what WP does in return an array of structs, which is what the  
+author of the ticket wants changed.
+
+I've not been approached by any client vendors to change this to  
+match the standard, indeed this ticket is the only mention that I've  
+seen of it.  Dougal may have some history to add to this though.
+
+Are any of the XML-RPC vendors that work with WordPress concerned  
+about this?  Given the sometimes fragile of these types of things  
+that have been around for awhile I'm inclined to leave things they  
+way they are and close this ticket.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Fri Nov  9 05:24:45 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Nov  9 05:25:11 2007
+Subject: [wp-xmlrpc] exposing the post status
+In-Reply-To: <7F402D7E-71DE-428F-A998-E9B6DAB74665@randomnetworks.com>
+References: <7F402D7E-71DE-428F-A998-E9B6DAB74665@randomnetworks.com>
+Message-ID: <A4291425-8092-4143-9828-723BC558871F@red-sweater.com>
+
+Wow - our lucky day for RPC support. Thanks a lot, Joseph. Some stuff  
+I'll definitely try to get testing on soon!
+
+Good questions from Joe about the deleting categories. I guess I'm  
+fine with the "bump up" behavior. I don't support hierarchies yet but  
+when I do I suppose I'll just treat deletion as a time to "reload all  
+categories" because I'm not sure we can rely on every system to handle  
+things the way you do.
+
+Daniel
+
+
+On Nov 8, 2007, at 7:18 PM, Joseph Scott wrote:
+
+>
+> I've submitted a patch for exposing the post status from  
+> metaWeblog.getPost and metaWeblog.getRecentPosts.
+>
+> http://trac.wordpress.org/ticket/4982
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From Joe.Cheng at microsoft.com  Fri Nov  9 06:55:39 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Fri Nov  9 06:55:55 2007
+Subject: [wp-xmlrpc] metaWeblog.getCategories,	not returning struct of
+	structs, problem?
+In-Reply-To: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A210D8766D6@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Almost everyone does an array of structs. I would've left off the "almost" except I just discovered that textpattern does do a struct of structs. Please, please keep the current behavior.
+
+The real solution is to document the parts of the metaweblog spec that are broken so folks like whilo can implement it without learning everything the hard way like we all had to.
+
+________________________________________
+From: wp-xmlrpc-bounces@lists.automattic.com [wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott [joseph@randomnetworks.com]
+Sent: Thursday, November 08, 2007 8:25 PM
+To: wp-xmlrpc@lists.automattic.com; Dougal Campbell
+Subject: [wp-xmlrpc] metaWeblog.getCategories,  not returning struct of structs, problem?
+
+We've got a ticket from earlier this year about
+metaWeblog.getCategories:
+
+        http://trac.wordpress.org/ticket/3994
+
+The complaint is that we aren't following the spec:
+
+        http://www.xmlrpc.com/metaWeblogApi
+
+which says that it shall return a struct of structs.  I've confirmed
+that what WP does in return an array of structs, which is what the
+author of the ticket wants changed.
+
+I've not been approached by any client vendors to change this to
+match the standard, indeed this ticket is the only mention that I've
+seen of it.  Dougal may have some history to add to this though.
+
+Are any of the XML-RPC vendors that work with WordPress concerned
+about this?  Given the sometimes fragile of these types of things
+that have been around for awhile I'm inclined to leave things they
+way they are and close this ticket.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From jalkut at red-sweater.com  Fri Nov  9 06:56:33 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Nov  9 06:56:49 2007
+Subject: [wp-xmlrpc] metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+Message-ID: <7AFE38F0-C621-48A5-8984-C4186A57DEE5@red-sweater.com>
+
+ From my point of view, I don't think this will particularly affect my  
+users in any way, because unless a user fights hard to prevent it,  
+MarsEdit will always use "mt.getCategoryList" instead of  
+"metaWeblog.getCategories" when fetching categories for a WordPress  
+blog.
+
+I recognize that there may be clients out there who rely on the  
+MetaWeblog API subset. I think the question is if there are such  
+clients, do *they* care about this?
+
+Daniel
+
+On Nov 8, 2007, at 11:25 PM, Joseph Scott wrote:
+
+>
+> We've got a ticket from earlier this year about  
+> metaWeblog.getCategories:
+>
+> 	http://trac.wordpress.org/ticket/3994
+>
+> The complaint is that we aren't following the spec:
+>
+> 	http://www.xmlrpc.com/metaWeblogApi
+>
+> which says that it shall return a struct of structs.  I've confirmed  
+> that what WP does in return an array of structs, which is what the  
+> author of the ticket wants changed.
+>
+> I've not been approached by any client vendors to change this to  
+> match the standard, indeed this ticket is the only mention that I've  
+> seen of it.  Dougal may have some history to add to this though.
+>
+> Are any of the XML-RPC vendors that work with WordPress concerned  
+> about this?  Given the sometimes fragile of these types of things  
+> that have been around for awhile I'm inclined to leave things they  
+> way they are and close this ticket.
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From jalkut at red-sweater.com  Fri Nov  9 06:58:31 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Nov  9 06:58:44 2007
+Subject: [wp-xmlrpc] metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A210D8766D6@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210D8766D6@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <659C64E8-974A-47E2-9486-A0BC1B23FBBD@red-sweater.com>
+
+Whoah! It's official - developers of desktop weblog clients are more  
+likely to respond to emails between 1:55 and 2:00 AM EST.
+
+On Nov 9, 2007, at 1:55 AM, Joe Cheng wrote:
+
+> Almost everyone does an array of structs. I would've left off the  
+> "almost" except I just discovered that textpattern does do a struct  
+> of structs. Please, please keep the current behavior.
+>
+> The real solution is to document the parts of the metaweblog spec  
+> that are broken so folks like whilo can implement it without  
+> learning everything the hard way like we all had to.
+From dougal at gunters.org  Fri Nov  9 15:44:55 2007
+From: dougal at gunters.org (Dougal Campbell)
+Date: Fri Nov  9 15:45:13 2007
+Subject: [wp-xmlrpc] Re: metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+Message-ID: <47348077.6080007@gunters.org>
+
+Joseph Scott wrote:
+>
+> We've got a ticket from earlier this year about metaWeblog.getCategories:
+>
+>     http://trac.wordpress.org/ticket/3994
+>
+> The complaint is that we aren't following the spec:
+>
+>     http://www.xmlrpc.com/metaWeblogApi
+>
+> which says that it shall return a struct of structs.  I've confirmed
+> that what WP does in return an array of structs, which is what the
+> author of the ticket wants changed.
+>
+> I've not been approached by any client vendors to change this to match
+> the standard, indeed this ticket is the only mention that I've seen of
+> it.  Dougal may have some history to add to this though.
+>
+> Are any of the XML-RPC vendors that work with WordPress concerned
+> about this?  Given the sometimes fragile of these types of things that
+> have been around for awhile I'm inclined to leave things they way they
+> are and close this
+
+I'm willing to bet that this is just a case where the vagueness of the
+spec (and lack of good examples) caused us to mis-implement. The
+category portion of the post struct is an array, so it probably seemed
+natural that getCategories should, as well.
+
+I suggest that we try converting to a struct, and test the major clients
+against it to see if anything breaks. If everything still works, then we
+fix it, otherwise, it probably needs to be a 'wontfix'.
+ 
+So, the question is, what is the 'name' portion of the parent struct
+going to be? The category name, category slug, or category ID? I'm
+leaning towards slug, especially since we already have the ID and name
+in the data portion of the struct. However, I'm guessing that the
+original intent was to use the category name as the key. Other
+considerations to think about: the spec obviously assumes a flat
+category space, but we have hierarchical. Should we try to account for
+that? I know we're already sending extra info about that in the data
+portion of the category structs, but that's not part of the spec either,
+and we want to be able to handle naive clients.
+
+
+-- 
+Dougal Campbell <dougal@gunters.org <mailto:dougal@gunters.org>>
+http://dougal.gunters.org/ <http://dougal.gunters.org>
+From joseph at randomnetworks.com  Fri Nov  9 17:44:02 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 17:44:32 2007
+Subject: [wp-xmlrpc] Re: metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <47348077.6080007@gunters.org>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<47348077.6080007@gunters.org>
+Message-ID: <DAF71E0C-4794-4331-8515-90627FD5530D@randomnetworks.com>
+
+
+On Nov 9, 2007, at 8:44 AM, Dougal Campbell wrote:
+
+> I'm willing to bet that this is just a case where the vagueness of the
+> spec (and lack of good examples) caused us to mis-implement. The
+> category portion of the post struct is an array, so it probably seemed
+> natural that getCategories should, as well.
+
+Agreed, and that might be why Six Apart doesn't implement it (or at  
+least doesn't document that they do: http://www.sixapart.com/ 
+developers/xmlrpc/metaweblog_api/).
+
+As Joe mentioned it seems most others provide an array of structs  
+except for TextPattern, http://txp.kusor.com/rpc-api/ 
+metawebloggetcategories.  But they don't indicate what they use for  
+the index name of each struct.
+
+Windows Live Spaces indicates they return an array of structs, http:// 
+msdn2.microsoft.com/en-us/library/aa905667.aspx.
+
+> I suggest that we try converting to a struct, and test the major  
+> clients
+> against it to see if anything breaks. If everything still works,  
+> then we
+> fix it, otherwise, it probably needs to be a 'wontfix'.
+
+I'm inclined not to fix it at this point.  Mostly because it seems  
+that in the absence of concrete examples in the spec most vendors  
+have decided on an array of structs instead.
+
+That said I would be willing to sort of fix it in a different way.   
+Add a fourth parameter to metaWeblog.getCategories that would  
+indicate that we should return data struct of structs just like the  
+spec says.  Call it strict_mode or something and it would be a  
+boolean and completely optional.  If it is set to true then we adhere  
+to the spec, if it is set to false, any other value, or not set at  
+all then we do things as they currently stand.
+
+Given the history and circumstances I believe this approach has the  
+most upsides with the fewest down sides.
+
+> So, the question is, what is the 'name' portion of the parent struct
+> going to be? The category name, category slug, or category ID? I'm
+> leaning towards slug, especially since we already have the ID and name
+> in the data portion of the struct. However, I'm guessing that the
+> original intent was to use the category name as the key. Other
+> considerations to think about: the spec obviously assumes a flat
+> category space, but we have hierarchical. Should we try to account for
+> that? I know we're already sending extra info about that in the data
+> portion of the category structs, but that's not part of the spec  
+> either,
+> and we want to be able to handle naive clients.
+
+As for the name portion of the parent struct I think there are really  
+only two reasonable potential options: the category id or the slug.   
+Both of those are guaranteed to be unique.  The category name isn't a  
+good option because you can have duplicates.  While there might be  
+nothing technically wrong with having dups I suspect there is at  
+least one XML-RPC library out there that will fold dups down into  
+one.  My initial reaction would be to use the category id, but I  
+could potentially seem some client library munging that as well (just  
+numbers, out of sequence).  That leaves the category slug, which I'd  
+be fine with.
+
+Exposing category hierarchies, if a client wants to get that  
+information then they should make use of the already available non- 
+spec parentId field.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Fri Nov  9 17:47:14 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Nov  9 17:47:34 2007
+Subject: [wp-xmlrpc] Re: metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <DAF71E0C-4794-4331-8515-90627FD5530D@randomnetworks.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<47348077.6080007@gunters.org>
+	<DAF71E0C-4794-4331-8515-90627FD5530D@randomnetworks.com>
+Message-ID: <3D8EE2A6-FACC-4F6A-AA55-3CFFF1403094@red-sweater.com>
+
+On Nov 9, 2007, at 12:44 PM, Joseph Scott wrote:
+
+> That said I would be willing to sort of fix it in a different way.   
+> Add a fourth parameter to metaWeblog.getCategories that would  
+> indicate that we should return data struct of structs just like the  
+> spec says.  Call it strict_mode or something and it would be a  
+> boolean and completely optional.  If it is set to true then we  
+> adhere to the spec, if it is set to false, any other value, or not  
+> set at all then we do things as they currently stand.
+
+I don't think you should think too much more about this, and  
+definitely shouldn't change anything, unless the reporter of the bug  
+can point you to a better reason for doing it than to comply with the  
+official MetaWeblog spec.
+
+You've got way better things to do, and most people don't give a damn  
+about MetaWeblog. Those who do give a damn have already learned the  
+hard way that it's half-reliable at best.
+
+I'd say focus your time on more pressing issues and ask this guy to  
+forgive the imperfections of MetaWeblog implementations around the  
+world.
+
+Daniel
+From joseph at randomnetworks.com  Fri Nov  9 17:48:03 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 17:48:26 2007
+Subject: [wp-xmlrpc] metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A210D8766D6@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210D8766D6@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <81A8D656-2AD7-4C5E-A177-23A2E7E5A9A6@randomnetworks.com>
+
+
+On Nov 8, 2007, at 11:55 PM, Joe Cheng wrote:
+
+> Almost everyone does an array of structs. I would've left off the  
+> "almost" except I just discovered that textpattern does do a struct  
+> of structs. Please, please keep the current behavior.
+>
+> The real solution is to document the parts of the metaweblog spec  
+> that are broken so folks like whilo can implement it without  
+> learning everything the hard way like we all had to.
+
+I very much lean towards the option of not changing it, although I  
+proposed a method that might satisfy both sides.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Fri Nov  9 17:51:32 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Nov  9 17:51:54 2007
+Subject: [wp-xmlrpc] metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <81A8D656-2AD7-4C5E-A177-23A2E7E5A9A6@randomnetworks.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210D8766D6@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<81A8D656-2AD7-4C5E-A177-23A2E7E5A9A6@randomnetworks.com>
+Message-ID: <E26760C9-5349-4FFC-B310-EFA7A8E3FB32@red-sweater.com>
+
+Oh - and to elaborate on my previous suggestion that you don't do  
+anything, I'd suggest that a compromise in this situation such as  
+adding an optional parameter, it only further muddies the water and  
+complicates the code.
+
+Resist this change unless you are compelled by a really good reason.
+
+Daniel
+
+On Nov 9, 2007, at 12:48 PM, Joseph Scott wrote:
+
+> I very much lean towards the option of not changing it, although I  
+> proposed a method that might satisfy both sides.
+From Joe.Cheng at microsoft.com  Fri Nov  9 17:54:11 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Fri Nov  9 17:54:26 2007
+Subject: [wp-xmlrpc] Re: metaWeblog.getCategories, not returning struct
+	of structs, problem?
+In-Reply-To: <DAF71E0C-4794-4331-8515-90627FD5530D@randomnetworks.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<47348077.6080007@gunters.org>
+	<DAF71E0C-4794-4331-8515-90627FD5530D@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A210DBE0F45@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> That said I would be willing to sort of fix it in a different way.
+> Add a fourth parameter to metaWeblog.getCategories that would
+> indicate that we should return data struct of structs just like the
+> spec says.
+
+Personally, I wouldn't even bother with that. To know to pass that value, a client implementer would have to know that this issue with the spec exists, at which point they might as well just treat the return value as an array (or at least sniff the returned value to see if it's a struct or array).
+From joseph at randomnetworks.com  Fri Nov  9 18:09:07 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Nov  9 18:09:26 2007
+Subject: [wp-xmlrpc] Re: metaWeblog.getCategories,
+	not returning struct of structs, problem?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A210DBE0F45@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <97270FA1-B0E1-44F5-8CFE-FC9901875F51@randomnetworks.com>
+	<47348077.6080007@gunters.org>
+	<DAF71E0C-4794-4331-8515-90627FD5530D@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A210DBE0F45@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <5F7B898E-8791-45E2-8727-E9F7483209AA@randomnetworks.com>
+
+
+On Nov 9, 2007, at 10:54 AM, Joe Cheng wrote:
+
+>> That said I would be willing to sort of fix it in a different way.
+>> Add a fourth parameter to metaWeblog.getCategories that would
+>> indicate that we should return data struct of structs just like the
+>> spec says.
+>
+> Personally, I wouldn't even bother with that. To know to pass that  
+> value, a client implementer would have to know that this issue with  
+> the spec exists, at which point they might as well just treat the  
+> return value as an array (or at least sniff the returned value to  
+> see if it's a struct or array).
+
+I think Joe and Daniel making compelling points on why we shouldn't  
+even bother touching this.
+
+Given the amount of time and inertia with the way things have been  
+it's hard to see much benefit.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Mon Nov 12 08:56:47 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Nov 12 08:57:10 2007
+Subject: [wp-xmlrpc] number of comments in the moderation queue
+Message-ID: <37313B35-C822-4D99-A6B8-138F98C193B1@randomnetworks.com>
+
+
+I submitted this ticket: http://trac.wordpress.org/ticket/5341 in  
+regards to this plugin http://www.howtogeek.com/howto/the-geek-blog/ 
+how-to-geek-software-wordpress-comment-moderation-notifier/ that runs  
+on windows and pops a little window from the tray when you have  
+greater than zero comments in the moderation queue.
+
+I'd be interested to know other ways and information that people  
+would be like to expose comment moderation.  Some obvious ones are  
+the number of moderated comments and the number of comments currently  
+marked as spam.  That covers all of the possible states that a  
+comment can currently be in.
+
+Seems the next step beyond that would be to provide ways to change  
+the state of comment, although that could be done as part of a second  
+phase.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Mon Nov 12 22:58:40 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Nov 12 22:59:09 2007
+Subject: [wp-xmlrpc] exposing and manipulating custom fields
+Message-ID: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+
+
+I've put together a patch for http://trac.wordpress.org/ticket/5148  
+on exposing custom fields.  Below is the commentary I added to the  
+ticket, which outlines the basic format of how it works:
+
+=========
+
+The attached diff exposes custom fields via wp.getPage and  
+metaWeblog.getPost (and their friends). The new field is called  
+"custom_fields" and an array of structs, with each struct containing  
+three entries: id, key and value. Something like this:
+
+     "custom_fields" = (
+         {id = 129; key = city; value = Sacramento; },
+         {id = 130; key = city; value = Sandy; }
+     )
+
+Custom fields can be added via wp.newPost/editPost and  
+metaWeblog.newPost/editPost following the same general format. If a  
+custom field entry included with a post contains an "id" value then  
+an update is done. If there is no "id" then an add is done. If there  
+is an "id" value and no "key" value then the custom field with that  
+id is deleted.
+
+I'm also open to the possibility of a wp.addCustomField(blog_id,  
+post_id, key, value) style methods if discussions show that there is  
+an interest and a reasonable use for them.
+
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From dougal at gunters.org  Tue Nov 13 16:08:00 2007
+From: dougal at gunters.org (Dougal Campbell)
+Date: Tue Nov 13 16:08:27 2007
+Subject: [wp-xmlrpc] exposing and manipulating custom fields
+In-Reply-To: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+References: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+Message-ID: <4739CBE0.9010707@gunters.org>
+
+Joseph Scott wrote:
+> [...]
+> Custom fields can be added via wp.newPost/editPost and
+> metaWeblog.newPost/editPost following the same general format. If a
+> custom field entry included with a post contains an "id" value then an
+> update is done. If there is no "id" then an add is done. If there is
+> an "id" value and no "key" value then the custom field with that id is
+> deleted.
+>
+> I'm also open to the possibility of a wp.addCustomField(blog_id,
+> post_id, key, value) style methods if discussions show that there is
+> an interest and a reasonable use for them.
+
+If the new method is going to follow the same overload functionality
+(add, modify, or delete, depending on the state of the arguments), then
+I was recommend naming it 'setCustomField' rather than 'addCustomField'.
+I'm not arguing for or against overloading, just suggesting that 'set'
+is more generic than 'add' for a function that does more than just add
+values.
+
+
+
+-- 
+Dougal Campbell <dougal@gunters.org <mailto:dougal@gunters.org>>
+http://dougal.gunters.org/ <http://dougal.gunters.org>
+From jalkut at red-sweater.com  Tue Nov 13 17:01:34 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue Nov 13 17:02:56 2007
+Subject: [wp-xmlrpc] exposing and manipulating custom fields
+In-Reply-To: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+References: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+Message-ID: <A805901D-0BCB-47D6-A718-6615B2C93923@red-sweater.com>
+
+On Nov 12, 2007, at 5:58 PM, Joseph Scott wrote:
+
+>    "custom_fields" = (
+>        {id = 129; key = city; value = Sacramento; },
+>        {id = 130; key = city; value = Sandy; }
+>    )
+
+
+I'm a little uneasy about the use of an omission to imply "complete  
+deletion." For instance, I'm trying to put together a custom fields  
+service, and I have a typo that causes:
+
+  "custom_fields" = (
+        {id = 129; key = city; vaalue = Sacramento; },
+        {id = 130; key = city; vaalue = Sandy; }
+    )
+
+Now I've just wiped out all of the custom fields in my blog for id's  
+129 and 130?
+
+Maybe a separate method would be better for adjustments to the actual  
+topology of custom fields, instead of overloading it SO much in the  
+post settings.
+
+In general, I'd like to think that posting a blog post can at worst  
+adversely affect THAT post.
+
+Daniel
+From joseph at randomnetworks.com  Tue Nov 13 17:32:04 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Nov 13 17:32:20 2007
+Subject: [wp-xmlrpc] exposing and manipulating custom fields
+In-Reply-To: <4739CBE0.9010707@gunters.org>
+References: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+	<4739CBE0.9010707@gunters.org>
+Message-ID: <3608D1E7-4350-44D5-86CD-823238FAD01D@randomnetworks.com>
+
+
+On Nov 13, 2007, at 9:08 AM, Dougal Campbell wrote:
+
+> If the new method is going to follow the same overload functionality
+> (add, modify, or delete, depending on the state of the arguments),  
+> then
+> I was recommend naming it 'setCustomField' rather than  
+> 'addCustomField'.
+> I'm not arguing for or against overloading, just suggesting that 'set'
+> is more generic than 'add' for a function that does more than just add
+> values.
+
+Agreed.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Tue Nov 13 17:42:26 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Nov 13 17:42:41 2007
+Subject: [wp-xmlrpc] exposing and manipulating custom fields
+In-Reply-To: <A805901D-0BCB-47D6-A718-6615B2C93923@red-sweater.com>
+References: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+	<A805901D-0BCB-47D6-A718-6615B2C93923@red-sweater.com>
+Message-ID: <8A998556-FF5B-405E-88C4-DA97FA73F75C@randomnetworks.com>
+
+
+On Nov 13, 2007, at 10:01 AM, Daniel Jalkut wrote:
+
+> I'm a little uneasy about the use of an omission to imply "complete  
+> deletion." For instance, I'm trying to put together a custom fields  
+> service, and I have a typo that causes:
+>
+>  "custom_fields" = (
+>        {id = 129; key = city; vaalue = Sacramento; },
+>        {id = 130; key = city; vaalue = Sandy; }
+>    )
+>
+> Now I've just wiped out all of the custom fields in my blog for  
+> id's 129 and 130?
+
+
+I probably didn't make my example very clear.  That would cause an  
+update not a delete, because you provided the key field.  A second  
+typo, like keeeey instead of key, along with the value typo would  
+have caused a delete.
+
+
+> Maybe a separate method would be better for adjustments to the  
+> actual topology of custom fields, instead of overloading it SO much  
+> in the post settings.
+>
+> In general, I'd like to think that posting a blog post can at worst  
+> adversely affect THAT post.
+
+
+Custom fields are always per post/page, there are no global custom  
+fields.  Those ids are the custom field id, which I had to expose  
+because that is how they are uniquely identified.  So even with typos  
+in all the damage would still be limited to a single post.
+
+With the goal of having it possible to add/update/delete as part of  
+the existing methods the overloading mechanism seemed the most direct  
+route to make that happen.  There are of course other ways to do  
+that, we could use different post fields that would be analogous to  
+individual methods: add_custom_fields, update_custom_fields,  
+delete_custom_fields.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Tue Nov 13 18:09:13 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue Nov 13 18:09:34 2007
+Subject: [wp-xmlrpc] exposing and manipulating custom fields
+In-Reply-To: <8A998556-FF5B-405E-88C4-DA97FA73F75C@randomnetworks.com>
+References: <3AF19C47-C0B2-4F83-B7BC-1C87A2B40F19@randomnetworks.com>
+	<A805901D-0BCB-47D6-A718-6615B2C93923@red-sweater.com>
+	<8A998556-FF5B-405E-88C4-DA97FA73F75C@randomnetworks.com>
+Message-ID: <840E9F02-FD9B-485A-80A4-AE36FD664150@red-sweater.com>
+
+On Nov 13, 2007, at 12:42 PM, Joseph Scott wrote:
+
+> Custom fields are always per post/page, there are no global custom  
+> fields.  Those ids are the custom field id, which I had to expose  
+> because that is how they are uniquely identified.  So even with  
+> typos in all the damage would still be limited to a single post.
+
+OK - that alleviates my fear quite a bit. Thanks!
+
+Daniel
+From peter.westwood at ftwr.co.uk  Thu Nov 29 21:16:19 2007
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Thu Nov 29 21:16:27 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+Message-ID: <474F2C23.6060500@ftwr.co.uk>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+marumoto wrote:
+> Hi,
+> 
+> I'm not sure I'm in the right place, but I couldn't find a "wp-app
+> list". So, please forgive me if this topic is not appropriate for the
+> list.
+> # I found the "wp-xmlrpc list", but APP and xml-rpc are two different
+> thing, you know.
+>
+
+wp-xmlrpc is probably the best place for the discussion.  The list may
+be badly named but it is where the client implementors tend to hang out
+and it really if for any of the publishing oriented machine interfaces
+to WordPress.
+
+> Anyway, I've been developing a AtomPub(the Atom Publishing Protocol)
+> client. And I think I found a few bugs.
+> 
+> 
+>    1. Malformed XML error when GETing a "wordpress media" entry.
+>    2. 404 Not Found error on GETing a category and a collection
+> document if "WordPress address" and "Blog address" are different.
+>    3. Entry's published and Edited time stamp is always the same.
+> 
+> The client is not ready for the public just yet, but the alpha version
+> should be out pretty soon.
+> 
+
+Some of these sound like things that are already logged in trac but
+others maybe new.
+
+westi
+- --
+Peter Westwood
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.7 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFHTywiVPRdzag0AcURAl3VAJwOaULblFM4tVDlXBSAKWDzgaUMLwCfYEQK
+vDp2eLJB7e6kYDZpPf9kyP0=
+=8xHr
+-----END PGP SIGNATURE-----
+From joseph at randomnetworks.com  Thu Nov 29 21:29:03 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Nov 29 21:32:57 2007
+Subject: [wp-xmlrpc] mt_allow_comments = 2
+Message-ID: <C9877DC8-4EE1-4C53-91F0-1A9A3C439292@randomnetworks.com>
+
+
+Daniel noted that other systems support mt_allow_comments = 2, that  
+allows existing comments to be shown, but no new ones added.   
+WordPress doesn't have support for this feature, but some XML-RPC  
+clients might be sending this value anyway.  In the past if a client  
+sent a 2 it would be seen as an invalid value and the default blog  
+setting for allow comments would be used, which is more often than  
+not set to allow comments.  Now 2 will be treated the same way as  
+zero, it will turn off comments on a post.
+
+This is detailed in http://trac.wordpress.org/ticket/5366 and was  
+committed to -trunk http://trac.wordpress.org/changeset/6347  
+yesterday.  If you have a client that is impacted by this (i.e. you  
+will send mt_allow_comments = 2 in some cases) then please test this  
+out so that it works as expected in 2.4 when it is released in  
+January 2008.
+
+Thanks.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+

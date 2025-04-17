@@ -1,0 +1,277 @@
+From dan at bringtheblog.com  Wed Jan  6 15:06:02 2010
+From: dan at bringtheblog.com (Dan Green)
+Date: Wed, 06 Jan 2010 10:06:02 -0500
+Subject: [wp-xmlrpc] Have you seen this before? wp.getOptions() is executing,
+ but returning no values
+Message-ID: <4B44A6DA.1010406@bringtheblog.com>
+
+Weird issue. I think it's server-related, but I want to make sure.
+
+I use XML-RPC to post content to several hundred blogs. On 95% of my 
+target blogs, the wp.getOptions() function works. However, on a few 
+sites, wp.getOptions() only *some* of the expected values. I have 
+double- and triple-checked -- URL, username and password parameters are 
+correct. Furthermore, getLastError() is throwing a "0".
+
+This is a print_r of the getOptions() array when the wp.getOptions() fails.
+
+stdClass Object ( [software_name] => Array ( [desc] => Software Name 
+[readonly] => 1 [value] => WordPress ) [software_version] => Array ( 
+[desc] => Software Version [readonly] => 1 [value] => 2.9 ) [blog_url] 
+=> Array ( [desc] => Blog URL [readonly] => 1 [value] => 
+http://www.mysite.com ) [time_zone] => Array ( [desc] => Time Zone 
+[readonly] => [value] => -7 ) [blog_title] => Array ( [desc] => Blog 
+Title [readonly] => [value] => ) [blog_tagline] => Array ( [desc] => 
+Blog Tagline [readonly] => [value] => ) [date_format] => Array ( [desc] 
+=> Date Format [readonly] => [value] => F j, Y ) [time_format] => Array 
+( [desc] => Time Format [readonly] => [value] => g:i A ) 
+[users_can_register] => Array ( [desc] => Allow new users to sign up 
+[readonly] => [value] => ) )
+
+It's clear that the XML-RPC call is connecting to the remote WordPress 
+instance and the instance appears to be properly configured. The failed 
+XML-RPC are not limited to a specific WordPress version, either. Some 
+fail on WP 2.9 and others fail on 2.8.x.
+
+Have you ever run into something like this? I am sure there?s a logical 
+explanation ? I just can?t figure it out. And before I start digging 
+into somebody else's server configuration, I thought I'd ask the group 
+if this is a common issue with a simple work-around.
+
+Thanks for your help,
+Dan
+
+From jalkut at red-sweater.com  Wed Jan  6 15:08:28 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed, 6 Jan 2010 10:08:28 -0500
+Subject: [wp-xmlrpc] Have you seen this before? wp.getOptions() is
+	executing, but returning no values
+In-Reply-To: <4B44A6DA.1010406@bringtheblog.com>
+References: <4B44A6DA.1010406@bringtheblog.com>
+Message-ID: <1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+
+On Jan 6, 2010, at 10:06am, Dan Green wrote:
+
+> Have you ever run into something like this? I am sure there?s a logical explanation ? I just can?t figure it out. And before I start digging into somebody else's server configuration, I thought I'd ask the group if this is a common issue with a simple work-around.
+
+Hi Dan - first thing I would look into, which you didn't mention one way or the other, is whether the installed plugins are different on the affected and unaffected servers.
+
+Whenever I see unexpected results from the API, I usually suspect plugin interference as a first line of inquiry.
+
+Daniel
+
+
+From dan at bringtheblog.com  Wed Jan  6 15:21:58 2010
+From: dan at bringtheblog.com (Dan Green)
+Date: Wed, 06 Jan 2010 10:21:58 -0500
+Subject: [wp-xmlrpc] Have you seen this before? wp.getOptions()
+ is	executing, but returning no values
+In-Reply-To: <1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+References: <4B44A6DA.1010406@bringtheblog.com>
+	<1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+Message-ID: <4B44AA96.20509@bringtheblog.com>
+
+Thank you, Daniel.  Any insight on which popular plugins might fall into 
+the category of Usual Suspects?
+
+(And don't say Kaiser Soze...)
+
+
+Daniel Jalkut wrote:
+> On Jan 6, 2010, at 10:06am, Dan Green wrote:
+>
+>   
+>> Have you ever run into something like this? I am sure there?s a logical explanation ? I just can?t figure it out. And before I start digging into somebody else's server configuration, I thought I'd ask the group if this is a common issue with a simple work-around.
+>>     
+>
+> Hi Dan - first thing I would look into, which you didn't mention one way or the other, is whether the installed plugins are different on the affected and unaffected servers.
+>
+> Whenever I see unexpected results from the API, I usually suspect plugin interference as a first line of inquiry.
+>
+> Daniel
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100106/0f710043/attachment.htm>
+
+From jalkut at red-sweater.com  Wed Jan  6 15:48:00 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed, 6 Jan 2010 10:48:00 -0500
+Subject: [wp-xmlrpc] Have you seen this before? wp.getOptions()
+	is	executing, but returning no values
+In-Reply-To: <4B44AA96.20509@bringtheblog.com>
+References: <4B44A6DA.1010406@bringtheblog.com>
+	<1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+	<4B44AA96.20509@bringtheblog.com>
+Message-ID: <555E4CB0-2431-4EB8-9C91-C99EA4A192A7@red-sweater.com>
+
+Not really - I haven't seen the specific problem you're using (but I don't use the getOptions command myself, yet).  But if you can pick just a couple working servers and a couple failing servers and get the installed plugins list, you might notice a commonality. Worth a shot!
+
+Daniel
+
+On Jan 6, 2010, at 10:21am, Dan Green wrote:
+
+> Thank you, Daniel.  Any insight on which popular plugins might fall into the category of Usual Suspects?
+> 
+> (And don't say Kaiser Soze...)
+
+
+From dan at bringtheblog.com  Wed Jan  6 15:51:29 2010
+From: dan at bringtheblog.com (Dan Green)
+Date: Wed, 06 Jan 2010 10:51:29 -0500
+Subject: [wp-xmlrpc] Have you seen this before?
+ wp.getOptions()	is	executing, but returning no values
+In-Reply-To: <555E4CB0-2431-4EB8-9C91-C99EA4A192A7@red-sweater.com>
+References: <4B44A6DA.1010406@bringtheblog.com>	<1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>	<4B44AA96.20509@bringtheblog.com>
+	<555E4CB0-2431-4EB8-9C91-C99EA4A192A7@red-sweater.com>
+Message-ID: <4B44B181.6020308@bringtheblog.com>
+
+Good call.  I'll report back when I find something notable.
+
+
+Daniel Jalkut wrote:
+> Not really - I haven't seen the specific problem you're using (but I don't use the getOptions command myself, yet).  But if you can pick just a couple working servers and a couple failing servers and get the installed plugins list, you might notice a commonality. Worth a shot!
+>
+> Daniel
+>
+> On Jan 6, 2010, at 10:21am, Dan Green wrote:
+>
+>   
+>> Thank you, Daniel.  Any insight on which popular plugins might fall into the category of Usual Suspects?
+>>
+>> (And don't say Kaiser Soze...)
+>>     
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100106/9762a527/attachment.htm>
+
+From mnikhil at gmail.com  Sat Jan  9 17:44:41 2010
+From: mnikhil at gmail.com (Nikhil)
+Date: Sat, 9 Jan 2010 23:14:41 +0530
+Subject: [wp-xmlrpc] How to export the wordpress posts using XMLRPC?
+In-Reply-To: <1e7c46191001090939g212d3e2cu62558ca181a611a0@mail.gmail.com>
+References: <1e7c46191001090939g212d3e2cu62558ca181a611a0@mail.gmail.com>
+Message-ID: <1e7c46191001090944j13d8c347vdd4c67b00ac4bfce@mail.gmail.com>
+
+Can someone please point if there is any WXR technical documentation
+that I can refer to? Thank you.
+
+On Sat, Jan 9, 2010 at 11:09 PM, Nikhil <mnikhil at gmail.com> wrote:
+> Hi,
+>
+> I have been seeing that the export.php under wp-admin gives the nice
+> button in the gui to download the WXR. I want to know if there is a
+> useful methods that can be done programmatically/scriptable not merely
+> ask the user to press the button? Can someone please point me to the
+> right location to get this through?
+>
+> Thanks again for the help,
+> Nikhil
+>
+
+From mnikhil at gmail.com  Sun Jan 10 09:24:42 2010
+From: mnikhil at gmail.com (Nikhil)
+Date: Sun, 10 Jan 2010 14:54:42 +0530
+Subject: [wp-xmlrpc] [wp-hackers] How to export the wordpress posts
+	using XMLRPC?
+In-Reply-To: <4B48FA49.80809@gmail.com>
+References: <1e7c46191001090939g212d3e2cu62558ca181a611a0@mail.gmail.com>
+	<1e7c46191001090944j13d8c347vdd4c67b00ac4bfce@mail.gmail.com>
+	<4B48FA49.80809@gmail.com>
+Message-ID: <1e7c46191001100124i68e90b5fh95b7e111973b43f5@mail.gmail.com>
+
+Thanks Harish for the response.
+
+I see that I can go through the includes/export.php code and come up
+with something self... but honestly I do not want to give it a try if
+something is already in place or someone has already something like
+that. ... WXR generator.
+
+Well, it looks like so far its me I can give the try to write a script
+to  generate a wxr from the wordpress database myself. I will see if I
+can post back the struggle results.
+
+Thanks for the response again,
+
+Nikhil
+
+On Sun, Jan 10, 2010 at 3:21 AM, Harish Narayanan
+<harish.mlists at gmail.com> wrote:
+> On 09/01/2010 17:44, Nikhil wrote:
+>> Can someone please point if there is any WXR technical documentation
+>> that I can refer to? Thank you.
+>
+> I asked a similar question about a year ago and received the following
+> responses.
+>
+> http://lists.automattic.com/pipermail/wp-hackers/2009-September/027409.html
+>
+> In essence, just go through the PHP source for the importer/exporter in
+> WordPress to figure out what you need. I was able to modify the exporter
+> to suit my needs.
+>
+> Harish
+>
+
+From dan at bringtheblog.com  Fri Jan 15 16:23:57 2010
+From: dan at bringtheblog.com (Dan Green)
+Date: Fri, 15 Jan 2010 11:23:57 -0500
+Subject: [wp-xmlrpc] Have you seen this before? wp.getOptions()
+ is	executing, but returning no values
+In-Reply-To: <1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+References: <4B44A6DA.1010406@bringtheblog.com>
+	<1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+Message-ID: <4B50969D.20500@bringtheblog.com>
+
+The error was related to cURL. 
+
+My service accepts user input via a HTML form. Users that provide a blog 
+URL of http://mysite.com when the blog's true URL is 
+http://www.mysite.com were getting the error.  cURL doesn't resolve 
+properly.
+
+I know that cURL has an option for redirection and that was the initial 
+fix.  However, because redirection waits for a timeout before trying 
+"the next URL", there was  puts a major drag on loadtimes.  I am doing 
+the check manually.  If wp.getOptions() doesn't throw an error and its 
+values are null, that's a signal that something went wrong.  At that 
+point, I use PHP to add the "www" to the user's URI and re-run 
+wp.getOptions().  It's works.
+
+A look at the server shows that the cURL function throws a -1 error so 
+that's probably another way to troubleshoot.
+
+
+Daniel Jalkut wrote:
+> On Jan 6, 2010, at 10:06am, Dan Green wrote:
+>
+>   
+>> Have you ever run into something like this? I am sure there?s a logical explanation ? I just can?t figure it out. And before I start digging into somebody else's server configuration, I thought I'd ask the group if this is a common issue with a simple work-around.
+>>     
+>
+> Hi Dan - first thing I would look into, which you didn't mention one way or the other, is whether the installed plugins are different on the affected and unaffected servers.
+>
+> Whenever I see unexpected results from the API, I usually suspect plugin interference as a first line of inquiry.
+>
+> Daniel
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100115/acf10189/attachment.htm>
+

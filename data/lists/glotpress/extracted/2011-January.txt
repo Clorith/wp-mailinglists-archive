@@ -1,0 +1,297 @@
+From nb at nikolay.bg  Fri Jan 21 20:48:56 2011
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Fri, 21 Jan 2011 22:48:56 +0200
+Subject: [glotpress] Users
+In-Reply-To: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+Message-ID: <AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+
+On Fri, Jan 21, 2011 at 19:08, ForSite Media <info at forsite.nu> wrote:
+> Hi all,
+> ? ?I have recently started to use the define('CUSTOM_USER_TABLE', in order to
+> ? ?have a user management interface for my installation of GlotPress and
+> ? ?everything works as expected, but for one issue. I can't find/understand how
+> ? ?I can edit the users in my WordPress install so that I can change their
+> ? ?rights. In other words, everbody is a contributor, but some of them need to
+> ? ?be validators.
+> ? ?How can I do that?
+>
+
+Go to a project page in GlotPress, then Project Actions below the
+descriptions and then Permissions.
+
+From remkus at forsite.nu  Fri Jan 21 21:51:13 2011
+From: remkus at forsite.nu (Remkus de Vries | ForSite Media)
+Date: Fri, 21 Jan 2011 22:51:13 +0100
+Subject: [glotpress] Users
+In-Reply-To: <AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+Message-ID: <00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+
+
+Thanks for your reply Nikolay, but that's just it. When logged in with my wp administrator account in GlotPress I can't see/use those Project detail options...
+
+
+ForSite Media
+WordPress Consultancy, Development & Design
+0622-164385 | www.forsite.nu |info at forsite.nu
+
+
+-----Oorspronkelijk bericht-----
+Van: glotpress-bounces at lists.automattic.com [mailto:glotpress-bounces at lists.automattic.com] Namens Nikolay Bachiyski
+Verzonden: vrijdag 21 januari 2011 21:49
+Aan: info at forsite.nu
+CC: glotpress at lists.automattic.com
+Onderwerp: Re: [glotpress] Users
+
+On Fri, Jan 21, 2011 at 19:08, ForSite Media <info at forsite.nu> wrote:
+> Hi all,
+>    I have recently started to use the define('CUSTOM_USER_TABLE', in 
+> order to
+>    have a user management interface for my installation of GlotPress 
+> and
+>    everything works as expected, but for one issue. I can't 
+> find/understand how
+>    I can edit the users in my WordPress install so that I can change 
+> their
+>    rights. In other words, everbody is a contributor, but some of them 
+> need to
+>    be validators.
+>    How can I do that?
+>
+
+Go to a project page in GlotPress, then Project Actions below the descriptions and then Permissions.
+_______________________________________________
+glotpress mailing list
+glotpress at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/glotpress
+
+
+From felipemarcos10 at hotmail.com  Sat Jan 22 12:00:06 2011
+From: felipemarcos10 at hotmail.com (felipemarcos10 at hotmail.com)
+Date: Sat, 22 Jan 2011 04:00:06 -0800
+Subject: [glotpress] =?iso-8859-1?q?Resposta_Autom=E1tica_de_Aus=EAncia?=
+Message-ID: <SNT0-MC3-F38058F25DCABCB77AAFECADCFB0@phx.gbl>
+
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/glotpress/attachments/20110122/e2d93320/attachment.htm>
+
+From nb at nikolay.bg  Sat Jan 22 15:13:20 2011
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Sat, 22 Jan 2011 17:13:20 +0200
+Subject: [glotpress] Users
+In-Reply-To: <00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+	<00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+Message-ID: <AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+
+On Fri, Jan 21, 2011 at 23:51, Remkus de Vries | ForSite Media
+<remkus at forsite.nu> wrote:
+>
+> Thanks for your reply Nikolay, but that's just it. When logged in with my wp administrator account in GlotPress I can't see/use those Project detail options...
+>
+
+Oh, you don't have a GlotPress admin.
+
+You can use the command-line script scripts/add-admin.php to add a
+current user as a GlotPresds admin. Once you have at least one admin,
+you can do the rest from the GlotPress interface.
+
+From remkus at forsite.nu  Sat Jan 22 17:09:59 2011
+From: remkus at forsite.nu (Remkus de Vries | ForSite Media)
+Date: Sat, 22 Jan 2011 18:09:59 +0100
+Subject: [glotpress] Users
+In-Reply-To: <AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+	<00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+	<AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+Message-ID: <AANLkTi=M49Dgp_DHyid+GvghZB=zqkKUk48SMDJ2vXP7@mail.gmail.com>
+
+Feeling like a n00b here, but I have no clue what that means, " use
+the command line script"
+
+On Saturday, January 22, 2011, Nikolay Bachiyski <nb at nikolay.bg> wrote:
+> On Fri, Jan 21, 2011 at 23:51, Remkus de Vries | ForSite Media
+> <remkus at forsite.nu> wrote:
+>>
+>> Thanks for your reply Nikolay, but that's just it. When logged in with my wp administrator account in GlotPress I can't see/use those Project detail options...
+>>
+>
+> Oh, you don't have a GlotPress admin.
+>
+> You can use the command-line script scripts/add-admin.php to add a
+> current user as a GlotPresds admin. Once you have at least one admin,
+> you can do the rest from the GlotPress interface.
+>
+
+-- 
+
+
+ForSite Media
+
+WordPress Consultancy, Development & Design
+
+0622-164385 | www.forsite.nu | info at forsite.nu
+
+From nb at nikolay.bg  Tue Jan 25 16:20:41 2011
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Tue, 25 Jan 2011 18:20:41 +0200
+Subject: [glotpress] Users
+In-Reply-To: <AANLkTi=M49Dgp_DHyid+GvghZB=zqkKUk48SMDJ2vXP7@mail.gmail.com>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+	<00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+	<AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+	<AANLkTi=M49Dgp_DHyid+GvghZB=zqkKUk48SMDJ2vXP7@mail.gmail.com>
+Message-ID: <AANLkTinrCmnTgxfc5320O9fH0dms6DaZaWK1YOObGzqf@mail.gmail.com>
+
+On Sat, Jan 22, 2011 at 19:09, Remkus de Vries | ForSite Media
+<remkus at forsite.nu> wrote:
+> Feeling like a n00b here, but I have no clue what that means, " use
+> the command line script"
+>
+
+Log-in via ssh on your server, and execute the script via
+	$ php <path-to-scripts>/add-admin.php
+
+Happy translating,
+Nikolay.
+
+From remkus at forsite.nu  Wed Jan 26 14:28:29 2011
+From: remkus at forsite.nu (Remkus de Vries | ForSite Media)
+Date: Wed, 26 Jan 2011 15:28:29 +0100
+Subject: [glotpress] Users
+In-Reply-To: <AANLkTinrCmnTgxfc5320O9fH0dms6DaZaWK1YOObGzqf@mail.gmail.com>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+	<00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+	<AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+	<AANLkTi=M49Dgp_DHyid+GvghZB=zqkKUk48SMDJ2vXP7@mail.gmail.com>
+	<AANLkTinrCmnTgxfc5320O9fH0dms6DaZaWK1YOObGzqf@mail.gmail.com>
+Message-ID: <03a901cbbd65$4e6639e0$eb32ada0$@forsite.nu>
+
+Thanks, tried it, but doesn't work. I have this in add-admin.php
+
+var $usage = "remkus";
+
+where the user I want to have as admin indeed is Remkus
+
+And this is the Putty transcribe
+
+[root at srv3 scripts]# php add-admin.php
+php add-admin.php remkus
+[root at srv3 scripts]#
+
+But nothing is actually changed .. still don't see the admin options..
+
+
+ForSite Media
+WordPress Consultancy, Development & Design
+0622-164385 | www.forsite.nu |info at forsite.nu
+
+
+-----Oorspronkelijk bericht-----
+Van: Nikolay Bachiyski [mailto:nb at nikolay.bg] 
+Verzonden: dinsdag 25 januari 2011 17:21
+Aan: remkus at forsite.nu
+CC: glotpress at lists.automattic.com
+Onderwerp: Re: Users
+
+On Sat, Jan 22, 2011 at 19:09, Remkus de Vries | ForSite Media <remkus at forsite.nu> wrote:
+> Feeling like a n00b here, but I have no clue what that means, " use 
+> the command line script"
+>
+
+Log-in via ssh on your server, and execute the script via
+	$ php <path-to-scripts>/add-admin.php
+
+Happy translating,
+Nikolay.
+
+
+From nb at nikolay.bg  Wed Jan 26 15:48:13 2011
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Wed, 26 Jan 2011 17:48:13 +0200
+Subject: [glotpress] Users
+In-Reply-To: <03a901cbbd65$4e6639e0$eb32ada0$@forsite.nu>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+	<00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+	<AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+	<AANLkTi=M49Dgp_DHyid+GvghZB=zqkKUk48SMDJ2vXP7@mail.gmail.com>
+	<AANLkTinrCmnTgxfc5320O9fH0dms6DaZaWK1YOObGzqf@mail.gmail.com>
+	<03a901cbbd65$4e6639e0$eb32ada0$@forsite.nu>
+Message-ID: <AANLkTinO8HBBBcEOpSzJjcJiE5qYV8NOkVmsXkF9qk=E@mail.gmail.com>
+
+On Wed, Jan 26, 2011 at 16:28, Remkus de Vries | ForSite Media
+<remkus at forsite.nu> wrote:
+> Thanks, tried it, but doesn't work. I have this in add-admin.php
+>
+> var $usage = "remkus";
+>
+> where the user I want to have as admin indeed is Remkus
+>
+> And this is the Putty transcribe
+>
+> [root at srv3 scripts]# php add-admin.php
+> php add-admin.php remkus
+> [root at srv3 scripts]#
+
+You don't need to edit the file, you need to add the username as an argument:
+
+$ php add-admin.php remkus
+
+From remkus at forsite.nu  Wed Jan 26 16:03:23 2011
+From: remkus at forsite.nu (Remkus de Vries | ForSite Media)
+Date: Wed, 26 Jan 2011 17:03:23 +0100
+Subject: [glotpress] Users
+In-Reply-To: <AANLkTinO8HBBBcEOpSzJjcJiE5qYV8NOkVmsXkF9qk=E@mail.gmail.com>
+References: <AANLkTimAtzw4t28Zx0vcnXfRkZhvXu1d0n1mWoTVp3pf@mail.gmail.com>
+	<AANLkTinS0nCJP5Q8mWj14mdFptowsst5uuGgrpmOLrOt@mail.gmail.com>
+	<00a501cbb9b5$532eb460$f98c1d20$@forsite.nu>
+	<AANLkTimZOvD31mMnWP3qUZMuGX5P==XiE87u8icsuadQ@mail.gmail.com>
+	<AANLkTi=M49Dgp_DHyid+GvghZB=zqkKUk48SMDJ2vXP7@mail.gmail.com>
+	<AANLkTinrCmnTgxfc5320O9fH0dms6DaZaWK1YOObGzqf@mail.gmail.com>
+	<03a901cbbd65$4e6639e0$eb32ada0$@forsite.nu>
+	<AANLkTinO8HBBBcEOpSzJjcJiE5qYV8NOkVmsXkF9qk=E@mail.gmail.com>
+Message-ID: <03ba01cbbd72$90571a60$b1054f20$@forsite.nu>
+
+Thanks for bearing with me, Nikolay :) It worked perfectly!
+
+Thanks again,
+Remkus
+
+
+
+ForSite Media
+WordPress Consultancy, Development & Design
+0622-164385 | www.forsite.nu |info at forsite.nu
+
+
+-----Oorspronkelijk bericht-----
+Van: Nikolay Bachiyski [mailto:nb at nikolay.bg] 
+Verzonden: woensdag 26 januari 2011 16:48
+Aan: remkus at forsite.nu
+CC: glotpress at lists.automattic.com
+Onderwerp: Re: Users
+
+On Wed, Jan 26, 2011 at 16:28, Remkus de Vries | ForSite Media <remkus at forsite.nu> wrote:
+> Thanks, tried it, but doesn't work. I have this in add-admin.php
+>
+> var $usage = "remkus";
+>
+> where the user I want to have as admin indeed is Remkus
+>
+> And this is the Putty transcribe
+>
+> [root at srv3 scripts]# php add-admin.php php add-admin.php remkus
+> [root at srv3 scripts]#
+
+You don't need to edit the file, you need to add the username as an argument:
+
+$ php add-admin.php remkus
+
+

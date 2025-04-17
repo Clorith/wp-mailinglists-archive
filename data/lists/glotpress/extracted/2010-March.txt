@@ -1,0 +1,242 @@
+From salpagarov at gmail.com  Mon Mar  1 09:28:48 2010
+From: salpagarov at gmail.com (Sultan Salpagarov)
+Date: Mon, 1 Mar 2010 12:28:48 +0300
+Subject: [glotpress] User management, localization, plugins
+Message-ID: <4eb5bfc11003010128u4178528du3ef952d77c3d897@mail.gmail.com>
+
+Greetings, Nikolay!
+
+1. I translates glotpress via itselft, but i cant localize it.
+Uploading PO/MOs into language has not effect.
+
+2. I cant register new users, make free registration and define validators.
+
+3. Where are plugins API reference or sample?
+
+How I can do that all?
+
+Thanks,
+Sol.
+
+From nb at nikolay.bg  Tue Mar  2 21:57:24 2010
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Tue, 2 Mar 2010 21:57:24 +0000
+Subject: [glotpress] User management, localization, plugins
+In-Reply-To: <4eb5bfc11003010128u4178528du3ef952d77c3d897@mail.gmail.com>
+References: <4eb5bfc11003010128u4178528du3ef952d77c3d897@mail.gmail.com>
+Message-ID: <87e663fa1003021357yf4368b1j1bba1bc177a97d22@mail.gmail.com>
+
+On Mon, Mar 1, 2010 at 09:28, Sultan Salpagarov <salpagarov at gmail.com> wrote:
+> Greetings, Nikolay!
+>
+> 1. I translates glotpress via itselft, but i cant localize it.
+> Uploading PO/MOs into language has not effect.
+>
+
+
+
+> 2. I cant register new users, make free registration and define validators.
+>
+
+I use WordPress for user management :-)
+
+You can add/remove validators from bottom of translation page -> Permissions
+
+> 3. Where are plugins API reference or sample?
+>
+
+No API for now. It is just at a proof-of-concept phase.
+
+Plugins work much as WordPress plugins. Put a php file at the plugins
+dir and it will be loaded automatically. Use add_filter() and
+add_action().
+
+There is a base GP_Plugin class, which you might want to extend at
+gp-includes/plugin.php but its interface is very likely to change
+soon.
+
+I will add a sample plugin to the repo at some point.
+
+Happy hacking,
+Nikolay.
+
+From nb at nikolay.bg  Tue Mar  2 22:11:24 2010
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Tue, 2 Mar 2010 22:11:24 +0000
+Subject: [glotpress] User management, localization, plugins
+In-Reply-To: <87e663fa1003021357yf4368b1j1bba1bc177a97d22@mail.gmail.com>
+References: <4eb5bfc11003010128u4178528du3ef952d77c3d897@mail.gmail.com> 
+	<87e663fa1003021357yf4368b1j1bba1bc177a97d22@mail.gmail.com>
+Message-ID: <87e663fa1003021411v168b0434mbb24104744a876db@mail.gmail.com>
+
+On Tue, Mar 2, 2010 at 21:57, Nikolay Bachiyski <nb at nikolay.bg> wrote:
+> ...
+>> 2. I cant register new users, make free registration and define validators.
+>>
+>
+> I use WordPress for user management :-)
+>
+
+A little clarification how you can do this. As in WordPress, you can define:
+
+define('CUSTOM_USER_TABLE', 'wp_users');
+define('CUSTOM_USER_META_TABLE', 'wp_usermeta');
+
+or you can point WP user tables to the GlotPress ones.
+
+All my current installations use already existing WordPress userbase.
+
+Happy hacking,
+Nikolay.
+
+From hempsworth at googlemail.com  Sun Mar  7 17:39:36 2010
+From: hempsworth at googlemail.com (Alex Hempton-Smith)
+Date: Sun, 7 Mar 2010 17:39:36 +0000
+Subject: [glotpress] User registrations
+Message-ID: <5a1dad881003070939qb70ffcax1ba0477322dfa8af@mail.gmail.com>
+
+Hi there,
+
+I've installed GlotPress trunk to service translations of a plugin,
+and I've got some problems..
+
+Firstly, I can't see any way to change my password after installation.
+
+Secondly, strings require users to be logged in to translate, however
+there isn't a registration page.. How do I allow users to create an
+account and then translate?
+
+Cheers,
+Alex
+(Hempsworth)
+
+-- 
+-- Alex  (Hempsworth)
+
+From j.conti at telefonica.net  Wed Mar 10 12:59:05 2010
+From: j.conti at telefonica.net (=?iso-8859-1?Q?Jos=E9_Conti?=)
+Date: Wed, 10 Mar 2010 13:59:05 +0100
+Subject: [glotpress] po/mo file for GlotPress
+Message-ID: <E83A92AA54444A20A595B02B0C25BD6E@Sony1>
+
+Hi,
+
+I translated into Spanish (Spain) GlotPress, but apparently does not work.
+
+I put the file es_ES.mo inside the directory languages/, which is the same 
+level as plugins, pomo, scripts, etc... Directory
+
+I modified the file gp-config.php , adding define ( 'GP_LANG', es_ES);
+
+Any idea what could be the problem?
+
+Thank you 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/glotpress/attachments/20100310/9fd8b0bd/attachment.htm>
+
+From salpagarov at gmail.com  Wed Mar 10 13:49:38 2010
+From: salpagarov at gmail.com (Sultan Salpagarov)
+Date: Wed, 10 Mar 2010 16:49:38 +0300
+Subject: [glotpress] Fwd:  po/mo file for GlotPress
+In-Reply-To: <4eb5bfc11003100548n3bc69e81ta5b6ad2f75e72640@mail.gmail.com>
+References: <E83A92AA54444A20A595B02B0C25BD6E@Sony1>
+	<4eb5bfc11003100548n3bc69e81ta5b6ad2f75e72640@mail.gmail.com>
+Message-ID: <4eb5bfc11003100549r47e89d5t9dd2b01321480019@mail.gmail.com>
+
+---------- Forwarded message ----------
+From: Sultan Salpagarov <salpagarov at gmail.com>
+Date: 2010/3/10
+Subject: Re: [glotpress] po/mo file for GlotPress
+To: Jos? Conti <j.conti at telefonica.net>
+
+
+Me too.
+Nikolay, thats wrong we do?
+
+2010/3/10 Jos? Conti <j.conti at telefonica.net>:
+> Hi,
+>
+> I translated into Spanish (Spain) GlotPress, but apparently does not work.
+>
+> I put the file es_ES.mo inside the directory languages/, which is the same
+> level as plugins, pomo, scripts, etc... Directory
+>
+> I modified the file gp-config.php , adding define ( 'GP_LANG', es_ES);
+>
+> Any idea what could be the problem?
+>
+> Thank you
+>
+> _______________________________________________
+> glotpress mailing list
+> glotpress at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/glotpress
+>
+>
+
+From hempsworth at googlemail.com  Thu Mar 11 11:59:31 2010
+From: hempsworth at googlemail.com (Alex Hempton-Smith)
+Date: Thu, 11 Mar 2010 11:59:31 +0000
+Subject: [glotpress] User registrations
+In-Reply-To: <5a1dad881003070939qb70ffcax1ba0477322dfa8af@mail.gmail.com>
+References: <5a1dad881003070939qb70ffcax1ba0477322dfa8af@mail.gmail.com>
+Message-ID: <5a1dad881003110359j3f1c04efve7350176d711736c@mail.gmail.com>
+
+Hi there,
+
+I've installed GlotPress trunk to service translations of a plugin,
+and I've got some problems..
+
+Firstly, I can't see any way to change my password after installation.
+
+Secondly, strings require users to be logged in to translate, however
+there isn't a registration page.. *How do I allow users to create an
+account and then translate?*
+**
+Does the installation need to be hooked up to a WP install?
+
+Cheers,
+-- Alex (Hempsworth)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/glotpress/attachments/20100311/195ba57a/attachment.htm>
+
+From nb at nikolay.bg  Thu Mar 11 12:06:30 2010
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Thu, 11 Mar 2010 14:06:30 +0200
+Subject: [glotpress] User registrations
+In-Reply-To: <5a1dad881003110359j3f1c04efve7350176d711736c@mail.gmail.com>
+References: <5a1dad881003070939qb70ffcax1ba0477322dfa8af@mail.gmail.com> 
+	<5a1dad881003110359j3f1c04efve7350176d711736c@mail.gmail.com>
+Message-ID: <87e663fa1003110406w703cda03hf83409b6b66fa55b@mail.gmail.com>
+
+On Thu, Mar 11, 2010 at 13:59, Alex Hempton-Smith
+<hempsworth at googlemail.com> wrote:
+> Hi there,
+>
+> I've installed GlotPress trunk to service translations of a plugin,
+> and I've got some problems..
+>
+
+Our goal is to make all wp.org plugins from the repository
+translatable via translate.wordpress.org.
+
+> Firstly, I can't see any way to change my password after installation.
+>
+> Secondly, strings require users to be logged in to translate, however
+> there isn't a registration page.. How do I allow users to create an
+> account and then translate?
+>
+
+The best way is to use a WordPress install. I preferred to focus on
+other stuff in GlotPress than creating user management screens.
+
+Also, every place we've used it so far is tied to an external user
+base. When the need comes, we will have user management, too. Of
+course, if you want to help adding such functionality -- it would be
+great :-)
+
+Happy hacking,
+Nikolay.
+

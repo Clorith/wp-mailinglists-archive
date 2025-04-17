@@ -1,0 +1,842 @@
+From halukkaramete at gmail.com  Mon Feb  2 05:09:08 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 1 Feb 2015 21:09:08 -0800
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+Message-ID: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+
+I need to run ob_get_clean() as soon as the get_footer() is done running -
+meaning as soon as the </html> is outputted.
+
+What hook can I use for that?
+
+more insight on why do I need that?
+the goal is to put the generated html ( from <doctype to </html> ) into a
+transient.
+and for this goal, I set the "ob_buffer" using the get_header() action hook.
+but that's only half of the deal...
+I still need to catch the buffer when i am done with the full page -
+meaning when I am done wirth outputting the </html>
+
+is there a hook such as "after_get_footer" ?
+
+From nashwan.doaqan at gmail.com  Mon Feb  2 06:26:53 2015
+From: nashwan.doaqan at gmail.com (Nashwan Doaqan)
+Date: Mon, 02 Feb 2015 09:26:53 +0300
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+Message-ID: <54CF18AD.4000606@gmail.com>
+
+There is no 'after_get_footer' hook. Maybe you can use 
+'template_include' filter to encapsulate the working template with your 
+ob_* functions. You should notice, some themes doesn't use get_footer 
+function.. they must include wp_head() but get_footer() isn't required 
+as far as I know.. Another option may be using 
+register_shutdown_function() ? ..
+
+Good Luck !
+
+On 2/2/2015 8:09 AM, Haluk Karamete wrote:
+> I need to run ob_get_clean() as soon as the get_footer() is done running -
+> meaning as soon as the </html> is outputted.
+>
+> What hook can I use for that?
+>
+> more insight on why do I need that?
+> the goal is to put the generated html ( from <doctype to </html> ) into a
+> transient.
+> and for this goal, I set the "ob_buffer" using the get_header() action hook.
+> but that's only half of the deal...
+> I still need to catch the buffer when i am done with the full page -
+> meaning when I am done wirth outputting the </html>
+>
+> is there a hook such as "after_get_footer" ?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From johnbillion+wp at gmail.com  Mon Feb  2 15:08:42 2015
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Mon, 2 Feb 2015 15:08:42 +0000
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <54CF18AD.4000606@gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <54CF18AD.4000606@gmail.com>
+Message-ID: <CAOqAKWBfBsoFD_3sVsBg=+fSqphcxHmvbunUWUtz-CVOWsM8gg@mail.gmail.com>
+
+You should take a look at some of the full-page caching plugins which
+are available (seeing as that's what you're trying to do) and see how
+they operate. The 'shutdown' hook is probably what you're after.
+
+On 2 February 2015 at 06:26, Nashwan Doaqan <nashwan.doaqan at gmail.com> wrote:
+> There is no 'after_get_footer' hook. Maybe you can use 'template_include'
+> filter to encapsulate the working template with your ob_* functions. You
+> should notice, some themes doesn't use get_footer function.. they must
+> include wp_head() but get_footer() isn't required as far as I know.. Another
+> option may be using register_shutdown_function() ? ..
+>
+> Good Luck !
+>
+>
+> On 2/2/2015 8:09 AM, Haluk Karamete wrote:
+>>
+>> I need to run ob_get_clean() as soon as the get_footer() is done running -
+>> meaning as soon as the </html> is outputted.
+>>
+>> What hook can I use for that?
+>>
+>> more insight on why do I need that?
+>> the goal is to put the generated html ( from <doctype to </html> ) into a
+>> transient.
+>> and for this goal, I set the "ob_buffer" using the get_header() action
+>> hook.
+>> but that's only half of the deal...
+>> I still need to catch the buffer when i am done with the full page -
+>> meaning when I am done wirth outputting the </html>
+>>
+>> is there a hook such as "after_get_footer" ?
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From wp at andrewnacin.com  Mon Feb  2 20:50:51 2015
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Mon, 2 Feb 2015 15:50:51 -0500
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+Message-ID: <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+
+Output buffer callbacks are automatically called at the conclusion of the
+script.
+
+There is a 'shutdown' hook that fires on a shutdown handler that you can
+also use.
+
+On Mon, Feb 2, 2015 at 12:09 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> I need to run ob_get_clean() as soon as the get_footer() is done running -
+> meaning as soon as the </html> is outputted.
+>
+> What hook can I use for that?
+>
+> more insight on why do I need that?
+> the goal is to put the generated html ( from <doctype to </html> ) into a
+> transient.
+> and for this goal, I set the "ob_buffer" using the get_header() action
+> hook.
+> but that's only half of the deal...
+> I still need to catch the buffer when i am done with the full page -
+> meaning when I am done wirth outputting the </html>
+>
+> is there a hook such as "after_get_footer" ?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Mon Feb  2 21:21:51 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 2 Feb 2015 13:21:51 -0800
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+Message-ID: <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+
+>
+> Output buffer callbacks are automatically called at the conclusion of the
+> script.
+>
+
+
+Automatically called bhy WordPress? I'm interested in seeing where that
+happens Nacin. I'm not sure what happens in that section of the code...
+
+For my sake, I think I can pretty much rely on shutdown hook. To me, that
+fires as much as get_footer hook would fire.
+Since my old implementation was running right after the get_footer() call,
+and I was fine with that, I should be fine with the shutdown as well.
+
+Looks like 'shutdown' is the only hook left - after the final breath is
+given with the </html>.
+
+
+
+Interesting...  so to tap into that area, what do you do? modify the core?
+But for a generic solution, I want my plug in cache the page at the end. In
+this case,  'shutdown' is the only option to
+
+
+
+On Mon, Feb 2, 2015 at 12:50 PM, Andrew Nacin <wp at andrewnacin.com> wrote:
+
+> Output buffer callbacks are automatically called at the conclusion of the
+> script.
+>
+> There is a 'shutdown' hook that fires on a shutdown handler that you can
+> also use.
+>
+> On Mon, Feb 2, 2015 at 12:09 AM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > I need to run ob_get_clean() as soon as the get_footer() is done running
+> -
+> > meaning as soon as the </html> is outputted.
+> >
+> > What hook can I use for that?
+> >
+> > more insight on why do I need that?
+> > the goal is to put the generated html ( from <doctype to </html> ) into a
+> > transient.
+> > and for this goal, I set the "ob_buffer" using the get_header() action
+> > hook.
+> > but that's only half of the deal...
+> > I still need to catch the buffer when i am done with the full page -
+> > meaning when I am done wirth outputting the </html>
+> >
+> > is there a hook such as "after_get_footer" ?
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From marsjaninzmarsa at gmail.com  Mon Feb  2 21:26:21 2015
+From: marsjaninzmarsa at gmail.com (Kuba Niewiarowski)
+Date: Mon, 2 Feb 2015 22:26:21 +0100
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+Message-ID: <CAO2M6Uy648Mrvrc_jUEa=0PGYMrUqA9mDddqwKA6JBaRQGukzQ@mail.gmail.com>
+
+2015-02-02 6:09 GMT+01:00 Haluk Karamete <halukkaramete at gmail.com>:
+
+> the goal is to put the generated html ( from <doctype to </html> ) into a
+> transient.
+>
+
+This is not a good idea because of wp_options table in database, I think.
+There are full page cache plugins which are doin a job.
+
+
+-- 
+Pozdrawiam, Kuba
+Niewiarowski.IT
+
+From otto at ottodestruct.com  Mon Feb  2 21:34:31 2015
+From: otto at ottodestruct.com (Otto)
+Date: Mon, 2 Feb 2015 15:34:31 -0600
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+ <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+Message-ID: <CAD-Fghz_46GWEQQza8_AN-uGnkrGKz72OXwifPNbmtw+YYdC6Q@mail.gmail.com>
+
+On Mon, Feb 2, 2015 at 3:21 PM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> > Output buffer callbacks are automatically called at the conclusion of the
+> > script.
+>
+> Automatically called bhy WordPress?
+
+
+
+No, by PHP itself, actually.
+
+When you create an output buffer using ob_start() and fail to clear it with
+an appropriate ob_end_* call, then PHP will flush the output buffer at the
+end of script execution.
+
+Notably, this actually happens before any callbacks that were passed to
+register_shutdown_function() are called. Shutdown functions don't get the
+contents of the output buffer.
+
+-Otto
+
+From halukkaramete at gmail.com  Mon Feb  2 23:00:42 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 2 Feb 2015 15:00:42 -0800
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAD-Fghz_46GWEQQza8_AN-uGnkrGKz72OXwifPNbmtw+YYdC6Q@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+ <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+ <CAD-Fghz_46GWEQQza8_AN-uGnkrGKz72OXwifPNbmtw+YYdC6Q@mail.gmail.com>
+Message-ID: <CAHERW=0siOvUeJKO9Z6j6e5Mdp2SzDiR7Rer7L0bQt_8mif3mw@mail.gmail.com>
+
+Otto,
+
+Are you saying that by the time ( shutdown_action_hook ) runs, PHP has
+already cleared the output_buffer automatically? or am I misunderstanding
+you?
+I though PHP's internal shutdown functions would run only and only after
+the last line of script has been executed...  Since wordpress is still
+running at that time, why would PHP clear the output buffer?
+
+In that case, I won't be able to use the 'shutdown' hook for my purpose.
+
+
+
+https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L601
+
+601
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L601>
+/**602
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L602>
+*
+Runs just before PHP shuts down execution.603
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L603>
+ *604
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L604>
+*
+@since 1.2.0605
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L605>
+*
+@access private606
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L606>
+ */607
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L607>
+function shutdown_action_hook() {608
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L608>
+      /**609
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L609>
+       * Fires just before PHP shuts down execution.610
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L610>
+       *611
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L611>
+       * @since 1.2.0612
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L612>
+       */613
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L613>
+      do_action( 'shutdown' );614
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L614>
+615
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L615>
+      wp_cache_close();616
+<https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L616>
+}
+That means,
+
+On Mon, Feb 2, 2015 at 1:34 PM, Otto <otto at ottodestruct.com> wrote:
+
+> On Mon, Feb 2, 2015 at 3:21 PM, Haluk Karamete <halukkaramete at gmail.com>
+> wrote:
+>
+> > > Output buffer callbacks are automatically called at the conclusion of
+> the
+> > > script.
+> >
+> > Automatically called bhy WordPress?
+>
+>
+>
+> No, by PHP itself, actually.
+>
+> When you create an output buffer using ob_start() and fail to clear it with
+> an appropriate ob_end_* call, then PHP will flush the output buffer at the
+> end of script execution.
+>
+> Notably, this actually happens before any callbacks that were passed to
+> register_shutdown_function() are called. Shutdown functions don't get the
+> contents of the output buffer.
+>
+> -Otto
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Mon Feb  2 23:02:47 2015
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 3 Feb 2015 01:02:47 +0200
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAHERW=0siOvUeJKO9Z6j6e5Mdp2SzDiR7Rer7L0bQt_8mif3mw@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+ <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+ <CAD-Fghz_46GWEQQza8_AN-uGnkrGKz72OXwifPNbmtw+YYdC6Q@mail.gmail.com>
+ <CAHERW=0siOvUeJKO9Z6j6e5Mdp2SzDiR7Rer7L0bQt_8mif3mw@mail.gmail.com>
+Message-ID: <CAOwx47d-vdp_cSfSgxFzQHCuLsqDZ9ZnJWzOwZH-xsceZ0L23w@mail.gmail.com>
+
+Quote from http://php.net/manual/en/function.register-shutdown-function.php
+:
+
+"The shutdown callbacks are executed as the part of the request, so it's
+possible to send output from them and access output buffers."
+
+Nikola
+
+On Tue, Feb 3, 2015 at 1:00 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Otto,
+>
+> Are you saying that by the time ( shutdown_action_hook ) runs, PHP has
+> already cleared the output_buffer automatically? or am I misunderstanding
+> you?
+> I though PHP's internal shutdown functions would run only and only after
+> the last line of script has been executed...  Since wordpress is still
+> running at that time, why would PHP clear the output buffer?
+>
+> In that case, I won't be able to use the 'shutdown' hook for my purpose.
+>
+>
+>
+>
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L601
+>
+> 601
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L601
+> >
+> /**602
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L602
+> >
+> *
+> Runs just before PHP shuts down execution.603
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L603
+> >
+>  *604
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L604
+> >
+> *
+> @since 1.2.0605
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L605
+> >
+> *
+> @access private606
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L606
+> >
+>  */607
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L607
+> >
+> function shutdown_action_hook() {608
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L608
+> >
+>       /**609
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L609
+> >
+>        * Fires just before PHP shuts down execution.610
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L610
+> >
+>        *611
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L611
+> >
+>        * @since 1.2.0612
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L612
+> >
+>        */613
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L613
+> >
+>       do_action( 'shutdown' );614
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L614
+> >
+> 615
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L615
+> >
+>       wp_cache_close();616
+> <
+> https://core.trac.wordpress.org/browser/tags/4.1/src/wp-includes/load.php#L616
+> >
+> }
+> That means,
+>
+> On Mon, Feb 2, 2015 at 1:34 PM, Otto <otto at ottodestruct.com> wrote:
+>
+> > On Mon, Feb 2, 2015 at 3:21 PM, Haluk Karamete <halukkaramete at gmail.com>
+> > wrote:
+> >
+> > > > Output buffer callbacks are automatically called at the conclusion of
+> > the
+> > > > script.
+> > >
+> > > Automatically called bhy WordPress?
+> >
+> >
+> >
+> > No, by PHP itself, actually.
+> >
+> > When you create an output buffer using ob_start() and fail to clear it
+> with
+> > an appropriate ob_end_* call, then PHP will flush the output buffer at
+> the
+> > end of script execution.
+> >
+> > Notably, this actually happens before any callbacks that were passed to
+> > register_shutdown_function() are called. Shutdown functions don't get the
+> > contents of the output buffer.
+> >
+> > -Otto
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From otto at ottodestruct.com  Mon Feb  2 23:26:48 2015
+From: otto at ottodestruct.com (Otto)
+Date: Mon, 2 Feb 2015 17:26:48 -0600
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAOwx47d-vdp_cSfSgxFzQHCuLsqDZ9ZnJWzOwZH-xsceZ0L23w@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+ <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+ <CAD-Fghz_46GWEQQza8_AN-uGnkrGKz72OXwifPNbmtw+YYdC6Q@mail.gmail.com>
+ <CAHERW=0siOvUeJKO9Z6j6e5Mdp2SzDiR7Rer7L0bQt_8mif3mw@mail.gmail.com>
+ <CAOwx47d-vdp_cSfSgxFzQHCuLsqDZ9ZnJWzOwZH-xsceZ0L23w@mail.gmail.com>
+Message-ID: <CAD-FghzptD4C_wdU6rzPp=3f37cQ5YwgGWRA6vH1+HiAvuRu3Q@mail.gmail.com>
+
+On Mon, Feb 2, 2015 at 5:02 PM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> Quote from
+> http://php.net/manual/en/function.register-shutdown-function.php
+> :
+>
+> "The shutdown callbacks are executed as the part of the request, so it's
+> possible to send output from them and access output buffers."
+>
+> Nikola
+>
+>
+
+Yes, my knowledge might be out of date on that one. From lower in the page
+it seems that that behavior may have changed between PHP 5.0 and 5.1. In
+which case output buffers would be accessible from shutdown callbacks.
+
+-Otto
+
+From nikolov.tmw at gmail.com  Tue Feb  3 00:06:33 2015
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 3 Feb 2015 02:06:33 +0200
+Subject: [wp-hackers] is there a hook firing right after the </html>?
+In-Reply-To: <CAD-FghzptD4C_wdU6rzPp=3f37cQ5YwgGWRA6vH1+HiAvuRu3Q@mail.gmail.com>
+References: <CAHERW=1jrYm2a-RCrD=_iLfvK2R0jLRYr7xOgJUYKyqkv18vXQ@mail.gmail.com>
+ <CAP29PvhcX83DyCOxLyZB2p7NzuFiKf_TmwpgaT8CtYVGn3So1A@mail.gmail.com>
+ <CAHERW=3hjwpQiPhKfM7yLdJ5WbgXmpxgnuCjPBA5+NnW54jcZQ@mail.gmail.com>
+ <CAD-Fghz_46GWEQQza8_AN-uGnkrGKz72OXwifPNbmtw+YYdC6Q@mail.gmail.com>
+ <CAHERW=0siOvUeJKO9Z6j6e5Mdp2SzDiR7Rer7L0bQt_8mif3mw@mail.gmail.com>
+ <CAOwx47d-vdp_cSfSgxFzQHCuLsqDZ9ZnJWzOwZH-xsceZ0L23w@mail.gmail.com>
+ <CAD-FghzptD4C_wdU6rzPp=3f37cQ5YwgGWRA6vH1+HiAvuRu3Q@mail.gmail.com>
+Message-ID: <CAOwx47d5XeijsYXDg7Ug823EtpoVva0FX=YoVUfbfMQY6zwJJg@mail.gmail.com>
+
+Yeah, sorry for not providing further info(it's late here too :)), I only
+did a quick search.
+
+On Tue, Feb 3, 2015 at 1:26 AM, Otto <otto at ottodestruct.com> wrote:
+
+> On Mon, Feb 2, 2015 at 5:02 PM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > Quote from
+> > http://php.net/manual/en/function.register-shutdown-function.php
+> > :
+> >
+> > "The shutdown callbacks are executed as the part of the request, so it's
+> > possible to send output from them and access output buffers."
+> >
+> > Nikola
+> >
+> >
+>
+> Yes, my knowledge might be out of date on that one. From lower in the page
+> it seems that that behavior may have changed between PHP 5.0 and 5.1. In
+> which case output buffers would be accessible from shutdown callbacks.
+>
+> -Otto
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From david at wordshell.net  Wed Feb  4 11:04:55 2015
+From: david at wordshell.net (David Anderson)
+Date: Wed, 04 Feb 2015 11:04:55 +0000
+Subject: [wp-hackers] What happened to plans for unbundling language files
+	for plugins?
+Message-ID: <54D1FCD7.9030003@wordshell.net>
+
+Hi,
+
+Does anyone know what happened to the plans for providing a way for 
+plugins to unbundle their language (mo/po) files from the main plugin, 
+so that WP would have a mechanism for downloading them separately? This 
+mechanism now exists for core, but not for plugins, AFAIK. WooCommerce 
+implemented their own mechanism, and whilst it's tempting to do the 
+same, it feels like a problem that needs solving at a higher level.
+
+UpdraftPlus, for example, now has 8Mb of language files bundled (2.4Mb 
+when zipped). wordpress.org servers have shipped an extra 140 gigabytes 
+worth of UpdraftPlus in the last week because of this.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From otto at ottodestruct.com  Wed Feb  4 14:15:23 2015
+From: otto at ottodestruct.com (Otto)
+Date: Wed, 4 Feb 2015 08:15:23 -0600
+Subject: [wp-hackers] What happened to plans for unbundling language
+ files for plugins?
+In-Reply-To: <54D1FCD7.9030003@wordshell.net>
+References: <54D1FCD7.9030003@wordshell.net>
+Message-ID: <CAD-Fghyr8nWHp4btjJ=Ox0X_PBHMX-f3vZwStaeS7iV3FV0OzQ@mail.gmail.com>
+
+On Wed, Feb 4, 2015 at 5:04 AM, David Anderson <david at wordshell.net> wrote:
+
+> Does anyone know what happened to the plans for providing a way for
+> plugins to unbundle their language (mo/po) files from the main plugin, so
+> that WP would have a mechanism for downloading them separately?
+
+
+This is being actively worked on right now, for all plugins:
+
+https://meta.trac.wordpress.org/ticket/760
+
+-Otto
+
+From ian at iandunn.name  Fri Feb  6 08:51:47 2015
+From: ian at iandunn.name (Ian Dunn)
+Date: Fri, 06 Feb 2015 00:51:47 -0800
+Subject: [wp-hackers] Google Summer of Code 2015
+In-Reply-To: <54A2C77D.2060207@iandunn.name>
+References: <CALh8u3k8Pv1JYr3zdx7Wb07WLc8wK5Xy6n=yBThSMQPCi8QZcg@mail.gmail.com>
+ <54A2C77D.2060207@iandunn.name>
+Message-ID: <54D480A3.7070705@iandunn.name>
+
+It sounds like WordPress won't be participating in GSoC this year, 
+because not enough people have stepped up to coordinate our participation.
+
+
+On 12/30/14 7:40 AM, Ian Dunn wrote:
+> I haven't heard any discussions yet, and the organization applications 
+> don't even open for another 5 weeks, but we've participated for the 
+> past 7 years, so there's a good chance that we will again this year.
+>
+> You should watch https://make.wordpress.org/core for an announcement, 
+> but it probably won't be for another month or two.
+>
+> Student applications don't open until March 16th, so you've got plenty 
+> of time to prepare. The next few months are a good time to get 
+> involved with the community and familiar with the codebases by making 
+> contributions. We usually receive a couple hundred applications, but 
+> only accept a handful. The vast majority of applications are from 
+> students with no history of contributing, so you'll have a better 
+> chance if you've proven yourself to be a solid contributor.
+>
+> Check out the following sites for more information:
+>
+> * http://codex.wordpress.org/GSoC2014 - the 2015 guidelines, processes 
+> and projects will probably be similar 2014
+> * https://make.wordpress.org/core/handbook/ - basic information on 
+> contributing to Core (most of which also applies to the Meta team)
+> * https://core.trac.wordpress.org/tickets/good-first-bugs - Core 
+> tickets for new contributors
+> * https://meta.trac.wordpress.org/report/10 - Meta tickets for new 
+> contributors
+>
+>
+>
+> On 12/30/14 5:23 AM, Utkarsh Dixit wrote:
+>> Hey,
+>>
+>> Any updates regarding GSOC 2015? Is WordPress participating this 
+>> time? Has
+>> any ideas page been created?
+>>
+>> I would like to participate in the Google summer of Code 2015 and would
+>> like to apply under WordPress (I also tried for GSOC 2014 but wasn't
+>> selected). How should I proceed this time? Any ideas that have been
+>> finalised and their mentors decided?
+>>
+>> Thanks,
+>> Utkarsh Dixit.
+>> Email: utkarsh.dixit11 at gmail.com
+>> Phone: (+91) 8471880120
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+From spgandhi at live.com  Thu Feb 12 13:19:24 2015
+From: spgandhi at live.com (Shreyans Gandhi)
+Date: Thu, 12 Feb 2015 18:49:24 +0530
+Subject: [wp-hackers] Queries for GSOC 15
+Message-ID: <BLU170-W866A9EA7D8CA7039FE9EB9AD220@phx.gbl>
+
+Hello People,
+I was wondering if Wordpress is applying for GSOC this year 2015. Since the Organisation Application has already started, I wanted to know whether Wordpress is applying or not.
+I have been working on a idea which I want to work on as a GSOC project for Wordpress.
+I would be happy if I can be put in touch with some potential mentors with whom I can discuss my ideas and come up with a good project proposal (provided wordpress is applying for GSOC). 
+
+Thanks for taking time to read my mail.
+
+Shreyans Gandhi,India
+
+"We need to change today, or else we won't have anything to change tomorrow"www.electronic-eye.in 		 	   		  
+
+From halukkaramete at gmail.com  Thu Feb 12 22:59:55 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Thu, 12 Feb 2015 14:59:55 -0800
+Subject: [wp-hackers] advanced taxonomy queries thru pretty urls
+Message-ID: <CAHERW=26K47jGTNq4Gm6+JHVKPp4UwEnzSYfRPUC6N1fiXLrQA@mail.gmail.com>
+
+A link like this
+
+site.com /resources/?tax1=slug1,slig2&category_name=featured
+
+runs a taxonomy query in the back end and gives us all the resources (
+resources is the custom post type here ) where the resuorces are tagged by
+either 'slug1' or 'slug 2' under the 'tax1' AND at the same time also
+categorized as 'featured'
+
+This is a beautiful implementation. And it just works, And thru the use of
+(,) or (+) usage, one can do highly complex advanced taxonomy queries thru
+these pretty URLs
+
+2 questions here...
+
+what do I need to replace the "resources" CPT in there to make itlink work
+with regular posts? I tried "post" as a replacement and I'm getting a 404
+with that link.
+
+
+And also, In the codex, I could not find a 'NOT IN' operator that would
+correspond to a symbol in the query string.
+For example, I'm not sure what the link should look like to pull those
+posts where the resources are everything **except** those that are termed
+as 'slug1' or 'slug2'
+
+From pascal.birchler at gmail.com  Fri Feb 13 08:17:20 2015
+From: pascal.birchler at gmail.com (Pascal Birchler)
+Date: Fri, 13 Feb 2015 09:17:20 +0100
+Subject: [wp-hackers] advanced taxonomy queries thru pretty urls
+In-Reply-To: <CAHERW=26K47jGTNq4Gm6+JHVKPp4UwEnzSYfRPUC6N1fiXLrQA@mail.gmail.com>
+References: <CAHERW=26K47jGTNq4Gm6+JHVKPp4UwEnzSYfRPUC6N1fiXLrQA@mail.gmail.com>
+Message-ID: <CA+U2bw+FBpQ95ib_751a9pOhWQewuFbPQFSupa4WCos104pfGQ@mail.gmail.com>
+
+Hmm not sure, but try using site.com/?tax.... instead of "resources" in the
+middle.
+
+Also, you might be able to use a minus sign for "NOT IN", e.g.
+?tax1=-slug1,slug2.
+Otherwise, this needs to be implemented manually and isn't supported
+out-of-the-box by core.
+
+2015-02-12 23:59 GMT+01:00 Haluk Karamete <halukkaramete at gmail.com>:
+
+> A link like this
+>
+> site.com /resources/?tax1=slug1,slig2&category_name=featured
+>
+> runs a taxonomy query in the back end and gives us all the resources (
+> resources is the custom post type here ) where the resuorces are tagged by
+> either 'slug1' or 'slug 2' under the 'tax1' AND at the same time also
+> categorized as 'featured'
+>
+> This is a beautiful implementation. And it just works, And thru the use of
+> (,) or (+) usage, one can do highly complex advanced taxonomy queries thru
+> these pretty URLs
+>
+> 2 questions here...
+>
+> what do I need to replace the "resources" CPT in there to make itlink work
+> with regular posts? I tried "post" as a replacement and I'm getting a 404
+> with that link.
+>
+>
+> And also, In the codex, I could not find a 'NOT IN' operator that would
+> correspond to a symbol in the query string.
+> For example, I'm not sure what the link should look like to pull those
+> posts where the resources are everything **except** those that are termed
+> as 'slug1' or 'slug2'
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From pascal.birchler at gmail.com  Fri Feb 13 08:17:59 2015
+From: pascal.birchler at gmail.com (Pascal Birchler)
+Date: Fri, 13 Feb 2015 09:17:59 +0100
+Subject: [wp-hackers] Queries for GSOC 15
+In-Reply-To: <BLU170-W866A9EA7D8CA7039FE9EB9AD220@phx.gbl>
+References: <BLU170-W866A9EA7D8CA7039FE9EB9AD220@phx.gbl>
+Message-ID: <CA+U2bw+po2drO=zM-jL2knjx7v_asijHQuDgsg=_10OFv9z1cQ@mail.gmail.com>
+
+Looks like there's no GSoC for WordPress this year.
+
+Quote from Ian Dunn: ?It sounds like WordPress won't be participating in
+GSoC this year, because not enough people have stepped up to coordinate our
+participation.?
+
+2015-02-12 14:19 GMT+01:00 Shreyans Gandhi <spgandhi at live.com>:
+
+> Hello People,
+> I was wondering if Wordpress is applying for GSOC this year 2015. Since
+> the Organisation Application has already started, I wanted to know whether
+> Wordpress is applying or not.
+> I have been working on a idea which I want to work on as a GSOC project
+> for Wordpress.
+> I would be happy if I can be put in touch with some potential mentors with
+> whom I can discuss my ideas and come up with a good project proposal
+> (provided wordpress is applying for GSOC).
+>
+> Thanks for taking time to read my mail.
+>
+> Shreyans Gandhi,India
+>
+> "We need to change today, or else we won't have anything to change
+> tomorrow"www.electronic-eye.in
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+

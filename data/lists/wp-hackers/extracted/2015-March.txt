@@ -1,0 +1,346 @@
+From wp-hackers at striderweb.com  Fri Mar  6 17:53:49 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Fri, 6 Mar 2015 11:53:49 -0600
+Subject: [wp-hackers] Plugin not updating in repository
+Message-ID: <B3DAAB73-2253-4C51-B1BC-6928FF51403C@striderweb.com>
+
+Hi --
+
+I updated a plugin of mine a week ago and it's still not showing up on the WP Plugins site.  Anyone know who I should talk to?
+
+https://wordpress.org/plugins/quiz/
+
+(A different plugin I updated showed up within hours.)
+
+Thanks,
+
+Stephen Rider
+
+From mike at mikevanwinkle.com  Fri Mar  6 17:55:51 2015
+From: mike at mikevanwinkle.com (Michael Van Winkle)
+Date: Fri, 6 Mar 2015 09:55:51 -0800
+Subject: [wp-hackers] Plugin not updating in repository
+In-Reply-To: <B3DAAB73-2253-4C51-B1BC-6928FF51403C@striderweb.com>
+References: <B3DAAB73-2253-4C51-B1BC-6928FF51403C@striderweb.com>
+Message-ID: <CALVAUkWaTC2qnet=vrH17BOoGLs7oV8UEm1d8vAXYjsywVrPwA@mail.gmail.com>
+
+Hey Stephen, your readme.txt still says "Stable tag: 1.2", I bet if you
+bump that to 1.3 it'll work.
+
+On Fri, Mar 6, 2015 at 9:53 AM, Stephen Rider <wp-hackers at striderweb.com>
+wrote:
+
+> Hi --
+>
+> I updated a plugin of mine a week ago and it's still not showing up on the
+> WP Plugins site.  Anyone know who I should talk to?
+>
+> https://wordpress.org/plugins/quiz/
+>
+> (A different plugin I updated showed up within hours.)
+>
+> Thanks,
+>
+> Stephen Rider
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+Mike Van Winkle
+708-289-3136
+mike at mikevanwinkle.com
+http://www.mikevanwinkle.com
+http://www.twitter.com/mpvanwinkle
+http://www.facebook.com/mpvanwinkle
+
+
+"All excellent things are as difficult as they are rare." -Spinoza
+
+From wp-hackers at striderweb.com  Fri Mar  6 18:05:49 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Fri, 6 Mar 2015 12:05:49 -0600
+Subject: [wp-hackers] Plugin not updating in repository
+In-Reply-To: <CALVAUkWaTC2qnet=vrH17BOoGLs7oV8UEm1d8vAXYjsywVrPwA@mail.gmail.com>
+References: <B3DAAB73-2253-4C51-B1BC-6928FF51403C@striderweb.com>
+ <CALVAUkWaTC2qnet=vrH17BOoGLs7oV8UEm1d8vAXYjsywVrPwA@mail.gmail.com>
+Message-ID: <3377B369-FFEA-4B15-82A9-2DA2E3ACDF9E@striderweb.com>
+
+Sho nuff. SVN hates me.  Thanks, Michael.
+
+Stephen
+
+
+> On Mar 6, 2015, at 11:55 AM, Michael Van Winkle <mike at mikevanwinkle.com> wrote:
+> 
+> Hey Stephen, your readme.txt still says "Stable tag: 1.2", I bet if you
+> bump that to 1.3 it'll work.
+> 
+> On Fri, Mar 6, 2015 at 9:53 AM, Stephen Rider <wp-hackers at striderweb.com>
+> wrote:
+> 
+>> Hi --
+>> 
+>> I updated a plugin of mine a week ago and it's still not showing up on the
+>> WP Plugins site.  Anyone know who I should talk to?
+>> 
+>> https://wordpress.org/plugins/quiz/
+>> 
+>> (A different plugin I updated showed up within hours.)
+>> 
+>> Thanks,
+>> 
+>> Stephen Rider
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+> 
+> 
+> 
+> -- 
+> Mike Van Winkle
+> 708-289-3136
+> mike at mikevanwinkle.com
+> http://www.mikevanwinkle.com
+> http://www.twitter.com/mpvanwinkle
+> http://www.facebook.com/mpvanwinkle
+> 
+> 
+> "All excellent things are as difficult as they are rare." -Spinoza
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From lukebryan at sharefaith.com  Thu Mar 19 04:25:39 2015
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Wed, 18 Mar 2015 21:25:39 -0700
+Subject: [wp-hackers] A few 4.2 questions
+Message-ID: <CAFnKAk22rtEJaY_RRpx_avatagpXXGY-MtyTtj7hs-OLFG0r=w@mail.gmail.com>
+
+Greetings all,
+
+In testing the new 4.2 I've noticed some important differences from the
+older 4.1:
+
+First of all, the redesigned wp-views - they seem to break compatibility,
+even with the old minimal example on github
+<https://github.com/dtbaker/wordpress-mce-view-and-shortcode-editor/issues>
+that has been working for a few versions now. Will there be a migration
+guide for this view system soon?
+
+Second, something I just now noticed, is the latest version seems to lack
+the execCommands listing:
+In WP4.1, you could run "tinymce.activeEditor.execCommands" in js console
+and see what commands you could call execCommand( commandname ) on. In the
+latest this seems to be missing. Was this replaced with something else?
+
+
+Best regards,
+Luke
+
+From david at wordshell.net  Thu Mar 19 10:17:09 2015
+From: david at wordshell.net (David Anderson)
+Date: Thu, 19 Mar 2015 10:17:09 +0000
+Subject: [wp-hackers] Hosting updates for your own plugins
+Message-ID: <550AA225.8000308@wordshell.net>
+
+Hi,
+
+In case anyone's interested, an alert for a plugin I recently released...
+
+https://wordpress.org/plugins/simba-plugin-updates-manager/
+
+It allows you to host and manage plugin updates for (free) plugins that 
+you distribute from your own site (instead of from wordpress.org). It's 
+a cleaned-up + tweaked version of code that's been in use on 
+updraftplus.com for 2 years, so is pretty stable.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From nikolov.tmw at gmail.com  Thu Mar 19 10:19:39 2015
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 19 Mar 2015 12:19:39 +0200
+Subject: [wp-hackers] Hosting updates for your own plugins
+In-Reply-To: <550AA225.8000308@wordshell.net>
+References: <550AA225.8000308@wordshell.net>
+Message-ID: <CAOwx47d35NRUpKPmT-g_msimxo3PynyV6rSYx+n9185FXAHtwA@mail.gmail.com>
+
+Hi David,
+
+Thanks for sharing that! It looks awesome and I'll definitely give it a go
+at some point.
+
+Cheers,
+Nikola
+
+On Thu, Mar 19, 2015 at 12:17 PM, David Anderson <david at wordshell.net>
+wrote:
+
+> Hi,
+>
+> In case anyone's interested, an alert for a plugin I recently released...
+>
+> https://wordpress.org/plugins/simba-plugin-updates-manager/
+>
+> It allows you to host and manage plugin updates for (free) plugins that
+> you distribute from your own site (instead of from wordpress.org). It's a
+> cleaned-up + tweaked version of code that's been in use on updraftplus.com
+> for 2 years, so is pretty stable.
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From gerlando at getused.to.it  Thu Mar 19 12:16:14 2015
+From: gerlando at getused.to.it (Gerlando Termini)
+Date: Thu, 19 Mar 2015 08:16:14 -0400
+Subject: [wp-hackers] Hosting updates for your own plugins
+In-Reply-To: <CAOwx47d35NRUpKPmT-g_msimxo3PynyV6rSYx+n9185FXAHtwA@mail.gmail.com>
+References: <550AA225.8000308@wordshell.net>
+ <CAOwx47d35NRUpKPmT-g_msimxo3PynyV6rSYx+n9185FXAHtwA@mail.gmail.com>
+Message-ID: <550ABE0E.2000300@getused.to.it>
+
+Hi,
+
+I've been using this for a few years:
+
+https://github.com/YahnisElsts/plugin-update-checker/blob/master/plugin-update-checker.php
+
+Best,
+Gerlando
+
+On 3/19/2015 6:19 AM, Nikola Nikolov wrote:
+> Hi David,
+>
+> Thanks for sharing that! It looks awesome and I'll definitely give it a go
+> at some point.
+>
+> Cheers,
+> Nikola
+>
+> On Thu, Mar 19, 2015 at 12:17 PM, David Anderson <david at wordshell.net>
+> wrote:
+>
+>> Hi,
+>>
+>> In case anyone's interested, an alert for a plugin I recently released...
+>>
+>> https://wordpress.org/plugins/simba-plugin-updates-manager/
+>>
+>> It allows you to host and manage plugin updates for (free) plugins that
+>> you distribute from your own site (instead of from wordpress.org). It's a
+>> cleaned-up + tweaked version of code that's been in use on updraftplus.com
+>> for 2 years, so is pretty stable.
+>>
+>> Best wishes,
+>> David
+>>
+>> --
+>> UpdraftPlus - best WordPress backups - http://updraftplus.com
+>> WordShell - WordPress fast from the CLI - http://wordshell.net
+>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From david at wordshell.net  Fri Mar 20 22:26:31 2015
+From: david at wordshell.net (David Anderson)
+Date: Fri, 20 Mar 2015 22:26:31 +0000
+Subject: [wp-hackers] Hosting updates for your own plugins
+In-Reply-To: <mailman.12.1426852802.18160.wp-hackers@lists.automattic.com>
+References: <mailman.12.1426852802.18160.wp-hackers@lists.automattic.com>
+Message-ID: <550C9E97.4020602@wordshell.net>
+
+
+Gerlando Termini wrote:
+> Hi,
+>
+> I've been using this for a few years:
+>
+> https://github.com/YahnisElsts/plugin-update-checker/blob/master/plugin-update-checker.php
+That's the client-side code - the plugin I linked to was a plugin for 
+providing the *server* end, managed through a WP dashboard.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From danielx386 at gmail.com  Fri Mar 20 23:07:48 2015
+From: danielx386 at gmail.com (Daniel Fenn)
+Date: Sat, 21 Mar 2015 10:07:48 +1100
+Subject: [wp-hackers] Hosting updates for your own plugins
+In-Reply-To: <550C9E97.4020602@wordshell.net>
+References: <mailman.12.1426852802.18160.wp-hackers@lists.automattic.com>
+ <550C9E97.4020602@wordshell.net>
+Message-ID: <CAJ5Hi2h7So+BayCDv9kUSg+vs8DWs5zHQ4fho4yXaq14rKYt+w@mail.gmail.com>
+
+Question, Is there any plans to do the same with themes as well?
+Regards,
+Daniel Fenn
+
+
+
+
+
+
+On Sat, Mar 21, 2015 at 9:26 AM, David Anderson <david at wordshell.net> wrote:
+>
+> Gerlando Termini wrote:
+>>
+>> Hi,
+>>
+>> I've been using this for a few years:
+>>
+>>
+>> https://github.com/YahnisElsts/plugin-update-checker/blob/master/plugin-update-checker.php
+>
+> That's the client-side code - the plugin I linked to was a plugin for
+> providing the *server* end, managed through a WP dashboard.
+>
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+

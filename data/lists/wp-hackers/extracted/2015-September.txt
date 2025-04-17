@@ -1,0 +1,254 @@
+From barry at multipop.org  Fri Sep  4 15:31:00 2015
+From: barry at multipop.org (Barry Ceelen)
+Date: Fri, 4 Sep 2015 17:31:00 +0200
+Subject: [wp-hackers] Prevent attaching unattached attachments (nice!) on
+	sending to editor
+Message-ID: <2927DA03-DD3C-4FAA-8FF8-28EF9E122883@multipop.org>
+
+Hi All,
+
+Unattached images inserted into a post via the media library tab automatically get attached to the post.
+I?m looking to prevent this from happening.
+
+The wp_ajax_send_attachment_to_editor() function (https://developer.wordpress.org/reference/functions/wp_ajax_send_attachment_to_editor/) has a filter at the end, but by that time the attachment is already attached.
+Any tips on handling this?
+
+Thanks!
+
+Barry
+
+From jdg at codesymphony.co  Fri Sep  4 15:55:30 2015
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Fri, 4 Sep 2015 11:55:30 -0400
+Subject: [wp-hackers] Prevent attaching unattached attachments (nice!)
+	on sending to editor
+In-Reply-To: <2927DA03-DD3C-4FAA-8FF8-28EF9E122883@multipop.org>
+References: <2927DA03-DD3C-4FAA-8FF8-28EF9E122883@multipop.org>
+Message-ID: <2197F5C7-20EA-4AFA-9A5D-E3F177F282A4@codesymphony.co>
+
+Hi Barry,
+
+When the attachment is updated, wp_insert_post() is ultimately called to update the post_parent field. In that function you have several filters that you could hook into. wp_insert_post_parent or wp_insert_attachment_data seem like good options. You'd just need to check that that Ajax request is being performed and the post being saved is an attachment, and not modify the post array otherwise.
+
+Another possibility would be to add your own Ajax handler for that action and unhook the core one. This might actually be the most straightforward and least buggy approach.
+
+-J.D.
+
+> On Sep 4, 2015, at 11:31 AM, Barry Ceelen <barry at multipop.org> wrote:
+> 
+> Hi All,
+> 
+> Unattached images inserted into a post via the media library tab automatically get attached to the post.
+> I?m looking to prevent this from happening.
+> 
+> The wp_ajax_send_attachment_to_editor() function (https://developer.wordpress.org/reference/functions/wp_ajax_send_attachment_to_editor/) has a filter at the end, but by that time the attachment is already attached.
+> Any tips on handling this?
+> 
+> Thanks!
+> 
+> Barry
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From barry at multipop.org  Sun Sep  6 00:28:36 2015
+From: barry at multipop.org (Barry Ceelen)
+Date: Sun, 6 Sep 2015 02:28:36 +0200
+Subject: [wp-hackers] Prevent attaching unattached attachments (nice!)
+	on sending to editor
+In-Reply-To: <2197F5C7-20EA-4AFA-9A5D-E3F177F282A4@codesymphony.co>
+References: <2927DA03-DD3C-4FAA-8FF8-28EF9E122883@multipop.org>
+ <2197F5C7-20EA-4AFA-9A5D-E3F177F282A4@codesymphony.co>
+Message-ID: <E429EBA6-33CC-4FC1-941E-41ADDC6389D2@multipop.org>
+
+Hi J.D.
+
+When I use filters inside wp_update_post(), besides probably knowing I?m DOING_AJAX and that I?m dealing with an attachment, I lose context insofar as that I cannot know if the update was triggered by sending an attachment to the editor.
+Or am I missing something here?
+I went with your suggestion of replacing the core handler, works like a charm.
+
+Thanks for your reply!
+
+
+> On 04 Sep 2015, at 17:55, J.D. Grimes <jdg at codesymphony.co> wrote:
+> 
+> Hi Barry,
+> 
+> When the attachment is updated, wp_insert_post() is ultimately called to update the post_parent field. In that function you have several filters that you could hook into. wp_insert_post_parent or wp_insert_attachment_data seem like good options. You'd just need to check that that Ajax request is being performed and the post being saved is an attachment, and not modify the post array otherwise.
+> 
+> Another possibility would be to add your own Ajax handler for that action and unhook the core one. This might actually be the most straightforward and least buggy approach.
+> 
+> -J.D.
+> 
+>> On Sep 4, 2015, at 11:31 AM, Barry Ceelen <barry at multipop.org> wrote:
+>> 
+>> Hi All,
+>> 
+>> Unattached images inserted into a post via the media library tab automatically get attached to the post.
+>> I?m looking to prevent this from happening.
+>> 
+>> The wp_ajax_send_attachment_to_editor() function (https://developer.wordpress.org/reference/functions/wp_ajax_send_attachment_to_editor/) has a filter at the end, but by that time the attachment is already attached.
+>> Any tips on handling this?
+>> 
+>> Thanks!
+>> 
+>> Barry
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jdg at codesymphony.co  Sun Sep  6 20:01:07 2015
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Sun, 6 Sep 2015 16:01:07 -0400
+Subject: [wp-hackers] Prevent attaching unattached attachments (nice!)
+	on sending to editor
+In-Reply-To: <E429EBA6-33CC-4FC1-941E-41ADDC6389D2@multipop.org>
+References: <2927DA03-DD3C-4FAA-8FF8-28EF9E122883@multipop.org>
+ <2197F5C7-20EA-4AFA-9A5D-E3F177F282A4@codesymphony.co>
+ <E429EBA6-33CC-4FC1-941E-41ADDC6389D2@multipop.org>
+Message-ID: <E0B16FCB-B992-4C3C-8844-1279B42DEA46@codesymphony.co>
+
+Replacing the handler seems less fragile, so its probably best that you do that anyway, but to answer you question: yes, you I think can know if the update was being triggered by sending an attachment to the editor, by checking that  $_REQUEST['action'] is 'send_attachment_to_editor'. I guess I could have said that more clearly in my original reply. :-)
+
+
+> On Sep 5, 2015, at 8:28 PM, Barry Ceelen <barry at multipop.org> wrote:
+> 
+> Hi J.D.
+> 
+> When I use filters inside wp_update_post(), besides probably knowing I?m DOING_AJAX and that I?m dealing with an attachment, I lose context insofar as that I cannot know if the update was triggered by sending an attachment to the editor.
+> Or am I missing something here?
+> I went with your suggestion of replacing the core handler, works like a charm.
+> 
+> Thanks for your reply!
+> 
+> 
+>> On 04 Sep 2015, at 17:55, J.D. Grimes <jdg at codesymphony.co> wrote:
+>> 
+>> Hi Barry,
+>> 
+>> When the attachment is updated, wp_insert_post() is ultimately called to update the post_parent field. In that function you have several filters that you could hook into. wp_insert_post_parent or wp_insert_attachment_data seem like good options. You'd just need to check that that Ajax request is being performed and the post being saved is an attachment, and not modify the post array otherwise.
+>> 
+>> Another possibility would be to add your own Ajax handler for that action and unhook the core one. This might actually be the most straightforward and least buggy approach.
+>> 
+>> -J.D.
+>> 
+>>> On Sep 4, 2015, at 11:31 AM, Barry Ceelen <barry at multipop.org> wrote:
+>>> 
+>>> Hi All,
+>>> 
+>>> Unattached images inserted into a post via the media library tab automatically get attached to the post.
+>>> I?m looking to prevent this from happening.
+>>> 
+>>> The wp_ajax_send_attachment_to_editor() function (https://developer.wordpress.org/reference/functions/wp_ajax_send_attachment_to_editor/) has a filter at the end, but by that time the attachment is already attached.
+>>> Any tips on handling this?
+>>> 
+>>> Thanks!
+>>> 
+>>> Barry
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From barry at multipop.org  Wed Sep  9 15:08:49 2015
+From: barry at multipop.org (Barry Ceelen)
+Date: Wed, 9 Sep 2015 17:08:49 +0200
+Subject: [wp-hackers] Prevent attaching unattached attachments (nice!)
+	on sending to editor
+In-Reply-To: <E0B16FCB-B992-4C3C-8844-1279B42DEA46@codesymphony.co>
+References: <2927DA03-DD3C-4FAA-8FF8-28EF9E122883@multipop.org>
+ <2197F5C7-20EA-4AFA-9A5D-E3F177F282A4@codesymphony.co>
+ <E429EBA6-33CC-4FC1-941E-41ADDC6389D2@multipop.org>
+ <E0B16FCB-B992-4C3C-8844-1279B42DEA46@codesymphony.co>
+Message-ID: <5B3CE640-7497-4D95-B075-4DA7B0FE0199@multipop.org>
+
+Maybe less fragile, but kind of weary of replacing core functions with my own :)
+Thank you for pointing out the option of looking at $_REQUEST['action?], that was what I was looking/hoping for.
+
+This does the trick for me now:
+
+add_filter( 'wp_insert_post_parent', 'xqr_z100a_filter_insert_post_parent', 10, 2 );
+
+function xqr_z100a_filter_insert_post_parent( $post_parent, $post_ID ) {
+
+	if ( ! isset( $_REQUEST['action'] ) || 'send-attachment-to-editor' != $_REQUEST['action'] ) {
+		return $post_parent;
+	}
+
+	$post_before = get_post( $post_ID );
+
+	if ( 0 != $post_before->post_parent ) {
+		return $post_parent;
+	}
+
+	return 0;
+}
+
+Thanks for your help J.D.!
+
+Le Plugin: https://github.com/barryceelen/wp-xqr-z100a
+
+
+
+
+> On 06 Sep 2015, at 22:01, J.D. Grimes <jdg at codesymphony.co> wrote:
+> 
+> Replacing the handler seems less fragile, so its probably best that you do that anyway, but to answer you question: yes, you I think can know if the update was being triggered by sending an attachment to the editor, by checking that  $_REQUEST['action'] is 'send_attachment_to_editor'. I guess I could have said that more clearly in my original reply. :-)
+> 
+> 
+>> On Sep 5, 2015, at 8:28 PM, Barry Ceelen <barry at multipop.org> wrote:
+>> 
+>> Hi J.D.
+>> 
+>> When I use filters inside wp_update_post(), besides probably knowing I?m DOING_AJAX and that I?m dealing with an attachment, I lose context insofar as that I cannot know if the update was triggered by sending an attachment to the editor.
+>> Or am I missing something here?
+>> I went with your suggestion of replacing the core handler, works like a charm.
+>> 
+>> Thanks for your reply!
+>> 
+>> 
+>>> On 04 Sep 2015, at 17:55, J.D. Grimes <jdg at codesymphony.co> wrote:
+>>> 
+>>> Hi Barry,
+>>> 
+>>> When the attachment is updated, wp_insert_post() is ultimately called to update the post_parent field. In that function you have several filters that you could hook into. wp_insert_post_parent or wp_insert_attachment_data seem like good options. You'd just need to check that that Ajax request is being performed and the post being saved is an attachment, and not modify the post array otherwise.
+>>> 
+>>> Another possibility would be to add your own Ajax handler for that action and unhook the core one. This might actually be the most straightforward and least buggy approach.
+>>> 
+>>> -J.D.
+>>> 
+>>>> On Sep 4, 2015, at 11:31 AM, Barry Ceelen <barry at multipop.org> wrote:
+>>>> 
+>>>> Hi All,
+>>>> 
+>>>> Unattached images inserted into a post via the media library tab automatically get attached to the post.
+>>>> I?m looking to prevent this from happening.
+>>>> 
+>>>> The wp_ajax_send_attachment_to_editor() function (https://developer.wordpress.org/reference/functions/wp_ajax_send_attachment_to_editor/) has a filter at the end, but by that time the attachment is already attached.
+>>>> Any tips on handling this?
+>>>> 
+>>>> Thanks!
+>>>> 
+>>>> Barry
+
+

@@ -1,0 +1,53 @@
+From dan at bringtheblog.com  Tue Feb  9 03:04:28 2010
+From: dan at bringtheblog.com (Dan Green)
+Date: Tue, 09 Feb 2010 03:04:28 -0000
+Subject: [wp-xmlrpc] Have you seen this before? wp.getOptions()
+ is	executing, but returning no values
+In-Reply-To: <1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+References: <4B44A6DA.1010406@bringtheblog.com>
+	<1429C6E6-5950-4AE4-98F8-F03DC35894C6@red-sweater.com>
+Message-ID: <4B49EF09.7010807@bringtheblog.com>
+
+The error was related to cURL. 
+
+My service accepts user input via a HTML form. Users that provide a blog 
+URL of http://mysite.com when the blog's true URL is 
+http://www.mysite.com were getting the error.  cURL doesn't resolve 
+properly.
+
+I know that cURL has an option for redirection and that was the initial 
+fix.  However, because redirection waits for a timeout before trying 
+"the next URL", there was a major drag on loadtimes.  Therefore, I am 
+doing the URL check programatically.  If wp.getOptions() doesn't throw 
+an error and its values are null, that's a signal that something went 
+wrong.  At that point, I use PHP to add the "www" to the user's URI and 
+re-run wp.getOptions().  It works.
+
+A look at the server shows that the cURL function throws a -1 error so 
+that's probably another way to troubleshoot.
+
+Thanks for your help.  Hopefully, this thread will help somebody else.
+
+
+Daniel Jalkut wrote:
+> On Jan 6, 2010, at 10:06am, Dan Green wrote:
+>
+>   
+>> Have you ever run into something like this? I am sure there?s a logical explanation ? I just can?t figure it out. And before I start digging into somebody else's server configuration, I thought I'd ask the group if this is a common issue with a simple work-around.
+>>     
+>
+> Hi Dan - first thing I would look into, which you didn't mention one way or the other, is whether the installed plugins are different on the affected and unaffected servers.
+>
+> Whenever I see unexpected results from the API, I usually suspect plugin interference as a first line of inquiry.
+>
+> Daniel
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100209/93a8fb12/attachment.htm>
+

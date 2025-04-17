@@ -1,0 +1,246 @@
+From mhancock at us.net  Wed Mar  8 21:52:20 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Wed Mar  8 21:54:49 2006
+Subject: [wp-docs] Codex in MediaWiki 1.5.7
+Message-ID: <097b01c642fa$934270a0$6402a8c0@DELL8600>
+
+With a little persistence, I've been able to get almost all of Codex into
+MediaWiki 1.5.7.
+
+The namespaces in the 1.5.7 database are (articles), Talk, User, User Talk,
+Codex, Codex Talk, Category, Category Help, Template, Template Talk, Help,
+and Help Talk.
+
+I've not done anything with Images as that really needs a backup of the
+current image folder before that can be accomplished.
+
+The other thing that is not in this repository is the user login info in the
+Codex database at MediaWiki version 1.4.8.  But, that may be a surmountable
+problem.
+
+So what's next?
+
+~~~~MichaelH
+
+Michael E. Hancock
+
+From podz at tamba2.org.uk  Wed Mar  8 22:12:44 2006
+From: podz at tamba2.org.uk (Podz)
+Date: Wed Mar  8 22:15:18 2006
+Subject: [wp-docs] Codex in MediaWiki 1.5.7
+In-Reply-To: <097b01c642fa$934270a0$6402a8c0@DELL8600>
+References: <097b01c642fa$934270a0$6402a8c0@DELL8600>
+Message-ID: <440F56DC.2040909@tamba2.org.uk>
+
+Michael E. Hancock wrote:
+> With a little persistence, I've been able to get almost all of Codex into
+> MediaWiki 1.5.7.
+> 
+
+WOW.
+Seriously, that is HUGE work you must have done.
+
+What's next ? A rest for you :)
+
+Well done !
+
+P.
+From kinrowan at gmail.com  Mon Mar 27 04:22:27 2006
+From: kinrowan at gmail.com (Cori Schlegel)
+Date: Mon Mar 27 04:25:46 2006
+Subject: [wp-docs] internal linking problem?
+Message-ID: <44276883.3000002@gmail.com>
+
+I'm not a heavy contributor to the codex, and I don't watch this list 
+religiously, so please forgive me if this has been answered elsewhere.
+
+I noticed a few days back that it seem like the internal linking style 
+of the Codex has changed, I'm guessing since the roll out of MediaWiki 
+1.5.7.
+
+If you look at my "desktop" 
+(http://codex.wordpress.org/User:CoriSchlegel/Desktop) you can see what 
+I mean:
+
+    * A link I added before 1.5.7 uses the syntax
+      [[User:CoriSchlegel/Desktop/get_settings|get_settings]] and points
+      to http://codex.wordpress.org/User:CoriSchlegel/Desktop/get_settings
+    * A link I added just a few days ago uses the syntax
+      [[User:CoriSchlegel/Desktop/TinyMCE|TinyMCE]] and sort of points
+      to
+      http://codex.wordpress.org/index.php?title=User:CoriSchlegel/Desktop/TinyMCE&action=edit. 
+      By sort of I mean that MediaWiki seems to think that the page
+      doesn't exist and thus provides the default "edit" link, but when
+      you follow the link you get to my page in edit mode but with
+      content.  If you go to
+      http://codex.wordpress.org/User:CoriSchlegel/Desktop/TinyMCE you
+      get the actual page.
+
+As I recall from my own install of MediaWiki, there was a bit to do with 
+friendly urls, but it's been a while so I don't recall for sure.  That 
+was also 1.5.1 (I think).  Relying on that vague memory though, leads me 
+to believe that the new Codex is using the not-nice urls by default.
+
+Has anyone else noted this?  Is there a running discussion I haven't seen?
+
+Thanks in advance for any insight...
+
+cori
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060327/3096efd6/attachment.htm
+From mhancock at us.net  Mon Mar 27 13:25:52 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Mon Mar 27 13:28:45 2006
+Subject: [wp-docs] internal linking problem?
+References: <44276883.3000002@gmail.com>
+Message-ID: <052501c651a1$f8ad4f90$6402a8c0@DELL8600>
+
+From: "Cori Schlegel" <kinrowan@gmail.com>
+> I noticed a few days back that it seem like the internal linking style
+> of the Codex has changed, I'm guessing since the roll out of MediaWiki
+> 1.5.7.
+
+Codex is still at 1.4.8.  I was able to move most of the contents, sans
+Images and history, to 1.5.7 several weeks ago but that is a copy on my
+local computer ;)
+
+>     * A link I added before 1.5.7 uses the syntax
+>       [[User:CoriSchlegel/Desktop/get_settings|get_settings]] and points
+>       to http://codex.wordpress.org/User:CoriSchlegel/Desktop/get_settings
+>     * A link I added just a few days ago uses the syntax
+>       [[User:CoriSchlegel/Desktop/TinyMCE|TinyMCE]] and sort of points
+>       to
+>
+http://codex.wordpress.org/index.php?title=User:CoriSchlegel/Desktop/TinyMCE&action=edit.
+>       By sort of I mean that MediaWiki seems to think that the page
+>       doesn't exist and thus provides the default "edit" link, but when
+>       you follow the link you get to my page in edit mode but with
+>       content.  If you go to
+>       http://codex.wordpress.org/User:CoriSchlegel/Desktop/TinyMCE you
+>       get the actual page.
+>
+> As I recall from my own install of MediaWiki, there was a bit to do with
+> friendly urls, but it's been a while so I don't recall for sure.  That
+> was also 1.5.1 (I think).  Relying on that vague memory though, leads me
+> to believe that the new Codex is using the not-nice urls by default.
+>
+> Has anyone else noted this?  Is there a running discussion I haven't seen?
+
+Under the User namespace you had the following documents:
+User:CoriSchlegel
+User:CoriSchlegel/desktop
+User:CoriSchlegel/Desktop/get settings
+User:CoriSchlegel/desktop/TinyMCE
+User:CoriSchlegel/rants
+
+It is likely the lower-case "desktop" that is causing your problem.  That is
+an issue related to the fact Codex uses a setting that allows lower-case
+letters in the first digit of an article name.  I don't know what the 1.4.8
+setting is, but under 1.5.7 that setting is "$wgCapitalLinks = false;".  You
+can see another example of the problem here:
+http://codex.wordpress.org/User:MichaelH/Wiki_Tips_and_Tricks#Linking_correctly_to_The_Loop
+
+I've taken the liberty of deleting and moving the two lower case desktop
+pages so they are now:
+User:CoriSchlegel/Desktop
+User:CoriSchlegel/Desktop/TinyMCE
+
+I did not change your rants ;)
+
+Regards.
+
+MichaelH
+
+
+
+
+From kinrowan at gmail.com  Mon Mar 27 13:58:23 2006
+From: kinrowan at gmail.com (Cori Schlegel)
+Date: Mon Mar 27 14:01:46 2006
+Subject: [wp-docs] internal linking problem?
+In-Reply-To: <052501c651a1$f8ad4f90$6402a8c0@DELL8600>
+References: <44276883.3000002@gmail.com>
+	<052501c651a1$f8ad4f90$6402a8c0@DELL8600>
+Message-ID: <4427EF7F.8050507@gmail.com>
+
+OK, I see.  Works like a charm when you get the capitalization right ;)
+
+Thanks a bunch!
+
+cori
+
+Michael E. Hancock wrote:
+> From: "Cori Schlegel" <kinrowan@gmail.com>
+>   
+>> I noticed a few days back that it seem like the internal linking style
+>> of the Codex has changed, I'm guessing since the roll out of MediaWiki
+>> 1.5.7.
+>>     
+>
+> Codex is still at 1.4.8.  I was able to move most of the contents, sans
+> Images and history, to 1.5.7 several weeks ago but that is a copy on my
+> local computer ;)
+>
+>   
+>>     * A link I added before 1.5.7 uses the syntax
+>>       [[User:CoriSchlegel/Desktop/get_settings|get_settings]] and points
+>>       to http://codex.wordpress.org/User:CoriSchlegel/Desktop/get_settings
+>>     * A link I added just a few days ago uses the syntax
+>>       [[User:CoriSchlegel/Desktop/TinyMCE|TinyMCE]] and sort of points
+>>       to
+>>
+>>     
+> http://codex.wordpress.org/index.php?title=User:CoriSchlegel/Desktop/TinyMCE&action=edit.
+>   
+>>       By sort of I mean that MediaWiki seems to think that the page
+>>       doesn't exist and thus provides the default "edit" link, but when
+>>       you follow the link you get to my page in edit mode but with
+>>       content.  If you go to
+>>       http://codex.wordpress.org/User:CoriSchlegel/Desktop/TinyMCE you
+>>       get the actual page.
+>>
+>> As I recall from my own install of MediaWiki, there was a bit to do with
+>> friendly urls, but it's been a while so I don't recall for sure.  That
+>> was also 1.5.1 (I think).  Relying on that vague memory though, leads me
+>> to believe that the new Codex is using the not-nice urls by default.
+>>
+>> Has anyone else noted this?  Is there a running discussion I haven't seen?
+>>     
+>
+> Under the User namespace you had the following documents:
+> User:CoriSchlegel
+> User:CoriSchlegel/desktop
+> User:CoriSchlegel/Desktop/get settings
+> User:CoriSchlegel/desktop/TinyMCE
+> User:CoriSchlegel/rants
+>
+> It is likely the lower-case "desktop" that is causing your problem.  That is
+> an issue related to the fact Codex uses a setting that allows lower-case
+> letters in the first digit of an article name.  I don't know what the 1.4.8
+> setting is, but under 1.5.7 that setting is "$wgCapitalLinks = false;".  You
+> can see another example of the problem here:
+> http://codex.wordpress.org/User:MichaelH/Wiki_Tips_and_Tricks#Linking_correctly_to_The_Loop
+>
+> I've taken the liberty of deleting and moving the two lower case desktop
+> pages so they are now:
+> User:CoriSchlegel/Desktop
+> User:CoriSchlegel/Desktop/TinyMCE
+>
+> I did not change your rants ;)
+>
+> Regards.
+>
+> MichaelH
+>
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20060327/a9a92dc2/attachment.htm

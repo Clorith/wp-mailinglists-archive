@@ -1,0 +1,461 @@
+From pronoiac at gmail.com  Sat Mar  3 01:18:13 2012
+From: pronoiac at gmail.com (james young)
+Date: Fri, 2 Mar 2012 17:18:13 -0800
+Subject: [spam-stopper] User-agent required when submitting spam?
+Message-ID: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+
+Hey there -
+
+I'm building a new Akismet plugin for Mediawiki, & I've noticed
+something about submitting spam - the user-agent is necessary.  Is it
+possible to use a placeholder value, or not submit one at all?  The
+user agent is easily spoofable, & recording that will require building
+out a new table in the database, pruning old entries, etc.
+
+It's a headache for something of questionable value, is what I'm saying.
+
+What do you think?
+
+-James
+
+
+From mdale at dalegroup.net  Sat Mar  3 01:23:38 2012
+From: mdale at dalegroup.net (Michael Dale)
+Date: Sat, 3 Mar 2012 12:23:38 +1100
+Subject: [spam-stopper] User-agent required when submitting spam?
+In-Reply-To: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+References: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+Message-ID: <D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>
+
+Why is another table required? Just send the user agent when the user submits the comment/message whatever?
+
+There should be no need to record the user agent.
+
+Unless you want to be able to resubmit messages, then I would just create a new column in the existing comments table.
+
+Yes of course you can submit a fake user agent (or from the looks of it, none at all will work too) but then the anti-spam system will not work as well.
+
+Michael.
+
+On 03/03/2012, at 12:18 PM, james young wrote:
+
+> Hey there -
+> 
+> I'm building a new Akismet plugin for Mediawiki, & I've noticed
+> something about submitting spam - the user-agent is necessary.  Is it
+> possible to use a placeholder value, or not submit one at all?  The
+> user agent is easily spoofable, & recording that will require building
+> out a new table in the database, pruning old entries, etc.
+> 
+> It's a headache for something of questionable value, is what I'm saying.
+> 
+> What do you think?
+> 
+> -James
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From pronoiac at gmail.com  Sat Mar  3 01:39:44 2012
+From: pronoiac at gmail.com (james young)
+Date: Fri, 2 Mar 2012 17:39:44 -0800
+Subject: [spam-stopper] User-agent required when submitting spam?
+In-Reply-To: <D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>
+References: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+	<D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>
+Message-ID: <CABaPp_gXeD0axtP_VhhvR+9KEs7FWombzr558vTLgJE7=5enRw@mail.gmail.com>
+
+I wasn't talking about the comment check, but about submitting spam.
+
+My sense is that it's worth avoiding Mediawiki databases, complexity-wise.
+
+-James
+
+
+On Fri, Mar 2, 2012 at 5:23 PM, Michael Dale <mdale at dalegroup.net> wrote:
+> Why is another table required? Just send the user agent when the user submits the comment/message whatever?
+>
+> There should be no need to record the user agent.
+>
+> Unless you want to be able to resubmit messages, then I would just create a new column in the existing comments table.
+>
+> Yes of course you can submit a fake user agent (or from the looks of it, none at all will work too) but then the anti-spam system will not work as well.
+>
+> Michael.
+>
+> On 03/03/2012, at 12:18 PM, james young wrote:
+>
+>> Hey there -
+>>
+>> I'm building a new Akismet plugin for Mediawiki, & I've noticed
+>> something about submitting spam - the user-agent is necessary. ?Is it
+>> possible to use a placeholder value, or not submit one at all? ?The
+>> user agent is easily spoofable, & recording that will require building
+>> out a new table in the database, pruning old entries, etc.
+>>
+>> It's a headache for something of questionable value, is what I'm saying.
+>>
+>> What do you think?
+>>
+>> -James
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From mdale at dalegroup.net  Sat Mar  3 01:41:18 2012
+From: mdale at dalegroup.net (Michael Dale)
+Date: Sat, 3 Mar 2012 12:41:18 +1100
+Subject: [spam-stopper] User-agent required when submitting spam?
+In-Reply-To: <CABaPp_gXeD0axtP_VhhvR+9KEs7FWombzr558vTLgJE7=5enRw@mail.gmail.com>
+References: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+	<D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>
+	<CABaPp_gXeD0axtP_VhhvR+9KEs7FWombzr558vTLgJE7=5enRw@mail.gmail.com>
+Message-ID: <68C92A08-249B-4333-B8AC-7B7079A8AFC9@dalegroup.net>
+
+Are you at least sending the commenter IP address? That plus the comment should be enough I would have thought.
+
+
+On 03/03/2012, at 12:39 PM, james young wrote:
+
+> I wasn't talking about the comment check, but about submitting spam.
+> 
+> My sense is that it's worth avoiding Mediawiki databases, complexity-wise.
+> 
+> -James
+> 
+> 
+> On Fri, Mar 2, 2012 at 5:23 PM, Michael Dale <mdale at dalegroup.net> wrote:
+>> Why is another table required? Just send the user agent when the user submits the comment/message whatever?
+>> 
+>> There should be no need to record the user agent.
+>> 
+>> Unless you want to be able to resubmit messages, then I would just create a new column in the existing comments table.
+>> 
+>> Yes of course you can submit a fake user agent (or from the looks of it, none at all will work too) but then the anti-spam system will not work as well.
+>> 
+>> Michael.
+>> 
+>> On 03/03/2012, at 12:18 PM, james young wrote:
+>> 
+>>> Hey there -
+>>> 
+>>> I'm building a new Akismet plugin for Mediawiki, & I've noticed
+>>> something about submitting spam - the user-agent is necessary.  Is it
+>>> possible to use a placeholder value, or not submit one at all?  The
+>>> user agent is easily spoofable, & recording that will require building
+>>> out a new table in the database, pruning old entries, etc.
+>>> 
+>>> It's a headache for something of questionable value, is what I'm saying.
+>>> 
+>>> What do you think?
+>>> 
+>>> -James
+>>> _______________________________________________
+>>> spam-stopper mailing list
+>>> spam-stopper at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>> 
+>> 
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From pronoiac at gmail.com  Sat Mar  3 01:48:03 2012
+From: pronoiac at gmail.com (james young)
+Date: Fri, 2 Mar 2012 17:48:03 -0800
+Subject: [spam-stopper] User-agent required when submitting spam?
+In-Reply-To: <68C92A08-249B-4333-B8AC-7B7079A8AFC9@dalegroup.net>
+References: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+	<D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>
+	<CABaPp_gXeD0axtP_VhhvR+9KEs7FWombzr558vTLgJE7=5enRw@mail.gmail.com>
+	<68C92A08-249B-4333-B8AC-7B7079A8AFC9@dalegroup.net>
+Message-ID: <CABaPp_j67QmeTjcAN4313c_XrPsutv_80=jzLb8uZ_BcTHj8sQ@mail.gmail.com>
+
+Yes.
+
+That question reminds me to ask about proxies, when they report the IP
+making the request; should we pass that along?  It's possibly a useful
+signal, but it's also not verifiable.  But this is perhaps a tangent.
+
+-James
+
+
+On Fri, Mar 2, 2012 at 5:41 PM, Michael Dale <mdale at dalegroup.net> wrote:
+> Are you at least sending the commenter IP address? That plus the comment should be enough I would have thought.
+>
+>
+> On 03/03/2012, at 12:39 PM, james young wrote:
+>
+>> I wasn't talking about the comment check, but about submitting spam.
+>>
+>> My sense is that it's worth avoiding Mediawiki databases, complexity-wise.
+>>
+>> -James
+>>
+>>
+>> On Fri, Mar 2, 2012 at 5:23 PM, Michael Dale <mdale at dalegroup.net> wrote:
+>>> Why is another table required? Just send the user agent when the user submits the comment/message whatever?
+>>>
+>>> There should be no need to record the user agent.
+>>>
+>>> Unless you want to be able to resubmit messages, then I would just create a new column in the existing comments table.
+>>>
+>>> Yes of course you can submit a fake user agent (or from the looks of it, none at all will work too) but then the anti-spam system will not work as well.
+>>>
+>>> Michael.
+>>>
+>>> On 03/03/2012, at 12:18 PM, james young wrote:
+>>>
+>>>> Hey there -
+>>>>
+>>>> I'm building a new Akismet plugin for Mediawiki, & I've noticed
+>>>> something about submitting spam - the user-agent is necessary. ?Is it
+>>>> possible to use a placeholder value, or not submit one at all? ?The
+>>>> user agent is easily spoofable, & recording that will require building
+>>>> out a new table in the database, pruning old entries, etc.
+>>>>
+>>>> It's a headache for something of questionable value, is what I'm saying.
+>>>>
+>>>> What do you think?
+>>>>
+>>>> -James
+>>>> _______________________________________________
+>>>> spam-stopper mailing list
+>>>> spam-stopper at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>>>
+>>>
+>>> _______________________________________________
+>>> spam-stopper mailing list
+>>> spam-stopper at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+From mdale at dalegroup.net  Sat Mar  3 01:52:18 2012
+From: mdale at dalegroup.net (Michael Dale)
+Date: Sat, 3 Mar 2012 12:52:18 +1100
+Subject: [spam-stopper] User-agent required when submitting spam?
+In-Reply-To: <CABaPp_j67QmeTjcAN4313c_XrPsutv_80=jzLb8uZ_BcTHj8sQ@mail.gmail.com>
+References: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>
+	<D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>
+	<CABaPp_gXeD0axtP_VhhvR+9KEs7FWombzr558vTLgJE7=5enRw@mail.gmail.com>
+	<68C92A08-249B-4333-B8AC-7B7079A8AFC9@dalegroup.net>
+	<CABaPp_j67QmeTjcAN4313c_XrPsutv_80=jzLb8uZ_BcTHj8sQ@mail.gmail.com>
+Message-ID: <1DF1C7DE-EFAB-473D-9333-73BF00585A58@dalegroup.net>
+
+Not sure. Spammers probably fake that all the time, real users wouldn't so much.
+
+I would just give Akismet as much info as possible and let them work out what is spam or not.
+
+Michael.
+
+On 03/03/2012, at 12:48 PM, james young wrote:
+
+> Yes.
+> 
+> That question reminds me to ask about proxies, when they report the IP
+> making the request; should we pass that along?  It's possibly a useful
+> signal, but it's also not verifiable.  But this is perhaps a tangent.
+> 
+> -James
+> 
+> 
+> On Fri, Mar 2, 2012 at 5:41 PM, Michael Dale <mdale at dalegroup.net> wrote:
+>> Are you at least sending the commenter IP address? That plus the comment should be enough I would have thought.
+>> 
+>> 
+>> On 03/03/2012, at 12:39 PM, james young wrote:
+>> 
+>>> I wasn't talking about the comment check, but about submitting spam.
+>>> 
+>>> My sense is that it's worth avoiding Mediawiki databases, complexity-wise.
+>>> 
+>>> -James
+>>> 
+>>> 
+>>> On Fri, Mar 2, 2012 at 5:23 PM, Michael Dale <mdale at dalegroup.net> wrote:
+>>>> Why is another table required? Just send the user agent when the user submits the comment/message whatever?
+>>>> 
+>>>> There should be no need to record the user agent.
+>>>> 
+>>>> Unless you want to be able to resubmit messages, then I would just create a new column in the existing comments table.
+>>>> 
+>>>> Yes of course you can submit a fake user agent (or from the looks of it, none at all will work too) but then the anti-spam system will not work as well.
+>>>> 
+>>>> Michael.
+>>>> 
+>>>> On 03/03/2012, at 12:18 PM, james young wrote:
+>>>> 
+>>>>> Hey there -
+>>>>> 
+>>>>> I'm building a new Akismet plugin for Mediawiki, & I've noticed
+>>>>> something about submitting spam - the user-agent is necessary.  Is it
+>>>>> possible to use a placeholder value, or not submit one at all?  The
+>>>>> user agent is easily spoofable, & recording that will require building
+>>>>> out a new table in the database, pruning old entries, etc.
+>>>>> 
+>>>>> It's a headache for something of questionable value, is what I'm saying.
+>>>>> 
+>>>>> What do you think?
+>>>>> 
+>>>>> -James
+>>>>> _______________________________________________
+>>>>> spam-stopper mailing list
+>>>>> spam-stopper at lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>>>> 
+>>>> 
+>>>> _______________________________________________
+>>>> spam-stopper mailing list
+>>>> spam-stopper at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>>> _______________________________________________
+>>> spam-stopper mailing list
+>>> spam-stopper at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>> 
+>> 
+>> _______________________________________________
+>> spam-stopper mailing list
+>> spam-stopper at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/spam-stopper
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+
+
+
+From michiel at phplist.com  Sat Mar  3 15:40:36 2012
+From: michiel at phplist.com (Michiel Dethmers)
+Date: Sat, 03 Mar 2012 12:40:36 -0300
+Subject: [spam-stopper] php class
+Message-ID: <4F523B74.5080606@phplist.com>
+
+
+hi all
+
+Just in case it's any use for others, I've made a php class to stop
+web-form spam using Akismet, Mollom, the Honeypot project and
+stopforumspam. I've been using it since September on my own site, with
+great success. Still pending to write it up in an article.
+
+More info here: http://www.phplist.com/formspamclass
+
+code is on github. I've haven't touched the code for months, but it's
+likely it can do with some tweaks.
+
+Michiel
+
+-- 
+
+Michiel Dethmers
+michiel at phplist.com
+http://www.phplist.com
+Open Source newsletter manager
+
+
+
+From carlb613 at hotmail.com  Sat Mar  3 23:10:32 2012
+From: carlb613 at hotmail.com (Carl Austin Bennett)
+Date: Sat, 03 Mar 2012 18:10:32 -0500
+Subject: [spam-stopper] User-agent required when submitting spam?
+In-Reply-To: <CABaPp_j67QmeTjcAN4313c_XrPsutv_80=jzLb8uZ_BcTHj8sQ@mail.gmail.com>
+References: <CABaPp_iyEpD9G1n1xxUnYVJjLaohpLEEmNaU=gNEy-=9T+-7fA@mail.gmail.com>	<D4AC7911-E98A-4ABE-B32B-1EC462A6E16E@dalegroup.net>	<CABaPp_gXeD0axtP_VhhvR+9KEs7FWombzr558vTLgJE7=5enRw@mail.gmail.com>	<68C92A08-249B-4333-B8AC-7B7079A8AFC9@dalegroup.net>
+	<CABaPp_j67QmeTjcAN4313c_XrPsutv_80=jzLb8uZ_BcTHj8sQ@mail.gmail.com>
+Message-ID: <4F52A4E8.1050701@hotmail.com>
+
+On 02/03/12 20:48, james young wrote:
+> Yes.
+>
+> That question reminds me to ask about proxies, when they report the IP
+> making the request; should we pass that along?  It's possibly a useful
+> signal, but it's also not verifiable.  But this is perhaps a tangent.
+>
+> -James
+>
+As far as MediaWiki is concerned, there are two or three kinds of proxies:
+
+1) Squid or Varnish reverse cache as part of the site itself. These are
+deployed to store complete, rendered pages for anon-IP visitors to
+high-volume MediaWiki sites so that the CPU-intensive wikitext->HTML
+conversion process isn't repeated every time someone views a page. These
+will be listed in $wgSquidServers or $wgSquidServersNoCache - they
+normally keep the cached content until the upstream MediaWiki/Apache
+server sends a PURGE message to indicate a page has been changed.
+Non-routable addresses like ::1 or 127.0.0.1 may implicitly be
+recognised as $wgSquidServersNoCache in current MediaWiki; this keeps
+them out of [[special:recentchanges]] and instead uses the
+X-Forwarded-For: header as the user's IP. There is documentation on
+[[mw:manual:squid caching]] and [[mw:manual:varnish caching]] to explain
+the reverse-proxy as web accelerator approach. You do *not* want to
+blacklist 127.0.0.1 at any time for any reason.
+
+2) Rarely, known/trusted proxies which are part of individual ISP's for
+use by that ISP's users. AOL in particular is infamous for having all of
+its users appear behind a limited number of proxy-server IP addresses at
+random, but the unique address of the user is in the X-Forwarded-For
+header and there is an [[mw:Extension:TrustedXFF]] on MediaWiki.org
+which recognised these. This is not part of the standard MediaWiki core
+code but is deployed to the Wikipedia (WMF) servers. The rest of us are
+quite content to block all of AOL or any other provider which allows
+abuse and hides it behind a proxy IP.
+
+3) Every other proxy on the outside Internet, many of which may be
+misconfigured or open in such a way as to allow spammers to hide behind
+them. If a proxy (of which the local wiki's siteadmin is not aware) is
+used to submit spam, standard procedure is to block the open proxy's IP
+on-wiki or globally on the assumption that any spammer will continue to
+abuse these servers to submit linkspam. In other words, the mere use of
+an open proxy itself is reason enough to bitbucket a submission as
+probable spam - either by admins manually blacklisting these after they
+are abused or by extensions such as [[mw:extension:AbuseFilter]]
+(autoblocks page blanking IP's and other abuse) or [[mw:extension:Check
+Spambots]] (imports blacklist data from stopforumspam, honeypot and a
+few DNS BL's). While a [[mw:extension:CheckUser]] lookup by an
+administrator will pull all header addresses (including X-Forwarded-For)
+from the logs, just about anything else in MediaWiki handles these by
+presuming the open proxy *is* the anon-IP spam submitter and banning
+everything behind it.
+
+If you're writing an extension wrapper like
+[[mw:extension:AkismetKlik]], the IP reported to you will be already
+processed in such a way as to replace proxies (1) and maybe (2) above
+with the end-user's IP address while leaving (3) as-is. An untrusted
+proxy may have multiple spam users, may be reporting incorrect
+X-Forwarded-For headers or not be reporting end-user IPv4 or IPv6
+addresses at all. By design, if your open proxy sends spam, it and
+everything behind it gets banned in MediaWiki.
+
+

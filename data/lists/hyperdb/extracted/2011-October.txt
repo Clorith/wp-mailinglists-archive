@@ -1,0 +1,250 @@
+From chris at cmorrell.com  Wed Oct 19 17:23:35 2011
+From: chris at cmorrell.com (Chris Morrell)
+Date: Wed, 19 Oct 2011 13:23:35 -0400
+Subject: [HyperDB] dbDeltas with HyperDB
+Message-ID: <CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com>
+
+Hey everyone,
+
+I'm having an issue with HyperDB and the dbDelta function.  dbDelta runs the
+following code:
+
+$tables = $wpdb->get_col('SHOW TABLES;')
+
+And then loops through the results.  Well, this can be a real issue with
+sharding, where each table can be located on a different database server.
+ It seems to me that the only way to solve this problem would be to patch
+Wordpress core (have dbDelta check each table's existence individually) and
+also patch HyperDB to properly parse the table name from the individual SHOW
+TABLES query.  There's an existing core
+ticket<http://core.trac.wordpress.org/ticket/17998>that begins to
+address a similar issue, but it won't work with HyperDB.
+
+Right now I'm just trying to figure out how to approach the issue.  It seems
+like it would affect just about any plugin that uses dbDelta to upgrade
+their database tables.  Has anyone else run into this problem?  Any good
+solutions?
+
+Thanks!
+  <http://cmorrell.com/> *Chris Morrell*  Web: http://cmorrell.com  Twitter:
+@inxilpro <http://twitter.com/inxilpro>
+
+From skeltoac at gmail.com  Wed Oct 19 17:43:44 2011
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 19 Oct 2011 12:43:44 -0500
+Subject: [HyperDB] dbDeltas with HyperDB
+In-Reply-To: <CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com>
+References: <CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com>
+Message-ID: <CABVyDWWqDg3pPHv7wtYtXVa_6d65KxNduYu3CwXWxzxe8ZZ=pg@mail.gmail.com>
+
+Why does dbDelta bother with SHOW TABLES at all? Why not just loop
+over the table names and do DESCRIBE TABLE on each one?
+
+foreach ( $cqueries as $table => $qry ) {
+    $tablefields = $wpdb->get_results( "DESCRIBE $table" );
+    if ( $tablefields ) {
+        // Generate ALTER TABLE statements
+    } else {
+        // Use CREATE TABLE statement
+    }
+}
+
+Andy
+
+On Wed, Oct 19, 2011 at 12:23 PM, Chris Morrell <chris at cmorrell.com> wrote:
+> Hey everyone,
+>
+> I'm having an issue with HyperDB and the dbDelta function. ?dbDelta runs the
+> following code:
+>
+> $tables = $wpdb->get_col('SHOW TABLES;')
+>
+> And then loops through the results. ?Well, this can be a real issue with
+> sharding, where each table can be located on a different database server.
+> ?It seems to me that the only way to solve this problem would be to patch
+> Wordpress core (have dbDelta check each table's existence individually) and
+> also patch HyperDB to properly parse the table name from the individual SHOW
+> TABLES query. ?There's an existing core
+> ticket<http://core.trac.wordpress.org/ticket/17998>that begins to
+> address a similar issue, but it won't work with HyperDB.
+>
+> Right now I'm just trying to figure out how to approach the issue. ?It seems
+> like it would affect just about any plugin that uses dbDelta to upgrade
+> their database tables. ?Has anyone else run into this problem? ?Any good
+> solutions?
+>
+> Thanks!
+> ?<http://cmorrell.com/> *Chris Morrell* ?Web: http://cmorrell.com ?Twitter:
+> @inxilpro <http://twitter.com/inxilpro>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From chris at cmorrell.com  Wed Oct 19 20:26:43 2011
+From: chris at cmorrell.com (Chris Morrell)
+Date: Wed, 19 Oct 2011 16:26:43 -0400
+Subject: [HyperDB] dbDeltas with HyperDB
+In-Reply-To: <CABVyDWWqDg3pPHv7wtYtXVa_6d65KxNduYu3CwXWxzxe8ZZ=pg@mail.gmail.com>
+References: <CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com>
+	<CABVyDWWqDg3pPHv7wtYtXVa_6d65KxNduYu3CwXWxzxe8ZZ=pg@mail.gmail.com>
+Message-ID: <CAFzJe3YTMwMXuffOAMAuk85V0akczReFOPQ1RKqcMcbtt-CDMw@mail.gmail.com>
+
+Really good point.  dbDelta could drop the SHOW TABLES and the loop through
+those tables and perform exactly the same?
+
+  <http://cmorrell.com/> *Chris Morrell*  Web: http://cmorrell.com  Twitter:
+@inxilpro <http://twitter.com/inxilpro>
+
+
+
+On Wed, Oct 19, 2011 at 1:43 PM, Andy Skelton <skeltoac at gmail.com> wrote:
+
+> Why does dbDelta bother with SHOW TABLES at all? Why not just loop
+> over the table names and do DESCRIBE TABLE on each one?
+>
+> foreach ( $cqueries as $table => $qry ) {
+>    $tablefields = $wpdb->get_results( "DESCRIBE $table" );
+>    if ( $tablefields ) {
+>        // Generate ALTER TABLE statements
+>    } else {
+>        // Use CREATE TABLE statement
+>    }
+> }
+>
+> Andy
+>
+> On Wed, Oct 19, 2011 at 12:23 PM, Chris Morrell <chris at cmorrell.com>
+> wrote:
+> > Hey everyone,
+> >
+> > I'm having an issue with HyperDB and the dbDelta function.  dbDelta runs
+> the
+> > following code:
+> >
+> > $tables = $wpdb->get_col('SHOW TABLES;')
+> >
+> > And then loops through the results.  Well, this can be a real issue with
+> > sharding, where each table can be located on a different database server.
+> >  It seems to me that the only way to solve this problem would be to patch
+> > Wordpress core (have dbDelta check each table's existence individually)
+> and
+> > also patch HyperDB to properly parse the table name from the individual
+> SHOW
+> > TABLES query.  There's an existing core
+> > ticket<http://core.trac.wordpress.org/ticket/17998>that begins to
+> > address a similar issue, but it won't work with HyperDB.
+> >
+> > Right now I'm just trying to figure out how to approach the issue.  It
+> seems
+> > like it would affect just about any plugin that uses dbDelta to upgrade
+> > their database tables.  Has anyone else run into this problem?  Any good
+> > solutions?
+> >
+> > Thanks!
+> >  <http://cmorrell.com/> *Chris Morrell*  Web: http://cmorrell.com Twitter:
+> > @inxilpro <http://twitter.com/inxilpro>
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> >
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+
+From chris at cmorrell.com  Wed Oct 19 20:45:33 2011
+From: chris at cmorrell.com (Chris Morrell)
+Date: Wed, 19 Oct 2011 16:45:33 -0400
+Subject: [HyperDB] dbDeltas with HyperDB
+In-Reply-To: <CAFzJe3YTMwMXuffOAMAuk85V0akczReFOPQ1RKqcMcbtt-CDMw@mail.gmail.com>
+References: <CAFzJe3Y_DvM-RpTdsW7JNXnP4kNTfN-mRu7wyry1Oxt6S8fpoQ@mail.gmail.com>
+	<CABVyDWWqDg3pPHv7wtYtXVa_6d65KxNduYu3CwXWxzxe8ZZ=pg@mail.gmail.com>
+	<CAFzJe3YTMwMXuffOAMAuk85V0akczReFOPQ1RKqcMcbtt-CDMw@mail.gmail.com>
+Message-ID: <CAFzJe3bCuq5pwRDp-YUBCGRFo1tgABDM0ZdN9T5gm7pqNh8PaQ@mail.gmail.com>
+
+I submitted a bug report:
+https://core.trac.wordpress.org/ticket/19007
+
+If anyone has a chance to double-check my code, that'd be great.  I'll try
+to give it some testing next week.
+
+  <http://cmorrell.com/> *Chris Morrell*  Web: http://cmorrell.com  Twitter:
+@inxilpro <http://twitter.com/inxilpro>
+
+
+
+On Wed, Oct 19, 2011 at 4:26 PM, Chris Morrell <chris at cmorrell.com> wrote:
+
+> Really good point.  dbDelta could drop the SHOW TABLES and the loop through
+> those tables and perform exactly the same?
+>
+>    <http://cmorrell.com/> *Chris Morrell* Web: http://cmorrell.com  Twitter:
+> @inxilpro <http://twitter.com/inxilpro>
+>
+>
+>
+> On Wed, Oct 19, 2011 at 1:43 PM, Andy Skelton <skeltoac at gmail.com> wrote:
+>
+>> Why does dbDelta bother with SHOW TABLES at all? Why not just loop
+>> over the table names and do DESCRIBE TABLE on each one?
+>>
+>> foreach ( $cqueries as $table => $qry ) {
+>>    $tablefields = $wpdb->get_results( "DESCRIBE $table" );
+>>    if ( $tablefields ) {
+>>        // Generate ALTER TABLE statements
+>>    } else {
+>>        // Use CREATE TABLE statement
+>>    }
+>> }
+>>
+>> Andy
+>>
+>> On Wed, Oct 19, 2011 at 12:23 PM, Chris Morrell <chris at cmorrell.com>
+>> wrote:
+>> > Hey everyone,
+>> >
+>> > I'm having an issue with HyperDB and the dbDelta function.  dbDelta runs
+>> the
+>> > following code:
+>> >
+>> > $tables = $wpdb->get_col('SHOW TABLES;')
+>> >
+>> > And then loops through the results.  Well, this can be a real issue with
+>> > sharding, where each table can be located on a different database
+>> server.
+>> >  It seems to me that the only way to solve this problem would be to
+>> patch
+>> > Wordpress core (have dbDelta check each table's existence individually)
+>> and
+>> > also patch HyperDB to properly parse the table name from the individual
+>> SHOW
+>> > TABLES query.  There's an existing core
+>> > ticket<http://core.trac.wordpress.org/ticket/17998>that begins to
+>> > address a similar issue, but it won't work with HyperDB.
+>> >
+>> > Right now I'm just trying to figure out how to approach the issue.  It
+>> seems
+>> > like it would affect just about any plugin that uses dbDelta to upgrade
+>> > their database tables.  Has anyone else run into this problem?  Any good
+>> > solutions?
+>> >
+>> > Thanks!
+>> >  <http://cmorrell.com/> *Chris Morrell*  Web: http://cmorrell.com Twitter:
+>> > @inxilpro <http://twitter.com/inxilpro>
+>> > _______________________________________________
+>> > HyperDB mailing list
+>> > HyperDB at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/hyperdb
+>> >
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>
+>
+>
+

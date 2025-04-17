@@ -1,0 +1,812 @@
+From pasquale.puzio at gmail.com  Sat Jul  9 20:51:51 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Sat, 9 Jul 2011 22:51:51 +0200
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress users
+Message-ID: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+
+Hi all,
+
+I automatically imported more two-thousands users as standard
+WordPress users (subscribers).
+After that I installed BuddyPress but now there is an issue: only
+users have logged in at least one time are displayed as buddypress
+members, all the others are not members yet.
+
+How can I automatically synchronize WordPress and BuddyPress? Is there
+some plugin or a simple way to synchronize them?
+
+Thanks
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From michael at asomatic.net  Sat Jul  9 21:04:14 2011
+From: michael at asomatic.net (Michael Arnold Mages)
+Date: Sat, 9 Jul 2011 15:04:14 -0600
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+	users
+In-Reply-To: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+Message-ID: <CBAEBA98-3CAB-4CB1-9B23-95A79B39D205@asomatic.net>
+
+
+I really don't think that buddypress maintains separate login tables from wordpress. Extended profile info, activity stream, etc are maintained separately.... But they are related by a key field. What do you mean by "synchronize"? 
+
+
+--
+Michael Arnold Mages
+michael at thinkmakedo.net
+720-663-7789
+Twitter: @mmages
+
+http://thinkmakedo.net
+--
+
+
+On Jul 9, 2011, at 2:51 PM, Pasquale Puzio <pasquale.puzio at gmail.com> wrote:
+
+> Hi all,
+> 
+> I automatically imported more two-thousands users as standard
+> WordPress users (subscribers).
+> After that I installed BuddyPress but now there is an issue: only
+> users have logged in at least one time are displayed as buddypress
+> members, all the others are not members yet.
+> 
+> How can I automatically synchronize WordPress and BuddyPress? Is there
+> some plugin or a simple way to synchronize them?
+> 
+> Thanks
+> 
+> -- 
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From ehitter at gmail.com  Sat Jul  9 21:52:39 2011
+From: ehitter at gmail.com (Erick Hitter)
+Date: Sat, 9 Jul 2011 17:52:39 -0400
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+	users
+In-Reply-To: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+Message-ID: <CADAM20q4QGd4MRd3-mKJQo9UYjA86_cMqH_my4qu_X3=1tb2eQ@mail.gmail.com>
+
+Pasquale,
+
+You'll need to add a *last_activity* entry to the wp_usermeta table for
+every imported user.
+
+Erick
+
+On Sat, Jul 9, 2011 at 16:51, Pasquale Puzio <pasquale.puzio at gmail.com>wrote:
+
+> Hi all,
+>
+> I automatically imported more two-thousands users as standard
+> WordPress users (subscribers).
+> After that I installed BuddyPress but now there is an issue: only
+> users have logged in at least one time are displayed as buddypress
+> members, all the others are not members yet.
+>
+> How can I automatically synchronize WordPress and BuddyPress? Is there
+> some plugin or a simple way to synchronize them?
+>
+> Thanks
+>
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110709/72c93e8a/attachment.htm>
+
+From pasquale.puzio at gmail.com  Sat Jul  9 22:39:30 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Sun, 10 Jul 2011 00:39:30 +0200
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+	users
+In-Reply-To: <CADAM20q4QGd4MRd3-mKJQo9UYjA86_cMqH_my4qu_X3=1tb2eQ@mail.gmail.com>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+	<CADAM20q4QGd4MRd3-mKJQo9UYjA86_cMqH_my4qu_X3=1tb2eQ@mail.gmail.com>
+Message-ID: <CAGcUGA-tyCzWbZRzFriMAUeOC0AjukYA5vjAg0Z2xHOUd0i1fg@mail.gmail.com>
+
+Thank all of you for your time and your suggestions.
+
+@Michael: maybe I haven't been very clear, when I say synchronize I
+mean that I would to create a buddypress profile for every user
+haven't it now.
+
+@Erick: exactly!!! Which value should I insert in this meta field? Can
+i simply create the meta field using an empty value?
+
+2011/7/9 Erick Hitter <ehitter at gmail.com>:
+> Pasquale,
+> You'll need to add a last_activity?entry to the wp_usermeta table for every
+> imported user.
+> Erick
+>
+> On Sat, Jul 9, 2011 at 16:51, Pasquale Puzio <pasquale.puzio at gmail.com>
+> wrote:
+>>
+>> Hi all,
+>>
+>> I automatically imported more two-thousands users as standard
+>> WordPress users (subscribers).
+>> After that I installed BuddyPress but now there is an issue: only
+>> users have logged in at least one time are displayed as buddypress
+>> members, all the others are not members yet.
+>>
+>> How can I automatically synchronize WordPress and BuddyPress? Is there
+>> some plugin or a simple way to synchronize them?
+>>
+>> Thanks
+>>
+>> --
+>> Dott. Pasquale Puzio
+>> http://www.pasqualepuzio.it
+>> info at pasqualepuzio.it
+>> 340 5026359
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From ehitter at gmail.com  Sat Jul  9 23:34:36 2011
+From: ehitter at gmail.com (Erick Hitter)
+Date: Sat, 9 Jul 2011 19:34:36 -0400
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+	users
+In-Reply-To: <CAGcUGA-tyCzWbZRzFriMAUeOC0AjukYA5vjAg0Z2xHOUd0i1fg@mail.gmail.com>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+	<CADAM20q4QGd4MRd3-mKJQo9UYjA86_cMqH_my4qu_X3=1tb2eQ@mail.gmail.com>
+	<CAGcUGA-tyCzWbZRzFriMAUeOC0AjukYA5vjAg0Z2xHOUd0i1fg@mail.gmail.com>
+Message-ID: <CADAM20psZc7QbGMR2PSrza0e71Rzx4WrOt6_6MdPcvD6t5OsHw@mail.gmail.com>
+
+Pasquale,
+
+I usually put an arbitrary datestamp, such as the site's launch date. I
+suspect the meta value has to be a valid MySQL date so that BuddyPress can
+parse it.
+
+Erick
+On Jul 9, 2011 6:39 PM, "Pasquale Puzio" <pasquale.puzio at gmail.com> wrote:
+> Thank all of you for your time and your suggestions.
+>
+> @Michael: maybe I haven't been very clear, when I say synchronize I
+> mean that I would to create a buddypress profile for every user
+> haven't it now.
+>
+> @Erick: exactly!!! Which value should I insert in this meta field? Can
+> i simply create the meta field using an empty value?
+>
+> 2011/7/9 Erick Hitter <ehitter at gmail.com>:
+>> Pasquale,
+>> You'll need to add a last_activity entry to the wp_usermeta table for
+every
+>> imported user.
+>> Erick
+>>
+>> On Sat, Jul 9, 2011 at 16:51, Pasquale Puzio <pasquale.puzio at gmail.com>
+>> wrote:
+>>>
+>>> Hi all,
+>>>
+>>> I automatically imported more two-thousands users as standard
+>>> WordPress users (subscribers).
+>>> After that I installed BuddyPress but now there is an issue: only
+>>> users have logged in at least one time are displayed as buddypress
+>>> members, all the others are not members yet.
+>>>
+>>> How can I automatically synchronize WordPress and BuddyPress? Is there
+>>> some plugin or a simple way to synchronize them?
+>>>
+>>> Thanks
+>>>
+>>> --
+>>> Dott. Pasquale Puzio
+>>> http://www.pasqualepuzio.it
+>>> info at pasqualepuzio.it
+>>> 340 5026359
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>
+>
+>
+> --
+> Dott. Pasquale Puzio
+> http://www.pasqualepuzio.it
+> info at pasqualepuzio.it
+> 340 5026359
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110709/79b3edc6/attachment.htm>
+
+From pasquale.puzio at gmail.com  Sun Jul 10 08:19:50 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Sun, 10 Jul 2011 10:19:50 +0200
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+	users
+In-Reply-To: <CADAM20psZc7QbGMR2PSrza0e71Rzx4WrOt6_6MdPcvD6t5OsHw@mail.gmail.com>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+	<CADAM20q4QGd4MRd3-mKJQo9UYjA86_cMqH_my4qu_X3=1tb2eQ@mail.gmail.com>
+	<CAGcUGA-tyCzWbZRzFriMAUeOC0AjukYA5vjAg0Z2xHOUd0i1fg@mail.gmail.com>
+	<CADAM20psZc7QbGMR2PSrza0e71Rzx4WrOt6_6MdPcvD6t5OsHw@mail.gmail.com>
+Message-ID: <CAGcUGA_UWZ9EwEabbr__NZY7CoO-CR+LLgZae6f5aH_=heL+dg@mail.gmail.com>
+
+I suspect it too.
+
+So I will try to launch a procedure that updates the last activity
+value of all users with current timestamp.
+
+Thank you very much
+
+2011/7/10 Erick Hitter <ehitter at gmail.com>:
+> Pasquale,
+>
+> I usually put an arbitrary datestamp, such as the site's launch date. I
+> suspect the meta value has to be a valid MySQL date so that BuddyPress can
+> parse it.
+>
+> Erick
+>
+> On Jul 9, 2011 6:39 PM, "Pasquale Puzio" <pasquale.puzio at gmail.com> wrote:
+>> Thank all of you for your time and your suggestions.
+>>
+>> @Michael: maybe I haven't been very clear, when I say synchronize I
+>> mean that I would to create a buddypress profile for every user
+>> haven't it now.
+>>
+>> @Erick: exactly!!! Which value should I insert in this meta field? Can
+>> i simply create the meta field using an empty value?
+>>
+>> 2011/7/9 Erick Hitter <ehitter at gmail.com>:
+>>> Pasquale,
+>>> You'll need to add a last_activity?entry to the wp_usermeta table for
+>>> every
+>>> imported user.
+>>> Erick
+>>>
+>>> On Sat, Jul 9, 2011 at 16:51, Pasquale Puzio <pasquale.puzio at gmail.com>
+>>> wrote:
+>>>>
+>>>> Hi all,
+>>>>
+>>>> I automatically imported more two-thousands users as standard
+>>>> WordPress users (subscribers).
+>>>> After that I installed BuddyPress but now there is an issue: only
+>>>> users have logged in at least one time are displayed as buddypress
+>>>> members, all the others are not members yet.
+>>>>
+>>>> How can I automatically synchronize WordPress and BuddyPress? Is there
+>>>> some plugin or a simple way to synchronize them?
+>>>>
+>>>> Thanks
+>>>>
+>>>> --
+>>>> Dott. Pasquale Puzio
+>>>> http://www.pasqualepuzio.it
+>>>> info at pasqualepuzio.it
+>>>> 340 5026359
+>>>> _______________________________________________
+>>>> buddypress-dev mailing list
+>>>> buddypress-dev at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>>
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>>
+>>
+>>
+>>
+>> --
+>> Dott. Pasquale Puzio
+>> http://www.pasqualepuzio.it
+>> info at pasqualepuzio.it
+>> 340 5026359
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From stas at nerd.ro  Sun Jul 10 10:18:24 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 10 Jul 2011 13:18:24 +0300
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+ users
+In-Reply-To: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+Message-ID: <1310293104.7798.2.camel@rivalry>
+
+?n data de Sb, 09-07-2011 la 22:51 +0200, Pasquale Puzio a scris:
+> How can I automatically synchronize WordPress and BuddyPress? Is there
+> some plugin or a simple way to synchronize them? 
+
+I think (I'm sure actually) this question was answered already in
+previous threads regarding WP vs BP user profiles. It's a pity people do
+not read archives.
+
+:(
+
+
+From pasquale.puzio at gmail.com  Sun Jul 10 10:21:48 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Sun, 10 Jul 2011 12:21:48 +0200
+Subject: [buddypress-dev] How to activate WordPress users as BuddyPress
+	users
+In-Reply-To: <1310293104.7798.2.camel@rivalry>
+References: <CAGcUGA-PQCWGdKFBazFhWPch3z0ELOZOadmkJva3r7T_X9eH4A@mail.gmail.com>
+	<1310293104.7798.2.camel@rivalry>
+Message-ID: <CAGcUGA8X7v-SrDdm+XNSJudkmTTr19+Pm=UYDESPzgxD7ozWfw@mail.gmail.com>
+
+HI Stas,
+
+I'm a new member of this mailing list so I can access just few threads
+of the global archive.
+
+Anyway surely next time I will check the archive to find some answers
+to my question.
+
+Thanks
+
+2011/7/10 Stas Su?cov <stas at nerd.ro>:
+> ?n data de Sb, 09-07-2011 la 22:51 +0200, Pasquale Puzio a scris:
+>> How can I automatically synchronize WordPress and BuddyPress? Is there
+>> some plugin or a simple way to synchronize them?
+>
+> I think (I'm sure actually) this question was answered already in
+> previous threads regarding WP vs BP user profiles. It's a pity people do
+> not read archives.
+>
+> :(
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From stas at nerd.ro  Sun Jul 10 11:16:01 2011
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Sun, 10 Jul 2011 14:16:01 +0300
+Subject: [buddypress-dev] bp_exists()
+Message-ID: <1310296561.13085.5.camel@rivalry>
+
+Hi,
+I was looking for a better way to check if the components (my plugin
+needs) are installed, and stumbled upon `bp_exists()`
+
+I grep-ed through the BuddyPress codebase, but I couldn't find a usage
+example, I was also unable to use it like this:
+`
+if( !bp_exists( 'xprofile' ) )
+	wp_die();
+`
+
+Is this deprecated?
+
+Maybe its worth using a profiler tool for the next version to cleanup
+unreachable blocks of code in BuddyPress.
+
+
+From djpaul at gmail.com  Sun Jul 10 11:20:31 2011
+From: djpaul at gmail.com (Paul Gibbs)
+Date: Sun, 10 Jul 2011 12:20:31 +0100
+Subject: [buddypress-dev] bp_exists()
+In-Reply-To: <1310296561.13085.5.camel@rivalry>
+References: <1310296561.13085.5.camel@rivalry>
+Message-ID: <6FA9FD8C5E204FFEA037F77988A7E136@gmail.com>
+
+ bp_is_active() is what you're looking for.
+
+-- 
+Paul Gibbs
+
+On Sunday, 10 July 2011 at 12:16, Stas Su?cov wrote:
+
+> Hi,
+> I was looking for a better way to check if the components (my plugin
+> needs) are installed, and stumbled upon `bp_exists()`
+> 
+> I grep-ed through the BuddyPress codebase, but I couldn't find a usage
+> example, I was also unable to use it like this:
+> `
+> if( !bp_exists( 'xprofile' ) )
+>  wp_die();
+> `
+> 
+> Is this deprecated?
+> 
+> Maybe its worth using a profiler tool for the next version to cleanup
+> unreachable blocks of code in BuddyPress.
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com (mailto:buddypress-dev at lists.automattic.com)
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110710/5d9efd05/attachment.htm>
+
+From pasquale.puzio at gmail.com  Sun Jul 10 21:21:18 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Sun, 10 Jul 2011 23:21:18 +0200
+Subject: [buddypress-dev] Sort members by last name
+Message-ID: <CAGcUGA-S-pkA5jDv=spTus6j7+okgTvKPJPbB_YFToDc_pJsjg@mail.gmail.com>
+
+Hi all,
+
+I would like to display members sorted alphabetically by last name and
+not (as default) by first name + last name.
+
+How can I add a filter to the member list sorting?
+
+Thanks
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From pasquale.puzio at gmail.com  Fri Jul 22 17:46:03 2011
+From: pasquale.puzio at gmail.com (Pasquale Puzio)
+Date: Fri, 22 Jul 2011 19:46:03 +0200
+Subject: [buddypress-dev] Last release
+Message-ID: <CAGcUGA_GTjqc+RE8tTW8o0oKSfRLX8y2-ixJpbxMAg+1W78FxA@mail.gmail.com>
+
+Hi all,
+
+someone has news about the last release? Is there some compatibility
+issue in the updating from the previous version?
+
+In other words, can I update buddypress from 1.2.8 to 1.2.9 without to
+be worry? :-)
+
+-- 
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+
+From chzumbrunnen at gmx.ch  Fri Jul 22 17:58:24 2011
+From: chzumbrunnen at gmx.ch (Christian Zumbrunnen)
+Date: Fri, 22 Jul 2011 19:58:24 +0200
+Subject: [buddypress-dev] Last release
+In-Reply-To: <CAGcUGA_GTjqc+RE8tTW8o0oKSfRLX8y2-ixJpbxMAg+1W78FxA@mail.gmail.com>
+References: <CAGcUGA_GTjqc+RE8tTW8o0oKSfRLX8y2-ixJpbxMAg+1W78FxA@mail.gmail.com>
+Message-ID: <000001cc4898$f44f5350$dcedf9f0$@gmx.ch>
+
+I had not problems on WordPress 3.2.1. but it wasn't a critical, productive
+site and very low traffic and few users.
+
+Christian
+
+-----Urspr?ngliche Nachricht-----
+Von: buddypress-dev-bounces at lists.automattic.com
+[mailto:buddypress-dev-bounces at lists.automattic.com] Im Auftrag von Pasquale
+Puzio
+Gesendet: Freitag, 22. Juli 2011 19:46
+An: buddypress-dev at lists.automattic.com
+Betreff: [buddypress-dev] Last release
+
+Hi all,
+
+someone has news about the last release? Is there some compatibility issue
+in the updating from the previous version?
+
+In other words, can I update buddypress from 1.2.8 to 1.2.9 without to be
+worry? :-)
+
+--
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+
+From rolands_umbrovskis at yahoo.com  Sat Jul 23 08:03:14 2011
+From: rolands_umbrovskis at yahoo.com (rolandinsh.lv | Rolands U.)
+Date: Sat, 23 Jul 2011 01:03:14 -0700 (PDT)
+Subject: [buddypress-dev] Last release
+In-Reply-To: <000001cc4898$f44f5350$dcedf9f0$@gmx.ch>
+References: <CAGcUGA_GTjqc+RE8tTW8o0oKSfRLX8y2-ixJpbxMAg+1W78FxA@mail.gmail.com>
+	<000001cc4898$f44f5350$dcedf9f0$@gmx.ch>
+Message-ID: <1311408194.30110.YahooMailNeo@web113216.mail.gq1.yahoo.com>
+
+As far as can see, there are no issues currently with BP 1.2.9 and WP 3.2.1.
+
+?
+Rolands Umbrovskis 
+http://umbrovskis.com | simplemediacode.com
+Owner / Freelance web developer at MediaBox.lv 
++371 29996832
+
+
+
+________________________________
+From: Christian Zumbrunnen <chzumbrunnen at gmx.ch>
+To: buddypress-dev at lists.automattic.com
+Sent: Friday, July 22, 2011 8:58 PM
+Subject: Re: [buddypress-dev] Last release
+
+I had not problems on WordPress 3.2.1. but it wasn't a critical, productive
+site and very low traffic and few users.
+
+Christian
+
+-----Urspr?ngliche Nachricht-----
+Von: buddypress-dev-bounces at lists.automattic.com
+[mailto:buddypress-dev-bounces at lists.automattic.com] Im Auftrag von Pasquale
+Puzio
+Gesendet: Freitag, 22. Juli 2011 19:46
+An: buddypress-dev at lists.automattic.com
+Betreff: [buddypress-dev] Last release
+
+Hi all,
+
+someone has news about the last release? Is there some compatibility issue
+in the updating from the previous version?
+
+In other words, can I update buddypress from 1.2.8 to 1.2.9 without to be
+worry? :-)
+
+--
+Dott. Pasquale Puzio
+http://www.pasqualepuzio.it
+info at pasqualepuzio.it
+340 5026359
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110723/01c06376/attachment.htm>
+
+From art at jarthurbutcher.com  Wed Jul 27 18:18:17 2011
+From: art at jarthurbutcher.com (Art Butcher)
+Date: Wed, 27 Jul 2011 14:18:17 -0400
+Subject: [buddypress-dev] Not Sending Private Messages
+Message-ID: <CAG38F-N3q8dLS3SUCu1YV-9uNSNeFjmAZfaDFRoa5cFdsVmbvg@mail.gmail.com>
+
+We?re running Wordpress 3.2 and BuddyPress 1.2.9 using BuddyPress Template
+Pack 1.1.3 and hosting on Bluehost.
+
+When I compose a message I enter all the fields ? Send To; Subject and
+Message.
+
+When I send the message I get?
+
+There was an error sending that message1, please try again
+
+I found where this message originates in the BuddyPress message.php
+template. There are three places. I added a 1, 2, 3 to see which one is
+causing the problem.
+
+The 1 is for the a missing subject or content. After sending the message and
+when the error messages appears the subject field remains filled in, but the
+content field is blank. For some reason the content field is being wiped out
+and seen as empty.
+
+Any ideas?
+
+Thanks,
+Art
+
+
+-- 
+Art
+216-548-8482
+art at jarthurbutcher.com
+www.jarthurbutcher.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110727/11336da2/attachment.htm>
+
+From djpaul at gmail.com  Wed Jul 27 18:23:18 2011
+From: djpaul at gmail.com (Paul Gibbs)
+Date: Wed, 27 Jul 2011 19:23:18 +0100
+Subject: [buddypress-dev] Not Sending Private Messages
+In-Reply-To: <CAG38F-N3q8dLS3SUCu1YV-9uNSNeFjmAZfaDFRoa5cFdsVmbvg@mail.gmail.com>
+References: <CAG38F-N3q8dLS3SUCu1YV-9uNSNeFjmAZfaDFRoa5cFdsVmbvg@mail.gmail.com>
+Message-ID: <A69B525050BD43E6968AAB24B6395566@gmail.com>
+
+ I suppose Template Pack might be out of date or need fixing because, in theory, if you haven't customised message.php etc, it ought to work. It might be worth seeing if you can find any recent discussion on the buddypress.org forums, and if not, posting a bug report on http://buddypress.trac.wordpress.org/  
+
+--  
+Paul Gibbs
+
+On Wednesday, 27 July 2011 at 19:18, Art Butcher wrote:
+
+> We?re running Wordpress 3.2 and BuddyPress 1.2.9 using BuddyPress Template Pack 1.1.3 and hosting on Bluehost.
+> When I compose a message I enter all the fields ? Send To; Subject and Message.  
+> When I send the message I get?
+> There was an error sending that message1, please try again
+> I found where this message originates in the BuddyPress message.php template. There are three places. I added a 1, 2, 3 to see which one is causing the problem.
+> The 1 is for the a missing subject or content. After sending the message and when the error messages appears the subject field remains filled in, but the content field is blank. For some reason the content field is being wiped out and seen as empty.
+> Any ideas?
+> Thanks,
+>  Art  
+>  
+> --  
+> Art
+>  216-548-8482
+> art at jarthurbutcher.com (mailto:art at jarthurbutcher.com)
+> www.jarthurbutcher.com (http://www.jarthurbutcher.com)
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com (mailto:buddypress-dev at lists.automattic.com)
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110727/be63d81d/attachment.htm>
+
+From art at jarthurbutcher.com  Thu Jul 28 12:26:49 2011
+From: art at jarthurbutcher.com (Art Butcher)
+Date: Thu, 28 Jul 2011 08:26:49 -0400
+Subject: [buddypress-dev] Not Sending Private Messages
+In-Reply-To: <A69B525050BD43E6968AAB24B6395566@gmail.com>
+References: <CAG38F-N3q8dLS3SUCu1YV-9uNSNeFjmAZfaDFRoa5cFdsVmbvg@mail.gmail.com>
+	<A69B525050BD43E6968AAB24B6395566@gmail.com>
+Message-ID: <CAG38F-MX_+gFr+uRDoA3mmiTxV3JaBW6NcmS51pgVqh622LLdw@mail.gmail.com>
+
+Upon further investigation I decided to replace the compose.php loaded from
+BuddyPress Template Pack 1.1.3 with the compose.php template from the
+default BuddyPress theme.
+
+This fixed the problem.
+
+Thanks to everyone who looked into this problem.
+Art
+
+On Wed, Jul 27, 2011 at 2:23 PM, Paul Gibbs <djpaul at gmail.com> wrote:
+
+>  I suppose Template Pack might be out of date or need fixing because, in
+> theory, if you haven't customised message.php etc, it ought to work. It
+> might be worth seeing if you can find any recent discussion on the
+> buddypress.org forums, and if not, posting a bug report on
+> http://buddypress.trac.wordpress.org/
+>
+> --
+> Paul Gibbs
+>
+> On Wednesday, 27 July 2011 at 19:18, Art Butcher wrote:
+>
+>  We?re running Wordpress 3.2 and BuddyPress 1.2.9 using BuddyPress
+> Template Pack 1.1.3 and hosting on Bluehost.
+>
+> When I compose a message I enter all the fields ? Send To; Subject and
+> Message.
+>
+> When I send the message I get?
+>
+> There was an error sending that message1, please try again
+>
+> I found where this message originates in the BuddyPress message.php
+> template. There are three places. I added a 1, 2, 3 to see which one is
+> causing the problem.
+>
+> The 1 is for the a missing subject or content. After sending the message
+> and when the error messages appears the subject field remains filled in, but
+> the content field is blank. For some reason the content field is being wiped
+> out and seen as empty.
+>
+> Any ideas?
+>
+> Thanks,
+> Art
+>
+>
+> --
+> Art
+> 216-548-8482
+> art at jarthurbutcher.com
+> www.jarthurbutcher.com
+>  _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+-- 
+Art
+216-548-8482
+art at jarthurbutcher.com
+www.jarthurbutcher.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20110728/d9c1b59f/attachment.htm>
+

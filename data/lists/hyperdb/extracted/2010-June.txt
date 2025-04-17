@@ -1,0 +1,292 @@
+From Joe_Beck at Comcast.com  Wed Jun  2 17:33:34 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Wed, 2 Jun 2010 13:33:34 -0400
+Subject: [HyperDB] multi-datacenter configuration
+Message-ID: <C82C0E2E.19E00%Joe_Beck@Comcast.com>
+
+We?re looking to migrate to a multi-datacenter configuration & the 2 most
+obvious challenges with wordpress are DB and wp-contents contents.
+This post is focused on DB:
+Can anyone speak to architecture options here.
+I?ve read that wordpress.com has 3 data centers but I believe its only using
+master ? slave replication.
+if this is the case, are you just using mysql replication to keep all dbs
+across data centers in sync?
+And more specifically, how do you direct any writes (article posts or
+comments submitted) to the master db to do the write?
+this goes back to orig question on whether you only have a single master
+that resides in 1 of your data centers.
+
+I realize that hyperDB has some capabilities to support multi-DC but I
+needed to get the above question answered before even looking closer at
+that, at least I think I do.
+
+Thanks for any feedback,
+Joe
+
+
+From skeltoac at gmail.com  Wed Jun  2 19:15:59 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 2 Jun 2010 14:15:59 -0500
+Subject: [HyperDB] multi-datacenter configuration
+In-Reply-To: <C82C0E2E.19E00%Joe_Beck@Comcast.com>
+References: <C82C0E2E.19E00%Joe_Beck@Comcast.com>
+Message-ID: <AANLkTimCYIizl2O9aBadBE0eq932j_arZwQd2FtUkhTX@mail.gmail.com>
+
+> I?ve read that wordpress.com has 3 data centers but I believe its only using
+> master ? slave replication.
+> if this is the case, are you just using mysql replication to keep all dbs
+> across data centers in sync?
+
+That's right.
+
+> And more specifically, how do you direct any writes (article posts or
+> comments submitted) to the master db to do the write?
+
+In the HyperDB config you specify the masters by setting their "write"
+flag. See db-settings.php for details.
+
+Andy
+
+From Joe_Beck at Comcast.com  Wed Jun  2 19:26:00 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Wed, 2 Jun 2010 15:26:00 -0400
+Subject: [HyperDB] multi-datacenter configuration
+In-Reply-To: <AANLkTimCYIizl2O9aBadBE0eq932j_arZwQd2FtUkhTX@mail.gmail.com>
+Message-ID: <C82C2888.19E59%Joe_Beck@Comcast.com>
+
+thanks.
+does this mean there is a single point of failure then?
+if the data center with the master (write) db is inaccessible/down/whatever
+or that db server is down/offline/whatever then no writes can happen?
+
+Joe
+
+
+On 6/2/10 3:15 PM, "Andy Skelton" <skeltoac at gmail.com> wrote:
+
+>> I?ve read that wordpress.com has 3 data centers but I believe its only using
+>> master ? slave replication.
+>> if this is the case, are you just using mysql replication to keep all dbs
+>> across data centers in sync?
+> 
+> That's right.
+> 
+>> And more specifically, how do you direct any writes (article posts or
+>> comments submitted) to the master db to do the write?
+> 
+> In the HyperDB config you specify the masters by setting their "write"
+> flag. See db-settings.php for details.
+> 
+> Andy
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+
+From skeltoac at gmail.com  Wed Jun  2 20:35:47 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 2 Jun 2010 15:35:47 -0500
+Subject: [HyperDB] multi-datacenter configuration
+In-Reply-To: <C82C2888.19E59%Joe_Beck@Comcast.com>
+References: <AANLkTimCYIizl2O9aBadBE0eq932j_arZwQd2FtUkhTX@mail.gmail.com>
+	<C82C2888.19E59%Joe_Beck@Comcast.com>
+Message-ID: <AANLkTinmxINRO6FPXKQwTR2BrrBe60af_O84BVDOkuD7@mail.gmail.com>
+
+> does this mean there is a single point of failure then?
+> if the data center with the master (write) db is inaccessible/down/whatever
+> or that db server is down/offline/whatever then no writes can happen?
+
+Yes.
+
+We do not use multi-master anywhere in our system, so I don't know
+from experience, but I think if you use that you will be able to
+configure HyperDB to work with it.
+
+Andy
+
+From skeltoac at gmail.com  Thu Jun  3 17:56:49 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu, 3 Jun 2010 12:56:49 -0500
+Subject: [HyperDB] 1.0 soon
+Message-ID: <AANLkTimjasZPDlx7HJvytU0RLcCXuW5aGrRE2Ltad7Em@mail.gmail.com>
+
+I have tagged current trunk as 0.1. Trunk will be changing very
+rapidly beginning now. These are the goals:
+* Remove BackPress support
+* Remove WPMU support in favor of WP 3.0
+* Remove globals like $db_servers, $db_tables
+* Remove $single_db (just use wpdb if no multiple DBs)
+* class hyperdb extends wpdb (much easier to maintain)
+* Move config function logic to hyperdb class
+  - leave back-compat wrappers in config file for lazy upgrade
+  - you can modify the wrappers
+* Instantiate with DB constants before loading config
+  - you can query that DB to determine how to configure hyperdb!
+  - it's okay if you don't have those constants or they are empty
+  - if you don't query, it won't connect. no performance hit.
+* Remove get_ds_part_from_table
+* Remove $hash
+* Replace the two above with a plug-in system
+  - you can define and register your own function in your config
+  - function arg will be the query. it can use get_table_from_query.
+  - function will return compact('dataset', 'partition', 'database')
+  - db_connect will extract (overwrite) so it's quite powerful
+  - no function registered, no performance hit
+* Merge some custom wordpress.com db features into hyperdb 1.0
+* Simplify installation procedure, make it atomic (safer)
+  - Deploying only db.php has no effect (it falls back on wpdb)
+  - Deploying db-config.php turns on hyperdb
+
+The next few changesets will break WPMU and fix 3.0.
+
+If you are using WPMU and not planning on migrating to WP 3.0 you will
+be maintaining your own branch of hyperdb.
+
+When you upgrade to 1.0 you will be REQUIRED to update your
+configuration. The upgrade will most likely be copy/paste and
+search/replace, two minutes with a text editor. I'm changing the
+config file name to force you to take action.
+
+Using a new config file name also makes the upgrade safer. You can
+deploy the new config then deploy the new db.php for an atomic
+upgrade. Naturally you should test before deploying to a production
+site.
+
+If you are using any of the things I plan to remove please reply. I
+will try to make it easy for everyone to upgrade.
+
+To discuss any planned new features or requests please start a new subject.
+
+Cheers,
+Andy
+
+From Joe_Beck at Comcast.com  Sat Jun 12 12:03:23 2010
+From: Joe_Beck at Comcast.com (Beck, Joe)
+Date: Sat, 12 Jun 2010 08:03:23 -0400
+Subject: [HyperDB] multi-datacenter configuration
+In-Reply-To: <AANLkTinmxINRO6FPXKQwTR2BrrBe60af_O84BVDOkuD7@mail.gmail.com>
+Message-ID: <C838EFCB.1ACDA%Joe_Beck@Comcast.com>
+
+I guess at that point (master db down) db-settings.php would be updated to
+point all writes to the slave.
+
+If anyone who is doing multi-datacenter with hyperdb can offer feedback in
+terms of architecture & configuration that would be helpful.
+In terms of writes...
+if mysql is config?d in master slave config or master-master but all write
+traffic is routed to single master via hyperdb, I?m concerned about latency?
+if my config is:
+akamai in front, caching many reads & doing GTM (global traffic mgr) to
+origin (my blog web servers) for the rest of the traffic
+datacenter(DC) east: 3 web nodes & 3 db nodes
+datacenter(DC) west: 3 web nodes & 3 db nodes
+
+the latency I expect to occur is if my primary write db is in DC east and
+write traffic that flows through DC west will look at hyperdb config & send
+all write traffic to my primary db in DC east...this may be an issue
+depending on pipe/bandwidth, traffic volume, and load.
+
+Is this the config that some of you using, or similar type of setup?
+And, has anyone tested and addressed this latency concern?
+
+thanks for any feedback,
+Joe 
+
+
+On 6/2/10 4:35 PM, "Andy Skelton" <skeltoac at gmail.com> wrote:
+
+>> > does this mean there is a single point of failure then?
+>> > if the data center with the master (write) db is inaccessible/down/whatever
+>> > or that db server is down/offline/whatever then no writes can happen?
+> 
+> Yes.
+> 
+> We do not use multi-master anywhere in our system, so I don't know
+> from experience, but I think if you use that you will be able to
+> configure HyperDB to work with it.
+> 
+> Andy
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+
+
+From jim at jimmcq.com  Wed Jun 30 05:58:07 2010
+From: jim at jimmcq.com (Jim McQuillan)
+Date: Tue, 29 Jun 2010 22:58:07 -0700
+Subject: [HyperDB] 1.0 soon
+In-Reply-To: <AANLkTimjasZPDlx7HJvytU0RLcCXuW5aGrRE2Ltad7Em@mail.gmail.com>
+References: <AANLkTimjasZPDlx7HJvytU0RLcCXuW5aGrRE2Ltad7Em@mail.gmail.com>
+Message-ID: <4C2ADCEF.4030600@jimmcq.com>
+
+
+Does anyone know if the SharDB plugin works with the new HyperDB 1.0
+release, or does it need also need an update?
+
+http://wordpress.org/extend/plugins/shardb/
+
+Thanks!
+-Jim
+
+
+On 6/3/2010 10:56 AM, Andy Skelton wrote:
+> I have tagged current trunk as 0.1. Trunk will be changing very
+> rapidly beginning now. These are the goals:
+> * Remove BackPress support
+> * Remove WPMU support in favor of WP 3.0
+> * Remove globals like $db_servers, $db_tables
+> * Remove $single_db (just use wpdb if no multiple DBs)
+> * class hyperdb extends wpdb (much easier to maintain)
+> * Move config function logic to hyperdb class
+>   - leave back-compat wrappers in config file for lazy upgrade
+>   - you can modify the wrappers
+> * Instantiate with DB constants before loading config
+>   - you can query that DB to determine how to configure hyperdb!
+>   - it's okay if you don't have those constants or they are empty
+>   - if you don't query, it won't connect. no performance hit.
+> * Remove get_ds_part_from_table
+> * Remove $hash
+> * Replace the two above with a plug-in system
+>   - you can define and register your own function in your config
+>   - function arg will be the query. it can use get_table_from_query.
+>   - function will return compact('dataset', 'partition', 'database')
+>   - db_connect will extract (overwrite) so it's quite powerful
+>   - no function registered, no performance hit
+> * Merge some custom wordpress.com db features into hyperdb 1.0
+> * Simplify installation procedure, make it atomic (safer)
+>   - Deploying only db.php has no effect (it falls back on wpdb)
+>   - Deploying db-config.php turns on hyperdb
+>
+> The next few changesets will break WPMU and fix 3.0.
+>
+> If you are using WPMU and not planning on migrating to WP 3.0 you will
+> be maintaining your own branch of hyperdb.
+>
+> When you upgrade to 1.0 you will be REQUIRED to update your
+> configuration. The upgrade will most likely be copy/paste and
+> search/replace, two minutes with a text editor. I'm changing the
+> config file name to force you to take action.
+>
+> Using a new config file name also makes the upgrade safer. You can
+> deploy the new config then deploy the new db.php for an atomic
+> upgrade. Naturally you should test before deploying to a production
+> site.
+>
+> If you are using any of the things I plan to remove please reply. I
+> will try to make it easy for everyone to upgrade.
+>
+> To discuss any planned new features or requests please start a new subject.
+>
+> Cheers,
+> Andy
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+>   
+

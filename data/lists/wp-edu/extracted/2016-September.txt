@@ -1,0 +1,322 @@
+From srg at temple.edu  Thu Sep  1 16:14:58 2016
+From: srg at temple.edu (Stephen R Guglielmo)
+Date: Thu, 1 Sep 2016 16:14:58 +0000
+Subject: [wp-edu] Shibboleth on WordPress
+Message-ID: <39a01c80c17a4bc78d8529a2dc035a64@exch15-mr03.tu.temple.edu>
+
+Hello all,
+
+We have a large WordPress multisite at our University. Currently, we are using a LDAP plugin to handle our authentication/authorization. Our Identity Management group wants everyone to move to Shibboleth if possible. We already have the IdP infrastructure.
+
+The issue that concerns me is that the WordPress Shibboleth plugin [1] seems to be not very well maintained. On the GitHub repo for the plugin [2], there are pending pull requests from 2014 and 2015 and a handful of pending issues (including some that are multisite-specific). The majority of the pull requests and issues have no response from the committer/maintainer.
+
+Is anyone else using Shibboleth for a WordPress multisite instance? Are you using a custom implementation or this plugin? I?m just looking for any feedback from anyone who is using it to see if it?s a worthy pursuit or if we should just stick with LDAP.
+
+Thanks,
+Steve Guglielmo
+Temple University
+
+[1] https://wordpress.org/plugins/shibboleth/
+[2] https://github.com/mitcho/shibboleth
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160901/b2bc5d33/attachment.html>
+
+From Ian.Altgilbers at tufts.edu  Thu Sep  1 16:48:19 2016
+From: Ian.Altgilbers at tufts.edu (Altgilbers, Ian M)
+Date: Thu, 1 Sep 2016 16:48:19 +0000
+Subject: [wp-edu] Shibboleth on WordPress
+In-Reply-To: <39a01c80c17a4bc78d8529a2dc035a64@exch15-mr03.tu.temple.edu>
+References: <39a01c80c17a4bc78d8529a2dc035a64@exch15-mr03.tu.temple.edu>
+Message-ID: <2885398B-59A8-4306-8751-E55519A17C39@tufts.edu>
+
+We installed/configured on a dev system back in 2014, but didn?t move forward at the time due to the fact that many of our users are not in LDAP.  We?d have to deal with directing people to the appropriate login, which we didn?t have a great solution for at the time.
+
+We too are now being ?encouraged? to move applications to Shib, so we might be in a similar boat soon.
+
+
+Ian Altgilbers
+Senior Systems Administrator
+Educational Technology Services
+Tufts Technology Services
+Tufts University
+
+Phone: 617.627.0388
+http://it.tufts.edu/ests
+
+
+
+On Sep 1, 2016, at 12:14 PM, Stephen R Guglielmo <srg at temple.edu<mailto:srg at temple.edu>> wrote:
+
+Hello all,
+
+We have a large WordPress multisite at our University. Currently, we are using a LDAP plugin to handle our authentication/authorization. Our Identity Management group wants everyone to move to Shibboleth if possible. We already have the IdP infrastructure.
+
+The issue that concerns me is that the WordPress Shibboleth plugin [1] seems to be not very well maintained. On the GitHub repo for the plugin [2], there are pending pull requests from 2014 and 2015 and a handful of pending issues (including some that are multisite-specific). The majority of the pull requests and issues have no response from the committer/maintainer.
+
+Is anyone else using Shibboleth for a WordPress multisite instance? Are you using a custom implementation or this plugin? I?m just looking for any feedback from anyone who is using it to see if it?s a worthy pursuit or if we should just stick with LDAP.
+
+Thanks,
+Steve Guglielmo
+Temple University
+
+[1] https://wordpress.org/plugins/shibboleth/
+[2] https://github.com/mitcho/shibboleth
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160901/92664e05/attachment.html>
+
+From mbarnard at mtholyoke.edu  Thu Sep  1 16:56:51 2016
+From: mbarnard at mtholyoke.edu (Michael Barnard)
+Date: Thu, 1 Sep 2016 12:56:51 -0400
+Subject: [wp-edu] Shibboleth on WordPress
+In-Reply-To: <39a01c80c17a4bc78d8529a2dc035a64@exch15-mr03.tu.temple.edu>
+References: <39a01c80c17a4bc78d8529a2dc035a64@exch15-mr03.tu.temple.edu>
+Message-ID: <CAD7ia+64PiAVhd5Ukd+mGxqcyAS0aNBbE=6HbN6WK0sXJpPXtw@mail.gmail.com>
+
+We're using Shibboleth with Wordpress multisite here at Mount Holyoke
+College. I do have a custom fork of the plugin running, but not because of
+any of the outstanding issues. We are part of a consortium with 4 other
+colleges/universities and we needed a way to whitelist students from those
+other colleges, as well as a handful of other exceptions. So, basically,
+you're allowed into our Wordpress blog site if your account is a Mount
+Holyoke account, or if you're enrolled in a class here from one of the
+other 4 colleges, or if you're on a manually-maintained whitelist. The
+difference between my fork of the plugin and the stock version is maybe 10
+lines of code (which simply short-circuits the access check if your eppn is
+contained within a particular MySQL table), so it's very easy to maintain.
+If we didn't need this somewhat-specialized functionality, we could
+probably get by with just the stock plugin. And there's probably some way I
+could use Shibboleth itself to do this magic, but despite being my school's
+Shibboleth administrator, it's still mostly a dark art to me.
+
+On Thu, Sep 1, 2016 at 12:14 PM, Stephen R Guglielmo <srg at temple.edu> wrote:
+
+> Hello all,
+>
+>
+>
+> We have a large WordPress multisite at our University. Currently, we are
+> using a LDAP plugin to handle our authentication/authorization. Our
+> Identity Management group wants everyone to move to Shibboleth if possible.
+> We already have the IdP infrastructure.
+>
+>
+>
+> The issue that concerns me is that the WordPress Shibboleth plugin [1]
+> seems to be not very well maintained. On the GitHub repo for the plugin
+> [2], there are pending pull requests from 2014 and 2015 and a handful of
+> pending issues (including some that are multisite-specific). The majority
+> of the pull requests and issues have no response from the
+> committer/maintainer.
+>
+>
+>
+> Is anyone else using Shibboleth for a WordPress multisite instance? Are
+> you using a custom implementation or this plugin? I?m just looking for any
+> feedback from anyone who is using it to see if it?s a worthy pursuit or if
+> we should just stick with LDAP.
+>
+>
+>
+> Thanks,
+>
+> Steve Guglielmo
+>
+> Temple University
+>
+>
+>
+> [1] https://wordpress.org/plugins/shibboleth/
+>
+> [2] https://github.com/mitcho/shibboleth
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160901/be7a4b3a/attachment-0001.html>
+
+From dennen at gmail.com  Thu Sep  1 16:59:26 2016
+From: dennen at gmail.com (Bill Dennen)
+Date: Thu, 1 Sep 2016 12:59:26 -0400
+Subject: [wp-edu] Shibboleth on WordPress
+In-Reply-To: <2885398B-59A8-4306-8751-E55519A17C39@tufts.edu>
+References: <39a01c80c17a4bc78d8529a2dc035a64@exch15-mr03.tu.temple.edu>
+ <2885398B-59A8-4306-8751-E55519A17C39@tufts.edu>
+Message-ID: <CAAFBVjhS5vfYbBD6SGVP9Cxj-WYWEF=FyNrKfeMk_2Mh--zLfQ@mail.gmail.com>
+
+We have been using the plugin for a few years at Brown.
+
+Functionally, it has worked well.
+
+The only issue that comes to mind is a confusing interface for adding
+users. That is, administrators are sometimes confused when to add a new
+user vs an existing user. We modified the "add user" screen to help, but
+our changes are pretty Brown-specific.
+
+
+
+
+On Thu, Sep 1, 2016 at 12:48 PM, Altgilbers, Ian M <Ian.Altgilbers at tufts.edu
+> wrote:
+
+> We installed/configured on a dev system back in 2014, but didn?t move
+> forward at the time due to the fact that many of our users are not in
+> LDAP.  We?d have to deal with directing people to the appropriate login,
+> which we didn?t have a great solution for at the time.
+>
+> We too are now being ?encouraged? to move applications to Shib, so we
+> might be in a similar boat soon.
+>
+>
+> Ian Altgilbers
+> Senior Systems Administrator
+> Educational Technology Services
+> Tufts Technology Services
+> Tufts University
+>
+> Phone: 617.627.0388
+> http://it.tufts.edu/ests
+>
+>
+>
+> On Sep 1, 2016, at 12:14 PM, Stephen R Guglielmo <srg at temple.edu> wrote:
+>
+> Hello all,
+>
+> We have a large WordPress multisite at our University. Currently, we are
+> using a LDAP plugin to handle our authentication/authorization. Our
+> Identity Management group wants everyone to move to Shibboleth if possible.
+> We already have the IdP infrastructure.
+>
+> The issue that concerns me is that the WordPress Shibboleth plugin [1]
+> seems to be not very well maintained. On the GitHub repo for the plugin
+> [2], there are pending pull requests from 2014 and 2015 and a handful of
+> pending issues (including some that are multisite-specific). The majority
+> of the pull requests and issues have no response from the
+> committer/maintainer.
+>
+> Is anyone else using Shibboleth for a WordPress multisite instance? Are
+> you using a custom implementation or this plugin? I?m just looking for any
+> feedback from anyone who is using it to see if it?s a worthy pursuit or if
+> we should just stick with LDAP.
+>
+> Thanks,
+> Steve Guglielmo
+> Temple University
+>
+> [1] https://wordpress.org/plugins/shibboleth/
+> [2] https://github.com/mitcho/shibboleth
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160901/564431ff/attachment.html>
+
+From shah.neel at nyu.edu  Tue Sep  6 15:24:38 2016
+From: shah.neel at nyu.edu (Neel Shah)
+Date: Tue, 6 Sep 2016 11:24:38 -0400
+Subject: [wp-edu] Shibboleth on WordPress
+Message-ID: <CALrFa9uUssX-ZFZTKn39RwgPU0_Zd2EMk=FcrO_cyrZx-o3mcA@mail.gmail.com>
+
+Hi All,
+
+We use Shibboleth Plugin (https://github.com/mitcho/shibboleth/) for our
+wordpress service at New York University. There are not many options that
+we could find out there and so use this plugin based on a number of
+reasons. There is an alternative Miniorange SAML Plugin (
+https://wordpress.org/plugins/miniorange-saml-20-single-sign-on/) which
+works with Shibboleth Idp and is compartively easy to setup and is well
+maintained. You need a Pro version for multisite, however their licensing
+is a bit of an issue due to per site license policy.
+
+I am in agreement that the plugin is less maintained, however it still
+solves the purpose well for allowing Shibboleth authentication. It does
+requires extra setup and config on server level initially and should be
+good to go later. I have scanned through the pull requests and they are
+good to have in the plugin and would recommend forking the repo and keep a
+track of changes or new pull requests on the original github repo. That is
+how we keep this plugin maintained for ourselves. We are working on few
+customizations of ours as well and might send in pull requests for others
+interested. One such use case is to restrict/disallow a certain set of
+users from Shibboleth to access our wordpress service.
+
+I am happy to discuss more if someone needs additional information related
+to this.
+
+Best,
+Neel
+
+Neel Shah
+Information Technology Specialist
+New York University
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20160906/7f20c3eb/attachment.html>
+
+From shelldrakeconsulting at dixielang.com  Thu Sep 15 02:57:09 2016
+From: shelldrakeconsulting at dixielang.com (shelldrakeconsulting at dixielang.com)
+Date: Wed, 14 Sep 2016 21:57:09 -0500
+Subject: [wp-edu] WordPress book for beginners
+Message-ID: <20160914215709.Horde.Kq3RH9Gcpi8vOP5b8rq4Y2D@gator4012.hostgator.com>
+
+
+Greetings,
+
+I recently wrote an ebook (PDF format) - WordPress for Beginners: Step  
+by Step Lessons.
+
+It covers using WordPress for content creation and management.  It  
+does not delve into themes and plugins or pure blogs.
+
+In my past job, I worked for University of Wisconsin-Madison as a web  
+developer, managing a WordPress multisite; designing and setting up  
+faculty lab, student, and topical sites; and training faculty, staff,  
+and students to maintain content.
+
+I am now an independent consultant offering services in WordPress  
+content management, training, and consulting for university faculty  
+and staff.
+
+If you would like a free copy of the ebook, please email me at:
+shelldrakeconsulting at dixielang.com
+
+Thanks and have a great day.
+
+Sincerely,
+- Dixie
+
+-----------------------------------------------------------
+
+Dixie Lang
+
+Shelldrake Consulting
+
+Website Content Management
+
+www.shelldrakeconsulting.com
+
+

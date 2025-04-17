@@ -1,0 +1,93 @@
+From pronoiac at gmail.com  Wed Sep 14 20:16:24 2011
+From: pronoiac at gmail.com (james young)
+Date: Wed, 14 Sep 2011 13:16:24 -0700
+Subject: [spam-stopper] Nonces in the Akismet API
+Message-ID: <CABaPp_jaD1-=yeZ0m-y6BxCk0RA9Nf+AmZXjZR6kHwVYoz=qQw@mail.gmail.com>
+
+Hey there -
+
+As an anti-spam measure, I was looking into putting hidden field form
+nonces into a Mediawiki extension for Akismet, but I could use some
+clarification.  I thought that nonces were part of the Akismet API,
+but now it looks like the local Wordpress installations process them.
+So: does any related information touch your servers?  If so, I can't
+find any documentation about API usage.
+
+Thanks in advance -
+
+-James
+
+
+From david at xeoncross.com  Wed Sep 14 21:00:37 2011
+From: david at xeoncross.com (David)
+Date: Wed, 14 Sep 2011 16:00:37 -0500
+Subject: [spam-stopper] Nonces in the Akismet API
+In-Reply-To: <CABaPp_jaD1-=yeZ0m-y6BxCk0RA9Nf+AmZXjZR6kHwVYoz=qQw@mail.gmail.com>
+References: <CABaPp_jaD1-=yeZ0m-y6BxCk0RA9Nf+AmZXjZR6kHwVYoz=qQw@mail.gmail.com>
+Message-ID: <CAAmZEC9tj8RTTEpw23gVUdHE8DHNmjq-Hch2GSkpwXpzqd_j9w@mail.gmail.com>
+
+"Nonces" or "Form Tokens" are processed on the server side in relation to a
+users session. They are not handled by Akismet (since there is no need to).
+
+Server creates a nonce and places it in the form and the user session
+User submits form back to the server
+if the form nonce and the session nonce match then everything is good!
+
+- David
+
+
+
+On Wed, Sep 14, 2011 at 3:16 PM, james young <pronoiac at gmail.com> wrote:
+
+> Hey there -
+>
+> As an anti-spam measure, I was looking into putting hidden field form
+> nonces into a Mediawiki extension for Akismet, but I could use some
+> clarification.  I thought that nonces were part of the Akismet API,
+> but now it looks like the local Wordpress installations process them.
+> So: does any related information touch your servers?  If so, I can't
+> find any documentation about API usage.
+>
+> Thanks in advance -
+>
+> -James
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20110914/45ae6d6d/attachment.htm>
+
+From michiel at phplist.com  Thu Sep 15 12:54:14 2011
+From: michiel at phplist.com (Michiel Dethmers)
+Date: Thu, 15 Sep 2011 09:54:14 -0300
+Subject: [spam-stopper] competition spammers
+Message-ID: <4E71F576.8070107@phplist.com>
+
+
+Quite some time ago, a client was having a competition on their site,
+where you could win some plane tickets to New York (this is a UK site,
+so a ticket to NY is nice :-). We noticed a surge in sign ups and I
+analysed it to be a "competition spammer". I wrote it up here:
+http://tincan.co.uk/659/news/competition-spammers.html
+
+Then another client had the same issue a few months later. And now I
+have the third client with the same problem. And I did a check and the
+Akismet API doesn't return "spam". In fact, neither does mollom, stop
+forum spam or honeypot.
+
+Now, I guess it's a bit heavy to do a whois lookup on every email, but
+do you see any way to start adding these domains to your database in a
+scalable way?
+
+-- 
+
+Michiel Dethmers
+michiel at phplist.com
+http://www.phplist.com
+Open Source newsletter manager
+
+
+

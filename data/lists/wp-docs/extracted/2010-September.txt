@@ -1,0 +1,40 @@
+From wp-docs at nicolaskuttler.de  Mon Sep 13 11:32:51 2010
+From: wp-docs at nicolaskuttler.de (Nicolas Kuttler)
+Date: Mon, 13 Sep 2010 13:32:51 +0200
+Subject: [wp-docs] Memory consumption
+Message-ID: <20100913113251.GA31980@nicolaskuttler.de>
+
+Hello everybody,
+
+3.0 seems to use significantly more RAM than previous versions. There
+often are "out of memory" questions, and there doesn't seem to be
+anything about that on the codex.
+
+http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP
+
+isn't really satisfactory. I don't know enough to write a good page on
+memory usage but would like to see something like
+
+- How to determine how much RAM you have available (using phpinfo)
+  - I guess I could write something about this
+- Ways to increase your memory limit
+  - Looks OS-specific to me, not really relevant on shared hosting
+- How to reduce your memory usage
+  - removing plugins, translations, maybe editing/adding a php.ini,
+	and... ?
+- How reliable is @ini_set( 'memory_limit' ... as used in the admin area
+  and with WP_MEMORY_LIMIT
+
+Any suggestions?
+
+The obvious answer is to get more RAM, but sometimes that's not an option.
+
+Nicolas
+
+--
+Nicolas Kuttler
+wp at nkuttler.de
+
+http://www.nkuttler.de
+http://www.nicolaskuttler.de (deutsch)
+

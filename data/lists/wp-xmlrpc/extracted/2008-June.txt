@@ -1,0 +1,1506 @@
+From joseph at randomnetworks.com  Tue Jun 10 20:04:14 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Jun 10 20:08:34 2008
+Subject: [wp-xmlrpc] blog_id and WordPress
+Message-ID: <2B0371AC-3F6B-4EA0-BC78-54DA0DE8DBD1@randomnetworks.com>
+
+
+Some of you are already familiar with the issues around blog_id and  
+WordPress.  I finally sat down and wrote them up so that others can  
+follow along as well:
+
+	http://joseph.randomnetworks.com/archives/2008/06/10/blog-id-in- 
+wordpress-and-xml-rpc-blog-apis/
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Fri Jun 13 04:53:28 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Jun 13 15:09:15 2008
+Subject: [wp-xmlrpc] wp.getUsersBlogs method
+Message-ID: <D640F9E8-93E5-4E01-BAEC-D25D0CB0744F@randomnetworks.com>
+
+
+The wp.getUsersBlogs method has been added to -trunk:
+
+	http://trac.wordpress.org/ticket/7130
+
+For regular WordPress.org blogs there's no difference between using  
+this and blogger.getUsersBlogs.  For WordPressMU blogs (which  
+includes WordPress.com) it trusts the client to not make the  
+incorrect assumptions about blog_id and universal XML-RPC end points  
+and provides all the blogs that the user has access to.  Same fields  
+as blogger.getUsersBlogs plus one: xmlrpc, which is the XML-RPC end  
+point for that blog.  This saves on the client having to go through  
+the end point discovery process.
+
+This function is already available on WordPress.com and will be going  
+into WordPressMU -trunk soon, so expect it to show up in the next  
+releases of WordPress.org and WordPressMU.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From alex at buayacorp.com  Fri Jun 13 15:22:58 2008
+From: alex at buayacorp.com (Alexander Concha)
+Date: Fri Jun 13 20:54:57 2008
+Subject: [wp-xmlrpc] wp.getUsersBlogs method
+In-Reply-To: <D640F9E8-93E5-4E01-BAEC-D25D0CB0744F@randomnetworks.com>
+References: <D640F9E8-93E5-4E01-BAEC-D25D0CB0744F@randomnetworks.com>
+Message-ID: <485290D2.7000609@buayacorp.com>
+
+Hello,
+
+Joseph Scott escribi?:
+> 
+> The wp.getUsersBlogs method has been added to -trunk:
+> 
+>     http://trac.wordpress.org/ticket/7130
+
+I'm not sure, but as far as I remember 'switch_to_blog' is not available 
+on WordPress, so the patch isn't quite correct.
+
+Regards
+-- 
+Alexander Concha
+http://www.buayacorp.com/
+
+Malo es esperar salud en muerte ajena.
+From joseph at randomnetworks.com  Fri Jun 13 17:53:15 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Jun 13 22:04:51 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+Message-ID: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+
+
+I'm curious to see if there's any interest in seeing OAuth ( http:// 
+oauth.net/ ) support in WordPress, specifically in the area of XML- 
+RPC.  If we made this available would any of the existing blog  
+clients out there support it?
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Fri Jun 13 21:04:28 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Jun 13 23:25:34 2008
+Subject: [wp-xmlrpc] wp.getUsersBlogs method
+In-Reply-To: <485290D2.7000609@buayacorp.com>
+References: <D640F9E8-93E5-4E01-BAEC-D25D0CB0744F@randomnetworks.com>
+	<485290D2.7000609@buayacorp.com>
+Message-ID: <67379124-6475-4D11-B873-3C615D87C53D@randomnetworks.com>
+
+
+On Jun 13, 2008, at 9:22 AM, Alexander Concha wrote:
+
+> Hello,
+>
+> Joseph Scott escribi?:
+>> The wp.getUsersBlogs method has been added to -trunk:
+>>     http://trac.wordpress.org/ticket/7130
+>
+> I'm not sure, but as far as I remember 'switch_to_blog' is not  
+> available on WordPress, so the patch isn't quite correct.
+
+
+Correct, switch_to_blog() is WPMU only function.  But we check to see  
+if we are in WPMU or not at the top of the function:
+
+function wp_getUsersBlogs( $args ) {
+	// If this isn't on WPMU then just use blogger_getUsersBlogs
+	if( !function_exists( 'is_site_admin' ) ) {
+		array_unshift( $args, 1 );
+		return $this->blogger_getUsersBlogs( $args );
+	}
+
+
+The is_site_admin() function is also WPMU specific, so if it doesn't  
+exist we just use the blogger_getUsersBlogs function.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From jalkut at red-sweater.com  Sat Jun 14 04:01:04 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Jun 14 04:01:38 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+Message-ID: <161423D9-B315-4A36-BBC0-1D95FD9275FA@red-sweater.com>
+
+I think OAuth is pretty cool, and if you made it available in  
+WordPress I would certainly want to have support for it in the API. I  
+think it could be a pretty cool feature and I would put it on my TODO  
+list if it was to be supported.
+
+Daniel
+
+On Jun 13, 2008, at 1:53 PM, Joseph Scott wrote:
+
+>
+> I'm curious to see if there's any interest in seeing OAuth ( http://oauth.net/ 
+>  ) support in WordPress, specifically in the area of XML-RPC.  If we  
+> made this available would any of the existing blog clients out there  
+> support it?
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From m123ixd02 at sneakemail.com  Sat Jun 14 11:38:46 2008
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Sat Jun 14 11:39:00 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+Message-ID: <27178-46985@sneakemail.com>
+
+On 13 Jun 2008, at 19:53, Joseph Scott wrote:
+
+> I'm curious to see if there's any interest in seeing OAuth ( http://oauth.net/ 
+>  ) support in WordPress, specifically in the area of XML-RPC.  If we  
+> made this available would any of the existing blog clients out there  
+> support it?
+
+Why would a blog client support this?
+
+You already have an authentication system which supports multiple  
+users with roles and access levels. It seems to me that if a third  
+party wants to perform a privileged operation on the blog (say, post  
+to it), a user with the proper restrictions should be created (if this  
+third party cannot be trusted with the main users login).
+
+If we equate an OAuth security token with a WP user (which makes sense  
+so you don?t have two parallel privilege systems) then the OAuth  
+protocol is simply used as a way for third parties to create  
+(restricted) users. How often would that be used?
+
+Maybe I am missing something here?
+
+
+From peter.westwood at ftwr.co.uk  Sat Jun 14 14:55:07 2008
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Sat Jun 14 14:55:24 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <27178-46985@sneakemail.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com>
+Message-ID: <4853DBCB.10608@ftwr.co.uk>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Allan Odgaard wrote:
+| On 13 Jun 2008, at 19:53, Joseph Scott wrote:
+|
+|> I'm curious to see if there's any interest in seeing OAuth (
+|> http://oauth.net/ ) support in WordPress, specifically in the area of
+|> XML-RPC.  If we made this available would any of the existing blog
+|> clients out there support it?
+|
+| Why would a blog client support this?
+|
+| You already have an authentication system which supports multiple users
+| with roles and access levels. It seems to me that if a third party wants
+| to perform a privileged operation on the blog (say, post to it), a user
+| with the proper restrictions should be created (if this third party
+| cannot be trusted with the main users login).
+|
+|
+| If we equate an OAuth security token with a WP user (which makes sense
+| so you don?t have two parallel privilege systems) then the OAuth
+| protocol is simply used as a way for third parties to create
+| (restricted) users. How often would that be used?
+|
+| Maybe I am missing something here?
+
+I think from a quick read of the spec the idea behind OAuth is to
+standardise the methodology of allowing an Application access to a site
+to impersonate a user without that application having to store the
+username/password that are used to access the application by the end user.
+
+Think for example of how flickr allows applications to access your
+private photostream without them needing your username/password.
+
+This would be good for xmlrpc access to blogs as eventually we could
+turn off access via the username/password combo to make xmlrpc more
+secure - someone who catches your auth tokens for an application cannot
+then use them to access the admin pages for example.
+
+westi
+- --
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+~ C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.7 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFIU9vLVPRdzag0AcURAtNyAKDQeT4+Ll2mjH6tb1xPNlRJl0YydQCeKh9x
+8i7lb544La7Mi1fT8Od0xNs=
+=b+EP
+-----END PGP SIGNATURE-----
+From m123ixd02 at sneakemail.com  Sat Jun 14 16:05:24 2008
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Sat Jun 14 16:05:44 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <4853DBCB.10608@ftwr.co.uk>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+Message-ID: <29367-85569@sneakemail.com>
+
+On 14 Jun 2008, at 16:55, Peter Westwood wrote:
+
+> [...]
+> This would be good for xmlrpc access to blogs as eventually we could
+> turn off access via the username/password combo to make xmlrpc more
+> secure
+
+Accessing the blog with a security token instead of a user/password is  
+in itself not more secure.
+
+> someone who catches your auth tokens for an application cannot
+> then use them to access the admin pages for example.
+
+That assumes WordPress will allow different access levels based on the  
+authentication token. This is outside the scope of the OAuth standard  
+and WordPress already has such system (users).
+
+From peter.westwood at ftwr.co.uk  Sat Jun 14 16:19:20 2008
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Sat Jun 14 17:35:16 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <29367-85569@sneakemail.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>	<27178-46985@sneakemail.com>
+	<4853DBCB.10608@ftwr.co.uk> <29367-85569@sneakemail.com>
+Message-ID: <4853EF88.2000007@ftwr.co.uk>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Allan Odgaard wrote:
+| On 14 Jun 2008, at 16:55, Peter Westwood wrote:
+|
+|> [...]
+|> This would be good for xmlrpc access to blogs as eventually we could
+|> turn off access via the username/password combo to make xmlrpc more
+|> secure
+|
+| Accessing the blog with a security token instead of a user/password is
+| in itself not more secure.
+
+Indeed Not.
+
+~ But it allows you to differentiate between different applications that
+are allowed to impersonate a user and revoke the right to impersonate
+from one application without having to change your username/password and
+re-enter it in all the different client applications.
+
+|> someone who catches your auth tokens for an application cannot
+|> then use them to access the admin pages for example.
+|
+| That assumes WordPress will allow different access levels based on the
+| authentication token. This is outside the scope of the OAuth standard
+| and WordPress already has such system (users).
+|
+
+It doesn't assume different access levels for different tokens.
+
+It just allows for the User to allow Application A access via xmlrpc
+without giving them the keys to the normal admin interface.
+
+This allows for example flickr to auto blog your new pictures for you
+without being able to log into your admin pages and reconfigure your
+plugins.
+
+westi
+- --
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+~ C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.7 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFIU++IVPRdzag0AcURAvXpAJ0YUZie8KEBDgvyaDaU0x5zaMJ6eACfSoZT
+RsbLDq1k8OHkiYiLg9VdEIo=
+=PiVg
+-----END PGP SIGNATURE-----
+From joseph at randomnetworks.com  Sun Jun 15 04:53:40 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sun Jun 15 04:54:19 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <29367-85569@sneakemail.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+Message-ID: <B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+
+
+On Jun 14, 2008, at 10:05 AM, Allan Odgaard wrote:
+
+>> someone who catches your auth tokens for an application cannot
+>> then use them to access the admin pages for example.
+>
+> That assumes WordPress will allow different access levels based on  
+> the authentication token. This is outside the scope of the OAuth  
+> standard and WordPress already has such system (users).
+
+
+One of the problems with creating users for use with each new app/ 
+service is that new any new posts created by that app/service are  
+done under that user.  So instead of a new post showing up as mine,  
+it shows up as this new app specific user.  Instead I'd like the  
+token that the app is using to be associated with my user, so that  
+any new posts show up as being authored by me, but authorized via the  
+token.
+
+Along with that I really like the idea of fine grained controls for  
+these tokens.  An obvious one is that a token will only work on XML- 
+RPC requests, as Peter already mentioned.  Other interesting options  
+might include: limiting it to a specific IP address (or range), good  
+for only X number of times, expires on a specific date, limit to  
+specific XML-RPC methods and if we really wanted to get interesting -  
+force all new posts created by the token to a draft status,  
+preventing it from automatically publishing new content.  I'm sure  
+there are other ideas out there that people will come up with.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From m123ixd02 at sneakemail.com  Sun Jun 15 05:16:13 2008
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Sun Jun 15 05:16:23 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+Message-ID: <17075-01709@sneakemail.com>
+
+On 15 Jun 2008, at 06:53, Joseph Scott wrote:
+
+> [...]
+
+So if I understand you correctly, you are swayed by the fine-grained  
+security.
+
+You don?t want to use the existing user system for this, because each  
+user has its own ID, and you want the posts from different clients to  
+appear as the same user ID.
+
+So why not extend the user system to have per-user aliases (with its  
+own password) and provide all these crazy security controls per alias?
+
+This would allow all existing third party clients to reap the benefits  
+of the new fine-grained security.
+
+Personally though, I doubt many/any would use it, even if wrapped in  
+OAuth?. As for limiting posting to a certain IP, I already have apache  
+limit wp-admin access to my IP :)
+
+Btw: how many clients do you have posting to your blog?
+
+
+
+? OAuth is really just a protocol to create such an alias.
+
+From joseph at randomnetworks.com  Mon Jun 16 15:25:00 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jun 16 15:25:42 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <17075-01709@sneakemail.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+Message-ID: <CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+
+
+On Jun 14, 2008, at 11:16 PM, Allan Odgaard wrote:
+
+> So if I understand you correctly, you are swayed by the fine- 
+> grained security.
+>
+> You don?t want to use the existing user system for this, because  
+> each user has its own ID, and you want the posts from different  
+> clients to appear as the same user ID.
+>
+> So why not extend the user system to have per-user aliases (with  
+> its own password) and provide all these crazy security controls per  
+> alias?
+
+
+Either way what we'd be creating is some sort of new "user access".   
+It really doesn't matter if you consider these per-user aliases or  
+OAuth tokens, they won't be regular users in the sense that we think  
+of them today.  So some new constructs would have to be developed to  
+deal with these.
+
+
+> This would allow all existing third party clients to reap the  
+> benefits of the new fine-grained security.
+
+True, with the disadvantage that users would have more usernames and  
+passwords to remember.  I think the (potential) user experience for  
+OAuth is better than asking users to continue to add user/aliases to  
+their blog.
+
+
+> Personally though, I doubt many/any would use it, even if wrapped  
+> in OAuth?. As for limiting posting to a certain IP, I already have  
+> apache limit wp-admin access to my IP :)
+
+I don't know how many apps/people would make use of it, that's one of  
+the reasons I was asking about interest levels for it on this list.
+
+
+> Btw: how many clients do you have posting to your blog?
+
+
+I use MarsEdit and Windows Live Writer.  I've also use Adobe  
+Contribute CS3, Flickr and Google Docs.
+
+More and more we are seeing blog clients that are other services,  
+like Flickr and Google Docs.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From Joe.Cheng at microsoft.com  Tue Jun 17 19:23:24 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Tue Jun 17 19:23:41 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+OAuth isn't my first choice due to the weird configuration experience--
+we're a client app, it's strange to direct users through a website, and
+IMHO is something to be avoided unless fine-grained permissions and
+revocation makes a lot of sense.
+
+But the current state of the art is completely unacceptable--passwords
+passed in the clear. If there was a way for us to auth more securely
+without violently changing the configuration experience, we'd be VERY
+interested.
+
+Obviously SSL is one fix but not an option for most WP users. (However
+I would love to see WordPress.com RSD point to https, which seems to
+already work.)
+
+Another is X-WSSE[1] but it requires the server to know the password,
+and I seem to recall Joseph saying WP only saves a hash.
+
+Maybe we could do X-WSSE but encode the hash instead of the password?
+
+
+[1] http://www.xml.com/pub/a/2003/12/17/dive.html
+From joseph at randomnetworks.com  Tue Jun 17 21:01:31 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Jun 17 21:02:13 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>
+
+
+On Jun 17, 2008, at 1:23 PM, Joe Cheng wrote:
+
+> OAuth isn't my first choice due to the weird configuration  
+> experience--
+> we're a client app, it's strange to direct users through a website,  
+> and
+> IMHO is something to be avoided unless fine-grained permissions and
+> revocation makes a lot of sense.
+
+Agreed, it's a little bit odd.  I went through basically that same  
+process when enabling the Flickr features in MarsEdit.  I leave the  
+app to approve it on Flickr's site.  I didn't mind, but I can  
+appreciate the concern of loosing the user by requiring them to leave  
+the app (even if just for a moment) to approve the token.  And there  
+are similar concerns I'm sure with websites that would need to do the  
+same thing.
+
+However, I don't think that process needs to be a bad one though.  If  
+they understand what they are being asked to do, hopefully it  
+provides more comfort than blindly entering in their username and  
+password.
+
+If you really wanted to keep them in the app you could embed a web  
+control that loads the needed site for them to approve the token.   
+Yes, I'm pretty far out on the limb now :-)
+
+
+> But the current state of the art is completely unacceptable--passwords
+> passed in the clear. If there was a way for us to auth more securely
+> without violently changing the configuration experience, we'd be VERY
+> interested.
+
+I see this as two issues currently.  Sending sensitive data is solved  
+by using SSL, I believe at this point that is the only real solution  
+to that problem.  This isn't something that WordPress itself can  
+enforce at this point because people are free to run it on non-SSL  
+web servers.  On the WordPress.com side of things, I'll see if we can  
+do more to direct people to the https xmlrpc end points.
+
+The second issue is one of application authentication.  Entering in  
+the same username and password every where; Flickr, Google Docs, Mars  
+Edit, Windows Live Writer, any other web site that can post to your  
+blog, is just not a good idea, even if that app does in turn send the  
+sensitive data over SSL.  This is something that SSL can't solve.  It  
+looks like something that OAuth can help deal with.
+
+I'm open to other suggestions that will help address this.
+
+
+> Obviously SSL is one fix but not an option for most WP users. (However
+> I would love to see WordPress.com RSD point to https, which seems to
+> already work.)
+
+
+Using SSL on WordPress.com work, and I believe there are some folks  
+working on making more of the site use it.  I'll find out exactly  
+what the plans are and see if advertising the https address can be  
+added to the list.
+
+
+> Another is X-WSSE[1] but it requires the server to know the password,
+> and I seem to recall Joseph saying WP only saves a hash.
+
+Yeah, covered that with the other HTTP auth stuff:
+
+http://joseph.randomnetworks.com/archives/2007/09/19/http-basic- 
+authentication-a-tale-of-atompub-wordpress-php-apache-cgi-and-ssltls/
+http://joseph.randomnetworks.com/archives/2007/09/19/http-basic- 
+authentication-a-tale-of-atompub-wordpress-php-apache-cgi-and-ssltls/ 
+#comment-240685
+
+
+> Maybe we could do X-WSSE but encode the hash instead of the password?
+>
+> [1] http://www.xml.com/pub/a/2003/12/17/dive.html
+
+
+As long the database isn't required to store something that is  
+essentially a plain text authentication string.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Tue Jun 17 22:01:38 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Jun 17 22:02:20 2008
+Subject: [wp-xmlrpc] New XML-RPC methods: wp.getOptions & wp.setOptions
+Message-ID: <D0522797-90F5-4A1D-BFAC-EF41219F0AD4@randomnetworks.com>
+
+
+Just committed to -trunk, wp.getOptions and wp.setOptions:
+
+	http://trac.wordpress.org/ticket/7123
+
+The ticket has all the details, I'll copy some of the specifics,  
+along with some examples here:
+
+	wp.getOptions( blog_id, username, password, array )
+	wp.setOptions( blog_id, username, password, struct )
+
+Both return data that looks like:
+
+{
+   'option_name': {
+     'desc': 'Label Description Here',
+     'readonly': true,
+     'value': 123
+   }
+}
+
+The last parameter in wp.getOptions is optional, if it is not  
+included then you'll get all of the currently available options.  If  
+you want just specific options, provide an array of option_name's and  
+you'll get just those back.
+
+The wp.setOptions method will only update options that are not read  
+only.  The last parameter is a just a set of key/value pairs.  Here's  
+an example to change the blog title and tag line:
+
+wp.setOptions( 1, 'my_admin_user', 'XXXXXXXX', {
+	blog_title: 'This Is My Totally Awesome Blog!',
+	blog_tagline: 'My Commentary On Life, The Universe, etc.'
+} );
+
+which would return:
+
+{
+	blog_title: {
+		desc: 'Blog Title',
+		readonly: false,
+		value: 'This Is My Totally Awesome Blog!'
+	},
+	blog_tagline: {
+		desc: 'Blog Tagline',
+		readonly: false,
+		value: 'My Commentary On Life, The Universe, etc.'
+	}
+}
+
+If you try to change the value of an option that is read only, you  
+will NOT get an error.  It will simply not change the value and  
+you'll get the same old/original value in the response data.
+
+Here's the current list of available values:
+
+             // Read only options
+             'software_name'     => array(
+                 'desc'          => __( 'Software Name' ),
+                 'readonly'      => true,
+                 'value'         => 'WordPress'
+             ),
+             'software_version'  => array(
+                 'desc'          => __( 'Software Version' ),
+                 'readonly'      => true,
+                 'value'         => $wp_version
+             ),
+             'blog_url'          => array(
+                 'desc'          => __( 'Blog URL' ),
+                 'readonly'      => true,
+                 'option'        => 'siteurl'
+             ),
+
+             // Updatable options
+             'time_zone'         => array(
+                 'desc'          => __( 'Time Zone' ),
+                 'readonly'      => false,
+                 'option'        => 'gmt_offset'
+             ),
+             'blog_title'        => array(
+                 'desc'          => __( 'Blog Title' ),
+                 'readonly'      => false,
+                 'option'            => 'blogname'
+             ),
+             'blog_tagline'      => array(
+                 'desc'          => __( 'Blog Tagline' ),
+                 'readonly'      => false,
+                 'option'        => 'blogdescription'
+             ),
+             'date_format'       => array(
+                 'desc'          => __( 'Date Format' ),
+                 'readonly'      => false,
+                 'option'        => 'date_format'
+             ),
+             'time_format'       => array(
+                 'desc'          => __( 'Time Format' ),
+                 'readonly'      => false,
+                 'option'        => 'time_format'
+             )
+
+
+This list is rather small, with the only specific option in there  
+that people had been asking about a lot being the time zone.  This  
+will be in the upcoming 2.6 release, so please test it out and let us  
+know what you think.  Also, if you have other specific option type  
+data that you want exposed, now is the time to speak up.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+From m123ixd02 at sneakemail.com  Wed Jun 18 08:20:28 2008
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Wed Jun 18 08:20:41 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>
+Message-ID: <2348-57717@sneakemail.com>
+
+On 17 Jun 2008, at 23:01, Joseph Scott wrote:
+
+> On Jun 17, 2008, at 1:23 PM, Joe Cheng wrote:
+>> OAuth isn't my first choice due to the weird configuration  
+>> experience--
+>> we're a client app, it's strange to direct users through a website,  
+>> and
+>> IMHO is something to be avoided unless fine-grained permissions and
+>> revocation makes a lot of sense.
+> Agreed, it's a little bit odd.  I went through basically that same  
+> process when enabling the Flickr features in MarsEdit. [...]
+
+Also something like OS X has a central key chain and OAuth would  
+detract from the nice user experience of utilizing this key chain.
+
+The key chain offers a secure shared storage for white-listed  
+applications where the white-list is user authorized and based on  
+cryptographic signatures of the applications (in Leopard).
+
+I think issuing a per-Desktop app token to access a given service is a  
+tad too paranoid (and with the user already running this app on his  
+system, he must show some sort of trust).
+
+I agree though that remotely hosted applications should get their own  
+authorization credentials rather than that of the main (admin) user. I  
+just don?t see anything preventing the existing XML-RPC standard from  
+doing that.
+
+>> But the current state of the art is completely unacceptable-- 
+>> passwords
+>> passed in the clear. If there was a way for us to auth more securely
+>> without violently changing the configuration experience, we'd be VERY
+>> interested.
+>
+> I see this as two issues currently.  Sending sensitive data is  
+> solved by using SSL, I believe at this point that is the only real  
+> solution to that problem.  This isn't something that WordPress  
+> itself can enforce at this point because people are free to run it  
+> on non-SSL web servers.  On the WordPress.com side of things, I'll  
+> see if we can do more to direct people to the https xmlrpc end points.
+
+I agree. SSL is the secure way to connect to a server, don?t re-invent  
+SSL in XML-RPC.
+
+Whatever you do, you only add complexity to XML-RPC w/o actually  
+making it fully secure.
+
+E.g. if you come up with a challenge/response system (to avoid replay  
+attacks) then you can still be the victim of host spoofing / DNS  
+poisoning. So you also need to verify that you are actually talking  
+with the right server.
+
+From m123ixd02 at sneakemail.com  Wed Jun 18 09:16:05 2008
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Wed Jun 18 09:16:15 2008
+Subject: [wp-xmlrpc] OAuth alternative
+Message-ID: <1637-00306@sneakemail.com>
+
+I am repeating myself, but just to make it clear how I would prefer  
+this granular security to be handled:
+
+If Bob wants Flickr to post to his blog, he logs into his WP  
+installation and on the user page there is a button called ?Generate  
+API Access Key?.
+
+By clicking the button, WordPress will respond with something like:
+
+     Username: Bob+0000001
+     Password: d41d8cd98f00b204e9800998ecf8427e
+
+Bob can then enter this into Flickr, MarsEdit, Google Docs, Ecto, etc.  
+and for all practical purpose, this appears as just another user, but  
+WordPress will know that this user is a restricted Bob (so posts  
+coming in from Bob+0000001 are published as from Bob).
+
+The benefit is that _everything_ will work with this system from day  
+one, because no change needs to be done to MarsEdit, Ecto, Flickr,  
+etc. and there is no need to phase out the existing authentication  
+system (as one of the letters in the OAuth thread suggested).
+
+If it is a common task for users to provide web applications with an  
+API key, I can see justification for automating that, and OAuth is a  
+protocol for this. Though I don?t think it should be done by  
+introducing a completely new protocol for applications to authenticate  
+with the blog because then in a year we will have two authentication  
+schemes. One offers granular security, the other does not. Some third  
+party clients will support only one of these two systems, some both.  
+Some blogging systems will likewise only support one of the two. The  
+safest will be for everything to support both, so how exactly did this  
+help making things more secure? Rather, we just added unnecessary  
+extra complexity to the XML-RPC system, and thus an extra burden on  
+everyone writing an XML-RPC client or server implementation.
+
+Keep it simple?
+
+From Joe.Cheng at microsoft.com  Wed Jun 18 09:40:26 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Wed Jun 18 09:40:38 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <2348-57717@sneakemail.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>,
+	<2348-57717@sneakemail.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> I agree. SSL is the secure way to connect to a server, don?t re-invent
+> SSL in XML-RPC.
+
+Don't think of it as re-inventing SSL. It's XML-RPC protocols that re-invented HTTP Auth, except in the worst way possible. I just want to negate that epic mistake. :)
+
+> Whatever you do, you only add complexity to XML-RPC w/o actually
+> making it fully secure.
+
+Yes, SSL/TLS when used properly is the best solution, and we should make sure that scenario works when possible (especially WordPress.com). But I'm sure the vast majority of WordPress users don't have access to a cert that's signed by a trusted authority. (Without valid, signed certificates, SSL/TLS is also not fully secure, right?--seems like a man-in-the-middle attacker could easily get the unencrypted password.) I also suspect that few if any web hosts are preconfigured for SSL/TLS, even with self-signed certs.
+
+> E.g. if you come up with a challenge/response system (to avoid replay
+> attacks) then you can still be the victim of host spoofing / DNS
+> poisoning. So you also need to verify that you are actually talking
+> with the right server.
+
+We're getting out of my depth here, but for most scenarios, is that really going to be a big problem? My main concern here is to prevent a malicious attacker from being able to hack the user's blog. Stopping eavesdropping would be nice but to me is a distant second in terms of importance. I guess you'd need to not only auth with challenge/response but also sign the requests so a man-in-the-middle can't just change the payload.
+
+Sigh... security is hard. But on the other hand, we are currently sending the password in cleartext. At least it can't get any worse, right?
+From kimmo at global-wire.fi  Wed Jun 18 10:09:11 2008
+From: kimmo at global-wire.fi (Kimmo Suominen)
+Date: Wed Jun 18 10:09:30 2008
+Subject: [wp-xmlrpc] OAuth alternative
+In-Reply-To: <1637-00306@sneakemail.com>
+References: <1637-00306@sneakemail.com>
+Message-ID: <20080618100911.GF3418@kimmo.suominen.com>
+
+On Wed, Jun 18, 2008 at 11:16:05AM +0200, Allan Odgaard wrote:
+> By clicking the button, WordPress will respond with something like:
+>
+>     Username: Bob+0000001
+
+I used to have email addresses with extensions separated by a plus
+sign like that.  I eventually gave up and switched to a hyphen
+because of the large number of web sites (and even one Windows
+application) that kept converting the plus sign to a space character.
+
+Best regards,
++ Kimmo
+-- 
+<A HREF="http://kimmo.suominen.com/">Kimmo Suominen</A>
+
+From m123ixd02 at sneakemail.com  Wed Jun 18 10:36:07 2008
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Wed Jun 18 11:02:11 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>,
+	<2348-57717@sneakemail.com>
+	<EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <22859-48686@sneakemail.com>
+
+On 18 Jun 2008, at 11:40, Joe Cheng wrote:
+
+>> I agree. SSL is the secure way to connect to a server, don?t re- 
+>> invent
+>> SSL in XML-RPC.
+>
+> Don't think of it as re-inventing SSL. It's XML-RPC protocols that  
+> re-invented HTTP Auth, except in the worst way possible. I just want  
+> to negate that epic mistake. :)
+
+I don?t follow this. So XML-RPC did not use HTTP Auth for user  
+authentication, instead did their own scheme. And this is an argument  
+for them to now also not use the standard HTTP encryption protocol?
+
+> [...] But I'm sure the vast majority of WordPress users don't have  
+> access to a cert that's signed by a trusted authority. (Without  
+> valid, signed certificates, SSL/TLS is also not fully secure,  
+> right?--seems like a man-in-the-middle attacker could easily get the  
+> unencrypted password.)
+
+Whoever signed the certificate has nothing to do with the security of  
+the connection.
+
+The reason you want a signed certificate is that the _first_ time you  
+connect e.g. to example.org then you are presented with a host key and  
+you have no guarantee that you are actually connected to the machines  
+actually running example.org or instead misdirected to a malicious  
+site (posing as example.org).
+
+If the public key offered to you by example.org is signed by e.g.  
+VeriSign, your OS will automatically trust that you are connected to  
+example.org (they assume VeriSign verified that the owners of the key  
+they signed, are the rightful owners of example.org). If the public  
+key is _not_ signed by someone your OS trust, it will show you a  
+warning. You should however then be able to say that it?s okay, this  
+is the right key for the domain, and the OS will remember that (so  
+only if it sees a different key offered for that domain, will it throw  
+up a warning).
+
+> I also suspect that few if any web hosts are preconfigured for SSL/ 
+> TLS, even with self-signed certs.
+
+Maybe not pre-configured when you pick the cheapest shared hosting  
+solution, but all the big ones do offer it, and if you run your own  
+server (e.g. via virtualization which today is pretty cheap) you can  
+even get signed certificates for free where the signing authority?s  
+certificate is in Leopard?s list of trusted CA (if you self-sign, you  
+can always add your own root certf. to this list).
+
+>> E.g. if you come up with a challenge/response system (to avoid replay
+>> attacks) then you can still be the victim of host spoofing / DNS
+>> poisoning. So you also need to verify that you are actually talking
+>> with the right server.
+>
+> We're getting out of my depth here, but for most scenarios, is that  
+> really going to be a big problem? My main concern here is to prevent  
+> a malicious attacker from being able to hack the user's blog.  
+> Stopping eavesdropping would be nice but to me is a distant second  
+> in terms of importance. I guess you'd need to not only auth with  
+> challenge/response but also sign the requests so a man-in-the-middle  
+> can't just change the payload.
+>
+> Sigh... security is hard. But on the other hand, we are currently  
+> sending the password in cleartext. At least it can't get any worse,  
+> right?
+
+Sending a password in plain text is a problem if someone intercepts  
+the traffic.
+
+The scheme where an md5 of password + random bytes (or similar) is  
+sent does not reveal the password (so the malicious user will not be  
+able to use it to login to the site) but the malicious user can still  
+use the XML-RPC interface with the string obtained (replay attack).
+
+The simplest form of challenge/response have the server initially send  
+back a reply to the client (when it connects) which contains a string  
+that the client must append the password before it does the md5. This  
+however requires the server to keep passwords in clear text (like the  
+previous scheme). To avoid that, a public/private key scheme can be  
+used, where the server has the clients public key. The server then  
+sends the client some random bytes and asks the client to sign these  
+(with the clients private key), the server can validate the signature  
+(with the clients public key).
+
+This scheme is still susceptible, since the client could talk with the  
+wrong host, and this malicious host would simply proxy the challenge  
+from the real host, and now have a valid response to this challenge.
+
+To avoid that, the server should verify itself to the client, which  
+can be done by a similar public/private key challenge/response system  
+(the client then has to know the servers public key).
+
+IMO it makes little sense to just make XML-RPC a little safer when it  
+is still unsafe. If you are on a network you do not control yourself  
+(e.g. public WiFi) having someone direct you to the wrong host (by  
+either sending you false DNS responses or being in control of the  
+gateway) is really not that much harder than scan your packets for  
+passwords (today majority of WiFi networks do use encryption when  
+clients talk with the base station, so the most likely attacker is the  
+one who owns the base station; this could be a base station setup to  
+mimic a more official public gateway).
+
+So the best approach is really; verify the host key and encrypt all  
+traffic transparently to the protocol running on top of the encrypted  
+connection. There is then no problem whatsoever by having the protocol  
+use plain text passwords (and makes for far the simplest  
+implementation).
+
+And this is what https offers?
+
+
+From joseph at randomnetworks.com  Wed Jun 18 17:45:03 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jun 18 17:45:43 2008
+Subject: [wp-xmlrpc] OAuth alternative
+In-Reply-To: <1637-00306@sneakemail.com>
+References: <1637-00306@sneakemail.com>
+Message-ID: <00CE1AF6-4649-41D3-9F71-BEFFE569BC5D@randomnetworks.com>
+
+
+On Jun 18, 2008, at 3:16 AM, Allan Odgaard wrote:
+
+> I am repeating myself, but just to make it clear how I would prefer  
+> this granular security to be handled:
+>
+> If Bob wants Flickr to post to his blog, he logs into his WP  
+> installation and on the user page there is a button called  
+> ?Generate API Access Key?.
+>
+> By clicking the button, WordPress will respond with something like:
+>
+>     Username: Bob+0000001
+>     Password: d41d8cd98f00b204e9800998ecf8427e
+>
+> Bob can then enter this into Flickr, MarsEdit, Google Docs, Ecto,  
+> etc. and for all practical purpose, this appears as just another  
+> user, but WordPress will know that this user is a restricted Bob  
+> (so posts coming in from Bob+0000001 are published as from Bob).
+>
+> The benefit is that _everything_ will work with this system from  
+> day one, because no change needs to be done to MarsEdit, Ecto,  
+> Flickr, etc. and there is no need to phase out the existing  
+> authentication system (as one of the letters in the OAuth thread  
+> suggested).
+
+
+You want to hear something really funny?  I actually started on a  
+plugin to do exactly what you described above.  Before getting too  
+far I put out the email on the OAuth question, to see what the  
+response would be.
+
+
+> If it is a common task for users to provide web applications with  
+> an API key, I can see justification for automating that, and OAuth  
+> is a protocol for this. Though I don?t think it should be done by  
+> introducing a completely new protocol for applications to  
+> authenticate with the blog because then in a year we will have two  
+> authentication schemes. One offers granular security, the other  
+> does not. Some third party clients will support only one of these  
+> two systems, some both. Some blogging systems will likewise only  
+> support one of the two. The safest will be for everything to  
+> support both, so how exactly did this help making things more  
+> secure? Rather, we just added unnecessary extra complexity to the  
+> XML-RPC system, and thus an extra burden on everyone writing an XML- 
+> RPC client or server implementation.
+>
+> Keep it simple?
+
+
+Adding an optional mechanism to authenticate (OAuth) doesn't seem  
+like an extra burden.  If blog clients don't want to support it,  
+that's their call.  If OAuth is found to be useful, I don't see any  
+reason why we couldn't support that and the user-alias mechanism.  If  
+it's determined to not be useful, they we don't worry about it.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Wed Jun 18 17:52:42 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jun 18 17:53:21 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>,
+	<2348-57717@sneakemail.com>
+	<EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <4E2D1052-4080-4E9E-88F5-C008E78755CE@randomnetworks.com>
+
+
+On Jun 18, 2008, at 3:40 AM, Joe Cheng wrote:
+
+>> I agree. SSL is the secure way to connect to a server, don?t re- 
+>> invent
+>> SSL in XML-RPC.
+>
+> Don't think of it as re-inventing SSL. It's XML-RPC protocols that  
+> re-invented HTTP Auth, except in the worst way possible. I just  
+> want to negate that epic mistake. :)
+
+Just to note, having XML-RPC not require/depend on/expect to have  
+working/etc HTTP authentication turned out to be a really good  
+thing.  Why?  Because through a sad series of events, it turns out to  
+not work all the time.
+
+	http://joseph.randomnetworks.com/archives/2007/09/19/http-basic- 
+authentication-a-tale-of-atompub-wordpress-php-apache-cgi-and-ssltls/
+
+While perhaps not the ideal situation that everyone would like,  
+having XML-RPC not require HTTP authentication has made it much  
+easier to support in a variety of server environments.
+
+Also, there's nothing in XML-RPC that mandates authentication at all,  
+or how is should be done.  I'm guessing that you're really referring  
+to the common blog APIs that are built on top of XML-RPC (metaWeblog,  
+blogger, mt, etc).  There's plenty to not be thrilled with there :-)
+
+I'm not claiming that XML-RPC is perfect, or even the best, but it  
+shouldn't be blamed for what people built on top of it.
+
+
+>> Whatever you do, you only add complexity to XML-RPC w/o actually
+>> making it fully secure.
+>
+> Yes, SSL/TLS when used properly is the best solution, and we should  
+> make sure that scenario works when possible (especially  
+> WordPress.com). But I'm sure the vast majority of WordPress users  
+> don't have access to a cert that's signed by a trusted authority.  
+> (Without valid, signed certificates, SSL/TLS is also not fully  
+> secure, right?--seems like a man-in-the-middle attacker could  
+> easily get the unencrypted password.) I also suspect that few if  
+> any web hosts are preconfigured for SSL/TLS, even with self-signed  
+> certs.
+>
+>> E.g. if you come up with a challenge/response system (to avoid replay
+>> attacks) then you can still be the victim of host spoofing / DNS
+>> poisoning. So you also need to verify that you are actually talking
+>> with the right server.
+>
+> We're getting out of my depth here, but for most scenarios, is that  
+> really going to be a big problem? My main concern here is to  
+> prevent a malicious attacker from being able to hack the user's  
+> blog. Stopping eavesdropping would be nice but to me is a distant  
+> second in terms of importance. I guess you'd need to not only auth  
+> with challenge/response but also sign the requests so a man-in-the- 
+> middle can't just change the payload.
+>
+> Sigh... security is hard. But on the other hand, we are currently  
+> sending the password in cleartext. At least it can't get any worse,  
+> right?
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From Joe.Cheng at microsoft.com  Wed Jun 18 17:54:34 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Wed Jun 18 17:54:59 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <22859-48686@sneakemail.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>,
+	<2348-57717@sneakemail.com>
+	<EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<22859-48686@sneakemail.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A249314A3E5@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> I don't follow this. So XML-RPC did not use HTTP Auth for user
+> authentication, instead did their own scheme. And this is an argument
+> for them to now also not use the standard HTTP encryption protocol?
+
+I'm not arguing to NOT use the standard HTTP encryption protocol--obviously when available, that's the best option. If it's not available, what do we do?
+
+> The reason you want a signed certificate is that the _first_ time you
+> connect e.g. to example.org then you are presented with a host key and
+> you have no guarantee that you are actually connected to the machines
+> actually running example.org or instead misdirected to a malicious
+> site (posing as example.org).
+
+OK, thanks, that makes sense to me.
+
+So to make SSL work, the clients will have to prompt on untrusted certs and then persist that cert for next time (unless the OS does it for you). On the server side, how will WordPress know whether to point users to https or http?
+
+> Maybe not pre-configured when you pick the cheapest shared hosting
+> solution, but all the big ones do offer it, and if you run your own
+> server (e.g. via virtualization which today is pretty cheap) you can
+> even get signed certificates for free where the signing authority's
+> certificate is in Leopard's list of trusted CA (if you self-sign, you
+> can always add your own root certf. to this list).
+
+I know it's usually *possible*, especially when money is applied, but I want a solution that will be not completely insecure by default (again, in addition to supporting SSL where available).
+
+> And this is what https offers...
+
+Thanks, I understand what https offers. The question is, what do we do when it's not configured?
+
+I don't believe the only two rational choices are https or cleartext passwords, with nothing in between. Isn't it much worse to have your password compromised, than to be proxied through a malicious server using an auth scheme that isn't susceptible to replay attacks? In the latter case, at least the damage is limited to whatever the attacker can do while you're still making requests, and to what they can do using the XML-RPC API.
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From Joe.Cheng at microsoft.com  Wed Jun 18 18:02:20 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Wed Jun 18 18:02:47 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <4E2D1052-4080-4E9E-88F5-C008E78755CE@randomnetworks.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>,
+	<2348-57717@sneakemail.com>
+	<EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4E2D1052-4080-4E9E-88F5-C008E78755CE@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A249314A3FF@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> While perhaps not the ideal situation that everyone would like,
+> having XML-RPC not require HTTP authentication has made it much
+> easier to support in a variety of server environments.
+
+That's a laudable goal and I agree it would've been a mistake to require HTTP auth. X-WSSE grew out of exactly the same set of constraints. Other than the fact that it requires the server to know the password, it seems like it would've been perfect for WP.
+
+http://www.xml.com/pub/a/2003/12/17/dive.html
+
+I don't claim to have a solution but at least it would be good to get to consensus about whether we even have a security problem right now.
+
+> I'm not claiming that XML-RPC is perfect, or even the best, but it
+> shouldn't be blamed for what people built on top of it.
+
+Yes, I've been using XML-RPC to mean "The family of blogging protocols based on XML-RPC". However, since the same guy invented XML-RPC and MetaWeblog, I don't feel too bad painting with a broad brush ;)
+From joseph at randomnetworks.com  Wed Jun 18 19:12:32 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jun 18 19:13:11 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A249314A3FF@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>
+	<27178-46985@sneakemail.com> <4853DBCB.10608@ftwr.co.uk>
+	<29367-85569@sneakemail.com>
+	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>
+	<17075-01709@sneakemail.com>
+	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<05B84088-775A-4ED2-A6C8-DF50F977A762@randomnetworks.com>,
+	<2348-57717@sneakemail.com>
+	<EF14FE208FC8364F94E8A58EF085979A24927AFB5F@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<4E2D1052-4080-4E9E-88F5-C008E78755CE@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A249314A3FF@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <2E6F3EE6-B129-47C0-9039-A113ABD9647E@randomnetworks.com>
+
+
+On Jun 18, 2008, at 12:02 PM, Joe Cheng wrote:
+
+>> While perhaps not the ideal situation that everyone would like,
+>> having XML-RPC not require HTTP authentication has made it much
+>> easier to support in a variety of server environments.
+>
+> That's a laudable goal and I agree it would've been a mistake to  
+> require HTTP auth. X-WSSE grew out of exactly the same set of  
+> constraints. Other than the fact that it requires the server to  
+> know the password, it seems like it would've been perfect for WP.
+>
+> http://www.xml.com/pub/a/2003/12/17/dive.html
+
+
+I can appreciate what WSSE was trying to accomplish, but in the end  
+requiring clear text password to be stored in the database is just a  
+bad idea.  Making WSSE an non-starter.
+
+
+> I don't claim to have a solution but at least it would be good to  
+> get to consensus about whether we even have a security problem  
+> right now.
+
+I think it's pretty fair to say that there's a problem right now.  As  
+I mentioned, there's actually two.  First one is solved by SSL/TLS,  
+if you've got it, use it.  I'll be working to promote this on the  
+WordPress.com side of things.  For the greater WordPress community  
+though, it's optional and can't be enforced unfortunately.  Bummer,  
+but that's where things are at and right now.  If things change,  
+great, and we can even help promote that.  The second problem is one  
+of username/password request proliferation by applications and  
+services.  I see these as two different problems, with this thread  
+(hopefully) being focused on the second problem.
+
+
+>> I'm not claiming that XML-RPC is perfect, or even the best, but it
+>> shouldn't be blamed for what people built on top of it.
+>
+> Yes, I've been using XML-RPC to mean "The family of blogging  
+> protocols based on XML-RPC". However, since the same guy invented  
+> XML-RPC and MetaWeblog, I don't feel too bad painting with a broad  
+> brush ;)
+
+
+:-)  I think that's a common feeling.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Fri Jun 20 16:13:13 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Jun 20 16:14:03 2008
+Subject: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+Message-ID: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>
+
+
+Big heads up here, XML-RPC and AtomPub will be disabled by default in  
+WordPress 2.6.  The code for XML-RPC has already been added to -trunk  
+and I'll be looking at the AtomPub code to figure out how best  
+address that.
+
+	http://trac.wordpress.org/ticket/7157
+
+They are easily turned back on in wp-admin.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From jalkut at red-sweater.com  Fri Jun 20 16:17:30 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Jun 20 16:17:46 2008
+Subject: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+In-Reply-To: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>
+References: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>
+Message-ID: <8B8D6E54-5253-4C7B-A91D-84E18436CC18@red-sweater.com>
+
+Thanks  for the heads up, Joseph! I added my thoughts to the bug, but  
+I'll repeat them here:
+
+What a bummer. Terrible news for desktop clients. I hope the security  
+enhancing tradeoff is very high because this will be a support burden  
+on developers who are supporting users of desktop clients.
+
+It's also worth noting that this will add friction to the process of  
+using a remote client with WordPress, and therefore make other systems  
+such as Blogger potentially more attractive to such users.
+
+Daniel
+
+On Jun 20, 2008, at 12:13 PM, Joseph Scott wrote:
+
+>
+> Big heads up here, XML-RPC and AtomPub will be disabled by default  
+> in WordPress 2.6.  The code for XML-RPC has already been added to - 
+> trunk and I'll be looking at the AtomPub code to figure out how best  
+> address that.
+>
+> 	http://trac.wordpress.org/ticket/7157
+>
+> They are easily turned back on in wp-admin.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From jalkut at red-sweater.com  Tue Jun 24 15:17:23 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue Jun 24 15:17:53 2008
+Subject: [wp-xmlrpc] XMLRPC interface to post revisions?
+Message-ID: <D4566D68-A63A-4FF9-BB31-55941667E60C@red-sweater.com>
+
+
+I'm intrigued by the new revisions feature coming in WordPress 2.6.
+
+Has any thought been given to how these revisions will be conveyed via  
+XMLRPC and Atom?
+
+Is each revision a unique "post" in the database, or is it more that a  
+separate history is maintained for each post?
+
+Daniel
+
+From mikea at turbonet.com  Tue Jun 24 21:12:29 2008
+From: mikea at turbonet.com (Michael D Adams)
+Date: Tue Jun 24 21:12:54 2008
+Subject: [wp-xmlrpc] XMLRPC interface to post revisions?
+Message-ID: <9135467E-059E-4F58-9EBC-56B80299787F@turbonet.com>
+
+> Is each revision a unique "post" in the database, or is it more that a
+> separate history is maintained for each post?
+
+Each revision is stored as a separate row in the posts table with a  
+post_type of "revision".  In the current implementation, revisions are  
+only for viewing historical changes to a post.  In particular,  
+revisions are not editable.
+
+Mike
+From m at mullenweg.com  Mon Jun 30 19:08:01 2008
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon Jun 30 19:08:17 2008
+Subject: [wp-xmlrpc] Any interest in OAuth?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <7C3187E0-B694-426A-91C1-40200FFEF8FE@randomnetworks.com>	<27178-46985@sneakemail.com>
+	<4853DBCB.10608@ftwr.co.uk>	<29367-85569@sneakemail.com>	<B3997E94-D182-412A-9192-FAAAFD9A0275@randomnetworks.com>	<17075-01709@sneakemail.com>	<CE64A17A-FC09-4E5A-AB4C-988790F565AF@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A2491F9920A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <48692F11.1040901@mullenweg.com>
+
+Joe Cheng wrote:
+> Obviously SSL is one fix but not an option for most WP users. (However
+> I would love to see WordPress.com RSD point to https, which seems to
+> already work.)
+
+All of the RSDs on WordPress.com now point to SSL endpoints. :)
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://automattic.com

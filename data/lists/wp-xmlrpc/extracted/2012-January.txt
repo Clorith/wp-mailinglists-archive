@@ -1,0 +1,240 @@
+From ryanchan404 at gmail.com  Mon Jan  9 08:00:35 2012
+From: ryanchan404 at gmail.com (Ryan Chan)
+Date: Mon, 9 Jan 2012 16:00:35 +0800
+Subject: [wp-xmlrpc] Enable XMLRPC without turn on in the admin
+Message-ID: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+
+I want to turn on XMLRPC for users' blog without the need to change
+the setting in their wordpress's admin.
+
+Is it possible to say, create a new file xmlrpc2.php and copy this
+file to under the user's blog and apply some hack in this file to by
+pass the admin setting?
+
+If yes, which file I should look at?
+
+Thanks.
+
+From n.prasath.002 at gmail.com  Mon Jan  9 08:16:59 2012
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Mon, 9 Jan 2012 13:46:59 +0530
+Subject: [wp-xmlrpc] Enable XMLRPC without turn on in the admin
+In-Reply-To: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+References: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+Message-ID: <CAMnz2tYMaBF7pOkQtYcJaHJhgsO2ifQnkmC1GMwfv1YjR3T3-Q@mail.gmail.com>
+
+What you need to do is create a new wp_xmlrpc_server class and apply it
+using a hook  *wp_xmlrpc_server_class.*
+
+The new class will be as the same as the old class except you must hack the
+login method (line 179)
+and remove the code segment which checks whether the xmlrpc services are
+enabled.
+(From line 180 to 184)
+
+On Mon, Jan 9, 2012 at 1:30 PM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+
+> I want to turn on XMLRPC for users' blog without the need to change
+> the setting in their wordpress's admin.
+>
+> Is it possible to say, create a new file xmlrpc2.php and copy this
+> file to under the user's blog and apply some hack in this file to by
+> pass the admin setting?
+>
+> If yes, which file I should look at?
+>
+> Thanks.
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20120109/9b719794/attachment.htm>
+
+From wordpress at dd32.id.au  Mon Jan  9 08:18:45 2012
+From: wordpress at dd32.id.au (Dion Hulse (dd32))
+Date: Mon, 9 Jan 2012 19:18:45 +1100
+Subject: [wp-xmlrpc] Enable XMLRPC without turn on in the admin
+In-Reply-To: <CAMnz2tYMaBF7pOkQtYcJaHJhgsO2ifQnkmC1GMwfv1YjR3T3-Q@mail.gmail.com>
+References: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+	<CAMnz2tYMaBF7pOkQtYcJaHJhgsO2ifQnkmC1GMwfv1YjR3T3-Q@mail.gmail.com>
+Message-ID: <CAL4EHfmEuNfko526bE_GxXoX8u7kDDu0JgNvHb6ZRRgfKv7kTg@mail.gmail.com>
+
+Alternatively you could do it progmatically by calling update_option()
+on the correct option from code and then just use the core class...
+
+If you're wanting to alter it for all new Multisite blogs for example,
+there's a better way of achieving it, through using the installation
+defaults hooks/filters.
+
+On 9 January 2012 19:16, prasath nadarajah <n.prasath.002 at gmail.com> wrote:
+> What you need to do is create a new wp_xmlrpc_server class and apply it
+> using a hook? wp_xmlrpc_server_class.
+>
+> The new class will be as the same as the old class except you must hack the
+> login method (line 179)
+> and remove the code segment which checks whether the xmlrpc services are
+> enabled.
+> (From line 180 to 184)
+>
+>
+> On Mon, Jan 9, 2012 at 1:30 PM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+>>
+>> I want to turn on XMLRPC for users' blog without the need to change
+>> the setting in their wordpress's admin.
+>>
+>> Is it possible to say, create a new file xmlrpc2.php and copy this
+>> file to under the user's blog and apply some hack in this file to by
+>> pass the admin setting?
+>>
+>> If yes, which file I should look at?
+>>
+>> Thanks.
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+From joseph at josephscott.org  Mon Jan  9 22:19:48 2012
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 9 Jan 2012 15:19:48 -0700
+Subject: [wp-xmlrpc] Enable XMLRPC without turn on in the admin
+In-Reply-To: <CAL4EHfmEuNfko526bE_GxXoX8u7kDDu0JgNvHb6ZRRgfKv7kTg@mail.gmail.com>
+References: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+	<CAMnz2tYMaBF7pOkQtYcJaHJhgsO2ifQnkmC1GMwfv1YjR3T3-Q@mail.gmail.com>
+	<CAL4EHfmEuNfko526bE_GxXoX8u7kDDu0JgNvHb6ZRRgfKv7kTg@mail.gmail.com>
+Message-ID: <CAE81+yYUVSOWyjkiU-M6LsfgMU5NX8xMV4bCYYD5+1HjeitRvQ@mail.gmail.com>
+
+If you want it one for new sites I'd just update the option.  If you
+want something to force it one for several existing sites then
+updating the option in the DB is good.  To force them on you could
+filter the enable_xmlrpc option.
+
+On Mon, Jan 9, 2012 at 1:18 AM, Dion Hulse (dd32) <wordpress at dd32.id.au> wrote:
+> Alternatively you could do it progmatically by calling update_option()
+> on the correct option from code and then just use the core class...
+>
+> If you're wanting to alter it for all new Multisite blogs for example,
+> there's a better way of achieving it, through using the installation
+> defaults hooks/filters.
+>
+> On 9 January 2012 19:16, prasath nadarajah <n.prasath.002 at gmail.com> wrote:
+>> What you need to do is create a new wp_xmlrpc_server class and apply it
+>> using a hook? wp_xmlrpc_server_class.
+>>
+>> The new class will be as the same as the old class except you must hack the
+>> login method (line 179)
+>> and remove the code segment which checks whether the xmlrpc services are
+>> enabled.
+>> (From line 180 to 184)
+>>
+>>
+>> On Mon, Jan 9, 2012 at 1:30 PM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+>>>
+>>> I want to turn on XMLRPC for users' blog without the need to change
+>>> the setting in their wordpress's admin.
+>>>
+>>> Is it possible to say, create a new file xmlrpc2.php and copy this
+>>> file to under the user's blog and apply some hack in this file to by
+>>> pass the admin setting?
+>>>
+>>> If yes, which file I should look at?
+>>>
+>>> Thanks.
+>>> _______________________________________________
+>>> wp-xmlrpc mailing list
+>>> wp-xmlrpc at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>>
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From wp at andrewnacin.com  Mon Jan  9 22:27:21 2012
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Mon, 9 Jan 2012 17:27:21 -0500
+Subject: [wp-xmlrpc] Enable XMLRPC without turn on in the admin
+In-Reply-To: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+References: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+Message-ID: <CAP29PvgbAWJ=5t-kU39bjPqc+MPNMpWJkhSWkAFzkOdJB_o_jA@mail.gmail.com>
+
+On Mon, Jan 9, 2012 at 3:00 AM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+
+> I want to turn on XMLRPC for users' blog without the need to change
+> the setting in their wordpress's admin.
+>
+> Is it possible to say, create a new file xmlrpc2.php and copy this
+> file to under the user's blog and apply some hack in this file to by
+> pass the admin setting?
+>
+> If yes, which file I should look at?
+
+
+You can update the database as Joseph and Dion suggested, though this is
+enough to get you started:
+
+add_filter( 'pre_option_enable_xmlrpc', '__return_true' );
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20120109/56f8e0d9/attachment.htm>
+
+From ryanchan404 at gmail.com  Tue Jan 10 05:44:38 2012
+From: ryanchan404 at gmail.com (Ryan Chan)
+Date: Tue, 10 Jan 2012 13:44:38 +0800
+Subject: [wp-xmlrpc] Enable XMLRPC without turn on in the admin
+In-Reply-To: <CAP29PvgbAWJ=5t-kU39bjPqc+MPNMpWJkhSWkAFzkOdJB_o_jA@mail.gmail.com>
+References: <CAJvdmtEpSEwpzJtovGQaSWvG7VSZXtaux1UjmFKAWFfF+apA7Q@mail.gmail.com>
+	<CAP29PvgbAWJ=5t-kU39bjPqc+MPNMpWJkhSWkAFzkOdJB_o_jA@mail.gmail.com>
+Message-ID: <CAJvdmtE0+=8NyBWrnazrKPmonN12wyqp=hJC3XNXGXzXEsLTBg@mail.gmail.com>
+
+Thanks!
+
+On Tue, Jan 10, 2012 at 6:27 AM, Andrew Nacin <wp at andrewnacin.com> wrote:
+> On Mon, Jan 9, 2012 at 3:00 AM, Ryan Chan <ryanchan404 at gmail.com> wrote:
+>>
+>> I want to turn on XMLRPC for users' blog without the need to change
+>> the setting in their wordpress's admin.
+>>
+>> Is it possible to say, create a new file xmlrpc2.php and copy this
+>> file to under the user's blog and apply some hack in this file to by
+>> pass the admin setting?
+>>
+>> If yes, which file I should look at?
+>
+>
+> You can update the database as Joseph and Dion suggested, though this is
+> enough to get you started:
+>
+> add_filter( 'pre_option_enable_xmlrpc', '__return_true' );
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+

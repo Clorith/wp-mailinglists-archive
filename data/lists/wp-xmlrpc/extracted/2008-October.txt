@@ -1,0 +1,70 @@
+From joseph at randomnetworks.com  Tue Oct 21 06:53:58 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Oct 21 06:54:13 2008
+Subject: [wp-xmlrpc] Changes in the upcoming 2.7 release
+Message-ID: <BF4BDDB1-C663-42AB-9998-2F0701E7955D@randomnetworks.com>
+
+
+Work on getting WordPress 2.7 ready for release (targeted for 10  
+November currently) is bug hunting mode.  Here's the XML-RPC changes  
+that are currently in for 2.7 that have new from 2.6.2:
+
+- New methods:
+	- wp.getTags
+	- wp.getComment
+	- wp.getComments
+	- wp.deleteComment
+	- wp.editComment
+	- wp.newComment
+	- wp.getCommentStatusList
+- Method changes:
+	- metaWeblog.getPost now returns a enclosure data (if there is one  
+for the post)
+	- metaWeblog.getRecentPosts now returns an empty array instead of an  
+error if there are no posts
+
+
+Lots of comment management features, and starting with some tag  
+management.  Please test these out (either check out -trunk or use a  
+nightly build) and let us know if there are any errors so that we can  
+get them fixed in time for the 2.7 release.
+
+Thanks.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From joseph at randomnetworks.com  Wed Oct 29 16:37:30 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Oct 29 16:37:51 2008
+Subject: [wp-xmlrpc] Encoded values in tag & category names
+Message-ID: <CAF5A03F-ACC2-4EBD-B576-DCD02758AA30@randomnetworks.com>
+
+
+I've recently been digging into an issue where tag & category names  
+are exposed this encoded values.  For instance, if a tag name is  
+'black & white' then it gets exposed as 'black &amp; white'.  After  
+some investigation it turns out this is a problem that has been in  
+WordPress for awhile (it's not new to the upcoming 2.7 release).  I've  
+been able to track down where and why it's happening, but to properly  
+fix will require a adjusting a number of things.  With the currently  
+push to get 2.7 released soon, we've decided to push fixing this  
+problem back to after 2.7 gets released.
+
+I've added a ticket to track this issue: http://trac.wordpress.org/ticket/8002
+
+Thanks to Joe Cheng at Microsoft for bringing this up and prodding me  
+to look into it :-)
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+

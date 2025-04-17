@@ -1,0 +1,384 @@
+From m at mullenweg.com  Fri Feb 25 20:38:08 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri Feb 25 20:38:40 2005
+Subject: [wp-hackers] New list address
+Message-ID: <421F8CB0.3000304@mullenweg.com>
+
+Please use this new list address for everything. Here's the new URL:
+
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+-- 
+Matt Mullenweg
+http://photomatt.net  | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+From m at mullenweg.com  Sat Feb 26 02:23:21 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sat Feb 26 02:23:30 2005
+Subject: [wp-hackers] SVN SSL
+Message-ID: <421FDD99.5030300@mullenweg.com>
+
+For those of you who had questions about securing your SVN logins, you 
+can now access the repositories over SSL as well:
+
+https://svn.automattic.com/wordpress/
+https://svn.wp-plugins.org/
+
+Just accept the cert from the nice folks at TextDrive and you should be 
+good to go.
+
+-- 
+Matt Mullenweg
+http://photomatt.net  | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+From ryan at boren.nu  Sat Feb 26 05:08:59 2005
+From: ryan at boren.nu (Ryan Boren)
+Date: Sat Feb 26 05:09:02 2005
+Subject: [wp-hackers] 915: Use index.php for feed links instead of wp-*.php
+Message-ID: <1109394539.14827.44.camel@portnoy.fuzzybelly.org>
+
+http://mosquito.wordpress.org/view.php?id=915
+
+I attached a patch to the bug that removes wp-rss2.php, wp-atom.php,
+etc. from feed links and references index.php with a feed= argument
+instead.
+
+Before:
+
+http://weblog/wp/wp-rss2.php
+
+After:
+
+http://weblog/?feed=rss2
+
+This will allow us to deprecate the wp-xxx.php feed files.
+
+I also added some *_feed_link filters where appropriate.
+
+Ryan
+
+
+From m at mullenweg.com  Sat Feb 26 05:10:28 2005
+From: m at mullenweg.com (Matthew Mullenweg)
+Date: Sat Feb 26 05:10:39 2005
+Subject: [wp-hackers] 915: Use index.php for feed links instead of wp-*.php
+In-Reply-To: <1109394539.14827.44.camel@portnoy.fuzzybelly.org>
+References: <1109394539.14827.44.camel@portnoy.fuzzybelly.org>
+Message-ID: <422004C4.40708@mullenweg.com>
+
+Ryan Boren wrote:
+> http://mosquito.wordpress.org/view.php?id=915
+> 
+> I attached a patch to the bug that removes wp-rss2.php, wp-atom.php,
+> etc. from feed links and references index.php with a feed= argument
+> instead.
+
+Excellent, too bad we didn't get that in before 1.5.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://cnet.com
+From skippy at skippy.net  Sat Feb 26 14:33:39 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Sat Feb 26 14:33:21 2005
+Subject: [wp-hackers] Interim Updates
+Message-ID: <422088C3.9070908@skippy.net>
+
+I haven't upgraded to 1.5 yet; and I know that 1.5.1 is around the corner.
+
+I'd like to upgrade, but I know that some things are broken in 1.5 (like 
+trackbacks, for example).  Is there a way for users like me to keep up 
+with _just_ the bugfixes going into SVN without also applying new (and 
+possibly experimental) development items?
+
+I'll be happy to start using SVN to check out the latest _stable_ 
+versions, but I don't want to run a development version on my system -- 
+mostly because I don't feel like tracking the SVN commits to keep up 
+with what may break my site.
+
+I'd like something newer (and less buggy) than the latest release, but 
+not something bleeding edge.  Is that possible?
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From false.hopes at gmail.com  Sat Feb 26 16:07:33 2005
+From: false.hopes at gmail.com (Robert Deaton)
+Date: Sat Feb 26 16:07:45 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <422088C3.9070908@skippy.net>
+References: <422088C3.9070908@skippy.net>
+Message-ID: <a491f91d05022608074e7156a0@mail.gmail.com>
+
+Well, if you feel really comfortable with the source code, you could
+go through and pick out the newer more stable functions that you want
+out of SVN and apply them to your current version, sortof making your
+own release that's a mix of everything.
+
+
+On Sat, 26 Feb 2005 09:33:39 -0500, Scott Merrill <skippy@skippy.net> wrote:
+> I haven't upgraded to 1.5 yet; and I know that 1.5.1 is around the corner.
+> 
+> I'd like to upgrade, but I know that some things are broken in 1.5 (like
+> trackbacks, for example).  Is there a way for users like me to keep up
+> with _just_ the bugfixes going into SVN without also applying new (and
+> possibly experimental) development items?
+> 
+> I'll be happy to start using SVN to check out the latest _stable_
+> versions, but I don't want to run a development version on my system --
+> mostly because I don't feel like tracking the SVN commits to keep up
+> with what may break my site.
+> 
+> I'd like something newer (and less buggy) than the latest release, but
+> not something bleeding edge.  Is that possible?
+> 
+> --
+> skippy@skippy.net | http://skippy.net/
+> 
+> gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+> 506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+
+
+-- 
+--Robert Deaton
+http://anothersadsong.com
+From ryan at boren.nu  Sat Feb 26 16:22:07 2005
+From: ryan at boren.nu (Ryan Boren)
+Date: Sat Feb 26 16:22:32 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <422088C3.9070908@skippy.net>
+References: <422088C3.9070908@skippy.net>
+Message-ID: <1109434927.21196.16.camel@portnoy.fuzzybelly.org>
+
+On Sat, 2005-02-26 at 09:33 -0500, Scott Merrill wrote:
+>I haven't upgraded to 1.5 yet; and I know that 1.5.1 is around the corner.
+>
+>I'd like to upgrade, but I know that some things are broken in 1.5 (like 
+>trackbacks, for example).  Is there a way for users like me to keep up 
+>with _just_ the bugfixes going into SVN without also applying new (and 
+>possibly experimental) development items?
+
+There are no experimental development items.  SVN trunk is for bug
+fixing only right now and will be until 1.5.1 is released.
+
+Ryan
+
+From chris at coggburn.us  Sat Feb 26 21:26:30 2005
+From: chris at coggburn.us (Chris Coggburn)
+Date: Sat Feb 26 21:27:10 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <1109434927.21196.16.camel@portnoy.fuzzybelly.org>
+References: <422088C3.9070908@skippy.net>
+	<1109434927.21196.16.camel@portnoy.fuzzybelly.org>
+Message-ID: <4220E986.1070205@coggburn.us>
+
+Ryan Boren wrote:
+
+>On Sat, 2005-02-26 at 09:33 -0500, Scott Merrill wrote:
+>
+>
+>>I haven't upgraded to 1.5 yet; and I know that 1.5.1 is around the corner.
+>>
+>>I'd like to upgrade, but I know that some things are broken in 1.5 (like
+>>trackbacks, for example).  Is there a way for users like me to keep up
+>>with _just_ the bugfixes going into SVN without also applying new (and
+>>possibly experimental) development items?
+>>
+>>
+>
+>There are no experimental development items.  SVN trunk is for bug
+>fixing only right now and will be until 1.5.1 is released.
+>
+>
+Soon a branch will be opened for 1.6 code, and that will contain the
+experimental features and whatnot. So trunk will always contain just
+bugfixes, etc for the most stable version, and code from the branches
+will be backported into the trunk, or something similar anyway.
+
+--
+Christopher Coggburn
+http://chris.coggburn.us
+http://noderat.com
+http://beyonddigital.net
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 254 bytes
+Desc: OpenPGP digital signature
+Url : http://comox.textdrive.com/pipermail/wp-hackers/attachments/20050226/abfc037d/signature.bin
+From morgan at doocy.net  Sat Feb 26 22:08:41 2005
+From: morgan at doocy.net (Morgan Doocy)
+Date: Sat Feb 26 22:08:53 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <4220E986.1070205@coggburn.us>
+References: <422088C3.9070908@skippy.net>
+	<1109434927.21196.16.camel@portnoy.fuzzybelly.org>
+	<4220E986.1070205@coggburn.us>
+Message-ID: <014a63c0020439a3014d28d95252300c@doocy.net>
+
+On Feb 26, 2005, at 1:26 PM, Chris Coggburn wrote:
+> Soon a branch will be opened for 1.6 code, and that will contain the
+> experimental features and whatnot. So trunk will always contain just
+> bugfixes, etc for the most stable version, and code from the branches
+> will be backported into the trunk, or something similar anyway.
+
+Actually, just the opposite. Once 1.5.1 is out the door, 1.5 will be 
+branched off for bugfix releases. From that point the trunk will 
+contain the development version of 1.6.
+
+At least that's what Ryan suggested: 
+http://comox.textdrive.com/pipermail/hackers/2005-February/004107.html
+
+Morgan
+
+From chris at coggburn.us  Sat Feb 26 22:35:45 2005
+From: chris at coggburn.us (Chris Coggburn)
+Date: Sat Feb 26 22:36:20 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <014a63c0020439a3014d28d95252300c@doocy.net>
+References: <422088C3.9070908@skippy.net>	<1109434927.21196.16.camel@portnoy.fuzzybelly.org>	<4220E986.1070205@coggburn.us>
+	<014a63c0020439a3014d28d95252300c@doocy.net>
+Message-ID: <4220F9C1.7020204@coggburn.us>
+
+Morgan Doocy wrote:
+
+> On Feb 26, 2005, at 1:26 PM, Chris Coggburn wrote:
+>
+>> Soon a branch will be opened for 1.6 code, and that will contain the
+>> experimental features and whatnot. So trunk will always contain just
+>> bugfixes, etc for the most stable version, and code from the branches
+>> will be backported into the trunk, or something similar anyway.
+>
+>
+> Actually, just the opposite. Once 1.5.1 is out the door, 1.5 will be
+> branched off for bugfix releases. From that point the trunk will
+> contain the development version of 1.6.
+>
+> At least that's what Ryan suggested:
+> http://comox.textdrive.com/pipermail/hackers/2005-February/004107.html
+
+Kind of a deviation of the norm though, isn't it?
+
+--
+Christopher Coggburn
+http://chris.coggburn.us
+http://noderat.com
+http://beyonddigital.net
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 254 bytes
+Desc: OpenPGP digital signature
+Url : http://comox.textdrive.com/pipermail/wp-hackers/attachments/20050226/fe28fe5c/signature.bin
+From journalized at gmail.com  Sat Feb 26 23:23:17 2005
+From: journalized at gmail.com (Mike Little)
+Date: Sat Feb 26 23:23:34 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <4220F9C1.7020204@coggburn.us>
+References: <422088C3.9070908@skippy.net>
+	<1109434927.21196.16.camel@portnoy.fuzzybelly.org>
+	<4220E986.1070205@coggburn.us>
+	<014a63c0020439a3014d28d95252300c@doocy.net>
+	<4220F9C1.7020204@coggburn.us>
+Message-ID: <7235ce7805022615233f3f5d60@mail.gmail.com>
+
+On Sat, 26 Feb 2005 15:35:45 -0700, Chris Coggburn <chris@coggburn.us> wrote:
+> Kind of a deviation of the norm though, isn't it?
+> 
+
+It depends on who's norm. It is perfectly natural for me to create a
+branch to support a previous release and to use the trunk for ongoing
+development work. I do this on all my projects. In fact I've been
+doing it for 15 years.
+
+Mike
+
+-- 
+Mike Little
+http://zed1.com/journalized/
+From ryan at boren.nu  Sun Feb 27 00:44:41 2005
+From: ryan at boren.nu (Ryan Boren)
+Date: Sun Feb 27 00:44:53 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <7235ce7805022615233f3f5d60@mail.gmail.com>
+References: <422088C3.9070908@skippy.net>
+	<1109434927.21196.16.camel@portnoy.fuzzybelly.org>
+	<4220E986.1070205@coggburn.us>
+	<014a63c0020439a3014d28d95252300c@doocy.net>
+	<4220F9C1.7020204@coggburn.us>
+	<7235ce7805022615233f3f5d60@mail.gmail.com>
+Message-ID: <1109465082.21196.49.camel@portnoy.fuzzybelly.org>
+
+On Sat, 2005-02-26 at 23:23 +0000, Mike Little wrote:
+>On Sat, 26 Feb 2005 15:35:45 -0700, Chris Coggburn <chris@coggburn.us> wrote:
+>> Kind of a deviation of the norm though, isn't it?
+>> 
+>
+>It depends on who's norm. It is perfectly natural for me to create a
+>branch to support a previous release and to use the trunk for ongoing
+>development work. I do this on all my projects. In fact I've been
+>doing it for 15 years.
+
+Same here, but only for 13 years.  Ongoing development always happens on
+the trunk.  That's why it's the trunk.
+
+Some branch strategies use feature branches that eventually merge back
+to the trunk to form the next major release, but we don't do that.  I'm
+not fond of that strategy since it is very heavyweight and creates lots
+of sync/merge work.  However, even in that strategy bug fixing for
+previous releases happens in branches, not on the trunk.  The reason
+we're still using trunk for 1.5.1 bug fix work is because we haven't
+opened 1.6 development.
+
+Ryan
+
+From chris at coggburn.us  Sun Feb 27 09:59:16 2005
+From: chris at coggburn.us (Chris Coggburn)
+Date: Sun Feb 27 10:00:40 2005
+Subject: [wp-hackers] Interim Updates
+In-Reply-To: <1109465082.21196.49.camel@portnoy.fuzzybelly.org>
+References: <422088C3.9070908@skippy.net>	<1109434927.21196.16.camel@portnoy.fuzzybelly.org>	<4220E986.1070205@coggburn.us>	<014a63c0020439a3014d28d95252300c@doocy.net>	<4220F9C1.7020204@coggburn.us>	<7235ce7805022615233f3f5d60@mail.gmail.com>
+	<1109465082.21196.49.camel@portnoy.fuzzybelly.org>
+Message-ID: <422199F4.8000604@coggburn.us>
+
+Ryan Boren wrote:
+
+>Same here, but only for 13 years.  Ongoing development always happens on
+>the trunk.  That's why it's the trunk.
+>
+>Some branch strategies use feature branches that eventually merge back
+>to the trunk to form the next major release, but we don't do that.  I'm
+>not fond of that strategy since it is very heavyweight and creates lots
+>of sync/merge work.  However, even in that strategy bug fixing for
+>previous releases happens in branches, not on the trunk.  The reason
+>we're still using trunk for 1.5.1 bug fix work is because we haven't
+>opened 1.6 development.
+>
+>
+I see. I guess I might look into that for my projects as well.
+
+--
+Christopher Coggburn
+http://chris.coggburn.us
+http://noderat.com
+http://beyonddigital.net
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 254 bytes
+Desc: OpenPGP digital signature
+Url : http://comox.textdrive.com/pipermail/wp-hackers/attachments/20050227/95759f8f/signature.bin

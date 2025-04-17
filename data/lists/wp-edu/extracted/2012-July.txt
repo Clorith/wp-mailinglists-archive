@@ -1,0 +1,553 @@
+From newquisk at lafayette.edu  Fri Jul 20 15:32:19 2012
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 20 Jul 2012 11:32:19 -0400
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <1280222871.10308.10.camel@rivalry>
+References: <1280222871.10308.10.camel@rivalry>
+Message-ID: <1F68DAC9-9F59-4740-B1B6-5BAAE3C977C6@lafayette.edu>
+
+Greetings,
+
+Is anyone out there using the Jetpack suite of plugins?
+
+http://wordpress.org/extend/plugins/jetpack/
+
+It looks like it scratches a number of social media itches (with LaTeX thrown in as the cherry on top), but I'm curious about how it worked for folks. In particular, I'm wondering how the API key scaled up. It looks as though you need to create a key for each site separately (unlike Akismet) and while that will work fine for one off sites, I expect it becomes a challenge in multisite environments with dozens or hundreds of web sites.
+
+Ken Newquist
+Director, Web Applications Development
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+
+
+From newquisk at lafayette.edu  Fri Jul 20 15:34:36 2012
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 20 Jul 2012 11:34:36 -0400
+Subject: [wp-edu] Jetpack error
+In-Reply-To: <AANLkTin6Lz4HxpY6Er4sLggXzThp=iKXDJ9zvpzOAi_D@mail.gmail.com>
+References: <1280222871.10308.10.camel@rivalry>
+	<DA431E33-8B68-4DA4-A44E-47589DF36364@lafayette.edu>
+	<4C77ED2C.3020202@mullenweg.com>
+	<AANLkTin6Lz4HxpY6Er4sLggXzThp=iKXDJ9zvpzOAi_D@mail.gmail.com>
+Message-ID: <B893F8C9-68E4-4DF1-B7CC-47A37F9DB190@lafayette.edu>
+
+Related to my previous post, I'm wondering if any colleges that used (or rather, tried to us) JetPack encountered errors connecting to the service. 
+
+I've experimented with it on a personal site, and it worked just fine, but when I tried it on my dev site at the college, it failed with this error:
+
+"Jetpack could not contact WordPress.com: register_http_request_failed. This usually means something is incorrectly configured on your web host".
+
+After finding this thread: 
+
+http://en.forums.wordpress.com/topic/jetpack-register_http_request_failed-how-do-i-fix-this
+
+we tried curling maneuver it suggested, and got back an error message of "HTTP/1.1 400 Bad Request"  along with an error of 
+
+{"error":"home_missing","error_description":"The required \"home\" parameter is missing."}
+
+I realize that this mailing lists for more general discussion topics, and not support requests, but a lot of the research we've done turns up problems with hosted sites on third party providers, not folks who do their hosting in house like many colleges do.
+
+
+--
+Ken Newquist
+Director, Web Applications Development
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+
+
+From josh at 7mediaws.org  Fri Jul 20 15:36:29 2012
+From: josh at 7mediaws.org (Parker, Joshua)
+Date: Fri, 20 Jul 2012 11:36:29 -0400 (EDT)
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <1F68DAC9-9F59-4740-B1B6-5BAAE3C977C6@lafayette.edu>
+Message-ID: <102356269.13850.1342798589298.JavaMail.root@host366.mulyoo.net>
+
+I've used it and it works great. But someone correct me if I am wrong, I don't thing Jetpack uses API keys anymore. 
+
+
+Check out my new book - WordPress & Nginx: The Ultimate Guide for Server Administrators Josh Parker WordPress Consultant	
+Joshua Parker 
+WordPress Consultant & PHP Developer 
+888.255.1798 x701 
+
+7 Media Web Solutions, LLC 
+www.7mediaws.org 
+Twitter	Linkedin	Josh Parker :: WordPress Consultant	Skype	Google+	WordPress Profile	About.me	Gravatar
+
+7 Media Blog: TriTan CMS 50% Off Sale http://feedproxy.google.com/~r/7mws/~3/dgkeqkdNseg/tritan_cms_50_percent_off_sale.html ----- Original Message -----
+
+From: "Ken Newquist" <newquisk at lafayette.edu> 
+To: wp-edu at lists.automattic.com 
+Sent: Friday, July 20, 2012 11:32:19 AM 
+Subject: [wp-edu] Higher Ed institutions using Jetpack? 
+
+Greetings, 
+
+Is anyone out there using the Jetpack suite of plugins? 
+
+http://wordpress.org/extend/plugins/jetpack/ 
+
+It looks like it scratches a number of social media itches (with LaTeX thrown in as the cherry on top), but I'm curious about how it worked for folks. In particular, I'm wondering how the API key scaled up. It looks as though you need to create a key for each site separately (unlike Akismet) and while that will work fine for one off sites, I expect it becomes a challenge in multisite environments with dozens or hundreds of web sites. 
+
+Ken Newquist 
+Director, Web Applications Development 
+Lafayette College 
+p: 610.330.5759 
+e: newquisk at lafayette.edu 
+web: http://sites.lafayette.edu/newquisk 
+podcast: http://sites.lafayette.edu/coffeebreak 
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy 
+
+
+
+
+
+
+_______________________________________________ 
+wp-edu mailing list 
+wp-edu at lists.automattic.com 
+http://lists.automattic.com/mailman/listinfo/wp-edu 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120720/f083aea2/attachment.htm>
+
+From newquisk at lafayette.edu  Fri Jul 20 19:28:55 2012
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 20 Jul 2012 15:28:55 -0400
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <102356269.13850.1342798589298.JavaMail.root@host366.mulyoo.net>
+References: <102356269.13850.1342798589298.JavaMail.root@host366.mulyoo.net>
+Message-ID: <F8433ED4-DB65-439E-BF5F-B00AFEBB5049@lafayette.edu>
+
+
+On Jul 20, 2012, at 11:36 AM, Parker, Joshua wrote:
+
+> I've used it and it works great. But someone correct me if I am wrong, I don't thing Jetpack uses API keys anymore.
+
+Sorry, I misspoke -- it requires a WordPress.com account.
+
+Ken
+
+
+
+--
+Ken Newquist
+Director, Web Applications Development
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+
+
+From jay.collier at thecompass.com  Fri Jul 20 19:36:10 2012
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Fri, 20 Jul 2012 15:36:10 -0400
+Subject: [wp-edu] WordPress and Drupal comparison - Your help requested
+Message-ID: <81983B40-514B-454E-96A9-B51BF4F27450@thecompass.com>
+
+Folks-
+
+For several years, I've been maintaining a CMS features comparison for WordPress and Drupal. (It's been very helpful when I'm asked to recommend the best CMS to match a school's needs. For some time now, it's been WP, but this comparison helps me dig into the criteria and continue to make the best recommendation.) 
+
+The document is public, and there are 6 sheets focusing on Software, Production, Publishing, Collaboration, Events, and Forms:
+
+	<http://bit.ly/Mx7wuM>
+
+I'm currently in the midst of my annual update. However, although I have current WP experience, I have not worked deeply with Drupal 7 yet. If you or a colleague have been using Drupal 7 in production for a school, college, or university, would you be willing to take a look at the comparison sheets and add your knowledge about the features that are supported in core and modules? This will work on the honor system, and I'll keep an eye on revisions and annotations if there is disagreement.
+
+Also, the lists of colleges and universities using WordPress and Drupal are here; I hope you'll update your own school's entry:
+
+	WordPress: <http://bit.ly/IMh151>
+	Drupal: <http://bit.ly/eMz36b>
+
+Thanks, in advance, for taking the time.
+
+-Jay
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120720/8f4966ae/attachment.htm>
+
+From josh at 7mediaws.org  Fri Jul 20 19:44:02 2012
+From: josh at 7mediaws.org (Parker, Joshua)
+Date: Fri, 20 Jul 2012 15:44:02 -0400 (EDT)
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <F8433ED4-DB65-439E-BF5F-B00AFEBB5049@lafayette.edu>
+Message-ID: <1392976072.14004.1342813442762.JavaMail.root@host366.mulyoo.net>
+
+The only thing I can think of is to have the Jetpack options copied from the main site over to all other sites using a plugin like http://wordpress.org/extend/plugins/yd-wpmu-sitewide-options/, and then have the plugin auto activated when each subsite is registered. Your mileage may vary depending on the size of your network. 
+
+
+
+
+Check out my new book - WordPress & Nginx: The Ultimate Guide for Server Administrators Josh Parker WordPress Consultant	
+Joshua Parker 
+WordPress Consultant & PHP Developer 
+888.255.1798 x701 
+
+7 Media Web Solutions, LLC 
+www.7mediaws.org 
+Twitter	Linkedin	Josh Parker :: WordPress Consultant	Skype	Google+	WordPress Profile	About.me	Gravatar
+
+7 Media Blog: TriTan CMS 50% Off Sale http://feedproxy.google.com/~r/7mws/~3/dgkeqkdNseg/tritan_cms_50_percent_off_sale.html ----- Original Message -----
+
+From: "Ken Newquist" <newquisk at lafayette.edu> 
+To: "Joshua Parker" <josh at 7mediaws.org>, wp-edu at lists.automattic.com 
+Sent: Friday, July 20, 2012 3:28:55 PM 
+Subject: Re: [wp-edu] Higher Ed institutions using Jetpack? 
+
+
+On Jul 20, 2012, at 11:36 AM, Parker, Joshua wrote: 
+
+> I've used it and it works great. But someone correct me if I am wrong, I don't thing Jetpack uses API keys anymore. 
+
+Sorry, I misspoke -- it requires a WordPress.com account. 
+
+Ken 
+
+
+
+-- 
+Ken Newquist 
+Director, Web Applications Development 
+Lafayette College 
+p: 610.330.5759 
+e: newquisk at lafayette.edu 
+web: http://sites.lafayette.edu/newquisk 
+podcast: http://sites.lafayette.edu/coffeebreak 
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy 
+
+
+
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120720/e5d81382/attachment-0001.htm>
+
+From audioserviceclinic at gmail.com  Fri Jul 20 19:51:33 2012
+From: audioserviceclinic at gmail.com (Dave)
+Date: Fri, 20 Jul 2012 12:51:33 -0700
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <F8433ED4-DB65-439E-BF5F-B00AFEBB5049@lafayette.edu>
+References: <102356269.13850.1342798589298.JavaMail.root@host366.mulyoo.net>
+	<F8433ED4-DB65-439E-BF5F-B00AFEBB5049@lafayette.edu>
+Message-ID: <5009B6C5.4090205@gmail.com>
+
+Hello Ken,
+
+My name is Dave, and I don't think this email was meant for me.
+
+Dave
+
+
+On 7/20/2012 12:28 PM, Ken Newquist wrote:
+> On Jul 20, 2012, at 11:36 AM, Parker, Joshua wrote:
+>
+>> I've used it and it works great. But someone correct me if I am wrong, I don't thing Jetpack uses API keys anymore.
+> Sorry, I misspoke -- it requires a WordPress.com account.
+>
+> Ken
+>
+>
+>
+> --
+> Ken Newquist
+> Director, Web Applications Development
+> Lafayette College
+> p: 610.330.5759
+> e: newquisk at lafayette.edu
+> web: http://sites.lafayette.edu/newquisk
+> podcast: http://sites.lafayette.edu/coffeebreak
+> cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+>
+>
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From wp at andrewnacin.com  Fri Jul 20 19:58:23 2012
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Fri, 20 Jul 2012 15:58:23 -0400
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <1F68DAC9-9F59-4740-B1B6-5BAAE3C977C6@lafayette.edu>
+References: <1280222871.10308.10.camel@rivalry>
+	<1F68DAC9-9F59-4740-B1B6-5BAAE3C977C6@lafayette.edu>
+Message-ID: <CAP29PviHA3XnAjGK1_8seLiVYLZpegQyVWpaDnDg33fJ=To7mQ@mail.gmail.com>
+
+On Fri, Jul 20, 2012 at 11:32 AM, Ken Newquist <newquisk at lafayette.edu>wrote:
+
+> Greetings,
+>
+> Is anyone out there using the Jetpack suite of plugins?
+>
+> http://wordpress.org/extend/plugins/jetpack/
+>
+> It looks like it scratches a number of social media itches (with LaTeX
+> thrown in as the cherry on top), but I'm curious about how it worked for
+> folks. In particular, I'm wondering how the API key scaled up. It looks as
+> though you need to create a key for each site separately (unlike Akismet)
+> and while that will work fine for one off sites, I expect it becomes a
+> challenge in multisite environments with dozens or hundreds of web sites.
+
+
+Jetpack currently requires you to connect each site individually. Copying
+options won't work; it has to do with the connection made with WP.com and
+data created on their side. You can use the same WP.com account, but I've
+found that there's no good way to script the connections of an entire
+network. I sent a note to one of the Jetpack guys to ensure they see this
+thread.
+
+Nacin
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120720/24efc2b2/attachment.htm>
+
+From josh at 7mediaws.org  Fri Jul 20 20:06:32 2012
+From: josh at 7mediaws.org (Parker, Joshua)
+Date: Fri, 20 Jul 2012 16:06:32 -0400 (EDT)
+Subject: [wp-edu] Higher Ed institutions using Jetpack?
+In-Reply-To: <CAP29PviHA3XnAjGK1_8seLiVYLZpegQyVWpaDnDg33fJ=To7mQ@mail.gmail.com>
+Message-ID: <579503013.14052.1342814792643.JavaMail.root@host366.mulyoo.net>
+
+Thanks for the info Andrew. 
+
+
+
+
+Check out my new book - WordPress & Nginx: The Ultimate Guide for Server Administrators Josh Parker WordPress Consultant	
+Joshua Parker 
+WordPress Consultant & PHP Developer 
+888.255.1798 x701 
+
+7 Media Web Solutions, LLC 
+www.7mediaws.org 
+Twitter	Linkedin	Josh Parker :: WordPress Consultant	Skype	Google+	WordPress Profile	About.me	Gravatar
+
+7 Media Blog: TriTan CMS 50% Off Sale http://feedproxy.google.com/~r/7mws/~3/dgkeqkdNseg/tritan_cms_50_percent_off_sale.html ----- Original Message -----
+
+From: "Andrew Nacin" <wp at andrewnacin.com> 
+To: wp-edu at lists.automattic.com 
+Sent: Friday, July 20, 2012 3:58:23 PM 
+Subject: Re: [wp-edu] Higher Ed institutions using Jetpack? 
+
+On Fri, Jul 20, 2012 at 11:32 AM, Ken Newquist < newquisk at lafayette.edu > wrote: 
+
+
+
+Greetings, 
+
+Is anyone out there using the Jetpack suite of plugins? 
+
+http://wordpress.org/extend/plugins/jetpack/ 
+
+It looks like it scratches a number of social media itches (with LaTeX thrown in as the cherry on top), but I'm curious about how it worked for folks. In particular, I'm wondering how the API key scaled up. It looks as though you need to create a key for each site separately (unlike Akismet) and while that will work fine for one off sites, I expect it becomes a challenge in multisite environments with dozens or hundreds of web sites. 
+
+
+
+
+Jetpack currently requires you to connect each site individually. Copying options won't work; it has to do with the connection made with WP.com and data created on their side. You can use the same WP.com account, but I've found that there's no good way to script the connections of an entire network. I sent a note to one of the Jetpack guys to ensure they see this thread. 
+
+
+Nacin 
+_______________________________________________ 
+wp-edu mailing list 
+wp-edu at lists.automattic.com 
+http://lists.automattic.com/mailman/listinfo/wp-edu 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120720/56418726/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Sat Jul 21 11:51:25 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Sat, 21 Jul 2012 07:51:25 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 2
+Message-ID: <fc.00870aa101eee17b3b9aca00c9943425.1eee17c@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120721/b5c1028d/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Sun Jul 22 11:51:21 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Sun, 22 Jul 2012 07:51:21 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 3
+Message-ID: <fc.00870aa101eeee463b9aca00bdd8ccfa.1eeee47@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120722/c75f70eb/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Mon Jul 23 11:51:25 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Mon, 23 Jul 2012 07:51:25 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 4
+Message-ID: <fc.00870aa101eefe3d3b9aca00ea1ec1e2.1eefe3e@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120723/2b3372b9/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Tue Jul 24 11:51:14 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Tue, 24 Jul 2012 07:51:14 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 5
+Message-ID: <fc.00870aa101ef22cd3b9aca00c930b201.1ef22ce@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120724/8ed610bf/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Wed Jul 25 11:51:07 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Wed, 25 Jul 2012 07:51:07 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 6
+Message-ID: <fc.00870aa101ef4b0a3b9aca00dda35800.1ef4b0b@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120725/065a7b29/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Thu Jul 26 11:51:04 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Thu, 26 Jul 2012 07:51:04 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 7
+Message-ID: <fc.00870aa101ef6e593b9aca00e23205d8.1ef6e5a@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120726/ae4a12cc/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Fri Jul 27 11:50:59 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Fri, 27 Jul 2012 07:50:59 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 8
+Message-ID: <fc.00870aa101ef930f3b9aca00d8029560.1ef9310@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120727/3e560730/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Sat Jul 28 11:50:56 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Sat, 28 Jul 2012 07:50:56 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 9
+Message-ID: <fc.00870aa101efb5d13b9aca0071965679.1efb5d2@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120728/875ff41f/attachment.htm>
+
+From gsemb at np-education.ca  Sat Jul 28 12:00:08 2012
+From: gsemb at np-education.ca (gsemb at np-education.ca)
+Date: Sat, 28 Jul 2012 08:00:08 -0400 (EDT)
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 9
+Message-ID: <20120728120008.7376A2180AB@cert.np-education.ca>
+
+Bonjour,
+
+Votre message m'est bien parvenu. Toutefois, veuillez noter que je suis pr?sentement hors du bureau. Je r?pondrai ? votre courriel lors de mon de retour mardi, le 7 Ao?t 2012.
+
+En cas d'urgence, veuillez contactez Chris Nash cnash at np-education.ca ou Claude Morin cmorin at np-education.ca
+
+Merci
+
+Guillaume SEMBLAT
+
+-------------------------------------------------------------------------------------
+
+Hello,
+
+Your message has been delivered. However, please note that I am currently out of the office. I will respond to your e-mail upon my return on Monday, August 7th, 2012.
+
+In case of emergency, please contact Chris Nash at cnash at np-education.ca or Claude Morin at cmorin at np-education.ca
+
+thank you
+
+
+Guillaume SEMBLAT
+
+From Wrede.John at paideiaschool.org  Sun Jul 29 11:50:51 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Sun, 29 Jul 2012 07:50:51 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 10
+Message-ID: <fc.00870aa101efc19a3b9aca0032d77252.1efc19b@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120729/e4dcfca0/attachment.htm>
+
+From Wrede.John at paideiaschool.org  Mon Jul 30 11:50:47 2012
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Mon, 30 Jul 2012 07:50:47 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 37, Issue 11
+Message-ID: <fc.00870aa101efd12c3b9aca006cb26b19.1efd12d@paideiaschool.org>
+
+I am out of the office until Monday 7/30, and will have limited access to
+email.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120730/c3a6d024/attachment.htm>
+

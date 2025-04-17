@@ -1,0 +1,336 @@
+From fortmail at blather.net  Wed Nov  1 15:14:31 2006
+From: fortmail at blather.net (Dave Walsh)
+Date: Wed, 01 Nov 2006 15:14:31 +0000
+Subject: [spam-stopper] "askimet died"
+In-Reply-To: <CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+	<CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>
+Message-ID: <7.0.1.0.0.20061101151303.05fe0018@blather.net>
+
+
+Hi all - My activity log has started kicking up these horrible 
+errors. Does this look like a database issue? Or any other ideas?
+
+Junk Filter Akismet died with: unknown column: entry_id for class 
+MT::TBPing at lib/MT/Object.pm line 283 
+MT::Object::AUTOLOAD('MT::TBPing=HASH(0xaa523a0)') called at 
+/a/data/websites/apache-cluster-a/weblog.mywebsite.org/cgi-bin/mv/plugins/akismet/mt-a 
+(IP: 74.52.86.34)
+
+- Dave
+
+__________________________________
+Dave Walsh - Writer & Photographer
+Read: http://www.blather.net
+Photoblog: http://www.blather.net/abroad
+Enviro: http://weblog.greenpeace.org/makingwaves
+MS: http://www.myspace.com/daev
+Flickr: http://flickr.com/photos/deadlyphoto/
+
+walshy at blather.net +353 87 2207023
+Dublin, Ireland (sometimes!)
+__________________________________
+
+
+
+
+From jaanus.kase at skype.net  Wed Nov  1 15:45:35 2006
+From: jaanus.kase at skype.net (Jaanus Kase)
+Date: Wed, 01 Nov 2006 16:45:35 +0100
+Subject: [spam-stopper] "askimet died"
+In-Reply-To: <7.0.1.0.0.20061101151303.05fe0018@blather.net>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>	<CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>
+	<7.0.1.0.0.20061101151303.05fe0018@blather.net>
+Message-ID: <4548C11F.9040405@skype.net>
+
+> Hi all - My activity log has started kicking up these horrible errors.
+> Does this look like a database issue? Or any other ideas?
+>
+> Junk Filter Akismet died with: unknown column: entry_id for class
+> MT::TBPing at lib/MT/Object.pm line 283
+> MT::Object::AUTOLOAD('MT::TBPing=HASH(0xaa523a0)') called at
+>
+/a/data/websites/apache-cluster-a/weblog.mywebsite.org/cgi-bin/mv/plugins/akismet/mt-a
+> (IP: 74.52.86.34)
+
+sounds like this: http://akismet.com/blog/2006/07/mt-331-breaks-akismet/
+
+AFAIK, no confirmed public solution yet.
+
+
+rgds,
+Jaanus
+
+
+From m at mullenweg.com  Wed Nov  1 17:10:22 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 01 Nov 2006 09:10:22 -0800
+Subject: [spam-stopper] "askimet died"
+In-Reply-To: <4548C11F.9040405@skype.net>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>	<CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>	<7.0.1.0.0.20061101151303.05fe0018@blather.net>
+	<4548C11F.9040405@skype.net>
+Message-ID: <4548D4FE.7070801@mullenweg.com>
+
+Jaanus Kase wrote:
+> sounds like this: http://akismet.com/blog/2006/07/mt-331-breaks-akismet/
+> 
+> AFAIK, no confirmed public solution yet.
+
+Are there any perl hackers on this list who'd be willing to help out?
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From fortmail at blather.net  Wed Nov  1 17:14:43 2006
+From: fortmail at blather.net (Dave Walsh)
+Date: Wed, 01 Nov 2006 17:14:43 +0000
+Subject: [spam-stopper] "askimet died"
+In-Reply-To: <4548C11F.9040405@skype.net>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>
+	<CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>
+	<7.0.1.0.0.20061101151303.05fe0018@blather.net>
+	<4548C11F.9040405@skype.net>
+Message-ID: <7.0.1.0.0.20061101171325.028060d8@blather.net>
+
+
+Thanks Jaanus - I checked that link. All trackbacks on this 
+installation (Version 3.31) are turned off by default, and I've got 
+another version of MT (3.32 on another site, which works just fine 
+(Version 3.33). Could it just need the upgrade?
+
+thanks!
+
+At 15:45 01/11/2006, Jaanus Kase wrote:
+> > Hi all - My activity log has started kicking up these horrible errors.
+> > Does this look like a database issue? Or any other ideas?
+> >
+> > Junk Filter Akismet died with: unknown column: entry_id for class
+> > MT::TBPing at lib/MT/Object.pm line 283
+> > MT::Object::AUTOLOAD('MT::TBPing=HASH(0xaa523a0)') called at
+> >
+>/a/data/websites/apache-cluster-a/weblog.mywebsite.org/cgi-bin/mv/plugins/akismet/mt-a
+> > (IP: 74.52.86.34)
+>
+>sounds like this: http://akismet.com/blog/2006/07/mt-331-breaks-akismet/
+>
+>AFAIK, no confirmed public solution yet.
+>
+>
+>rgds,
+>Jaanus
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>
+>__________ NOD32 1.1847 (20061101) Information __________
+>
+>This message was checked by NOD32 antivirus system.
+>http://www.eset.com
+
+
+- Dave
+
+__________________________________
+Dave Walsh - Writer & Photographer
+Read: http://www.blather.net
+Photoblog: http://www.blather.net/abroad
+Enviro: http://weblog.greenpeace.org/makingwaves
+MS: http://www.myspace.com/daev
+Flickr: http://flickr.com/photos/deadlyphoto/
+
+walshy at blather.net +353 87 2207023
+Dublin, Ireland (sometimes!)
+__________________________________
+
+
+
+
+From m at mullenweg.com  Thu Nov  2 02:39:48 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 01 Nov 2006 18:39:48 -0800
+Subject: [spam-stopper] "askimet died"
+In-Reply-To: <7.0.1.0.0.20061101151303.05fe0018@blather.net>
+References: <c040439a0610191226x2168360ahfbf3afb145875f2a@mail.gmail.com>	<CC80B364-C51A-4E4D-9605-94A18244AA7C@txfx.net>
+	<7.0.1.0.0.20061101151303.05fe0018@blather.net>
+Message-ID: <45495A74.70908@mullenweg.com>
+
+Dave Walsh wrote:
+> 
+> Hi all - My activity log has started kicking up these horrible errors. 
+> Does this look like a database issue? Or any other ideas?
+
+Just linked to a new version of the MT plugin on the Akismet blog.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From jjb at ibiblio.org  Mon Nov  6 03:59:25 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Sun, 5 Nov 2006 22:59:25 -0500 (EST)
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <452A64F7.4030206@munge.net>
+References: <4528E062.5080905@mullenweg.com> <452A64F7.4030206@munge.net>
+Message-ID: <Pine.LNX.4.64.0611052110580.26453@tribal.metalab.unc.edu>
+
+
+Just noticed this thread, chiming in late...
+
+On Mon, 9 Oct 2006, Aaron Malone wrote:
+
+> How about making the 'worst offenders' modification part of the official 
+> plugin?  It makes dealing with large quantities of spam practically 
+> bearable.
+>
+> http://boakes.org/akismet-worst-offenders
+
+I second this recommendation. Worst Offenders has been an invaluable tool 
+for the blogs I manage.
+
+Another feature I would like, and have been planning on making myself for 
+months now but never got around to it: an option to keep the standard 
+WordPress blacklist filter active, BEFORE akismet filtering. Blacklisting 
+just a handful of spam words (drug names) would dramatically cut down on 
+the amount of spam I have to wade through to verify there is no ham.
+
+
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+From rich at boakes.org  Mon Nov  6 10:43:42 2006
+From: rich at boakes.org (rich boakes)
+Date: Mon, 06 Nov 2006 10:43:42 +0000
+Subject: [spam-stopper] New plugin version
+In-Reply-To: <Pine.LNX.4.64.0611052110580.26453@tribal.metalab.unc.edu>
+References: <4528E062.5080905@mullenweg.com> <452A64F7.4030206@munge.net>
+	<Pine.LNX.4.64.0611052110580.26453@tribal.metalab.unc.edu>
+Message-ID: <454F11DE.9070000@boakes.org>
+
+John Joseph Bachir wrote:
+> 
+> Just noticed this thread, chiming in late...
+> 
+> On Mon, 9 Oct 2006, Aaron Malone wrote:
+> 
+>> How about making the 'worst offenders' modification part of the 
+>> official plugin?  It makes dealing with large quantities of spam 
+>> practically bearable.
+>>
+>> http://boakes.org/akismet-worst-offenders
+> 
+> I second this recommendation. Worst Offenders has been an invaluable 
+> tool for the blogs I manage.
+
+I've broken out the Worst Offenders code so it can 
+now exist apart from Akismet upgrades.
+
+Download:
+http://boakes.org/talk/topic/27
+
+Chatter: http://boakes.org/talk/tags/worstoffenders
+
+-- 
+Rich Boakes
+http://boakes.org
+
+
+From terrafrost at gmail.com  Sat Nov 11 06:50:57 2006
+From: terrafrost at gmail.com (Terra Frost)
+Date: Sat, 11 Nov 2006 00:50:57 -0600
+Subject: [spam-stopper] minimum length for akismet keys and
+	ksd_auto_check_comment
+Message-ID: <455572D1.4040600@gmail.com>
+
+I'd like to perform some validation of my own before sending the verify 
+request and am not sure which conditions I could validate against.  Size 
+seems like a reasonable one, but I'm not sure what the minimum size for 
+an Akismet key is.  The Wordpress plugins' html form field has its size 
+parameter equal to 12 and its maxlength parameter equal to 15.  Does 
+this mean that the minimum size is 12?
+
+Also, I have a few questions about the ksd_auto_check_comment function 
+in the Wordpress plugin.  For conveniences sake, here's the code:
+
+    global $auto_comment_approved, $ksd_api_host, $ksd_api_port;
+    $comment['user_ip']    = preg_replace( '/[^0-9., ]/', '', 
+$_SERVER['REMOTE_ADDR'] );
+    $comment['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
+    $comment['referrer']   = $_SERVER['HTTP_REFERER'];
+    $comment['blog']       = get_option('home');
+
+    $ignore = array( 'HTTP_COOKIE' );
+
+    foreach ( $_SERVER as $key => $value )
+        if ( !in_array( $key, $ignore ) )
+            $comment["$key"] = $value;
+
+    $query_string = '';
+    foreach ( $comment as $key => $data )
+        $query_string .= $key . '=' . urlencode( stripslashes($data) ) . 
+'&';
+
+The user-agent is going to end up in $query_string twice, it looks like 
+- once as "user_agent" and once as "HTTP_USER_AGENT".  As such, why not 
+just eliminate this redundancy and add HTTP_USER_AGENT to the $ignore 
+list?  The same goes for referrer / HTTP_REFERER and (maybe - see my 
+next question) user_ip / REMOTE_ADDR.
+
+Finally, under what conditions is $_SERVER['REMOTE_ADDR'] going to have 
+characters other than 0-9 or .?  IPv6, I guess, adds square brackets and 
+colons, but not a coma or a space (or anything else, for that matter)...
+
+
+
+From terrafrost at gmail.com  Sun Nov 12 18:34:13 2006
+From: terrafrost at gmail.com (Terra Frost)
+Date: Sun, 12 Nov 2006 12:34:13 -0600
+Subject: [spam-stopper] typo on Akismet API documentation page
+In-Reply-To: <455572D1.4040600@gmail.com>
+References: <455572D1.4040600@gmail.com>
+Message-ID: <45576925.7060107@gmail.com>
+
+The API documentation (http://akismet.com/development/api/) has a small 
+typo:
+
+Key Verification ? rest.akismet.com/1.1/verify key
+
+...should be:
+
+Key Verification ? rest.akismet.com/1.1/verify-key
+
+
+
+
+From m at mullenweg.com  Mon Nov 13 16:38:07 2006
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon, 13 Nov 2006 08:38:07 -0800
+Subject: [spam-stopper] typo on Akismet API documentation page
+In-Reply-To: <45576925.7060107@gmail.com>
+References: <455572D1.4040600@gmail.com> <45576925.7060107@gmail.com>
+Message-ID: <45589F6F.9000500@mullenweg.com>
+
+Terra Frost wrote:
+> The API documentation (http://akismet.com/development/api/) has a small 
+> typo:
+
+Thanks, fixed.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+

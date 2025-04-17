@@ -1,0 +1,79 @@
+From lukebryan at sharefaith.com  Wed Nov  2 06:00:54 2016
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Tue, 1 Nov 2016 23:00:54 -0700
+Subject: [wp-hackers] A couple questions
+Message-ID: <CAFnKAk3GOPGOx+qDkqkL2z_vWcQw2FGwwXF5qdOQdMC_HGycKg@mail.gmail.com>
+
+Greetings all,
+
+I had a couple questions regarding the newer versions of Wordpress:
+
+I noticed that even in the WP 4.7 beta, Wordpress is using jQuery-ui 1.11 -
+that's one from over a year ago according to the change log.
+https://jqueryui.com/changelog/
+
+I was just curious if this is because 1.12 has removed "Support for IE8,
+IE9, and IE10" - is Wordpress still tested compatible with old IE browsers,
+even versions that should've been replaced?
+
+
+I also noticed an interesting optimization for MCE - in
+wp-includes/js/tinymce/wp-tinymce.php there is a case where when called, it
+can serve up the prepackaged .js.gz file, with header('Content-Encoding:
+gzip').
+I'm wondering why a similar case isn't added for other large scripts, as
+that could significantly speed loading of the scripts when gzipped. In
+fact, why not check for a .js.gz file for any and all enqueued scripts and
+serve the gzip js to the majority of browsers that support it?
+
+
+Best regards,
+Luke
+
+From jdg at codesymphony.co  Wed Nov  2 16:02:25 2016
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Wed, 2 Nov 2016 12:02:25 -0400
+Subject: [wp-hackers] A couple questions
+In-Reply-To: <CAFnKAk3GOPGOx+qDkqkL2z_vWcQw2FGwwXF5qdOQdMC_HGycKg@mail.gmail.com>
+References: <CAFnKAk3GOPGOx+qDkqkL2z_vWcQw2FGwwXF5qdOQdMC_HGycKg@mail.gmail.com>
+Message-ID: <76937DFE-4E8A-45F0-9B63-A0392B0CB4D1@codesymphony.co>
+
+I think that you are probably right about jQuery 1.12. I think that WordPress might have dropped full support for IE8, but I don't think it would drop support for IE9 or 10 for a while yet.
+
+As far as your question about gzipped scripts, I can't say that I've ever seen that discussed, but possibly it has been decided that generally speaking this sort of thing ought to be left up to plugins. Maybe the gzipped TinyMCE scripts are only supported for legacy reasons?
+
+-J.D.
+
+> On Nov 2, 2016, at 2:00 AM, Luke Bryan <lukebryan at sharefaith.com> wrote:
+> 
+> Greetings all,
+> 
+> I had a couple questions regarding the newer versions of Wordpress:
+> 
+> I noticed that even in the WP 4.7 beta, Wordpress is using jQuery-ui 1.11 -
+> that's one from over a year ago according to the change log.
+> https://jqueryui.com/changelog/
+> 
+> I was just curious if this is because 1.12 has removed "Support for IE8,
+> IE9, and IE10" - is Wordpress still tested compatible with old IE browsers,
+> even versions that should've been replaced?
+> 
+> 
+> I also noticed an interesting optimization for MCE - in
+> wp-includes/js/tinymce/wp-tinymce.php there is a case where when called, it
+> can serve up the prepackaged .js.gz file, with header('Content-Encoding:
+> gzip').
+> I'm wondering why a similar case isn't added for other large scripts, as
+> that could significantly speed loading of the scripts when gzipped. In
+> fact, why not check for a .js.gz file for any and all enqueued scripts and
+> serve the gzip js to the majority of browsers that support it?
+> 
+> 
+> Best regards,
+> Luke
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+

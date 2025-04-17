@@ -1,0 +1,341 @@
+From david at carrcommunications.com  Thu Apr  7 14:47:38 2016
+From: david at carrcommunications.com (David F. Carr)
+Date: Thu, 7 Apr 2016 10:47:38 -0400
+Subject: [wp-hackers] "This plugin is not properly prepared for
+	localization" - what am I missing
+Message-ID: <CAJbdpGug6qx22aAQzWqjESVcTxADjmxEtFn_=s80xdEg=6GcrA@mail.gmail.com>
+
+The translations page for my plugin RSVPMaker displays the message shown
+above
+
+https://translate.wordpress.org/projects/wp-plugins/rsvpmaker
+
+That warning links to the instructions for internationalization, which I
+have tried to follow. Most of the key output strings are encoded with __()
+or _e(). I've created a POT file, and a few translations have been produced
+by users of the plugin. I fixed one issue with the header, where the
+"domain path" for the translation files wasn't specified, but I'm still
+getting the same message.
+
+How do I figure out what I'm missing?
+
+David F. Carr, versatile and inventive writer, editor, and web consultant
+Author, Social Collaboration for Dummies
+<http://www.amazon.com/gp/product/111865854X?ie=UTF8&camp=213733&creative=393185&creativeASIN=111865854X&linkCode=shr&tag=carrcomminc-20&linkId=EZ7CIRPGUSZ7LXLP&qid=1416786890&sr=8-1&keywords=social+collaboration+for+dummies&utm_content=bufferef24a&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer>
+See my work on Forbes <http://www.forbes.com/sites/davidcarr/>, connect
+with me on Twitter <https://twitter.com/davidfcarr>, LinkedIn
+<http://www.linkedin.com/in/davidfcarr>, or Facebook
+<http://www.facebook.com/carrcomm>
+
+david at carrcommunications.com
+
+From work at braadmartin.com  Thu Apr  7 14:58:22 2016
+From: work at braadmartin.com (Braad)
+Date: Thu, 7 Apr 2016 07:58:22 -0700
+Subject: [wp-hackers] "This plugin is not properly prepared for
+ localization" - what am I missing
+In-Reply-To: <CAJbdpGug6qx22aAQzWqjESVcTxADjmxEtFn_=s80xdEg=6GcrA@mail.gmail.com>
+References: <CAJbdpGug6qx22aAQzWqjESVcTxADjmxEtFn_=s80xdEg=6GcrA@mail.gmail.com>
+Message-ID: <5706758E.7020704@braadmartin.com>
+
+There might be other issues as well, but I see you're setting the "Text 
+Domain" in your plugin header as "rsvptoast", but then you're using 
+"rsvpmaker" in all your translation functions. According to 
+https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/ 
+these must match, and your text domain must be set to the slug of your 
+plugin.
+
+Text Domain: rsvptoast
+
+__('Thank you!','rsvpmaker');
+
+-Braad
+
+
+On 04/07/2016 07:47 AM, David F. Carr wrote:
+> The translations page for my plugin RSVPMaker displays the message shown
+> above
+>
+> https://translate.wordpress.org/projects/wp-plugins/rsvpmaker
+>
+> That warning links to the instructions for internationalization, which I
+> have tried to follow. Most of the key output strings are encoded with __()
+> or _e(). I've created a POT file, and a few translations have been produced
+> by users of the plugin. I fixed one issue with the header, where the
+> "domain path" for the translation files wasn't specified, but I'm still
+> getting the same message.
+>
+> How do I figure out what I'm missing?
+>
+> David F. Carr, versatile and inventive writer, editor, and web consultant
+> Author, Social Collaboration for Dummies
+> <http://www.amazon.com/gp/product/111865854X?ie=UTF8&camp=213733&creative=393185&creativeASIN=111865854X&linkCode=shr&tag=carrcomminc-20&linkId=EZ7CIRPGUSZ7LXLP&qid=1416786890&sr=8-1&keywords=social+collaboration+for+dummies&utm_content=bufferef24a&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer>
+> See my work on Forbes <http://www.forbes.com/sites/davidcarr/>, connect
+> with me on Twitter <https://twitter.com/davidfcarr>, LinkedIn
+> <http://www.linkedin.com/in/davidfcarr>, or Facebook
+> <http://www.facebook.com/carrcomm>
+>
+> david at carrcommunications.com
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jdg at codesymphony.co  Thu Apr  7 15:05:39 2016
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Thu, 7 Apr 2016 11:05:39 -0400
+Subject: [wp-hackers] "This plugin is not properly prepared for
+	localization" - what am I missing
+In-Reply-To: <5706758E.7020704@braadmartin.com>
+References: <CAJbdpGug6qx22aAQzWqjESVcTxADjmxEtFn_=s80xdEg=6GcrA@mail.gmail.com>
+ <5706758E.7020704@braadmartin.com>
+Message-ID: <29E65077-75E4-4E39-AE1E-EFD2F68C2F29@codesymphony.co>
+
+Yes, this is the error that the import bot is reporting:
+
+https://wordpress.slack.com/archives/meta-language-packs/p1459995808025653
+
+> Code for stable (rsvpmaker/tags/3.7.9/ <https://plugins.svn.wordpress.org/rsvpmaker/tags/3.7.9/>) in process...
+> This plugin has a wrong text domain declaration in the file header:
+>     ./rsvpmaker.php:Text Domain: rsvptoast
+> This plugin doesn't use load_plugin_textdomain().
+> Code for stable was processed.
+> Readme for stable (rsvpmaker/tags/3.7.9/ <https://plugins.svn.wordpress.org/rsvpmaker/tags/3.7.9/>) in process...
+> The GlotPress projects were updated.
+> Result of the POT import: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+> Readme for stable  was processed.
+
+
+You can find the errors for you plugin on that slack channel. I think this has been documented somewhere (a post on the make blog, I think), but maybe it isn't mentioned in the handbook.
+
+-J.D.
+
+> On Apr 7, 2016, at 10:58 AM, Braad <work at braadmartin.com> wrote:
+> 
+> There might be other issues as well, but I see you're setting the "Text Domain" in your plugin header as "rsvptoast", but then you're using "rsvpmaker" in all your translation functions. According to https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/ these must match, and your text domain must be set to the slug of your plugin.
+> 
+> Text Domain: rsvptoast
+> 
+> __('Thank you!','rsvpmaker');
+> 
+> -Braad
+> 
+> 
+> On 04/07/2016 07:47 AM, David F. Carr wrote:
+>> The translations page for my plugin RSVPMaker displays the message shown
+>> above
+>> 
+>> https://translate.wordpress.org/projects/wp-plugins/rsvpmaker
+>> 
+>> That warning links to the instructions for internationalization, which I
+>> have tried to follow. Most of the key output strings are encoded with __()
+>> or _e(). I've created a POT file, and a few translations have been produced
+>> by users of the plugin. I fixed one issue with the header, where the
+>> "domain path" for the translation files wasn't specified, but I'm still
+>> getting the same message.
+>> 
+>> How do I figure out what I'm missing?
+>> 
+>> David F. Carr, versatile and inventive writer, editor, and web consultant
+>> Author, Social Collaboration for Dummies
+>> <http://www.amazon.com/gp/product/111865854X?ie=UTF8&camp=213733&creative=393185&creativeASIN=111865854X&linkCode=shr&tag=carrcomminc-20&linkId=EZ7CIRPGUSZ7LXLP&qid=1416786890&sr=8-1&keywords=social+collaboration+for+dummies&utm_content=bufferef24a&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer>
+>> See my work on Forbes <http://www.forbes.com/sites/davidcarr/>, connect
+>> with me on Twitter <https://twitter.com/davidfcarr>, LinkedIn
+>> <http://www.linkedin.com/in/davidfcarr>, or Facebook
+>> <http://www.facebook.com/carrcomm>
+>> 
+>> david at carrcommunications.com
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From jdg at codesymphony.co  Thu Apr  7 15:15:19 2016
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Thu, 7 Apr 2016 11:15:19 -0400
+Subject: [wp-hackers] "This plugin is not properly prepared for
+	localization" - what am I missing
+In-Reply-To: <29E65077-75E4-4E39-AE1E-EFD2F68C2F29@codesymphony.co>
+References: <CAJbdpGug6qx22aAQzWqjESVcTxADjmxEtFn_=s80xdEg=6GcrA@mail.gmail.com>
+ <5706758E.7020704@braadmartin.com>
+ <29E65077-75E4-4E39-AE1E-EFD2F68C2F29@codesymphony.co>
+Message-ID: <5239F38C-B06C-4882-8CF4-1777F5F21713@codesymphony.co>
+
+I found the link to where I first read this:
+https://make.wordpress.org/plugins/2015/12/06/plugin-translations-for-all-plugins/
+
+-J.D.
+
+> On Apr 7, 2016, at 11:05 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+> 
+> Yes, this is the error that the import bot is reporting:
+> 
+> https://wordpress.slack.com/archives/meta-language-packs/p1459995808025653
+> 
+>> Code for stable (rsvpmaker/tags/3.7.9/ <https://plugins.svn.wordpress.org/rsvpmaker/tags/3.7.9/>) in process...
+>> This plugin has a wrong text domain declaration in the file header:
+>>    ./rsvpmaker.php:Text Domain: rsvptoast
+>> This plugin doesn't use load_plugin_textdomain().
+>> Code for stable was processed.
+>> Readme for stable (rsvpmaker/tags/3.7.9/ <https://plugins.svn.wordpress.org/rsvpmaker/tags/3.7.9/>) in process...
+>> The GlotPress projects were updated.
+>> Result of the POT import: 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+>> Readme for stable  was processed.
+> 
+> 
+> You can find the errors for you plugin on that slack channel. I think this has been documented somewhere (a post on the make blog, I think), but maybe it isn't mentioned in the handbook.
+> 
+> -J.D.
+> 
+>> On Apr 7, 2016, at 10:58 AM, Braad <work at braadmartin.com> wrote:
+>> 
+>> There might be other issues as well, but I see you're setting the "Text Domain" in your plugin header as "rsvptoast", but then you're using "rsvpmaker" in all your translation functions. According to https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/ these must match, and your text domain must be set to the slug of your plugin.
+>> 
+>> Text Domain: rsvptoast
+>> 
+>> __('Thank you!','rsvpmaker');
+>> 
+>> -Braad
+>> 
+>> 
+>> On 04/07/2016 07:47 AM, David F. Carr wrote:
+>>> The translations page for my plugin RSVPMaker displays the message shown
+>>> above
+>>> 
+>>> https://translate.wordpress.org/projects/wp-plugins/rsvpmaker
+>>> 
+>>> That warning links to the instructions for internationalization, which I
+>>> have tried to follow. Most of the key output strings are encoded with __()
+>>> or _e(). I've created a POT file, and a few translations have been produced
+>>> by users of the plugin. I fixed one issue with the header, where the
+>>> "domain path" for the translation files wasn't specified, but I'm still
+>>> getting the same message.
+>>> 
+>>> How do I figure out what I'm missing?
+>>> 
+>>> David F. Carr, versatile and inventive writer, editor, and web consultant
+>>> Author, Social Collaboration for Dummies
+>>> <http://www.amazon.com/gp/product/111865854X?ie=UTF8&camp=213733&creative=393185&creativeASIN=111865854X&linkCode=shr&tag=carrcomminc-20&linkId=EZ7CIRPGUSZ7LXLP&qid=1416786890&sr=8-1&keywords=social+collaboration+for+dummies&utm_content=bufferef24a&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer>
+>>> See my work on Forbes <http://www.forbes.com/sites/davidcarr/>, connect
+>>> with me on Twitter <https://twitter.com/davidfcarr>, LinkedIn
+>>> <http://www.linkedin.com/in/davidfcarr>, or Facebook
+>>> <http://www.facebook.com/carrcomm>
+>>> 
+>>> david at carrcommunications.com
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> 
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From wp-hackers at striderweb.com  Wed Apr 27 16:15:47 2016
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Wed, 27 Apr 2016 11:15:47 -0500
+Subject: [wp-hackers] Compatible Up To
+Message-ID: <6D00A071-3681-4B2E-AAC5-67DB805AE2A7@striderweb.com>
+
+Okay, I forget this every time I want to do it, and can never find the info again?.  I have plugins in the Repository. How do I update the "Compatible Up To field? so it?s reflected on the plugin?s page?  I know I have to change the header in the Readme file, but where? Trunk? The latest Tag? Where?
+
+(Frankly, the Latest Tag makes the most sense to me, but I don?t think that?s it.)
+
+Somebody should really add this to the FAQ: https://wordpress.org/plugins/about/faq/
+
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+
+
+From abdussamad at postbox.work  Wed Apr 27 16:22:57 2016
+From: abdussamad at postbox.work (Abdussamad)
+Date: Wed, 27 Apr 2016 21:22:57 +0500
+Subject: [wp-hackers] Compatible Up To
+In-Reply-To: <6D00A071-3681-4B2E-AAC5-67DB805AE2A7@striderweb.com>
+References: <6D00A071-3681-4B2E-AAC5-67DB805AE2A7@striderweb.com>
+Message-ID: <5720E761.5070907@postbox.work>
+
+
+Hi,
+
+"Tested up to:" in the readme in trunk.
+
+Regards,
+Abdussamad
+https://abdussamad.com
+
+On 04/27/2016 09:15 PM, Stephen Rider wrote:
+> Okay, I forget this every time I want to do it, and can never find the info again?.  I have plugins in the Repository. How do I update the "Compatible Up To field? so it?s reflected on the plugin?s page?  I know I have to change the header in the Readme file, but where? Trunk? The latest Tag? Where?
+>
+> (Frankly, the Latest Tag makes the most sense to me, but I don?t think that?s it.)
+>
+> Somebody should really add this to the FAQ: https://wordpress.org/plugins/about/faq/
+>
+>
+
+From ritzpatel91 at gmail.com  Wed Apr 27 16:26:46 2016
+From: ritzpatel91 at gmail.com (Ritesh Patel)
+Date: Wed, 27 Apr 2016 21:56:46 +0530
+Subject: [wp-hackers] Compatible Up To
+In-Reply-To: <5720E761.5070907@postbox.work>
+References: <6D00A071-3681-4B2E-AAC5-67DB805AE2A7@striderweb.com>
+ <5720E761.5070907@postbox.work>
+Message-ID: <CAEGnkRpVk=NgkR379VrKgmoX01UQFm-kW-K6HJugSx=ysqwgEw@mail.gmail.com>
+
+You will need to update it into latest tag as well.
+
+Thanks and Regards,
+Ritesh Patel | riteshpatel.me
+
+On 27 April 2016 at 21:52, Abdussamad <abdussamad at postbox.work> wrote:
+
+>
+> Hi,
+>
+> "Tested up to:" in the readme in trunk.
+>
+> Regards,
+> Abdussamad
+> https://abdussamad.com
+>
+> On 04/27/2016 09:15 PM, Stephen Rider wrote:
+>
+>> Okay, I forget this every time I want to do it, and can never find the
+>> info again?.  I have plugins in the Repository. How do I update the
+>> "Compatible Up To field? so it?s reflected on the plugin?s page?  I know I
+>> have to change the header in the Readme file, but where? Trunk? The latest
+>> Tag? Where?
+>>
+>> (Frankly, the Latest Tag makes the most sense to me, but I don?t think
+>> that?s it.)
+>>
+>> Somebody should really add this to the FAQ:
+>> https://wordpress.org/plugins/about/faq/
+>>
+>>
+>> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+

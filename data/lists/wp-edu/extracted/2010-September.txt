@@ -1,0 +1,4867 @@
+From newquisk at lafayette.edu  Wed Sep  1 20:53:41 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Wed, 1 Sep 2010 16:53:41 -0400
+Subject: [wp-edu] Authors and permissions
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C01F103@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+	<14BC5B36-5DC9-4949-9930-38BE7CCF897C@thecompass.com>
+	<85F05EE0D1E7E1499CCFFE9E3DFDF43C01F103@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <E30DE1A5-2E81-4850-B3FB-B4EA9E9F8DB3@lafayette.edu>
+
+
+On Aug 31, 2010, at 5:40 PM, Grogan, David wrote:
+
+> Agreed. I?ll add that when it comes to content editing I emphasize  
+> to users that WP keeps track of page/post versions to that the site  
+> admins can see who has edited what and that you can restore older  
+> versions of content. Same emphasis when it comes to users or our  
+> wiki system. I?ve yet to see anyone egregiously damage content. And  
+> I?ve rarely seen any inadvertent editing of pages that a user  
+> shouldn?t be editing. In those cases older version restorer has  
+> resolved the issue.
+
+I agree. We looked at the different role extenders but ultimately  
+decided that the extra granularity wasn't worth the risk of a crucial  
+plugin breaking network-wide during an upgrade. The only specific role  
+tweak that's one our wish list is to allow Authors to create drafts of  
+pages (which could then be published by Editors). Right now only  
+Editors can draft and publish pages (which isn't in keeping with the  
+Contributor -> Author progression, where contributors can create  
+drafts of posts, but Authors can publish them; I'd love to see that  
+progression replicated with Author -> Editor for pages).
+
+Ken
+
+
+
+From wp at andrewnacin.com  Wed Sep  1 21:30:11 2010
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Wed, 1 Sep 2010 17:30:11 -0400
+Subject: [wp-edu] Authors and permissions
+In-Reply-To: <E30DE1A5-2E81-4850-B3FB-B4EA9E9F8DB3@lafayette.edu>
+References: <2751D7FAA3AC6C43974521C1C842746B08D94C17@blenc02sl03.lmunet.edu>
+	<14BC5B36-5DC9-4949-9930-38BE7CCF897C@thecompass.com>
+	<85F05EE0D1E7E1499CCFFE9E3DFDF43C01F103@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+	<E30DE1A5-2E81-4850-B3FB-B4EA9E9F8DB3@lafayette.edu>
+Message-ID: <AANLkTikTEWHoun25wukPv_P2Cnzq49Y-1i-TN82D5EN4@mail.gmail.com>
+
+On Wed, Sep 1, 2010 at 4:53 PM, Ken Newquist <newquisk at lafayette.edu> wrote:
+
+> The only specific role tweak that's one our wish list is to allow Authors
+> to create drafts of pages (which could then be published by Editors). Right
+> now only Editors can draft and publish pages (which isn't in keeping with
+> the Contributor -> Author progression, where contributors can create drafts
+> of posts, but Authors can publish them; I'd love to see that progression
+> replicated with Author -> Editor for pages).
+>
+
+Changing the functionality of a core role is not something we can really do,
+even if that makes sense, for compatibility reasons.
+
+It's actually a really simple plugin.  All you need to do is give Author the
+edit_pages capability. Two ways to do it -- alter the role in the database,
+or do a filter at runtime. No need to worry about plugin upgrades in that
+case, or compatibility with changes to core.
+
+This untested example modifies the roles definition in the DB:
+
+class Nacin_Authors_Draft_Pages {
+   function Nacin_Authors_Draft_Pages() {
+      register_activation_hook( __FILE__, array( &$this, 'activate' ) );
+      register_deactivation_hook( __FILE__, array( &$this, 'deactivate' ) );
+   }
+   function activate() {
+      $role = &get_role( 'author' );
+      $role->add_cap( 'edit_pages' );
+   }
+   function deactivate() {
+      $role = &get_role( 'author' );
+      $role->remove_cap( 'edit_pages' );
+   }
+}
+new Nacin_Authors_Draft_Pages;
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100901/500e74b4/attachment.htm>
+
+From newquisk at lafayette.edu  Fri Sep  3 13:42:07 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 3 Sep 2010 09:42:07 -0400
+Subject: [wp-edu] Problems with Theme Options displaying for site admins in
+	WordPress MultiSite
+In-Reply-To: <C8A2D900.1172%hhou@esm.rochester.edu>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+Message-ID: <CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+
+Since the upgrade to WordPress 3.0 things have been running fairly  
+smoothly, but I been seeing sporadic problems with some themes no  
+longer displaying theme options for  web site administrators.  The  
+three themes in question are Mandigo, Tarski and Viala and in all  
+cases, the superadmins for the WordPress network are able to access  
+these theme options. That's why this problem never showed up in our  
+testing; we were logged in as network admins.
+
+After doing some digging, I found the problem: a misunderstanding of  
+the "edit_themes" capability.
+
+Based on this discussion thread (http://wordpress.org/support/topic/capability-manage_options-vs-edit_themes 
+) it seems that the "edit_themes" capability was intended to be given  
+to site administrators who could actually edit the theme itself via  
+Wordpress NOT to grant them access to theme options.  I haven't been  
+using WordPress long enough to know if this capability has morphed  
+over time, or if it was always like this, but in either case it's  
+creating headaches now. :)
+
+In a single site WordPress install using the "edit_themes" capability  
+to control theme options access works just fine, because they're one  
+in the same: the "site administrator" is also the same person who  
+could edit the CSS or HTML of the template in question via the  
+WordPress interface.
+
+In WordPress 3.0 MultiSite however, that won't work.  You can't let  
+individual site administrators edit the theme files because their  
+changes would affect everything in the network. As a result, site  
+administrators no longer have the "edit_themes" capability; only  
+network superadmins can do that.  However themes like Mandigo, Tarski  
+and Viala all depend on the "edit_themes" capability to display their  
+theme options, and since site admins no longer have it, they can't get  
+to their site options anymore.
+
+I'm assuming this capability change happened as part of the code merge  
+with WP 3.0 and WP 3.0 MU, since the theme options were still  
+accessible under 2.9.
+
+Based on Andrea_R's response to the thread, the fix is to change the  
+logic so that it uses the "manage_options" capability (which site  
+admins have) instead of "edit_themes".
+
+Ken
+
+
+
+
+
+
+
+
+
+From wp at andrewnacin.com  Fri Sep  3 13:52:20 2010
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Fri, 3 Sep 2010 09:52:20 -0400
+Subject: [wp-edu] Problems with Theme Options displaying for site admins
+ in WordPress MultiSite
+In-Reply-To: <CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+	<CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+Message-ID: <AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+
+On Fri, Sep 3, 2010 at 9:42 AM, Ken Newquist <newquisk at lafayette.edu> wrote:
+
+> Based on Andrea_R's response to the thread, the fix is to change the logic
+> so that it uses the "manage_options" capability (which site admins have)
+> instead of "edit_themes".
+>
+
+Additional information -- Prior to 3.0, we used switch_themes to control the
+Appearance submenus such as widgets. We introduced a new capability called
+edit_theme_options, that way someone could edit these theme options (menus
+included) without being able to necessarily switch the theme (or,
+hypothetically, vice versa). You may wish to use that capability in lieu of
+manage_options, though in your case it probably doesn't matter.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100903/3a3786b2/attachment.htm>
+
+From newquisk at lafayette.edu  Fri Sep  3 14:23:30 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 3 Sep 2010 10:23:30 -0400
+Subject: [wp-edu] Problems with Theme Options displaying for site admins
+	in WordPress MultiSite
+In-Reply-To: <AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+	<CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+	<AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+Message-ID: <D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+
+
+On Sep 3, 2010, at 9:52 AM, Andrew Nacin wrote:
+
+> Additional information -- Prior to 3.0, we used switch_themes to  
+> control the Appearance submenus such as widgets. We introduced a new  
+> capability called edit_theme_options, that way someone could edit  
+> these theme options (menus included) without being able to  
+> necessarily switch the theme (or, hypothetically, vice versa). You  
+> may wish to use that capability in lieu of manage_options, though in  
+> your case it probably doesn't matter.
+
+
+Thanks for the heads-up! By default, who gets access to the  
+"edit_theme_options" capability -- is that a site administrator only  
+or do editors have that as well?
+
+--
+Ken Newquist
+Web Applications Specialist
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+From wp at andrewnacin.com  Fri Sep  3 14:28:07 2010
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Fri, 3 Sep 2010 10:28:07 -0400
+Subject: [wp-edu] Problems with Theme Options displaying for site admins
+ in WordPress MultiSite
+In-Reply-To: <D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+	<CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+	<AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+	<D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+Message-ID: <AANLkTim1R0Ne2Q1qT0M=fSySZDTR0cB+Jg0KDRA0daOT@mail.gmail.com>
+
+On Fri, Sep 3, 2010 at 10:23 AM, Ken Newquist <newquisk at lafayette.edu>wrote:
+
+>
+> On Sep 3, 2010, at 9:52 AM, Andrew Nacin wrote:
+>
+>  Additional information -- Prior to 3.0, we used switch_themes to control
+>> the Appearance submenus such as widgets. We introduced a new capability
+>> called edit_theme_options, that way someone could edit these theme options
+>> (menus included) without being able to necessarily switch the theme (or,
+>> hypothetically, vice versa). You may wish to use that capability in lieu of
+>> manage_options, though in your case it probably doesn't matter.
+>>
+>
+>
+> Thanks for the heads-up! By default, who gets access to the
+> "edit_theme_options" capability -- is that a site administrator only or do
+> editors have that as well?
+
+
+Only administrators, same as switch_themes from which it derives.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100903/a3ad044c/attachment.htm>
+
+From mmuro at advance.ua.edu  Fri Sep  3 14:28:35 2010
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Fri, 3 Sep 2010 09:28:35 -0500
+Subject: [wp-edu] Problems with Theme Options displaying for site
+	admins	in WordPress MultiSite
+In-Reply-To: <D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+	<CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+	<AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+	<D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+Message-ID: <89D1A24D-0366-4E1F-A25A-BB20B4ED4509@ur.ua.edu>
+
+Ken, here is the Codex page on Roles and Capabilities<http://codex.wordpress.org/Roles_and_Capabilities>.
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+205-348-0304
+
+
+
+
+
+On Sep 3, 2010, at 9:23 AM, Ken Newquist wrote:
+
+
+On Sep 3, 2010, at 9:52 AM, Andrew Nacin wrote:
+
+Additional information -- Prior to 3.0, we used switch_themes to
+control the Appearance submenus such as widgets. We introduced a new
+capability called edit_theme_options, that way someone could edit
+these theme options (menus included) without being able to
+necessarily switch the theme (or, hypothetically, vice versa). You
+may wish to use that capability in lieu of manage_options, though in
+your case it probably doesn't matter.
+
+
+Thanks for the heads-up! By default, who gets access to the
+"edit_theme_options" capability -- is that a site administrator only
+or do editors have that as well?
+
+--
+Ken Newquist
+Web Applications Specialist
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu<mailto:newquisk at lafayette.edu>
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From newquisk at lafayette.edu  Fri Sep  3 14:39:52 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 3 Sep 2010 10:39:52 -0400
+Subject: [wp-edu] Problems with Theme Options displaying for site
+	admins	in WordPress MultiSite
+In-Reply-To: <89D1A24D-0366-4E1F-A25A-BB20B4ED4509@ur.ua.edu>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+	<CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+	<AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+	<D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+	<89D1A24D-0366-4E1F-A25A-BB20B4ED4509@ur.ua.edu>
+Message-ID: <84647E93-EBC2-48F3-8B8F-18704E8C2B21@lafayette.edu>
+
+
+On Sep 3, 2010, at 10:28 AM, Muro, Matthew wrote:
+
+> Ken, here is the Codex page on Roles and Capabilities<http://codex.wordpress.org/Roles_and_Capabilities 
+> >.
+
+Thanks -- that's handy! Though I see it mentions that the docs need to  
+updated to include Multisite and superadmin, since the page isn't  
+strictly accurate for a multisite install (as "edit_themes" gets  
+bumped up to super admin).
+
+Are there any other capabilities that were reserved for superadmin in  
+WordPress 3.0 multisite mode that might be problematic?
+
+Ken
+
+
+From newquisk at lafayette.edu  Fri Sep  3 15:45:29 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Fri, 3 Sep 2010 11:45:29 -0400
+Subject: [wp-edu] Problems with Theme Options displaying for site
+	admins	in WordPress MultiSite
+In-Reply-To: <89D1A24D-0366-4E1F-A25A-BB20B4ED4509@ur.ua.edu>
+References: <C8A2D900.1172%hhou@esm.rochester.edu>
+	<CD5CE41D-3066-4D90-9852-69E1697CFD82@lafayette.edu>
+	<AANLkTi=s7SK-Ys-oDPkw1LYHQV03No3E=qu3D4Y2=fzL@mail.gmail.com>
+	<D490B9C4-4E5C-4263-86BB-539D717129DB@lafayette.edu>
+	<89D1A24D-0366-4E1F-A25A-BB20B4ED4509@ur.ua.edu>
+Message-ID: <1EFBC4D9-C40F-435E-894F-76AC3F337798@lafayette.edu>
+
+FYI I was six for six with themes having this issue of using  
+"edit_themes" to grant access to theme options, including primepress,  
+inove, and regulus.
+
+Ken
+
+
+From jeffvand at unc.edu  Wed Sep  8 18:48:51 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Wed, 8 Sep 2010 13:48:51 -0500
+Subject: [wp-edu] Educational Focused WordCamp?
+Message-ID: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com>
+
+Hey All,
+
+I am new to the game, so perhaps this is already out there somewhere, but
+have we ever done an Educational Focused Wordcamp?  If not, I propose we do
+one.  We could learn so much from each other about our special needs.
+
+I am thinking that with budgets and distances between Wordpress users a
+virtual Wordcamp would be the best option.  We have Elluminate rooms we can
+donate to the cause.   Maybe meet for a day and have a couple of different
+tracks.
+
+What do y'all think?
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+
+Create your own free webspace here at UNC at http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100908/018012f3/attachment.htm>
+
+From Lucas.Waltzer at baruch.cuny.edu  Wed Sep  8 18:54:51 2010
+From: Lucas.Waltzer at baruch.cuny.edu (Luke Waltzer)
+Date: Wed, 08 Sep 2010 14:54:51 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com>
+Message-ID: <C8AD543B.1409C%Lucas.Waltzer@baruch.cuny.edu>
+
+Jeff:
+
+We are hosting WordCampNYC here at Baruch College next month --
+http://2010.nyc.wordcamp.org/ -- and in the past have been involved in
+WordCampEds (see http://wordcamped.org/).
+
+I assume, though I?m not positive, that there will again be an Ed Track at
+next month?s WordCamp... I guess it depends upon what kind of proposals come
+in. Please do propose something for the event if you can make it.  Either
+way, should a distributed WordCampEd emerge I?d be happy to participate.
+
+Best,
+Luke   
+  
+**************************************************
+Luke Waltzer, Ph.D.
+Project Manager for Digital Learning
+Bernard L. Schwartz Communication Institute | Baruch College | CUNY
+Lucas.Waltzer at baruch.cuny.edu
+137 E. 25th Street, Room 320
+New York, NY 10010
+(Office) 646.312.2069
+(Mobile) 347.885.9461
+
+
+
+From: Jeff VanDrimmelen <jeffvand at unc.edu>
+Reply-To: <jeffvand at unc.edu>, <wp-edu at lists.automattic.com>
+Date: Wed, 8 Sep 2010 13:48:51 -0500
+To: <wp-edu at lists.automattic.com>
+Subject: [wp-edu] Educational Focused WordCamp?
+
+Hey All,?
+
+I am new to the game, so perhaps this is already out there somewhere, but
+have we ever done an Educational Focused Wordcamp? ?If not, I propose we do
+one. ?We could learn so much from each other about our special needs.
+
+I am thinking that with budgets and distances between Wordpress users a
+virtual Wordcamp would be the best option. ?We have Elluminate rooms we can
+donate to the cause. ? Maybe meet for a day and have a couple of different
+tracks. ?
+
+What do y'all think?
+
+~Jeff
+
+----------------------------------------------------------------------------
+------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me -?http://oasis.unc.edu/people/jeff?
+
+Create your own free webspace here at UNC at?http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100908/01f37bb6/attachment.htm>
+
+From jane at automattic.com  Wed Sep  8 18:55:36 2010
+From: jane at automattic.com (Jane Wells)
+Date: Wed, 08 Sep 2010 14:55:36 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com>
+References: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com>
+Message-ID: <4C87DC28.6020409@automattic.com>
+
+  Hi Jeff. There have been several in the last two years, with the first 
+one being at George Mason (wordcamped.com). There have also been 
+academic tracks at larger WordCamps (New York City), and SIGs put on 
+through traditional academic conferences. WordCamps are meant to be in 
+person face-to-face conferences, for building local communtiy, and we 
+have not approved any virtual events using the WordCamp name before for 
+this reason. That said, it's been awhile since there was an 
+academic-only WC, and there are enough colleges and universities using 
+WordPress that there would be more than enough interest for another one.
+Jane
+
+On 9/8/10 2:48 PM, Jeff VanDrimmelen wrote:
+> Hey All,
+>
+> I am new to the game, so perhaps this is already out there somewhere, 
+> but have we ever done an Educational Focused Wordcamp?  If not, I 
+> propose we do one.  We could learn so much from each other about our 
+> special needs.
+>
+> I am thinking that with budgets and distances between Wordpress users 
+> a virtual Wordcamp would be the best option.  We have Elluminate rooms 
+> we can donate to the cause.   Maybe meet for a day and have a couple 
+> of different tracks.
+>
+> What do y'all think?
+>
+> ~Jeff
+>
+> ----------------------------------------------------------------------------------------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+>
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+>
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>
+> Create your own free webspace here at UNC at http://web.unc.edu.
+>
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 
+> 4:00 PM ET.If you require urgent assistance, please contact me via the 
+> phone number listed above.
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From joseph.ugoretz at mhc.cuny.edu  Wed Sep  8 18:59:10 2010
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Wed, 8 Sep 2010 14:59:10 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <4C87DC28.6020409@automattic.com>
+References: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com>
+	<4C87DC28.6020409@automattic.com>
+Message-ID: <8D55D79F-FDCE-444F-8E2D-A41EE0274E46@mhc.cuny.edu>
+
+Count me in, too!
+
+-- 
+Joseph Ugoretz, PhD
+Director of Technology and Learning
+William E. Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+On Sep 8, 2010, at 2:55 PM, Jane Wells wrote:
+
+>  Hi Jeff. There have been several in the last two years, with the first 
+> one being at George Mason (wordcamped.com). There have also been 
+> academic tracks at larger WordCamps (New York City), and SIGs put on 
+> through traditional academic conferences. WordCamps are meant to be in 
+> person face-to-face conferences, for building local communtiy, and we 
+> have not approved any virtual events using the WordCamp name before for 
+> this reason. That said, it's been awhile since there was an 
+> academic-only WC, and there are enough colleges and universities using 
+> WordPress that there would be more than enough interest for another one.
+> Jane
+> 
+> On 9/8/10 2:48 PM, Jeff VanDrimmelen wrote:
+>> Hey All,
+>> 
+>> I am new to the game, so perhaps this is already out there somewhere, 
+>> but have we ever done an Educational Focused Wordcamp?  If not, I 
+>> propose we do one.  We could learn so much from each other about our 
+>> special needs.
+>> 
+>> I am thinking that with budgets and distances between Wordpress users 
+>> a virtual Wordcamp would be the best option.  We have Elluminate rooms 
+>> we can donate to the cause.   Maybe meet for a day and have a couple 
+>> of different tracks.
+>> 
+>> What do y'all think?
+>> 
+>> ~Jeff
+>> 
+>> ----------------------------------------------------------------------------------------------------
+>> Jeff VanDrimmelen MA, CMBA
+>> Instructional Technologist, Educational Technology
+>> 
+>> Office of Arts & Sciences Information Services
+>> University Of North Carolina at Chapel Hill
+>> CB 3056, 07 Howell Hall
+>> Chapel Hill, NC 27599-3056
+>> 919.530-0698 (Direct Line)
+>> 
+>> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>> 
+>> Create your own free webspace here at UNC at http://web.unc.edu.
+>> 
+>> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 
+>> 4:00 PM ET.If you require urgent assistance, please contact me via the 
+>> phone number listed above.
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From dkwhisle at uncc.edu  Wed Sep  8 19:04:09 2010
+From: dkwhisle at uncc.edu (Whisler, Dave)
+Date: Wed, 8 Sep 2010 15:04:09 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <8D55D79F-FDCE-444F-8E2D-A41EE0274E46@mhc.cuny.edu>
+References: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com><4C87DC28.6020409@automattic.com>
+	<8D55D79F-FDCE-444F-8E2D-A41EE0274E46@mhc.cuny.edu>
+Message-ID: <41438143A28B884D90CE5148683268B2020DF81F@EXEVS01.its.uncc.edu>
+
+Count me in as well.
+
+David K. Whisler | Oracle & MySQL DBA/Developer & Joomla Administrator
+UNC Charlotte | The William States Lee College of Engineering
+9201 University City Blvd. | Charlotte, NC 28223
+Phone: 704-687-3964 | Fax: 704-687-2352
+dkwhisle at uncc.edu | http://www.uncc.edu
+------------------------------------------------------------------------
+---
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Wednesday, September 08, 2010 2:59 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Educational Focused WordCamp?
+
+Count me in, too!
+
+-- 
+Joseph Ugoretz, PhD
+Director of Technology and Learning
+William E. Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+On Sep 8, 2010, at 2:55 PM, Jane Wells wrote:
+
+>  Hi Jeff. There have been several in the last two years, with the
+first 
+> one being at George Mason (wordcamped.com). There have also been 
+> academic tracks at larger WordCamps (New York City), and SIGs put on 
+> through traditional academic conferences. WordCamps are meant to be in
+
+> person face-to-face conferences, for building local communtiy, and we 
+> have not approved any virtual events using the WordCamp name before
+for 
+> this reason. That said, it's been awhile since there was an 
+> academic-only WC, and there are enough colleges and universities using
+
+> WordPress that there would be more than enough interest for another
+one.
+> Jane
+> 
+> On 9/8/10 2:48 PM, Jeff VanDrimmelen wrote:
+>> Hey All,
+>> 
+>> I am new to the game, so perhaps this is already out there somewhere,
+
+>> but have we ever done an Educational Focused Wordcamp?  If not, I 
+>> propose we do one.  We could learn so much from each other about our 
+>> special needs.
+>> 
+>> I am thinking that with budgets and distances between Wordpress users
+
+>> a virtual Wordcamp would be the best option.  We have Elluminate
+rooms 
+>> we can donate to the cause.   Maybe meet for a day and have a couple 
+>> of different tracks.
+>> 
+>> What do y'all think?
+>> 
+>> ~Jeff
+>> 
+>>
+------------------------------------------------------------------------
+----------------------------
+>> Jeff VanDrimmelen MA, CMBA
+>> Instructional Technologist, Educational Technology
+>> 
+>> Office of Arts & Sciences Information Services
+>> University Of North Carolina at Chapel Hill
+>> CB 3056, 07 Howell Hall
+>> Chapel Hill, NC 27599-3056
+>> 919.530-0698 (Direct Line)
+>> 
+>> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>> 
+>> Create your own free webspace here at UNC at http://web.unc.edu.
+>> 
+>> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and
+
+>> 4:00 PM ET.If you require urgent assistance, please contact me via
+the 
+>> phone number listed above.
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From newquisk at lafayette.edu  Thu Sep  9 17:46:50 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Thu, 9 Sep 2010 13:46:50 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <41438143A28B884D90CE5148683268B2020DF81F@EXEVS01.its.uncc.edu>
+References: <AANLkTim7g-CDixKDbmC9_u9vdQh2nCMGCmjaouMvBSfM@mail.gmail.com><4C87DC28.6020409@automattic.com>
+	<8D55D79F-FDCE-444F-8E2D-A41EE0274E46@mhc.cuny.edu>
+	<41438143A28B884D90CE5148683268B2020DF81F@EXEVS01.its.uncc.edu>
+Message-ID: <8CFB7EA1-4F86-43EF-BCFC-58F6B9B206E2@lafayette.edu>
+
+I'm interested in a WordPress Edu event as well.  Normally I'd want to  
+attend the NYC Wordcamp event, but I'll have just returned from  
+HighEdWeb in Cincinnati a few days before, which makes attending a non- 
+starter.
+
+Ken
+
+
+--
+Ken Newquist
+Web Applications Specialist
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+From kylejones at thecorkboard.org  Thu Sep  9 17:53:04 2010
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Thu, 9 Sep 2010 12:53:04 -0500
+Subject: [wp-edu] wp-edu Digest, Vol 16, Issue 3
+In-Reply-To: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+References: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+Message-ID: <95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+
+I'd be up for a gathering of the Ed/WordPress minds either virtually  
+or in-person.
+
+Though, WordCamps have been inviting of educational folks already as  
+Jane pointed out.  I was one of the ed folks who spoke at WordCamp  
+Chicago and highly appreciated the experience.  That being said, I  
+felt like my topic (BuddyPress as LMS) may not have been appreciated  
+by that many folks in the audience since they were more looking for a  
+general WordPress talk.
+
+
+~Kyle M.L. Jones~
+SLIS Ph.D Student
+SLIS Distance Ed. T.A.
+
+---------------
+E-mail
+---------------
+kmjones8 at wisc.edu
+kylejones at thecorkboard.org
+
+---------------
+Online
+---------------
+Twitter: @thecorkboard
+Site: http://thecorkboard.org
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/007a2966/attachment.htm>
+
+From hhou at esm.rochester.edu  Thu Sep  9 17:55:46 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Thu, 09 Sep 2010 13:55:46 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <41438143A28B884D90CE5148683268B2020DF81F@EXEVS01.its.uncc.edu>
+Message-ID: <C8AE97E2.123D%hhou@esm.rochester.edu>
+
+Definitely interested in a focused WordCamp. In-person would be nice, but
+virtual works, too.
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+> From: "Whisler, Dave" <dkwhisle at uncc.edu>
+> Reply-To: <wp-edu at lists.automattic.com>
+> Date: Wed, 8 Sep 2010 15:04:09 -0400
+> To: <wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> 
+> Count me in as well.
+> 
+> David K. Whisler | Oracle & MySQL DBA/Developer & Joomla Administrator
+> UNC Charlotte | The William States Lee College of Engineering
+> 9201 University City Blvd. | Charlotte, NC 28223
+> Phone: 704-687-3964 | Fax: 704-687-2352
+> dkwhisle at uncc.edu | http://www.uncc.edu
+> ------------------------------------------------------------------------
+> ---
+> 
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com
+> [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+> Sent: Wednesday, September 08, 2010 2:59 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> 
+> Count me in, too!
+> 
+> -- 
+> Joseph Ugoretz, PhD
+> Director of Technology and Learning
+> William E. Macaulay Honors College - CUNY
+> 35 West 67th St.
+> New York, NY 10023
+> 212.729.2920
+> http://macaulay.cuny.edu
+> 
+> 
+> 
+> 
+> On Sep 8, 2010, at 2:55 PM, Jane Wells wrote:
+> 
+>>  Hi Jeff. There have been several in the last two years, with the
+> first 
+>> one being at George Mason (wordcamped.com). There have also been
+>> academic tracks at larger WordCamps (New York City), and SIGs put on
+>> through traditional academic conferences. WordCamps are meant to be in
+> 
+>> person face-to-face conferences, for building local communtiy, and we
+>> have not approved any virtual events using the WordCamp name before
+> for 
+>> this reason. That said, it's been awhile since there was an
+>> academic-only WC, and there are enough colleges and universities using
+> 
+>> WordPress that there would be more than enough interest for another
+> one.
+>> Jane
+>> 
+>> On 9/8/10 2:48 PM, Jeff VanDrimmelen wrote:
+>>> Hey All,
+>>> 
+>>> I am new to the game, so perhaps this is already out there somewhere,
+> 
+>>> but have we ever done an Educational Focused Wordcamp?  If not, I
+>>> propose we do one.  We could learn so much from each other about our
+>>> special needs.
+>>> 
+>>> I am thinking that with budgets and distances between Wordpress users
+> 
+>>> a virtual Wordcamp would be the best option.  We have Elluminate
+> rooms 
+>>> we can donate to the cause.   Maybe meet for a day and have a couple
+>>> of different tracks.
+>>> 
+>>> What do y'all think?
+>>> 
+>>> ~Jeff
+>>> 
+>>> 
+> ------------------------------------------------------------------------
+> ----------------------------
+>>> Jeff VanDrimmelen MA, CMBA
+>>> Instructional Technologist, Educational Technology
+>>> 
+>>> Office of Arts & Sciences Information Services
+>>> University Of North Carolina at Chapel Hill
+>>> CB 3056, 07 Howell Hall
+>>> Chapel Hill, NC 27599-3056
+>>> 919.530-0698 (Direct Line)
+>>> 
+>>> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>>> 
+>>> Create your own free webspace here at UNC at http://web.unc.edu.
+>>> 
+>>> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and
+> 
+>>> 4:00 PM ET.If you require urgent assistance, please contact me via
+> the 
+>>> phone number listed above.
+>>> 
+>>> 
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From jess at funroe.net  Thu Sep  9 18:23:21 2010
+From: jess at funroe.net (Jess Planck)
+Date: Thu, 9 Sep 2010 13:23:21 -0500
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AE97E2.123D%hhou@esm.rochester.edu>
+References: <C8AE97E2.123D%hhou@esm.rochester.edu>
+Message-ID: <17ABA88B-59B2-4D05-A477-5D93AA4E32A2@funroe.net>
+
+Glad to see there is plenty of interest in Edu focused WordCamps. In person or virtual is all good. It really doesn't matter if you remember to video / stream / archive presentations to http://wordcamp.tv or similar. Definitely does a great favor to those of us in education who have only faint memories of those things once called "travel and conference budgets"
+
+Jess
+(aka james.planck at nicholls.edu)
+ 
+On Sep 9, 2010, at 12:55 PM, Helen Hou wrote:
+
+> Definitely interested in a focused WordCamp. In-person would be nice, but
+> virtual works, too.
+> 
+> -- 
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+> 
+> 
+>> From: "Whisler, Dave" <dkwhisle at uncc.edu>
+>> Reply-To: <wp-edu at lists.automattic.com>
+>> Date: Wed, 8 Sep 2010 15:04:09 -0400
+>> To: <wp-edu at lists.automattic.com>
+>> Subject: Re: [wp-edu] Educational Focused WordCamp?
+>> 
+>> Count me in as well.
+>> 
+>> David K. Whisler | Oracle & MySQL DBA/Developer & Joomla Administrator
+>> UNC Charlotte | The William States Lee College of Engineering
+>> 9201 University City Blvd. | Charlotte, NC 28223
+>> Phone: 704-687-3964 | Fax: 704-687-2352
+>> dkwhisle at uncc.edu | http://www.uncc.edu
+>> ------------------------------------------------------------------------
+>> ---
+>> 
+>> 
+>> -----Original Message-----
+>> From: wp-edu-bounces at lists.automattic.com
+>> [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+>> Sent: Wednesday, September 08, 2010 2:59 PM
+>> To: wp-edu at lists.automattic.com
+>> Subject: Re: [wp-edu] Educational Focused WordCamp?
+>> 
+>> Count me in, too!
+>> 
+>> -- 
+>> Joseph Ugoretz, PhD
+>> Director of Technology and Learning
+>> William E. Macaulay Honors College - CUNY
+>> 35 West 67th St.
+>> New York, NY 10023
+>> 212.729.2920
+>> http://macaulay.cuny.edu
+>> 
+>> 
+>> 
+>> 
+>> On Sep 8, 2010, at 2:55 PM, Jane Wells wrote:
+>> 
+>>> Hi Jeff. There have been several in the last two years, with the
+>> first 
+>>> one being at George Mason (wordcamped.com). There have also been
+>>> academic tracks at larger WordCamps (New York City), and SIGs put on
+>>> through traditional academic conferences. WordCamps are meant to be in
+>> 
+>>> person face-to-face conferences, for building local communtiy, and we
+>>> have not approved any virtual events using the WordCamp name before
+>> for 
+>>> this reason. That said, it's been awhile since there was an
+>>> academic-only WC, and there are enough colleges and universities using
+>> 
+>>> WordPress that there would be more than enough interest for another
+>> one.
+>>> Jane
+>>> 
+>>> On 9/8/10 2:48 PM, Jeff VanDrimmelen wrote:
+>>>> Hey All,
+>>>> 
+>>>> I am new to the game, so perhaps this is already out there somewhere,
+>> 
+>>>> but have we ever done an Educational Focused Wordcamp?  If not, I
+>>>> propose we do one.  We could learn so much from each other about our
+>>>> special needs.
+>>>> 
+>>>> I am thinking that with budgets and distances between Wordpress users
+>> 
+>>>> a virtual Wordcamp would be the best option.  We have Elluminate
+>> rooms 
+>>>> we can donate to the cause.   Maybe meet for a day and have a couple
+>>>> of different tracks.
+>>>> 
+>>>> What do y'all think?
+>>>> 
+>>>> ~Jeff
+>>>> 
+>>>> 
+>> ------------------------------------------------------------------------
+>> ----------------------------
+>>>> Jeff VanDrimmelen MA, CMBA
+>>>> Instructional Technologist, Educational Technology
+>>>> 
+>>>> Office of Arts & Sciences Information Services
+>>>> University Of North Carolina at Chapel Hill
+>>>> CB 3056, 07 Howell Hall
+>>>> Chapel Hill, NC 27599-3056
+>>>> 919.530-0698 (Direct Line)
+>>>> 
+>>>> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>>>> 
+>>>> Create your own free webspace here at UNC at http://web.unc.edu.
+>>>> 
+>>>> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and
+>> 
+>>>> 4:00 PM ET.If you require urgent assistance, please contact me via
+>> the 
+>>>> phone number listed above.
+>>>> 
+>>>> 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/efa6a07f/attachment-0001.htm>
+
+From jimgroom at gmail.com  Thu Sep  9 19:57:04 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Thu, 9 Sep 2010 15:57:04 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 16, Issue 3
+In-Reply-To: <95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+References: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+	<95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+Message-ID: <AANLkTi=fFwtnL8hsLKtA65eruz6eAWct=Up6G_EKzg9n@mail.gmail.com>
+
+I too would be excited by this, and virtual or in-person works well. I
+actually like the idea of a focused space where people write up or present
+what they are doing virtually, and we find a way to focus it as an ongoing,
+updating resource online. Perhaps this will give us the occasion to work
+towards such an event/publication we can all feature and be featured.
+
+Jim
+
+On Thu, Sep 9, 2010 at 1:53 PM, Kyle Jones <kylejones at thecorkboard.org>wrote:
+
+> I'd be up for a gathering of the Ed/WordPress minds either virtually or
+> in-person.
+>
+> Though, WordCamps have been inviting of educational folks already as Jane
+> pointed out.  I was one of the ed folks who spoke at WordCamp Chicago and
+> *highly* appreciated the experience.  That being said, I felt like my
+> topic (BuddyPress as LMS) may not have been appreciated by that many folks
+> in the audience since they were more looking for a general WordPress talk.
+>
+>
+> ~Kyle M.L. Jones~
+> SLIS Ph.D Student
+> SLIS Distance Ed. T.A.
+>
+> ---------------
+> E-mail
+> ---------------
+> kmjones8 at wisc.edu
+> kylejones at thecorkboard.org
+>
+> ---------------
+> Online
+> ---------------
+> Twitter: @thecorkboard <http://twitter.com/thecorkboard>
+> Site: http://thecorkboard.org
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/cfda2b63/attachment.htm>
+
+From dennen at gmail.com  Thu Sep  9 20:01:02 2010
+From: dennen at gmail.com (Bill Dennen)
+Date: Thu, 9 Sep 2010 16:01:02 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <17ABA88B-59B2-4D05-A477-5D93AA4E32A2@funroe.net>
+References: <C8AE97E2.123D%hhou@esm.rochester.edu>
+	<17ABA88B-59B2-4D05-A477-5D93AA4E32A2@funroe.net>
+Message-ID: <AANLkTikef5yB6BDV3EQmAEdgKALL_MH7ZGXVqEzjs=-g@mail.gmail.com>
+
+FYI:
+
+For the past two years, NERCOMP has help a "WordCamp Ed: Northeast" or
+"WordPress University" session.
+
+2010:
+http://www.nercomp.org/events/event_single.aspx?id=5938
+
+2009:
+http://www.nercomp.org/events/event_single.aspx?id=1739
+
+From jay.collier at thecompass.com  Thu Sep  9 20:38:21 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Thu, 9 Sep 2010 16:38:21 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTi=fFwtnL8hsLKtA65eruz6eAWct=Up6G_EKzg9n@mail.gmail.com>
+References: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+	<95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+	<AANLkTi=fFwtnL8hsLKtA65eruz6eAWct=Up6G_EKzg9n@mail.gmail.com>
+Message-ID: <6233163E-890B-43EA-BFD5-96FC15BDD258@thecompass.com>
+
+I'd be happy to initiate a simple WP site to continue this discussion and capture our knowledge in anticipation of a face-to-face confab. The caveat is that I'm not much of a developer or designer, but it could always evolve to something more sophisticated in future. Any objections?
+
+-Jay
+
+
+
+On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+
+> I too would be excited by this, and virtual or in-person works well. I actually like the idea of a focused space where people write up or present what they are doing virtually, and we find a way to focus it as an ongoing, updating resource online. Perhaps this will give us the occasion to work towards such an event/publication we can all feature and be featured.
+> 
+> Jim
+
+ 
+
+Jay Collier - http://jaycollier.net
+The Compass LLC - http://thecompass.com
+mailto:jay.collier at thecompass.com
+callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/ec84d2ee/attachment.htm>
+
+From davelester at gmail.com  Thu Sep  9 20:46:16 2010
+From: davelester at gmail.com (Dave Lester)
+Date: Thu, 9 Sep 2010 16:46:16 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <6233163E-890B-43EA-BFD5-96FC15BDD258@thecompass.com>
+References: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+	<95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+	<AANLkTi=fFwtnL8hsLKtA65eruz6eAWct=Up6G_EKzg9n@mail.gmail.com>
+	<6233163E-890B-43EA-BFD5-96FC15BDD258@thecompass.com>
+Message-ID: <A9597427-DF21-454A-8CC9-C93E901B77F8@gmail.com>
+
+I'm happy to lend the wordcamped.org domain for such purposes -- I've let it become stale over time.
+
+Dave
+
+Sent from my iPhone
+
+On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+
+> I'd be happy to initiate a simple WP site to continue this discussion and capture our knowledge in anticipation of a face-to-face confab. The caveat is that I'm not much of a developer or designer, but it could always evolve to something more sophisticated in future. Any objections?
+> 
+> -Jay
+> 
+> 
+> 
+> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+> 
+>> I too would be excited by this, and virtual or in-person works well. I actually like the idea of a focused space where people write up or present what they are doing virtually, and we find a way to focus it as an ongoing, updating resource online. Perhaps this will give us the occasion to work towards such an event/publication we can all feature and be featured.
+>> 
+>> Jim
+> 
+>  
+> 
+> Jay Collier - http://jaycollier.net
+> The Compass LLC - http://thecompass.com
+> mailto:jay.collier at thecompass.com
+> callto:+1-207-956-0320
+>        
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/ab121fa4/attachment.htm>
+
+From jeffvand at unc.edu  Thu Sep  9 20:49:14 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Thu, 9 Sep 2010 15:49:14 -0500
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <A9597427-DF21-454A-8CC9-C93E901B77F8@gmail.com>
+References: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+	<95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+	<AANLkTi=fFwtnL8hsLKtA65eruz6eAWct=Up6G_EKzg9n@mail.gmail.com>
+	<6233163E-890B-43EA-BFD5-96FC15BDD258@thecompass.com>
+	<A9597427-DF21-454A-8CC9-C93E901B77F8@gmail.com>
+Message-ID: <AANLkTin5U3x3x6xTc=OZS7rtQnU4_HJWgD9yNqNCvvN9@mail.gmail.com>
+
+I think this is all a great idea.  Let's start working on something on the
+wordcamped.org site.  I can certainly do some development and get up a forum
+or something where we can discuss topics/dates, etc.  I think it would have
+been tremendously helpful to have something like that when I started out and
+that seems like a great place for it!  Thanks for offering Dave.
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+
+Create your own free webspace here at UNC at http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Thu, Sep 9, 2010 at 3:46 PM, Dave Lester <davelester at gmail.com> wrote:
+
+> I'm happy to lend the wordcamped.org domain for such purposes -- I've let
+> it become stale over time.
+>
+> Dave
+>
+> Sent from my iPhone
+>
+> On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com>
+> wrote:
+>
+> I'd be happy to initiate a simple WP site to continue this discussion and
+> capture our knowledge in anticipation of a face-to-face confab. The caveat
+> is that I'm not much of a developer or designer, but it could always evolve
+> to something more sophisticated in future. Any objections?
+>
+> -Jay
+>
+>
+>
+> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+>
+> I too would be excited by this, and virtual or in-person works well. I
+> actually like the idea of a focused space where people write up or present
+> what they are doing virtually, and we find a way to focus it as an ongoing,
+> updating resource online. Perhaps this will give us the occasion to work
+> towards such an event/publication we can all feature and be featured.
+>
+> Jim
+>
+>
+>
+>  Jay Collier - <http://jaycollier.net/>http://jaycollier.net
+>
+> The Compass LLC - <http://thecompass.com/>http://thecompass.com
+>
+> <jay.collier at thecompass.com>mailto:jay.collier at thecompass.com<jay.collier at thecompass.com>
+>
+> callto:+1-207-956-0320 <callto:+12079560320>
+>
+> <http://jaycollier.net/feed> <http://jaycollier.net/contact/>
+> <http://www.facebook.com/jayfcollier>
+> <http://flickr.com/photos/jaycollier/>
+> <http://www.linkedin.com/in/jaycollier>
+> <http://www.last.fm/user/jcollier/charts> <http://twitter.com/jaycollier>
+> <http://www.youtube.com/jaycolliermedia>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/77b12a30/attachment-0001.htm>
+
+From hhou at esm.rochester.edu  Thu Sep  9 20:53:22 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Thu, 09 Sep 2010 16:53:22 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <A9597427-DF21-454A-8CC9-C93E901B77F8@gmail.com>
+Message-ID: <C8AEC182.124E%hhou@esm.rochester.edu>
+
+I?d be willing to contribute some design/dev time to get a site going. I
+think a part-discussion part-article WP higher ed/general edu resource would
+be a great thing! Sort of branching off from the WordCamp idea, but they
+could go hand-in-hand, especially for those of us who have only ever heard
+rumors of travel/conference allowances :)
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: Dave Lester <davelester at gmail.com>
+Reply-To: <wp-edu at lists.automattic.com>
+Date: Thu, 9 Sep 2010 16:46:16 -0400
+To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+Cc: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Educational Focused WordCamp?
+
+I'm happy to lend the wordcamped.org <http://wordcamped.org>  domain for
+such purposes -- I've let it become stale over time.
+
+Dave
+
+Sent from my iPhone
+
+On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+
+> I'd be happy to initiate a simple WP site to continue this discussion and
+> capture our knowledge in anticipation of a face-to-face confab. The caveat is
+> that I'm not much of a developer or designer, but it could always evolve to
+> something more sophisticated in future. Any objections?
+> 
+> -Jay
+> 
+> 
+> 
+> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+> 
+>> I too would be excited by this, and virtual or in-person works well. I
+>> actually like the idea of a focused space where people write up or present
+>> what they are doing virtually, and we find a way to focus it as an ongoing,
+>> updating resource online. Perhaps this will give us the occasion to work
+>> towards such an event/publication we can all feature and be featured.
+>> 
+>> Jim
+>  
+>    
+> 
+>  
+>  
+> 
+> Jay Collier - http://jaycollier.net <http://jaycollier.net>
+>  
+> 
+> The Compass LLC - http://thecompass.com <http://thecompass.com>
+>   
+> 
+> mailto:jay.collier at thecompass.com <mailto:jay.collier at thecompass.com>
+>  
+> 
+> callto:+1-207-956-0320 <callto:+12079560320>
+>  
+> 
+>  <http://jaycollier.net/feed>   <http://jaycollier.net/contact/>
+> <http://www.facebook.com/jayfcollier>   <http://flickr.com/photos/jaycollier/>
+> <http://www.linkedin.com/in/jaycollier>
+> <http://www.last.fm/user/jcollier/charts>   <http://twitter.com/jaycollier>
+> <http://www.youtube.com/jaycolliermedia>
+>  
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/aa2a6521/attachment.htm>
+
+From jay.collier at thecompass.com  Thu Sep  9 21:01:47 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Thu, 9 Sep 2010 17:01:47 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AEC182.124E%hhou@esm.rochester.edu>
+References: <C8AEC182.124E%hhou@esm.rochester.edu>
+Message-ID: <988C409D-25B6-424A-9F0F-7EDB997F0462@thecompass.com>
+
+Are we envisioning a space that is primarily in support of a WordCamp, or one that will support WordPress users in education above and beyond conferences? (I'm aware of the desire to make sure the label "WordCamp" is reserved for that use.) Being clear up front could avoid issues down the road.
+
+
+On Sep 9, 2010, at 4:53 PM, Helen Hou wrote:
+
+> I?d be willing to contribute some design/dev time to get a site going. I think a part-discussion part-article WP higher ed/general edu resource would be a great thing! Sort of branching off from the WordCamp idea, but they could go hand-in-hand, especially for those of us who have only ever heard rumors of travel/conference allowances :)
+> 
+> -- 
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+> 
+> On Sep 9, 2010, at 4:49 PM, Jeff VanDrimmelen wrote:
+> 
+> I think this is all a great idea.  Let's start working on something on the wordcamped.org site.  I can certainly do some development and get up a forum or something where we can discuss topics/dates, etc.  I think it would have been tremendously helpful to have something like that when I started out and that seems like a great place for it!  Thanks for offering Dave.
+> 
+> ~Jeff
+> 
+> From: Dave Lester <davelester at gmail.com>
+> 
+> I'm happy to lend the wordcamped.org <http://wordcamped.org>  domain for such purposes -- I've let it become stale over time.
+> 
+> Dave
+> 
+> Sent from my iPhone
+> 
+> On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+> 
+>> I'd be happy to initiate a simple WP site to continue this discussion and capture our knowledge in anticipation of a face-to-face confab. The caveat is that I'm not much of a developer or designer, but it could always evolve to something more sophisticated in future. Any objections?
+>> 
+>> -Jay
+>> 
+>> 
+>> 
+>> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+>> 
+>>> I too would be excited by this, and virtual or in-person works well. I actually like the idea of a focused space where people write up or present what they are doing virtually, and we find a way to focus it as an ongoing, updating resource online. Perhaps this will give us the occasion to work towards such an event/publication we can all feature and be featured.
+>>> 
+>>> Jim
+>> 
+>>   
+
+
+From jay.collier at thecompass.com  Thu Sep  9 21:01:59 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Thu, 9 Sep 2010 17:01:59 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <A9597427-DF21-454A-8CC9-C93E901B77F8@gmail.com>
+References: <mailman.7.1284033602.22939.wp-edu@lists.automattic.com>
+	<95710579-9851-4021-99DC-194FA3BD1EC1@thecorkboard.org>
+	<AANLkTi=fFwtnL8hsLKtA65eruz6eAWct=Up6G_EKzg9n@mail.gmail.com>
+	<6233163E-890B-43EA-BFD5-96FC15BDD258@thecompass.com>
+	<A9597427-DF21-454A-8CC9-C93E901B77F8@gmail.com>
+Message-ID: <EDD96E3D-B22A-4F9B-AF34-9CF900DB3064@thecompass.com>
+
+Are we envisioning a space that is primarily in support of a WordCamp, or one that will support WordPress users in education above and beyond conferences? (I'm aware of the desire to make sure the label "WordCamp" is reserved for that use.) Being clear up front could avoid issues down the road.
+
+
+
+On Sep 9, 2010, at 4:46 PM, Dave Lester wrote:
+
+> I'm happy to lend the wordcamped.org domain for such purposes -- I've let it become stale over time.
+> 
+> Dave
+> 
+> Sent from my iPhone
+> 
+> On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+> 
+>> I'd be happy to initiate a simple WP site to continue this discussion and capture our knowledge in anticipation of a face-to-face confab. The caveat is that I'm not much of a developer or designer, but it could always evolve to something more sophisticated in future. Any objections?
+>> 
+>> -Jay
+>> 
+>> 
+>> 
+>> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+>> 
+>>> I too would be excited by this, and virtual or in-person works well. I actually like the idea of a focused space where people write up or present what they are doing virtually, and we find a way to focus it as an ongoing, updating resource online. Perhaps this will give us the occasion to work towards such an event/publication we can all feature and be featured.
+>>> 
+>>> Jim
+>> 
+>>  
+>> 
+>> Jay Collier - http://jaycollier.net
+>> The Compass LLC - http://thecompass.com
+>> mailto:jay.collier at thecompass.com
+>> callto:+1-207-956-0320
+>>        
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/72e12747/attachment.htm>
+
+From hhou at esm.rochester.edu  Thu Sep  9 21:15:23 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Thu, 09 Sep 2010 17:15:23 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <988C409D-25B6-424A-9F0F-7EDB997F0462@thecompass.com>
+Message-ID: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+
+That's where I'm hung up a little bit as well, actually. I knew that the
+idea of a resource beyond conferences would be stepping out of bounds, if
+you will, so thank you for calling that out. I still love the idea of a
+targeted WordCamp, but I know that for myself (and probably for a lot of us
+working for educational institutions), the time/money/ability to travel to a
+conference is very limited. Since there seems to be a lot of interest in
+sharing information, why not start with a site and keep the goal of a
+WordCamp in mind? Should we start a new e-mail thread to clarify?
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+> From: Jay Collier <jay.collier at thecompass.com>
+> Reply-To: <wp-edu at lists.automattic.com>
+> Date: Thu, 9 Sep 2010 17:01:47 -0400
+> To: <wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> 
+> Are we envisioning a space that is primarily in support of a WordCamp, or one
+> that will support WordPress users in education above and beyond conferences?
+> (I'm aware of the desire to make sure the label "WordCamp" is reserved for
+> that use.) Being clear up front could avoid issues down the road.
+> 
+> 
+> On Sep 9, 2010, at 4:53 PM, Helen Hou wrote:
+> 
+>> I?d be willing to contribute some design/dev time to get a site going. I
+>> think a part-discussion part-article WP higher ed/general edu resource would
+>> be a great thing! Sort of branching off from the WordCamp idea, but they
+>> could go hand-in-hand, especially for those of us who have only ever heard
+>> rumors of travel/conference allowances :)
+>> 
+>> -- 
+>> Helen Hou-Sandi (MM?08)
+>> Web Developer, Eastman School of Music
+>> ESM 35A
+>> 
+>> On Sep 9, 2010, at 4:49 PM, Jeff VanDrimmelen wrote:
+>> 
+>> I think this is all a great idea.  Let's start working on something on the
+>> wordcamped.org site.  I can certainly do some development and get up a forum
+>> or something where we can discuss topics/dates, etc.  I think it would have
+>> been tremendously helpful to have something like that when I started out and
+>> that seems like a great place for it!  Thanks for offering Dave.
+>> 
+>> ~Jeff
+>> 
+>> From: Dave Lester <davelester at gmail.com>
+>> 
+>> I'm happy to lend the wordcamped.org <http://wordcamped.org>  domain for such
+>> purposes -- I've let it become stale over time.
+>> 
+>> Dave
+>> 
+>> Sent from my iPhone
+>> 
+>> On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+>> 
+>>> I'd be happy to initiate a simple WP site to continue this discussion and
+>>> capture our knowledge in anticipation of a face-to-face confab. The caveat
+>>> is that I'm not much of a developer or designer, but it could always evolve
+>>> to something more sophisticated in future. Any objections?
+>>> 
+>>> -Jay
+>>> 
+>>> 
+>>> 
+>>> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+>>> 
+>>>> I too would be excited by this, and virtual or in-person works well. I
+>>>> actually like the idea of a focused space where people write up or present
+>>>> what they are doing virtually, and we find a way to focus it as an ongoing,
+>>>> updating resource online. Perhaps this will give us the occasion to work
+>>>> towards such an event/publication we can all feature and be featured.
+>>>> 
+>>>> Jim
+>>> 
+>>>   
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From jane at automattic.com  Thu Sep  9 21:22:30 2010
+From: jane at automattic.com (Jane Wells)
+Date: Thu, 09 Sep 2010 17:22:30 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+References: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+Message-ID: <4C895016.7090409@automattic.com>
+
+  Didn't Jim Groom start a site a while back where ed people were 
+posting what they're doing with WP/MU/BP in academic settings?
+j
+
+On 9/9/10 5:15 PM, Helen Hou wrote:
+> That's where I'm hung up a little bit as well, actually. I knew that the
+> idea of a resource beyond conferences would be stepping out of bounds, if
+> you will, so thank you for calling that out. I still love the idea of a
+> targeted WordCamp, but I know that for myself (and probably for a lot of us
+> working for educational institutions), the time/money/ability to travel to a
+> conference is very limited. Since there seems to be a lot of interest in
+> sharing information, why not start with a site and keep the goal of a
+> WordCamp in mind? Should we start a new e-mail thread to clarify?
+>
+
+
+From velda at novapages.com  Thu Sep  9 21:22:55 2010
+From: velda at novapages.com (Velda Christensen)
+Date: Thu, 9 Sep 2010 15:22:55 -0600
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+References: <988C409D-25B6-424A-9F0F-7EDB997F0462@thecompass.com>
+	<C8AEC6AB.1257%hhou@esm.rochester.edu>
+Message-ID: <AANLkTim7dZQfzE6sJBp4NeKiMO5wGcNfiSSieCDr-ywg@mail.gmail.com>
+
+Agreed.  A camp would be awesome, but the people who really ought to be
+there (users and designers/developers alike) could have a difficult time
+actually getting there.
+
+WordPress is becoming more well known in Education, and if we got the word
+out on a targeted site, it could become all the more popular.  Perhaps even
+popular enough that all of the larger cities or college towns would want an
+Education track.
+
+- Velda
+
+On Thu, Sep 9, 2010 at 3:15 PM, Helen Hou <hhou at esm.rochester.edu> wrote:
+
+> That's where I'm hung up a little bit as well, actually. I knew that the
+> idea of a resource beyond conferences would be stepping out of bounds, if
+> you will, so thank you for calling that out. I still love the idea of a
+> targeted WordCamp, but I know that for myself (and probably for a lot of us
+> working for educational institutions), the time/money/ability to travel to
+> a
+> conference is very limited. Since there seems to be a lot of interest in
+> sharing information, why not start with a site and keep the goal of a
+> WordCamp in mind? Should we start a new e-mail thread to clarify?
+>
+> --
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+>
+>
+> > From: Jay Collier <jay.collier at thecompass.com>
+> > Reply-To: <wp-edu at lists.automattic.com>
+> > Date: Thu, 9 Sep 2010 17:01:47 -0400
+> > To: <wp-edu at lists.automattic.com>
+> > Subject: Re: [wp-edu] Educational Focused WordCamp?
+> >
+> > Are we envisioning a space that is primarily in support of a WordCamp, or
+> one
+> > that will support WordPress users in education above and beyond
+> conferences?
+> > (I'm aware of the desire to make sure the label "WordCamp" is reserved
+> for
+> > that use.) Being clear up front could avoid issues down the road.
+> >
+> >
+> > On Sep 9, 2010, at 4:53 PM, Helen Hou wrote:
+> >
+> >> I?d be willing to contribute some design/dev time to get a site going. I
+> >> think a part-discussion part-article WP higher ed/general edu resource
+> would
+> >> be a great thing! Sort of branching off from the WordCamp idea, but they
+> >> could go hand-in-hand, especially for those of us who have only ever
+> heard
+> >> rumors of travel/conference allowances :)
+> >>
+> >> --
+> >> Helen Hou-Sandi (MM?08)
+> >> Web Developer, Eastman School of Music
+> >> ESM 35A
+> >>
+> >> On Sep 9, 2010, at 4:49 PM, Jeff VanDrimmelen wrote:
+> >>
+> >> I think this is all a great idea.  Let's start working on something on
+> the
+> >> wordcamped.org site.  I can certainly do some development and get up a
+> forum
+> >> or something where we can discuss topics/dates, etc.  I think it would
+> have
+> >> been tremendously helpful to have something like that when I started out
+> and
+> >> that seems like a great place for it!  Thanks for offering Dave.
+> >>
+> >> ~Jeff
+> >>
+> >> From: Dave Lester <davelester at gmail.com>
+> >>
+> >> I'm happy to lend the wordcamped.org <http://wordcamped.org>  domain
+> for such
+> >> purposes -- I've let it become stale over time.
+> >>
+> >> Dave
+> >>
+> >> Sent from my iPhone
+> >>
+> >> On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com>
+> wrote:
+> >>
+> >>> I'd be happy to initiate a simple WP site to continue this discussion
+> and
+> >>> capture our knowledge in anticipation of a face-to-face confab. The
+> caveat
+> >>> is that I'm not much of a developer or designer, but it could always
+> evolve
+> >>> to something more sophisticated in future. Any objections?
+> >>>
+> >>> -Jay
+> >>>
+> >>>
+> >>>
+> >>> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+> >>>
+> >>>> I too would be excited by this, and virtual or in-person works well. I
+> >>>> actually like the idea of a focused space where people write up or
+> present
+> >>>> what they are doing virtually, and we find a way to focus it as an
+> ongoing,
+> >>>> updating resource online. Perhaps this will give us the occasion to
+> work
+> >>>> towards such an event/publication we can all feature and be featured.
+> >>>>
+> >>>> Jim
+> >>>
+> >>>
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/cf913807/attachment.htm>
+
+From Lucas.Waltzer at baruch.cuny.edu  Thu Sep  9 21:27:01 2010
+From: Lucas.Waltzer at baruch.cuny.edu (Lucas Waltzer)
+Date: Thu, 9 Sep 2010 17:27:01 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <4C895016.7090409@automattic.com>
+References: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+	<4C895016.7090409@automattic.com>
+Message-ID: <6D02E61E-2E56-4840-96D4-721B4ED42B84@baruch.cuny.edu>
+
+There's this: 
+http://dev.wpmued.org/
+
+
+On Sep 9, 2010, at 5:24 PM, "Jane Wells" <jane at automattic.com> wrote:
+
+> 
+> Didn't Jim Groom start a site a while back where ed people were posting what they're doing with WP/MU/BP in academic settings?
+> j
+> 
+> On 9/9/10 5:15 PM, Helen Hou wrote:
+>> That's where I'm hung up a little bit as well, actually. I knew that the
+>> idea of a resource beyond conferences would be stepping out of bounds, if
+>> you will, so thank you for calling that out. I still love the idea of a
+>> targeted WordCamp, but I know that for myself (and probably for a lot of us
+>> working for educational institutions), the time/money/ability to travel to a
+>> conference is very limited. Since there seems to be a lot of interest in
+>> sharing information, why not start with a site and keep the goal of a
+>> WordCamp in mind? Should we start a new e-mail thread to clarify?
+>> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From kylejones at thecorkboard.org  Thu Sep  9 21:29:59 2010
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Thu, 9 Sep 2010 16:29:59 -0500
+Subject: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+In-Reply-To: <mailman.21181.1284066936.1338.wp-edu@lists.automattic.com>
+References: <mailman.21181.1284066936.1338.wp-edu@lists.automattic.com>
+Message-ID: <24729C62-25E6-407C-9DBF-70DB68EA0850@thecorkboard.org>
+
+I'd very much be willing to contribute posts and screencasts to a  
+WordPress/Ed related site with or without a conference attached to it.
+Giving up the "Wordcamped" domain would be sad as it fits nicely, but  
+maybe something more like WordPressEd (wordpressed.org) would be  
+appropriate (and legal)?
+
+
+
+~Kyle M.L. Jones~
+SLIS Ph.D Student
+SLIS Distance Ed. T.A.
+
+---------------
+E-mail
+---------------
+kmjones8 at wisc.edu
+kylejones at thecorkboard.org
+
+---------------
+Online
+---------------
+Twitter: @thecorkboard
+Site: http://thecorkboard.org
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/f04d0334/attachment.htm>
+
+From jane at automattic.com  Thu Sep  9 21:31:54 2010
+From: jane at automattic.com (Jane Wells)
+Date: Thu, 09 Sep 2010 17:31:54 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+In-Reply-To: <24729C62-25E6-407C-9DBF-70DB68EA0850@thecorkboard.org>
+References: <mailman.21181.1284066936.1338.wp-edu@lists.automattic.com>
+	<24729C62-25E6-407C-9DBF-70DB68EA0850@thecorkboard.org>
+Message-ID: <4C89524A.9020905@automattic.com>
+
+  Can't have "WordPress" in a top-level domain for trademark reasons.
+j
+
+On 9/9/10 5:29 PM, Kyle Jones wrote:
+> I'd very much be willing to contribute posts and screencasts to a 
+> WordPress/Ed related site with or without a conference attached to it.
+> Giving up the "Wordcamped" domain would be sad as it fits nicely, but 
+> maybe something more like WordPressEd (wordpressed.org 
+> <http://domai.nr/wordpressed/with/wordpressed.org>) would be 
+> appropriate (and legal)?
+>
+>
+>
+> ~Kyle M.L. Jones~
+> SLIS Ph.D Student
+> SLIS Distance Ed. T.A.
+>
+> ---------------
+> E-mail
+> ---------------
+> kmjones8 at wisc.edu <mailto:kmjones8 at wisc.edu>
+> kylejones at thecorkboard.org <mailto:kylejones at thecorkboard.org>
+>
+> ---------------
+> Online
+> ---------------
+> Twitter: @thecorkboard <http://twitter.com/thecorkboard>
+> Site: http://thecorkboard.org <http://thecorkboard.org/>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From hhou at esm.rochester.edu  Thu Sep  9 21:33:30 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Thu, 09 Sep 2010 17:33:30 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+In-Reply-To: <24729C62-25E6-407C-9DBF-70DB68EA0850@thecorkboard.org>
+Message-ID: <C8AECAEA.1261%hhou@esm.rochester.edu>
+
+I don?t think we?re supposed to use WordPress written out in the URL.
+Something like wp-edu.org would be good, though. Too bad we can?t use
+wp.edu!
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: Kyle Jones <kylejones at thecorkboard.org>
+Reply-To: <wp-edu at lists.automattic.com>
+Date: Thu, 9 Sep 2010 16:29:59 -0500
+To: <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+
+I'd very much be willing to contribute posts and screencasts to a
+WordPress/Ed related site with or without a conference attached to it.
+Giving up the "Wordcamped" domain would be sad as it fits nicely, but maybe
+something more like WordPressEd (wordpressed.org
+<http://domai.nr/wordpressed/with/wordpressed.org> ) would be appropriate
+(and legal)?
+
+ 
+
+
+~Kyle M.L. Jones~
+SLIS Ph.D Student
+SLIS Distance Ed. T.A.
+
+---------------
+E-mail
+---------------
+kmjones8 at wisc.edu
+kylejones at thecorkboard.org
+
+---------------
+Online
+---------------
+Twitter: @thecorkboard <http://twitter.com/thecorkboard>
+Site: http://thecorkboard.org <http://thecorkboard.org/>
+ 
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/9117646a/attachment-0001.htm>
+
+From ahayman at iste.org  Thu Sep  9 21:36:39 2010
+From: ahayman at iste.org (April Hayman)
+Date: Thu, 9 Sep 2010 14:36:39 -0700
+Subject: [wp-edu] wp-edu Digest, Vol 16, Issue 7
+In-Reply-To: <mailman.21185.1284068022.1338.wp-edu@lists.automattic.com>
+Message-ID: <C8AEA177.452E%ahayman@iste.org>
+
+While our WP/BP install is primarily for educators and PD, I'd be happy to
+help out as well. Please let me know what is needed.
+
+~April
+
+
+-- 
+April Hayman
+Instructional Designer, ISTE
+International Society for Technology in Education
+180 W. 8th Avenue, Suite 300
+Eugene, Oregon 97401
+Direct: 541.302.3784 x216
+email: ahayman at iste.org
+
+
+
+On 9/9/10 2:33 PM, "wp-edu-request at lists.automattic.com"
+<wp-edu-request at lists.automattic.com> wrote:
+
+> Send wp-edu mailing list submissions to
+>         wp-edu at lists.automattic.com
+> 
+> To subscribe or unsubscribe via the World Wide Web, visit
+>         http://lists.automattic.com/mailman/listinfo/wp-edu
+> or, via email, send a message with subject or body 'help' to
+>         wp-edu-request at lists.automattic.com
+> 
+> You can reach the person managing the list at
+>         wp-edu-owner at lists.automattic.com
+> 
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-edu digest..."
+> 
+> 
+> Today's Topics:
+> 
+>    1. Re: Educational Focused WordCamp? (Jane Wells)
+>    2. Re: Educational Focused WordCamp? (Velda Christensen)
+>    3. Re: Educational Focused WordCamp? (Lucas Waltzer)
+>    4. Re: wp-edu Digest, Vol 16, Issue 6 (Kyle Jones)
+>    5. Re: wp-edu Digest, Vol 16, Issue 6 (Jane Wells)
+>    6. Re: wp-edu Digest, Vol 16, Issue 6 (Helen Hou)
+> 
+> 
+> ----------------------------------------------------------------------
+> 
+> Message: 1
+> Date: Thu, 09 Sep 2010 17:22:30 -0400
+> From: Jane Wells <jane at automattic.com>
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> To: wp-edu at lists.automattic.com
+> Message-ID: <4C895016.7090409 at automattic.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+> 
+>   Didn't Jim Groom start a site a while back where ed people were
+> posting what they're doing with WP/MU/BP in academic settings?
+> j
+> 
+> On 9/9/10 5:15 PM, Helen Hou wrote:
+>> That's where I'm hung up a little bit as well, actually. I knew that the
+>> idea of a resource beyond conferences would be stepping out of bounds, if
+>> you will, so thank you for calling that out. I still love the idea of a
+>> targeted WordCamp, but I know that for myself (and probably for a lot of us
+>> working for educational institutions), the time/money/ability to travel to a
+>> conference is very limited. Since there seems to be a lot of interest in
+>> sharing information, why not start with a site and keep the goal of a
+>> WordCamp in mind? Should we start a new e-mail thread to clarify?
+>> 
+> 
+> 
+> 
+> ------------------------------
+> 
+> Message: 2
+> Date: Thu, 9 Sep 2010 15:22:55 -0600
+> From: Velda Christensen <velda at novapages.com>
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> To: wp-edu at lists.automattic.com
+> Message-ID:
+>         <AANLkTim7dZQfzE6sJBp4NeKiMO5wGcNfiSSieCDr-ywg at mail.gmail.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+> 
+> Agreed.  A camp would be awesome, but the people who really ought to be
+> there (users and designers/developers alike) could have a difficult time
+> actually getting there.
+> 
+> WordPress is becoming more well known in Education, and if we got the word
+> out on a targeted site, it could become all the more popular.  Perhaps even
+> popular enough that all of the larger cities or college towns would want an
+> Education track.
+> 
+> - Velda
+> 
+> On Thu, Sep 9, 2010 at 3:15 PM, Helen Hou <hhou at esm.rochester.edu> wrote:
+> 
+>> That's where I'm hung up a little bit as well, actually. I knew that the
+>> idea of a resource beyond conferences would be stepping out of bounds, if
+>> you will, so thank you for calling that out. I still love the idea of a
+>> targeted WordCamp, but I know that for myself (and probably for a lot of us
+>> working for educational institutions), the time/money/ability to travel to
+>> a
+>> conference is very limited. Since there seems to be a lot of interest in
+>> sharing information, why not start with a site and keep the goal of a
+>> WordCamp in mind? Should we start a new e-mail thread to clarify?
+>> 
+>> --
+>> Helen Hou-Sandi (MM?08)
+>> Web Developer, Eastman School of Music
+>> ESM 35A
+>> 
+>> 
+>>> From: Jay Collier <jay.collier at thecompass.com>
+>>> Reply-To: <wp-edu at lists.automattic.com>
+>>> Date: Thu, 9 Sep 2010 17:01:47 -0400
+>>> To: <wp-edu at lists.automattic.com>
+>>> Subject: Re: [wp-edu] Educational Focused WordCamp?
+>>> 
+>>> Are we envisioning a space that is primarily in support of a WordCamp, or
+>> one
+>>> that will support WordPress users in education above and beyond
+>> conferences?
+>>> (I'm aware of the desire to make sure the label "WordCamp" is reserved
+>> for
+>>> that use.) Being clear up front could avoid issues down the road.
+>>> 
+>>> 
+>>> On Sep 9, 2010, at 4:53 PM, Helen Hou wrote:
+>>> 
+>>>> I?d be willing to contribute some design/dev time to get a site going. I
+>>>> think a part-discussion part-article WP higher ed/general edu resource
+>> would
+>>>> be a great thing! Sort of branching off from the WordCamp idea, but they
+>>>> could go hand-in-hand, especially for those of us who have only ever
+>> heard
+>>>> rumors of travel/conference allowances :)
+>>>> 
+>>>> --
+>>>> Helen Hou-Sandi (MM?08)
+>>>> Web Developer, Eastman School of Music
+>>>> ESM 35A
+>>>> 
+>>>> On Sep 9, 2010, at 4:49 PM, Jeff VanDrimmelen wrote:
+>>>> 
+>>>> I think this is all a great idea.  Let's start working on something on
+>> the
+>>>> wordcamped.org site.  I can certainly do some development and get up a
+>> forum
+>>>> or something where we can discuss topics/dates, etc.  I think it would
+>> have
+>>>> been tremendously helpful to have something like that when I started out
+>> and
+>>>> that seems like a great place for it!  Thanks for offering Dave.
+>>>> 
+>>>> ~Jeff
+>>>> 
+>>>> From: Dave Lester <davelester at gmail.com>
+>>>> 
+>>>> I'm happy to lend the wordcamped.org <http://wordcamped.org>  domain
+>> for such
+>>>> purposes -- I've let it become stale over time.
+>>>> 
+>>>> Dave
+>>>> 
+>>>> Sent from my iPhone
+>>>> 
+>>>> On Sep 9, 2010, at 4:38 PM, Jay Collier <jay.collier at thecompass.com>
+>> wrote:
+>>>> 
+>>>>> I'd be happy to initiate a simple WP site to continue this discussion
+>> and
+>>>>> capture our knowledge in anticipation of a face-to-face confab. The
+>> caveat
+>>>>> is that I'm not much of a developer or designer, but it could always
+>> evolve
+>>>>> to something more sophisticated in future. Any objections?
+>>>>> 
+>>>>> -Jay
+>>>>> 
+>>>>> 
+>>>>> 
+>>>>> On Sep 9, 2010, at 3:57 PM, James Groom wrote:
+>>>>> 
+>>>>>> I too would be excited by this, and virtual or in-person works well. I
+>>>>>> actually like the idea of a focused space where people write up or
+>> present
+>>>>>> what they are doing virtually, and we find a way to focus it as an
+>> ongoing,
+>>>>>> updating resource online. Perhaps this will give us the occasion to
+>> work
+>>>>>> towards such an event/publication we can all feature and be featured.
+>>>>>> 
+>>>>>> Jim
+>>>>> 
+>>>>> 
+>>> 
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: 
+> <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/cf913807/at
+> tachment-0001.htm>
+> 
+> ------------------------------
+> 
+> Message: 3
+> Date: Thu, 9 Sep 2010 17:27:01 -0400
+> From: "Lucas Waltzer" <Lucas.Waltzer at baruch.cuny.edu>
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> To: <wp-edu at lists.automattic.com>
+> Message-ID: <6D02E61E-2E56-4840-96D4-721B4ED42B84 at baruch.cuny.edu>
+> Content-Type: text/plain;       charset="us-ascii"
+> 
+> There's this:
+> http://dev.wpmued.org/
+> 
+> 
+> On Sep 9, 2010, at 5:24 PM, "Jane Wells" <jane at automattic.com> wrote:
+> 
+>> 
+>> Didn't Jim Groom start a site a while back where ed people were posting what
+>> they're doing with WP/MU/BP in academic settings?
+>> j
+>> 
+>> On 9/9/10 5:15 PM, Helen Hou wrote:
+>>> That's where I'm hung up a little bit as well, actually. I knew that the
+>>> idea of a resource beyond conferences would be stepping out of bounds, if
+>>> you will, so thank you for calling that out. I still love the idea of a
+>>> targeted WordCamp, but I know that for myself (and probably for a lot of us
+>>> working for educational institutions), the time/money/ability to travel to a
+>>> conference is very limited. Since there seems to be a lot of interest in
+>>> sharing information, why not start with a site and keep the goal of a
+>>> WordCamp in mind? Should we start a new e-mail thread to clarify?
+>>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> ------------------------------
+> 
+> Message: 4
+> Date: Thu, 9 Sep 2010 16:29:59 -0500
+> From: Kyle Jones <kylejones at thecorkboard.org>
+> Subject: Re: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+> To: wp-edu at lists.automattic.com
+> Message-ID: <24729C62-25E6-407C-9DBF-70DB68EA0850 at thecorkboard.org>
+> Content-Type: text/plain; charset="us-ascii"; Format="flowed";
+>         DelSp="yes"
+> 
+> I'd very much be willing to contribute posts and screencasts to a
+> WordPress/Ed related site with or without a conference attached to it.
+> Giving up the "Wordcamped" domain would be sad as it fits nicely, but
+> maybe something more like WordPressEd (wordpressed.org) would be
+> appropriate (and legal)?
+> 
+> 
+> 
+> ~Kyle M.L. Jones~
+> SLIS Ph.D Student
+> SLIS Distance Ed. T.A.
+> 
+> ---------------
+> E-mail
+> ---------------
+> kmjones8 at wisc.edu
+> kylejones at thecorkboard.org
+> 
+> ---------------
+> Online
+> ---------------
+> Twitter: @thecorkboard
+> Site: http://thecorkboard.org
+> 
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: 
+> <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/f04d0334/at
+> tachment-0001.htm>
+> 
+> ------------------------------
+> 
+> Message: 5
+> Date: Thu, 09 Sep 2010 17:31:54 -0400
+> From: Jane Wells <jane at automattic.com>
+> Subject: Re: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+> To: wp-edu at lists.automattic.com
+> Message-ID: <4C89524A.9020905 at automattic.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+> 
+>   Can't have "WordPress" in a top-level domain for trademark reasons.
+> j
+> 
+> On 9/9/10 5:29 PM, Kyle Jones wrote:
+>> I'd very much be willing to contribute posts and screencasts to a
+>> WordPress/Ed related site with or without a conference attached to it.
+>> Giving up the "Wordcamped" domain would be sad as it fits nicely, but
+>> maybe something more like WordPressEd (wordpressed.org
+>> <http://domai.nr/wordpressed/with/wordpressed.org>) would be
+>> appropriate (and legal)?
+>> 
+>> 
+>> 
+>> ~Kyle M.L. Jones~
+>> SLIS Ph.D Student
+>> SLIS Distance Ed. T.A.
+>> 
+>> ---------------
+>> E-mail
+>> ---------------
+>> kmjones8 at wisc.edu <mailto:kmjones8 at wisc.edu>
+>> kylejones at thecorkboard.org <mailto:kylejones at thecorkboard.org>
+>> 
+>> ---------------
+>> Online
+>> ---------------
+>> Twitter: @thecorkboard <http://twitter.com/thecorkboard>
+>> Site: http://thecorkboard.org <http://thecorkboard.org/>
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> 
+> ------------------------------
+> 
+> Message: 6
+> Date: Thu, 09 Sep 2010 17:33:30 -0400
+> From: Helen Hou <hhou at esm.rochester.edu>
+> Subject: Re: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+> To: <wp-edu at lists.automattic.com>
+> Message-ID: <C8AECAEA.1261%hhou at esm.rochester.edu>
+> Content-Type: text/plain; charset="iso-8859-1"
+> 
+> I don?t think we?re supposed to use WordPress written out in the URL.
+> Something like wp-edu.org would be good, though. Too bad we can?t use
+> wp.edu!
+> 
+> --
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+> 
+> 
+> 
+> From: Kyle Jones <kylejones at thecorkboard.org>
+> Reply-To: <wp-edu at lists.automattic.com>
+> Date: Thu, 9 Sep 2010 16:29:59 -0500
+> To: <wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] wp-edu Digest, Vol 16, Issue 6
+> 
+> I'd very much be willing to contribute posts and screencasts to a
+> WordPress/Ed related site with or without a conference attached to it.
+> Giving up the "Wordcamped" domain would be sad as it fits nicely, but maybe
+> something more like WordPressEd (wordpressed.org
+> <http://domai.nr/wordpressed/with/wordpressed.org> ) would be appropriate
+> (and legal)?
+> 
+> 
+> 
+> 
+> ~Kyle M.L. Jones~
+> SLIS Ph.D Student
+> SLIS Distance Ed. T.A.
+> 
+> ---------------
+> E-mail
+> ---------------
+> kmjones8 at wisc.edu
+> kylejones at thecorkboard.org
+> 
+> ---------------
+> Online
+> ---------------
+> Twitter: @thecorkboard <http://twitter.com/thecorkboard>
+> Site: http://thecorkboard.org <http://thecorkboard.org/>
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: 
+> <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/9117646a/at
+> tachment.htm>
+> 
+> ------------------------------
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> 
+> End of wp-edu Digest, Vol 16, Issue 7
+> *************************************
+
+
+From jeffvand at unc.edu  Thu Sep  9 21:42:30 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Thu, 9 Sep 2010 16:42:30 -0500
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <4C895016.7090409@automattic.com>
+References: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+	<4C895016.7090409@automattic.com>
+Message-ID: <AANLkTimX6SFsAbxraDzrtoV=JXg4aPec0TgoXN_3_ixF@mail.gmail.com>
+
+If the site already exists out there, that's great.  I'd love to contribute.
+ If not, can we use wp-edu.org?  It is available.  I'm just not sure we that
+is okay.
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+
+Create your own free webspace here at UNC at http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Thu, Sep 9, 2010 at 4:22 PM, Jane Wells <jane at automattic.com> wrote:
+
+>  Didn't Jim Groom start a site a while back where ed people were
+> posting what they're doing with WP/MU/BP in academic settings?
+> j
+>
+> On 9/9/10 5:15 PM, Helen Hou wrote:
+> > That's where I'm hung up a little bit as well, actually. I knew that the
+> > idea of a resource beyond conferences would be stepping out of bounds, if
+> > you will, so thank you for calling that out. I still love the idea of a
+> > targeted WordCamp, but I know that for myself (and probably for a lot of
+> us
+> > working for educational institutions), the time/money/ability to travel
+> to a
+> > conference is very limited. Since there seems to be a lot of interest in
+> > sharing information, why not start with a site and keep the goal of a
+> > WordCamp in mind? Should we start a new e-mail thread to clarify?
+> >
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/a524b40e/attachment.htm>
+
+From jay.collier at thecompass.com  Thu Sep  9 21:57:15 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Thu, 9 Sep 2010 17:57:15 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTimX6SFsAbxraDzrtoV=JXg4aPec0TgoXN_3_ixF@mail.gmail.com>
+References: <C8AEC6AB.1257%hhou@esm.rochester.edu>
+	<4C895016.7090409@automattic.com>
+	<AANLkTimX6SFsAbxraDzrtoV=JXg4aPec0TgoXN_3_ixF@mail.gmail.com>
+Message-ID: <5020495B-1262-4201-B91E-D7C1C620D0C2@thecompass.com>
+
+I just took a look at <wp-edu.org> without the hyphen: <http://wpedu.org>. Using that domain, we'd have to be always repeating "hyphen" in conversation ;) Poor typists would wonder when we started doing auto-translation.
+
+<http://dev.wpmued.org/> seems to have an established function and sounds as if it is focused on MU.
+
+Also available (with neighbors):
+
+wplearning.org (http://wplearning.com)
+wplearn.net (http://wplearn.com, http://wplearn.org)    
+
+
+
+
+
+On Sep 9, 2010, at 5:42 PM, Jeff VanDrimmelen wrote:
+
+> If the site already exists out there, that's great.  I'd love to contribute.  If not, can we use wp-edu.org?  It is available.  I'm just not sure we that is okay.  
+> 
+> ~Jeff
+> 
+> ----------------------------------------------------------------------------------------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+> 
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+> 
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff 
+> 
+> Create your own free webspace here at UNC at http://web.unc.edu.
+> 
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00 PM ET.If you require urgent assistance, please contact me via the phone number listed above.
+> 
+> 
+> On Thu, Sep 9, 2010 at 4:22 PM, Jane Wells <jane at automattic.com> wrote:
+>  Didn't Jim Groom start a site a while back where ed people were
+> posting what they're doing with WP/MU/BP in academic settings?
+> j
+> 
+> On 9/9/10 5:15 PM, Helen Hou wrote:
+> > That's where I'm hung up a little bit as well, actually. I knew that the
+> > idea of a resource beyond conferences would be stepping out of bounds, if
+> > you will, so thank you for calling that out. I still love the idea of a
+> > targeted WordCamp, but I know that for myself (and probably for a lot of us
+> > working for educational institutions), the time/money/ability to travel to a
+> > conference is very limited. Since there seems to be a lot of interest in
+> > sharing information, why not start with a site and keep the goal of a
+> > WordCamp in mind? Should we start a new e-mail thread to clarify?
+> >
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+
+ 
+
+Jay Collier - http://jaycollier.net
+The Compass LLC - http://thecompass.com
+mailto:jay.collier at thecompass.com
+callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/30d721b7/attachment-0001.htm>
+
+From hhou at esm.rochester.edu  Thu Sep  9 22:15:56 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Thu, 09 Sep 2010 18:15:56 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <5020495B-1262-4201-B91E-D7C1C620D0C2@thecompass.com>
+Message-ID: <C8AED4DC.1268%hhou@esm.rochester.edu>
+
+It?s true, saying ?double you pee dash ee dee you? is awkward, but I think
+it might be the more appropriate option in that it doesn?t limit to MU or
+WordPress as a learning tool (and also parallels this mailing list name
+nicely!). I wonder if there would be a way to work with the great minds
+behind WPMu Ed to migrate/mirror applicable content in a non-?deprecated
+name space.?
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: Jay Collier <jay.collier at thecompass.com>
+Reply-To: <wp-edu at lists.automattic.com>
+Date: Thu, 9 Sep 2010 17:57:15 -0400
+To: <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Educational Focused WordCamp?
+
+I just took a look at <wp-edu.org <http://wp-edu.org/> > without the hyphen:
+<http://wpedu.org <http://wp-edu.org/> >. Using that domain, we'd have to be
+always repeating "hyphen" in conversation ;) Poor typists would wonder when
+we started doing auto-translation.
+
+<http://dev.wpmued.org/> seems to have an established function and sounds as
+if it is focused on MU.
+
+Also available (with neighbors):
+
+wplearning.org <http://wplearning.org>  (http://wplearning.com)
+wplearn.net <http://wplearn.net>  (http://wplearn.com, http://wplearn.org)
+
+
+
+
+
+On Sep 9, 2010, at 5:42 PM, Jeff VanDrimmelen wrote:
+
+> If the site already exists out there, that's great.  I'd love to contribute.
+> If not, can we use wp-edu.org <http://wp-edu.org/> ?  It is available.  I'm
+> just not sure we that is okay.
+> 
+> ~Jeff
+> 
+> ------------------------------------------------------------------------------
+> ----------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+> 
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+> 
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+> 
+> Create your own free webspace here at UNC at http://web.unc.edu
+> <http://web.unc.edu/> .
+> 
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00 PM
+> ET.If you require urgent assistance, please contact me via the phone number
+> listed above.
+> 
+> 
+> On Thu, Sep 9, 2010 at 4:22 PM, Jane Wells <jane at automattic.com> wrote:
+>>   Didn't Jim Groom start a site a while back where ed people were
+>> posting what they're doing with WP/MU/BP in academic settings?
+>> j
+>> 
+>> On 9/9/10 5:15 PM, Helen Hou wrote:
+>>> > That's where I'm hung up a little bit as well, actually. I knew that the
+>>> > idea of a resource beyond conferences would be stepping out of bounds, if
+>>> > you will, so thank you for calling that out. I still love the idea of a
+>>> > targeted WordCamp, but I know that for myself (and probably for a lot of
+>>> us
+>>> > working for educational institutions), the time/money/ability to travel to
+a
+>>> > conference is very limited. Since there seems to be a lot of interest in
+>>> > sharing information, why not start with a site and keep the goal of a
+>>> > WordCamp in mind? Should we start a new e-mail thread to clarify?
+>>> >
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+ 
+   
+
+ 
+ 
+
+Jay Collier - http://jaycollier.net <http://jaycollier.net/>
+ 
+
+The Compass LLC - http://thecompass.com <http://thecompass.com/>
+  
+
+mailto:jay.collier at thecompass.com
+ 
+
+callto:+1-207-956-0320 <callto:+12079560320>
+ 
+
+ <http://jaycollier.net/feed>   <http://jaycollier.net/contact/>
+<http://www.facebook.com/jayfcollier>
+<http://flickr.com/photos/jaycollier/>
+<http://www.linkedin.com/in/jaycollier>
+<http://www.last.fm/user/jcollier/charts>   <http://twitter.com/jaycollier>
+<http://www.youtube.com/jaycolliermedia>
+ 
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/b3e13dc5/attachment.htm>
+
+From jane at automattic.com  Thu Sep  9 22:20:58 2010
+From: jane at automattic.com (Jane Wells)
+Date: Thu, 09 Sep 2010 18:20:58 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AED4DC.1268%hhou@esm.rochester.edu>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+Message-ID: <4C895DCA.4030507@automattic.com>
+
+  On 9/9/10 6:15 PM, Helen Hou wrote:
+> It?s true, saying ?double you pee dash ee dee you? is awkward, but I 
+> think it might be the more appropriate option in that it doesn?t limit 
+> to MU or WordPress as a learning tool (and also parallels this mailing 
+> list name nicely!)
+For the record, there is no more MU. The multisite features are now part 
+of core WordPress. Anyone still using MU should really upgrade to get 
+the 3.0 CMS features.
+j
+
+From jeffvand at unc.edu  Thu Sep  9 22:29:57 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Thu, 9 Sep 2010 17:29:57 -0500
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AED4DC.1268%hhou@esm.rochester.edu>
+References: <5020495B-1262-4201-B91E-D7C1C620D0C2@thecompass.com>
+	<C8AED4DC.1268%hhou@esm.rochester.edu>
+Message-ID: <AANLkTimmHM2R2rRYmGH-B9OmMN2+_jGdW4coqivh-f3v@mail.gmail.com>
+
+I kind of like wp-edu.org.  I don't mind typing -'s. :)  I have never been a
+fan of bleeding things together like we tend to do in web land.
+
+I just took a look at the wpmued.org dev site and it is fantastic.  I like
+the pulling posts in from separate blogs and I think that is a great start.
+ The more I think about it, the more a wiki sounds like a good idea.  That
+way we can have pages of suggested plugins, and pages for each plugin with
+suggestions for getting help, etc.   That is going to be more useful for
+those getting started than searching through blog posts.
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+
+Create your own free webspace here at UNC at http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Thu, Sep 9, 2010 at 5:15 PM, Helen Hou <hhou at esm.rochester.edu> wrote:
+
+>  It?s true, saying ?double you pee dash ee dee you? is awkward, but I
+> think it might be the more appropriate option in that it doesn?t limit to MU
+> or WordPress as a learning tool (and also parallels this mailing list name
+> nicely!). I wonder if there would be a way to work with the great minds
+> behind WPMu Ed to migrate/mirror applicable content in a non-?deprecated
+> name space.?
+>
+> --
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+>
+>
+> ------------------------------
+> *From: *Jay Collier <jay.collier at thecompass.com>
+> *Reply-To: *<wp-edu at lists.automattic.com>
+> *Date: *Thu, 9 Sep 2010 17:57:15 -0400
+>
+> *To: *<wp-edu at lists.automattic.com>
+> *Subject: *Re: [wp-edu] Educational Focused WordCamp?
+>
+> I just took a look at <wp-edu.org <http://wp-edu.org/> > without the
+> hyphen: <http://wpedu.org <http://wp-edu.org/> >. Using that domain, we'd
+> have to be always repeating "hyphen" in conversation ;) Poor typists would
+> wonder when we started doing auto-translation.
+>
+>
+> <http://dev.wpmued.org/> seems to have an established function and sounds
+> as if it is focused on MU.
+>
+> Also available (with neighbors):
+>
+> wplearning.org <http://wplearning.org>  (http://wplearning.com)
+> wplearn.net <http://wplearn.net>  (http://wplearn.com, http://wplearn.org)
+>
+>
+>
+>
+>
+>
+>
+> On Sep 9, 2010, at 5:42 PM, Jeff VanDrimmelen wrote:
+>
+> If the site already exists out there, that's great.  I'd love to
+> contribute.  If not, can we use wp-edu.org <http://wp-edu.org/> ?  It is
+> available.  I'm just not sure we that is okay.
+>
+> ~Jeff
+>
+>
+> ----------------------------------------------------------------------------------------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+>
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+>
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>
+> Create your own free webspace here at UNC at http://web.unc.edu <
+> http://web.unc.edu/> .
+>
+>
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+> PM ET.If you require urgent assistance, please contact me via the phone
+> number listed above.
+>
+>
+> On Thu, Sep 9, 2010 at 4:22 PM, Jane Wells <jane at automattic.com> wrote:
+>
+>  Didn't Jim Groom start a site a while back where ed people were
+> posting what they're doing with WP/MU/BP in academic settings?
+> j
+>
+> On 9/9/10 5:15 PM, Helen Hou wrote:
+> > That's where I'm hung up a little bit as well, actually. I knew that the
+> > idea of a resource beyond conferences would be stepping out of bounds, if
+> > you will, so thank you for calling that out. I still love the idea of a
+> > targeted WordCamp, but I know that for myself (and probably for a lot of
+> us
+> > working for educational institutions), the time/money/ability to travel
+> to a
+> > conference is very limited. Since there seems to be a lot of interest in
+> > sharing information, why not start with a site and keep the goal of a
+> > WordCamp in mind? Should we start a new e-mail thread to clarify?
+> >
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+>
+>
+>
+>
+>
+>
+> Jay Collier - http://jaycollier.net <http://jaycollier.net/>
+>
+>
+> The Compass LLC - http://thecompass.com <http://thecompass.com/>
+>
+>
+> mailto:jay.collier at thecompass.com <jay.collier at thecompass.com>
+>
+>
+> callto:+1-207-956-0320 <callto:+12079560320>
+>
+>
+>  <http://jaycollier.net/feed>   <http://jaycollier.net/contact/>   <
+> http://www.facebook.com/jayfcollier>   <
+> http://flickr.com/photos/jaycollier/>   <
+> http://www.linkedin.com/in/jaycollier>   <
+> http://www.last.fm/user/jcollier/charts>   <http://twitter.com/jaycollier>
+>   <http://www.youtube.com/jaycolliermedia>
+>
+>
+>
+>
+> ------------------------------
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/8e011b31/attachment-0001.htm>
+
+From hhou at esm.rochester.edu  Thu Sep  9 23:17:54 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Thu, 09 Sep 2010 19:17:54 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTimmHM2R2rRYmGH-B9OmMN2+_jGdW4coqivh-f3v@mail.gmail.com>
+Message-ID: <C8AEE362.1273%hhou@esm.rochester.edu>
+
+I see you went ahead and bought wp-edu.org :) I think we could utilize
+categories (or even, gasp, custom post types) to great effect ? creating a
+showcase of education sites, walkthroughs of processes a la the UMW
+WPMU-to-3.0 move, vetted plugins, etc. Encouraging active discussion
+(whether separately in forums or in post comments or both) would also be
+important.
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: Jeff VanDrimmelen <jeffvand at unc.edu>
+Reply-To: <jeffvand at unc.edu>, <wp-edu at lists.automattic.com>
+Date: Thu, 9 Sep 2010 17:29:57 -0500
+To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Educational Focused WordCamp?
+
+I kind of like wp-edu.org <http://wp-edu.org> . ?I don't mind typing -'s. :)
+?I have never been a fan of bleeding things together like we tend to do in
+web land.?
+
+I just took a look at the wpmued.org <http://wpmued.org>  dev site and it is
+fantastic. ?I like the pulling posts in from separate blogs and I think that
+is a great start. ?The more I think about it, the more a wiki sounds like a
+good idea. ?That way we can have pages of suggested plugins, and pages for
+each plugin with suggestions for getting help, etc. ? That is going to be
+more useful for those getting started than searching through blog posts.
+
+~Jeff
+
+----------------------------------------------------------------------------
+------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me -?http://oasis.unc.edu/people/jeff?
+
+Create your own free webspace here at UNC at?http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Thu, Sep 9, 2010 at 5:15 PM, Helen Hou <hhou at esm.rochester.edu> wrote:
+> It?s true, saying ?double you pee dash ee dee you? is awkward, but I think it
+> might be the more appropriate option in that it doesn?t limit to MU or
+> WordPress as a learning tool (and also parallels this mailing list name
+> nicely!). I wonder if there would be a way to work with the great minds behind
+> WPMu Ed to migrate/mirror applicable content in a non-?deprecated name space.?
+> 
+> -- 
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+> 
+> 
+> 
+> From: Jay Collier <jay.collier at thecompass.com
+> <http://jay.collier at thecompass.com> >
+> Reply-To: <wp-edu at lists.automattic.com <http://wp-edu at lists.automattic.com> >
+> Date: Thu, 9 Sep 2010 17:57:15 -0400
+> 
+> To: <wp-edu at lists.automattic.com <http://wp-edu at lists.automattic.com> >
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> 
+> I just took a look at <wp-edu.org <http://wp-edu.org>  <http://wp-edu.org/> >
+> without the hyphen: <http://wpedu.org <http://wp-edu.org/> >. Using that
+> domain, we'd have to be always repeating "hyphen" in conversation ;) Poor
+> typists would wonder when we started doing auto-translation.
+> 
+> 
+> <http://dev.wpmued.org/> seems to have an established function and sounds as
+> if it is focused on MU.
+> 
+> Also available (with neighbors):
+> 
+> wplearning.org <http://wplearning.org>  <http://wplearning.org>
+> ?(http://wplearning.com)
+> wplearn.net <http://wplearn.net>  <http://wplearn.net> ?(http://wplearn.com,
+> http://wplearn.org) ???
+> 
+> 
+> 
+> 
+> 
+> 
+> On Sep 9, 2010, at 5:42 PM, Jeff VanDrimmelen wrote:
+> 
+>> If the site already exists out there, that's great. ?I'd love to contribute.
+>> ?If not, can we use wp-edu.org <http://wp-edu.org>  <http://wp-edu.org/> ?
+>> ?It is available. ?I'm just not sure we that is okay. ?
+>> 
+>> ~Jeff
+>> 
+>> -----------------------------------------------------------------------------
+>> -----------------------
+>> Jeff VanDrimmelen MA, CMBA
+>> Instructional Technologist, Educational Technology
+>> 
+>> Office of Arts & Sciences Information Services
+>> University Of North Carolina at Chapel Hill
+>> CB 3056, 07 Howell Hall
+>> Chapel Hill, NC 27599-3056
+>> 919.530-0698 (Direct Line)
+>> 
+>> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+>> 
+>> Create your own free webspace here at UNC at http://web.unc.edu
+>> <http://web.unc.edu/> .
+>> 
+>> 
+>> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00 PM
+>> ET.If you require urgent assistance, please contact me via the phone number
+>> listed above.
+>> 
+>> 
+>> On Thu, Sep 9, 2010 at 4:22 PM, Jane Wells <jane at automattic.com
+>> <http://jane at automattic.com> > wrote:
+>>>  ?Didn't Jim Groom start a site a while back where ed people were
+>>> posting what they're doing with WP/MU/BP in academic settings?
+>>> j
+>>> 
+>>> On 9/9/10 5:15 PM, Helen Hou wrote:
+>>>> > That's where I'm hung up a little bit as well, actually. I knew that the
+>>>> > idea of a resource beyond conferences would be stepping out of bounds, if
+>>>> > you will, so thank you for calling that out. I still love the idea of a
+>>>> > targeted WordCamp, but I know that for myself (and probably for a lot of
+>>>> us
+>>>> > working for educational institutions), the time/money/ability to travel
+>>>> to a
+>>>> > conference is very limited. Since there seems to be a lot of interest in
+>>>> > sharing information, why not start with a site and keep the goal of a
+>>>> > WordCamp in mind? Should we start a new e-mail thread to clarify?
+>>>> >
+>>> 
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com <http://wp-edu at lists.automattic.com>
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com <http://wp-edu at lists.automattic.com>
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> 
+> ?
+> ?
+> ???
+> 
+> ?
+>  
+> 
+> Jay Collier - http://jaycollier.net <http://jaycollier.net/>
+>  
+> 
+> The Compass LLC - http://thecompass.com <http://thecompass.com/>
+>  ?
+> 
+> mailto:jay.collier at thecompass.com
+>  
+> 
+> callto:+1-207-956-0320 <callto:+12079560320>
+>  
+> 
+> ?<http://jaycollier.net/feed> ??<http://jaycollier.net/contact/>
+> ??<http://www.facebook.com/jayfcollier>
+> ??<http://flickr.com/photos/jaycollier/>
+> ??<http://www.linkedin.com/in/jaycollier>
+> ??<http://www.last.fm/user/jcollier/charts> ??<http://twitter.com/jaycollier>
+> ??<http://www.youtube.com/jaycolliermedia>
+> ?
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com <http://wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/3ea61c56/attachment.htm>
+
+From jay.collier at thecompass.com  Fri Sep 10 00:33:51 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Thu, 9 Sep 2010 20:33:51 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <4C895DCA.4030507@automattic.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+Message-ID: <E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+
+While we're discussing these important topics of purpose and identity, I also wanted to bring up governance. From experience, I believe a little forethought goes a long way later on that ;)
+
+The site we're discussing may eventually have real value -- collegial as well as financial -- and we probably want to avoid the challenges of split or unclear ownership. (I can think of a CMS where an individual has copyrighted its name and an organization owns the rest.) 
+
+I'd like to suggest that this site be public, with no restricted content, and that all content submitted to the site (other than Fair Use excerpts) be owned by its creator, with a perpetual Creative Commons Share Alike license. Finally, I'd like to suggest that all intellectual property (such as domain names and hosting accounts)  be held by a trusted entity. 
+
+To do some of the things already being discussed, such as aggregation a la wpmued.org, there are costs -- my experience is that commercial plugins are the best options in some cases. Not much cost, but they add up. So, we should consider a way to accept minimal donations (in kind or money) in a way that respects the donor.
+
+My 2 cents. Thoughts?
+
+-Jay
+
+
+On Sep 9, 2010, at 6:20 PM, Jane Wells wrote:
+
+> On 9/9/10 6:15 PM, Helen Hou wrote:
+>> It?s true, saying ?double you pee dash ee dee you? is awkward, but I think it might be the more appropriate option in that it doesn?t limit to MU or WordPress as a learning tool (and also parallels this mailing list name nicely!)
+> For the record, there is no more MU. The multisite features are now part of core WordPress. Anyone still using MU should really upgrade to get the 3.0 CMS features.
+> j
+
+
+From jimgroom at gmail.com  Fri Sep 10 01:34:13 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Thu, 9 Sep 2010 21:34:13 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+Message-ID: <AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+
+Hey all,
+
+As for wpmued.org domain, a relic of another time, though I do love it so.
+Fact is, Andre Malan of UBC was the brains behind http://dev.wpmued.org, and
+that was pulling in posts from various blogs that were related to wpmu and
+buddypress development. I think a lot of the work folks are/were doing there
+is relevant to what you all are thinking. And I'll talk to Andre and the
+others (though Andre may even be on this list), but I'll venture to say this
+content could move smoothly to another domain, particularly because it is
+all just feeding in using FeedWordPress anyway (a feature that should be
+built into the core of WP :) ). So if nothing else, you will probably have
+some starter content, and then I can turn wpmued.org into the spam blog
+domain it was always meant to be.
+
+Also, I like the idea of a wiki raised, and the marriage of MediaWiki and wP
+could be very useful for sharing tutorials, documentation, and the like. We
+could really use this site to make using WP for education very easy, and it
+sounds like there are a lot of interested parties.  I also like the idea of
+keeping the wp-edu.org site (or whatever it will be named) syndication
+based, so folks can share their thoughts from their own blogs if they
+choose, but still allow authorship on the site. But this may be getting
+ahead of ourselves, because I don;t think it is clear, as others have
+pointed out, whether this is a space for sharing resources, a wordcamped, or
+a slumber party. But the fact is, a relatively central and somewhat popular
+place to share stuff folks are doing with WP in highered would certainly be
+cool, and is what wpmued.org and dev.wpmued.org are aimed for. And before
+James Farmer sold his soul to the devil that is what wpmudev.org was all
+about.
+
+But to be clear, I would suggest everyone own and maintain their own
+content, and syndicate it in, and put your plugins on wordpress.org lest
+this become an app machine like wpmu.org/premium.wpmudev.org. A lot of good
+work was lost in the process of that transition, and that is the only thing
+that would make me a a bit weary of zealous leadership in this regard.
+Though it just so happens that hope springs eternal, and as long as we are
+clear from the beginning this is a site dedicated to the communist/commons
+ethics that should always undergird open source projects (i.e. owned by no
+one) I think this is groovy.
+
+Best,
+Jim
+
+On Thu, Sep 9, 2010 at 8:33 PM, Jay Collier <jay.collier at thecompass.com>wrote:
+
+> While we're discussing these important topics of purpose and identity, I
+> also wanted to bring up governance. From experience, I believe a little
+> forethought goes a long way later on that ;)
+>
+> The site we're discussing may eventually have real value -- collegial as
+> well as financial -- and we probably want to avoid the challenges of split
+> or unclear ownership. (I can think of a CMS where an individual has
+> copyrighted its name and an organization owns the rest.)
+>
+> I'd like to suggest that this site be public, with no restricted content,
+> and that all content submitted to the site (other than Fair Use excerpts) be
+> owned by its creator, with a perpetual Creative Commons Share Alike license.
+> Finally, I'd like to suggest that all intellectual property (such as domain
+> names and hosting accounts)  be held by a trusted entity.
+>
+> To do some of the things already being discussed, such as aggregation a la
+> wpmued.org, there are costs -- my experience is that commercial plugins
+> are the best options in some cases. Not much cost, but they add up. So, we
+> should consider a way to accept minimal donations (in kind or money) in a
+> way that respects the donor.
+>
+> My 2 cents. Thoughts?
+>
+> -Jay
+>
+>
+> On Sep 9, 2010, at 6:20 PM, Jane Wells wrote:
+>
+> > On 9/9/10 6:15 PM, Helen Hou wrote:
+> >> It?s true, saying ?double you pee dash ee dee you? is awkward, but I
+> think it might be the more appropriate option in that it doesn?t limit to MU
+> or WordPress as a learning tool (and also parallels this mailing list name
+> nicely!)
+> > For the record, there is no more MU. The multisite features are now part
+> of core WordPress. Anyone still using MU should really upgrade to get the
+> 3.0 CMS features.
+> > j
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/f07ea547/attachment-0001.htm>
+
+From jay.collier at thecompass.com  Fri Sep 10 01:54:32 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Thu, 9 Sep 2010 21:54:32 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+	<AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+Message-ID: <60FD4BB7-F63F-48C5-B02F-9CD980B64079@thecompass.com>
+
+Agreed. I would like to see the principles you reiterated protected right from the start, and I think the Creative Commons licensing model would do so.
+
+
+On Sep 9, 2010, at 9:34 PM, James Groom wrote:
+
+> I would suggest everyone own and maintain their own content, and syndicate it in, and put your plugins on wordpress.org lest this become an app machine like wpmu.org/premium.wpmudev.org. A lot of good work was lost in the process of that transition, and that is the only thing that would make me a a bit weary of zealous leadership in this regard. Though it just so happens that hope springs eternal, and as long as we are clear from the beginning this is a site dedicated to the communist/commons ethics that should always undergird open source projects (i.e. owned by no one) I think this is groovy. 
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100909/7bde50fa/attachment.htm>
+
+From wordpress at zed1.com  Fri Sep 10 08:51:52 2010
+From: wordpress at zed1.com (Mike Little)
+Date: Fri, 10 Sep 2010 09:51:52 +0100
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+	<AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+Message-ID: <AANLkTin5OjzuJ9J_nN2mLOMxsBgjyJb7TiXi_ifuh9Yy@mail.gmail.com>
+
+Re licences:
+Not wishing to start yet another GPL related flamefest; I just want to point
+out that Creative Commons licences are not, in general, compatible with the
+GNU GPL, so leave those for content only, and stick with GPL for code.
+http://www.gnu.org/licenses/license-list.html#GPLIncompatibleLicenses
+Also you must always specify which CC licence, there are many, and they are
+not all the same. http://www.gnu.org/licenses/license-list.html#which-cc
+
+Secondly,
+
+On 10 September 2010 02:34, James Groom <jimgroom at gmail.com> wrote:
+>
+>  ... ethics that should always undergird open source projects (i.e. owned
+> by no one) I think this is groovy.
+>
+>
+both Create Commons and GPL *only* work (i.e. are legally enforcable) if
+someone/something owns the copyright. They are all based on the copyright
+owner licensing you to use the work in a certain way.
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/c9866f24/attachment.htm>
+
+From jane at automattic.com  Fri Sep 10 10:25:52 2010
+From: jane at automattic.com (Jane Wells)
+Date: Fri, 10 Sep 2010 06:25:52 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTin5OjzuJ9J_nN2mLOMxsBgjyJb7TiXi_ifuh9Yy@mail.gmail.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>	<4C895DCA.4030507@automattic.com>	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>	<AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+	<AANLkTin5OjzuJ9J_nN2mLOMxsBgjyJb7TiXi_ifuh9Yy@mail.gmail.com>
+Message-ID: <4C8A07B0.3010900@automattic.com>
+
+  Actually, we generally say all WordCamp videos are GPL as well, since 
+anyone working with WP code during presentation strays into the gray 
+areas. By saying it's all GPL, we avoid that.
+
+On 9/10/10 4:51 AM, Mike Little wrote:
+> Re licences:
+> Not wishing to start yet another GPL related flamefest; I just want to 
+> point out that Creative Commons licences are not, in general, 
+> compatible with the GNU GPL, so leave those for content only, and 
+> stick with GPL for code. 
+> http://www.gnu.org/licenses/license-list.html#GPLIncompatibleLicenses
+> Also you must always specify which CC licence, there are many, and 
+> they are not all the same. 
+> http://www.gnu.org/licenses/license-list.html#which-cc
+>
+> Secondly,
+>
+> On 10 September 2010 02:34, James Groom <jimgroom at gmail.com 
+> <mailto:jimgroom at gmail.com>> wrote:
+>
+>      ... ethics that should always undergird open source projects
+>     (i.e. owned by no one) I think this is groovy.
+>
+>
+> both Create Commons and GPL *only* work (i.e. are legally enforcable) 
+> if someone/something owns the copyright. They are all based on the 
+> copyright owner licensing you to use the work in a certain way.
+>
+>
+> Mike
+> -- 
+> Mike Little
+> http://zed1.com/
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From wordpress at zed1.com  Fri Sep 10 11:47:51 2010
+From: wordpress at zed1.com (Mike Little)
+Date: Fri, 10 Sep 2010 12:47:51 +0100
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <4C8A07B0.3010900@automattic.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+	<AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+	<AANLkTin5OjzuJ9J_nN2mLOMxsBgjyJb7TiXi_ifuh9Yy@mail.gmail.com>
+	<4C8A07B0.3010900@automattic.com>
+Message-ID: <AANLkTim2_kt-rd5SXiGT_zRk9vvyyVj+KrabO+jGKBJK@mail.gmail.com>
+
+On 10 September 2010 11:25, Jane Wells <jane at automattic.com> wrote:
+
+>  Actually, we generally say all WordCamp videos are GPL as well, since
+> anyone working with WP code during presentation strays into the gray areas.
+> By saying it's all GPL, we avoid that.
+>
+>
+>
+
+Sure, that makes sense for content containing code, especially when the
+parts cannot be really separated like video.
+
+In terms of Wiki's, documents etc. GPL tends not to work as well GFDL
+http://www.gnu.org/licenses/gpl-faq.html#GPLOtherThanSoftware and
+http://www.gnu.org/licenses/gpl-faq.html#WhyNotGPLForManuals
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/eaf34ed2/attachment.htm>
+
+From jeffvand at unc.edu  Fri Sep 10 13:30:31 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Fri, 10 Sep 2010 08:30:31 -0500
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTim2_kt-rd5SXiGT_zRk9vvyyVj+KrabO+jGKBJK@mail.gmail.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+	<AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+	<AANLkTin5OjzuJ9J_nN2mLOMxsBgjyJb7TiXi_ifuh9Yy@mail.gmail.com>
+	<4C8A07B0.3010900@automattic.com>
+	<AANLkTim2_kt-rd5SXiGT_zRk9vvyyVj+KrabO+jGKBJK@mail.gmail.com>
+Message-ID: <AANLkTinnYpSWwo7iGdYYx8A77Sd3NAGQ4EcbM8PGDxPS@mail.gmail.com>
+
+Hey All,
+
+This topic has migrated quite a bit, but I think for the good.  :)   In an
+effort to move forward instead of circles I have created a google doc and
+made it so anyone can edit it at the link below:
+
+https://docs.google.com/document/edit?id=1bsJv0nUb5Z-CdZB2XD6GcU3XP8kQiw9RDL9fyEhQDGY&hl=en&authkey=CJ-jwKkJ
+
+I have just put up a skeleton about some of the topics that have come up.
+ If you are interested in working on this project please go to the link
+above and add your information.  I have also added a section for license
+agreements.  I didn't realize the history.  I agree that what ever we do
+should stay open and free to everyone.  Isn't that was education is all
+about? :)  I'm not as familiar with the licenses as many of you are though,
+so please add your thoughts.
+
+Regarding the virtual conference (I'll stop calling a WordCamp), I still
+would love to see something like that happen.  I am glad to hear there are
+tracks at WordCamps around the country and will certainly keep my eye out
+for those that I can attend, but I know my budget is already gone for the
+year and unless a local one has an education track that is unlikely for me.
+
+
+With that in mind I created a second document (that can also be edited)
+focused on a virtual academic wordpress conference:
+
+https://docs.google.com/document/edit?id=1WYGAV3eV4f1xDnZ4f8ozGngd2Be-f35_iSRCj-TJeCM&hl=en&authkey=CLaO-IMJ
+
+If you are interested in the conference, please go and add your thoughts
+there.  Even if you can't help organize it I think it would be great to have
+your thoughts.
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+
+Create your own free webspace here at UNC at http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Fri, Sep 10, 2010 at 6:47 AM, Mike Little <wordpress at zed1.com> wrote:
+
+> On 10 September 2010 11:25, Jane Wells <jane at automattic.com> wrote:
+>
+>>  Actually, we generally say all WordCamp videos are GPL as well, since
+>> anyone working with WP code during presentation strays into the gray areas.
+>> By saying it's all GPL, we avoid that.
+>>
+>>
+>>
+>
+> Sure, that makes sense for content containing code, especially when the
+> parts cannot be really separated like video.
+>
+> In terms of Wiki's, documents etc. GPL tends not to work as well GFDL
+> http://www.gnu.org/licenses/gpl-faq.html#GPLOtherThanSoftware and
+> http://www.gnu.org/licenses/gpl-faq.html#WhyNotGPLForManuals
+>
+> Mike
+> --
+> Mike Little
+> http://zed1.com/
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/b0842c45/attachment.htm>
+
+From jay.collier at thecompass.com  Fri Sep 10 13:43:21 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Fri, 10 Sep 2010 09:43:21 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTinnYpSWwo7iGdYYx8A77Sd3NAGQ4EcbM8PGDxPS@mail.gmail.com>
+References: <C8AED4DC.1268%hhou@esm.rochester.edu>
+	<4C895DCA.4030507@automattic.com>
+	<E3C7B75D-3D94-4499-9226-E3CF43A04440@thecompass.com>
+	<AANLkTikCpxgJqSbRg=-rduj3avL--w3W6dVreuD71ekp@mail.gmail.com>
+	<AANLkTin5OjzuJ9J_nN2mLOMxsBgjyJb7TiXi_ifuh9Yy@mail.gmail.com>
+	<4C8A07B0.3010900@automattic.com>
+	<AANLkTim2_kt-rd5SXiGT_zRk9vvyyVj+KrabO+jGKBJK@mail.gmail.com>
+	<AANLkTinnYpSWwo7iGdYYx8A77Sd3NAGQ4EcbM8PGDxPS@mail.gmail.com>
+Message-ID: <21CE6C76-49D8-440B-B002-8EB98C818937@thecompass.com>
+
+Roll with it, Jeff!
+
+You might also be interested in this open list of colleges and universities using WordPress:
+
+<https://spreadsheets.google.com/ccc?key=0AnN5FWMlt7YEdDR4cEVVMHpwRDB3N3BpN0g1eVZqblE&hl=en>
+
+-Jay
+
+
+On Sep 10, 2010, at 9:30 AM, Jeff VanDrimmelen wrote:
+
+> Hey All, 
+> 
+> This topic has migrated quite a bit, but I think for the good.  :)   In an effort to move forward instead of circles I have created a google doc and made it so anyone can edit it at the link below:
+> 
+> https://docs.google.com/document/edit?id=1bsJv0nUb5Z-CdZB2XD6GcU3XP8kQiw9RDL9fyEhQDGY&hl=en&authkey=CJ-jwKkJ
+> 
+> I have just put up a skeleton about some of the topics that have come up.  If you are interested in working on this project please go to the link above and add your information.  I have also added a section for license agreements.  I didn't realize the history.  I agree that what ever we do should stay open and free to everyone.  Isn't that was education is all about? :)  I'm not as familiar with the licenses as many of you are though, so please add your thoughts. 
+> 
+> Regarding the virtual conference (I'll stop calling a WordCamp), I still would love to see something like that happen.  I am glad to hear there are tracks at WordCamps around the country and will certainly keep my eye out for those that I can attend, but I know my budget is already gone for the year and unless a local one has an education track that is unlikely for me.   
+> 
+> With that in mind I created a second document (that can also be edited) focused on a virtual academic wordpress conference:
+> 
+> https://docs.google.com/document/edit?id=1WYGAV3eV4f1xDnZ4f8ozGngd2Be-f35_iSRCj-TJeCM&hl=en&authkey=CLaO-IMJ
+> 
+> If you are interested in the conference, please go and add your thoughts there.  Even if you can't help organize it I think it would be great to have your thoughts. 
+> 
+> ~Jeff
+> 
+> ----------------------------------------------------------------------------------------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+> 
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+> 
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff 
+> 
+> Create your own free webspace here at UNC at http://web.unc.edu.
+> 
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00 PM ET.If you require urgent assistance, please contact me via the phone number listed above.
+> 
+> 
+> On Fri, Sep 10, 2010 at 6:47 AM, Mike Little <wordpress at zed1.com> wrote:
+> On 10 September 2010 11:25, Jane Wells <jane at automattic.com> wrote:
+>  Actually, we generally say all WordCamp videos are GPL as well, since anyone working with WP code during presentation strays into the gray areas. By saying it's all GPL, we avoid that.
+> 
+> 
+> 
+> 
+> Sure, that makes sense for content containing code, especially when the parts cannot be really separated like video.
+> 
+> In terms of Wiki's, documents etc. GPL tends not to work as well GFDL http://www.gnu.org/licenses/gpl-faq.html#GPLOtherThanSoftware and http://www.gnu.org/licenses/gpl-faq.html#WhyNotGPLForManuals
+> 
+> Mike
+> -- 
+> Mike Little
+> http://zed1.com/
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+
+ 
+
+Jay Collier - http://jaycollier.net
+The Compass LLC - http://thecompass.com
+mailto:jay.collier at thecompass.com
+callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/767a7a11/attachment.htm>
+
+From hhou at esm.rochester.edu  Fri Sep 10 14:14:18 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Fri, 10 Sep 2010 10:14:18 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <AANLkTinnYpSWwo7iGdYYx8A77Sd3NAGQ4EcbM8PGDxPS@mail.gmail.com>
+Message-ID: <C8AFB57A.1287%hhou@esm.rochester.edu>
+
+Thank you for setting that up, Jeff. I am not terribly familiar with
+licenses, either, but I do think that debating their merits is a little
+ahead of the game. Being clear about governance and keeping it actively in
+mind while planning is very important, but I think that first creating a
+solid outline of potential content will help us to determine
+licensing/ownership needs. That said, I definitely agree that original
+authors should be able to feel confident regarding their intellectual
+property rights and that such a site would need to have a spread of
+ownership in order to survive long-term.
+
+I?ll get on contributing to that document now :)
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: Jeff VanDrimmelen <jeffvand at unc.edu>
+Reply-To: <jeffvand at unc.edu>, <wp-edu at lists.automattic.com>
+Date: Fri, 10 Sep 2010 08:30:31 -0500
+To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Educational Focused WordCamp?
+
+Hey All,?
+
+This topic has migrated quite a bit, but I think for the good. ?:) ? In an
+effort to move forward instead of circles I have created a google doc and
+made it so anyone can edit it at the link below:
+
+https://docs.google.com/document/edit?id=1bsJv0nUb5Z-CdZB2XD6GcU3XP8kQiw9RDL
+9fyEhQDGY&hl=en&authkey=CJ-jwKkJ
+
+I have just put up a skeleton about some of the topics that have come up.
+?If you are interested in working on this project please go to the link
+above and add your information. ?I have also added a section for license
+agreements. ?I didn't realize the history. ?I agree that what ever we do
+should stay open and free to everyone. ?Isn't that was education is all
+about? :) ?I'm not as familiar with the licenses as many of you are though,
+so please add your thoughts.?
+
+Regarding the virtual conference (I'll stop calling a WordCamp), I still
+would love to see something like that happen. ?I am glad to hear there are
+tracks at WordCamps around the country and will certainly keep my eye out
+for those that I can attend, but I know my budget is already gone for the
+year and unless a local one has an education track that is unlikely for me.
+??
+
+With that in mind I created a second document (that can also be edited)
+focused on a virtual academic wordpress conference:
+
+https://docs.google.com/document/edit?id=1WYGAV3eV4f1xDnZ4f8ozGngd2Be-f35_iS
+RCj-TJeCM&hl=en&authkey=CLaO-IMJ
+
+If you are interested in the conference, please go and add your thoughts
+there. ?Even if you can't help organize it I think it would be great to have
+your thoughts.?
+
+~Jeff
+
+----------------------------------------------------------------------------
+------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.530-0698 (Direct Line)
+
+Check my calendar and chat with me -?http://oasis.unc.edu/people/jeff?
+
+Create your own free webspace here at UNC at?http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Fri, Sep 10, 2010 at 6:47 AM, Mike Little <wordpress at zed1.com> wrote:
+> On 10 September 2010 11:25, Jane Wells <jane at automattic.com> wrote:
+>> ?Actually, we generally say all WordCamp videos are GPL as well, since anyone
+>> working with WP code during presentation strays into the gray areas. By
+>> saying it's all GPL, we avoid that.
+>> 
+>> 
+> 
+> 
+> Sure, that makes sense for content containing code, especially when the parts
+> cannot be really separated like video.
+> 
+> In terms of Wiki's, documents etc. GPL tends not to work as well
+> GFDL?http://www.gnu.org/licenses/gpl-faq.html#GPLOtherThanSoftware?and?http://
+> www.gnu.org/licenses/gpl-faq.html#WhyNotGPLForManuals
+> 
+> Mike
+> -- 
+> Mike Little
+> http://zed1.com/
+> 
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/5a1d9421/attachment-0001.htm>
+
+From jay.collier at thecompass.com  Fri Sep 10 14:52:33 2010
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Fri, 10 Sep 2010 10:52:33 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <C8AFB57A.1287%hhou@esm.rochester.edu>
+References: <C8AFB57A.1287%hhou@esm.rochester.edu>
+Message-ID: <D809FABE-74DC-4F67-89B2-D65F7A1330CC@thecompass.com>
+
+Helen-
+
+My last 2 cents on this. For those of us who have worked at institutions with clearly-defined and strongly-enforced intellectual property policies -- and those who have created works that have been used commercially and modified without attribution -- not having a clear definition of ownership and licensing could actually prevent participating, since the text, images, and code created by a staff member is usually owned by the institution (as "work for hire"). 
+
+This may only be true for a small number of schools, but during this time of significant transformation in higher education regarding open content, this may grow. Moving forward is understandable, but I'd simply suggest that each contributor check in with the copyright authority at your school.
+
+C'est tout pour le moment ;)
+
+-Jay
+
+
+
+
+On Sep 10, 2010, at 10:14 AM, Helen Hou wrote:
+
+> Thank you for setting that up, Jeff. I am not terribly familiar with licenses, either, but I do think that debating their merits is a little ahead of the game. Being clear about governance and keeping it actively in mind while planning is very important, but I think that first creating a solid outline of potential content will help us to determine licensing/ownership needs. That said, I definitely agree that original authors should be able to feel confident regarding their intellectual property rights and that such a site would need to have a spread of ownership in order to survive long-term.
+> 
+> I?ll get on contributing to that document now :)
+> 
+> -- 
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+> 
+> 
+> From: Jeff VanDrimmelen <jeffvand at unc.edu>
+> Reply-To: <jeffvand at unc.edu>, <wp-edu at lists.automattic.com>
+> Date: Fri, 10 Sep 2010 08:30:31 -0500
+> To: "wp-edu at lists.automattic.com" <wp-edu at lists.automattic.com>
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> 
+> Hey All, 
+> 
+> This topic has migrated quite a bit, but I think for the good.  :)   In an effort to move forward instead of circles I have created a google doc and made it so anyone can edit it at the link below:
+> 
+> https://docs.google.com/document/edit?id=1bsJv0nUb5Z-CdZB2XD6GcU3XP8kQiw9RDL9fyEhQDGY&hl=en&authkey=CJ-jwKkJ
+> 
+> I have just put up a skeleton about some of the topics that have come up.  If you are interested in working on this project please go to the link above and add your information.  I have also added a section for license agreements.  I didn't realize the history.  I agree that what ever we do should stay open and free to everyone.  Isn't that was education is all about? :)  I'm not as familiar with the licenses as many of you are though, so please add your thoughts. 
+> 
+> Regarding the virtual conference (I'll stop calling a WordCamp), I still would love to see something like that happen.  I am glad to hear there are tracks at WordCamps around the country and will certainly keep my eye out for those that I can attend, but I know my budget is already gone for the year and unless a local one has an education track that is unlikely for me.   
+> 
+> With that in mind I created a second document (that can also be edited) focused on a virtual academic wordpress conference:
+> 
+> https://docs.google.com/document/edit?id=1WYGAV3eV4f1xDnZ4f8ozGngd2Be-f35_iSRCj-TJeCM&hl=en&authkey=CLaO-IMJ
+> 
+> If you are interested in the conference, please go and add your thoughts there.  Even if you can't help organize it I think it would be great to have your thoughts. 
+> 
+> ~Jeff
+> 
+> ----------------------------------------------------------------------------------------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+> 
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+> 
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff 
+> 
+> Create your own free webspace here at UNC at http://web.unc.edu.
+> 
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00 PM ET.If you require urgent assistance, please contact me via the phone number listed above.
+> 
+> 
+> On Fri, Sep 10, 2010 at 6:47 AM, Mike Little <wordpress at zed1.com> wrote:
+>> On 10 September 2010 11:25, Jane Wells <jane at automattic.com> wrote:
+>>>  Actually, we generally say all WordCamp videos are GPL as well, since anyone working with WP code during presentation strays into the gray areas. By saying it's all GPL, we avoid that.
+>>> 
+>>> 
+>> 
+>> 
+>> Sure, that makes sense for content containing code, especially when the parts cannot be really separated like video.
+>> 
+>> In terms of Wiki's, documents etc. GPL tends not to work as well GFDL http://www.gnu.org/licenses/gpl-faq.html#GPLOtherThanSoftware and http://www.gnu.org/licenses/gpl-faq.html#WhyNotGPLForManuals
+>> 
+>> Mike
+>> -- 
+>> Mike Little
+>> http://zed1.com/
+>> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+
+ 
+
+Jay Collier - http://jaycollier.net
+The Compass LLC - http://thecompass.com
+mailto:jay.collier at thecompass.com
+callto:+1-207-956-0320
+       
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/74d3a007/attachment.htm>
+
+From shawn.miller at duke.edu  Fri Sep 10 15:04:37 2010
+From: shawn.miller at duke.edu (Shawn Miller)
+Date: Fri, 10 Sep 2010 11:04:37 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+Message-ID: <EB1ADD2B-C87F-4D90-8609-2AB54864AA06@duke.edu>
+
+Re: a WordCamp Ed event... count us in at Duke too. 
+
+We finally moved out of 'pilot' phase this semester: http://sites.duke.edu
+
+We're currently ONLY supporting course/teaching-related sites this semester. Next semester we plan on opening up the service for individual staff, students and faculty plus campus groups. 
+
+-Shawn
+
+***********************
+Shawn J. Miller
+Academic Technology Consultant
+Center for Instructional Technology
+
+shawn.miller at duke.edu
+919.660.5978
+http://twitter.com/shawnj55
+http://cit.duke.edu/about/bios/miller.html
+
+
+
+
+From hhou at esm.rochester.edu  Fri Sep 10 15:59:59 2010
+From: hhou at esm.rochester.edu (Helen Hou)
+Date: Fri, 10 Sep 2010 11:59:59 -0400
+Subject: [wp-edu] Educational Focused WordCamp?
+In-Reply-To: <D809FABE-74DC-4F67-89B2-D65F7A1330CC@thecompass.com>
+Message-ID: <C8AFCE3F.128C%hhou@esm.rochester.edu>
+
+Jay, you are absolutely right. I know that I personally am in a situation
+where there isn?t a whole lot of direction when it comes to initial
+declarations of ownership but instead lots of post-declarations, along with
+an odd amount of autonomous control and oversight of projects on my part,
+but that isn?t the case for everybody. I?m not sure whether to consider
+myself lucky or not in that regard!
+
+I suppose we?d probably have to stay away from directly publishing code
+examples when they belong to somebody else (e.g. a school) and be
+particularly careful in making sure that we each abide by our respective
+authorities (and thus keep our jobs!). I would guess that a good bit of
+content will be discussions on what pre-existing plugins were used for what
+function or what kind of process was undertaken for a particular proposal,
+so I would think that those sorts of write-ups would belong to the
+contributor.
+
+Finally, I would venture to say that the very fact that our schools are open
+to the idea of using something like WordPress in the first place is a good
+step toward open content. Very interesting to see is the University of
+Alabama?s Web Guide: http://webguide.ua.edu/intro.html . They actually put
+their WP and mobile themes out there for download WITH extensive
+documentation! I?ve actually suggested a similar approach as we turn to
+WP-as-CMS and haven?t met any resistance (yet), so I am hopeful that a
+culture of sharing information and mutual benefits will win out over control
+issues.
+
+C?est la fin? Yeah, right :)
+
+-- 
+Helen Hou-Sandi (MM?08)
+Web Developer, Eastman School of Music
+ESM 35A
+
+
+
+From: Jay Collier <jay.collier at thecompass.com>
+Reply-To: <wp-edu at lists.automattic.com>
+Date: Fri, 10 Sep 2010 10:52:33 -0400
+To: <wp-edu at lists.automattic.com>
+Subject: Re: [wp-edu] Educational Focused WordCamp?
+
+Helen-
+
+My last 2 cents on this. For those of us who have worked at institutions
+with clearly-defined and strongly-enforced intellectual property policies --
+and those who have created works that have been used commercially and
+modified without attribution -- not having a clear definition of ownership
+and licensing could actually prevent participating, since the text, images,
+and code created by a staff member is usually owned by the institution (as
+"work for hire"). 
+
+This may only be true for a small number of schools, but during this time of
+significant transformation in higher education regarding open content, this
+may grow. Moving forward is understandable, but I'd simply suggest that each
+contributor check in with the copyright authority at your school.
+
+C'est tout pour le moment ;)
+
+-Jay
+
+
+
+
+On Sep 10, 2010, at 10:14 AM, Helen Hou wrote:
+
+> Thank you for setting that up, Jeff. I am not terribly familiar with licenses,
+> either, but I do think that debating their merits is a little ahead of the
+> game. Being clear about governance and keeping it actively in mind while
+> planning is very important, but I think that first creating a solid outline of
+> potential content will help us to determine licensing/ownership needs. That
+> said, I definitely agree that original authors should be able to feel
+> confident regarding their intellectual property rights and that such a site
+> would need to have a spread of ownership in order to survive long-term.
+> 
+> I?ll get on contributing to that document now :)
+> 
+> -- 
+> Helen Hou-Sandi (MM?08)
+> Web Developer, Eastman School of Music
+> ESM 35A
+> 
+> 
+> 
+> From: Jeff VanDrimmelen <jeffvand at unc.edu <x-msg://61/jeffvand at unc.edu> >
+> Reply-To: <jeffvand at unc.edu <x-msg://61/jeffvand at unc.edu> >,
+> <wp-edu at lists.automattic.com <x-msg://61/wp-edu at lists.automattic.com> >
+> Date: Fri, 10 Sep 2010 08:30:31 -0500
+> To: "wp-edu at lists.automattic.com <x-msg://61/wp-edu at lists.automattic.com> "
+> <wp-edu at lists.automattic.com <x-msg://61/wp-edu at lists.automattic.com> >
+> Subject: Re: [wp-edu] Educational Focused WordCamp?
+> 
+> Hey All, 
+> 
+> This topic has migrated quite a bit, but I think for the good.  :)   In an
+> effort to move forward instead of circles I have created a google doc and made
+> it so anyone can edit it at the link below:
+> 
+> https://docs.google.com/document/edit?id=1bsJv0nUb5Z-CdZB2XD6GcU3XP8kQiw9RDL9f
+> yEhQDGY&hl=en&authkey=CJ-jwKkJ
+> 
+> I have just put up a skeleton about some of the topics that have come up.  If
+> you are interested in working on this project please go to the link above and
+> add your information.  I have also added a section for license agreements.  I
+> didn't realize the history.  I agree that what ever we do should stay open and
+> free to everyone.  Isn't that was education is all about? :)  I'm not as
+> familiar with the licenses as many of you are though, so please add your
+> thoughts. 
+> 
+> Regarding the virtual conference (I'll stop calling a WordCamp), I still would
+> love to see something like that happen.  I am glad to hear there are tracks at
+> WordCamps around the country and will certainly keep my eye out for those that
+> I can attend, but I know my budget is already gone for the year and unless a
+> local one has an education track that is unlikely for me.
+> 
+> With that in mind I created a second document (that can also be edited)
+> focused on a virtual academic wordpress conference:
+> 
+> https://docs.google.com/document/edit?id=1WYGAV3eV4f1xDnZ4f8ozGngd2Be-f35_iSRC
+> j-TJeCM&hl=en&authkey=CLaO-IMJ
+> 
+> If you are interested in the conference, please go and add your thoughts
+> there.  Even if you can't help organize it I think it would be great to have
+> your thoughts. 
+> 
+> ~Jeff
+> 
+> ------------------------------------------------------------------------------
+> ----------------------
+> Jeff VanDrimmelen MA, CMBA
+> Instructional Technologist, Educational Technology
+> 
+> Office of Arts & Sciences Information Services
+> University Of North Carolina at Chapel Hill
+> CB 3056, 07 Howell Hall
+> Chapel Hill, NC 27599-3056
+> 919.530-0698 (Direct Line)
+> 
+> Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+> 
+> Create your own free webspace here at UNC at http://web.unc.edu
+> <http://web.unc.edu/> .
+> 
+> EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00 PM
+> ET.If you require urgent assistance, please contact me via the phone number
+> listed above.
+> 
+> 
+> On Fri, Sep 10, 2010 at 6:47 AM, Mike Little <wordpress at zed1.com
+> <x-msg://61/wordpress at zed1.com> > wrote:
+>> On 10 September 2010 11:25, Jane Wells <jane at automattic.com
+>> <x-msg://61/jane at automattic.com> > wrote:
+>>>  Actually, we generally say all WordCamp videos are GPL as well, since
+>>> anyone working with WP code during presentation strays into the gray areas.
+>>> By saying it's all GPL, we avoid that.
+>>> 
+>>> 
+>> 
+>> 
+>> Sure, that makes sense for content containing code, especially when the parts
+>> cannot be really separated like video.
+>> 
+>> In terms of Wiki's, documents etc. GPL tends not to work as well GFDL
+>> http://www.gnu.org/licenses/gpl-faq.html#GPLOtherThanSoftware and
+>> http://www.gnu.org/licenses/gpl-faq.html#WhyNotGPLForManuals
+>> 
+>> Mike
+>> -- 
+>> Mike Little
+>> http://zed1.com/
+>> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com <x-msg://61/wp-edu at lists.automattic.com>
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+ 
+   
+
+ 
+ 
+
+Jay Collier - http://jaycollier.net <http://jaycollier.net/>
+ 
+
+The Compass LLC - http://thecompass.com <http://thecompass.com/>
+  
+
+mailto:jay.collier at thecompass.com
+ 
+
+callto:+1-207-956-0320 <callto:+12079560320>
+ 
+
+ <http://jaycollier.net/feed>   <http://jaycollier.net/contact/>
+<http://www.facebook.com/jayfcollier>
+<http://flickr.com/photos/jaycollier/>
+<http://www.linkedin.com/in/jaycollier>
+<http://www.last.fm/user/jcollier/charts>   <http://twitter.com/jaycollier>
+<http://www.youtube.com/jaycolliermedia>
+ 
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100910/8a67516b/attachment-0001.htm>
+
+From helen.y.hou at gmail.com  Mon Sep 13 23:52:55 2010
+From: helen.y.hou at gmail.com (Helen Hou-Sandi)
+Date: Mon, 13 Sep 2010 19:52:55 -0400
+Subject: [wp-edu] Development of wp-edu.org
+Message-ID: <AANLkTimTX3sBp4s=eOE+7ktmyTZvJwnbptHcdQwpTFHq@mail.gmail.com>
+
+Hello everybody,
+
+As you may recall, a discussion of an educational WordCamp branched off into
+ideas for a site that would function as a repository on information
+regarding the use of WordPress in educational settings. A Google Doc (
+https://docs.google.com/document/edit?id=1bsJv0nUb5Z-CdZB2XD6GcU3XP8kQiw9RDL9fyEhQDGY&hl=en)
+was started and now, thanks to Jeff VanDrimmelen, wp-edu.org exists in its
+beginning form!
+
+Additions to the Google Doc are always welcome, but we have also begun a
+P2-themed development blog that is open to discussion, located at
+http://dev.wp-edu.org. If you are interested in any way, please come on over
+and join in. Account registration isn't open at the moment, but that
+shouldn't deter you from commenting anyway.
+
+Looking forward to whatever comes next,
+Helen
+
+(Also, a big thanks to Kyle Jones for jumping right in as well!)
+
+--
+Helen Hou-Sandi
+Collaborative Pianist
+Web Developer, Eastman School of Music
+http://www.helenyhou.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100913/b6041bf9/attachment.htm>
+
+From patrick_laverty at brown.edu  Wed Sep 29 19:03:39 2010
+From: patrick_laverty at brown.edu (Patrick Laverty)
+Date: Wed, 29 Sep 2010 15:03:39 -0400
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+Message-ID: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+
+Has anyone else thought about allowing federated authentication to
+your Wordpress instance?  Where you can allow people at different
+institutions log in to your server with a username and password that
+is not a part of your school's?
+
+We're trying to do it with Shibboleth (as opposed to OAuth or some of
+the other mechanisms).  The problem that we're running into is usually
+a federated ID will look like an email address, which is what
+indicates who the identity provider is.  However, Wordpress has some
+validation checking that doesn't allow anything other than letters for
+the username and the @ and . make the username invalid.  We've even
+tried creating an additional plugin, or extending the existing
+Shibboleth plugin, but we're still having trouble.  One source even
+said that we shouldn't be allowing the @ and . in the username and
+should allow for something else.
+
+So I ask you, have you thought about this problem?  Have you had to
+deal with it?  Does a solution sound easy?  Thoughts?
+
+Thank you.
+
+Patrick Laverty
+Brown University
+
+From newquisk at lafayette.edu  Wed Sep 29 19:18:20 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Wed, 29 Sep 2010 15:18:20 -0400
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+In-Reply-To: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+Message-ID: <8776AFE1-AAAD-450A-8B4E-99AA8F8CBF77@lafayette.edu>
+
+
+On Sep 29, 2010, at 3:03 PM, Patrick Laverty wrote:
+
+> So I ask you, have you thought about this problem?  Have you had to
+> deal with it?  Does a solution sound easy?  Thoughts?
+
+It's on our radar and I expect to be delving into it later this academic year. We've got Shibboleth working with Moodle and Drupal, and WordPress is next on the list, but I haven't done much beyond putting it on my to do list.
+
+Ken
+--
+Ken Newquist
+Web Applications Specialist
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+From amy.hendrix at duke.edu  Wed Sep 29 19:25:43 2010
+From: amy.hendrix at duke.edu (Amy Hendrix)
+Date: Wed, 29 Sep 2010 15:25:43 -0400
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+In-Reply-To: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+Message-ID: <AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+
+Hi Patrick,
+
+Are you using the latest version of the WP Shib plugin? It now
+sanitizes names order to deal with the @ problem. We're using it to
+allow integration with our existing login systems, and not (yet) for
+off-campus logins, but if the problem you're having is just the name
+syntax that shouldn't make a difference. There are some details here:
+http://wordpress.org/support/topic/plugin-shibboleth-username-at-risk-of-breaking-permalinks-with-author
+(note that that thread is about broken links, but it gets into user
+name rewriting further down the thread).
+
+best of luck,
+Amy
+
+On Wed, Sep 29, 2010 at 3:03 PM, Patrick Laverty
+<patrick_laverty at brown.edu> wrote:
+> Has anyone else thought about allowing federated authentication to
+> your Wordpress instance? ?Where you can allow people at different
+> institutions log in to your server with a username and password that
+> is not a part of your school's?
+>
+> We're trying to do it with Shibboleth (as opposed to OAuth or some of
+> the other mechanisms). ?The problem that we're running into is usually
+> a federated ID will look like an email address, which is what
+> indicates who the identity provider is. ?However, Wordpress has some
+> validation checking that doesn't allow anything other than letters for
+> the username and the @ and . make the username invalid. ?We've even
+> tried creating an additional plugin, or extending the existing
+> Shibboleth plugin, but we're still having trouble. ?One source even
+> said that we shouldn't be allowing the @ and . in the username and
+> should allow for something else.
+>
+> So I ask you, have you thought about this problem? ?Have you had to
+> deal with it? ?Does a solution sound easy? ?Thoughts?
+>
+> Thank you.
+>
+> Patrick Laverty
+> Brown University
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+
+
+-- 
+Amy Hendrix
+Center for Instructional Technology
+Duke University
+amy.hendrix at duke.edu | 1 919 681 1886
+
+From jeffvand at unc.edu  Wed Sep 29 19:27:15 2010
+From: jeffvand at unc.edu (Jeff VanDrimmelen)
+Date: Wed, 29 Sep 2010 14:27:15 -0500
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+In-Reply-To: <8776AFE1-AAAD-450A-8B4E-99AA8F8CBF77@lafayette.edu>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<8776AFE1-AAAD-450A-8B4E-99AA8F8CBF77@lafayette.edu>
+Message-ID: <AANLkTikD7rRBM2mEQYB8KJv+iY7OwE7e8AzbJr0imPE7@mail.gmail.com>
+
+We have Shibboleth working great, but I'm not sure about our federated
+schools.  I will check with our identity management folks.  They really got
+the shibboleth piece working for us.
+
+~Jeff
+
+----------------------------------------------------------------------------------------------------
+Jeff VanDrimmelen MA, CMBA
+Instructional Technologist, Educational Technology
+
+Office of Arts & Sciences Information Services
+University Of North Carolina at Chapel Hill
+CB 3056, 07 Howell Hall
+Chapel Hill, NC 27599-3056
+919.724.4556 (Direct Line)
+
+Check my calendar and chat with me - http://oasis.unc.edu/people/jeff
+
+Create your own free webspace here at UNC at http://web.unc.edu.
+
+EMAIL POLICY: I try to only check email twice daily at 12:00PM ET and 4:00
+PM ET.If you require urgent assistance, please contact me via the phone
+number listed above.
+
+
+On Wed, Sep 29, 2010 at 2:18 PM, Ken Newquist <newquisk at lafayette.edu>wrote:
+
+>
+> On Sep 29, 2010, at 3:03 PM, Patrick Laverty wrote:
+>
+> > So I ask you, have you thought about this problem?  Have you had to
+> > deal with it?  Does a solution sound easy?  Thoughts?
+>
+> It's on our radar and I expect to be delving into it later this academic
+> year. We've got Shibboleth working with Moodle and Drupal, and WordPress is
+> next on the list, but I haven't done much beyond putting it on my to do
+> list.
+>
+> Ken
+> --
+> Ken Newquist
+> Web Applications Specialist
+> Lafayette College
+> p: 610.330.5759
+> e: newquisk at lafayette.edu
+> web: http://sites.lafayette.edu/newquisk
+> podcast: http://sites.lafayette.edu/coffeebreak
+> cal:
+> https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100929/f95f7512/attachment.htm>
+
+From patrick_laverty at brown.edu  Wed Sep 29 21:04:19 2010
+From: patrick_laverty at brown.edu (Patrick Laverty)
+Date: Wed, 29 Sep 2010 17:04:19 -0400
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+In-Reply-To: <AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+Message-ID: <AANLkTimCremcQUnoAaCTXBNNWyMJNghj=w5M7b0-3-7r@mail.gmail.com>
+
+On Wed, Sep 29, 2010 at 3:25 PM, Amy Hendrix <amy.hendrix at duke.edu> wrote:
+> Hi Patrick,
+>
+> Are you using the latest version of the WP Shib plugin? It now
+> sanitizes names order to deal with the @ problem. We're using it to
+> allow integration with our existing login systems, and not (yet) for
+> off-campus logins, but if the problem you're having is just the name
+> syntax that shouldn't make a difference. There are some details here:
+> http://wordpress.org/support/topic/plugin-shibboleth-username-at-risk-of-breaking-permalinks-with-author
+> (note that that thread is about broken links, but it gets into user
+> name rewriting further down the thread).
+
+
+Thanks Amy, I added the couple lines of code suggested in that thread.
+ We're testing to see if it helps.    We are using the 1.4 version of
+the Shib plugin, and we do still get an error from formatting.php when
+a new user successfully authenticates.  Hopefully the code in that
+discussion thread gets us around the problem.
+
+Thank you.
+
+From lfathauer at ehe.osu.edu  Thu Sep 30 18:18:08 2010
+From: lfathauer at ehe.osu.edu (Laura Fathauer)
+Date: Thu, 30 Sep 2010 14:18:08 -0400
+Subject: [wp-edu] Video
+In-Reply-To: <AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+Message-ID: <31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+
+I'm curious about how people have enabled/use video; do you allow your users to upload video into wordpress? Do you have file size restrictions? Or are you just directing that content to youtube and embedding? We're typically getting requests to be able to add video in the 50-100 meg range.
+
+Cheers
+
+
+--------------------
+Laura Fathauer
+College of Education and Human Ecology
+The Ohio State University
+305 W. 17th Ave. 
+Columbus, OH 43210-1297
+(614) 247-7242
+FAX- (614).688.4613
+
+
+
+From patrick_laverty at brown.edu  Thu Sep 30 18:31:59 2010
+From: patrick_laverty at brown.edu (Patrick Laverty)
+Date: Thu, 30 Sep 2010 14:31:59 -0400
+Subject: [wp-edu] Video
+In-Reply-To: <31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+Message-ID: <AANLkTikpB6+yrrDvBzXTu4ZWCjui3h_GX-oPgQTp_E-L@mail.gmail.com>
+
+To me, blog servers are for blogs and video servers are for videos.  I
+don't think many people size their blog, wiki, or other hardware
+really for video storage, so in my opinion it's best to have the video
+live on a video server (preferably on campus if you have a video
+server) and simply link to it.
+
+
+
+On Thu, Sep 30, 2010 at 2:18 PM, Laura Fathauer <lfathauer at ehe.osu.edu> wrote:
+> I'm curious about how people have enabled/use video; do you allow your users to upload video into wordpress? Do you have file size restrictions? Or are you just directing that content to youtube and embedding? We're typically getting requests to be able to add video in the 50-100 meg range.
+>
+> Cheers
+>
+>
+> --------------------
+> Laura Fathauer
+> College of Education and Human Ecology
+> The Ohio State University
+> 305 W. 17th Ave.
+> Columbus, OH 43210-1297
+> (614) 247-7242
+> FAX- (614).688.4613
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+From jimgroom at gmail.com  Thu Sep 30 18:37:06 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Thu, 30 Sep 2010 14:37:06 -0400
+Subject: [wp-edu] Video
+In-Reply-To: <AANLkTikpB6+yrrDvBzXTu4ZWCjui3h_GX-oPgQTp_E-L@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+	<AANLkTikpB6+yrrDvBzXTu4ZWCjui3h_GX-oPgQTp_E-L@mail.gmail.com>
+Message-ID: <AANLkTim8BEwoEDQdrC+xGb0DXf9AnDc-f+bhP5dqLQ18@mail.gmail.com>
+
+Laura,
+
+We don;t have it fully functional yet, but we are playing with VideoPress on
+a dev server. As of now we have students and faculty use YouTube, Vimeo,
+Blip.tv, etc. But at least for a few projects we wouls like the option of
+inhouse video (though external sites are still the way to go for the most
+part).
+
+As we figure this out, I'll try and get the list updated. I'm liking the
+integration of VideoPress and WPMS, so we'll see.
+
+Best,
+Jim
+
+On Thu, Sep 30, 2010 at 2:31 PM, Patrick Laverty
+<patrick_laverty at brown.edu>wrote:
+
+> To me, blog servers are for blogs and video servers are for videos.  I
+> don't think many people size their blog, wiki, or other hardware
+> really for video storage, so in my opinion it's best to have the video
+> live on a video server (preferably on campus if you have a video
+> server) and simply link to it.
+>
+>
+>
+> On Thu, Sep 30, 2010 at 2:18 PM, Laura Fathauer <lfathauer at ehe.osu.edu>
+> wrote:
+> > I'm curious about how people have enabled/use video; do you allow your
+> users to upload video into wordpress? Do you have file size restrictions? Or
+> are you just directing that content to youtube and embedding? We're
+> typically getting requests to be able to add video in the 50-100 meg range.
+> >
+> > Cheers
+> >
+> >
+> > --------------------
+> > Laura Fathauer
+> > College of Education and Human Ecology
+> > The Ohio State University
+> > 305 W. 17th Ave.
+> > Columbus, OH 43210-1297
+> > (614) 247-7242
+> > FAX- (614).688.4613
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> >
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100930/1bcd7fe2/attachment.htm>
+
+From teri.hoyer at colorado.edu  Thu Sep 30 18:36:51 2010
+From: teri.hoyer at colorado.edu (Hoyer, Teri)
+Date: Thu, 30 Sep 2010 12:36:51 -0600
+Subject: [wp-edu] Video
+In-Reply-To: <31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+Message-ID: <B7491396B00ABC49894B7270FB56D40EC5386118C6@SISYPHUS.cires.edu>
+
+Laura --
+I agree with Patrick about using a streaming server/service to deliver the video. There are a lot of free options (Vimeo doesn't have the size limit that YouTube does).  
+
+On Wordpress, we use a plugin called "Viper's Video Quicktags" to enable easy embedding of videos delivered through all the standard services. I don't have to do much to support the bloggers using videos, so it must be working okay.
+
+
+Teri Hoyer
+Webmaster
+Cooperative Institute for Research in Environmental Sciences (CIRES)
+University of Colorado
+303.492.5704
+http://cires.colorado.edu
+
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Laura Fathauer
+Sent: Thursday, September 30, 2010 12:18 PM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] Video
+
+I'm curious about how people have enabled/use video; do you allow your users to upload video into wordpress? Do you have file size restrictions? Or are you just directing that content to youtube and embedding? We're typically getting requests to be able to add video in the 50-100 meg range.
+
+Cheers
+
+
+--------------------
+Laura Fathauer
+College of Education and Human Ecology
+The Ohio State University
+305 W. 17th Ave. 
+Columbus, OH 43210-1297
+(614) 247-7242
+FAX- (614).688.4613
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From patrick_laverty at brown.edu  Thu Sep 30 18:56:48 2010
+From: patrick_laverty at brown.edu (Patrick Laverty)
+Date: Thu, 30 Sep 2010 14:56:48 -0400
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+In-Reply-To: <AANLkTimCremcQUnoAaCTXBNNWyMJNghj=w5M7b0-3-7r@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<AANLkTimCremcQUnoAaCTXBNNWyMJNghj=w5M7b0-3-7r@mail.gmail.com>
+Message-ID: <AANLkTin8HHo2AkhpKnVZGtUOB71KWNm5iae_XkdPsGBw@mail.gmail.com>
+
+We found that the new Shib plugin does work and fix the authors
+problem as described in the thread.  However it doesn't fix the
+username issue.  We're still running into that.
+
+All the filtering and sanitizing is being done after the registration,
+and that's where the problem is coming in.  First time registrants
+trying to log in to the system.  When WP tries to create their
+account, the @ and . are killing it.  But if they're already in the
+system, logging in is no problem.
+
+So one solution is that we can add every user at our University and
+then there will be no problems with that.
+
+However one of the major reasons to use Shibboleth (along with SSO) is
+federation.  I don't know who's going to need access from other
+institutions and I really don't want to be creating those on an
+as-needed basis.  So we'd prefer for this to work.
+
+I'm guessing that this is just another filter that needs to happen in
+the account creation where the @ and . is allowed.  We're just trying
+to find the right place and the right hooks to make it happen.
+
+If anyone else thinks they know what would make that work, it would be
+appreciated.
+
+Thanks.
+
+Patrick
+
+On Wed, Sep 29, 2010 at 5:04 PM, Patrick Laverty
+<patrick_laverty at brown.edu> wrote:
+> On Wed, Sep 29, 2010 at 3:25 PM, Amy Hendrix <amy.hendrix at duke.edu> wrote:
+>> Hi Patrick,
+>>
+>> Are you using the latest version of the WP Shib plugin? It now
+>> sanitizes names order to deal with the @ problem. We're using it to
+>> allow integration with our existing login systems, and not (yet) for
+>> off-campus logins, but if the problem you're having is just the name
+>> syntax that shouldn't make a difference. There are some details here:
+>> http://wordpress.org/support/topic/plugin-shibboleth-username-at-risk-of-breaking-permalinks-with-author
+>> (note that that thread is about broken links, but it gets into user
+>> name rewriting further down the thread).
+>
+>
+> Thanks Amy, I added the couple lines of code suggested in that thread.
+> ?We're testing to see if it helps. ? ?We are using the 1.4 version of
+> the Shib plugin, and we do still get an error from formatting.php when
+> a new user successfully authenticates. ?Hopefully the code in that
+> discussion thread gets us around the problem.
+>
+> Thank you.
+>
+
+From joseph.ugoretz at mhc.cuny.edu  Thu Sep 30 19:02:42 2010
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Thu, 30 Sep 2010 15:02:42 -0400
+Subject: [wp-edu] Video
+In-Reply-To: <B7491396B00ABC49894B7270FB56D40EC5386118C6@SISYPHUS.cires.edu>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+	<B7491396B00ABC49894B7270FB56D40EC5386118C6@SISYPHUS.cires.edu>
+Message-ID: <B692068D-FB68-44EA-AB94-059FAB43C291@mhc.cuny.edu>
+
+We have students (and faculty) using video a lot, and we try to direct them to use YouTube or Vimeo as much as possible.  But in some cases, for various reasons, uploading directly to WordPress is the best solution (for classes where access to the videos needs to be limited, or where many students need to upload and have the video available rapidly, without waiting for processing time, or where the videos are too long or too large for the external services).  In those cases, we just up the filesize and storage limits as much as necessary.  These increases have to be requested, but I have always granted every request, and expect to continue to do so.  
+
+I'm very interested in Jim's VideoPress progress, and will be following that closely!  (also wondering about MediaCore.  Anyone going in that direction?)
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On Sep 30, 2010, at 2:36 PM, Hoyer, Teri wrote:
+
+> Laura --
+> I agree with Patrick about using a streaming server/service to deliver the video. There are a lot of free options (Vimeo doesn't have the size limit that YouTube does).  
+> 
+> On Wordpress, we use a plugin called "Viper's Video Quicktags" to enable easy embedding of videos delivered through all the standard services. I don't have to do much to support the bloggers using videos, so it must be working okay.
+> 
+> 
+> Teri Hoyer
+> Webmaster
+> Cooperative Institute for Research in Environmental Sciences (CIRES)
+> University of Colorado
+> 303.492.5704
+> http://cires.colorado.edu
+> 
+> 
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Laura Fathauer
+> Sent: Thursday, September 30, 2010 12:18 PM
+> To: wp-edu at lists.automattic.com
+> Subject: [wp-edu] Video
+> 
+> I'm curious about how people have enabled/use video; do you allow your users to upload video into wordpress? Do you have file size restrictions? Or are you just directing that content to youtube and embedding? We're typically getting requests to be able to add video in the 50-100 meg range.
+> 
+> Cheers
+> 
+> 
+> --------------------
+> Laura Fathauer
+> College of Education and Human Ecology
+> The Ohio State University
+> 305 W. 17th Ave. 
+> Columbus, OH 43210-1297
+> (614) 247-7242
+> FAX- (614).688.4613
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From dennen at gmail.com  Thu Sep 30 19:08:25 2010
+From: dennen at gmail.com (Bill Dennen)
+Date: Thu, 30 Sep 2010 15:08:25 -0400
+Subject: [wp-edu] Video
+In-Reply-To: <B7491396B00ABC49894B7270FB56D40EC5386118C6@SISYPHUS.cires.edu>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+	<B7491396B00ABC49894B7270FB56D40EC5386118C6@SISYPHUS.cires.edu>
+Message-ID: <AANLkTi=3d-Oj863NR1Ob_EXerFi8yeWhMpAsXtZLxU2C@mail.gmail.com>
+
+>
+>
+> On Wordpress, we use a plugin called "Viper's Video Quicktags" to enable
+> easy embedding of videos delivered through all the standard services. I
+> don't have to do much to support the bloggers using videos, so it must be
+> working okay.
+
+
+FYI. As you may know, since WordPress 2.9, they've included at least some of
+Viper Video Quicktags in WordPress itself. No need for a plugin.
+
+You can embed YouTube videos by simply putting the URL to the video on one
+line:
+
+http://www.youtube.com/watch?v=NeGteg74mjw
+
+And WordPress takes care of the rest. Nice.
+
+More info: http://codex.wordpress.org/Embeds
+
+Viper's lets you do more... but we've found the built-in functionality to
+work well.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100930/768be0a8/attachment.htm>
+
+From David.Grogan at tufts.edu  Thu Sep 30 19:09:02 2010
+From: David.Grogan at tufts.edu (Grogan, David)
+Date: Thu, 30 Sep 2010 19:09:02 +0000
+Subject: [wp-edu] Video
+In-Reply-To: <B692068D-FB68-44EA-AB94-059FAB43C291@mhc.cuny.edu>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<31048A19E6293F448B88F2EFCFF4604B07A2E46E@helios.hec.ohio-state.edu>
+	<B7491396B00ABC49894B7270FB56D40EC5386118C6@SISYPHUS.cires.edu>
+	<B692068D-FB68-44EA-AB94-059FAB43C291@mhc.cuny.edu>
+Message-ID: <85F05EE0D1E7E1499CCFFE9E3DFDF43C029543@TFTMEXDAG01MB03.tufts.ad.tufts.edu>
+
+Same here. Direct uploads to WP for privacy related issues. We use the Anarchy Media Player plugin for the player.
+
+We're looking into Kaltura as a more robust video platform.
+
+
+--------------------------------------------------------------
+David Grogan
+Manager, Curricular Technology Group
+UIT-Academic Technology
+Tufts University
+
++1 617-627-2859
+david.grogan at tufs.edu
+
+http://uit.tufts.edu/at
+
+
+
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Joseph Ugoretz
+Sent: Thursday, September 30, 2010 3:03 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Video
+
+We have students (and faculty) using video a lot, and we try to direct them to use YouTube or Vimeo as much as possible.  But in some cases, for various reasons, uploading directly to WordPress is the best solution (for classes where access to the videos needs to be limited, or where many students need to upload and have the video available rapidly, without waiting for processing time, or where the videos are too long or too large for the external services).  In those cases, we just up the filesize and storage limits as much as necessary.  These increases have to be requested, but I have always granted every request, and expect to continue to do so.  
+
+I'm very interested in Jim's VideoPress progress, and will be following that closely!  (also wondering about MediaCore.  Anyone going in that direction?)
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On Sep 30, 2010, at 2:36 PM, Hoyer, Teri wrote:
+
+> Laura --
+> I agree with Patrick about using a streaming server/service to deliver the video. There are a lot of free options (Vimeo doesn't have the size limit that YouTube does).  
+> 
+> On Wordpress, we use a plugin called "Viper's Video Quicktags" to enable easy embedding of videos delivered through all the standard services. I don't have to do much to support the bloggers using videos, so it must be working okay.
+> 
+> 
+> Teri Hoyer
+> Webmaster
+> Cooperative Institute for Research in Environmental Sciences (CIRES)
+> University of Colorado
+> 303.492.5704
+> http://cires.colorado.edu
+> 
+> 
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Laura Fathauer
+> Sent: Thursday, September 30, 2010 12:18 PM
+> To: wp-edu at lists.automattic.com
+> Subject: [wp-edu] Video
+> 
+> I'm curious about how people have enabled/use video; do you allow your users to upload video into wordpress? Do you have file size restrictions? Or are you just directing that content to youtube and embedding? We're typically getting requests to be able to add video in the 50-100 meg range.
+> 
+> Cheers
+> 
+> 
+> --------------------
+> Laura Fathauer
+> College of Education and Human Ecology
+> The Ohio State University
+> 305 W. 17th Ave. 
+> Columbus, OH 43210-1297
+> (614) 247-7242
+> FAX- (614).688.4613
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From hempsworth at gmail.com  Thu Sep 30 19:12:05 2010
+From: hempsworth at gmail.com (Alexander Hempton-Smith)
+Date: Thu, 30 Sep 2010 20:12:05 +0100
+Subject: [wp-edu] Federated Authentication? Anyone thought about it?
+In-Reply-To: <AANLkTin8HHo2AkhpKnVZGtUOB71KWNm5iae_XkdPsGBw@mail.gmail.com>
+References: <AANLkTinOyadS+hiBq7P5krfSNmXZnakkdSjG+s77oC06@mail.gmail.com>
+	<AANLkTik3iuiTnpzpPp92A80GjwBSYEZKLdzEnVdhQyy8@mail.gmail.com>
+	<AANLkTimCremcQUnoAaCTXBNNWyMJNghj=w5M7b0-3-7r@mail.gmail.com>
+	<AANLkTin8HHo2AkhpKnVZGtUOB71KWNm5iae_XkdPsGBw@mail.gmail.com>
+Message-ID: <4587219369855503123@unknownmsgid>
+
+There is a Google Apps integration plugin that creates accounts on the
+fly using the email address as a username. Can't remember which plugin
+it was now.
+
+Perhaps it's worth having a search, and/or posting to wp-hackers to
+ask which filter would allow those characters in usernames.
+
+-- Alex
+
+Sent from my iPhone
+
+On 30 Sep 2010, at 19:56, Patrick Laverty <patrick_laverty at brown.edu> wrote:
+
+> We found that the new Shib plugin does work and fix the authors
+> problem as described in the thread.  However it doesn't fix the
+> username issue.  We're still running into that.
+>
+> All the filtering and sanitizing is being done after the registration,
+> and that's where the problem is coming in.  First time registrants
+> trying to log in to the system.  When WP tries to create their
+> account, the @ and . are killing it.  But if they're already in the
+> system, logging in is no problem.
+>
+> So one solution is that we can add every user at our University and
+> then there will be no problems with that.
+>
+> However one of the major reasons to use Shibboleth (along with SSO) is
+> federation.  I don't know who's going to need access from other
+> institutions and I really don't want to be creating those on an
+> as-needed basis.  So we'd prefer for this to work.
+>
+> I'm guessing that this is just another filter that needs to happen in
+> the account creation where the @ and . is allowed.  We're just trying
+> to find the right place and the right hooks to make it happen.
+>
+> If anyone else thinks they know what would make that work, it would be
+> appreciated.
+>
+> Thanks.
+>
+> Patrick
+>
+> On Wed, Sep 29, 2010 at 5:04 PM, Patrick Laverty
+> <patrick_laverty at brown.edu> wrote:
+>> On Wed, Sep 29, 2010 at 3:25 PM, Amy Hendrix <amy.hendrix at duke.edu> wrote:
+>>> Hi Patrick,
+>>>
+>>> Are you using the latest version of the WP Shib plugin? It now
+>>> sanitizes names order to deal with the @ problem. We're using it to
+>>> allow integration with our existing login systems, and not (yet) for
+>>> off-campus logins, but if the problem you're having is just the name
+>>> syntax that shouldn't make a difference. There are some details here:
+>>> http://wordpress.org/support/topic/plugin-shibboleth-username-at-risk-of-breaking-permalinks-with-author
+>>> (note that that thread is about broken links, but it gets into user
+>>> name rewriting further down the thread).
+>>
+>>
+>> Thanks Amy, I added the couple lines of code suggested in that thread.
+>>  We're testing to see if it helps.    We are using the 1.4 version of
+>> the Shib plugin, and we do still get an error from formatting.php when
+>> a new user successfully authenticates.  Hopefully the code in that
+>> discussion thread gets us around the problem.
+>>
+>> Thank you.
+>>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+

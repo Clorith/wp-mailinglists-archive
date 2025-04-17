@@ -1,0 +1,141 @@
+From chip at chipbennett.net  Mon Oct 28 00:21:45 2013
+From: chip at chipbennett.net (Chip Bennett)
+Date: Sun, 27 Oct 2013 20:21:45 -0400
+Subject: [wp-docs] Codex Source Links Broken due to /src/
+Message-ID: <CAPdLKqduS5hhL0A8be7WcsONmgE191e1sSbzdrpWW5qy_koLHg@mail.gmail.com>
+
+With the recent change to the directory structure of core.trac, I've run
+across some function reference source links broken in the Codex.
+
+For example: wp_nav_menu()<http://codex.wordpress.org/Function_Reference/wp_nav_menu>
+
+Current source link:
+http://core.trac.wordpress.org/browser/tags/3.7/wp-includes/nav-menu-template.php#L0
+
+Correct source link:
+http://core.trac.wordpress.org/browser/tags/3.7*/src*
+/wp-includes/nav-menu-template.php#L0
+
+I assume someone much smarter than I am could write a script to bulk-update
+the function reference source links to reflect the directory-structure
+change?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20131027/711185c9/attachment.html>
+
+From ipstenu at ipstenu.org  Mon Oct 28 11:37:31 2013
+From: ipstenu at ipstenu.org (Mika Epstein)
+Date: Mon, 28 Oct 2013 07:37:31 -0400
+Subject: [wp-docs] Codex Source Links Broken due to /src/
+In-Reply-To: <CAPdLKqduS5hhL0A8be7WcsONmgE191e1sSbzdrpWW5qy_koLHg@mail.gmail.com>
+References: <CAPdLKqduS5hhL0A8be7WcsONmgE191e1sSbzdrpWW5qy_koLHg@mail.gmail.com>
+Message-ID: <D90B85BD-6913-466E-9CA2-EE6A67F1B498@ipstenu.org>
+
+No need. It was using a wiki include with some transclusion code, so I added in src. Should be good to go for every link that used that.
+
+In WP terms, I fixed the shortcode.
+
+> On Oct 27, 2013, at 8:21 PM, Chip Bennett <chip at chipbennett.net> wrote:
+> 
+> With the recent change to the directory structure of core.trac, I've run across some function reference source links broken in the Codex.
+> 
+> For example: wp_nav_menu()
+> 
+> Current source link:
+> http://core.trac.wordpress.org/browser/tags/3.7/wp-includes/nav-menu-template.php#L0
+> 
+> Correct source link:
+> http://core.trac.wordpress.org/browser/tags/3.7/src/wp-includes/nav-menu-template.php#L0
+> 
+> I assume someone much smarter than I am could write a script to bulk-update the function reference source links to reflect the directory-structure change?
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20131028/1029c8e1/attachment.html>
+
+From jdg at efieldguide.com  Mon Oct 28 12:44:52 2013
+From: jdg at efieldguide.com (J.D. Grimes)
+Date: Mon, 28 Oct 2013 08:44:52 -0400
+Subject: [wp-docs] Codex Source Links Broken due to /src/
+In-Reply-To: <CAPdLKqduS5hhL0A8be7WcsONmgE191e1sSbzdrpWW5qy_koLHg@mail.gmail.com>
+References: <CAPdLKqduS5hhL0A8be7WcsONmgE191e1sSbzdrpWW5qy_koLHg@mail.gmail.com>
+Message-ID: <B099BDEB-87D1-440C-9632-D1349B262CA0@efieldguide.com>
+
+Don't you think it might be better, if possible, to just have these redirected? We can't update links from the outside like that.
+
+-J.D.
+
+P.S. - I think this list is officially retired now, it may be better to post this somewhere else instead.
+
+On Oct 27, 2013, at 8:21 PM, Chip Bennett <chip at chipbennett.net> wrote:
+
+> With the recent change to the directory structure of core.trac, I've run across some function reference source links broken in the Codex.
+> 
+> For example: wp_nav_menu()
+> 
+> Current source link:
+> http://core.trac.wordpress.org/browser/tags/3.7/wp-includes/nav-menu-template.php#L0
+> 
+> Correct source link:
+> http://core.trac.wordpress.org/browser/tags/3.7/src/wp-includes/nav-menu-template.php#L0
+> 
+> I assume someone much smarter than I am could write a script to bulk-update the function reference source links to reflect the directory-structure change?
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20131028/0aacdfeb/attachment.html>
+
+From ipstenu at ipstenu.org  Mon Oct 28 12:50:31 2013
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Mon, 28 Oct 2013 08:50:31 -0400
+Subject: [wp-docs] Codex Source Links Broken due to /src/
+In-Reply-To: <B099BDEB-87D1-440C-9632-D1349B262CA0@efieldguide.com>
+References: <CAPdLKqduS5hhL0A8be7WcsONmgE191e1sSbzdrpWW5qy_koLHg@mail.gmail.com>
+ <B099BDEB-87D1-440C-9632-D1349B262CA0@efieldguide.com>
+Message-ID: <526E5D97.2070201@ipstenu.org>
+
+We're not dead yet! I'm getting better.
+
+The external links we could make a meta-trac ticket for, since that 
+would require some nginx magic, which I can't do via the wiki. Wiki is 
+fixed.
+
+> J.D. Grimes <mailto:jdg at efieldguide.com>
+> October 28, 2013 at 8:44 AM
+> Don't you think it might be better, if possible, to just have these 
+> redirected? We can't update links from the outside like that.
+>
+> -J.D.
+>
+> P.S. - I think this list is officially retired now, it may be better 
+> to post this somewhere else instead.
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-- 
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org | http://halfelf.org
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20131028/2e657ffe/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: postbox-contact.jpg
+Type: image/jpeg
+Size: 1278 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20131028/2e657ffe/attachment.jpg>
+

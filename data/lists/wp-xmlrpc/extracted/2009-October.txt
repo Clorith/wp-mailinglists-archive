@@ -1,0 +1,462 @@
+From aj at cerqueti.co.uk  Fri Oct  9 14:02:31 2009
+From: aj at cerqueti.co.uk (AJ Cerqueti)
+Date: Fri, 9 Oct 2009 15:02:31 +0100
+Subject: [wp-xmlrpc] Future Publishing
+Message-ID: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+
+Hi,
+
+Are there plans to add a wp_newPost() function to xmlrpc.php, or is it felt
+that all requirements are met by blogger_newPost() and mw_newPost()?
+
+I'm just wondering, as I can't seem to figure out a way to Future Publish,
+without a hack. It seems to be the only option missing from the whole
+post_new.php page.
+
+Am I totally missing something, is there a workaround, or is this not
+something that is felt is needed?
+
+Thanks,
+
+AJ Cerqueti
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091009/02ccaab0/attachment.htm>
+
+From jalkut at red-sweater.com  Fri Oct  9 14:03:24 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri, 9 Oct 2009 10:03:24 -0400
+Subject: [wp-xmlrpc] Future Publishing
+In-Reply-To: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+References: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+Message-ID: <D2B79E3A-F80A-4C58-BC14-9D7A4AE0080A@red-sweater.com>
+
+I'm not sure if this technique is what you consider the "hack," but  
+with WordPress, an easy way to "future post" is literally to set the  
+published date of the post to a future time.  If WordPress sees that  
+the date is newer than now, it will automatically save the incoming  
+post as a scheduled future post instead of publishing it immediately.
+
+Daniel
+
+On Oct 9, 2009, at 10:02am, AJ Cerqueti wrote:
+
+> Hi,
+>
+> Are there plans to add a wp_newPost() function to xmlrpc.php, or is  
+> it felt that all requirements are met by blogger_newPost() and  
+> mw_newPost()?
+>
+> I'm just wondering, as I can't seem to figure out a way to Future  
+> Publish, without a hack. It seems to be the only option missing from  
+> the whole post_new.php page.
+>
+> Am I totally missing something, is there a workaround, or is this  
+> not something that is felt is needed?
+>
+> Thanks,
+>
+> AJ Cerqueti
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From aj at cerqueti.co.uk  Fri Oct  9 14:22:58 2009
+From: aj at cerqueti.co.uk (AJ Cerqueti)
+Date: Fri, 9 Oct 2009 15:22:58 +0100
+Subject: [wp-xmlrpc] Future Publishing
+In-Reply-To: <D2B79E3A-F80A-4C58-BC14-9D7A4AE0080A@red-sweater.com>
+References: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+	<D2B79E3A-F80A-4C58-BC14-9D7A4AE0080A@red-sweater.com>
+Message-ID: <468cd95c0910090722x431f1f6ex68a757b3c4da918c@mail.gmail.com>
+
+Hi Daniel,
+
+Yeah, but using the existing xmlrpc.php file and functions, how would you do
+this?
+
+In blogger_newPost:
+
+$post_date = current_time('mysql');
+
+therefore always posting now as far as I can tell.
+
+However, mw_newPost looks a bit more promising... Do you know where I can
+find documentation on how $content_struct is supposed to be structured? I'm
+assuming it's an array, but not sure how much or little is required. It
+seems to be consulted to check for $content_struct['date_created_gmt'] and
+$content_struct['date_created'], and if it finds neither, then sets
+post_date to now. I'm hoping this is where you're leading me, as I'm hoping
+to avoid editing any of the WP files!
+
+Thanks,
+
+AJ
+
+On Fri, Oct 9, 2009 at 3:03 PM, Daniel Jalkut <jalkut at red-sweater.com>wrote:
+
+> I'm not sure if this technique is what you consider the "hack," but with
+> WordPress, an easy way to "future post" is literally to set the published
+> date of the post to a future time.  If WordPress sees that the date is newer
+> than now, it will automatically save the incoming post as a scheduled future
+> post instead of publishing it immediately.
+>
+> Daniel
+>
+>
+> On Oct 9, 2009, at 10:02am, AJ Cerqueti wrote:
+>
+>  Hi,
+>>
+>> Are there plans to add a wp_newPost() function to xmlrpc.php, or is it
+>> felt that all requirements are met by blogger_newPost() and mw_newPost()?
+>>
+>> I'm just wondering, as I can't seem to figure out a way to Future Publish,
+>> without a hack. It seems to be the only option missing from the whole
+>> post_new.php page.
+>>
+>> Am I totally missing something, is there a workaround, or is this not
+>> something that is felt is needed?
+>>
+>> Thanks,
+>>
+>> AJ Cerqueti
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091009/7131f236/attachment.htm>
+
+From jalkut at red-sweater.com  Fri Oct  9 14:40:50 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri, 9 Oct 2009 10:40:50 -0400
+Subject: [wp-xmlrpc] Future Publishing
+In-Reply-To: <468cd95c0910090722x431f1f6ex68a757b3c4da918c@mail.gmail.com>
+References: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+	<D2B79E3A-F80A-4C58-BC14-9D7A4AE0080A@red-sweater.com>
+	<468cd95c0910090722x431f1f6ex68a757b3c4da918c@mail.gmail.com>
+Message-ID: <94EF233D-918F-489E-ABAC-60C1A5C38992@red-sweater.com>
+
+I wouldn't be surprised if the Blogger API implementation in WordPress  
+does not support this. I don't think many people use the older Blogger  
+API, since then newer MetaWeblog, MovableType and WordPress APIs are  
+more functional.
+
+As for your structuring question, perhaps this MetaWeblog API  
+reference will be helpful to you:
+
+http://www.sixapart.com/developers/xmlrpc/metaweblog_api/metaweblognewpost.html
+
+Daniel
+
+On Oct 9, 2009, at 10:22am, AJ Cerqueti wrote:
+
+> Hi Daniel,
+>
+> Yeah, but using the existing xmlrpc.php file and functions, how  
+> would you do this?
+>
+> In blogger_newPost:
+>
+> $post_date = current_time('mysql');
+>
+> therefore always posting now as far as I can tell.
+>
+> However, mw_newPost looks a bit more promising... Do you know where  
+> I can find documentation on how $content_struct is supposed to be  
+> structured? I'm assuming it's an array, but not sure how much or  
+> little is required. It seems to be consulted to check for  
+> $content_struct['date_created_gmt'] and $content_struct 
+> ['date_created'], and if it finds neither, then sets post_date to  
+> now. I'm hoping this is where you're leading me, as I'm hoping to  
+> avoid editing any of the WP files!
+>
+> Thanks,
+>
+> AJ
+>
+> On Fri, Oct 9, 2009 at 3:03 PM, Daniel Jalkut <jalkut at red- 
+> sweater.com> wrote:
+> I'm not sure if this technique is what you consider the "hack," but  
+> with WordPress, an easy way to "future post" is literally to set the  
+> published date of the post to a future time.  If WordPress sees that  
+> the date is newer than now, it will automatically save the incoming  
+> post as a scheduled future post instead of publishing it immediately.
+>
+> Daniel
+>
+>
+> On Oct 9, 2009, at 10:02am, AJ Cerqueti wrote:
+>
+> Hi,
+>
+> Are there plans to add a wp_newPost() function to xmlrpc.php, or is  
+> it felt that all requirements are met by blogger_newPost() and  
+> mw_newPost()?
+>
+> I'm just wondering, as I can't seem to figure out a way to Future  
+> Publish, without a hack. It seems to be the only option missing from  
+> the whole post_new.php page.
+>
+> Am I totally missing something, is there a workaround, or is this  
+> not something that is felt is needed?
+>
+> Thanks,
+>
+> AJ Cerqueti
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From aj at cerqueti.co.uk  Fri Oct  9 14:53:20 2009
+From: aj at cerqueti.co.uk (AJ Cerqueti)
+Date: Fri, 9 Oct 2009 15:53:20 +0100
+Subject: [wp-xmlrpc] Future Publishing
+In-Reply-To: <94EF233D-918F-489E-ABAC-60C1A5C38992@red-sweater.com>
+References: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+	<D2B79E3A-F80A-4C58-BC14-9D7A4AE0080A@red-sweater.com>
+	<468cd95c0910090722x431f1f6ex68a757b3c4da918c@mail.gmail.com>
+	<94EF233D-918F-489E-ABAC-60C1A5C38992@red-sweater.com>
+Message-ID: <468cd95c0910090753x57b70008hf02fee61c8639c21@mail.gmail.com>
+
+Hi,
+
+
+From leocharre at gmail.com  Fri Oct  9 15:15:33 2009
+From: leocharre at gmail.com (leo charre)
+Date: Fri, 9 Oct 2009 11:15:33 -0400
+Subject: [wp-xmlrpc] Future Publishing
+In-Reply-To: <468cd95c0910090753x57b70008hf02fee61c8639c21@mail.gmail.com>
+References: <468cd95c0910090702w79cc893enb7574526fcc6051@mail.gmail.com>
+	<D2B79E3A-F80A-4C58-BC14-9D7A4AE0080A@red-sweater.com>
+	<468cd95c0910090722x431f1f6ex68a757b3c4da918c@mail.gmail.com>
+	<94EF233D-918F-489E-ABAC-60C1A5C38992@red-sweater.com>
+	<468cd95c0910090753x57b70008hf02fee61c8639c21@mail.gmail.com>
+Message-ID: <b791d0d00910090815l54176f60kd8160aa59939ee48@mail.gmail.com>
+
+I have a snapshot of the structs here:
+http://search.cpan.org/~leocharre/WordPress-XMLRPC-1.21/lib/WordPress/XMLRPC.pod
+
+On Fri, Oct 9, 2009 at 10:53 AM, AJ Cerqueti <aj at cerqueti.co.uk> wrote:
+
+> Hi,
+>
+> From your link:
+>
+> The struct content can contain the following standard keys:
+>
+>    - title, for the title of the entry;
+>    - description, for the body of the entry;
+>    - *dateCreated, to set the created-on date of the entry;*
+>
+> Perfect. Will try and implement this.
+>
+> Thanks for your help, much appreciated!
+>
+> Regards,
+>
+> AJ
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+
+
+-- 
+==========================
+Leo Charre
+Developer
+http://search.cpan.org/~leocharre
+http://leocharre.com/resume
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091009/6bf69a2a/attachment.htm>
+
+From leocharre at gmail.com  Fri Oct  9 18:03:05 2009
+From: leocharre at gmail.com (leo charre)
+Date: Fri, 9 Oct 2009 14:03:05 -0400
+Subject: [wp-xmlrpc] need rpc call to add link
+Message-ID: <b791d0d00910091103t5b812c62m79a4a11ab5024828@mail.gmail.com>
+
+I need xmlrpc call to insert a link.
+This seems like it should already be inside xmlrpc.php -
+How fast can we get that in there, or should I roll my own.
+
+-- 
+==========================
+Leo Charre
+Developer
+http://search.cpan.org/~leocharre
+http://leocharre.com/resume
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091009/670db86c/attachment-0001.htm>
+
+From joseph at josephscott.org  Fri Oct  9 20:03:33 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 9 Oct 2009 14:03:33 -0600
+Subject: [wp-xmlrpc] need rpc call to add link
+In-Reply-To: <b791d0d00910091103t5b812c62m79a4a11ab5024828@mail.gmail.com>
+References: <b791d0d00910091103t5b812c62m79a4a11ab5024828@mail.gmail.com>
+Message-ID: <bbd639f50910091303v5f0c4eebx7336b5e350db1f8e@mail.gmail.com>
+
+I think we've got a ticket for adding XML-RPC methods for
+link/blogroll management.
+
+If you've got a patch that would be great.  If you need something
+right away you could do it as a plugin initially.
+
+On Fri, Oct 9, 2009 at 12:03 PM, leo charre <leocharre at gmail.com> wrote:
+> I need xmlrpc call to insert a link.
+> This seems like it should already be inside xmlrpc.php -
+> How fast can we get that in there, or should I roll my own.
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From aj at cerqueti.co.uk  Fri Oct 30 16:17:46 2009
+From: aj at cerqueti.co.uk (AJ Cerqueti)
+Date: Fri, 30 Oct 2009 16:17:46 +0000
+Subject: [wp-xmlrpc] Problems with dateCreated in
+	metaWeblog.newPost/editPost - dateTime.iso8601
+Message-ID: <468cd95c0910300917m7ad17374t996f21b4f5326ff5@mail.gmail.com>
+
+Hi,
+
+This has clearly been discussed before:
+http://comox.textdrive.com/pipermail/wp-xmlrpc/2008-April/000188.html
+
+If dateCreated is of PHP type DateTime, posting will succeed, when it's a
+string in ISO8601 format it fails.
+However, no matter what date the DateTime object contains, it doesn't seem
+to pass the timestamp.
+
+E.g.
+
+$title = htmlentities($title,ENT_NOQUOTES,$encoding);
+$keywords = htmlentities($keywords,ENT_NOQUOTES,$encoding);
+$datetime = new DateTime('2008-08-03 14:52:10');
+echo "Formatted ISO: " . $datetime->format(DATE_ISO8601) . "<br />\n";
+var_dump($datetime);
+
+$content = array(
+'title'=>$title,
+'description'=>$body,
+'dateCreated' => $datetime,
+'mt_allow_comments'=>1,
+'mt_allow_pings'=>1,
+'post_type'=>'post',
+'mt_keywords'=>$keywords,
+'categories'=>array($category));
+
+Will post, but date will be current time.
+
+Any ideas?
+
+Cheers,
+
+AJ
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20091030/ac7eb5fe/attachment.htm>
+
+From jalkut at red-sweater.com  Fri Oct 30 16:24:17 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri, 30 Oct 2009 12:24:17 -0400
+Subject: [wp-xmlrpc] Problems with dateCreated in
+	metaWeblog.newPost/editPost - dateTime.iso8601
+In-Reply-To: <468cd95c0910300917m7ad17374t996f21b4f5326ff5@mail.gmail.com>
+References: <468cd95c0910300917m7ad17374t996f21b4f5326ff5@mail.gmail.com>
+Message-ID: <6C130FEB-F46E-48EC-A77D-5DE28063DE0F@red-sweater.com>
+
+Hi AJ, you should post a copy of what the actual XML cargo looks like  
+that gets sent over the network.  Otherwise it's harder for the folks  
+on this list to speculate what might be wrong.
+
+For your reference, here is an example of a properly formatted  
+dateTime parameter that works:
+
+			<name>dateCreated</name>
+			<value><dateTime.iso8601>20091029T16:23:02Z</dateTime.iso8601></ 
+value>
+			</member>
+
+When in doubt about these types of things, a great approach is to find  
+a client that works, and monitor what it sends over the network, to  
+see what you need to mimic.
+
+Daniel
+
+On Oct 30, 2009, at 12:17pm, AJ Cerqueti wrote:
+
+> Hi,
+>
+> This has clearly been discussed before: http://comox.textdrive.com/pipermail/wp-xmlrpc/2008-April/000188.html
+>
+> If dateCreated is of PHP type DateTime, posting will succeed, when  
+> it's a string in ISO8601 format it fails.
+> However, no matter what date the DateTime object contains, it  
+> doesn't seem to pass the timestamp.
+>
+> E.g.
+>
+> $title = htmlentities($title,ENT_NOQUOTES,$encoding);
+> $keywords = htmlentities($keywords,ENT_NOQUOTES,$encoding);
+> $datetime = new DateTime('2008-08-03 14:52:10');
+> echo "Formatted ISO: " . $datetime->format(DATE_ISO8601) . "<br />\n";
+> var_dump($datetime);
+>
+> $content = array(
+> 'title'=>$title,
+> 'description'=>$body,
+> 'dateCreated' => $datetime,
+> 'mt_allow_comments'=>1,
+> 'mt_allow_pings'=>1,
+> 'post_type'=>'post',
+> 'mt_keywords'=>$keywords,
+> 'categories'=>array($category));
+>
+> Will post, but date will be current time.
+>
+> Any ideas?
+>
+> Cheers,
+>
+> AJ
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+

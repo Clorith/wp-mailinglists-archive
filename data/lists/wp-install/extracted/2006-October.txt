@@ -1,0 +1,244 @@
+From jonkman at bleedingthreats.net  Fri Oct 27 16:45:58 2006
+From: jonkman at bleedingthreats.net (Matt Jonkman)
+Date: Fri Oct 27 16:46:10 2006
+Subject: [Wp-install] User Import problem
+Message-ID: <454237C6.6010302@bleedingthreats.net>
+
+I'm trying to convert a few thousand users into a new WP install. The
+import goes well, no errors, tables look fine. But if I add more than
+about 950 users the user management page craps out, meaving me unable to
+even see users, or manage them.
+
+I have to assume there's not a limit like that, anyone have an idea what
+could be an issue here?
+
+No errors in the logs, just a zero byte page back if I try to go to the
+authors and users page. I can edit the admin account just fine.
+
+I've tried two methods of import. Direct sql with a conversion from the
+old, And using the plugin here:
+
+http://www.dagondesign.com/files/dd-import-users.txt
+
+Neither way shows errors on import. Nothing in logs, the wp_users and
+usermeta tables appear to be fine, just large.
+
+Running on debian, mysql5, apache2, php5. Very standard install.
+Dedicated box to this task only.
+
+Ideas VERY welcome. :)
+
+Matt
+
+
+-- 
+--------------------------------------------
+Matthew Jonkman
+Bleeding Edge Threats
+765-429-0398
+http://www.bleedingthreats.com
+--------------------------------------------
+
+PGP: http://www.bleedingthreats.com/mattjonkman.asc
+
+
+From spencerp1 at gmail.com  Sat Oct 28 05:49:32 2006
+From: spencerp1 at gmail.com (spencerp)
+Date: Sat Oct 28 04:49:45 2006
+Subject: [Wp-install] User Import problem
+References: <454237C6.6010302@bleedingthreats.net>
+Message-ID: <133401c6fa54$daf8e7a0$a5e2ee04@computer>
+
+Um..I hate to say this, but.. you'll have to take this question to the WordPress support forums.. =/  Sorry about this.. 
+http://wordpress.org/support/
+
+spencerp
+/Unless of course, others don't really care, and are willing to help! =P
+
+
+
+
+User Import problem
+
+
+> I'm trying to convert a few thousand users into a new WP install. The
+> import goes well, no errors, tables look fine. But if I add more than
+> about 950 users the user management page craps out, meaving me unable to
+> even see users, or manage them.
+> 
+> I have to assume there's not a limit like that, anyone have an idea what
+> could be an issue here?
+> 
+> No errors in the logs, just a zero byte page back if I try to go to the
+> authors and users page. I can edit the admin account just fine.
+> 
+> I've tried two methods of import. Direct sql with a conversion from the
+> old, And using the plugin here:
+> 
+> http://www.dagondesign.com/files/dd-import-users.txt
+> 
+> Neither way shows errors on import. Nothing in logs, the wp_users and
+> usermeta tables appear to be fine, just large.
+> 
+> Running on debian, mysql5, apache2, php5. Very standard install.
+> Dedicated box to this task only.
+> 
+> Ideas VERY welcome. :)
+> 
+> Matt
+> 
+> 
+> -- 
+> --------------------------------------------
+> Matthew Jonkman
+> Bleeding Edge Threats
+> 765-429-0398
+> http://www.bleedingthreats.com
+> --------------------------------------------
+> 
+> PGP: http://www.bleedingthreats.com/mattjonkman.asc
+> 
+> 
+> _______________________________________________
+> Wp-install mailing list
+> Wp-install@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-install
+From jonkman at bleedingthreats.net  Mon Oct 30 13:59:29 2006
+From: jonkman at bleedingthreats.net (Matt Jonkman)
+Date: Mon Oct 30 13:59:46 2006
+Subject: [Wp-install] User Import problem
+In-Reply-To: <133401c6fa54$daf8e7a0$a5e2ee04@computer>
+References: <454237C6.6010302@bleedingthreats.net>
+	<133401c6fa54$daf8e7a0$a5e2ee04@computer>
+Message-ID: <45460541.4020700@bleedingthreats.net>
+
+Thanks, did so. Figured it out internally. Memory usage issue. A login
+lookup uses massive amounts of ram if you have a lot of users. We're
+going to have to move to external auth somehow, as is won't support
+large (>10k) users without several gigs of ram just for login lookups....
+
+Matt
+
+spencerp wrote:
+> Um..I hate to say this, but.. you'll have to take this question to the WordPress support forums.. =/  Sorry about this.. 
+> http://wordpress.org/support/
+> 
+> spencerp
+> /Unless of course, others don't really care, and are willing to help! =P
+> 
+> 
+> 
+> 
+> User Import problem
+> 
+> 
+>> I'm trying to convert a few thousand users into a new WP install. The
+>> import goes well, no errors, tables look fine. But if I add more than
+>> about 950 users the user management page craps out, meaving me unable to
+>> even see users, or manage them.
+>>
+>> I have to assume there's not a limit like that, anyone have an idea what
+>> could be an issue here?
+>>
+>> No errors in the logs, just a zero byte page back if I try to go to the
+>> authors and users page. I can edit the admin account just fine.
+>>
+>> I've tried two methods of import. Direct sql with a conversion from the
+>> old, And using the plugin here:
+>>
+>> http://www.dagondesign.com/files/dd-import-users.txt
+>>
+>> Neither way shows errors on import. Nothing in logs, the wp_users and
+>> usermeta tables appear to be fine, just large.
+>>
+>> Running on debian, mysql5, apache2, php5. Very standard install.
+>> Dedicated box to this task only.
+>>
+>> Ideas VERY welcome. :)
+>>
+>> Matt
+>>
+>>
+>> -- 
+>> --------------------------------------------
+>> Matthew Jonkman
+>> Bleeding Edge Threats
+>> 765-429-0398
+>> http://www.bleedingthreats.com
+>> --------------------------------------------
+>>
+>> PGP: http://www.bleedingthreats.com/mattjonkman.asc
+>>
+>>
+>> _______________________________________________
+>> Wp-install mailing list
+>> Wp-install@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-install
+
+-- 
+--------------------------------------------
+Matthew Jonkman
+Bleeding Edge Threats
+765-429-0398
+http://www.bleedingthreats.com
+--------------------------------------------
+
+PGP: http://www.bleedingthreats.com/mattjonkman.asc
+
+
+From mhancock at us.net  Tue Oct 31 21:48:19 2006
+From: mhancock at us.net (Michael E. Hancock)
+Date: Tue Oct 31 21:48:49 2006
+Subject: [Wp-install] Status of install4free 
+Message-ID: <016601c6fd36$4fd1ab00$6402a8c0@DELL8600>
+
+Hello list,
+
+As of today,  the install4free team has completed over 400 installations of
+WordPress.  English, Spanish, Italian, Dutch, German, Swedish, and Norwegian
+versions of WordPress have been installed by four team members.
+
+But, there is a need for one or two more people to participate, as only
+three people from this list: https://install4free.wordpress.com/?page_id=10
+are now active in the project.
+
+So the question is, who still wants to be included on the list of installers
+and if you still desire to be on the list, are you willing to perform
+installations?
+
+If you wish to still be included on the list of installers, please email the
+wp-install list as to your intentions.
+
+NOTE:  you may need to manually enter wp-install@lists.automattic.com in the
+To: field if you reply to this email.
+
+Thank you for your time and consideration.
+
+Michael E. Hancock
+
+
+
+From spencerp1 at gmail.com  Tue Oct 31 23:11:47 2006
+From: spencerp1 at gmail.com (spencerp)
+Date: Tue Oct 31 22:12:08 2006
+Subject: [Wp-install] Status of install4free 
+References: <016601c6fd36$4fd1ab00$6402a8c0@DELL8600>
+Message-ID: <008901c6fd41$f3b7fa20$77e1ee04@computer>
+
+>As of today,  the install4free team has completed over 400 installations of WordPress.  English, Spanish, Italian, Dutch, German, Swedish, and Norwegian versions of WordPress have been installed by four team members.
+
+I'm one of the four, and I'm proud to have done my installations.. ;) =) I think it's great that we are providing this "service", and hopefully we'll continue to have more! Which of course, is undoubtful lol.. =P 
+
+
+>But, there is a need for one or two more people to participate, as only three people from this list: https://install4free.wordpress.com/?page_id=10
+> are now active in the project.
+
+Hey now! Just because I haven't done any lately, for the past few weeks, doesn't mean I should be excluded from the "do-er list" .. lmao!! =P 
+
+>So the question is, who still wants to be included on the list of installers and if you still desire to be on the list, are you willing to perform installations?
+
+I'd like to remain on the list, of course! I never said I wanted to be removed.. and even if I did want removed.. I'd remove my name from the page, myself.. ;) =P 
+
+The only thing is, like I said before.. with me on shit dialup connections.. THANKS JUNO!! by the way.. the moderation queue load time, sucks ass.. sigh. =(  Well, it is JUNO'S fault really!! Haha..anyway.. I might be back around doing some installs again soon.. patience people! =P
+
+spencerp

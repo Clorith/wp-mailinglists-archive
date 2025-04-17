@@ -1,0 +1,610 @@
+From nsebban at gmail.com  Wed Sep  1 09:39:48 2010
+From: nsebban at gmail.com (nico)
+Date: Wed, 1 Sep 2010 11:39:48 +0200
+Subject: [wp-xmlrpc] XML-RPC in Wordpress 3.0
+In-Reply-To: <1537760829.76800.1283268166432.JavaMail.open-xchange@oxusltgw08.schlund.de>
+References: <AANLkTi=kn5c6yQsSzogkGVyt9c2=dxMcN8hBf7jXi+Yg@mail.gmail.com>
+	<1537760829.76800.1283268166432.JavaMail.open-xchange@oxusltgw08.schlund.de>
+Message-ID: <AANLkTi=y0Tb+bOybVDrbJZDQXZeSCb=52+5--xn5FXKF@mail.gmail.com>
+
+This sounds like an interesting way to enhance WP behaviours. And your
+plugin is pretty good example of that.
+
+Thanks Eric for your insightful answer.
+
+Nicolas
+
+
+
+On Tue, Aug 31, 2010 at 5:22 PM, Eric Mann <eric at eamann.com> wrote:
+
+> There isn't a single resource for API documentation because XML-RPC
+> supports
+> multiple APIs.  Here are a few references for you:
+>
+> - WordPress API: http://codex.wordpress.org/XML-RPC_wp
+> - Blogger API: http://www.blogger.com/developers/api/1_docs/
+> - MetaWeblog API: http://www.xmlrpc.com/metaWeblogApi
+> - Movable Type API:
+> http://www.sixapart.com/developers/xmlrpc/movable_type_api/
+>
+> It is possible to add custom RPC methods through plug-ins.  It's fairly
+> easy to
+> do, and you can extend custom plug-in functionality this way (you can use
+> WordPress as any kind of SOAP or REST service if you have the right kind of
+> extensibility built-in).
+>
+> To add your own function, you'll need to do the following:
+>
+> function xml_add_method( $methods ) {
+> $methods['myNamespace.myMethod'] = 'my_method_name';
+> return $methods;
+> }
+> add_filter( 'xmlrpc_methods', 'xml_add_method');
+>
+> The above code will add a new XML-RPC method to core.  Any external service
+> can
+> now post a request to http://blogname.url/xmlrpc.php and call
+> 'myNamespace.myMethod'.  Any arguments passed to that method call will be
+> passed
+> directly into a PHP function called 'my_method_name'.  So you'll also need
+> the
+> following:
+>
+> function my_method_name( $args ) {
+> global $wpdb; // If you want to use this object to load, store, or
+> manipulate
+> data
+>
+> $args = wp_parse_args( $args );
+> extract( $args, EXTR_SKIP );
+>
+> ...
+> }
+>
+> Once your arguments are extracted and stored in variables, you can do
+> whatever
+> you want with them.  If you want an example of how I'm using this for
+> plug-in
+> callbacks, I suggest looking through the code to my Elliot Server project
+> on
+> Google Code: http://code.google.com/p/elliot-server/.  This system adds an
+> entry
+> point that remote plug-ins can post error messages to so a developer can
+> follow
+> up.  It's a work in progress, though, so expect it to gradually change over
+> time.
+>
+> ~Eric
+>
+>
+> On August 31, 2010 at 2:42 PM nico <nsebban at gmail.com> wrote:
+>
+>
+> > Hello,
+> >
+> > I've been playing with the XMLRPC API, and I have a few unanswered
+> questions :
+> >
+> > --Is there a Codex page that lists every RPC method, with links to the
+> > corresponding help page ?
+> > I couldn't find any...I usually end up catenating the URL
+> > http://codex.wordpress.org/XML-RPC/with the method name (ie.
+> > http://codex.wordpress.org/XML-RPC/wp.getComments), and it sometimes
+> works.
+> > I'll gladly create a codex account and set this page up, if it doesn't
+> exist
+> > already...I just wanted to be sure it's not redundant.
+> >
+> > --Are there plans for new RPC methods in the near future ?
+> > I realized that many of the WP3 new features (custom taxonomies, custom
+> post
+> > types) don't have corresponding RPC methods...are there plans to add
+> these ?
+> > Is the XMLRPC part of Wordpress still alive ?
+> >
+> > --Is it possible adding custom RPC methods through plugins code ? Do you
+> > recommend it ?
+> > I noticed the "xmlrpc_methods" filter, that can be used to add custom RPC
+> > methods programmatically in plugins. I think I read at some point that
+> the
+> > whole Wordpress "engine" is not started when dealing with XMLRPC
+> requests...In
+> > that context, would registering new methods through the filter and
+> loading the
+> > corresponding callbacks work ? And would you do it that way ?
+> >
+> > Thank you for your answers.
+> >
+> > Nicolas
+> >
+> >
+> >
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100901/3fe1c603/attachment.htm>
+
+From luke at lukem.co.uk  Wed Sep 15 10:21:11 2010
+From: luke at lukem.co.uk (luke Mackenzie)
+Date: Wed, 15 Sep 2010 11:21:11 +0100
+Subject: [wp-xmlrpc] Restricting available methods on a per blog basis
+Message-ID: <AANLkTimxpfMQMsfY5jDqFrUtY9fOPfuAkZ6k7bJyjOC9@mail.gmail.com>
+
+Hi,
+
+I am using the xmlrpc_methods filter to add custom XMLRPC methods to my WPMU
+2.9.2 install in an MU plugin. I'd like to restrict the available methods on
+a per blog basis so that if the endpoint being called is
+mydomain.com/blogname/xmlrpc.php, only a subset of methods are exposed. The
+concern is one of security so that a particular endpoint cannot be used to
+influence, for example, voting results.
+
+My initial thought was that I could use the REQUEST_URI and or the
+REMOTE_ADDR vars in $_SERVER and switch on those in my xmlrpc_methods
+function. We'll also be migrating to WP3 soon so it would be useful to know
+if any relevant functionality exists in the later version.
+
+Many thanks for any replies/advice.
+
+Luke Mackenzie.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100915/217c8546/attachment.htm>
+
+From joseph at josephscott.org  Wed Sep 15 15:33:26 2010
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 15 Sep 2010 09:33:26 -0600
+Subject: [wp-xmlrpc] Restricting available methods on a per blog basis
+In-Reply-To: <AANLkTimxpfMQMsfY5jDqFrUtY9fOPfuAkZ6k7bJyjOC9@mail.gmail.com>
+References: <AANLkTimxpfMQMsfY5jDqFrUtY9fOPfuAkZ6k7bJyjOC9@mail.gmail.com>
+Message-ID: <AANLkTimcK0Qdjyd2si6q9PcK9OoUbxeh-4_KY5qC+64x@mail.gmail.com>
+
+In the same way that you can add XML-RPC methods using that filter,
+you can also remove them.  If you hook into that filter and then do
+your tests against blog_id (or some other parameter) to see what, if
+any, methods should be removed.
+
+On Wed, Sep 15, 2010 at 4:21 AM, luke Mackenzie <luke at lukem.co.uk> wrote:
+> I am using the xmlrpc_methods filter to add custom XMLRPC methods to my WPMU
+> 2.9.2 install in an MU plugin. I'd like to restrict the available methods on
+> a per blog basis so that if the endpoint being called is
+> mydomain.com/blogname/xmlrpc.php, only a subset of methods are exposed. The
+> concern is one of security so that a particular endpoint cannot be used to
+> influence, for example, voting results.
+> My initial thought was that I could use the REQUEST_URI and or the
+> REMOTE_ADDR vars in $_SERVER and switch on those in my xmlrpc_methods
+> function. We'll also be migrating to WP3 soon so it would be useful to know
+> if any relevant functionality exists in the later version.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From nsebban at gmail.com  Thu Sep 16 11:31:30 2010
+From: nsebban at gmail.com (nico)
+Date: Thu, 16 Sep 2010 13:31:30 +0200
+Subject: [wp-xmlrpc] Restricting available methods on a per blog basis
+In-Reply-To: <AANLkTimcK0Qdjyd2si6q9PcK9OoUbxeh-4_KY5qC+64x@mail.gmail.com>
+References: <AANLkTimxpfMQMsfY5jDqFrUtY9fOPfuAkZ6k7bJyjOC9@mail.gmail.com>
+	<AANLkTimcK0Qdjyd2si6q9PcK9OoUbxeh-4_KY5qC+64x@mail.gmail.com>
+Message-ID: <AANLkTim9K4E42bEhAo_OS06aUNU=qxvwxLKp+q8eYK4=@mail.gmail.com>
+
+WP3 doesn't bring any change (that I noticed) to the XML-RPC feature, so
+Joseph's solution will work great in both WP2.x and WP3. I think I would
+match the hostname instead of the blog_id, though.
+
+Have fun !
+Nicolas
+
+
+
+On Wed, Sep 15, 2010 at 5:33 PM, Joseph Scott <joseph at josephscott.org>wrote:
+
+> In the same way that you can add XML-RPC methods using that filter,
+> you can also remove them.  If you hook into that filter and then do
+> your tests against blog_id (or some other parameter) to see what, if
+> any, methods should be removed.
+>
+> On Wed, Sep 15, 2010 at 4:21 AM, luke Mackenzie <luke at lukem.co.uk> wrote:
+> > I am using the xmlrpc_methods filter to add custom XMLRPC methods to my
+> WPMU
+> > 2.9.2 install in an MU plugin. I'd like to restrict the available methods
+> on
+> > a per blog basis so that if the endpoint being called is
+> > mydomain.com/blogname/xmlrpc.php, only a subset of methods are exposed.
+> The
+> > concern is one of security so that a particular endpoint cannot be used
+> to
+> > influence, for example, voting results.
+> > My initial thought was that I could use the REQUEST_URI and or the
+> > REMOTE_ADDR vars in $_SERVER and switch on those in my xmlrpc_methods
+> > function. We'll also be migrating to WP3 soon so it would be useful to
+> know
+> > if any relevant functionality exists in the later version.
+>
+>
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100916/c5ecd6f3/attachment.htm>
+
+From luke at lukem.co.uk  Thu Sep 16 12:05:06 2010
+From: luke at lukem.co.uk (luke Mackenzie)
+Date: Thu, 16 Sep 2010 13:05:06 +0100
+Subject: [wp-xmlrpc] Restricting available methods on a per blog basis
+In-Reply-To: <AANLkTim9K4E42bEhAo_OS06aUNU=qxvwxLKp+q8eYK4=@mail.gmail.com>
+References: <AANLkTimxpfMQMsfY5jDqFrUtY9fOPfuAkZ6k7bJyjOC9@mail.gmail.com>
+	<AANLkTimcK0Qdjyd2si6q9PcK9OoUbxeh-4_KY5qC+64x@mail.gmail.com>
+	<AANLkTim9K4E42bEhAo_OS06aUNU=qxvwxLKp+q8eYK4=@mail.gmail.com>
+Message-ID: <AANLkTimY6z4Kj_GXb_ss3XWjVHFGV7JdqpsJaLu-NiCb@mail.gmail.com>
+
+thanks for the replies guys!
+
+Luke.
+
+
+On Thu, Sep 16, 2010 at 12:31 PM, nico <nsebban at gmail.com> wrote:
+
+> WP3 doesn't bring any change (that I noticed) to the XML-RPC feature, so
+> Joseph's solution will work great in both WP2.x and WP3. I think I would
+> match the hostname instead of the blog_id, though.
+>
+> Have fun !
+> Nicolas
+>
+>
+>
+>
+> On Wed, Sep 15, 2010 at 5:33 PM, Joseph Scott <joseph at josephscott.org>wrote:
+>
+>> In the same way that you can add XML-RPC methods using that filter,
+>> you can also remove them.  If you hook into that filter and then do
+>> your tests against blog_id (or some other parameter) to see what, if
+>> any, methods should be removed.
+>>
+>> On Wed, Sep 15, 2010 at 4:21 AM, luke Mackenzie <luke at lukem.co.uk> wrote:
+>> > I am using the xmlrpc_methods filter to add custom XMLRPC methods to my
+>> WPMU
+>> > 2.9.2 install in an MU plugin. I'd like to restrict the available
+>> methods on
+>> > a per blog basis so that if the endpoint being called is
+>> > mydomain.com/blogname/xmlrpc.php, only a subset of methods are exposed.
+>> The
+>> > concern is one of security so that a particular endpoint cannot be used
+>> to
+>> > influence, for example, voting results.
+>> > My initial thought was that I could use the REQUEST_URI and or the
+>> > REMOTE_ADDR vars in $_SERVER and switch on those in my xmlrpc_methods
+>> > function. We'll also be migrating to WP3 soon so it would be useful to
+>> know
+>> > if any relevant functionality exists in the later version.
+>>
+>>
+>>
+>> --
+>> Joseph Scott
+>> joseph at josephscott.org
+>> http://josephscott.org/
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100916/82fe08e3/attachment.htm>
+
+From tim at golen.net  Thu Sep 16 21:33:22 2010
+From: tim at golen.net (Tim Golen)
+Date: Thu, 16 Sep 2010 15:33:22 -0600
+Subject: [wp-xmlrpc] Preserving Content Whitespace
+Message-ID: <AANLkTimaCqEire0q14ugMVcwP0D+Mcu3SyBrxo1SpiUA@mail.gmail.com>
+
+Hey All,
+
+It appears that when I pull posts from the Wordpress API using
+method metaWeblog.getPost and the IXR_Client to make the calls, I lose the
+original white space. Any ideas on why that's happening or how to keep it
+from happening?
+
+Thanks,
+Tim
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100916/18333937/attachment.htm>
+
+From nsebban at gmail.com  Thu Sep 16 22:36:27 2010
+From: nsebban at gmail.com (nico)
+Date: Fri, 17 Sep 2010 00:36:27 +0200
+Subject: [wp-xmlrpc] Preserving Content Whitespace
+In-Reply-To: <AANLkTimaCqEire0q14ugMVcwP0D+Mcu3SyBrxo1SpiUA@mail.gmail.com>
+References: <AANLkTimaCqEire0q14ugMVcwP0D+Mcu3SyBrxo1SpiUA@mail.gmail.com>
+Message-ID: <AANLkTim1fa-N2GozLBHPZsU_2+Z2pSa5Ohm8W=KcuiGe@mail.gmail.com>
+
+Hello,
+
+I'm not very used to IXR_Client, but I had the same problem in the past,
+when parsing XML in PHP with the libxml functions. There seems to be a
+behaviour in the parser that removes the whitespaces between tags and in
+tags content. Looked like it was 2 distinct problems, too.
+
+My issue was fixed by setting the correct option in my parser initialization
+(from the top of my head it was something close to XML_NOBLANKS or
+XML_NOEMPTY), and putting my content between [CDATA[]] markers. I'm not sure
+your problem is exactly the same as mine, but it may be worth looking into.
+
+Nicolas
+
+
+
+
+On Thu, Sep 16, 2010 at 11:33 PM, Tim Golen <tim at golen.net> wrote:
+
+> Hey All,
+>
+> It appears that when I pull posts from the Wordpress API using
+> method metaWeblog.getPost and the IXR_Client to make the calls, I lose the
+> original white space. Any ideas on why that's happening or how to keep it
+> from happening?
+>
+> Thanks,
+> Tim
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100917/46e56e70/attachment.htm>
+
+From n.prasath.002 at gmail.com  Sun Sep 19 17:38:16 2010
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sun, 19 Sep 2010 23:08:16 +0530
+Subject: [wp-xmlrpc] xmlrpc functions
+Message-ID: <AANLkTikR-LP-gzS1Sa7VzKMMrqCaOxQ2Or1s=GapWpmf@mail.gmail.com>
+
+Hi,
+I,m developing a weblog client for wordpress using java.
+i wrote a simple program trying to communicate with wordpress xmlrpc.
+but it throws the following error.
+
+Exception: Failed to parse server's response: Expected methodResponse
+element, got html
+
+I just put the part of the coding where i input wp-xmlrpc method to
+communicate with wordpress.
+
+String result = (String)client.execute("sayHello", params);
+
+// i think sayHello method does not require authentication to return
+"hello".
+
+i assume the rest of the code is ok.
+can anyone tell me what went wrong in the input??
+
+
+Below is the program for your reference. i have used apache xmlrpc
+libraries.
+
+*Program*
+*import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import java.net.URL<http://download.oracle.com/docs/cd/E17409_01/javase/6/docs/api/java/net/URL.html>
+;
+import java.util.Vector<http://download.oracle.com/docs/cd/E17409_01/javase/6/docs/api/java/util/Vector.html>
+;
+
+public class SimpleXmlrpc {
+
+public SimpleXmlrpc() {
+}
+
+public static void
+main(String<http://www.coderanch.com/t/410859/java/java/String-StringBuffer-StringBuilder-Performance>[]
+args) {
+
+XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+
+try{
+
+config.setServerURL(new URL("http://localhost/wordsite"));
+XmlRpcClient client = new XmlRpcClient();
+client.setConfig(config);
+
+Object[] params = new Object[]{ new String("usrername"),
+new String("password")
+};
+
+String result = (String)client.execute("sayHello", params); .
+System.out.println("Results" + result);
+}
+catch(Exception e)
+{
+System.out.println("Exception: " + e.getMessage());
+}
+}
+} *
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100919/30f65832/attachment.htm>
+
+From n.prasath.002 at gmail.com  Sun Sep 19 17:45:47 2010
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sun, 19 Sep 2010 23:15:47 +0530
+Subject: [wp-xmlrpc] xmlrpc functions
+In-Reply-To: <AANLkTikR-LP-gzS1Sa7VzKMMrqCaOxQ2Or1s=GapWpmf@mail.gmail.com>
+References: <AANLkTikR-LP-gzS1Sa7VzKMMrqCaOxQ2Or1s=GapWpmf@mail.gmail.com>
+Message-ID: <AANLkTimJbeY8aQ=pSJR_qsk0XPkHigDfpcGqojEVt=y1@mail.gmail.com>
+
+Oh!!
+
+The code shoud use  "demo.sayHello"
+
+String result = (String)client.execute("demo.sayHello", params);
+
+Still it throws an exception!!!!
+
+
+On Sun, Sep 19, 2010 at 11:08 PM, prasath nadarajah <n.prasath.002 at gmail.com
+> wrote:
+
+> Hi,
+> I,m developing a weblog client for wordpress using java.
+> i wrote a simple program trying to communicate with wordpress xmlrpc.
+> but it throws the following error.
+>
+> Exception: Failed to parse server's response: Expected methodResponse
+> element, got html
+>
+> I just put the part of the coding where i input wp-xmlrpc method to
+> communicate with wordpress.
+>
+> String result = (String)client.execute("sayHello", params);
+>
+> // i think sayHello method does not require authentication to return
+> "hello".
+>
+> i assume the rest of the code is ok.
+> can anyone tell me what went wrong in the input??
+>
+>
+> Below is the program for your reference. i have used apache xmlrpc
+> libraries.
+>
+> *Program*
+> *import org.apache.xmlrpc.client.XmlRpcClient;
+> import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+> import java.net.URL<http://download.oracle.com/docs/cd/E17409_01/javase/6/docs/api/java/net/URL.html>
+> ;
+> import java.util.Vector<http://download.oracle.com/docs/cd/E17409_01/javase/6/docs/api/java/util/Vector.html>
+> ;
+>
+> public class SimpleXmlrpc {
+>
+> public SimpleXmlrpc() {
+> }
+>
+> public static void main(String<http://www.coderanch.com/t/410859/java/java/String-StringBuffer-StringBuilder-Performance>[]
+> args) {
+>
+> XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+>
+> try{
+>
+> config.setServerURL(new URL("http://localhost/wordsite"));
+> XmlRpcClient client = new XmlRpcClient();
+> client.setConfig(config);
+>
+> Object[] params = new Object[]{ new String("usrername"),
+> new String("password")
+> };
+>
+> String result = (String)client.execute("sayHello", params); .
+> System.out.println("Results" + result);
+> }
+> catch(Exception e)
+> {
+> System.out.println("Exception: " + e.getMessage());
+> }
+> }
+> } *
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100919/e9788ffc/attachment.htm>
+
+From jalkut at red-sweater.com  Sun Sep 19 18:02:47 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun, 19 Sep 2010 14:02:47 -0400
+Subject: [wp-xmlrpc] xmlrpc functions
+In-Reply-To: <AANLkTimJbeY8aQ=pSJR_qsk0XPkHigDfpcGqojEVt=y1@mail.gmail.com>
+References: <AANLkTikR-LP-gzS1Sa7VzKMMrqCaOxQ2Or1s=GapWpmf@mail.gmail.com>
+	<AANLkTimJbeY8aQ=pSJR_qsk0XPkHigDfpcGqojEVt=y1@mail.gmail.com>
+Message-ID: <C4A11A08-8052-4B6D-9064-D34B5DB32A55@red-sweater.com>
+
+Hi Prasath - it looks like you are not connecting to the XMLRPC API URL, but are instead possibly pointing at the home page for the blog. This would explain why the result is HTML (it's loading the web page).
+
+Try 
+
+"http://localhost/wordsite/xmlrpc.php"
+
+That seems likely to be the API endpoint in your example test installation.
+
+Daniel
+
+
+On Sep 19, 2010, at 1:45pm, prasath nadarajah wrote:
+
+> "http://localhost/wordsite
+
+
+From n.prasath.002 at gmail.com  Sun Sep 19 18:04:54 2010
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sun, 19 Sep 2010 23:34:54 +0530
+Subject: [wp-xmlrpc] xmlrpc functions
+In-Reply-To: <C4A11A08-8052-4B6D-9064-D34B5DB32A55@red-sweater.com>
+References: <AANLkTikR-LP-gzS1Sa7VzKMMrqCaOxQ2Or1s=GapWpmf@mail.gmail.com>
+	<AANLkTimJbeY8aQ=pSJR_qsk0XPkHigDfpcGqojEVt=y1@mail.gmail.com>
+	<C4A11A08-8052-4B6D-9064-D34B5DB32A55@red-sweater.com>
+Message-ID: <AANLkTiko+iHL4R+MbQd1oVaDkU8MG6LDzhj64vHTXr9V@mail.gmail.com>
+
+Yeah!!!
+It works thanks for the info!!!
+
+On Sun, Sep 19, 2010 at 11:32 PM, Daniel Jalkut <jalkut at red-sweater.com>wrote:
+
+> Hi Prasath - it looks like you are not connecting to the XMLRPC API URL,
+> but are instead possibly pointing at the home page for the blog. This would
+> explain why the result is HTML (it's loading the web page).
+>
+> Try
+>
+> "http://localhost/wordsite/xmlrpc.php"
+>
+> That seems likely to be the API endpoint in your example test installation.
+>
+> Daniel
+>
+>
+> On Sep 19, 2010, at 1:45pm, prasath nadarajah wrote:
+>
+> > "http://localhost/wordsite
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20100919/41e14a48/attachment.htm>
+

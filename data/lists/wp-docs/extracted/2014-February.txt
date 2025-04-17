@@ -1,0 +1,93 @@
+From justmichaelh at gmail.com  Tue Feb 18 13:00:32 2014
+From: justmichaelh at gmail.com (Michael Hancock)
+Date: Tue, 18 Feb 2014 08:00:32 -0500
+Subject: [wp-docs] Help with link to outside documentation
+Message-ID: <004501cf2ca9$68be9790$3a3bc6b0$@gmail.com>
+
+If anyone can help with this problem relating to the Persian Codex.
+
+ 
+
+This page
+
+http://codex.wordpress.org/Function_Reference/do_action
+
+ 
+
+when clicking on the Persian language link at the top should go to:
+
+http://www.isawpi.ir/wiki/Function_Reference/do_action
+
+ 
+
+but it renders this link:
+
+http://www.isawpi.ir/wiki/Function_Reference%2Fdo_action 
+
+ 
+
+Any help with this problem appreciated.  Thank you!
+
+ 
+
+MichaelH
+
+ 
+
+ 
+
+ 
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20140218/66b428e0/attachment.html>
+
+From jdg at efieldguide.com  Tue Feb 18 14:25:22 2014
+From: jdg at efieldguide.com (J.D. Grimes)
+Date: Tue, 18 Feb 2014 09:25:22 -0500
+Subject: [wp-docs] Help with link to outside documentation
+In-Reply-To: <004501cf2ca9$68be9790$3a3bc6b0$@gmail.com>
+References: <004501cf2ca9$68be9790$3a3bc6b0$@gmail.com>
+Message-ID: <52EA5BB3-7535-40D5-B1E2-4702DFD1D6FB@efieldguide.com>
+
+Hi Micheal,
+
+I removed the use of {{urlencode}}, which was encoding the / character. 
+
+http://codex.wordpress.org/index.php?title=Template:fax&diff=141357&oldid=141350
+
+Removing that could cause problems if there are sometimes special characters in the links to the persian codex (like if the links sometimes use persian characters). But otherwise it should work fine. (The link was working for me anyway.)
+
+-J.D.
+
+On Feb 18, 2014, at 8:00 AM, Michael Hancock <justmichaelh at gmail.com> wrote:
+
+> If anyone can help with this problem relating to the Persian Codex.
+>  
+> This page
+> http://codex.wordpress.org/Function_Reference/do_action
+>  
+> when clicking on the Persian language link at the top should go to:
+> http://www.isawpi.ir/wiki/Function_Reference/do_action
+>  
+> but it renders this link:
+> http://www.isawpi.ir/wiki/Function_Reference%2Fdo_action
+>  
+> Any help with this problem appreciated.  Thank you!
+>  
+> MichaelH
+>  
+>  
+>  
+>  
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20140218/1cd01ef6/attachment.html>
+

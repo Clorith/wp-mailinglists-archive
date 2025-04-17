@@ -1,0 +1,1112 @@
+From ddlang at wisc.edu  Tue Jul  1 18:27:25 2014
+From: ddlang at wisc.edu (Dixie Lang)
+Date: Tue, 01 Jul 2014 13:27:25 -0500
+Subject: [wp-edu] How to safely handle photo uploads by general public on a
+	multisite
+In-Reply-To: <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+Message-ID: <7710de7e236d2.53b2b73d@wiscmail.wisc.edu>
+
+Greetings fellow WordPress users,
+
+I have three internal clients that could benefit from a smoother process to allow their clients to upload photos for diagnostic and identification purposes, e.g. identify bugs or diagnose turfgrass or plant problems.
+
+All three WordPress sites are on a multisite, and all three currently have Gravity Forms contact forms. The upload limit is the same throughout the multisite - 6MB. This limit works for our current internal users.
+
+The current method to protect the server is to have clients email the photos separately, and then the photos must be manually matched to the form information. 
+
+I am concerned about two things regarding allowing file uploads from external users:
+1) the possibility of malicious files being uploaded
+2) the possibility of users uploading files at higher than 72dpi, and quickly filling up disk quota - I would prefer not to punish the internal users by lowering the disk quota across the multisite
+
+Has anyone have insights to share on how to balance upload convenience, server safety and disk quota?
+
+Thanks in advance for any guidance you are willing to share.
+
+- Dixie Lang
+------------------------
+Web Developer
+University of Wisconsin-Madison Russell Labs
+
+From cameikle at wisc.edu  Tue Jul  1 18:55:03 2014
+From: cameikle at wisc.edu (Caroline Meikle)
+Date: Tue, 01 Jul 2014 13:55:03 -0500
+Subject: [wp-edu] How to safely handle photo uploads by general public
+ on a multisite
+In-Reply-To: <7710de7e236d2.53b2b73d@wiscmail.wisc.edu>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu>
+Message-ID: <53B30407.4040603@wisc.edu>
+
+Hi Dixie,
+
+It looks like Gravity forms has hooks and filters you could use to 
+create functions to limit the file types and maximum file size: 
+http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_and_Filters
+
+There are plugins that can do so as well: 
+http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+
+Contact Form 7 also allows you to specify file types and sizes: 
+http://contactform7.com/file-uploading-and-attachment/
+
+Best,
+
+Caroline
+
+
+On 7/1/2014 1:27 PM, Dixie Lang wrote:
+> Greetings fellow WordPress users,
+>
+> I have three internal clients that could benefit from a smoother process to allow their clients to upload photos for diagnostic and identification purposes, e.g. identify bugs or diagnose turfgrass or plant problems.
+>
+> All three WordPress sites are on a multisite, and all three currently have Gravity Forms contact forms. The upload limit is the same throughout the multisite - 6MB. This limit works for our current internal users.
+>
+> The current method to protect the server is to have clients email the photos separately, and then the photos must be manually matched to the form information.
+>
+> I am concerned about two things regarding allowing file uploads from external users:
+> 1) the possibility of malicious files being uploaded
+> 2) the possibility of users uploading files at higher than 72dpi, and quickly filling up disk quota - I would prefer not to punish the internal users by lowering the disk quota across the multisite
+>
+> Has anyone have insights to share on how to balance upload convenience, server safety and disk quota?
+>
+> Thanks in advance for any guidance you are willing to share.
+>
+> - Dixie Lang
+> ------------------------
+> Web Developer
+> University of Wisconsin-Madison Russell Labs
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-- 
+Caroline Meikle
+Database Programmer
+UW-Madison Institute on Aging
+Midlife Development in the United States (MIDUS) Project
+http://midus.wisc.edu/
+Information Processing Consultant
+UW-Madison Soil Science Department
+Community and Regional Food Systems Project
+http://www.community-food.org/
+cameikle at wisc.edu  | 608-358-0485
+____________________________________________________________
+I check my email 8am-5pm CST Monday-Friday,
+excluding holidays, sick days, and time off.
+If you email me outside of those times,
+I will reply within 48 hours of the following business day.
+
+
+From Steve.Covello at granite.edu  Tue Jul  1 19:04:14 2014
+From: Steve.Covello at granite.edu (Covello, Steve)
+Date: Tue, 1 Jul 2014 19:04:14 +0000
+Subject: [wp-edu] How to safely handle photo uploads by general public
+ on a multisite
+In-Reply-To: <53B30407.4040603@wisc.edu>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu>,<53B30407.4040603@wisc.edu>
+Message-ID: <08EB1998F51F154CA9A49B60BBAEF5F2010669307E@akers.ad.unh.edu>
+
+Consider looking at the Smushit plugin:
+
+http://wordpress.org/plugins/wp-smushit/
+
+It's been taken over by WPMU, which is a good thing. I don't know if it can impose a file size limit, but it might at least automatize the optimizing process so that no one has to be "smart" about it.
+
+- Steve
+________________________________________
+From: wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of Caroline Meikle [cameikle at wisc.edu]
+Sent: Tuesday, July 01, 2014 2:55 PM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] How to safely handle photo uploads by general public on a multisite
+
+Hi Dixie,
+
+It looks like Gravity forms has hooks and filters you could use to
+create functions to limit the file types and maximum file size:
+http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_and_Filters
+
+There are plugins that can do so as well:
+http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+
+Contact Form 7 also allows you to specify file types and sizes:
+http://contactform7.com/file-uploading-and-attachment/
+
+Best,
+
+Caroline
+
+
+On 7/1/2014 1:27 PM, Dixie Lang wrote:
+> Greetings fellow WordPress users,
+>
+> I have three internal clients that could benefit from a smoother process to allow their clients to upload photos for diagnostic and identification purposes, e.g. identify bugs or diagnose turfgrass or plant problems.
+>
+> All three WordPress sites are on a multisite, and all three currently have Gravity Forms contact forms. The upload limit is the same throughout the multisite - 6MB. This limit works for our current internal users.
+>
+> The current method to protect the server is to have clients email the photos separately, and then the photos must be manually matched to the form information.
+>
+> I am concerned about two things regarding allowing file uploads from external users:
+> 1) the possibility of malicious files being uploaded
+> 2) the possibility of users uploading files at higher than 72dpi, and quickly filling up disk quota - I would prefer not to punish the internal users by lowering the disk quota across the multisite
+>
+> Has anyone have insights to share on how to balance upload convenience, server safety and disk quota?
+>
+> Thanks in advance for any guidance you are willing to share.
+>
+> - Dixie Lang
+> ------------------------
+> Web Developer
+> University of Wisconsin-Madison Russell Labs
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+--
+Caroline Meikle
+Database Programmer
+UW-Madison Institute on Aging
+Midlife Development in the United States (MIDUS) Project
+http://midus.wisc.edu/
+Information Processing Consultant
+UW-Madison Soil Science Department
+Community and Regional Food Systems Project
+http://www.community-food.org/
+cameikle at wisc.edu  | 608-358-0485
+____________________________________________________________
+I check my email 8am-5pm CST Monday-Friday,
+excluding holidays, sick days, and time off.
+If you email me outside of those times,
+I will reply within 48 hours of the following business day.
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From cameikle at wisc.edu  Tue Jul  1 19:19:39 2014
+From: cameikle at wisc.edu (Caroline Meikle)
+Date: Tue, 01 Jul 2014 14:19:39 -0500
+Subject: [wp-edu] How to safely handle photo uploads by general public
+ on a multisite
+In-Reply-To: <08EB1998F51F154CA9A49B60BBAEF5F2010669307E@akers.ad.unh.edu>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu> <53B30407.4040603@wisc.edu>
+ <08EB1998F51F154CA9A49B60BBAEF5F2010669307E@akers.ad.unh.edu>
+Message-ID: <53B309CB.3090202@wisc.edu>
+
+I use this plugin. One thing is that the original image has to be 1MB or 
+less.
+
+On 7/1/2014 2:04 PM, Covello, Steve wrote:
+> Consider looking at the Smushit plugin:
+>
+> http://wordpress.org/plugins/wp-smushit/
+>
+> It's been taken over by WPMU, which is a good thing. I don't know if it can impose a file size limit, but it might at least automatize the optimizing process so that no one has to be "smart" about it.
+>
+> - Steve
+> ________________________________________
+> From: wp-edu [wp-edu-bounces at lists.automattic.com] on behalf of Caroline Meikle [cameikle at wisc.edu]
+> Sent: Tuesday, July 01, 2014 2:55 PM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] How to safely handle photo uploads by general public on a multisite
+>
+> Hi Dixie,
+>
+> It looks like Gravity forms has hooks and filters you could use to
+> create functions to limit the file types and maximum file size:
+> http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_and_Filters
+>
+> There are plugins that can do so as well:
+> http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+>
+> Contact Form 7 also allows you to specify file types and sizes:
+> http://contactform7.com/file-uploading-and-attachment/
+>
+> Best,
+>
+> Caroline
+>
+>
+> On 7/1/2014 1:27 PM, Dixie Lang wrote:
+>> Greetings fellow WordPress users,
+>>
+>> I have three internal clients that could benefit from a smoother process to allow their clients to upload photos for diagnostic and identification purposes, e.g. identify bugs or diagnose turfgrass or plant problems.
+>>
+>> All three WordPress sites are on a multisite, and all three currently have Gravity Forms contact forms. The upload limit is the same throughout the multisite - 6MB. This limit works for our current internal users.
+>>
+>> The current method to protect the server is to have clients email the photos separately, and then the photos must be manually matched to the form information.
+>>
+>> I am concerned about two things regarding allowing file uploads from external users:
+>> 1) the possibility of malicious files being uploaded
+>> 2) the possibility of users uploading files at higher than 72dpi, and quickly filling up disk quota - I would prefer not to punish the internal users by lowering the disk quota across the multisite
+>>
+>> Has anyone have insights to share on how to balance upload convenience, server safety and disk quota?
+>>
+>> Thanks in advance for any guidance you are willing to share.
+>>
+>> - Dixie Lang
+>> ------------------------
+>> Web Developer
+>> University of Wisconsin-Madison Russell Labs
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+> --
+> Caroline Meikle
+> Database Programmer
+> UW-Madison Institute on Aging
+> Midlife Development in the United States (MIDUS) Project
+> http://midus.wisc.edu/
+> Information Processing Consultant
+> UW-Madison Soil Science Department
+> Community and Regional Food Systems Project
+> http://www.community-food.org/
+> cameikle at wisc.edu  | 608-358-0485
+> ____________________________________________________________
+> I check my email 8am-5pm CST Monday-Friday,
+> excluding holidays, sick days, and time off.
+> If you email me outside of those times,
+> I will reply within 48 hours of the following business day.
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-- 
+Caroline Meikle
+Database Programmer
+UW-Madison Institute on Aging
+Midlife Development in the United States (MIDUS) Project
+http://midus.wisc.edu/
+Information Processing Consultant
+UW-Madison Soil Science Department
+Community and Regional Food Systems Project
+http://www.community-food.org/
+cameikle at wisc.edu  | 608-358-0485
+____________________________________________________________
+I check my email 8am-5pm CST Monday-Friday,
+excluding holidays, sick days, and time off.
+If you email me outside of those times,
+I will reply within 48 hours of the following business day.
+
+
+From Wrede.John at paideiaschool.org  Wed Jul  2 12:00:06 2014
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Wed, 02 Jul 2014 08:00:06 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 55, Issue 1
+Message-ID: <fc.00870aa102999c1c3b9aca005fc47b83.2999c1d@paideiaschool.org>
+
+I will be out of the office until 7/12 - I will be checking email
+periodically.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140702/cf420ee1/attachment.html>
+
+From dlang at russell.wisc.edu  Fri Jul 11 16:13:16 2014
+From: dlang at russell.wisc.edu (Dixie Lang)
+Date: Fri, 11 Jul 2014 11:13:16 -0500
+Subject: [wp-edu] How to safely handle photo uploads by general public
+ on a multisite
+In-Reply-To: <53B30407.4040603@wisc.edu>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu> <53B30407.4040603@wisc.edu>
+Message-ID: <53C00D1C.2050501@russell.wisc.edu>
+
+Hi Caroline,
+
+Thank you for responding and for the information below.
+
+I saw your email that you are leaving the UW - best of luck in the 
+future with your freelance work.
+
+-- 
+- Dixie
+---------------------------------------
+Dixie Lang
+Web Developer
+Russell Labs Computing
+A109 Russell Labs
+
+On 7/1/2014 1:55 PM, Caroline Meikle wrote:
+> Hi Dixie,
+>
+> It looks like Gravity forms has hooks and filters you could use to 
+> create functions to limit the file types and maximum file size: 
+> http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_and_Filters
+>
+> There are plugins that can do so as well: 
+> http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+>
+> Contact Form 7 also allows you to specify file types and sizes: 
+> http://contactform7.com/file-uploading-and-attachment/
+>
+> Best,
+>
+> Caroline
+>
+>
+> On 7/1/2014 1:27 PM, Dixie Lang wrote:
+>> Greetings fellow WordPress users,
+>>
+>> I have three internal clients that could benefit from a smoother 
+>> process to allow their clients to upload photos for diagnostic and 
+>> identification purposes, e.g. identify bugs or diagnose turfgrass or 
+>> plant problems.
+>>
+>> All three WordPress sites are on a multisite, and all three currently 
+>> have Gravity Forms contact forms. The upload limit is the same 
+>> throughout the multisite - 6MB. This limit works for our current 
+>> internal users.
+>>
+>> The current method to protect the server is to have clients email the 
+>> photos separately, and then the photos must be manually matched to 
+>> the form information.
+>>
+>> I am concerned about two things regarding allowing file uploads from 
+>> external users:
+>> 1) the possibility of malicious files being uploaded
+>> 2) the possibility of users uploading files at higher than 72dpi, and 
+>> quickly filling up disk quota - I would prefer not to punish the 
+>> internal users by lowering the disk quota across the multisite
+>>
+>> Has anyone have insights to share on how to balance upload 
+>> convenience, server safety and disk quota?
+>>
+>> Thanks in advance for any guidance you are willing to share.
+>>
+>> - Dixie Lang
+>> ------------------------
+>> Web Developer
+>> University of Wisconsin-Madison Russell Labs
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu 
+
+From Wrede.John at paideiaschool.org  Sat Jul 12 12:00:04 2014
+From: Wrede.John at paideiaschool.org (John Wrede)
+Date: Sat, 12 Jul 2014 08:00:04 -0400
+Subject: [wp-edu] wp-edu Digest, Vol 55, Issue 3
+Message-ID: <fc.00870aa1029b28673b9aca00d9b2fc9b.29b2868@paideiaschool.org>
+
+I will be out of the office until 7/12 - I will be checking email
+periodically.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140712/07e97452/attachment.html>
+
+From caroline.ann.meikle at gmail.com  Tue Jul 15 22:30:14 2014
+From: caroline.ann.meikle at gmail.com (Caroline Meikle)
+Date: Tue, 15 Jul 2014 17:30:14 -0500
+Subject: [wp-edu] How to safely handle photo uploads by general public
+	on a multisite
+In-Reply-To: <53C00D1C.2050501@russell.wisc.edu>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu> <53B30407.4040603@wisc.edu>
+ <53C00D1C.2050501@russell.wisc.edu>
+Message-ID: <5DBDE0A0-A7CE-44A5-9732-6A90658DBEEF@gmail.com>
+
+Hi Dixie,
+
+Thanks! I am going to New Zealand.
+
+If you need any help with implementing file upload limits or anything else, I can give helping a shot. I'm getting more into doing WordPress development, so every experience helps.
+
+Best,
+
+Caroline
+
+Sent from my iPhone. Please excuse any resulting spelling and grammar errors.
+
+> On Jul 11, 2014, at 11:13 AM, Dixie Lang <dlang at russell.wisc.edu> wrote:
+> 
+> Hi Caroline,
+> 
+> Thank you for responding and for the information below.
+> 
+> I saw your email that you are leaving the UW - best of luck in the future with your freelance work.
+> 
+> -- 
+> - Dixie
+> ---------------------------------------
+> Dixie Lang
+> Web Developer
+> Russell Labs Computing
+> A109 Russell Labs
+> 
+>> On 7/1/2014 1:55 PM, Caroline Meikle wrote:
+>> Hi Dixie,
+>> 
+>> It looks like Gravity forms has hooks and filters you could use to create functions to limit the file types and maximum file size: http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_and_Filters
+>> 
+>> There are plugins that can do so as well: http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+>> 
+>> Contact Form 7 also allows you to specify file types and sizes: http://contactform7.com/file-uploading-and-attachment/
+>> 
+>> Best,
+>> 
+>> Caroline
+>> 
+>> 
+>>> On 7/1/2014 1:27 PM, Dixie Lang wrote:
+>>> Greetings fellow WordPress users,
+>>> 
+>>> I have three internal clients that could benefit from a smoother process to allow their clients to upload photos for diagnostic and identification purposes, e.g. identify bugs or diagnose turfgrass or plant problems.
+>>> 
+>>> All three WordPress sites are on a multisite, and all three currently have Gravity Forms contact forms. The upload limit is the same throughout the multisite - 6MB. This limit works for our current internal users.
+>>> 
+>>> The current method to protect the server is to have clients email the photos separately, and then the photos must be manually matched to the form information.
+>>> 
+>>> I am concerned about two things regarding allowing file uploads from external users:
+>>> 1) the possibility of malicious files being uploaded
+>>> 2) the possibility of users uploading files at higher than 72dpi, and quickly filling up disk quota - I would prefer not to punish the internal users by lowering the disk quota across the multisite
+>>> 
+>>> Has anyone have insights to share on how to balance upload convenience, server safety and disk quota?
+>>> 
+>>> Thanks in advance for any guidance you are willing to share.
+>>> 
+>>> - Dixie Lang
+>>> ------------------------
+>>> Web Developer
+>>> University of Wisconsin-Madison Russell Labs
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From dbashaw at uwo.ca  Wed Jul 16 12:54:52 2014
+From: dbashaw at uwo.ca (Dan Bashaw)
+Date: Wed, 16 Jul 2014 08:54:52 -0400
+Subject: [wp-edu] Recommendations on multisite search
+Message-ID: <0N8T009EK2JHAD40@gummo.its.uwo.pri>
+
+Hi WPED-ers,
+
+ 
+
+I'm interested in any recommendations you have on search engines for multisite. 
+
+ 
+
+I understand Google CSE can be used, and also see that WPMU has a multisite indexer and search engine combo as well. Are there others you would recommend we consider? Is Google CSE the solution you are using, and if so is it integrated via a plugin?
+
+ 
+
+Thanks for any advice you can give!
+
+ 
+
+ 
+
+Dan Bashaw
+
+Web Developer/Analyst
+
+Brescia University College
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140716/701eb601/attachment.html>
+
+From hmeister at gsu.edu  Wed Jul 16 15:42:34 2014
+From: hmeister at gsu.edu (Hillary Meister)
+Date: Wed, 16 Jul 2014 15:42:34 +0000
+Subject: [wp-edu] How to safely handle photo uploads by general
+ public	on a multisite
+In-Reply-To: <5DBDE0A0-A7CE-44A5-9732-6A90658DBEEF@gmail.com>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu> <53B30407.4040603@wisc.edu>
+ <53C00D1C.2050501@russell.wisc.edu>
+ <5DBDE0A0-A7CE-44A5-9732-6A90658DBEEF@gmail.com>
+Message-ID: <5e51b4b3366044af960fdefe99441a30@DM2PR05MB431.namprd05.prod.outlook.com>
+
+That's awesome! Take me with you! I'd love to live in New Zealand! Best of luck to you.
+
+Hillary Meister, M.Ed.
+Web Coordinator
+GSU College of Education
+30 Pryor Street
+Georgia State University
+Atlanta, GA 30303-3083
+hmeister at gsu.edu
+http://education.gsu.edu/
+ 404-413-8112
+
+
+-----Original Message-----
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Caroline Meikle
+Sent: Tuesday, July 15, 2014 6:30 PM
+To: Low-traffic list discussing WordPress in education.
+Subject: Re: [wp-edu] How to safely handle photo uploads by general public on a multisite
+
+Hi Dixie,
+
+Thanks! I am going to New Zealand.
+
+If you need any help with implementing file upload limits or anything else, I can give helping a shot. I'm getting more into doing WordPress development, so every experience helps.
+
+Best,
+
+Caroline
+
+Sent from my iPhone. Please excuse any resulting spelling and grammar errors.
+
+> On Jul 11, 2014, at 11:13 AM, Dixie Lang <dlang at russell.wisc.edu> wrote:
+> 
+> Hi Caroline,
+> 
+> Thank you for responding and for the information below.
+> 
+> I saw your email that you are leaving the UW - best of luck in the future with your freelance work.
+> 
+> --
+> - Dixie
+> ---------------------------------------
+> Dixie Lang
+> Web Developer
+> Russell Labs Computing
+> A109 Russell Labs
+> 
+>> On 7/1/2014 1:55 PM, Caroline Meikle wrote:
+>> Hi Dixie,
+>> 
+>> It looks like Gravity forms has hooks and filters you could use to 
+>> create functions to limit the file types and maximum file size: 
+>> http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_an
+>> d_Filters
+>> 
+>> There are plugins that can do so as well: 
+>> http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+>> 
+>> Contact Form 7 also allows you to specify file types and sizes: 
+>> http://contactform7.com/file-uploading-and-attachment/
+>> 
+>> Best,
+>> 
+>> Caroline
+>> 
+>> 
+>>> On 7/1/2014 1:27 PM, Dixie Lang wrote:
+>>> Greetings fellow WordPress users,
+>>> 
+>>> I have three internal clients that could benefit from a smoother process to allow their clients to upload photos for diagnostic and identification purposes, e.g. identify bugs or diagnose turfgrass or plant problems.
+>>> 
+>>> All three WordPress sites are on a multisite, and all three currently have Gravity Forms contact forms. The upload limit is the same throughout the multisite - 6MB. This limit works for our current internal users.
+>>> 
+>>> The current method to protect the server is to have clients email the photos separately, and then the photos must be manually matched to the form information.
+>>> 
+>>> I am concerned about two things regarding allowing file uploads from external users:
+>>> 1) the possibility of malicious files being uploaded
+>>> 2) the possibility of users uploading files at higher than 72dpi, 
+>>> and quickly filling up disk quota - I would prefer not to punish the 
+>>> internal users by lowering the disk quota across the multisite
+>>> 
+>>> Has anyone have insights to share on how to balance upload convenience, server safety and disk quota?
+>>> 
+>>> Thanks in advance for any guidance you are willing to share.
+>>> 
+>>> - Dixie Lang
+>>> ------------------------
+>>> Web Developer
+>>> University of Wisconsin-Madison Russell Labs 
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From caroline.ann.meikle at gmail.com  Wed Jul 16 23:43:35 2014
+From: caroline.ann.meikle at gmail.com (Caroline Meikle)
+Date: Wed, 16 Jul 2014 18:43:35 -0500
+Subject: [wp-edu] How to safely handle photo uploads by general public
+ on a multisite
+In-Reply-To: <5e51b4b3366044af960fdefe99441a30@DM2PR05MB431.namprd05.prod.outlook.com>
+References: <7750d36523d1d.53b2f5d5@wiscmail.wisc.edu>
+ <7750d17026d2a.53b2f611@wiscmail.wisc.edu>
+ <7750fcd7226e9.53b2f64e@wiscmail.wisc.edu>
+ <7510971927f04.53b2f68a@wiscmail.wisc.edu>
+ <773098ba24e43.53b2f6c7@wiscmail.wisc.edu>
+ <75c0e2b326577.53b2f703@wiscmail.wisc.edu>
+ <75c0eb5325504.53b2f73f@wiscmail.wisc.edu>
+ <75108e95214ca.53b2f77c@wiscmail.wisc.edu>
+ <7710ce0f2554a.53b2f7b9@wiscmail.wisc.edu>
+ <75a084fb23f2f.53b2f7f6@wiscmail.wisc.edu>
+ <7750a264257d6.53b2fd5b@wiscmail.wisc.edu>
+ <7710de7e236d2.53b2b73d@wiscmail.wisc.edu>
+ <53B30407.4040603@wisc.edu> <53C00D1C.2050501@russell.wisc.edu>
+ <5DBDE0A0-A7CE-44A5-9732-6A90658DBEEF@gmail.com>
+ <5e51b4b3366044af960fdefe99441a30@DM2PR05MB431.namprd05.prod.outlook.com>
+Message-ID: <CABkf=fCX97JrNL-7qjJJF7xcK3yBygYfHdCiv-PeQSzCrrCLoQ@mail.gmail.com>
+
+Thank you!
+
+
+On Wed, Jul 16, 2014 at 10:42 AM, Hillary Meister <hmeister at gsu.edu> wrote:
+
+> That's awesome! Take me with you! I'd love to live in New Zealand! Best of
+> luck to you.
+>
+> Hillary Meister, M.Ed.
+> Web Coordinator
+> GSU College of Education
+> 30 Pryor Street
+> Georgia State University
+> Atlanta, GA 30303-3083
+> hmeister at gsu.edu
+> http://education.gsu.edu/
+>  404-413-8112
+>
+>
+> -----Original Message-----
+> From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of
+> Caroline Meikle
+> Sent: Tuesday, July 15, 2014 6:30 PM
+> To: Low-traffic list discussing WordPress in education.
+> Subject: Re: [wp-edu] How to safely handle photo uploads by general public
+> on a multisite
+>
+> Hi Dixie,
+>
+> Thanks! I am going to New Zealand.
+>
+> If you need any help with implementing file upload limits or anything
+> else, I can give helping a shot. I'm getting more into doing WordPress
+> development, so every experience helps.
+>
+> Best,
+>
+> Caroline
+>
+> Sent from my iPhone. Please excuse any resulting spelling and grammar
+> errors.
+>
+> > On Jul 11, 2014, at 11:13 AM, Dixie Lang <dlang at russell.wisc.edu> wrote:
+> >
+> > Hi Caroline,
+> >
+> > Thank you for responding and for the information below.
+> >
+> > I saw your email that you are leaving the UW - best of luck in the
+> future with your freelance work.
+> >
+> > --
+> > - Dixie
+> > ---------------------------------------
+> > Dixie Lang
+> > Web Developer
+> > Russell Labs Computing
+> > A109 Russell Labs
+> >
+> >> On 7/1/2014 1:55 PM, Caroline Meikle wrote:
+> >> Hi Dixie,
+> >>
+> >> It looks like Gravity forms has hooks and filters you could use to
+> >> create functions to limit the file types and maximum file size:
+> >> http://www.gravityhelp.com/documentation/page/Developer_Docs#Hooks_an
+> >> d_Filters
+> >>
+> >> There are plugins that can do so as well:
+> >> http://wordpress.org/plugins/gravity-forms-advanced-file-uploader/
+> >>
+> >> Contact Form 7 also allows you to specify file types and sizes:
+> >> http://contactform7.com/file-uploading-and-attachment/
+> >>
+> >> Best,
+> >>
+> >> Caroline
+> >>
+> >>
+> >>> On 7/1/2014 1:27 PM, Dixie Lang wrote:
+> >>> Greetings fellow WordPress users,
+> >>>
+> >>> I have three internal clients that could benefit from a smoother
+> process to allow their clients to upload photos for diagnostic and
+> identification purposes, e.g. identify bugs or diagnose turfgrass or plant
+> problems.
+> >>>
+> >>> All three WordPress sites are on a multisite, and all three currently
+> have Gravity Forms contact forms. The upload limit is the same throughout
+> the multisite - 6MB. This limit works for our current internal users.
+> >>>
+> >>> The current method to protect the server is to have clients email the
+> photos separately, and then the photos must be manually matched to the form
+> information.
+> >>>
+> >>> I am concerned about two things regarding allowing file uploads from
+> external users:
+> >>> 1) the possibility of malicious files being uploaded
+> >>> 2) the possibility of users uploading files at higher than 72dpi,
+> >>> and quickly filling up disk quota - I would prefer not to punish the
+> >>> internal users by lowering the disk quota across the multisite
+> >>>
+> >>> Has anyone have insights to share on how to balance upload
+> convenience, server safety and disk quota?
+> >>>
+> >>> Thanks in advance for any guidance you are willing to share.
+> >>>
+> >>> - Dixie Lang
+> >>> ------------------------
+> >>> Web Developer
+> >>> University of Wisconsin-Madison Russell Labs
+> >>> _______________________________________________
+> >>> wp-edu mailing list
+> >>> wp-edu at lists.automattic.com
+> >>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140716/fb5c724a/attachment.html>
+
+From liezelle at sdiwc.info  Mon Jul 28 09:03:08 2014
+From: liezelle at sdiwc.info (Liezelle Ann Canadilla)
+Date: Mon, 28 Jul 2014 03:03:08 -0600
+Subject: [wp-edu] Submit articles now! Deadline Approaching for ICIA2014 -
+	MALAYSIA
+Message-ID: <6fed276e54afe3ff35c1ba3df18594b9.squirrel@box817.bluehost.com>
+
+
+
+
+All registered papers will be included in SDIWC Digital Library, and in
+the proceedings of the conference.
+
+
+
+The Third International Conference on Informatics & Applications
+(ICIA2014)
+
+October 8-10, 2014 - Kuala Terengganu, Malaysia? |?
+icia2014 at sdiwc.net
+
+http://sdiwc.net/conferences/2014/icia2014/
+
+
+
+Submission Dates:: Open until September 26, 2014
+
+
+
+ICIA2014 will be held in Malaysia on October 8-10, 2014. The main
+objective of this conference is to provide a medium for professionals,
+engineers, academicians, scientists, and researchers from over the world
+to present the result of their research activities in the field of
+Computer Science, Engineering and Information Technology. ICIA2014
+provides opportunities for the delegates to share the knowledge, ideas,
+innovations and problem solving techniques. Submitted papers will be
+reviewed by the technical program committee of the conference.
+
+
+
+Topics of interest include, but are not limited to:
+
+
+
+:: Information Ethics
+
+:: Information Content Security
+
+:: Data Compression
+
+:: E-Technology
+
+:: E-Government
+
+:: E-Learning
+
+:: Cloud Computing
+
+:: Grid Computing
+
+:: Green Computing
+
+:: Access Controls
+
+:: Data Mining
+
+:: Social Search
+
+:: Computer Forensics
+
+:: Computer Security
+
+:: Peer-to-Peer Social Networks
+
+:: Information and Data Management
+
+:: Network Security
+
+:: Social Networks
+
+:: Real-Time Systems
+
+:: Internet Modelling
+
+:: Assurance of Service
+
+:: Image Processing
+
+:: Web Services Security
+
+:: Multimedia Computing
+
+:: Software Engineering
+
+:: Biometrics Technologies
+
+:: Wireless Communications
+
+:: Semantic Web, Ontologies
+
+:: Mobile Social Networks
+
+:: Distributed and Parallel Applications
+
+:: Embedded Systems and Software
+
+:: Critical Computing and Storage
+
+:: Critical Infrastructure Management
+
+:: Soft Computing Techniques
+
+:: Confidentiality Protection
+
+:: Mobile Networking, Mobility and Nomadicity
+
+:: Anti-cyberterrorism
+
+:: Ubiquitous Computing, Services and Applications
+
+:: Forensics, Recognition Technologies and Applications
+
+:: Fuzzy and Neural Network Systems
+
+:: Signal Processing, Pattern Recognition and Applications
+
+:: User Interfaces,Visualization and Modelling
+
+:: Mobile, Ad Hoc and Sensor Network Management
+
+:: Web Services Architecture, Modelling and Design
+
+:: Quality of Service, Scalability and Performance
+
+:: Self-Organizing Networks and Networked Systems
+
+:: Computational Intelligence
+
+:: Data Management in Mobile Peer-to-Peer Networks
+
+:: Data Stream Processing in Mobile/Sensor Networks
+
+:: Indexing and Query Processing for Moving Objects
+
+:: User Interfaces and Usability Issues form Mobile Applications
+
+:: Sensor Networks and Social Sensing
+
+:: XML-Based Languages
+
+:: Cryptography and Data Protection
+
+:: Information Propagation on Social Networks
+
+:: Resource and Knowledge Discovery Using Social Networks
+
+:: Computer Crime Prevention and Detection
+
+
+
+
+
+PAPER SUBMISSION URL:
+http://sdiwc.net/conferences/2014/icia2014/openconf/openconf.php
+
+
+
+Important Dates (may change without prior notice)
+
+Submission Dates ?? ?Open from now until September 26,
+2014
+
+Notification of Acceptance ?? ?2-4 weeks from the date of
+submission
+
+Camera Ready Submission ?? ?Oct. 2, 2014
+
+Last Day for Registration ?? ?Oct. 2, 2014
+
+Conference Dates ?? ?October 8-10, 2014
+
+
+
+CONTACT INFORMATION
+
+-------------------
+
+Liezelle Ann Canadilla
+
+icia2014 at sdiwc.net
+
+www.sdiwc.net
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140728/fb6048fa/attachment.html>
+
+From hmeister at gsu.edu  Mon Jul 28 13:27:12 2014
+From: hmeister at gsu.edu (Hillary Meister)
+Date: Mon, 28 Jul 2014 13:27:12 +0000
+Subject: [wp-edu] Regarding Google Analytics and Goal Setting
+Message-ID: <237c2b75eac043deb4e2e1d822a0bea2@BLUPR05MB420.namprd05.prod.outlook.com>
+
+Hello all,
+
+I'm currently working on creating reports for our departments on how their websites have been faring since our migration to WordPress took place about 6 months ago and was curious to hear about what you all consider to be good goals or metrics to measure.
+
+Sincerely,
+Hillary
+
+Hillary Meister, M.Ed.
+Web Coordinator
+GSU College of Education
+30 Pryor Street
+Georgia State University
+Atlanta, GA 30303-3083
+hmeister at gsu.edu<mailto:hmeister at gsu.edu>
+http://education.gsu.edu/
+[telefono-icon-16px] 404-413-8112
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140728/7ca547f4/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: image001.png
+Type: image/png
+Size: 689 bytes
+Desc: image001.png
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20140728/7ca547f4/attachment.png>
+
+From SkriloffN at darden.virginia.edu  Tue Jul 29 15:41:21 2014
+From: SkriloffN at darden.virginia.edu (Skriloff, Nicholas)
+Date: Tue, 29 Jul 2014 15:41:21 +0000
+Subject: [wp-edu] wp-edu Digest, Vol 55, Issue 8
+In-Reply-To: <mailman.1.1406635201.3591.wp-edu@lists.automattic.com>
+References: <mailman.1.1406635201.3591.wp-edu@lists.automattic.com>
+Message-ID: <CA12CBE4F4AC324FBE1668F44FF17FD6855ACA8C@EXCH1.darden.virginia.edu>
+
+Before you ask about metrics ask what you want to know. 
+    THE METRICS YOU WANT SHOULD BE ABLE TO ANSWER QUESTIONS YOU WANT TO KNOW 3 greatest survey questions 1) What was the purpose of your visit to our website today 2) Were you able to complete your task today 3) If you were not able to complete your task, why not?
+
+

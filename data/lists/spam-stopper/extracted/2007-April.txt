@@ -1,0 +1,499 @@
+From oldguy at oldguy.us  Wed Apr  4 03:27:35 2007
+From: oldguy at oldguy.us (Richard Williamson)
+Date: Tue, 03 Apr 2007 20:27:35 -0700
+Subject: [spam-stopper] Images in comments
+Message-ID: <7.0.1.0.2.20070403202207.02185678@oldguy.us>
+
+I just added img tag capability to my comments application and it 
+looks like every comment with an img tag is being flagged as spam. Is 
+that the case? Or is something else causing it?
+
+You can test it here: 
+http://www.scripts.oldguy.us/talkback/demo/index.php The img button 
+inserts a link tag but it displays as an image using a lightbox.
+
+Richard
+
+www.oldguy.us
+Skype:  noldguy 
+
+
+
+From oldguy at oldguy.us  Wed Apr  4 04:06:33 2007
+From: oldguy at oldguy.us (Richard Williamson)
+Date: Tue, 03 Apr 2007 21:06:33 -0700
+Subject: [spam-stopper] Images in comments
+In-Reply-To: <7.0.1.0.2.20070403202207.02185678@oldguy.us>
+References: <7.0.1.0.2.20070403202207.02185678@oldguy.us>
+Message-ID: <7.0.1.0.2.20070403210420.0210d020@oldguy.us>
+
+Just read what wrote <banging head> It has nothing to do with img 
+tags. The correct question is does a link to an img automatically 
+flag a post as spam?
+
+Richard
+
+Richard Williamson wrote
+>I just added img tag capability to my comments application and it 
+>looks like every comment with an img tag is being flagged as spam. 
+>Is that the case? Or is something else causing it?
+>
+>You can test it here: 
+>http://www.scripts.oldguy.us/talkback/demo/index.php The img button 
+>inserts a link tag but it displays as an image using a lightbox.
+>
+>Richard
+>
+>www.oldguy.us
+>Skype:  noldguy
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+
+www.oldguy.us
+Skype:  noldguy 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20070403/57adcb4c/attachment.htm>
+
+From m at mullenweg.com  Tue Apr 17 23:43:56 2007
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Tue, 17 Apr 2007 16:43:56 -0700
+Subject: [spam-stopper] Images in comments
+In-Reply-To: <7.0.1.0.2.20070403210420.0210d020@oldguy.us>
+References: <7.0.1.0.2.20070403202207.02185678@oldguy.us>
+	<7.0.1.0.2.20070403210420.0210d020@oldguy.us>
+Message-ID: <46255BBC.8050607@mullenweg.com>
+
+Richard Williamson wrote:
+> Just read what wrote <banging head> It has nothing to do with img tags. 
+> The correct question is does a link to an img automatically flag a post 
+> as spam?
+
+Nope.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+
+
+From ruben at lingo.com.mx  Sat Apr 21 00:34:17 2007
+From: ruben at lingo.com.mx (=?ISO-8859-1?Q?Rub=E9n_Marrero?=)
+Date: Fri, 20 Apr 2007 19:34:17 -0500
+Subject: [spam-stopper] 404 to spam!
+Message-ID: <3A8A134A-7998-4E79-AE1E-169E9F927273@lingo.com.mx>
+
+Hi all:
+
+I've been dealing with spam on my blog with a variety of techniques  
+that I would like to comment and receive feedback on:
+
+I'm combing the comment database every hour and harvesting unique IPs  
+that Akismet (or myself) have flagged as spam.
+
+Those IP addrs. get added to a DB file; Apache knows about this file  
+and checks it with every invocation of wp-comment.php, if the IP is  
+in the file, then t's presented with a 404 error page. End of story.  
+That IP is forever banned to post comments in my blog.
+
+I host my blog (http://bitacoreando.com) in a VPS, and a fairly small  
+one at that, and I found that even though Akismet was flagging spam  
+comments correctly, any smallish spam-storm would bring my VPS to  
+it's knees. This solution has restored control over the resource  
+usage of my WP install and since last december it has allowed me  
+breathe easily.
+
+I could hack my Akismet install to update the DB as soon as it has  
+received a response from the central server, but I thought that maybe  
+this feature could be discussed and maybe integrated into the main  
+devel line of this plugin. What do you think?
+
+I also have collected all the hourly cron jobs since dec. 21 and the  
+actual DB file, all in all it's a lot of spammer's IP information  
+that might be useful, so if anyone wants it, just say so
+
+Best
+Rub?n
+
+From mako at atdot.cc  Sat Apr 21 14:10:20 2007
+From: mako at atdot.cc (Benj. Mako Hill)
+Date: Sat, 21 Apr 2007 10:10:20 -0400
+Subject: [spam-stopper] 404 to spam!
+In-Reply-To: <3A8A134A-7998-4E79-AE1E-169E9F927273@lingo.com.mx>
+References: <3A8A134A-7998-4E79-AE1E-169E9F927273@lingo.com.mx>
+Message-ID: <20070421141020.GI6622@yukidoke.org>
+
+<quote who="Rub?n Marrero" date="Fri, Apr 20, 2007 at 07:34:17PM -0500">
+> I could hack my Akismet install to update the DB as soon as it has  
+> received a response from the central server, but I thought that maybe  
+> this feature could be discussed and maybe integrated into the main  
+> devel line of this plugin. What do you think?
+
+I think this would be a bad idea. This type of IP blocking is both
+over-broad and under-broad and the reason I Akismet is interesting to me
+is because it is content based as opposed to originator based.
+
+Very frequently, machines that spam are badware infected computers are
+being used by spammers as proxies. Often, those computers will be fixed
+later.  Then there are dynamic IP ranges or shared IP blocks with NAT.
+
+It's bad enough when your IP is flagged and you have to moderate a
+comment before it's posted. In your system, people are never given that
+option chance.  There's no moderation queue or even an option for one.
+
+If it works for you, that's great. But the price of the false positives
+from an IP-based addition to Akimset like the one that you suggest is
+far too high for me to be comfortable with.
+
+I also have run into performance problems on Vservers. My solution was
+to buy server space from someone who did not overload their hosts.
+
+Regards,
+Mako
+
+-- 
+Benjamin Mako Hill
+mako at atdot.cc
+http://mako.cc/
+
+Creativity can be a social contribution, but only in so
+far as society is free to use the results. --RMS
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: Digital signature
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20070421/15b3f2ba/attachment.pgp>
+
+From ruben at lingo.com.mx  Sun Apr 22 04:58:46 2007
+From: ruben at lingo.com.mx (ruben at lingo.com.mx)
+Date: Sat, 21 Apr 2007 23:58:46 -0500 (CDT)
+Subject: [spam-stopper] 404 to spam!
+In-Reply-To: <20070421141020.GI6622@yukidoke.org>
+References: <3A8A134A-7998-4E79-AE1E-169E9F927273@lingo.com.mx>
+	<20070421141020.GI6622@yukidoke.org>
+Message-ID: <19861.201.164.236.143.1177217926.squirrel@www.lingo.com.mx>
+
+> <quote who="Rub?n Marrero" date="Fri, Apr 20, 2007 at 07:34:17PM -0500">
+>> I could hack my Akismet install to update the DB as soon as it has
+>> received a response from the central server, but I thought that maybe
+>> this feature could be discussed and maybe integrated into the main
+>> devel line of this plugin. What do you think?
+>
+> I think this would be a bad idea. This type of IP blocking is both
+> over-broad and under-broad and the reason I Akismet is interesting to me
+> is because it is content based as opposed to originator based.
+>
+> Very frequently, machines that spam are badware infected computers are
+> being used by spammers as proxies. Often, those computers will be fixed
+> later.  Then there are dynamic IP ranges or shared IP blocks with NAT.
+>
+> It's bad enough when your IP is flagged and you have to moderate a
+> comment before it's posted. In your system, people are never given that
+> option chance.  There's no moderation queue or even an option for one.
+>
+> If it works for you, that's great. But the price of the false positives
+> from an IP-based addition to Akimset like the one that you suggest is
+> far too high for me to be comfortable with.
+
+The real risk is that when a legitimate user from the umpteen infected
+machines that bombard your blog tries to *post* (not read, just post) she
+gets a 404. I'll share with everyone on this list the IP addresses that
+I've collected, you might check them with the IPs flagged as legitimate
+comments, and if shows that I have a percentage of your comments' IPs,
+I'll stand corrected and apologize :-)
+
+My guess is that not one of the umpteen IP's that I have collected has
+ever posted a single legitimate comment on a WP blog.
+
+Maybe Akismet could take a step further and at least temporarily block
+IP's for posting I don't see the harm on that.
+
+>
+> I also have run into performance problems on Vservers. My solution was
+> to buy server space from someone who did not overload their hosts.
+>
+On my case, dropping the HTTP transaction even before PHP got started did
+the trick.
+
+> Regards,
+> Mako
+>
+> --
+> Benjamin Mako Hill
+> mako at atdot.cc
+> http://mako.cc/
+>
+Best
+Rub?n
+
+
+From jm3 at jm3.net  Wed Apr 25 21:31:43 2007
+From: jm3 at jm3.net (John Manoogian III (jm3))
+Date: Wed, 25 Apr 2007 14:31:43 -0700
+Subject: [spam-stopper] social bookmark spam filtering with akismet
+Message-ID: <eebb01a60704251431k5174456fsc30e23ce30e72cdd@mail.gmail.com>
+
+i know that some social bookmarking sites use akismet to filter out spam
+links - as the developer/maintainer of such a site myself, i'm wondering if
+akismet developers recommend this approach? here is how i would populate the
+arguments of the API call:
+
+comment_author
+  - this would be a username, not a human name
+
+comment_author_url
+  - this would be blank, since we don't require a homepage url for signup
+
+referrer
+  -- this would either be blank, or identical to the comment_content
+
+comment_content
+  - this would be the submitted bookmark URL. i could append some heuristics
+(number of bookmarks, age of account, etc), but i'm not sure that would help
+akismet because it would have no semantics associated with the values.
+
+
+permalink
+   - i would use the user's homepage on Feed Me Links here.
+
+comment_type
+  - this would be "bookmark"
+
+
+would using Akismet in this way be appropriate / useful?
+
+
+thanks in advance,
+
+-- 
+
+john manoogian III (jm3)
+www.jm3.net
+www.feedmelinks.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20070425/687ef12e/attachment.htm>
+
+From jm3 at jm3.net  Wed Apr 25 22:50:26 2007
+From: jm3 at jm3.net (John Manoogian III (jm3))
+Date: Wed, 25 Apr 2007 15:50:26 -0700
+Subject: [spam-stopper] global akismet usage?
+Message-ID: <eebb01a60704251550xdc901cbw1498c9f61b1af4e3@mail.gmail.com>
+
+are there any publicized (or publicizable) figures Akismet's global "install
+base," which i guess means the number of active, unique API keys?
+
+-- 
+john manoogian III
+www.jm3.net
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20070425/7deedad9/attachment.htm>
+
+From mike at herebox.org  Thu Apr 26 16:23:19 2007
+From: mike at herebox.org (mike waggoner)
+Date: Thu, 26 Apr 2007 10:23:19 -0600
+Subject: [spam-stopper] Spike in wordpress "compliment" spam.
+Message-ID: <c5e400c0704260923j697c665fkb429161faa271dd3@mail.gmail.com>
+
+I am experiencing the largest spike in uncaught spam since installing
+askimet long ago.  The rate has now reached 250+ / day and rising.  As
+this is unprecedented in my experience with the plugin, I thought it
+worth a note...
+
+Using:
+Askimet 2.0
+Wordpress 2.1
+
+Spam description:
+
+Name: Anonymous
+
+Emails: random(?) strings @ 10 or so differnet domain names.
+l3lw at rocketmail.com
+vphm at bigfoot.com
+uiry80ipbxfr0 at home.com
+c9c0d702 at mail.me
+
+IP: plenty of repetition, but plenty of unique.
+
+Content:
+Compliments, 100s of them..  I'm unsure what the goal is with these..
+Lots of repetition.
+
+"Hello, I just wanted to say you have a very informative site which
+really made me think, Thanks ! A site with a wealth of info.!?thanks
+very much! Have a nice Day!!"
+
+"It's a great website of yours. I surfed by and found it very
+informative. Bookmarked and check you back in a while"
+
+"I like the way you set up that your info is the homepage, nicely done. Thanks!"
+
+"This site is put together well!"
+
+"SarahBell ( ) wrote:"
+
+"I enjoyed this site very much and have taken away a better insight. I
+will recommend this site to everyone I know. More people should step
+into ."
+
+etc. etc.
+
+Best --
+
+-Mike Waggoner
+http://herebox.org
+
+
+From jm3 at jm3.net  Thu Apr 26 16:59:35 2007
+From: jm3 at jm3.net (John Manoogian III (jm3))
+Date: Thu, 26 Apr 2007 09:59:35 -0700
+Subject: [spam-stopper] Spike in wordpress "compliment" spam.
+In-Reply-To: <c5e400c0704260923j697c665fkb429161faa271dd3@mail.gmail.com>
+References: <c5e400c0704260923j697c665fkb429161faa271dd3@mail.gmail.com>
+Message-ID: <eebb01a60704260959s1e51bb1dte9ec81f5a7742799@mail.gmail.com>
+
+> Content:
+> Compliments, 100s of them..  I'm unsure what the goal is with these..
+> Lots of repetition.
+
+mike: perhaps the spammers are trying to get a single, innocuous-looking
+comment approved in hopes that you have the "Comment author must have a
+previously approved comment" setting enabled? so they then having a better
+chance of spamming your comments in the future after having an initial
+comment approved?
+
+-- 
+john manoogian III
+www.jm3.net
+
+
+On 4/26/07, mike waggoner <mike at herebox.org> wrote:
+>
+> I am experiencing the largest spike in uncaught spam since installing
+> askimet long ago.  The rate has now reached 250+ / day and rising.  As
+> this is unprecedented in my experience with the plugin, I thought it
+> worth a note...
+>
+> Using:
+> Askimet 2.0
+> Wordpress 2.1
+>
+> Spam description:
+>
+> Name: Anonymous
+>
+> Emails: random(?) strings @ 10 or so differnet domain names.
+> l3lw at rocketmail.com
+> vphm at bigfoot.com
+> uiry80ipbxfr0 at home.com
+> c9c0d702 at mail.me
+>
+> IP: plenty of repetition, but plenty of unique.
+>
+> Content:
+> Compliments, 100s of them..  I'm unsure what the goal is with these..
+> Lots of repetition.
+>
+> "Hello, I just wanted to say you have a very informative site which
+> really made me think, Thanks ! A site with a wealth of info.!?thanks
+> very much! Have a nice Day!!"
+>
+> "It's a great website of yours. I surfed by and found it very
+> informative. Bookmarked and check you back in a while"
+>
+> "I like the way you set up that your info is the homepage, nicely done.
+> Thanks!"
+>
+> "This site is put together well!"
+>
+> "SarahBell ( ) wrote:"
+>
+> "I enjoyed this site very much and have taken away a better insight. I
+> will recommend this site to everyone I know. More people should step
+> into ."
+>
+> etc. etc.
+>
+> Best --
+>
+> -Mike Waggoner
+> http://herebox.org
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20070426/1e58dd67/attachment.htm>
+
+From dirk at haun-online.de  Thu Apr 26 17:41:12 2007
+From: dirk at haun-online.de (Dirk Haun)
+Date: Thu, 26 Apr 2007 19:41:12 +0200
+Subject: [spam-stopper] Spike in wordpress "compliment" spam.
+In-Reply-To: <c5e400c0704260923j697c665fkb429161faa271dd3@mail.gmail.com>
+References: <c5e400c0704260923j697c665fkb429161faa271dd3@mail.gmail.com>
+Message-ID: <20070426174113.1729555888@smtp.haun-online.de>
+
+mike waggoner wrote:
+
+>Compliments, 100s of them..  I'm unsure what the goal is with these..
+>Lots of repetition.
+
+We got similar ones (not on WordPress, mind you). The current theory is
+that it's more of a broken spam bot. It's either missing the actual
+payload or it's expecting a separate field for the URL somewhere.
+
+bye, Dirk
+
+P.S. <http://spam.tinyweb.net/article.php/angry-compliments>
+
+
+-- 
+http://www.geeklog.net/
+http://geeklog.info/
+
+
+
+From jaanus.kase at skype.net  Thu Apr 26 21:06:57 2007
+From: jaanus.kase at skype.net (Jaanus Kase)
+Date: Thu, 26 Apr 2007 23:06:57 +0200
+Subject: [spam-stopper] Spike in wordpress "compliment" spam.
+In-Reply-To: <20070426174113.1729555888@smtp.haun-online.de>
+References: <c5e400c0704260923j697c665fkb429161faa271dd3@mail.gmail.com>
+	<20070426174113.1729555888@smtp.haun-online.de>
+Message-ID: <46311471.9090104@skype.net>
+
+I've been getting similar "compliment spam" for ages. I've yet to figure 
+out what it means. In case of email spam, the theory was that it's used 
+to poison bayesian/content filters - if you marked them as spam, regular 
+mails would also be spam since they contain similar words, and thus 
+you'd be forced to turn off the filter.. I've yet to understand why they 
+are doing it in the blog space - maybe similar - to "poison" 
+Akismet-like global public filters?
+
+
+rgds,
+Jaanus
+
+
+Dirk Haun wrote:
+> mike waggoner wrote:
+> 
+>> Compliments, 100s of them..  I'm unsure what the goal is with these..
+>> Lots of repetition.
+> 
+> We got similar ones (not on WordPress, mind you). The current theory is
+> that it's more of a broken spam bot. It's either missing the actual
+> payload or it's expecting a separate field for the URL somewhere.
+> 
+> bye, Dirk
+> 
+> P.S. <http://spam.tinyweb.net/article.php/angry-compliments>
+> 
+> 
+
+

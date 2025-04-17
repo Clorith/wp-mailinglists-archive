@@ -1,0 +1,674 @@
+From miklb.online at gmail.com  Tue Jan 16 02:24:03 2007
+From: miklb.online at gmail.com (Michael B)
+Date: Tue Jan 16 02:24:08 2007
+Subject: [wp-docs] Re: [wp-hackers] Upgrade instructions fatally flawed for
+	Mac
+In-Reply-To: <45AC167B.3070303@metalab.unc.edu>
+References: <45AC167B.3070303@metalab.unc.edu>
+Message-ID: <122d4b4d0701151824p5e01969eudbe2a8e421afbe5d@mail.gmail.com>
+
+I don't know where that came from, it always said to not overwrite
+wp-contents...
+
+I do know that the detailed instructions give this info, and it was always a
+point of contention as to what the upgrade instructions should be.  If my
+memory serves me correctly, Matt didn't want the basic upgrade instructions
+to include the delete everything but wp-config and wp-content, then upload
+new files instruction.  So perhaps in the editing, the important step of not
+overwriting wp-content was left out.
+
+I've CC'd this to wp-docs, perhaps Michael H or someone else who still
+manages the codex will look into it.
+
+MB
+
+
+
+
+On 1/15/07, Elliotte Harold <elharo@metalab.unc.edu> wrote:
+>
+> There is a major bug in the upgrade instructions on
+> http://codex.wordpress.org/Upgrading_WordPress that can cause Mac users
+> to lose their data. This needs to be corrected. The problem is here:
+>
+> Step 3: Overwrite Files
+>
+> Get the latest and greatest WordPress (http://wordpress.org/download)
+> and upload it to the WordPress directory, overwriting all the files that
+> exist there. This will preserve your images and themes.
+>
+> Actually it won't, at least not on a Mac. I think what happens on
+> Windows is that when you copy a folder such as wp-content onto an
+> existing folder, files inside the target folder are retained if the new
+> folder does not contain different versions of those files. However, on a
+> Mac the behavior is different. The entire target folder is completely
+> wiped out and replaced by the new folder. No content from the target
+> folder is retained under any circumstance.
+>
+> I would recommend making an upgrade distribution that does not include
+> the wp-content folder to avoid the possibility of overwriting user files
+> within this folder. User and system files should be more cleanly
+> separated. An upgrade should not touch the user's files.
+>
+> --
+> Elliotte Rusty Harold  elharo@metalab.unc.edu
+> Java I/O 2nd Edition Just Published!
+> http://www.cafeaulait.org/books/javaio2/
+> http://www.amazon.com/exec/obidos/ISBN=0596527500/ref=nosim/cafeaulaitA/
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20070116/4041243c/attachment.htm
+From lloydomattic at gmail.com  Tue Jan 16 06:05:46 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Tue Jan 16 06:05:51 2007
+Subject: [wp-docs] Re: [wp-hackers] Upgrade instructions fatally flawed
+	for Mac
+In-Reply-To: <122d4b4d0701151824p5e01969eudbe2a8e421afbe5d@mail.gmail.com>
+References: <45AC167B.3070303@metalab.unc.edu>
+	<122d4b4d0701151824p5e01969eudbe2a8e421afbe5d@mail.gmail.com>
+Message-ID: <70ebb7140701152205g7214a881xdae1e0fdf7b8aee@mail.gmail.com>
+
+On 1/15/07, Michael B <miklb.online@gmail.com> wrote:
+> I don't know where that came from, it always said to not overwrite
+> wp-contents...
+
+where that came from: 15:43, 16 Feb 2006 MichaelH (Including Carthik's
+5-Step Upgrade)
+
+in the context of the whole instructions it is a lot less scary, but I
+imagine still something that a worksmith will improve. (Many of the
+FTP clients on Mac also work with a UNIX/Windows interpretation of
+folders).
+From yahgrp at poplarware.com  Wed Jan 17 15:41:59 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Jan 17 15:40:10 2007
+Subject: [wp-docs] Codex updates for 2.1?
+Message-ID: <45AE43C7.4040602@poplarware.com>
+
+I am cross-posting this to the Hackers and Docs lists, because I think 
+it may require input from both communities.
+
+Being a programmer who loves clear documentation, I've been looking 
+over the about-to-be-released code for WordPress 2.1, and I have 
+noticed that several things have changed that a plugin or theme 
+developer would want to know (new filters, some functions deprecated, 
+etc.). I have also noticed that the Codex could probably use a bit of 
+reorganization (it looks like several people have discussed this 
+recently in the Docs list archives; I just joined the list).
+
+So what I am wondering is:
+
+a) Are there plans to update the developer section of the Codex for 
+2.1 changes? I didn't see any in the Docs list archives for Dec/Jan, 
+and I just joined the list, so I am not sure.
+
+b) I am also wondering if it might make sense to start a whole new 
+developer area in the Wiki for 2.1, and in the process, reorganize the 
+existing developer documentation a bit.
+
+c) Once 2.1 is out, will the Wiki need to keep around all the 
+information for 2.0.x as well?  For how long? And do we need some 
+documentation on the changes (such as what a developer needs to do to 
+ensure plugin and theme migration, avoid deprecated functions, etc.)?
+
+Thoughts? And yes, I am offering to help, and maybe even to organize 
+projects around this...
+
+     --Jennifer
+From yahgrp at poplarware.com  Wed Jan 17 17:13:30 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Jan 17 17:11:46 2007
+Subject: [wp-docs] Re: [wp-hackers] Codex updates for 2.1?
+In-Reply-To: <D0252C90757CBC4B8BC938A72BEDDF9D021E6B89@dsimail.drbsystems.com>
+References: <D0252C90757CBC4B8BC938A72BEDDF9D021E6B89@dsimail.drbsystems.com>
+Message-ID: <45AE593A.1020206@poplarware.com>
+
+Brian Layman wrote:
+> J wrote:
+>> a) Are there plans to update the developer section of the Codex for 
+>> 2.1 changes?
+>> b) I am also wondering if it might make sense to start a whole new 
+>> developer area in the Wiki for 2.1
+>> c) Once 2.1 is out, will the Wiki need to keep around all the 
+>> information for 2.0.x as well?  For how long? 
+>> do we need some documentation on the changes 
+> 
+> I can't answer A, but my opinion on B, is "YES" because the answer to C is
+> that the 2.0 stuff has to stay around until sometime in 2010.  Ryan's
+> committed to keeping the 2.0 trac viable for 2-3 years.
+> 
+> The answer to the bonus question is yes, IMNSHO. Some of it is already in
+> existence, see http://wordpress.org/development/2006/12/naughty-or-nice/,
+> but there needs to be more...
+
+OK... In that case, I will see about starting a re-organized 2.1 
+Developer Doc section, including a migration from 2.0 section, and 
+plan to leave the 2.0 documentation section alone (although once there 
+is actual content in the 2.1 section, link(s) from the 2.0 sections 
+will be useful).
+
+Unless I hear otherwise...
+     Jennifer
+From lorelle at cameraontheroad.com  Wed Jan 17 17:17:17 2007
+From: lorelle at cameraontheroad.com (lorelle@cameraontheroad.com)
+Date: Wed Jan 17 17:17:29 2007
+Subject: [wp-docs] Codex updates for 2.1?
+Message-ID: <20070117171725.D4B956457@comox.textdrive.com>
+
+
+As with all releases, information specific to the new release will be added as
+soon as all the information is available, and a volunteer kicks in with the
+writing. Are you volunteering? ;-)
+
+Reorganization and updating is a constant ongoing effort on the WordPress Codex. 
+
+If you would like to help, jump in and let us know specifically what you want to
+do, fix, improve, and add. We're thrilled to have you involved.
+
+Make sure you read through the information on how to add content to the WordPress
+Codex so the format stays uniform and have a go at it. We have volunteers who
+will review and edit the content to make sure it stays within those parameters,
+so there is a strong checks and balances.
+
+Welcome to the group and we'd love help on this. Thanks.
+
+Lorelle
+
+From yahgrp at poplarware.com  Wed Jan 17 22:56:05 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Jan 17 22:54:17 2007
+Subject: [wp-docs] Codex updates for 2.1?
+In-Reply-To: <20070117171725.D4B956457@comox.textdrive.com>
+References: <20070117171725.D4B956457@comox.textdrive.com>
+Message-ID: <45AEA985.9000904@poplarware.com>
+
+lorelle@cameraontheroad.com wrote:
+> As with all releases, information specific to the new release will be added as
+> soon as all the information is available, and a volunteer kicks in with the
+> writing. Are you volunteering? ;-)
+
+Yes, actually.
+
+> If you would like to help, jump in and let us know specifically what you want to 
+> do, fix, improve, and add. We're thrilled to have you involved.
+
+OK, here goes.  As a developer, I have a suggestion for a 
+reorganization of the Developer Resources page 
+(codex.wordpress.org/Developer_Documentation). I'm hereby volunteering 
+to (a) reorganize and (b) at least do some of the 2.1 rewrites.
+
+I suggest separating Developer Resources into the following sections:
+*   Theme Development
+*   Plugin Development
+*   Contributing to WordPress
+*   Forums, Lists & Blogs [anyone with a better title idea here?]
+
+Probably codex.wordpress.org/Main_Page should just point developers to 
+the main Developer Resources page, rather than maintaining links in 
+the Developers section there too (my experience has been that anything 
+maintained in more than one spot is likely to get out of synch).
+
+Here are what I would suggest putting into each section (mostly 
+existing pages):
+
+Theme Development
+*   Theme Development (codex.wordpress.org/Theme_Development) [There 
+are a BUNCH of overlapping articles in the Codex about Theme 
+development, and it would be useful to clean it up somewhat. Next 
+project...]
+*   Designing Themes for Public Release 
+(codex.wordpress.org/Designing_Themes_for_Public_Release)
+*   Distributing your Theme (themes.wordpress.net)
+*   Coding Standards (codex.wordpress.org/WordPress_Coding_Standards)
+*   Template Tags (codex.wordpress.org/Template_Tags) [2.1 update needed]
+*   Conditional Tags (codex.wordpress.org/Conditional_Tags) [2.1 
+update needed]
+*   Function Reference (codex.wordpress.org/Function_Reference) [2.1 
+update needed]
+*   Migrating Themes and Plugins from 2.0.x to 2.1 [new]
+*   Finding Existing Themes (themes.wordpress.net)
+
+Plugin Development
+*   Writing a Plugin (codex.wordpress.org/Writing_a_Plugin)
+*   Coding Standards (codex.wordpress.org/WordPress_Coding_Standards)
+*   Distributing your Plugin [make separate page? currently part of 
+Writing, but I think it deserves its own page]
+*   Hooks, Actions, and Filters (codex.wordpress.org/Plugin_API) [2.1 
+update needed]
+*   Function Reference (codex.wordpress.org/Function_Reference) [2.1 
+update needed]
+*   Migrating from 2.0.x to 2.1 [new]
+*   Find Existing Plugins (wordpress.org/extend/plugins)
+
+Contributing to WordPress
+*   Contributing to WordPress 
+(codex.wordpress.org/Contributing_to_WordPress)
+(this article has great links already, not sure if they should all be 
+listed separately in the developer area)
+
+Forums, Lists & Blogs
+*   WordPress Blog (wordpress.org/development)
+*   WordPress Planet (planet.wordpress.org)
+*   Support Forum (wordpress.org/support)
+*   IRC Channels (codex.wordpress.org/IRC)
+*   Mailing lists (codex.wordpress.org/Mailing_Lists)
+
+Comments? Thoughts?
+      Jennifer
+From yahgrp at poplarware.com  Wed Jan 17 23:08:29 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Wed Jan 17 23:06:35 2007
+Subject: [wp-docs] Re: Codex updates for 2.1?
+In-Reply-To: <D0252C90757CBC4B8BC938A72BEDDF9D021E6B8C@dsimail.drbsystems.com>
+References: <D0252C90757CBC4B8BC938A72BEDDF9D021E6B8C@dsimail.drbsystems.com>
+Message-ID: <45AEAC6D.7000605@poplarware.com>
+
+Brian Layman wrote:
+>> once there  is actual content in the 2.1 section, link(s) from the 2.0
+> sections 
+>> will be useful
+> 
+> The model MySQL uses might be useful.  Take a look at how choosing the
+> version on the left effects this page:
+> http://dev.mysql.com/doc/refman/4.1/en/sql-syntax.html
+> 
+> Notice the consistency in the URLs allows:
+> http://dev.mysql.com/doc/refman/5.1/en/sql-syntax.html
+> 
+> That allows the menu on the left to make a simple substitution based upon
+> the current URL.  Something similar might work for WordPress
+> documentation...
+
+I do not think the Wiki currently being used for the Codex will 
+support that, but it is a nice idea.
+
+     Jennifer
+From lorelle at cameraontheroad.com  Thu Jan 18 06:54:26 2007
+From: lorelle at cameraontheroad.com (lorelle@cameraontheroad.com)
+Date: Thu Jan 18 06:54:34 2007
+Subject: [wp-docs] Codex updates for 2.1?
+Message-ID: <20070118065432.2DBC95C5A@comox.textdrive.com>
+
+Looks good to me. I hope others will add their opinions.
+
+We have a little bit of clarification on WordPress Themes. WordPress Themes come
+in two flavors of technical support: helping those who know not what they do but
+want to do it anyway, and building your own Theme.
+
+The WordPress Lessons and Blog Design sections cover the first group fairly well,
+though new material dedicated to them is always welcome. However, a section on
+WordPress Theme Development dedicated specifically to those who want to develop
+Themes for public release is great to expand upon under the Development section.
+
+I'm totally thrilled with the Plugin and Theme distribution articles. I've been
+begging for those for quite some time. Those definitely fit under Development.
+
+How does that sound? 
+
+I have plans to update the whole table of contents, so don't get too focused on
+that as much as filling in the blanks as you've listed them. Have at the
+Development section, but stay tuned for some changes to the rest of the TOC structure
+
+One last remember. I'm on the team that believes that a new manual doesn't have
+to be written for every version. The older articles are great and just need
+updated information, so focus on integration into the existing or new
+documentation. No reason to throw out the baby and the bath water.
+
+And thanks for jumping in on this. 
+
+Lorelle
+From yahgrp at poplarware.com  Thu Jan 18 17:35:27 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Thu Jan 18 17:33:38 2007
+Subject: [wp-docs] Codex updates for 2.1?
+In-Reply-To: <20070118065432.2DBC95C5A@comox.textdrive.com>
+References: <20070118065432.2DBC95C5A@comox.textdrive.com>
+Message-ID: <45AFAFDF.2030406@poplarware.com>
+
+lorelle@cameraontheroad.com wrote:
+
+> We have a little bit of clarification on WordPress Themes. WordPress Themes come 
+> in two flavors of technical support: helping those who know not what they do but
+> want to do it anyway, and building your own Theme.
+
+Yes, of course. I would not want to mess with the user-pointing 
+documentation on Themes, just the developer-pointing documentation.
+
+> I have plans to update the whole table of contents, so don't get too focused on 
+> that as much as filling in the blanks as you've listed them. Have at the
+> Development section, but stay tuned for some changes to the rest of the TOC structure
+
+OK, will do. I still think that maintaining a TOC for developers in 
+two spots is prone to problems.
+
+> One last remember. I'm on the team that believes that a new manual doesn't have
+> to be written for every version. The older articles are great and just need
+> updated information, so focus on integration into the existing or new
+> documentation. No reason to throw out the baby and the bath water.
+
+Well, the articles that need to have major updates for 2.1, on 
+functions and such for developers, are in pretty sad shape for the 
+2.0.x version anyway. Also, for function references, keeping track in 
+one article of functions from both versions is VERY confusing to the 
+reader (in my opinion, as a developer). So I will try to just 
+integrate as much as possible, but I think the function reference 
+articles do need to be kept separate.
+
+     --Jennifer
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From yahgrp at poplarware.com  Sat Jan 20 01:27:32 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Sat Jan 20 01:25:38 2007
+Subject: [wp-docs] Duplicated article lists...
+Message-ID: <45B17004.3080300@poplarware.com>
+
+I've been working this week on cleaning up and editing documentation 
+for theme, plugin, and core WordPress developers (it's coming along). 
+Also updating for version 2.1.
+
+What I've come across is that there are quite a few Codex pages that 
+are overlapping lists of articles. For instance, the following pages 
+contain lists of resources related to Theme development, and have no 
+actual content:
+
+* http://codex.wordpress.org/Templates (fairly comprehensive)
+* http://codex.wordpress.org/Blog_Design_and_Layout (some sections)
+* http://codex.wordpress.org/WordPress_Lessons (two sections are 
+related to themes and templates)
+* http://codex.wordpress.org/Developer_Documentation (one section on 
+Themes)
+* http://codex.wordpress.org/Main_Page (of course, the main page also 
+duplicates several sections of the above)
+
+I'm concerned because each of these lists has different articles, and 
+there is not one sole source to look at for a comprehensive list. 
+Also, some of the lists are not annotated, so you don't really know 
+what you will find when you click on the link (it could just lead you 
+to another page of links, or an article that is aimed at the wrong 
+audience). Not to mention that many content-rich articles also have 
+links to a few resources for further reading, where they could just 
+point the user back to the comprehensive, organized, annotated list of 
+resources.
+
+So, can some of these be consolidated? For instance, maybe Blog Design 
+and Layout could be the main place for design/layout articles, and 
+Templates (instead of having any layout sections) could simply point 
+to that page. Obviously, any articles linked to from the wordpress.org 
+home page, or from the codex.wordpress.org sidebar, need to remain!
+
+Thoughts? Is it OK if I go ahead and consolidate the developer-facing 
+documentation in that way? (I'll stay away from the Main Page for now).
+
+     --Jennifer
+From jpeek at jpeek.com  Sat Jan 20 14:15:27 2007
+From: jpeek at jpeek.com (Jerry Peek)
+Date: Sat Jan 20 14:15:33 2007
+Subject: [wp-docs] Duplicated article lists...
+In-Reply-To: <45B17004.3080300@poplarware.com>
+References: <45B17004.3080300@poplarware.com>
+Message-ID: <45B223FF.6010405@jpeek.com>
+
+Jennifer Hodgdon wrote:
+> What I've come across is that there are quite a few Codex pages that are 
+> overlapping lists of articles.
+...
+> I'm concerned because each of these lists has different articles, and 
+> there is not one sole source to look at for a comprehensive list. Also, 
+> some of the lists are not annotated, so you don't really know what you 
+> will find when you click on the link  ...
+
+I'm glad you brought this up, Jennifer.  There was some discussion on 
+this list at the start of December (before you joined?).  Matt replied 
+to my message on the topic by saying "it'd be nice if the links on the 
+front page of wordpress.org and more links on the Codex homepage took 
+you directly to content."  If Matt wants those pages cleaned up, I'd 
+guess that he (and others) would agree with fixing more-minor pages. 
+But, as I read in a discussion somewhere else (I've lost track of 
+where), some people do like this system of links-to-links.
+
+I'm new to WordPress, so my advice could be shortsighted.  Still, I'll 
+try. ;-)  Instead of replacing the pages, you might put revised page(s) 
+in a temporary location so people can have a look.  If they look good, 
+you could install them in the most likely location -- and revise the 
+obsolete pages of links to say "this page has moved to NEW-LOCATION". 
+(I can't think of a way to maintain compatibility with the old system of 
+multiple overlapping pages.  Suggestions, anybody?)
+
+If anyone disagrees, I hope this message will encourage them to say so!
+
+Jerry
+-- 
+Jerry Peek, jpeek@jpeek.com, www.jpeek.com
+From mhancock at us.net  Sat Jan 20 15:33:35 2007
+From: mhancock at us.net (Michael E. Hancock)
+Date: Sat Jan 20 15:33:48 2007
+Subject: [wp-docs] Upload File to Codex not working
+Message-ID: <000701c73ca8$5b1036b0$6402a8c0@DELL8600>
+
+Good Morning.
+
+In anticipation of 2.1 I'm trying to do "Upload file" with some new
+screenshots of the Installation process, but I get a message "The file you
+uploaded seems to be empty. This might be due to a typo in the file name.
+Please check whether you really want to upload this file."
+
+I tried this with a file called testup.png so don't thing the file name is
+wrong.
+
+Also asked another volunteer to try the upload and they had the same
+problem.  Using codex or monobook skin makes no difference.
+
+This is likely a problem for Matt but wondered if anyone else had any idea?
+
+Thanks.
+
+Michael E. Hancock
+
+
+
+From yahgrp at poplarware.com  Sat Jan 20 16:28:43 2007
+From: yahgrp at poplarware.com (Jennifer Hodgdon)
+Date: Sat Jan 20 16:26:49 2007
+Subject: [wp-docs] Duplicated article lists...
+In-Reply-To: <45B223FF.6010405@jpeek.com>
+References: <45B17004.3080300@poplarware.com> <45B223FF.6010405@jpeek.com>
+Message-ID: <45B2433B.1070009@poplarware.com>
+
+>> [Jennifer] What I've come across is that there are quite a few Codex pages that 
+>> are overlapping lists of articles.
+>> ...
+>> I'm concerned because each of these lists has different articles, and 
+>> there is not one sole source to look at for a comprehensive list. 
+>> Also, some of the lists are not annotated, so you don't really know 
+>> what you will find when you click on the link  ...
+
+> [Jerry quoting Matt] "it'd be nice if the links on the 
+> front page of wordpress.org and more links on the Codex homepage took 
+> you directly to content." 
+
+Actually, I think it's appropriate for the wordpress.org front page 
+links to take you to a good table of contents. I'm also in favor of 
+having different tables of contents at different levels of detail -- 
+for instance, the Codex home page could link to the TOC on Themes, the 
+TOC on Plugins, etc. And the Dev TOC could also link to both of those 
+TOCs. This all seems like a good idea, as long as the links to TOCs 
+are annotated to say "this is a list of all the good links on a subject".
+
+What I'm against is having multiple tables of contents on the same 
+topic, with slightly different lists of links, because when someone 
+goes to add a new page, they'll never manage to add it to all the 
+TOCs, and then an interested reader won't be able to find relevant 
+pages. And so I would like to clean those up, consolidate them, etc. I 
+think most of the existing pages make sense as subject headers, but 
+they have expanded to overlap each other.
+
+By the way, there's a right sidebar link in the Codex to see what 
+pages are linking to a given page, so it's not impossible to fix 
+inappropriate links.
+     Jennifer
+
+-- 
+Jennifer Hodgdon
+
+Poplar ProductivityWare * www.poplarware.com
+Web Databases/Scripts * Modeling/Analysis/Palm OS Software
+From m at mullenweg.com  Sun Jan 21 05:30:29 2007
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun Jan 21 05:30:30 2007
+Subject: [wp-docs] Upload File to Codex not working
+In-Reply-To: <000701c73ca8$5b1036b0$6402a8c0@DELL8600>
+References: <000701c73ca8$5b1036b0$6402a8c0@DELL8600>
+Message-ID: <45B2FA75.3030501@mullenweg.com>
+
+Michael E. Hancock wrote:
+> In anticipation of 2.1 I'm trying to do "Upload file" with some new
+> screenshots of the Installation process, but I get a message "The file you
+> uploaded seems to be empty. This might be due to a typo in the file name.
+> Please check whether you really want to upload this file."
+
+This should be fixed now!
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://automattic.com | http://akismet.com
+From mhancock at us.net  Sun Jan 21 13:50:53 2007
+From: mhancock at us.net (Michael E. Hancock)
+Date: Sun Jan 21 13:51:53 2007
+Subject: [wp-docs] Upload File to Codex not working
+References: <000701c73ca8$5b1036b0$6402a8c0@DELL8600>
+	<45B2FA75.3030501@mullenweg.com>
+Message-ID: <005601c73d63$2bb11270$6402a8c0@DELL8600>
+
+From: "Matt Mullenweg" <m@mullenweg.com>
+> This should be fixed now!
+
+It does work.  Thanks for fixing that.
+
+MichaelH
+
+
+From wp-docs at lambic.co.uk  Tue Jan 23 20:09:50 2007
+From: wp-docs at lambic.co.uk (Mark Styles)
+Date: Tue Jan 23 18:18:32 2007
+Subject: [wp-docs] Version support
+Message-ID: <20070123200950.GI8730@lambic.co.uk>
+
+Hi,
+
+What is the official position on support of older versions of WordPress?
+
+Should information relating to older versions be removed from the Codex?
+For example, this page:
+
+http://codex.wordpress.org/Template_Tags/the_excerpt_rss
+
+has a section on parameters for version 1.2.
+
+
+And a completely unrelated question: Why can I post to wp-docs, but when
+I try to post to wp-testers it never shows up?
+
+-- 
+Mark 
+http://www.lambic.co.uk
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/wp-docs/attachments/20070123/80cdc805/attachment.pgp
+From mhancock at us.net  Tue Jan 23 19:06:53 2007
+From: mhancock at us.net (Michael E. Hancock)
+Date: Tue Jan 23 19:17:02 2007
+Subject: [wp-docs] Version support
+References: <20070123200950.GI8730@lambic.co.uk>
+Message-ID: <00cc01c73f23$0c6aa770$6402a8c0@DELL8600>
+
+From: "Mark Styles" <wp-docs@lambic.co.uk>
+>Should information relating to older versions be removed from the Codex?
+>For example, this page:
+> http://codex.wordpress.org/Template_Tags/the_excerpt_rss
+>
+>has a section on parameters for version 1.2.
+
+Don't see any harm removing it. But then again what's the harm in leaving
+it?
+
+>And a completely unrelated question: Why can I post to wp-docs,
+>but when I try to post to wp-testers it never shows up
+
+Looks like wp-testers at lambic.co.uk is subscribed to the testors list?
+
+MichaelH
+
+
+
+From wp-docs at lambic.co.uk  Tue Jan 23 21:27:35 2007
+From: wp-docs at lambic.co.uk (Mark Styles)
+Date: Tue Jan 23 19:36:06 2007
+Subject: [wp-docs] Version support
+In-Reply-To: <00cc01c73f23$0c6aa770$6402a8c0@DELL8600>
+References: <20070123200950.GI8730@lambic.co.uk>
+	<00cc01c73f23$0c6aa770$6402a8c0@DELL8600>
+Message-ID: <20070123212735.GJ8730@lambic.co.uk>
+
+On Tue, Jan 23, 2007 at 02:06:53PM -0500, Michael E. Hancock wrote:
+> From: "Mark Styles" <wp-docs@lambic.co.uk>
+> >Should information relating to older versions be removed from the Codex?
+> >For example, this page:
+> > http://codex.wordpress.org/Template_Tags/the_excerpt_rss
+> >
+> >has a section on parameters for version 1.2.
+> 
+> Don't see any harm removing it. But then again what's the harm in leaving
+> it?
+
+Rule #4 of the Codex Guidelines: Edit mercilessly. ;)
+
+> >And a completely unrelated question: Why can I post to wp-docs,
+> >but when I try to post to wp-testers it never shows up
+> 
+> Looks like wp-testers at lambic.co.uk is subscribed to the testors list?
+
+Yes, I've tried sending email to that list using wp-testers at
+lambic.co.uk, but it never appears.
+
+-- 
+Mark 
+http://www.lambic.co.uk
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/wp-docs/attachments/20070123/96754fbc/attachment.pgp
+From spencerp1 at gmail.com  Sat Jan 27 17:31:49 2007
+From: spencerp1 at gmail.com (spencerp)
+Date: Sat Jan 27 17:31:52 2007
+Subject: [wp-docs] 2.1 compatible theme list..
+Message-ID: <45BB8C85.40607@gmail.com>
+
+Would it be possible for someone to add the link to the 2.1 Compatible 
+theme's list, on the Codex page under the new 2.1 section?
+http://codex.wordpress.org/Themes/Theme_Compatibility/2.1
+
+Was just wondering..  I had to search the codex to find it. Figured it 
+might get more "love" if it was right on the Codex's Main page.. ;):)
+
+- -
+spencerp
+http://spencerp.net

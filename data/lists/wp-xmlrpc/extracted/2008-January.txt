@@ -1,0 +1,1102 @@
+From joseph at randomnetworks.com  Wed Jan  2 18:28:35 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jan  2 18:29:12 2008
+Subject: [wp-xmlrpc] managing post_status
+Message-ID: <4E6B97D7-A3D1-47FC-B29D-02013CF2B6CF@randomnetworks.com>
+
+
+We talked about being able to set the post status now that it is  
+exposed as well.  After some great discussion with Daniel this  
+morning on #wordpress-dev about how this could be done I've submitted  
+ticket 5569 - http://trac.wordpress.org/ticket/5569
+
+The future status was something that got a lot of attention,  
+eventually deciding that since it isn't exposed in wp-admin anywhere  
+it shouldn't exposed via XML-RPC either.  So we'll being showing  
+future posts with a status of publish.
+
+Please take a look at the ticket and proposed functionality and let  
+us know what you think.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Wed Jan  9 03:45:23 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Wed Jan  9 03:45:34 2008
+Subject: [wp-xmlrpc] description vs. mt_text_more
+Message-ID: <1199850323.11572.143.camel@phoenix.whoi.edu>
+
+Hi,
+
+It seems like in wordpress 2.3.4 there's no consistent way to get the
+full text of a Post. I guess depending on the use of <--more-->, one can
+get the full text from 'description', or 'mt_text_more'. Am I missing
+something here?
+
+Carlos
+
+From joseph at randomnetworks.com  Wed Jan  9 06:25:35 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jan  9 06:26:22 2008
+Subject: [wp-xmlrpc] description vs. mt_text_more
+In-Reply-To: <1199850323.11572.143.camel@phoenix.whoi.edu>
+References: <1199850323.11572.143.camel@phoenix.whoi.edu>
+Message-ID: <DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+
+
+On Jan 8, 2008, at 8:45 PM, Carlos Moffat wrote:
+
+> It seems like in wordpress 2.3.4 there's no consistent way to get the
+> full text of a Post. I guess depending on the use of <--more-->,  
+> one can
+> get the full text from 'description', or 'mt_text_more'. Am I missing
+> something here?
+
+
+I'd assume that most clients just append "mt_text_more" to the end of  
+"description" to get the entire post body (minus the <!-- more --> of  
+course).
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Wed Jan  9 06:31:34 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Jan  9 06:31:49 2008
+Subject: [wp-xmlrpc] description vs. mt_text_more
+In-Reply-To: <DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+References: <1199850323.11572.143.camel@phoenix.whoi.edu>
+	<DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+Message-ID: <1B31BD5E-C572-464E-A446-9134155319E0@red-sweater.com>
+
+On Jan 9, 2008, at 1:25 AM, Joseph Scott wrote:
+
+> I'd assume that most clients just append "mt_text_more" to the end  
+> of "description" to get the entire post body (minus the <!-- more -- 
+> > of course).
+
+Actually - I'm pretty sure the <!-- more --> never makes it into the  
+content.  It's purely an interface shortcut (ahem, hack ;) ).
+
+Daniel
+From carlos.lst at eldiabloenlosdetalles.net  Wed Jan  9 13:08:59 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Wed Jan  9 13:09:18 2008
+Subject: [wp-xmlrpc] description vs. mt_text_more
+In-Reply-To: <DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+References: <1199850323.11572.143.camel@phoenix.whoi.edu>
+	<DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+Message-ID: <1199884139.11572.146.camel@phoenix.whoi.edu>
+
+
+On Tue, 2008-01-08 at 23:25 -0700, Joseph Scott wrote:
+> On Jan 8, 2008, at 8:45 PM, Carlos Moffat wrote:
+> 
+> > It seems like in wordpress 2.3.4 there's no consistent way to get the
+> > full text of a Post. I guess depending on the use of <--more-->,  
+> > one can
+> > get the full text from 'description', or 'mt_text_more'. Am I missing
+> > something here?
+> 
+> 
+> I'd assume that most clients just append "mt_text_more" to the end of  
+> "description" to get the entire post body (minus the <!-- more --> of  
+> course).
+> 
+> 
+
+Right. As Daniel says, the <!-- more --> tag never makes it to the
+content, but that is all right with me.
+
+Thanks!
+
+
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Wed Jan  9 15:23:24 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jan  9 15:24:16 2008
+Subject: [wp-xmlrpc] description vs. mt_text_more
+In-Reply-To: <1199884139.11572.146.camel@phoenix.whoi.edu>
+References: <1199850323.11572.143.camel@phoenix.whoi.edu>
+	<DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+	<1199884139.11572.146.camel@phoenix.whoi.edu>
+Message-ID: <9CC22457-2ECA-4C1D-BB83-B86012E5A1D5@randomnetworks.com>
+
+
+On Jan 9, 2008, at 6:08 AM, Carlos Moffat wrote:
+
+> Right. As Daniel says, the <!-- more --> tag never makes it to the
+> content, but that is all right with me.
+
+You could infer that it exists and show it on the client side so that  
+the user knows its there.
+
+I think this was one of those things that the original API specs  
+didn't take into consideration.  Others would know more about the  
+history of that than I.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Wed Jan  9 16:11:26 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Jan  9 16:13:57 2008
+Subject: [wp-xmlrpc] description vs. mt_text_more
+In-Reply-To: <9CC22457-2ECA-4C1D-BB83-B86012E5A1D5@randomnetworks.com>
+References: <1199850323.11572.143.camel@phoenix.whoi.edu>
+	<DC313C81-0A23-4074-84B7-0B1B8E29E621@randomnetworks.com>
+	<1199884139.11572.146.camel@phoenix.whoi.edu>
+	<9CC22457-2ECA-4C1D-BB83-B86012E5A1D5@randomnetworks.com>
+Message-ID: <B1DBF09C-F3C4-4B16-A0FA-7531A3839721@red-sweater.com>
+
+On Jan 9, 2008, at 10:23 AM, Joseph Scott wrote:
+
+> You could infer that it exists and show it on the client side so  
+> that the user knows its there.
+
+I think the <!-- more --> is about the least desirable means of  
+expressing "there's a divider between that text and this text".  So  
+most clients will adopt a different means of expressing it, rather  
+than reusing the same hack.
+
+> I think this was one of those things that the original API specs  
+> didn't take into consideration.  Others would know more about the  
+> history of that than I.
+
+So in this case the API is perfect, because it correctly identifies  
+the semantic meaning of the two chunks of text, without forcing a  
+weird shorthand on clients. It would be annoying to have to scan for  
+and manually divide based on the presence of this magic tag.
+
+Daniel
+From joseph at randomnetworks.com  Thu Jan 10 23:21:29 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Jan 10 23:22:23 2008
+Subject: [wp-xmlrpc] get valid post/page status values and set them
+Message-ID: <9B6AEDAB-8845-4AAA-912F-CAB24A3F9A3E@randomnetworks.com>
+
+
+
+Following up on the discussion about post/page status (see ticket  
+http://trac.wordpress.org/ticket/5569) we've got two new methods:  
+wp.getPostStatusList and wp.getPageStatusList.  Both return a struct  
+with the valid post/page status values and descriptions.  In addition  
+you can now explicitly set the those values (metaWeblog.new/editPost  
+for posts and wp.new/editPage for pages) via the post_status and  
+page_status fields.
+
+This was just committed to -trunk.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sat Jan 12 15:27:53 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sat Jan 12 15:28:11 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+Message-ID: <1200151673.4554.13.camel@phoenix.whoi.edu>
+
+Hi,
+
+At the risk of having miss something obvious (again): is the wordpress
+version exposed through xmlrpc?
+
+Thanks,
+Carlos
+
+From joseph at randomnetworks.com  Sat Jan 12 21:32:07 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Jan 12 21:32:59 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <1200151673.4554.13.camel@phoenix.whoi.edu>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+Message-ID: <B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+
+
+On Jan 12, 2008, at 8:27 AM, Carlos Moffat wrote:
+
+> Hi,
+>
+> At the risk of having miss something obvious (again): is the wordpress
+> version exposed through xmlrpc?
+
+
+As far as I've seen it isn't.  One thing I've toyed with though is  
+providing some sort of API revision number.  This could be used by  
+clients to figure out what features are supported.  At some point  
+I'll submit a ticket+patch for that to get more discussion on it  
+rolling.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sat Jan 12 21:38:37 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sat Jan 12 21:38:54 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+Message-ID: <1200173917.4554.24.camel@phoenix.whoi.edu>
+
+
+On Sat, 2008-01-12 at 14:32 -0700, Joseph Scott wrote:
+> On Jan 12, 2008, at 8:27 AM, Carlos Moffat wrote:
+> 
+> > Hi,
+> >
+> > At the risk of having miss something obvious (again): is the wordpress
+> > version exposed through xmlrpc?
+> 
+> 
+> As far as I've seen it isn't.  One thing I've toyed with though is  
+> providing some sort of API revision number.  This could be used by  
+> clients to figure out what features are supported.  At some point  
+> I'll submit a ticket+patch for that to get more discussion on it  
+> rolling.
+> 
+
+That's exactly was I was thinking about. 
+
+Carlos
+
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From kimmo at global-wire.fi  Sun Jan 13 14:54:03 2008
+From: kimmo at global-wire.fi (Kimmo Suominen)
+Date: Sun Jan 13 14:54:22 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+Message-ID: <20080113145403.GC10727@kimmo.suominen.com>
+
+Shouldn't clients just use system.listMethods to discover available
+methods (i.e. supported features)?  This way the client can choose
+the methods it likes best, and can avoid using ones that are not
+available.
+
+Using hard-coded knowledge on the client end would prevent using new
+methods added on-the-fly or e.g. by backporting features to an older
+version of WordPress.
+
+Exposing a single API revision number is practically equivalent to
+exposing the WordPress version number.  I'd rather not disclose
+information like that when not necessary.  Software version numbers
+should not be relevant to the network protocols.
+
+Having each method somehow support multiple versions of a protocol
+(e.g. different calling conventions) seems complicated.  Clients
+probably wouldn't know how to check for a WordPress-specific API
+revision for each method.  It would be better to extend methods
+in a backwards compatible way, e.g. using named arguments in an
+array.  If backwards compatibility cannot be maintained in a method,
+it probably means it should become a new method instead.
+
+Best regards,
++ Kimmo
+-- 
+<A HREF="http://kimmo.suominen.com/">Kimmo Suominen</A>
+
+On Sat, Jan 12, 2008 at 02:32:07PM -0700, Joseph Scott wrote:
+> 
+> On Jan 12, 2008, at 8:27 AM, Carlos Moffat wrote:
+> 
+> >Hi,
+> >
+> >At the risk of having miss something obvious (again): is the wordpress
+> >version exposed through xmlrpc?
+> 
+> 
+> As far as I've seen it isn't.  One thing I've toyed with though is  
+> providing some sort of API revision number.  This could be used by  
+> clients to figure out what features are supported.  At some point  
+> I'll submit a ticket+patch for that to get more discussion on it  
+> rolling.
+> 
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+
+From carlos.lst at eldiabloenlosdetalles.net  Sun Jan 13 18:56:36 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sun Jan 13 18:56:49 2008
+Subject: [wp-xmlrpc] Timezones
+Message-ID: <1200250596.16468.3.camel@phoenix.whoi.edu>
+
+Hi,
+
+Right now, it is easy to figure out the time zone from the post
+information (date and date_gmt). However, for a new post, one has to
+either trust the info from the last post or do something else, or
+something like that.
+
+Joseph, have you thought of exposing the timezone setting?
+
+Cheers,
+Carlos
+
+From joseph at randomnetworks.com  Sun Jan 13 22:17:36 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sun Jan 13 22:19:35 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <20080113145403.GC10727@kimmo.suominen.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+Message-ID: <8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+
+
+On Jan 13, 2008, at 7:54 AM, Kimmo Suominen wrote:
+
+> Shouldn't clients just use system.listMethods to discover available
+> methods (i.e. supported features)?  This way the client can choose
+> the methods it likes best, and can avoid using ones that are not
+> available.
+
+
+To discover which methods are available, yes, system.listMethods is  
+fine.  The details it provides though aren't fine grained enough to  
+determine what capabilities and fixes each of those methods have.   
+For instance, we've extended metaWeblog.newPost in different ways.   
+Right now we don't have a way for clients to know if a particular  
+WordPress install has those new features or not.
+
+
+> Using hard-coded knowledge on the client end would prevent using new
+> methods added on-the-fly or e.g. by backporting features to an older
+> version of WordPress.
+
+
+In an ideal world that would be true.  In working with various client  
+software though, I found that they are already having to work around  
+specific bugs/issues in server side software.  Most/many/all of these  
+issues are likely only documented in the software themselves, at  
+least I haven't seen a public source of details on how to work around  
+problems with each API and specific implementations of each API.   My  
+hope with providing some sort of API version is that at least we'll  
+be able to address these issues out in the open.
+
+There are client authors on this list who would be able to comment in  
+greater detail in that regard.
+
+
+> Exposing a single API revision number is practically equivalent to
+> exposing the WordPress version number.  I'd rather not disclose
+> information like that when not necessary.  Software version numbers
+> should not be relevant to the network protocols.
+
+
+I'd tend to agree, which is one of the reasons I was going to put  
+together a ticket+patch so that there would be a place to gather more  
+feedback.  When I get that submitted I'll be sure to send an email  
+out on this list providing a pointer to it.  At this point since I  
+haven't even provided one single bit of code for this feature I think  
+it is too early to try and dive too deep into the specific issues.
+
+
+> Having each method somehow support multiple versions of a protocol
+> (e.g. different calling conventions) seems complicated.  Clients
+> probably wouldn't know how to check for a WordPress-specific API
+> revision for each method.  It would be better to extend methods
+> in a backwards compatible way, e.g. using named arguments in an
+> array.  If backwards compatibility cannot be maintained in a method,
+> it probably means it should become a new method instead.
+
+
+This isn't about backwards compatibility, it is about providing a way  
+for clients to learn that a WordPress install supports additional  
+features beyond the baseline that we've been living with for years.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Sun Jan 13 22:36:58 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sun Jan 13 22:37:51 2008
+Subject: [wp-xmlrpc] Timezones
+In-Reply-To: <1200250596.16468.3.camel@phoenix.whoi.edu>
+References: <1200250596.16468.3.camel@phoenix.whoi.edu>
+Message-ID: <07E54C8B-80DB-4819-8ACF-04D34F80E7B0@randomnetworks.com>
+
+
+On Jan 13, 2008, at 11:56 AM, Carlos Moffat wrote:
+
+> Right now, it is easy to figure out the time zone from the post
+> information (date and date_gmt). However, for a new post, one has to
+> either trust the info from the last post or do something else, or
+> something like that.
+>
+> Joseph, have you thought of exposing the timezone setting?
+
+
+Time has been a very fragile point for these APIs it seems.  If it  
+would help I think exposing the time zone offset would be  
+reasonable.  Please submit a ticket (trac.wordpress.org) and a  
+proposed patch if you have have one.  That will allow others to  
+provide feedback as well and we can see where that takes us.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Sun Jan 13 23:19:59 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sun Jan 13 23:20:53 2008
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+Message-ID: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+
+
+We've got a ticket http://trac.wordpress.org/ticket/5655 that  
+proposes to change the faultstring value from:
+
+<value><string>{$this->message}</string></value>
+
+to:
+
+<value><string><![CDATA[{$this->message}]]></string></value>
+
+The xmlrpc spec examples show the faultstring value as a raw string,  
+which is what we do now.  Unless someone can indicate a benefit that  
+WordPress would gain by making this change I'm going to recommend  
+against it.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Sun Jan 13 23:21:28 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Sun Jan 13 23:21:42 2008
+Subject: [wp-xmlrpc] Timezones
+In-Reply-To: <07E54C8B-80DB-4819-8ACF-04D34F80E7B0@randomnetworks.com>
+References: <1200250596.16468.3.camel@phoenix.whoi.edu>
+	<07E54C8B-80DB-4819-8ACF-04D34F80E7B0@randomnetworks.com>
+Message-ID: <1200266488.16468.5.camel@phoenix.whoi.edu>
+
+
+On Sun, 2008-01-13 at 15:36 -0700, Joseph Scott wrote:
+> On Jan 13, 2008, at 11:56 AM, Carlos Moffat wrote:
+> 
+> > Right now, it is easy to figure out the time zone from the post
+> > information (date and date_gmt). However, for a new post, one has to
+> > either trust the info from the last post or do something else, or
+> > something like that.
+> >
+> > Joseph, have you thought of exposing the timezone setting?
+> 
+> 
+> Time has been a very fragile point for these APIs it seems.  If it  
+> would help I think exposing the time zone offset would be  
+> reasonable.  Please submit a ticket (trac.wordpress.org) and a  
+> proposed patch if you have have one.  That will allow others to  
+> provide feedback as well and we can see where that takes us.
+> 
+
+Here it is:
+
+http://trac.wordpress.org/ticket/5659
+
+I'm afraid I can't offer a patch (don't know enough).
+
+Best Regards,
+Carlos
+> 
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From Joe.Cheng at microsoft.com  Mon Jan 14 16:23:44 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jan 14 16:23:49 2008
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+In-Reply-To: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+References: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21137C0968@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Is $this->message XML-escaped today? What happens, for example, if the error message contains the '&' character--will it be properly escaped to "&amp;"?
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Sunday, January 13, 2008 3:20 PM
+To: wp-xmlrpc@lists.automattic.com
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+
+
+We've got a ticket http://trac.wordpress.org/ticket/5655 that proposes to change the faultstring value from:
+
+<value><string>{$this->message}</string></value>
+
+to:
+
+<value><string><![CDATA[{$this->message}]]></string></value>
+
+The xmlrpc spec examples show the faultstring value as a raw string, which is what we do now.  Unless someone can indicate a benefit that WordPress would gain by making this change I'm going to recommend against it.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From Joe.Cheng at microsoft.com  Mon Jan 14 16:32:52 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jan 14 16:32:54 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+I might find this useful, if both version number and the fact that it is WordPress are both provided. The only reason I'm not more excited is because this information can currently be gleaned from the homepage metadata and the RSD.
+
+Personally, I'd actually be more interested in having version information in the RSD.
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Sunday, January 13, 2008 2:18 PM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Wordpress version from xmlrpc?
+
+
+On Jan 13, 2008, at 7:54 AM, Kimmo Suominen wrote:
+
+> Shouldn't clients just use system.listMethods to discover available
+> methods (i.e. supported features)?  This way the client can choose the
+> methods it likes best, and can avoid using ones that are not
+> available.
+
+
+To discover which methods are available, yes, system.listMethods is fine.  The details it provides though aren't fine grained enough to determine what capabilities and fixes each of those methods have.
+For instance, we've extended metaWeblog.newPost in different ways.
+Right now we don't have a way for clients to know if a particular WordPress install has those new features or not.
+
+
+> Using hard-coded knowledge on the client end would prevent using new
+> methods added on-the-fly or e.g. by backporting features to an older
+> version of WordPress.
+
+
+In an ideal world that would be true.  In working with various client software though, I found that they are already having to work around specific bugs/issues in server side software.  Most/many/all of these issues are likely only documented in the software themselves, at least I haven't seen a public source of details on how to work around
+problems with each API and specific implementations of each API.   My
+hope with providing some sort of API version is that at least we'll be able to address these issues out in the open.
+
+There are client authors on this list who would be able to comment in greater detail in that regard.
+
+
+> Exposing a single API revision number is practically equivalent to
+> exposing the WordPress version number.  I'd rather not disclose
+> information like that when not necessary.  Software version numbers
+> should not be relevant to the network protocols.
+
+
+I'd tend to agree, which is one of the reasons I was going to put together a ticket+patch so that there would be a place to gather more feedback.  When I get that submitted I'll be sure to send an email out on this list providing a pointer to it.  At this point since I haven't even provided one single bit of code for this feature I think it is too early to try and dive too deep into the specific issues.
+
+
+> Having each method somehow support multiple versions of a protocol
+> (e.g. different calling conventions) seems complicated.  Clients
+> probably wouldn't know how to check for a WordPress-specific API
+> revision for each method.  It would be better to extend methods in a
+> backwards compatible way, e.g. using named arguments in an array.  If
+> backwards compatibility cannot be maintained in a method, it probably
+> means it should become a new method instead.
+
+
+This isn't about backwards compatibility, it is about providing a way for clients to learn that a WordPress install supports additional features beyond the baseline that we've been living with for years.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From jalkut at red-sweater.com  Mon Jan 14 16:35:51 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon Jan 14 16:36:07 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <079C2B0F-8F6D-489B-9ED0-85BC8A68149E@red-sweater.com>
+
+On Jan 14, 2008, at 11:32 AM, Joe Cheng wrote:
+
+> Personally, I'd actually be more interested in having version  
+> information in the RSD.
+
+Agreed. I'd like to have a good idea of what I'm dealing with before I  
+make the first call to XMLRPC.
+
+Daniel
+From joseph at randomnetworks.com  Mon Jan 14 16:51:55 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jan 14 16:52:56 2008
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21137C0968@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0968@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <BE3E341E-FDA0-4689-947B-3FB968709019@randomnetworks.com>
+
+
+On Jan 14, 2008, at 9:23 AM, Joe Cheng wrote:
+
+> Is $this->message XML-escaped today? What happens, for example, if  
+> the error message contains the '&' character--will it be properly  
+> escaped to "&amp;"?
+
+My gut response was going to be yet, but then I tried it.  Turns out  
+the answer is no :-(
+
+I've created a ticket for this issue: http://trac.wordpress.org/ 
+ticket/5666
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Mon Jan 14 16:56:42 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jan 14 16:57:35 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <1D7C43F8-EECF-437F-B22D-737765115762@randomnetworks.com>
+
+
+On Jan 14, 2008, at 9:32 AM, Joe Cheng wrote:
+
+> I might find this useful, if both version number and the fact that  
+> it is WordPress are both provided. The only reason I'm not more  
+> excited is because this information can currently be gleaned from  
+> the homepage metadata and the RSD.
+>
+> Personally, I'd actually be more interested in having version  
+> information in the RSD.
+
+What do you do when the WordPress version isn't provided?  There are  
+folks out there how have been removing it from their theme templates  
+in an effort to mask exactly which version of WordPress they are using.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Mon Jan 14 17:10:23 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jan 14 17:11:22 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <079C2B0F-8F6D-489B-9ED0-85BC8A68149E@red-sweater.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<079C2B0F-8F6D-489B-9ED0-85BC8A68149E@red-sweater.com>
+Message-ID: <D246994A-F79A-471B-BD22-DE25FD972B26@randomnetworks.com>
+
+
+On Jan 14, 2008, at 9:35 AM, Daniel Jalkut wrote:
+
+>
+>> Personally, I'd actually be more interested in having version  
+>> information in the RSD.
+>
+> Agreed. I'd like to have a good idea of what I'm dealing with  
+> before I make the first call to XMLRPC.
+
+I can see how that would be useful, given that you are already making  
+a request to get the RSD.
+
+I'd have two questions/concerns about putting in the RSD:
+
+1- Are you talking about the WordPress version or an API version # ?
+2- Where exactly would we put this number?  Looking at the RSD specs  
+it looks like we could put a value in settings -> setting under the  
+WordPress API section.
+3- How does this address the issue of folks who like to hide version  
+details?  If we become dependent on this versioning info being  
+exposed via RSD and someone removes it, what will clients do?
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From Joe.Cheng at microsoft.com  Mon Jan 14 17:12:22 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jan 14 17:14:40 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <1D7C43F8-EECF-437F-B22D-737765115762@randomnetworks.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<1D7C43F8-EECF-437F-B22D-737765115762@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21137C09C9@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+So far we've only been interested in the distinction between 2.1.x and earlier, and 2.2 and later. We just look at whether WP API is supported to tell us that. I'm sure it's only a matter of time though.
+
+If folks are legitimately worried about exposing the WP version, then that's a good argument for keeping it behind authenticated XML-RPC calls.
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Monday, January 14, 2008 8:57 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Wordpress version from xmlrpc?
+
+
+On Jan 14, 2008, at 9:32 AM, Joe Cheng wrote:
+
+> I might find this useful, if both version number and the fact that it
+> is WordPress are both provided. The only reason I'm not more excited
+> is because this information can currently be gleaned from the homepage
+> metadata and the RSD.
+>
+> Personally, I'd actually be more interested in having version
+> information in the RSD.
+
+What do you do when the WordPress version isn't provided?  There are folks out there how have been removing it from their theme templates in an effort to mask exactly which version of WordPress they are using.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From Joe.Cheng at microsoft.com  Mon Jan 14 17:17:57 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jan 14 17:17:59 2008
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+In-Reply-To: <BE3E341E-FDA0-4689-947B-3FB968709019@randomnetworks.com>
+References: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0968@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<BE3E341E-FDA0-4689-947B-3FB968709019@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21137C09D3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+If you do that, then there's no reason to worry about CDATA.
+
+As a side note, I've noticed that PHP emits warnings directly to the response stream, and this even applies to XML-RPC requests which obviously results in malformed XML (as the warnings generally happen before the XML payload begins). I've seen this in a few user logs for Windows Live Writer, although I can't remember at the moment what the actual warnings were for. This isn't too much of a problem for us as usually the warnings are fatal anyway, so we're just swapping whatever the real error message is for our generic "malformed response" error. But something for you to be aware of nonetheless.
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Monday, January 14, 2008 8:52 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] wrapping faultstring value with CDATA
+
+
+On Jan 14, 2008, at 9:23 AM, Joe Cheng wrote:
+
+> Is $this->message XML-escaped today? What happens, for example, if the
+> error message contains the '&' character--will it be properly escaped
+> to "&amp;"?
+
+My gut response was going to be yet, but then I tried it.  Turns out the answer is no :-(
+
+I've created a ticket for this issue: http://trac.wordpress.org/
+ticket/5666
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From joseph at randomnetworks.com  Mon Jan 14 17:29:58 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jan 14 17:30:59 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21137C09C9@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<1D7C43F8-EECF-437F-B22D-737765115762@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C09C9@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <423BA3F4-340C-4A8F-8EBE-DAD0BDB2C8EB@randomnetworks.com>
+
+
+On Jan 14, 2008, at 10:12 AM, Joe Cheng wrote:
+
+> So far we've only been interested in the distinction between 2.1.x  
+> and earlier, and 2.2 and later. We just look at whether WP API is  
+> supported to tell us that. I'm sure it's only a matter of time though.
+
+
+WLW is a little bit different in this regard because you also have  
+the wlwmanifest.xml, which we used to turn on mt_keywords support,  
+which didn't show up in WP until 2.3.
+
+
+>
+> If folks are legitimately worried about exposing the WP version,  
+> then that's a good argument for keeping it behind authenticated XML- 
+> RPC calls.
+
+
+
+Keeping it behind an auth'd call was going to be my strategy for  
+short circuiting those that were concerned about exposing a version  
+number :-)
+
+I realize that it one more step (or more) clients would have to make  
+in order to gather details about a blogs features.  What if we  
+cheated a little bit here.  Carlos Moffat asked about having the time  
+zone offset that is set in the WP options being exposed.  Since it  
+would be rather a waste to have an entire method just for that, I was  
+thinking of adding a more general wp.getBlogOptions() method.  Such a  
+method would take an array of strings, where each string was a blog  
+option that the client wanted to have a value for.  The method would  
+then return a struct, with the key as the option string (same as the  
+one provided in the array).  We could make the versioning details be  
+part of that by considering it a blog option.
+
+Something like this:
+
+wp.getBlogOptions(
+	blog_id,
+	username,
+	password,
+	array('blogname', 'blogdescription', 'gmt_offset', 'xmlrpc_version',  
+'blog_version')
+)
+
+which would return:
+
+{
+	'blogname': 'My Cool Blog',
+	'blogdescription': 'Just another WordPress weblog',
+	'gmt_offset': -7,
+	'xmlrpc_version': 12345,
+	'blog_version': '2.4-bleeding'
+}
+
+In order for something like that to work we'd have to firm up the  
+exact option string values and such of course.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From carlos.lst at eldiabloenlosdetalles.net  Mon Jan 14 17:33:46 2008
+From: carlos.lst at eldiabloenlosdetalles.net (Carlos Moffat)
+Date: Mon Jan 14 17:34:04 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <423BA3F4-340C-4A8F-8EBE-DAD0BDB2C8EB@randomnetworks.com>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<1D7C43F8-EECF-437F-B22D-737765115762@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C09C9@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<423BA3F4-340C-4A8F-8EBE-DAD0BDB2C8EB@randomnetworks.com>
+Message-ID: <1200332026.8007.3.camel@phoenix.whoi.edu>
+
+
+On Mon, 2008-01-14 at 10:29 -0700, Joseph Scott wrote:
+> On Jan 14, 2008, at 10:12 AM, Joe Cheng wrote:
+> 
+> > So far we've only been interested in the distinction between 2.1.x  
+> > and earlier, and 2.2 and later. We just look at whether WP API is  
+> > supported to tell us that. I'm sure it's only a matter of time though.
+> 
+> 
+> WLW is a little bit different in this regard because you also have  
+> the wlwmanifest.xml, which we used to turn on mt_keywords support,  
+> which didn't show up in WP until 2.3.
+> 
+> 
+> >
+> > If folks are legitimately worried about exposing the WP version,  
+> > then that's a good argument for keeping it behind authenticated XML- 
+> > RPC calls.
+> 
+> 
+> 
+> Keeping it behind an auth'd call was going to be my strategy for  
+> short circuiting those that were concerned about exposing a version  
+> number :-)
+> 
+> I realize that it one more step (or more) clients would have to make  
+> in order to gather details about a blogs features.  What if we  
+> cheated a little bit here.  Carlos Moffat asked about having the time  
+> zone offset that is set in the WP options being exposed.  Since it  
+> would be rather a waste to have an entire method just for that, I was  
+> thinking of adding a more general wp.getBlogOptions() method.  Such a  
+> method would take an array of strings, where each string was a blog  
+> option that the client wanted to have a value for.  The method would  
+> then return a struct, with the key as the option string (same as the  
+> one provided in the array).  We could make the versioning details be  
+> part of that by considering it a blog option.
+> 
+> Something like this:
+> 
+> wp.getBlogOptions(
+> 	blog_id,
+> 	username,
+> 	password,
+> 	array('blogname', 'blogdescription', 'gmt_offset', 'xmlrpc_version',  
+> 'blog_version')
+> )
+> 
+> which would return:
+> 
+> {
+> 	'blogname': 'My Cool Blog',
+> 	'blogdescription': 'Just another WordPress weblog',
+> 	'gmt_offset': -7,
+> 	'xmlrpc_version': 12345,
+> 	'blog_version': '2.4-bleeding'
+> }
+> 
+> In order for something like that to work we'd have to firm up the  
+> exact option string values and such of course.
+> 
+> 
+
+This sounds great. 
+
+Carlos
+
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+> 
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From Joe.Cheng at microsoft.com  Mon Jan 14 17:37:32 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jan 14 17:37:34 2008
+Subject: [wp-xmlrpc] Wordpress version from xmlrpc?
+In-Reply-To: <1200332026.8007.3.camel@phoenix.whoi.edu>
+References: <1200151673.4554.13.camel@phoenix.whoi.edu>
+	<B18103F7-9C66-4BF3-9C0F-29298E92EAEE@randomnetworks.com>
+	<20080113145403.GC10727@kimmo.suominen.com>
+	<8726A9F8-C577-4743-91A8-94D392335908@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0978@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<1D7C43F8-EECF-437F-B22D-737765115762@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C09C9@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<423BA3F4-340C-4A8F-8EBE-DAD0BDB2C8EB@randomnetworks.com>
+	<1200332026.8007.3.camel@phoenix.whoi.edu>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21137C0A0C@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> This sounds great.
+
++1
+From joseph at randomnetworks.com  Mon Jan 14 17:36:44 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jan 14 17:37:51 2008
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21137C09D3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0968@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<BE3E341E-FDA0-4689-947B-3FB968709019@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C09D3@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <E3DCD434-BF28-4AC3-BE78-1D75C92E5493@randomnetworks.com>
+
+
+On Jan 14, 2008, at 10:17 AM, Joe Cheng wrote:
+
+> If you do that, then there's no reason to worry about CDATA.
+>
+> As a side note, I've noticed that PHP emits warnings directly to  
+> the response stream, and this even applies to XML-RPC requests  
+> which obviously results in malformed XML (as the warnings generally  
+> happen before the XML payload begins). I've seen this in a few user  
+> logs for Windows Live Writer, although I can't remember at the  
+> moment what the actual warnings were for. This isn't too much of a  
+> problem for us as usually the warnings are fatal anyway, so we're  
+> just swapping whatever the real error message is for our generic  
+> "malformed response" error. But something for you to be aware of  
+> nonetheless.
+
+
+I've seen that before too.  In PHP there are different options for  
+how handled/displayed.  In general WordPress tries to have PHP not  
+show warnings/errors for exactly these sorts of reasons.  There is  
+nothing stopping an admin from enabling PHP warnings/errors from  
+being shown in the return data, which is what you are probably seeing.
+
+You should never see this for WordPress.com blogs because we  
+specifically turn that off.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+

@@ -1,0 +1,62 @@
+From joseph at josephscott.org  Mon Oct 10 21:34:57 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 10 Oct 2011 15:34:57 -0600
+Subject: [wp-xmlrpc] Small update in -trunk
+Message-ID: <CAE81+yaxTzzvXKacsUTf10cQkgyu5FLNNBOrdKp4OQ4y7idosw@mail.gmail.com>
+
+I've committed a small update to WordPress trunk :
+http://core.trac.wordpress.org/ticket/18812
+
+The change is relatively small, but it makes metaWeblog.newPost a bit
+more consistent relative to how wp-admin works.  Basically it gets a
+post id first, before trying to publish a post.  That allows for
+additional meta data around the post to be set first, before the
+publish event happens.
+
+A few people tested this and it looked good.  Please take a moment to
+run through it, if there are any issues I want to be able to resolve
+them before the 3.3 release.
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From joseph at josephscott.org  Tue Oct 11 02:19:06 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 10 Oct 2011 20:19:06 -0600
+Subject: [wp-xmlrpc] Small update in -trunk
+In-Reply-To: <CAE81+yaxTzzvXKacsUTf10cQkgyu5FLNNBOrdKp4OQ4y7idosw@mail.gmail.com>
+References: <CAE81+yaxTzzvXKacsUTf10cQkgyu5FLNNBOrdKp4OQ4y7idosw@mail.gmail.com>
+Message-ID: <CAE81+yaehoPXOmHWed-31Zye8eTHG0XttjCUmmsdoC7_ezUOmw@mail.gmail.com>
+
+FYI, this update is included in the 3.3 Beta 1 -
+http://wordpress.org/news/2011/10/wordpress-3-3-beta-1/
+
+On Mon, Oct 10, 2011 at 3:34 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> I've committed a small update to WordPress trunk :
+> http://core.trac.wordpress.org/ticket/18812
+>
+> The change is relatively small, but it makes metaWeblog.newPost a bit
+> more consistent relative to how wp-admin works. ?Basically it gets a
+> post id first, before trying to publish a post. ?That allows for
+> additional meta data around the post to be set first, before the
+> publish event happens.
+>
+> A few people tested this and it looked good. ?Please take a moment to
+> run through it, if there are any issues I want to be able to resolve
+> them before the 3.3 release.
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+>
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

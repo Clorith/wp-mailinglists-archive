@@ -1,0 +1,670 @@
+From bakelaar at rutgers.edu  Mon Sep 14 17:50:06 2015
+From: bakelaar at rutgers.edu (Ben Bakelaar)
+Date: Mon, 14 Sep 2015 13:50:06 -0400
+Subject: [wp-edu] Analytics on multi-site
+Message-ID: <9f087f3c34d60d0b69a2bc05e072f414@mail.gmail.com>
+
+Hi all, below is some investigation from one of our vendors about utilizing
+Google Analytics across our entire multi-site network. I am not a GA
+expert, but somewhat familiar. Maybe there is just something fundamental to
+GA that I am not understanding. I was hoping to have it be as simple as
+?install once, all analytics?. Does anyone have any experience with this,
+and what is/isn?t possible? The results from testing below indicate we may
+have to do 1 GA code (or tracking ID) per site in order to track properly.
+Our network is sub-dirs off of http://wp.comminfo.rutgers.edu/, but a good
+portion of sites have their own domains.
+
+
+
+I also thought these results would be useful for other people considering
+how to implement analytics.
+
+
+Re: Investigate using Google Analytics on multi-site (John Bowen )
+
+>From the to-do list: Tasks for YWD
+
+On Friday, to get some idea of how Domain Mapping would work in relation to
+Google Analytics, I set up my test WordPress network as follows
+
+
+
+Network websites
+
+- wordpress.yardleywebdesign.com
+
+- wordpress.yardleywebdesign.com/test
+
+- wordpress.yardleywebdesign.com/johngbowen
+
+- wordpress.yardleywebdesign.com/gfh
+
+
+
+I loaded the WordPress plugins Google Analytics Dashboard for WP and
+WordPress MU Domain Mapping (from WPENGINE).   I used the WPENGINE plugin
+for the moment as it was free and had less options.  Initially I just
+network activated the Google Analytics plugin.  In my Google Analytics
+account, I added another property (wordpress.yardleywebdesign.com) and it
+gave me a new tracking ID (actually the same as yardleywebdesign.com with a
+-2 instead of -1).  In the Google Analytics plugin I set it up to use a
+single Google Analytics account for all sites (Mode 2) and loaded the new
+Tracking ID.
+
+
+
+While watching Google Analytics through the Real-Time Overview feature, as
+I clicked through the various websites and their pages, I could see the
+corresponding pages show up (without the wordpress.yardleywebdesign.com
+prefix) in the Top Active Pages section.  So root pages were showing as /,
+/test/, /johngbowen/ and /gfh/.   The data from all of the sites was
+correctly being funneled in to the one Google Analytics account.
+
+
+
+Next, I network activated  the Domain Mapping plugin and did all of the
+necessary setup.  Through this setup I mapped
+wordpress.yardleywebdesign.com/gfh to an unused domain that I own in my
+hosting account, golfersfromhell.org.   Once the set up was complete, I
+verified that typing wordpress.yardleywebdesign.com/gfh in the browser
+window correctly took me to the right site and the website url now read
+golfersfromhell.org.  I also typed golfersfromhell.org in the browser and
+verified that it took me to the same website page.
+
+
+
+Again looking at Google Analytics in the same manner, all of the page views
+were showing.  However, where previously, before Domain Mapping was turned
+on, page views to any pages on wordpress.yardleywebdesign.com/gfh were
+showing with the prefex /gfh/ followed by the page name, now they were
+showing as simply the page name (no prefix).  So accessing the main page of
+wordpress.yardleywebdesign.com and wordpress.yardleywebdesign.com/gfh (
+golfersfromhell.org) would both shows as /.   So with the basic setup,
+there does not appear to be a way to distinguish between visits to the wp
+root site (id-1) and the root page for any site that is domain mapped.
+This would also be the case if any of the inner pages have the same url.
+
+There is a way to use different Analytics IDs for each site (-1, -2, etc.)
+and have that data link back up in to one account.  It does involve editing
+the GA code within each site which might be difficult.  I'm also not if the
+data would show any differently.  But I can look in to this method further
+or see if there is some other way to configure GA and Domain Mapping such
+that each of the sites can be identified in the GA display.
+
+
+
+
+
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+
+Rutgers, The State University of New Jersey
+p 848.932.8710
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150914/80c2cf96/attachment.html>
+
+From bakelaar at rutgers.edu  Tue Sep 15 21:59:01 2015
+From: bakelaar at rutgers.edu (Ben Bakelaar)
+Date: Tue, 15 Sep 2015 17:59:01 -0400
+Subject: [wp-edu] Uploads folder content indexed in Google?
+Message-ID: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+
+Hello all, it appears we have had some of the files on our Wordpress
+network indexed in Google search results. I had assumed security through
+obscurity here, but it appears I was wrong.
+
+
+
+Our network runs sites as sub-directories, and we also use domain mapping
+for some of them. I haven?t quite figured out how yet, but one of the
+mapped domains (xyz, not root.url.com) which points to site A has shown up
+in search results with absolute paths to files in a completely different
+site B (which is actually a sub-dir site, not masked). And they load just
+fine ? this must be an unanticipated quirk of DNS records + the Wordpress
+code that routes requests.
+
+
+
+So we have URLs like
+xyz.domain/wp-content/uploads/sites/x/xxxx/xx/filename.doc coming up in
+results! Eek! I have already started the removal requests via Google
+Webmaster Tools. Again no explanation yet for how these URLs were located
+by the search engines, but I?m working on possible theories.
+
+
+
+Aside from getting to the bottom of this, I?m trying to figure out the best
+way to block this from happening in the future. Apache .htaccess rules are
+one option. Robots.txt could be another? Has anyone run into this issue
+before, and what have you done as a solution? I?m a little surprised this
+isn?t addressed ?in code?. There are many plugins that allow uploads, this
+is a desired and supported user behavior by default. But there are no
+conceivable use cases I can think of where those uploads should be able to
+be indexed by bots.
+
+
+
+Could I simply place robots.txt in the root of the WP codebase, and tell it
+to avoid indexing ALL files under /wp-content? Would that cover all the
+various access cases with direct-linked files (like graphics), domain
+masking/mapping, etc.? And to fully prevent opening any uploads from
+outside the university network (as a decent but arbitrary perimeter), can I
+do the same with .htaccess or do I have to make dozens of .htaccess files
+per /wp-content/uploads/sites/X ? in each little sub-directory?
+
+
+
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+
+Rutgers, The State University of New Jersey
+p 848.932.8710
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150915/b91a845a/attachment.html>
+
+From joseph.ugoretz at mhc.cuny.edu  Tue Sep 15 22:09:07 2015
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Tue, 15 Sep 2015 22:09:07 +0000
+Subject: [wp-edu] Uploads folder content indexed in Google?
+In-Reply-To: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+References: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+Message-ID: <etPan.55f89703.3016b062.1cf@JoesAir2.local>
+
+Sorry I can?t give anything useful for the google questions--except that Google ALWAYS knows where everything is and can return it in a search result if they want to! :-)
+
+ But for the more basic one of protecting uploaded files, I blogged about the very problem a couple years ago.
+http://prestidigitation.commons.gc.cuny.edu/2013/08/11/protecting-uploaded-files-in-wordpress/
+
+Daniel Bachhuber (who may still be on this list?) directed me to a good solution, the WP Document Revisions plugin.
+
+That at least gives you the option of protecting uploaded files.  It doesn?t by default protect all files, but it does let you be a bit more confident than just security by obscurity for the files that do need to be kept private.
+
+Joe
+
+--
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+Macaulay Honors College
+City University of New York
+macaulay.cuny.edu<http://macaulay.cuny.edu/>
+
+
+On September 15, 2015 at 5:59:08 PM, Ben Bakelaar (bakelaar at rutgers.edu<mailto:bakelaar at rutgers.edu>) wrote:
+Hello all, it appears we have had some of the files on our Wordpress network indexed in Google search results. I had assumed security through obscurity here, but it appears I was wrong.
+
+Our network runs sites as sub-directories, and we also use domain mapping for some of them. I haven?t quite figured out how yet, but one of the mapped domains (xyz, not root.url.com<http://root.url.com>) which points to site A has shown up in search results with absolute paths to files in a completely different site B (which is actually a sub-dir site, not masked). And they load just fine ? this must be an unanticipated quirk of DNS records + the Wordpress code that routes requests.
+
+So we have URLs like xyz.domain/wp-content/uploads/sites/x/xxxx/xx/filename.doc coming up in results! Eek! I have already started the removal requests via Google Webmaster Tools. Again no explanation yet for how these URLs were located by the search engines, but I?m working on possible theories.
+
+Aside from getting to the bottom of this, I?m trying to figure out the best way to block this from happening in the future. Apache .htaccess rules are one option. Robots.txt could be another? Has anyone run into this issue before, and what have you done as a solution? I?m a little surprised this isn?t addressed ?in code?. There are many plugins that allow uploads, this is a desired and supported user behavior by default. But there are no conceivable use cases I can think of where those uploads should be able to be indexed by bots.
+
+Could I simply place robots.txt in the root of the WP codebase, and tell it to avoid indexing ALL files under /wp-content? Would that cover all the various access cases with direct-linked files (like graphics), domain masking/mapping, etc.? And to fully prevent opening any uploads from outside the university network (as a decent but arbitrary perimeter), can I do the same with .htaccess or do I have to make dozens of .htaccess files per /wp-content/uploads/sites/X ? in each little sub-directory?
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150915/1764a039/attachment.html>
+
+From SKlein at gc.cuny.edu  Wed Sep 16 00:34:02 2015
+From: SKlein at gc.cuny.edu (Klein, Stephen)
+Date: Tue, 15 Sep 2015 20:34:02 -0400
+Subject: [wp-edu] Uploads folder content indexed in Google?
+In-Reply-To: <etPan.55f89703.3016b062.1cf@JoesAir2.local>
+References: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+ <etPan.55f89703.3016b062.1cf@JoesAir2.local>
+Message-ID: <8492FBA4-E5E9-45B4-AF7D-2ACBDE728257@gc.cuny.edu>
+
+Assume you can use no index option in htaccess file for that directory.
+
+Sent from my iPad
+
+On Sep 15, 2015, at 6:09 PM, Joseph Ugoretz <joseph.ugoretz at mhc.cuny.edu<mailto:joseph.ugoretz at mhc.cuny.edu>> wrote:
+
+Sorry I can?t give anything useful for the google questions--except that Google ALWAYS knows where everything is and can return it in a search result if they want to! :-)
+
+ But for the more basic one of protecting uploaded files, I blogged about the very problem a couple years ago.
+http://prestidigitation.commons.gc.cuny.edu/2013/08/11/protecting-uploaded-files-in-wordpress/
+
+Daniel Bachhuber (who may still be on this list?) directed me to a good solution, the WP Document Revisions plugin.
+
+That at least gives you the option of protecting uploaded files.  It doesn?t by default protect all files, but it does let you be a bit more confident than just security by obscurity for the files that do need to be kept private.
+
+Joe
+
+--
+Joseph Ugoretz, PhD
+Associate Dean
+Teaching, Learning and Technology
+Macaulay Honors College
+City University of New York
+macaulay.cuny.edu[macaulay.cuny.edu]<https://urldefense.proofpoint.com/v2/url?u=http-3A__macaulay.cuny.edu_&d=BQMGaQ&c=8v77JlHZOYsReeOxyYXDU39VUUzHxyfBUh7fw_ZfBDA&r=RzuvmrjV2OCbxFATfoSTEnF5WFvuPC_o3B3MUQCetc0&m=sQ4b3quwZkeA7TpnxqKUaBVx0wNs3uYVaiy7elvgeqc&s=OBkceiMH-lhEyGmtvjTbQrmX9YWMcveUCUo9EQSiG2M&e=>
+
+
+On September 15, 2015 at 5:59:08 PM, Ben Bakelaar (bakelaar at rutgers.edu<mailto:bakelaar at rutgers.edu>) wrote:
+Hello all, it appears we have had some of the files on our Wordpress network indexed in Google search results. I had assumed security through obscurity here, but it appears I was wrong.
+
+Our network runs sites as sub-directories, and we also use domain mapping for some of them. I haven?t quite figured out how yet, but one of the mapped domains (xyz, not root.url.com[root.url.com]<https://urldefense.proofpoint.com/v2/url?u=http-3A__root.url.com&d=BQMGaQ&c=8v77JlHZOYsReeOxyYXDU39VUUzHxyfBUh7fw_ZfBDA&r=RzuvmrjV2OCbxFATfoSTEnF5WFvuPC_o3B3MUQCetc0&m=sQ4b3quwZkeA7TpnxqKUaBVx0wNs3uYVaiy7elvgeqc&s=wN2_jfJoe-FyCITg47tSbLHYS3pIG-y0YqmWAwqD7LE&e=>) which points to site A has shown up in search results with absolute paths to files in a completely different site B (which is actually a sub-dir site, not masked). And they load just fine ? this must be an unanticipated quirk of DNS records + the Wordpress code that routes requests.
+
+So we have URLs like xyz.domain/wp-content/uploads/sites/x/xxxx/xx/filename.doc coming up in results! Eek! I have already started the removal requests via Google Webmaster Tools. Again no explanation yet for how these URLs were located by the search engines, but I?m working on possible theories.
+
+Aside from getting to the bottom of this, I?m trying to figure out the best way to block this from happening in the future. Apache .htaccess rules are one option. Robots.txt could be another? Has anyone run into this issue before, and what have you done as a solution? I?m a little surprised this isn?t addressed ?in code?. There are many plugins that allow uploads, this is a desired and supported user behavior by default. But there are no conceivable use cases I can think of where those uploads should be able to be indexed by bots.
+
+Could I simply place robots.txt in the root of the WP codebase, and tell it to avoid indexing ALL files under /wp-content? Would that cover all the various access cases with direct-linked files (like graphics), domain masking/mapping, etc.? And to fully prevent opening any uploads from outside the university network (as a decent but arbitrary perimeter), can I do the same with .htaccess or do I have to make dozens of .htaccess files per /wp-content/uploads/sites/X ? in each little sub-directory?
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+https://urldefense.proofpoint.com/v2/url?u=http-3A__lists.automattic.com_mailman_listinfo_wp-2Dedu&d=BQICAg&c=8v77JlHZOYsReeOxyYXDU39VUUzHxyfBUh7fw_ZfBDA&r=RzuvmrjV2OCbxFATfoSTEnF5WFvuPC_o3B3MUQCetc0&m=sQ4b3quwZkeA7TpnxqKUaBVx0wNs3uYVaiy7elvgeqc&s=v5CsGiZKe97d376vjcQ2fWiBgWCPmoLBnioXYiNMsR8&e=
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150915/be59b1ad/attachment-0001.html>
+
+From rberardi at georgian.edu  Wed Sep 16 01:21:38 2015
+From: rberardi at georgian.edu (Berardi, Richard)
+Date: Wed, 16 Sep 2015 01:21:38 +0000
+Subject: [wp-edu] Uploads folder content indexed in Google?
+In-Reply-To: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+References: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+Message-ID: <E9889B72-E6DC-4805-9BCB-BE6C9AD62FC0@georgian.edu>
+
+Removing an entire directory or site
+
+In order for a directory or site-wide removal to be successful, the directory or site must be disallowed in the site's robots.txt file<http://www.google.com/support/webmasters/bin/answer.py?answer=35302>. For example, in order to remove the http://www.example.com/secret/ directory, your robots.txt file would need to include:
+   User-agent: *
+   Disallow: /secret/
+It isn't enough for the root of the directory to return a 404 status code, because it's possible for a directory to return a 404 but still serve out files underneath it. Using robots.txt to block a directory (or an entire site) ensures that all the URLs under that directory (or site) are blocked as well. You can test whether a directory has been blocked correctly using either the Fetch as Googlebot<http://www.google.com/support/webmasters/bin/answer.py?answer=158587> or Test robots.txt<http://www.google.com/support/webmasters/bin/answer.py?answer=156449> features in Webmaster Tools.
+
+Only verified owners of a site can request removal of an entire site or directory in Webmaster Tools. To request removal of a directory or site, click on the site in question, then go to Site configuration > Crawler access > Remove URL. If you enter the root of your site as the URL you want to remove, you'll be asked to confirm that you want to remove the entire site. If you enter a subdirectory, select the "Remove directory" option from the drop-down menu.
+
+http://googlewebmastercentral.blogspot.com/2010/03/url-removal-explained-part-i-urls.html?m=1
+
+Hope this helps.
+
+Sent from my ? iPhone 6
+
+On Sep 15, 2015, at 5:59 PM, Ben Bakelaar <bakelaar at rutgers.edu<mailto:bakelaar at rutgers.edu>> wrote:
+
+Hello all, it appears we have had some of the files on our Wordpress network indexed in Google search results. I had assumed security through obscurity here, but it appears I was wrong.
+
+Our network runs sites as sub-directories, and we also use domain mapping for some of them. I haven?t quite figured out how yet, but one of the mapped domains (xyz, not root.url.com<http://root.url.com>) which points to site A has shown up in search results with absolute paths to files in a completely different site B (which is actually a sub-dir site, not masked). And they load just fine ? this must be an unanticipated quirk of DNS records + the Wordpress code that routes requests.
+
+So we have URLs like xyz.domain/wp-content/uploads/sites/x/xxxx/xx/filename.doc coming up in results! Eek! I have already started the removal requests via Google Webmaster Tools. Again no explanation yet for how these URLs were located by the search engines, but I?m working on possible theories.
+
+Aside from getting to the bottom of this, I?m trying to figure out the best way to block this from happening in the future. Apache .htaccess rules are one option. Robots.txt could be another? Has anyone run into this issue before, and what have you done as a solution? I?m a little surprised this isn?t addressed ?in code?. There are many plugins that allow uploads, this is a desired and supported user behavior by default. But there are no conceivable use cases I can think of where those uploads should be able to be indexed by bots.
+
+Could I simply place robots.txt in the root of the WP codebase, and tell it to avoid indexing ALL files under /wp-content? Would that cover all the various access cases with direct-linked files (like graphics), domain masking/mapping, etc.? And to fully prevent opening any uploads from outside the university network (as a decent but arbitrary perimeter), can I do the same with .htaccess or do I have to make dozens of .htaccess files per /wp-content/uploads/sites/X ? in each little sub-directory?
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150916/bed03016/attachment.html>
+
+From bakelaar at rutgers.edu  Wed Sep 16 20:04:17 2015
+From: bakelaar at rutgers.edu (Ben Bakelaar)
+Date: Wed, 16 Sep 2015 16:04:17 -0400
+Subject: [wp-edu] Uploads folder content indexed in Google?
+In-Reply-To: <E9889B72-E6DC-4805-9BCB-BE6C9AD62FC0@georgian.edu>
+References: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+ <E9889B72-E6DC-4805-9BCB-BE6C9AD62FC0@georgian.edu>
+Message-ID: <90b6eb6961428dbd683dbca5bdb2e016@mail.gmail.com>
+
+Yes, that was it! Thanks Richard.
+
+
+
+Created robots.txt file:
+
+User-agent: *
+
+Disallow: /wp-content/uploads/sites/7/
+
+
+
+Tested with Fetch as Googlebot. Went to Google Index > Remove URLs within
+Google Webmaster Tools. Clicked on ?Create a new removal request?. Entered
+directory name only:
+
+/wp-content/uploads/sites/7[image:
+https://www.google.com/webmasters/tools/images/url_icon.png]
+<http://eclipse.rutgers.edu/wp-content/uploads/sites/7>
+
+
+
+On the next screen, the third option on the drop-down menu is ?Remove
+directory? which normally is not there if you enter a full URL. Submitted
+and pending!
+
+
+
+I also turned off ?Indexes? in httpd.conf, not sure if it was on for ?all?
+sub-sites before. But that?s my working theory, that directory listings
+were turned on and somehow search bots got to those pages and then they
+indexed each file and sub-dir listed.
+
+
+
+I guess my outdated conception was that search engine bots only scour the
+web via finding extant links within HTML documents ? so if there is no
+public link to that content, it will never get indexed. It appears they may
+be more aggressive now, using algorithms to predict sub-directories
+(perhaps based on CMS detection?) and then scan for available content? Just
+a working theory since I still can?t explain it.
+
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+
+
+
+
+
+
+*From:* wp-edu [mailto:wp-edu-bounces at lists.automattic.com] *On Behalf
+Of *Berardi,
+Richard
+*Sent:* Tuesday, September 15, 2015 9:22 PM
+*To:* Low-traffic list discussing WordPress in education.
+*Cc:* jon.oliver at rutgers.edu
+*Subject:* Re: [wp-edu] Uploads folder content indexed in Google?
+
+
+
+*Removing an entire directory or site*
+
+In order for a directory or site-wide removal to be successful, the
+directory or site must be *disallowed in the site's robots.txt file
+<http://www.google.com/support/webmasters/bin/answer.py?answer=35302>*. For
+example, in order to remove the http://www.example.com/secret/ directory,
+your robots.txt file would need to include:
+   User-agent: *
+   Disallow: /secret/
+It isn't enough for the root of the directory to return a 404 status code,
+because it's possible for a directory to return a 404 but still serve out
+files underneath it. Using robots.txt to block a directory (or an entire
+site) ensures that all the URLs under that directory (or site) are blocked
+as well. You can test whether a directory has been blocked correctly using
+either the Fetch as Googlebot
+<http://www.google.com/support/webmasters/bin/answer.py?answer=158587> or Test
+robots.txt
+<http://www.google.com/support/webmasters/bin/answer.py?answer=156449> features
+in Webmaster Tools.
+
+Only verified owners of a site can request removal of an entire site or
+directory in Webmaster Tools. To request removal of a directory or site,
+click on the site in question, then go to *Site configuration > Crawler
+access > Remove URL*. If you enter the root of your site as the URL you
+want to remove, you'll be asked to confirm that you want to remove the
+entire site. If you enter a subdirectory, select the "Remove directory"
+option from the drop-down menu.
+
+
+
+http://googlewebmastercentral.blogspot.com/2010/03/url-removal-explained-part-i-urls.html?m=1
+
+Hope this helps.
+
+Sent from my ? iPhone 6
+
+
+On Sep 15, 2015, at 5:59 PM, Ben Bakelaar <bakelaar at rutgers.edu> wrote:
+
+Hello all, it appears we have had some of the files on our Wordpress
+network indexed in Google search results. I had assumed security through
+obscurity here, but it appears I was wrong.
+
+
+
+Our network runs sites as sub-directories, and we also use domain mapping
+for some of them. I haven?t quite figured out how yet, but one of the
+mapped domains (xyz, not root.url.com) which points to site A has shown up
+in search results with absolute paths to files in a completely different
+site B (which is actually a sub-dir site, not masked). And they load just
+fine ? this must be an unanticipated quirk of DNS records + the Wordpress
+code that routes requests.
+
+
+
+So we have URLs like
+xyz.domain/wp-content/uploads/sites/x/xxxx/xx/filename.doc coming up in
+results! Eek! I have already started the removal requests via Google
+Webmaster Tools. Again no explanation yet for how these URLs were located
+by the search engines, but I?m working on possible theories.
+
+
+
+Aside from getting to the bottom of this, I?m trying to figure out the best
+way to block this from happening in the future. Apache .htaccess rules are
+one option. Robots.txt could be another? Has anyone run into this issue
+before, and what have you done as a solution? I?m a little surprised this
+isn?t addressed ?in code?. There are many plugins that allow uploads, this
+is a desired and supported user behavior by default. But there are no
+conceivable use cases I can think of where those uploads should be able to
+be indexed by bots.
+
+
+
+Could I simply place robots.txt in the root of the WP codebase, and tell it
+to avoid indexing ALL files under /wp-content? Would that cover all the
+various access cases with direct-linked files (like graphics), domain
+masking/mapping, etc.? And to fully prevent opening any uploads from
+outside the university network (as a decent but arbitrary perimeter), can I
+do the same with .htaccess or do I have to make dozens of .htaccess files
+per /wp-content/uploads/sites/X ? in each little sub-directory?
+
+
+
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150916/295605a5/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: image001.png
+Type: image/png
+Size: 132 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150916/295605a5/attachment.png>
+
+From rberardi at georgian.edu  Wed Sep 16 20:23:53 2015
+From: rberardi at georgian.edu (Berardi, Richard)
+Date: Wed, 16 Sep 2015 20:23:53 +0000
+Subject: [wp-edu] Uploads folder content indexed in Google?
+In-Reply-To: <90b6eb6961428dbd683dbca5bdb2e016@mail.gmail.com>
+References: <1df021b830b5d17ae76f1c7c3282cab9@mail.gmail.com>
+ <E9889B72-E6DC-4805-9BCB-BE6C9AD62FC0@georgian.edu>
+ <90b6eb6961428dbd683dbca5bdb2e016@mail.gmail.com>
+Message-ID: <D21F444E.FF5E%rberardi@georgian.edu>
+
+Great!
+
+I just went down this road here at Georgian Court.
+We launched our new site about a month ago, and old media files were coming up in search results. Our old media directory was /uploadedFiles (thousands of .pdfs, .jpgs, etc.)
+
+I built the new site from scratch, as if we never had a website, so any files that went on the new site were provided by their department, guaranteeing that they were the most updated.
+
+Wordpress does not use this directory, so I blocked the directory in webmaster tools/Remove URLs and Disallow: /uploadedFiles/ in robots.txt
+
+I am currently going through analytics/content drill down to find other unused directories. I also took screen shots of our old web directory structure. Comparing the two, I can remove additional directories.
+
+Glad this worked out for you Ben.
+
+Richard Berardi
+Web Administrator
+Marketing & Communications
+Georgian Court University
+900 Lakewood Ave.
+Lakewood, NJ 08701
+p: 732-987-2469<tel:732-987-2469>
+e: rberardi at georgian.edu<mailto:rberardi at georgian.edu>
+
+From: wp-edu <wp-edu-bounces at lists.automattic.com<mailto:wp-edu-bounces at lists.automattic.com>> on behalf of Ben Bakelaar <bakelaar at rutgers.edu<mailto:bakelaar at rutgers.edu>>
+Reply-To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Wednesday, September 16, 2015 at 4:04 PM
+To: "Low-traffic list discussing WordPress in education." <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Cc: "jon.oliver at rutgers.edu<mailto:jon.oliver at rutgers.edu>" <jon.oliver at rutgers.edu<mailto:jon.oliver at rutgers.edu>>
+Subject: Re: [wp-edu] Uploads folder content indexed in Google?
+
+Yes, that was it! Thanks Richard.
+
+Created robots.txt file:
+User-agent: *
+Disallow: /wp-content/uploads/sites/7/
+
+Tested with Fetch as Googlebot. Went to Google Index > Remove URLs within Google Webmaster Tools. Clicked on ?Create a new removal request?. Entered directory name only:
+/wp-content/uploads/sites/7[https://www.google.com/webmasters/tools/images/url_icon.png]<http://eclipse.rutgers.edu/wp-content/uploads/sites/7>
+
+On the next screen, the third option on the drop-down menu is ?Remove directory? which normally is not there if you enter a full URL. Submitted and pending!
+
+I also turned off ?Indexes? in httpd.conf, not sure if it was on for ?all? sub-sites before. But that?s my working theory, that directory listings were turned on and somehow search bots got to those pages and then they indexed each file and sub-dir listed.
+
+I guess my outdated conception was that search engine bots only scour the web via finding extant links within HTML documents ? so if there is no public link to that content, it will never get indexed. It appears they may be more aggressive now, using algorithms to predict sub-directories (perhaps based on CMS detection?) and then scan for available content? Just a working theory since I still can?t explain it.
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+
+
+From: wp-edu [mailto:wp-edu-bounces at lists.automattic.com<mailto:wp-edu-bounces at lists.automattic.com>] On Behalf Of Berardi, Richard
+Sent: Tuesday, September 15, 2015 9:22 PM
+To: Low-traffic list discussing WordPress in education.
+Cc: jon.oliver at rutgers.edu<mailto:jon.oliver at rutgers.edu>
+Subject: Re: [wp-edu] Uploads folder content indexed in Google?
+
+Removing an entire directory or site
+
+In order for a directory or site-wide removal to be successful, the directory or site must be disallowed in the site's robots.txt file<http://www.google.com/support/webmasters/bin/answer.py?answer=35302>. For example, in order to remove the http://www.example.com/secret/ directory, your robots.txt file would need to include:
+   User-agent: *
+   Disallow: /secret/
+It isn't enough for the root of the directory to return a 404 status code, because it's possible for a directory to return a 404 but still serve out files underneath it. Using robots.txt to block a directory (or an entire site) ensures that all the URLs under that directory (or site) are blocked as well. You can test whether a directory has been blocked correctly using either the Fetch as Googlebot<http://www.google.com/support/webmasters/bin/answer.py?answer=158587> or Test robots.txt<http://www.google.com/support/webmasters/bin/answer.py?answer=156449> features in Webmaster Tools.
+
+Only verified owners of a site can request removal of an entire site or directory in Webmaster Tools. To request removal of a directory or site, click on the site in question, then go to Site configuration > Crawler access > Remove URL. If you enter the root of your site as the URL you want to remove, you'll be asked to confirm that you want to remove the entire site. If you enter a subdirectory, select the "Remove directory" option from the drop-down menu.
+
+http://googlewebmastercentral.blogspot.com/2010/03/url-removal-explained-part-i-urls.html?m=1
+
+Hope this helps.
+
+Sent from my ? iPhone 6
+
+On Sep 15, 2015, at 5:59 PM, Ben Bakelaar <bakelaar at rutgers.edu<mailto:bakelaar at rutgers.edu>> wrote:
+Hello all, it appears we have had some of the files on our Wordpress network indexed in Google search results. I had assumed security through obscurity here, but it appears I was wrong.
+
+Our network runs sites as sub-directories, and we also use domain mapping for some of them. I haven?t quite figured out how yet, but one of the mapped domains (xyz, not root.url.com<http://root.url.com>) which points to site A has shown up in search results with absolute paths to files in a completely different site B (which is actually a sub-dir site, not masked). And they load just fine ? this must be an unanticipated quirk of DNS records + the Wordpress code that routes requests.
+
+So we have URLs like xyz.domain/wp-content/uploads/sites/x/xxxx/xx/filename.doc coming up in results! Eek! I have already started the removal requests via Google Webmaster Tools. Again no explanation yet for how these URLs were located by the search engines, but I?m working on possible theories.
+
+Aside from getting to the bottom of this, I?m trying to figure out the best way to block this from happening in the future. Apache .htaccess rules are one option. Robots.txt could be another? Has anyone run into this issue before, and what have you done as a solution? I?m a little surprised this isn?t addressed ?in code?. There are many plugins that allow uploads, this is a desired and supported user behavior by default. But there are no conceivable use cases I can think of where those uploads should be able to be indexed by bots.
+
+Could I simply place robots.txt in the root of the WP codebase, and tell it to avoid indexing ALL files under /wp-content? Would that cover all the various access cases with direct-linked files (like graphics), domain masking/mapping, etc.? And to fully prevent opening any uploads from outside the university network (as a decent but arbitrary perimeter), can I do the same with .htaccess or do I have to make dozens of .htaccess files per /wp-content/uploads/sites/X ? in each little sub-directory?
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+Rutgers, The State University of New Jersey
+p 848.932.8710
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150916/76307c14/attachment-0001.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: image001.png
+Type: image/png
+Size: 132 bytes
+Desc: image001.png
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150916/76307c14/attachment-0001.png>
+
+From bakelaar at rutgers.edu  Fri Sep 25 15:21:27 2015
+From: bakelaar at rutgers.edu (Ben Bakelaar)
+Date: Fri, 25 Sep 2015 11:21:27 -0400
+Subject: [wp-edu] Multisite URL collisions
+Message-ID: <3bfee8df959d34a7920142c22fbb93d9@mail.gmail.com>
+
+Does anyone use or know of a plugin that can help avoid URL collisions on a
+multisite network? Our scenario is that we may have our primary School
+website as the root site, with a bunch of posts/pages under that site, say
+100 not including dynamic content like news, calendar, etc?. and then we
+would also want to operate all our sub-sites on the same network, so for
+instance http://x.rutgers.edu is root site, x.rutgers.edu/page is a page on
+that site, and x.rutgers.edu/newsite is a sub-site. So we would need a
+plugin to disallow sub-sites and pages on the root site from colliding.
+
+
+
+---------------------------------
+BEN BAKELAAR | IT Services
+School of Communication and Information
+
+Rutgers, The State University of New Jersey
+p 848.932.8710
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20150925/4edb7043/attachment.html>
+

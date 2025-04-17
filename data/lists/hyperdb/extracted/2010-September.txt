@@ -1,0 +1,200 @@
+From Jason.Ashdown at futurenet.com  Tue Sep 28 10:19:28 2010
+From: Jason.Ashdown at futurenet.com (Jason Ashdown)
+Date: Tue, 28 Sep 2010 11:19:28 +0100
+Subject: [HyperDB] Active Master and Passive Master with binary replication
+Message-ID: <2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com>
+
+Hi,
+
+We've been testing out HyperDB for a few weeks now trying to get it work in a particular way.
+
+We wish to have an Active Master (db1) which handles Reads + Writes. We have a Passive Master (db2) that does Read only and keeps up-to-date with binary replication from the Active Master (db1).
+
+As soon as we disable the Active Master (db1) HyperDB spits out errors like "No databases available with wp_4_options (global)".
+
+We've spilt an existing MU database and migrated it to another MU server while using HyperDB for failover.
+We are using the latest version of HyperDB.
+
+Our current config, db-config.php (values replaced for security):
+// MASTER DATABASE
+$wpdb->add_database(array(
+            'host'     => 'db1.mysql-server.com',     // If port is other than 3306, use host:port.
+            'user'     => 'user',
+            'password' => 'password',
+            'name'     => 'database',
+            'write'    => 1,
+            'read'     => 1,
+            'dataset'  => 'global',
+            'timeout'  => 0.2,
+    'charset'  => 'utf8',
+    'collate'  => '',
+));
+// SLAVE DATABASE
+$wpdb->add_database(array(
+            'host'     => 'db2.mysql-server.com',     // If port is other than 3306, use host:port.
+            'user'     => 'user',
+            'password' => 'password',
+            'name'     => 'database',
+            'write'    => 0,
+            'read'     => 1,
+            'dataset'  => 'global',
+            'timeout'  => 0.2,
+    'charset'  => 'utf8',
+    'collate'  => '',
+));
+
+Is there any advice/help that you can give us?
+
+Many thanks,
+Jason Ashdown
+-- 
+Future Publishing Limited (registered company number 2008885) and Future Publishing (Overseas) Limited (registered company number 06202940) are wholly owned subsidiaries of Future plc (registered company number 3757874). Future Publishing Limited, Future Publishing (Overseas) Limited and Future plc are all incorporated in England and Wales and share the same registered address at Beauford Court, 30 Monmouth Street, Bath BA1 2BW.
+
+This email and any files transmitted with it are confidential. If you have received this email in error please notify the sender and then delete it immediately. Please note that any views or opinions presented in this email are solely those of the author and do not necessarily represent those of Future.
+
+The recipient should check this email and any attachments for the presence of viruses. Future accepts no liability for any damage caused by any virus transmitted by this email.
+
+Future may regularly and randomly monitor outgoing and incoming emails (including the content of them) and other telecommunications on its email and telecommunications systems. By replying to this email you give your consent to such monitoring.
+
+*****
+
+Save resources: think before you print.
+
+From skeltoac at gmail.com  Tue Sep 28 14:15:34 2010
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Tue, 28 Sep 2010 09:15:34 -0500
+Subject: [HyperDB] Active Master and Passive Master with binary
+	replication
+In-Reply-To: <2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com>
+References: <2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com>
+Message-ID: <AANLkTimBPtOs_QVqY8mLN2eNW_UKTE4X9BW-ojZZHpXN@mail.gmail.com>
+
+Hi, Jason,
+
+Jason Ashdown <Jason.Ashdown at futurenet.com> wrote:
+> As soon as we disable the Active Master (db1) HyperDB spits out errors like "No databases available with wp_4_options (global)".
+
+This is the code that spits out that error:
+
+if ( empty($this->hyper_servers[$dataset][$operation]) )
+  return $this->bail("No databases available with $this->table ($dataset)");
+
+$operation is either "read" or "write". If you disable db1 in your
+config (I'm guessing this is what you did), you are left with db2
+which is configured for read only, not for write. If db2 is supposed
+to receive reads when db1 is disabled, your config must reflect that.
+
+You might try configuring db2 with 'write' => 2. In case your
+configuration needs to change dynamically when the db status changes,
+you can make your configuration dynamic. One way is to have multiple
+configurations in conditional blocks.
+
+I have not tested HyperDB with DRBD or any other multi-master setup.
+However, I did intend for HyperDB to provide the same sort of failover
+for writes that it does for reads. I'll be curious to see how you make
+it work.
+
+Cheers,
+Andy
+
+From nwhite at bankrate.com  Tue Sep 28 14:24:42 2010
+From: nwhite at bankrate.com (Nick White)
+Date: Tue, 28 Sep 2010 10:24:42 -0400
+Subject: [HyperDB] Active Master and Passive Master with
+ binaryreplication
+In-Reply-To: <AANLkTimBPtOs_QVqY8mLN2eNW_UKTE4X9BW-ojZZHpXN@mail.gmail.com>
+References: <2075C1F7A791BE438A3A1098B4EF48D413A1940DB3@BATWEXMVCG01.uk.futurenet.com>
+	<AANLkTimBPtOs_QVqY8mLN2eNW_UKTE4X9BW-ojZZHpXN@mail.gmail.com>
+Message-ID: <1285683882.11628.28.camel@alexandria>
+
+Jason, Andy,
+
+Just to toss in my 2 cents,  I currently use HyperDB in nearly this same
+scenario with with a multi-master setup and it is working beautifully.
+
+My setup contains a similar configuration as to Andy's prev suggestion
+of making db2 contain 'write'=>2  so it is seen basically as a fail-over
+for db1.
+
+
+Thanks,
+Nick
+
+
+
+
+On Tue, 2010-09-28 at 10:15 -0400, Andy Skelton wrote:
+
+> Hi, Jason,
+> 
+> Jason Ashdown <Jason.Ashdown at futurenet.com> wrote:
+> > As soon as we disable the Active Master (db1) HyperDB spits out
+> errors like "No databases available with wp_4_options (global)".
+> 
+> This is the code that spits out that error:
+> 
+> if ( empty($this->hyper_servers[$dataset][$operation]) )
+>   return $this->bail("No databases available with $this->table
+> ($dataset)");
+> 
+> $operation is either "read" or "write". If you disable db1 in your
+> config (I'm guessing this is what you did), you are left with db2
+> which is configured for read only, not for write. If db2 is supposed
+> to receive reads when db1 is disabled, your config must reflect that.
+> 
+> You might try configuring db2 with 'write' => 2. In case your
+> configuration needs to change dynamically when the db status changes,
+> you can make your configuration dynamic. One way is to have multiple
+> configurations in conditional blocks.
+> 
+> I have not tested HyperDB with DRBD or any other multi-master setup.
+> However, I did intend for HyperDB to provide the same sort of failover
+> for writes that it does for reads. I'll be curious to see how you make
+> it work.
+> 
+> Cheers,
+> Andy
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> ______________________________________________________________________
+> This email has been scanned by the MessageLabs Email Security System.
+> For more information please visit http://www.messagelabs.com/email
+> ______________________________________________________________________
+> 
+> 
+
+
+
+From Jason.Ashdown at futurenet.com  Wed Sep 29 15:52:25 2010
+From: Jason.Ashdown at futurenet.com (Jason Ashdown)
+Date: Wed, 29 Sep 2010 16:52:25 +0100
+Subject: [HyperDB] Active Master and Passive Master with binary
+	replication
+In-Reply-To: <mailman.11.1285761602.21850.hyperdb@lists.automattic.com>
+References: <mailman.11.1285761602.21850.hyperdb@lists.automattic.com>
+Message-ID: <2075C1F7A791BE438A3A1098B4EF48D413A19414FD@BATWEXMVCG01.uk.futurenet.com>
+
+Thanks guys.
+
+We shall test out 'write'=>2 for our second Passive Master in our config.
+
+It's not exactly what we are looking for but it's a step in the right direction. If need be, I can write conditional statements just like Andy recommends.
+
+Thanks again,
+Jason
+-- 
+Future Publishing Limited (registered company number 2008885) and Future Publishing (Overseas) Limited (registered company number 06202940) are wholly owned subsidiaries of Future plc (registered company number 3757874). Future Publishing Limited, Future Publishing (Overseas) Limited and Future plc are all incorporated in England and Wales and share the same registered address at Beauford Court, 30 Monmouth Street, Bath BA1 2BW.
+
+This email and any files transmitted with it are confidential. If you have received this email in error please notify the sender and then delete it immediately. Please note that any views or opinions presented in this email are solely those of the author and do not necessarily represent those of Future.
+
+The recipient should check this email and any attachments for the presence of viruses. Future accepts no liability for any damage caused by any virus transmitted by this email.
+
+Future may regularly and randomly monitor outgoing and incoming emails (including the content of them) and other telecommunications on its email and telecommunications systems. By replying to this email you give your consent to such monitoring.
+
+*****
+
+Save resources: think before you print.
+

@@ -1,0 +1,562 @@
+From toby at simmonsconsulting.com  Sun Mar  2 03:34:37 2008
+From: toby at simmonsconsulting.com (Toby Simmons)
+Date: Sun Mar  2 03:34:55 2008
+Subject: [wp-xmlrpc] Daylight saving time and edting past post
+In-Reply-To: <20080301120025.01D13CD7B@comox.textdrive.com>
+References: <20080301120025.01D13CD7B@comox.textdrive.com>
+Message-ID: <000901c87c16$57e1f510$07a5df30$@com>
+
+I'm the lead developer for Zempt, a (slow developing) desktop blogging
+client and I've got a question. I tried to explain the problem in a blog
+post -
+http://www.simmonsconsulting.com/wordpress/2008/02/29/daylight-saving-time-a
+nd-wordpress-xmlrpc/ - but I'll summarize it here.
+
+The problem occurs when you edit a previous post that was written in a
+different daylight saving state than what is currently in effect. Say it's
+NOT daylight time right now but I edit a post that was posted during
+daylight time. When this post is prepared for re-posting, Zempt will convert
+the post's date and time to UTC (which, for me in the Central time zone is
+-0500 during daylight time) then post it with xmlrpc. The problem is that
+currently my blog is set for standard time, which for me is -0600, so when
+WordPress processes the post, it bumps up the post date an hour earlier. If
+I edit this post several times, each time it is republished, the post date
+is bumped an hour earlier each time.
+
+The same thing occurs if it is daylight time and you edit a post that was
+written in standard time, except it gets later and later each time it is
+posted.
+
+Is there a way to fix this or to tell WordPress what time zone offset to use
+for a particular post with xmlrpc?
+
+Thanks &
+Cheers,
+
+Toby
+
+
+___________________________________
+W. Tobias Simmons
+Simmons Consulting, Web Design and Marketing
+toby@simmonsconsulting.com
+http://www.simmonsconsulting.com
+Phone: 501.821.4230 / Fax: 501.244.4416
+
+
+From joseph at randomnetworks.com  Mon Mar  3 23:24:18 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Mar  3 23:26:48 2008
+Subject: [wp-xmlrpc] Daylight saving time and edting past post
+In-Reply-To: <000901c87c16$57e1f510$07a5df30$@com>
+References: <20080301120025.01D13CD7B@comox.textdrive.com>
+	<000901c87c16$57e1f510$07a5df30$@com>
+Message-ID: <D0A23847-EEBC-4004-890A-EEACF5AA3A6A@randomnetworks.com>
+
+
+On Mar 1, 2008, at 8:34 PM, Toby Simmons wrote:
+
+> I'm the lead developer for Zempt, a (slow developing) desktop blogging
+> client and I've got a question. I tried to explain the problem in a  
+> blog
+> post -
+> http://www.simmonsconsulting.com/wordpress/2008/02/29/daylight- 
+> saving-time-a
+> nd-wordpress-xmlrpc/ - but I'll summarize it here.
+
+
+Is this the same Zempt that Adam Kalsey and Bill Zeller started?  Are  
+you working from code they left on Source Forge?
+
+
+> The problem occurs when you edit a previous post that was written in a
+> different daylight saving state than what is currently in effect.  
+> Say it's
+> NOT daylight time right now but I edit a post that was posted during
+> daylight time. When this post is prepared for re-posting, Zempt  
+> will convert
+> the post's date and time to UTC (which, for me in the Central time  
+> zone is
+> -0500 during daylight time) then post it with xmlrpc. The problem  
+> is that
+> currently my blog is set for standard time, which for me is -0600,  
+> so when
+> WordPress processes the post, it bumps up the post date an hour  
+> earlier. If
+> I edit this post several times, each time it is republished, the  
+> post date
+> is bumped an hour earlier each time.
+>
+> The same thing occurs if it is daylight time and you edit a post  
+> that was
+> written in standard time, except it gets later and later each time  
+> it is
+> posted.
+
+
+Getting the date/time right has easily been the trickiest problem  
+with the XML-RPC APIs since I started working with them.  This  
+specific problem is new to me, but there are other blog client  
+authors on the list who have probably seen this.  If they have a  
+technique for dealing with this perhaps they'll suggest something.
+
+
+> Is there a way to fix this or to tell WordPress what time zone  
+> offset to use
+> for a particular post with xmlrpc?
+
+
+There currently is no API for determining the current time zone  
+offset for a WordPress blog.  That said there are a few things that  
+might help you out here.  For metaWeblog.getPost we added a new field  
+called 'date_created_gmt'.  This field by definition is ALWAYS the  
+gmt date/time of a post, even if there is no trailing Z or time zone  
+offset.  This field is also accepted now by metaWeblog.newPost and  
+metaWeblog.editPost and if it is present will be used instead of  
+'dateCreated' field.  This will provides more precise date/time  
+handling.
+
+I'm hesitant to even mention this, but I suppose to could do the math  
+and figure out the different between 'dateCreated' and  
+'date_created_gmt' and figure out what the offset is.  This of course  
+screams ugly hack :-)
+
+We've discussed adding a wp.getBlogOptions( ) method that would  
+expose a variety of settings/options for a WordPress blog, including  
+the time zone offset.  I haven't done any real work on that yet.   
+Hopefully once 2.5 ships (later this month) I'll be able to get that  
+in for inclusion to 2.6.
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From joseph at randomnetworks.com  Tue Mar  4 00:09:15 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Mar  4 00:09:31 2008
+Subject: [wp-xmlrpc] Daylight saving time and edting past post
+In-Reply-To: <000901c87c16$57e1f510$07a5df30$@com>
+References: <20080301120025.01D13CD7B@comox.textdrive.com>
+	<000901c87c16$57e1f510$07a5df30$@com>
+Message-ID: <b75e1ac0803031609j412e38e9v3329fb1bef199b6f@mail.gmail.com>
+
+On Mar 1, 2008, at 8:34 PM, Toby Simmons wrote:
+
+> I'm the lead developer for Zempt, a (slow developing) desktop blogging
+> client and I've got a question. I tried to explain the problem in a
+> blog
+> post -
+> http://www.simmonsconsulting.com/wordpress/2008/02/29/daylight-
+> saving-time-a
+> nd-wordpress-xmlrpc/ - but I'll summarize it here.
+
+
+Is this the same Zempt that Adam Kalsey and Bill Zeller started?  Are
+you working from code they left on Source Forge?
+
+
+> The problem occurs when you edit a previous post that was written in a
+> different daylight saving state than what is currently in effect.
+> Say it's
+> NOT daylight time right now but I edit a post that was posted during
+> daylight time. When this post is prepared for re-posting, Zempt
+> will convert
+> the post's date and time to UTC (which, for me in the Central time
+> zone is
+> -0500 during daylight time) then post it with xmlrpc. The problem
+> is that
+> currently my blog is set for standard time, which for me is -0600,
+> so when
+> WordPress processes the post, it bumps up the post date an hour
+> earlier. If
+> I edit this post several times, each time it is republished, the
+> post date
+> is bumped an hour earlier each time.
+>
+> The same thing occurs if it is daylight time and you edit a post
+> that was
+> written in standard time, except it gets later and later each time
+> it is
+> posted.
+
+
+Getting the date/time right has easily been the trickiest problem
+with the XML-RPC APIs since I started working with them.  This
+specific problem is new to me, but there are other blog client
+authors on the list who have probably seen this.  If they have a
+technique for dealing with this perhaps they'll suggest something.
+
+
+> Is there a way to fix this or to tell WordPress what time zone
+> offset to use
+> for a particular post with xmlrpc?
+
+
+There currently is no API for determining the current time zone
+offset for a WordPress blog.  That said there are a few things that
+might help you out here.  For metaWeblog.getPost we added a new field
+called 'date_created_gmt'.  This field by definition is ALWAYS the
+gmt date/time of a post, even if there is no trailing Z or time zone
+offset.  This field is also accepted now by metaWeblog.newPost and
+metaWeblog.editPost and if it is present will be used instead of
+'dateCreated' field.  This will provides more precise date/time
+handling.
+
+I'm hesitant to even mention this, but I suppose to could do the math
+and figure out the different between 'dateCreated' and
+'date_created_gmt' and figure out what the offset is.  This of course
+screams ugly hack :-)
+
+We've discussed adding a wp.getBlogOptions( ) method that would
+expose a variety of settings/options for a WordPress blog, including
+the time zone offset.  I haven't done any real work on that yet.
+Hopefully once 2.5 ships (later this month) I'll be able to get that
+in for inclusion to 2.6.
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+From kimmo at global-wire.fi  Tue Mar  4 09:49:58 2008
+From: kimmo at global-wire.fi (Kimmo Suominen)
+Date: Tue Mar  4 09:50:14 2008
+Subject: [wp-xmlrpc] Daylight saving time and edting past post
+In-Reply-To: <b75e1ac0803031609j412e38e9v3329fb1bef199b6f@mail.gmail.com>
+References: <20080301120025.01D13CD7B@comox.textdrive.com>
+	<000901c87c16$57e1f510$07a5df30$@com>
+	<b75e1ac0803031609j412e38e9v3329fb1bef199b6f@mail.gmail.com>
+Message-ID: <20080304094958.GG964@kimmo.suominen.com>
+
+On Mon, Mar 03, 2008 at 05:09:15PM -0700, Joseph Scott wrote:
+> 
+> We've discussed adding a wp.getBlogOptions( ) method that would
+> expose a variety of settings/options for a WordPress blog, including
+> the time zone offset.  I haven't done any real work on that yet.
+> Hopefully once 2.5 ships (later this month) I'll be able to get that
+> in for inclusion to 2.6.
+
+The current time zone offset in the WordPress settings cannot be used
+as the correct offset for any given article.
+
+The basic simple example of why not is, if you currently observe
+daylight saving time and edit an article that was originally created
+during standard time, the correct time offset for the article differs
+from the one in WP settings.
+
+I'd really like to see just GMT stored in the database, but this cannot
+be done:
+
+- apparently there is no general zoneinfo interface we could use that is
+  available to us through PHP (4.x)
+
+- people can move from one time zone to another and we prefer for them
+  to be able to reflect the time zone they were in while writing any
+  given article
+
+Unless we store the time zone offset for each post in the database, it
+probably is the best current(ly available) practice to calculate the
+difference from the two time stamps we have in the database already.
+
+Best regards,
++ Kimmo
+-- 
+<A HREF="http://kimmo.suominen.com/">Kimmo Suominen</A>
+
+From toby at simmonsconsulting.com  Tue Mar  4 15:34:04 2008
+From: toby at simmonsconsulting.com (Toby Simmons)
+Date: Tue Mar  4 15:34:17 2008
+Subject: [wp-xmlrpc] Daylight saving time and edting past post
+In-Reply-To: <20080304094958.GG964@kimmo.suominen.com>
+References: <20080301120025.01D13CD7B@comox.textdrive.com>	<000901c87c16$57e1f510$07a5df30$@com>	<b75e1ac0803031609j412e38e9v3329fb1bef199b6f@mail.gmail.com>
+	<20080304094958.GG964@kimmo.suominen.com>
+Message-ID: <001c01c87e0d$2dede860$89c9b920$@com>
+
+It would seem to me the easiest thing to do would be to honor whatever time
+zone offset is sent in the dateCreated field ... in other words, if the
+offset for a particular post is -5 hours, then the post would have:
+
+<dateCreated>2007-10-31 09:00:00-0500</dateCreated>
+
+So this means WordPress would calculate the gmt using "-0500" and assume the
+time is local time. But if during standard time and the offset is -6 hours,
+then the post would have:
+
+<dateCreated>2007-10-31 09:00:00-0600</dateCreated>
+
+WP would calculate gmt using "-0600".
+
+Does that makes sense?
+
+Cheers,
+
+Toby
+
+___________________________________
+W. Tobias Simmons
+Simmons Consulting, Web Design and Marketing
+toby@simmonsconsulting.com
+http://www.simmonsconsulting.com
+Phone: 501.821.4230 / Fax: 501.244.4416
+-----Original Message-----
+From: Kimmo Suominen [mailto:kimmo@global-wire.fi] 
+Sent: Tuesday, March 04, 2008 3:50 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Daylight saving time and edting past post
+
+On Mon, Mar 03, 2008 at 05:09:15PM -0700, Joseph Scott wrote:
+> 
+> We've discussed adding a wp.getBlogOptions( ) method that would
+> expose a variety of settings/options for a WordPress blog, including
+> the time zone offset.  I haven't done any real work on that yet.
+> Hopefully once 2.5 ships (later this month) I'll be able to get that
+> in for inclusion to 2.6.
+
+The current time zone offset in the WordPress settings cannot be used
+as the correct offset for any given article.
+
+The basic simple example of why not is, if you currently observe
+daylight saving time and edit an article that was originally created
+during standard time, the correct time offset for the article differs
+from the one in WP settings.
+
+I'd really like to see just GMT stored in the database, but this cannot
+be done:
+
+- apparently there is no general zoneinfo interface we could use that is
+  available to us through PHP (4.x)
+
+- people can move from one time zone to another and we prefer for them
+  to be able to reflect the time zone they were in while writing any
+  given article
+
+Unless we store the time zone offset for each post in the database, it
+probably is the best current(ly available) practice to calculate the
+difference from the two time stamps we have in the database already.
+
+Best regards,
++ Kimmo
+-- 
+<A HREF="http://kimmo.suominen.com/">Kimmo Suominen</A>
+
+
+
+From joseph at randomnetworks.com  Tue Mar  4 17:26:33 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Mar  4 17:28:40 2008
+Subject: [wp-xmlrpc] Daylight saving time and edting past post
+In-Reply-To: <001c01c87e0d$2dede860$89c9b920$@com>
+References: <20080301120025.01D13CD7B@comox.textdrive.com>	<000901c87c16$57e1f510$07a5df30$@com>	<b75e1ac0803031609j412e38e9v3329fb1bef199b6f@mail.gmail.com>
+	<20080304094958.GG964@kimmo.suominen.com>
+	<001c01c87e0d$2dede860$89c9b920$@com>
+Message-ID: <3117CD93-394D-4137-8D98-CCF84EA9FCEA@randomnetworks.com>
+
+
+On Mar 4, 2008, at 8:34 AM, Toby Simmons wrote:
+
+> It would seem to me the easiest thing to do would be to honor  
+> whatever time
+> zone offset is sent in the dateCreated field ... in other words, if  
+> the
+> offset for a particular post is -5 hours, then the post would have:
+>
+> <dateCreated>2007-10-31 09:00:00-0500</dateCreated>
+>
+> So this means WordPress would calculate the gmt using "-0500" and  
+> assume the
+> time is local time. But if during standard time and the offset is -6  
+> hours,
+> then the post would have:
+>
+> <dateCreated>2007-10-31 09:00:00-0600</dateCreated>
+>
+> WP would calculate gmt using "-0600".
+>
+> Does that makes sense?
+
+
+
+I've been burned by tweaking dateCreated in the past.  It's been  
+around for quite awhile and adjustments to its behavior just broke  
+things.  That's why we added the new date_created_gmt field.
+
+dateCreated is assumed to be the local time, so no need for time zone  
+offsets.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Wed Mar  5 02:56:28 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Mar  5 02:56:51 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+In-Reply-To: <AE8CC105-71E7-4D09-8619-462A5051B9EF@randomnetworks.com>
+References: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+	<70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+	<b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+	<df17ce8f0802210305t210be574qd60c55339e1675e9@mail.gmail.com>
+	<AE8CC105-71E7-4D09-8619-462A5051B9EF@randomnetworks.com>
+Message-ID: <B4D4DC2D-2714-4A39-A45E-3B3DE7D3E932@randomnetworks.com>
+
+
+On Feb 21, 2008, at 10:09 AM, Joseph Scott wrote:
+
+>
+> On Feb 21, 2008, at 4:05 AM, Srinivas wrote:
+>
+>> Hi Joseph,
+>>
+>> Thanks for the wp.getPages fix. I am facing no more problems with  
+>> re-direction now.
+>>
+>> But Now, I have a different problem with respect to WordPress Pages.
+>> As per my understaning, each of the WordPress 'Pages', unlike  
+>> regular blog posts, can have a different template. And, the  
+>> WordPress web console helps the user to choose the template he  
+>> wants to use for the Page being edited.
+>>
+>> In our product, we allow the user to edit the Pages and we want to  
+>> allow the user to choose template for the Page as he can do it in  
+>> the WordPress web console.
+>>
+>> I have some questions on how I can achieve this:
+>> How can I get the list of Templates available for the user to  
+>> choose from? Is there any wp.* API for that?
+>
+> There isn't one currently, but we could add one.   
+> wp.getPageTemplates perhaps?
+>
+>
+>> Once I get the List, If an user selects a template, which XMLRPC  
+>> API would help me in updating this information - wp.editPage seems  
+>> to have no field to capture the details of the template - correct  
+>> me if I am wrong.
+>> Please help me to resolve this problem.
+>
+>
+> Adding a page_template field to wp.editPage could accommodate that.   
+> This field could also be provided wp.getPage and friends.
+>
+> Please write up these ideas in a ticket at http:// 
+> trac.wordpress.org/.  If you have any patches that would be great,  
+> if not, that is fine too.  We are pushing towards a release next  
+> month and I'm trying to get another project finished up so I don't  
+> have a good timeline on when these features would go in.  We'll do  
+> our best.
+
+
+
+I  haven't seen a ticket for this and I didn't want to loose track of  
+this idea, so I created ticket 6098 (http://trac.wordpress.org/ticket/6098 
+).
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Sat Mar 29 21:55:34 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sat Mar 29 21:55:59 2008
+Subject: [wp-xmlrpc] WordPress 2.5
+Message-ID: <FA51D7F8-B9B1-4E23-9C83-41F7DF1868A4@randomnetworks.com>
+
+
+WordPress 2.5 is now officially out ( http://wordpress.org/ 
+development/2008/03/wordpress-25-brecker/ ).  There are a number of  
+things that this release has for XML-RPC clients (cut and pasted from  
+http://joseph.randomnetworks.com/archives/2008/03/29/wordpresss-25/ ):
+
+For the XML-RPC blog client developers out there 2.5 adds four new  
+methods:
+
+     * wp.deleteCategory( blog_id, username, password, category_id )  
+- Delete a category.
+     * wp.getCommentCount( blog_id, username, password, post_id ) -  
+Provides a struct of all the comment counts ( approved,  
+awaiting_moderation, spam, total_comments ) for a given post_id. The  
+post_id parameter is optional (or can be set to zero), if it is not  
+provided then the same struct is returned, but for the entire blog  
+instead of just one post.
+     * wp.getPostStatusList( blog_id, username, password ) - Provides  
+a struct of all the valid post statuses ( draft, pending, private,  
+publish ) and their descriptions ( Draft, Pending Review, Private,  
+Published ).
+     * wp.getPageStatusList( blog_id, username, password ) - Provides  
+a struct of all the valid page statuses ( draft, private, publish )  
+and their descriptions ( Draft, Private, Published).
+
+To go along with the new status methods, you can now explicitly set  
+the post and page status using the post_status and page_status  
+fields. Like wise the status is also exposed via the various get*  
+methods. One note about future posts, for the purposes of XML-RPC  
+clients we set the post_status to publish when the actual database  
+value is future.
+
+The wp.suggestCategories method has been fixed to return data in the  
+same format that did originally. I never heard anyone complain about  
+this though, so I guess it isn?t getting much use.
+
+Custom fields for posts and pages are now exposed and manageable from  
+metaWeblog.getPost/newPost/editPost, wp.getPage/newPage/editPage via  
+the custom_fields field. I was really happy to get this in, I think  
+there is a long of potential in being able to manage custom fields  
+externally.
+
+The mt_allow_comments field now understands the value of 2 to be the  
+same as the value of zero. This was done because other platforms  
+expect to be able use, so some clients assume that we support it. Now  
+we do, but from the WordPress point of view is does exactly the same  
+thing as zero.
+
+If the field date_created_gmt is provided in metaWeblog.newPost/ 
+editPost, wp.newPage/editPage then it is used instead of the  
+dateCreated field. This same field was already exposed via  
+metaWeblog.getPost, wp.getPage. By definition the date_created_gmt  
+field is always GMT, even if you don?t provide a time zone offset or  
+a trailing Z. I?m hoping this will help ease the many headaches that  
+have been brought on by trying to deal with date/time issues in the  
+XML-RPC blog APIs.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From jalkut at red-sweater.com  Sat Mar 29 21:59:46 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat Mar 29 22:00:04 2008
+Subject: [wp-xmlrpc] WordPress 2.5
+In-Reply-To: <FA51D7F8-B9B1-4E23-9C83-41F7DF1868A4@randomnetworks.com>
+References: <FA51D7F8-B9B1-4E23-9C83-41F7DF1868A4@randomnetworks.com>
+Message-ID: <DC5FD5A3-1397-49E3-AA49-9596E35F7A77@red-sweater.com>
+
+On Mar 29, 2008, at 5:55 PM, Joseph Scott wrote:
+>
+> WordPress 2.5 is now officially out ( http://wordpress.org/development/2008/03/wordpress-25-brecker/ 
+>  ).  There are a number of things that this release has for XML-RPC  
+> clients (cut and pasted from http://joseph.randomnetworks.com/archives/2008/03/29/wordpresss-25/ 
+>  ):
+
+Thanks, Joseph. It's great to have everything summarized like this. It  
+shows how much great work you did for this release. It's much  
+appreciated!
+
+Now I just gotta catch up in MarsEdit :)
+
+Daniel
+

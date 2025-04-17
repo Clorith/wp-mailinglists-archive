@@ -1,0 +1,106 @@
+From mike at silverorange.com  Fri Feb 22 01:09:06 2008
+From: mike at silverorange.com (Michael Gauthier)
+Date: Thu, 21 Feb 2008 21:09:06 -0400
+Subject: [spam-stopper] PHP5 Akismet API is in PEAR
+Message-ID: <1203642546.15934.5.camel@localhost>
+
+Hello All,
+
+I'd like to let you know about a new PHP 5 implementation of the Akismet
+REST API. The package, Services_Akismet is MIT licensed and distributed
+through the official PEAR channel at
+http://pear.php.net/package/Services_Akismet.
+
+Hopefully this will make it even easier for third-party PHP projects to
+use Akismet spam tools. The code is well documented and should "just
+work" on any PHP 5.2.1+ system.
+
+Thanks for the great API,
+
+
+-Mike
+
+
+
+From jan at defv.be  Sat Feb 23 09:39:05 2008
+From: jan at defv.be (Jan De Poorter)
+Date: Sat, 23 Feb 2008 10:39:05 +0100
+Subject: [spam-stopper] Akismet Server Problems with HTTP/1.1
+Message-ID: <854668C8-0C6E-45E2-8364-F78FC5200C73@defv.be>
+
+Hello,
+
+While investigating a slow site for a client I found out the akismet  
+servers + PHP5 seem to have a problem with HTTP/1.1, which makes  
+replies sometimes really slow. I did a write-up on this on http://blog.defv.be/2008/2/22/akismet-problems 
+  .
+
+Regards,
+Jan De Poorter
+Openminds BVBA
+
+
+
+
+From mike at silverorange.com  Sat Feb 23 20:19:44 2008
+From: mike at silverorange.com (Michael Gauthier)
+Date: Sat, 23 Feb 2008 16:19:44 -0400
+Subject: [spam-stopper] Re: Akismet Server Problems with HTTP/1.1
+In-Reply-To: <20080223120029.18678C369@comox.textdrive.com>
+References: <20080223120029.18678C369@comox.textdrive.com>
+Message-ID: <1203797984.374.1.camel@localhost>
+
+Jan,
+
+See this PEAR bug I fixed yesterday:
+http://pear.php.net/bugs/bug.php?id=13173&edit=1
+
+Cheers,
+
+Mike
+
+
+On Sat, 2008-23-02 at 12:00 +0000,
+spam-stopper-request at lists.automattic.com wrote:
+
+Hello,
+
+While investigating a slow site for a client I found out the akismet  
+servers + PHP5 seem to have a problem with HTTP/1.1, which makes  
+replies sometimes really slow. I did a write-up on this on
+http://blog.defv.be/2008/2/22/akismet-problems 
+  .
+
+Regards,
+Jan De Poorter
+Openminds BVBA
+
+
+
+From simonk at scribblewiki.com  Fri Feb 29 23:30:50 2008
+From: simonk at scribblewiki.com (Simon Koldyk)
+Date: Fri, 29 Feb 2008 17:30:50 -0600 (CST)
+Subject: [spam-stopper] Release - Akismet for MediaWiki
+Message-ID: <57959.75.157.224.152.1204327850.squirrel@scribblewiki.com>
+
+Hello,
+
+I run a small wiki hosting company that uses MediaWiki as its base and 
+after CAPTCHA and other extensions made were no longer working we created
+our own Akismet extention.  It currently doesn't have system for someone
+to check spam marked by Akismet to correct false positives; but, we are
+working on a system similar to the current Wordpress mod to do that.
+
+You can download it at http://scribblewiki.com/akismet/  The code is
+released under the GPL.
+
+Regards,
+Simon Koldyk
+simonk at scribblewiki.com
+
+ScribbleWiki
+#111 - 998 Harbourside Drive
+North Vancouver, BC V7P 3T2
+
+
+

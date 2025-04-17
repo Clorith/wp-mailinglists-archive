@@ -1,0 +1,561 @@
+From jdg at codesymphony.co  Tue May  5 14:45:16 2015
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Tue, 5 May 2015 10:45:16 -0400
+Subject: [wp-hackers] Plugin DB tables on multisite
+Message-ID: <2AF4A5BE-C52F-4DA4-9C94-2516B3B7A1E8@codesymphony.co>
+
+Hi hackers,
+
+I'm building a feature for a plugin where some items are going to be stored in a database table. These items have metadata, but I haven't decided whether that will be stored in a separate table or just serialized in a column. The main point is that we'll have a table of items, and it will be supporting multisite.
+
+There are two ways (maybe more?) that I could create the database schema:
+
+I could have one global table for the entire network, with a site_id column which would be used to associate each item with a particular site (kind of like the user or usermeta tables). Or, 
+I could create a separate table for each site (like the posts tables).
+
+I'm wondering if anyone has any advice to offer as to which of these options I should choose.
+
+Other things to keep in mind:
+There might be as many as 100 items per-site, maybe more rarely, but usually less.
+The items are strictly associated with a specific site, and don't presently need to be read by other sites (though perhaps there is a small chance that could change in the future). However, when the plugin is network-active, there is support for network-wide items, too.
+Though the plugin supports network-activation, I suppose if I use separate tables for each site I could create them lazily on-the-fly, instead of all at once when the plugin is network activated.
+The tables that the plugin currently uses are already designed like #1 above, though some of them actually do need to be queryable across sites, so it is a slightly different case.
+I've briefly considered making these items a post type, and so they'd just be stored in the post tables. However, I'm not sure how well that will work. The main problem I see is that there would be no support for network-wide items.
+
+Any thoughts?
+
+-J.D.
+
+
+From jmiloj at gmail.com  Tue May  5 15:20:08 2015
+From: jmiloj at gmail.com (Jerry Milo Johnson)
+Date: Tue, 5 May 2015 11:20:08 -0400
+Subject: [wp-hackers] Plugin DB tables on multisite
+In-Reply-To: <2AF4A5BE-C52F-4DA4-9C94-2516B3B7A1E8@codesymphony.co>
+References: <2AF4A5BE-C52F-4DA4-9C94-2516B3B7A1E8@codesymphony.co>
+Message-ID: <CADYBncZhL7cOs2oYXL+A+r4j0gvuisgRwW-F1G_=4fSMaQHL5g@mail.gmail.com>
+
+I would keep it as close to wp-like as possible.
+
+if you need a table, make it match that blog's table structure.
+
+wp_1_mytable.
+
+If you ever need to split, or export, or move that subblog to a different
+network, or on its own, it has its own set of tables and isnt co-mingled.
+
+If possible, and the data fits (or sort-of fits) into a custom post type,
+with main data, title, id, date, categories and metadata, you should do so.
+it is understandable, and a lot of the heavy lifting is done for you.
+
+If you need to store "global" custom post types, I typically place them on
+blog 1 (the main site blog), alongside the main blogs cpt entries, but have
+a metadata flag for "global", and use switch-to-blog to pull them out when
+I need them.
+
+
+
+On Tue, May 5, 2015 at 10:45 AM, J.D. Grimes <jdg at codesymphony.co> wrote:
+
+> Hi hackers,
+>
+> I'm building a feature for a plugin where some items are going to be
+> stored in a database table. These items have metadata, but I haven't
+> decided whether that will be stored in a separate table or just serialized
+> in a column. The main point is that we'll have a table of items, and it
+> will be supporting multisite.
+>
+> There are two ways (maybe more?) that I could create the database schema:
+>
+> I could have one global table for the entire network, with a site_id
+> column which would be used to associate each item with a particular site
+> (kind of like the user or usermeta tables). Or,
+> I could create a separate table for each site (like the posts tables).
+>
+> I'm wondering if anyone has any advice to offer as to which of these
+> options I should choose.
+>
+> Other things to keep in mind:
+> There might be as many as 100 items per-site, maybe more rarely, but
+> usually less.
+> The items are strictly associated with a specific site, and don't
+> presently need to be read by other sites (though perhaps there is a small
+> chance that could change in the future). However, when the plugin is
+> network-active, there is support for network-wide items, too.
+> Though the plugin supports network-activation, I suppose if I use separate
+> tables for each site I could create them lazily on-the-fly, instead of all
+> at once when the plugin is network activated.
+> The tables that the plugin currently uses are already designed like #1
+> above, though some of them actually do need to be queryable across sites,
+> so it is a slightly different case.
+> I've briefly considered making these items a post type, and so they'd just
+> be stored in the post tables. However, I'm not sure how well that will
+> work. The main problem I see is that there would be no support for
+> network-wide items.
+>
+> Any thoughts?
+>
+> -J.D.
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From lukebryan at sharefaith.com  Fri May  8 01:39:04 2015
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Thu, 7 May 2015 18:39:04 -0700
+Subject: [wp-hackers] Archive versions
+Message-ID: <CAFnKAk0i1uNgx2bk0UyHgbLRaZYLM6nf7F5qywd_kROmPN_AnQ@mail.gmail.com>
+
+Greetings all,
+
+I noticed something odd when checking the archive page
+<https://wordpress.org/download/release-archive/>today:
+"None of these are safe to use, except the *latest* in the 4.2 series,
+which is actively maintained."
+
+However, you'll notice that there's 4.1.5, 4.0.5, etc. It looks like the
+security update the other day is applied to all the major Wordpress
+versions that support auto-update?
+
+Why does it say "None of these are safe"? Has this statement just not been
+updated since auto-updates for most major versions was implemented?
+
+Best regards,
+Luke
+
+From abdussamad at abdussamad.com  Fri May  8 02:15:45 2015
+From: abdussamad at abdussamad.com (Abdussamad Abdurrazzaq)
+Date: Fri, 08 May 2015 07:15:45 +0500
+Subject: [wp-hackers] Archive versions
+In-Reply-To: <CAFnKAk0i1uNgx2bk0UyHgbLRaZYLM6nf7F5qywd_kROmPN_AnQ@mail.gmail.com>
+References: <CAFnKAk0i1uNgx2bk0UyHgbLRaZYLM6nf7F5qywd_kROmPN_AnQ@mail.gmail.com>
+Message-ID: <554C1C51.2000903@abdussamad.com>
+
+Hi,
+
+I think you are being pedantic. If you want to start a new site you 
+should use the latest version and that's what they mean.
+
+Critical security updates are provided for older versions because auto 
+updates are restricted to minor versions and if admins haven't logged in 
+and updated to the latest major version they could find their sites 
+compromised. Doesn't mean we all should stick to old versions.
+
+Regards,
+Abdussamad
+
+On 05/08/2015 06:39 AM, Luke Bryan wrote:
+> Greetings all,
+>
+> I noticed something odd when checking the archive page
+> <https://wordpress.org/download/release-archive/>today:
+> "None of these are safe to use, except the *latest* in the 4.2 series,
+> which is actively maintained."
+>
+> However, you'll notice that there's 4.1.5, 4.0.5, etc. It looks like the
+> security update the other day is applied to all the major Wordpress
+> versions that support auto-update?
+>
+> Why does it say "None of these are safe"? Has this statement just not been
+> updated since auto-updates for most major versions was implemented?
+>
+> Best regards,
+> Luke
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Mon May 11 17:48:01 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 11 May 2015 10:48:01 -0700
+Subject: [wp-hackers] sharing the same `terms` and `term_taxonomy` tables
+ across multiple WordPress sites
+Message-ID: <CAHERW=081Akx9Wx5MZFhv5R4kwNsAAYFyREqX2tdZEHeqQpwMA@mail.gmail.com>
+
+Hello,
+
+I do know that 2 WordPress sites could share the same user base. Constants
+such as `CUSTOM_USER_TABLE` and  `CUSTOM_USER_META_TABLE` pave the way
+towards that goal.
+
+What I'm wondering if a similar concept could be extended so that those
+sites can also share the same terms and term_taxonomy table?
+
+From wp-hackers at striderweb.com  Mon May 11 21:07:05 2015
+From: wp-hackers at striderweb.com (Stephen Rider)
+Date: Mon, 11 May 2015 16:07:05 -0500
+Subject: [wp-hackers] sharing the same `terms` and `term_taxonomy`
+	tables across multiple WordPress sites
+In-Reply-To: <CAHERW=081Akx9Wx5MZFhv5R4kwNsAAYFyREqX2tdZEHeqQpwMA@mail.gmail.com>
+References: <CAHERW=081Akx9Wx5MZFhv5R4kwNsAAYFyREqX2tdZEHeqQpwMA@mail.gmail.com>
+Message-ID: <2553FA14-A4F0-490D-A408-278FE6A54F40@striderweb.com>
+
+You might look at creating Views in MySQL.  Basically a pointer/alias that looks like a table but redirects to a different table.
+
+I?m no expert on them; they may be read only or somesuch, but may suit your issue at any rate.
+
+-- 
+Stephen Rider
+
+wp-hackers at striderweb.com
+http://striderweb.com/nerdaphernalia
+
+
+
+> On May 11, 2015, at 12:48 PM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+> 
+> Hello,
+> 
+> I do know that 2 WordPress sites could share the same user base. Constants
+> such as `CUSTOM_USER_TABLE` and  `CUSTOM_USER_META_TABLE` pave the way
+> towards that goal.
+> 
+> What I'm wondering if a similar concept could be extended so that those
+> sites can also share the same terms and term_taxonomy table?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From mike at codenamemiked.com  Tue May 19 20:25:39 2015
+From: mike at codenamemiked.com (MikeD)
+Date: Tue, 19 May 2015 16:25:39 -0400
+Subject: [wp-hackers] Why are <img> tags inserted into posts?
+Message-ID: <E8782646-086F-4480-B38E-D9AB695CB336@codenamemiked.com>
+
+I'm wondering why an actual HTML <img> link is embedded into a post when inserting an image, as opposed to a shortcode such as
+
+[img id=123 size='medium' alt='alt']
+
+or something similar that would make site-wide changes to image sizes etc easier. Is it just the DB hit or was there some other reason? I'd love to read the history of this if it exists somewhere.
+
+From johnbillion+wp at gmail.com  Wed May 20 00:31:42 2015
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Wed, 20 May 2015 01:31:42 +0100
+Subject: [wp-hackers] Why are <img> tags inserted into posts?
+In-Reply-To: <E8782646-086F-4480-B38E-D9AB695CB336@codenamemiked.com>
+References: <E8782646-086F-4480-B38E-D9AB695CB336@codenamemiked.com>
+Message-ID: <CAOqAKWDB-FAvi-1sM29CH+JomaKnBq0orGjXdSeUzCNDwu-NkA@mail.gmail.com>
+
+There isn't really a "history" to this, and there certainly wasn't a
+design decision. It's just how it is. Shortcodes weren't introduced
+until version 2.5, four years after version 1.0.
+
+Along with root-relative URLs, this gets brought up from time to time,
+for example https://core.trac.wordpress.org/ticket/11394. There's not
+much benefit to an img shortcode over an img tag, and there are
+downsides such as (as you pointed out) additional database queries.
+
+John
+
+On 19 May 2015 at 21:25, MikeD <mike at codenamemiked.com> wrote:
+> I'm wondering why an actual HTML <img> link is embedded into a post when inserting an image, as opposed to a shortcode such as
+>
+> [img id=123 size='medium' alt='alt']
+>
+> or something similar that would make site-wide changes to image sizes etc easier. Is it just the DB hit or was there some other reason? I'd love to read the history of this if it exists somewhere.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From mike at codenamemiked.com  Wed May 20 14:55:20 2015
+From: mike at codenamemiked.com (MikeD)
+Date: Wed, 20 May 2015 10:55:20 -0400
+Subject: [wp-hackers] wp-hackers Digest, Vol 124, Issue 4
+In-Reply-To: <mailman.9.1432123201.9079.wp-hackers@lists.automattic.com>
+References: <mailman.9.1432123201.9079.wp-hackers@lists.automattic.com>
+Message-ID: <5EF2128A-C9A0-4459-83B4-484FACD3CC11@codenamemiked.com>
+
+Sorry for the list reply, forgot to disable digest before posting.
+
+> 
+> There isn't really a "history" to this, and there certainly wasn't a
+> design decision. It's just how it is. Shortcodes weren't introduced
+> until version 2.5, four years after version 1.0.
+> 
+> Along with root-relative URLs, this gets brought up from time to time,
+> for example https://core.trac.wordpress.org/ticket/11394. There's not
+> much benefit to an img shortcode over an img tag, and there are
+> downsides such as (as you pointed out) additional database queries.
+> 
+> John
+
+Thanks for the track link.
+ 
+I disagree about the potential benefits. First, if a theme change is done and the sizes for medium or large change, all images in past posts would be automatically updated after regeneration, all else being equal. Huge timesaver when required.
+
+Second, when the responsive img stuff like srcset becomes a thing, it would be very easy to apply it retroactively, assuming the shortcode also has a hook.
+
+Thanks for the clarification though!
+
+From frank at bueltge.de  Wed May 20 15:08:09 2015
+From: frank at bueltge.de (Frank Bueltge)
+Date: Wed, 20 May 2015 17:08:09 +0200
+Subject: [wp-hackers] Customizer Return URL
+Message-ID: <CAH9UVvHA0yODwdXP9zx8mMLTkrQ69q_=u5QZJEPpEGZGR36XCQ@mail.gmail.com>
+
+Hello at all.
+
+I work on examples to use the customizer as standard control for different
+customization topics on front end. But I can't find a solution to change
+the return url, the close icon/button on the customizer.
+
+In the source was asked for a var $return. But how is it possible to change
+this? Maybe a reader can help me.
+
+>From the Core, wp-admin/customize.php:
+
+wp_reset_vars( array( 'url', 'return' ) );
+$url = wp_unslash( $url );
+$url = wp_validate_redirect( $url, home_url( '/' ) );
+if ( $return ) {
+    $return = wp_unslash( $return );
+    $return = wp_validate_redirect( $return );
+}
+if ( ! $return ) {
+
+I init the customizer via a menu item below Appearance menu item. I set the
+url on add the menu with the hook 'admin_menu' and filter the link to set a
+new url, my custom url. The url was set via the code below.
+
+// Create specific url for login view
+$login_url = wp_login_url();
+$url = add_query_arg(
+   'url',
+   urlencode( $login_url ),
+   admin_url( 'customize.php' )
+);
+
+Works fine and is also on front end, inside the customizer as return url.
+I have played with the follow source to change the return value.
+
+$url = add_query_arg(
+   'return',
+   admin_url( 'themes.php' )
+);
+I have include this via hook like 'init' or 'customize_register', but no
+changes on this value.
+
+But how can I change the return url?
+Thanks for hints or examples.
+best regards
+
+From otto at ottodestruct.com  Wed May 20 16:05:04 2015
+From: otto at ottodestruct.com (Otto)
+Date: Wed, 20 May 2015 11:05:04 -0500
+Subject: [wp-hackers] Customizer Return URL
+In-Reply-To: <CAH9UVvHA0yODwdXP9zx8mMLTkrQ69q_=u5QZJEPpEGZGR36XCQ@mail.gmail.com>
+References: <CAH9UVvHA0yODwdXP9zx8mMLTkrQ69q_=u5QZJEPpEGZGR36XCQ@mail.gmail.com>
+Message-ID: <CAD-FghyE_aex0wpQ=ws9-YO6yHfAOTHyS8kY-mhWp3EmiW2=Xg@mail.gmail.com>
+
+The return value should not be a full url, but a relative one.
+
+Look at what happens when you select the "Customize" link in the Appearance
+menu from any Admin screen.
+
+If you're looking at the Dashboard, you get this URL:
+http://localhost/wp-admin/customize.php?return=%2Fwp-admin%2F
+
+If you're looking at, say, Settings->General, you get this URL:
+http://localhost/wp-admin/customize.php?return=%2Fwp-admin%2Foptions-general.php
+
+So, your add_query_arg will work, if you do it like this:
+
+$url = add_query_arg(
+   array(
+      'url' => urlencode( $login_url ),
+      'return' => '/wp-admin/themes.php',
+   ),
+   admin_url( 'customize.php' )
+);
+
+
+-Otto
+
+On Wed, May 20, 2015 at 10:08 AM, Frank Bueltge <frank at bueltge.de> wrote:
+
+> Hello at all.
+>
+> I work on examples to use the customizer as standard control for different
+> customization topics on front end. But I can't find a solution to change
+> the return url, the close icon/button on the customizer.
+>
+> In the source was asked for a var $return. But how is it possible to change
+> this? Maybe a reader can help me.
+>
+> From the Core, wp-admin/customize.php:
+>
+> wp_reset_vars( array( 'url', 'return' ) );
+> $url = wp_unslash( $url );
+> $url = wp_validate_redirect( $url, home_url( '/' ) );
+> if ( $return ) {
+>     $return = wp_unslash( $return );
+>     $return = wp_validate_redirect( $return );
+> }
+> if ( ! $return ) {
+>
+> I init the customizer via a menu item below Appearance menu item. I set the
+> url on add the menu with the hook 'admin_menu' and filter the link to set a
+> new url, my custom url. The url was set via the code below.
+>
+> // Create specific url for login view
+> $login_url = wp_login_url();
+> $url = add_query_arg(
+>    'url',
+>    urlencode( $login_url ),
+>    admin_url( 'customize.php' )
+> );
+>
+> Works fine and is also on front end, inside the customizer as return url.
+> I have played with the follow source to change the return value.
+>
+> $url = add_query_arg(
+>    'return',
+>    admin_url( 'themes.php' )
+> );
+> I have include this via hook like 'init' or 'customize_register', but no
+> changes on this value.
+>
+> But how can I change the return url?
+> Thanks for hints or examples.
+> best regards
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From frank at bueltge.de  Thu May 21 10:41:24 2015
+From: frank at bueltge.de (Frank Bueltge)
+Date: Thu, 21 May 2015 12:41:24 +0200
+Subject: [wp-hackers] Customizer Return URL
+In-Reply-To: <CAD-FghyE_aex0wpQ=ws9-YO6yHfAOTHyS8kY-mhWp3EmiW2=Xg@mail.gmail.com>
+References: <CAH9UVvHA0yODwdXP9zx8mMLTkrQ69q_=u5QZJEPpEGZGR36XCQ@mail.gmail.com>
+ <CAD-FghyE_aex0wpQ=ws9-YO6yHfAOTHyS8kY-mhWp3EmiW2=Xg@mail.gmail.com>
+Message-ID: <CAH9UVvEuU=st0dy2e=KiXeTN2N51Gax0DKw2TcyUMZZ1XsrtAA@mail.gmail.com>
+
+Hello Otto,
+
+thanks, it works!
+Now I add this two parameters to the url via
+
+$url = add_query_arg(
+array(
+'url' => urlencode( $login_url ),
+'return' => admin_url( 'themes.php' ),
+),
+admin_url( 'customize.php' )
+);
+
+
+Liebe Gr??e
+Frank
+? WordPress solution architect
+__
+http://bueltge.de
+http://inpsyde.com
+http://multilingualpress.pro
+http://marketpress.com
+
+Privat: +49 36428 169305 | Mobil: +49 170 5322053
+
+Inpsyde GmbH, http://inpsyde.com, Mutzer Heide 3, 51467 Bergisch Gladbach
+Steuernr: 204/5756/0999, Steueridentnr.: DE263849534
+Gesch?ftsf?hrender Gesellschafter: Heinz Roh?, HRB 65224, Amtsgericht K?ln
+
+On Wed, May 20, 2015 at 6:05 PM, Otto <otto at ottodestruct.com> wrote:
+
+> The return value should not be a full url, but a relative one.
+>
+> Look at what happens when you select the "Customize" link in the Appearance
+> menu from any Admin screen.
+>
+> If you're looking at the Dashboard, you get this URL:
+> http://localhost/wp-admin/customize.php?return=%2Fwp-admin%2F
+>
+> If you're looking at, say, Settings->General, you get this URL:
+>
+> http://localhost/wp-admin/customize.php?return=%2Fwp-admin%2Foptions-general.php
+>
+> So, your add_query_arg will work, if you do it like this:
+>
+> $url = add_query_arg(
+>    array(
+>       'url' => urlencode( $login_url ),
+>       'return' => '/wp-admin/themes.php',
+>    ),
+>    admin_url( 'customize.php' )
+> );
+>
+>
+> -Otto
+>
+> On Wed, May 20, 2015 at 10:08 AM, Frank Bueltge <frank at bueltge.de> wrote:
+>
+> > Hello at all.
+> >
+> > I work on examples to use the customizer as standard control for
+> different
+> > customization topics on front end. But I can't find a solution to change
+> > the return url, the close icon/button on the customizer.
+> >
+> > In the source was asked for a var $return. But how is it possible to
+> change
+> > this? Maybe a reader can help me.
+> >
+> > From the Core, wp-admin/customize.php:
+> >
+> > wp_reset_vars( array( 'url', 'return' ) );
+> > $url = wp_unslash( $url );
+> > $url = wp_validate_redirect( $url, home_url( '/' ) );
+> > if ( $return ) {
+> >     $return = wp_unslash( $return );
+> >     $return = wp_validate_redirect( $return );
+> > }
+> > if ( ! $return ) {
+> >
+> > I init the customizer via a menu item below Appearance menu item. I set
+> the
+> > url on add the menu with the hook 'admin_menu' and filter the link to
+> set a
+> > new url, my custom url. The url was set via the code below.
+> >
+> > // Create specific url for login view
+> > $login_url = wp_login_url();
+> > $url = add_query_arg(
+> >    'url',
+> >    urlencode( $login_url ),
+> >    admin_url( 'customize.php' )
+> > );
+> >
+> > Works fine and is also on front end, inside the customizer as return url.
+> > I have played with the follow source to change the return value.
+> >
+> > $url = add_query_arg(
+> >    'return',
+> >    admin_url( 'themes.php' )
+> > );
+> > I have include this via hook like 'init' or 'customize_register', but no
+> > changes on this value.
+> >
+> > But how can I change the return url?
+> > Thanks for hints or examples.
+> > best regards
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+

@@ -1,0 +1,614 @@
+From jane at automattic.com  Fri Jan  6 02:11:29 2012
+From: jane at automattic.com (Jane Wells)
+Date: Thu, 05 Jan 2012 21:11:29 -0500
+Subject: [wp-docs] HELP TEXT
+Message-ID: <4F065851.8070806@automattic.com>
+
+Going through some trac tickets, thinking we should try to have more 
+overlap between help in codex and help in dashboard. If anyone wants to 
+rewrite http://core.trac.wordpress.org/ticket/19442 help text to be 
+clearer, have at it.
+j
+
+From lorelleonwordpress at gmail.com  Fri Jan  6 06:40:08 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu, 5 Jan 2012 22:40:08 -0800
+Subject: [wp-docs] HELP TEXT
+In-Reply-To: <4F065851.8070806@automattic.com>
+References: <4F065851.8070806@automattic.com>
+Message-ID: <CAN2v4ZSMLSuPwVudGKw6HAZ16cPNeWHa9nKREp0QYmN2EkGMKQ@mail.gmail.com>
+
+Done. Thanks for asking!
+
+Lorelle
+
+
+On Thu, Jan 5, 2012 at 6:11 PM, Jane Wells <jane at automattic.com> wrote:
+
+> Going through some trac tickets, thinking we should try to have more
+> overlap between help in codex and help in dashboard. If anyone wants to
+> rewrite http://core.trac.wordpress.**org/ticket/19442<http://core.trac.wordpress.org/ticket/19442>help text to be clearer, have at it.
+> j
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120105/cd22e385/attachment.htm>
+
+From bg at hearingvoices.com  Sat Jan  7 16:07:54 2012
+From: bg at hearingvoices.com (Barrett Golding)
+Date: Sat, 7 Jan 2012 09:07:54 -0700
+Subject: [wp-docs] Naming Slugs
+Message-ID: <1EE23CC3-7A50-4950-96E2-C60CF14AA313@hearingvoices.com>
+
+wanted to inform y'all i'm working on a Naming Slugs page:
+http://codex.wordpress.org/User:Hearvox/Naming_Slugs
+
+it'll detail what gets a slug, and how to edit that slug.
+why you sometimes get "-2" added to your slug.
+how slugs are part of permalink URLs (& maybe how permalinks can affect SEO).
+how post slugs (esp. Page CPT) can, in rare cases, conflict (aka, collide) with
+other post-type slugs, or taxonomy slugs (also rewrite bases and page templates).
+
+been consulting w/ wp-hackers list to make sure i get it right.
+once it's further along, i'll submit it for consideration as a Codex Docs
+
+just wanted to heads-up y'all for now, 
+bg
+-- 
+<http://HearingVoices.com/>
+~radio active transmissions~
+
+
+From lorelleonwordpress at gmail.com  Sat Jan  7 16:25:55 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Sat, 7 Jan 2012 08:25:55 -0800
+Subject: [wp-docs] Naming Slugs
+In-Reply-To: <1EE23CC3-7A50-4950-96E2-C60CF14AA313@hearingvoices.com>
+References: <1EE23CC3-7A50-4950-96E2-C60CF14AA313@hearingvoices.com>
+Message-ID: <CAN2v4ZS0UVP30co4qXb4na93gte7QqhhsJrJCgoCWSVG0Vnx2w@mail.gmail.com>
+
+This has been on my list for ages.  Excellent! Thank you.
+Lorelle
+On Jan 7, 2012 8:08 AM, "Barrett Golding" <bg at hearingvoices.com> wrote:
+
+> wanted to inform y'all i'm working on a Naming Slugs page:
+> http://codex.wordpress.org/User:Hearvox/Naming_Slugs
+>
+> it'll detail what gets a slug, and how to edit that slug.
+> why you sometimes get "-2" added to your slug.
+> how slugs are part of permalink URLs (& maybe how permalinks can affect
+> SEO).
+> how post slugs (esp. Page CPT) can, in rare cases, conflict (aka, collide)
+> with
+> other post-type slugs, or taxonomy slugs (also rewrite bases and page
+> templates).
+>
+> been consulting w/ wp-hackers list to make sure i get it right.
+> once it's further along, i'll submit it for consideration as a Codex Docs
+>
+> just wanted to heads-up y'all for now,
+> bg
+> --
+> <http://HearingVoices.com/>
+> ~radio active transmissions~
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120107/3f9b1b27/attachment.htm>
+
+From charles.freesmelvin at me.com  Sat Jan  7 17:16:28 2012
+From: charles.freesmelvin at me.com (Charles Frees-Melvin)
+Date: Sat, 07 Jan 2012 13:16:28 -0400
+Subject: [wp-docs] Naming Slugs
+In-Reply-To: <1EE23CC3-7A50-4950-96E2-C60CF14AA313@hearingvoices.com>
+References: <1EE23CC3-7A50-4950-96E2-C60CF14AA313@hearingvoices.com>
+Message-ID: <71AC9723-35CB-4F07-A886-089C33983ED4@me.com>
+
+Hi Barrett,
+
+There is an issue that has yet to be fixed (http://core.trac.wordpress.org/ticket/3329) but would not hurt to be included in documentation. Slugs should not contain the character %.  They kind of work but break the editor to change them.
+
+--
+Charles E. Frees-Melvin
+www.cefm.ca
+
+Sent from my iPhone 4S
+
+On 2012-01-07, at 12:07, Barrett Golding <bg at hearingvoices.com> wrote:
+
+> wanted to inform y'all i'm working on a Naming Slugs page:
+> http://codex.wordpress.org/User:Hearvox/Naming_Slugs
+> 
+> it'll detail what gets a slug, and how to edit that slug.
+> why you sometimes get "-2" added to your slug.
+> how slugs are part of permalink URLs (& maybe how permalinks can affect SEO).
+> how post slugs (esp. Page CPT) can, in rare cases, conflict (aka, collide) with
+> other post-type slugs, or taxonomy slugs (also rewrite bases and page templates).
+> 
+> been consulting w/ wp-hackers list to make sure i get it right.
+> once it's further along, i'll submit it for consideration as a Codex Docs
+> 
+> just wanted to heads-up y'all for now, 
+> bg
+> -- 
+> <http://HearingVoices.com/>
+> ~radio active transmissions~
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+From esmi at quirm.net  Wed Jan 11 23:27:27 2012
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Wed, 11 Jan 2012 23:27:27 +0000
+Subject: [wp-docs] Page of Posts (updated?)
+Message-ID: <4F0E1ADF.5040204@quirm.net>
+
+I spend most of my time on the support forums and one of the Codex 
+sections that I send users to multiple times a day is 
+<http://codex.wordpress.org/Pages#A_Page_of_Posts>.
+
+However, the current example - whilst a good resource for a coder - is 
+rather overwhelming for someone who is only at the tinkering stage. It's 
+also based on Kubrick rather than Twenty Eleven. On that basis, how 
+about adding:
+
+<http://codex.wordpress.org/User:Esmi/Twenty_Eleven_Page_of_Posts>
+
+It's more in line with what most users on the forums want. Perhaps the 
+two existing examples could be re-classified as "Advanced Examples"?
+
+Thoughts?
+
+Mel / esmi
+
+
+From andrea at ronandandrea.com  Thu Jan 12 00:03:36 2012
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Wed, 11 Jan 2012 20:03:36 -0400
+Subject: [wp-docs] Page of Posts (updated?)
+In-Reply-To: <4F0E1ADF.5040204@quirm.net>
+References: <4F0E1ADF.5040204@quirm.net>
+Message-ID: <CAJzjkbc=M6xOzH-oSpPtoDKrY1AdddmYbOjm3j=yzJX26N58-Q@mail.gmail.com>
+
++1 for a short quick overview then an advanced version.
+
+a.
+
+On Wed, Jan 11, 2012 at 7:27 PM, esmi at quirm dot net <esmi at quirm.net>wrote:
+
+> I spend most of my time on the support forums and one of the Codex
+> sections that I send users to multiple times a day is <
+> http://codex.wordpress.org/**Pages#A_Page_of_Posts<http://codex.wordpress.org/Pages#A_Page_of_Posts>
+> >.
+>
+> However, the current example - whilst a good resource for a coder - is
+> rather overwhelming for someone who is only at the tinkering stage. It's
+> also based on Kubrick rather than Twenty Eleven. On that basis, how about
+> adding:
+>
+> <http://codex.wordpress.org/**User:Esmi/Twenty_Eleven_Page_**of_Posts<http://codex.wordpress.org/User:Esmi/Twenty_Eleven_Page_of_Posts>
+> >
+>
+> It's more in line with what most users on the forums want. Perhaps the two
+> existing examples could be re-classified as "Advanced Examples"?
+>
+> Thoughts?
+>
+> Mel / esmi
+>
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>
+
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120111/cba57ece/attachment.htm>
+
+From ipstenu at ipstenu.org  Thu Jan 12 00:04:28 2012
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Wed, 11 Jan 2012 18:04:28 -0600
+Subject: [wp-docs] Page of Posts (updated?)
+In-Reply-To: <CAJzjkbc=M6xOzH-oSpPtoDKrY1AdddmYbOjm3j=yzJX26N58-Q@mail.gmail.com>
+References: <4F0E1ADF.5040204@quirm.net>
+	<CAJzjkbc=M6xOzH-oSpPtoDKrY1AdddmYbOjm3j=yzJX26N58-Q@mail.gmail.com>
+Message-ID: <19259148-554C-4B22-9995-2676E877D505@ipstenu.org>
+
+What my cousin from another nation said.
+
+That's a great idea.
+
+On 11 Jan 2012, at 6:03:36PM, Andrea Rennick wrote:
+
+> +1 for a short quick overview then an advanced version.
+> 
+> a.
+> 
+> On Wed, Jan 11, 2012 at 7:27 PM, esmi at quirm dot net <esmi at quirm.net> wrote:
+> I spend most of my time on the support forums and one of the Codex sections that I send users to multiple times a day is <http://codex.wordpress.org/Pages#A_Page_of_Posts>.
+> 
+> However, the current example - whilst a good resource for a coder - is rather overwhelming for someone who is only at the tinkering stage. It's also based on Kubrick rather than Twenty Eleven. On that basis, how about adding:
+> 
+> <http://codex.wordpress.org/User:Esmi/Twenty_Eleven_Page_of_Posts>
+> 
+> It's more in line with what most users on the forums want. Perhaps the two existing examples could be re-classified as "Advanced Examples"?
+> 
+> Thoughts?
+> 
+> Mel / esmi
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+> 
+> 
+> -- 
+> -- 
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com 
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120111/5cca0b92/attachment.htm>
+
+From andrea at ronandandrea.com  Thu Jan 12 00:52:35 2012
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Wed, 11 Jan 2012 20:52:35 -0400
+Subject: [wp-docs] Page of Posts (updated?)
+In-Reply-To: <19259148-554C-4B22-9995-2676E877D505@ipstenu.org>
+References: <4F0E1ADF.5040204@quirm.net>
+	<CAJzjkbc=M6xOzH-oSpPtoDKrY1AdddmYbOjm3j=yzJX26N58-Q@mail.gmail.com>
+	<19259148-554C-4B22-9995-2676E877D505@ipstenu.org>
+Message-ID: <CAJzjkbdWD++QRqdk2poKrq-1tsM71fxqC-T0YY-73UFpkcm67Q@mail.gmail.com>
+
+You know, I'm thinking there's probably a lot of sections need
+something like this. Creating a network, for example...
+
+a.
+
+On Wed, Jan 11, 2012 at 8:04 PM, Mika A Epstein <ipstenu at ipstenu.org> wrote:
+
+> What my cousin from another nation said.
+>
+> That's a great idea.
+>
+> On 11 Jan 2012, at 6:03:36PM, Andrea Rennick wrote:
+>
+> +1 for a short quick overview then an advanced version.
+>
+> a.
+>
+> On Wed, Jan 11, 2012 at 7:27 PM, esmi at quirm dot net <esmi at quirm.net>wrote:
+>
+>> I spend most of my time on the support forums and one of the Codex
+>> sections that I send users to multiple times a day is <
+>> http://codex.wordpress.org/**Pages#A_Page_of_Posts<http://codex.wordpress.org/Pages#A_Page_of_Posts>
+>> >.
+>>
+>> However, the current example - whilst a good resource for a coder - is
+>> rather overwhelming for someone who is only at the tinkering stage. It's
+>> also based on Kubrick rather than Twenty Eleven. On that basis, how about
+>> adding:
+>>
+>> <http://codex.wordpress.org/**User:Esmi/Twenty_Eleven_Page_**of_Posts<http://codex.wordpress.org/User:Esmi/Twenty_Eleven_Page_of_Posts>
+>> >
+>>
+>> It's more in line with what most users on the forums want. Perhaps the
+>> two existing examples could be re-classified as "Advanced Examples"?
+>>
+>> Thoughts?
+>>
+>> Mel / esmi
+>>
+>> ______________________________**_________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>
+>
+>
+>
+> --
+> --
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>
+>  _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120111/631d9952/attachment.htm>
+
+From shay.hurley at gmail.com  Thu Jan 12 09:27:26 2012
+From: shay.hurley at gmail.com (Shay Hurley)
+Date: Thu, 12 Jan 2012 09:27:26 +0000
+Subject: [wp-docs] Page of Posts (updated?)
+In-Reply-To: <CAJzjkbdWD++QRqdk2poKrq-1tsM71fxqC-T0YY-73UFpkcm67Q@mail.gmail.com>
+References: <4F0E1ADF.5040204@quirm.net>
+	<CAJzjkbc=M6xOzH-oSpPtoDKrY1AdddmYbOjm3j=yzJX26N58-Q@mail.gmail.com>
+	<19259148-554C-4B22-9995-2676E877D505@ipstenu.org>
+	<CAJzjkbdWD++QRqdk2poKrq-1tsM71fxqC-T0YY-73UFpkcm67Q@mail.gmail.com>
+Message-ID: <CAFOg1UUe2dKn_0OYH1xucJzrZteVi01S7h+8gAXCRMOKVGUN7Q@mail.gmail.com>
+
+Good idea Mel.
+
+On 12 January 2012 00:52, Andrea Rennick <andrea at ronandandrea.com> wrote:
+
+> You know, I'm thinking there's probably a lot of sections need
+> something like this. Creating a network, for example...
+>
+> a.
+>
+>
+> On Wed, Jan 11, 2012 at 8:04 PM, Mika A Epstein <ipstenu at ipstenu.org>wrote:
+>
+>> What my cousin from another nation said.
+>>
+>> That's a great idea.
+>>
+>> On 11 Jan 2012, at 6:03:36PM, Andrea Rennick wrote:
+>>
+>> +1 for a short quick overview then an advanced version.
+>>
+>> a.
+>>
+>> On Wed, Jan 11, 2012 at 7:27 PM, esmi at quirm dot net <esmi at quirm.net>wrote:
+>>
+>>> I spend most of my time on the support forums and one of the Codex
+>>> sections that I send users to multiple times a day is <
+>>> http://codex.wordpress.org/**Pages#A_Page_of_Posts<http://codex.wordpress.org/Pages#A_Page_of_Posts>
+>>> >.
+>>>
+>>> However, the current example - whilst a good resource for a coder - is
+>>> rather overwhelming for someone who is only at the tinkering stage. It's
+>>> also based on Kubrick rather than Twenty Eleven. On that basis, how about
+>>> adding:
+>>>
+>>> <http://codex.wordpress.org/**User:Esmi/Twenty_Eleven_Page_**of_Posts<http://codex.wordpress.org/User:Esmi/Twenty_Eleven_Page_of_Posts>
+>>> >
+>>>
+>>> It's more in line with what most users on the forums want. Perhaps the
+>>> two existing examples could be re-classified as "Advanced Examples"?
+>>>
+>>> Thoughts?
+>>>
+>>> Mel / esmi
+>>>
+>>> ______________________________**_________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>>
+>>
+>>
+>>
+>> --
+>> --
+>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>>
+>>  _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+>
+> --
+> --
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120112/744cec07/attachment-0001.htm>
+
+From rod.whiteley at gmail.com  Thu Jan 12 14:52:25 2012
+From: rod.whiteley at gmail.com (Rod Whiteley)
+Date: Thu, 12 Jan 2012 14:52:25 +0000
+Subject: [wp-docs] Geo tags
+Message-ID: <CABMPDWFQWZ=EDwvOW8SvTkQL99Dpp+UDYzZxJBEsCkGmgC2mLw@mail.gmail.com>
+
+Am I right in thinking that the geo tags functions (print
+UrlPopNav<http://codex.wordpress.org/Function_Reference/print_UrlPopNav>and
+a dozen others) are obsolete and should be removed?
+
+-- 
+Rod
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120112/383dc4c0/attachment.htm>
+
+From justmichaelh at gmail.com  Thu Jan 12 15:31:52 2012
+From: justmichaelh at gmail.com (Michael Hancock)
+Date: Thu, 12 Jan 2012 10:31:52 -0500
+Subject: [wp-docs] Geo tags
+In-Reply-To: <CABMPDWFQWZ=EDwvOW8SvTkQL99Dpp+UDYzZxJBEsCkGmgC2mLw@mail.gmail.com>
+References: <CABMPDWFQWZ=EDwvOW8SvTkQL99Dpp+UDYzZxJBEsCkGmgC2mLw@mail.gmail.com>
+Message-ID: <013b01ccd13f$4fd92f00$ef8b8d00$@gmail.com>
+
+ 
+
+>>>>Rod Whiteley
+Am I right in thinking that the geo tags functions (print UrlPopNav
+<http://codex.wordpress.org/Function_Reference/print_UrlPopNav>  and a dozen
+others) are obsolete and should be removed?
+<<<<
+
+ 
+
+Rod,
+
+ 
+
+You can use the Templates {{rfd}} to request article deletion or
+{{Deprecated}} for deprecated functions.
+
+ 
+
+I suppose {{rfd}} makes the most sense here unless someone else suggests
+otherwise.
+
+
+
+Regards
+
+ 
+
+MichaelH
+
+ 
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120112/626cad0c/attachment.htm>
+
+From rod.whiteley at gmail.com  Thu Jan 12 16:07:43 2012
+From: rod.whiteley at gmail.com (Rod Whiteley)
+Date: Thu, 12 Jan 2012 16:07:43 +0000
+Subject: [wp-docs] Custom Backgrounds
+Message-ID: <CABMPDWHZ3imih7bSH3J6C7FOdbvLTPda=zras9kFjcP2R7LWCQ@mail.gmail.com>
+
+The page Custom Backgrounds for theme developers was removed a year
+ago leaving eleven broken links, while other theme features like
+Custom Headers and Navigation Menus still have pages summarizing the
+relevant functions. Wouldn't it look better to have a Custom
+Backgrounds page again, even if it doesn't say anything very special?
+
+-- 
+Rod
+
+From ken.adcstudio at gmail.com  Tue Jan 17 17:53:37 2012
+From: ken.adcstudio at gmail.com (Ken (WraithKenny))
+Date: Tue, 17 Jan 2012 12:53:37 -0500
+Subject: [wp-docs] Custom Backgrounds
+In-Reply-To: <CABMPDWHZ3imih7bSH3J6C7FOdbvLTPda=zras9kFjcP2R7LWCQ@mail.gmail.com>
+References: <CABMPDWHZ3imih7bSH3J6C7FOdbvLTPda=zras9kFjcP2R7LWCQ@mail.gmail.com>
+Message-ID: <CAEbnL98kPjG2+06cts8cMQsJ_auM6PY68F6LXdPLQrLwhoGqjg@mail.gmail.com>
+
+A section explaining some background on what the feature is would be nice.
+
+There is potential for explaining the code side of Custom Backgrounds
+(and Custom Headers). Plugins and Themes have an opportunity to extend
+functionality in various hooks that hasn't been utilized very much. A
+collection of the related hooks could be appropriate.
+
+My favorite reason for looking at that particular page (and Custom
+Headers) is to use it as an example for how to do a Settings page in a
+php class (using "take_action" etc.) to make sure I don't leave
+anything out (but I don't know how to utilize that in a codex page).
+
+From ghodmode at ghodmode.com  Mon Jan 30 10:32:36 2012
+From: ghodmode at ghodmode.com (Ghodmode)
+Date: Mon, 30 Jan 2012 18:32:36 +0800
+Subject: [wp-docs] wp_enqueue_script ... "can lead to problems"
+Message-ID: <CAK--mtqeBqDtENV-VLrTVVdj9WbK5Z6--sM2P9SWtC5oMOt=yA@mail.gmail.com>
+
+This statement is under the Usage on the
+http://codex.wordpress.org/Function_Reference/wp_enqueue_script page:
+
+'''Use the <tt>wp_enqueue_scripts</tt> action to call this function,
+or <tt>admin_enqueue_scripts</tt> to call it on the admin side.'''
+Calling it outside of an action can lead to problems. See
+[http://core.trac.wordpress.org/ticket/11526 #11526] for details.
+
+The ticket has already been fixed and there isn't any other supporting
+reason not to use wp_enqueue_script.  Also, the function is called
+directly in current themes, including twentyeleven.
+
+This statement should be removed, shouldn't it?
+
+--
+Vince Aggrippino
+a.k.a. Ghodmode
+http://codex.wordpress.org/User:Ghodmode
+
+From otto at ottodestruct.com  Mon Jan 30 20:13:26 2012
+From: otto at ottodestruct.com (Otto)
+Date: Mon, 30 Jan 2012 14:13:26 -0600
+Subject: [wp-docs] wp_enqueue_script ... "can lead to problems"
+In-Reply-To: <CAK--mtqeBqDtENV-VLrTVVdj9WbK5Z6--sM2P9SWtC5oMOt=yA@mail.gmail.com>
+References: <CAK--mtqeBqDtENV-VLrTVVdj9WbK5Z6--sM2P9SWtC5oMOt=yA@mail.gmail.com>
+Message-ID: <CAD-Fghx-bmN6h7wnx4e+ia3o_z9j6XwejyS4NSDUT-NgePM8Bw@mail.gmail.com>
+
+On Mon, Jan 30, 2012 at 4:32 AM, Ghodmode <ghodmode at ghodmode.com> wrote:
+> This statement is under the Usage on the
+> http://codex.wordpress.org/Function_Reference/wp_enqueue_script page:
+>
+> '''Use the <tt>wp_enqueue_scripts</tt> action to call this function,
+> or <tt>admin_enqueue_scripts</tt> to call it on the admin side.'''
+> Calling it outside of an action can lead to problems. See
+> [http://core.trac.wordpress.org/ticket/11526 #11526] for details.
+>
+> The ticket has already been fixed and there isn't any other supporting
+> reason not to use wp_enqueue_script. ?Also, the function is called
+> directly in current themes, including twentyeleven.
+>
+> This statement should be removed, shouldn't it?
+
+No, and you still shouldn't use it outside an action. twentyeleven
+only uses it inside functions that are in actions, as far as I can
+find.
+
+(With one exception, that being the comment-reply script, which is
+generally used in the header.php file.)
+
+-Otto
+

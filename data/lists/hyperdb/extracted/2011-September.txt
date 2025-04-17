@@ -1,0 +1,55 @@
+From marklmiddleton at gmail.com  Wed Sep  7 16:10:27 2011
+From: marklmiddleton at gmail.com (Mark L Middleton)
+Date: Wed, 07 Sep 2011 09:10:27 -0700
+Subject: [HyperDB] Remapping table names?
+Message-ID: <4E679773.5000609@gmail.com>
+
+Hello,
+
+I'm trying to use a separate database for the wp_users table, and have 
+that table be called 'users' instead of 'wp_users'.
+
+Using the separate database is working fine, I'm just adding the table 
+to the dataset defined for the second database. But is it possible to 
+remap table names or set different table prefixes for different 
+databases using hyperdb?
+
+Thank you for any help you can provide,
+Mark Middleton
+
+From skeltoac at gmail.com  Wed Sep  7 16:38:17 2011
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 7 Sep 2011 11:38:17 -0500
+Subject: [HyperDB] Remapping table names?
+In-Reply-To: <4E679773.5000609@gmail.com>
+References: <4E679773.5000609@gmail.com>
+Message-ID: <CABVyDWVD6aTbG2S4ALyEn+ez9qHeog_+Mwg7VxnX8vMNcQ_oBg@mail.gmail.com>
+
+Hi, Mark,
+
+The table prefix logic is inherited from wpdb. You can hack or extend
+hyperdb to change that logic for your needs.
+
+Cheers,
+Andy
+
+On Wed, Sep 7, 2011 at 11:10 AM, Mark L Middleton
+<marklmiddleton at gmail.com> wrote:
+> Hello,
+>
+> I'm trying to use a separate database for the wp_users table, and have that
+> table be called 'users' instead of 'wp_users'.
+>
+> Using the separate database is working fine, I'm just adding the table to
+> the dataset defined for the second database. But is it possible to remap
+> table names or set different table prefixes for different databases using
+> hyperdb?
+>
+> Thank you for any help you can provide,
+> Mark Middleton
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+

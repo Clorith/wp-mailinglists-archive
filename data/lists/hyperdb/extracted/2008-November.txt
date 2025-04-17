@@ -1,0 +1,331 @@
+From dan at instinct.co.nz  Sun Nov  2 22:07:40 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Sun Nov  2 22:08:35 2008
+Subject: [HyperDB] [Fwd: Hyper DB fix]
+Message-ID: <490E24AC.30905@instinct.co.nz>
+
+Hi Guys,
+
+I'm just forwarding this on. We've been working on HyperDB and came 
+across a lil bug... and here is the fixed file. Our comments are 
+there... you can't miss it :)
+
+Ciao,
+
+Dan
+
+I added ". '|ALTER TABLE(?:\s+ADD)?'  " to the Big pattern in 
+get_table_from_query to make sure it can get the table name out of SQL 
+queries like the following:
+
+ALTER TABLE `wp_22_purchase_logs` ADD `find_us` varchar(255) NOT NULL
+
+
+
+From dan at instinct.co.nz  Sun Nov  2 22:36:03 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Sun Nov  2 22:36:18 2008
+Subject: [HyperDB] [Fwd: Hyper DB fix]
+In-Reply-To: <490E24AC.30905@instinct.co.nz>
+References: <490E24AC.30905@instinct.co.nz>
+Message-ID: <490E2B53.9000103@instinct.co.nz>
+
+Actually it looks like the patched file may not have attached itself 
+correctly. Just incase you can download the patched file from here:
+http://s3.amazonaws.com/s3.getshopped.com/images/db.php.zip
+
+Ciao,
+
+Dan
+
+Dan Milward wrote:
+> Hi Guys,
+>
+> I'm just forwarding this on. We've been working on HyperDB and came 
+> across a lil bug... and here is the fixed file. Our comments are 
+> there... you can't miss it :)
+>
+> Ciao,
+>
+> Dan
+>
+> I added ". '|ALTER TABLE(?:\s+ADD)?'  " to the Big pattern in 
+> get_table_from_query to make sure it can get the table name out of SQL 
+> queries like the following:
+>
+> ALTER TABLE `wp_22_purchase_logs` ADD `find_us` varchar(255) NOT NULL
+>
+>
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>   
+From skeltoac at gmail.com  Mon Nov  3 14:59:41 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Mon Nov  3 15:08:47 2008
+Subject: [HyperDB] [Fwd: Hyper DB fix]
+In-Reply-To: <490E24AC.30905@instinct.co.nz>
+References: <490E24AC.30905@instinct.co.nz>
+Message-ID: <e6ec604d0811030659p1d19a0d5t726fdd684a251acb@mail.gmail.com>
+
+On Sun, Nov 2, 2008 at 4:07 PM, Dan Milward <dan@instinct.co.nz> wrote:
+> I added ". '|ALTER TABLE(?:\s+ADD)?'  " to the Big pattern in
+> get_table_from_query to make sure it can get the table name out of SQL
+> queries like the following:
+>
+> ALTER TABLE `wp_22_purchase_logs` ADD `find_us` varchar(255) NOT NULL
+
+Hi Dan,
+
+That's definitely a bug, but not the best patch. Here is the MySQL
+manual on ALTER TABLE syntax:
+
+http://dev.mysql.com/doc/refman/4.1/en/alter-table.html
+
+The keyword "ADD" only appears after the table name, so it's not
+needed. However, "IGNORE" is legal between ALTER and TABLE. I applied
+the following patch to fix the "ALTER" pattern:
+
+http://plugins.trac.wordpress.org/changeset/71913
+
+Please pass that on and let me know if it's not a good fix.
+
+Cheers,
+Andy
+From ynebula at wikisoft.co.kr  Tue Nov  4 08:30:47 2008
+From: ynebula at wikisoft.co.kr (=?EUC-KR?B?wLG8ur/u?=)
+Date: Tue Nov  4 08:30:58 2008
+Subject: [HyperDB] I don't know how to install HyperDb
+Message-ID: <bc35075d0811040030v48431ec6t73e51ca408a4a34b@mail.gmail.com>
+
+hello~~!
+
+before send mail my english is very fool
+
+please understand that.
+
+I download HyperDb.
+
+And I read readme.txt.
+
+1. *WordPress MU only:* add this line near the top of `wp-config.php`:
+
+`define('WPMU', true);`
+
+2. Upload `db.php` to the `/wp-content/` directory. At this point, HyperDB
+is active.
+  It will use the database connection constants until you complete the final
+steps.
+
+3. Upload `db-settings.php` in the directory that holds `wp-config.php`
+
+4. Edit the db settings according to the directions in that file.
+
+5. Add this line near the top of `wp-config.php`:
+
+`require('db-settings.php');`
+
+
+But I don't know number 4( 4. Edit the db settings according to the
+directions in that file.)
+
+pleaze let me explain
+
+thank you
+From jeremy.visser at gmail.com  Tue Nov  4 09:19:41 2008
+From: jeremy.visser at gmail.com (Jeremy Visser)
+Date: Tue Nov  4 09:19:49 2008
+Subject: [HyperDB] I don't know how to install HyperDb
+In-Reply-To: <bc35075d0811040030v48431ec6t73e51ca408a4a34b@mail.gmail.com>
+References: <bc35075d0811040030v48431ec6t73e51ca408a4a34b@mail.gmail.com>
+Message-ID: <1225790381.19135.5.camel@rillian.narnia.sunriseroad.net>
+
+On Tue, 2008-11-04 at 17:30 +0900, ??? wrote:
+> But I don't know number 4( 4. Edit the db settings according to the
+> directions in that file.)
+
+What specific things don't you understand?
+
+Have you got WordPress working _without_ HyperDB before, or are you
+completely new to setting up WordPress?
+
+-- 
+Jeremy Visser                                 http://jeremy.visser.name/
+
+No Internet Censorship for Australia             http://nocleanfeed.com/
+
+From ynebula at wikisoft.co.kr  Wed Nov  5 01:02:01 2008
+From: ynebula at wikisoft.co.kr (=?EUC-KR?B?wLG8ur/u?=)
+Date: Wed Nov  5 01:02:13 2008
+Subject: [HyperDB] Requst that Install the HyperDb
+Message-ID: <bc35075d0811041702o6d993964j5a31994c034e6e87@mail.gmail.com>
+
+Hello Man
+
+Above all Nice to meet you
+
+Your Email receive well
+
+========Email=======
+> But I don't know number 4( 4. Edit the db settings according to the
+> directions in that file.)
+What specific things don't you understand?
+Have you got WordPress working _without_ HyperDB before, or are you
+completely new to setting up WordPress?
+========Email=======
+
+I have WordPress working without HyperDb
+
+And I Upload the db-sttings.php in the directory that holds `wp-config.php`
+
+And upload `db.php` to the `/wp-content/` directory.
+
+But I don't know Edit the db settings.(Number4)
+
+
+==============db-stting.php===============
+define( 'DATACENTER', 'global' );
+if ( !defined('SAVEQUERIES') )
+ define('SAVEQUERIES', false);
+
+function localize_hostname($hostname) {
+ return str_replace('.com', '.lan', $hostname);
+}
+function localize_hostnames($array) {
+ return array_map('localize_hostname', $array);
+}
+
+function add_db_server($ds, $part, $dc, $read, $write, $host, $lhost, $name,
+$user, $password) {
+ global $db_servers;
+ if ( empty( $lhost ) )
+  $lhost = $host;
+ $server = compact('ds', 'part', 'dc', 'read', 'write', 'host', 'lhost',
+'name', 'user', 'password');
+ $db_servers[$ds][$part][] = $server;
+}
+
+function add_db_table($ds, $table) {
+ global $db_tables;
+ $db_tables[$table] = $ds;
+}
+==============db-stting.php===============
+
+I wonder what I update that
+
+I wait your email Thank you
+From jeremy.visser at gmail.com  Wed Nov  5 08:54:14 2008
+From: jeremy.visser at gmail.com (Jeremy Visser)
+Date: Wed Nov  5 08:54:24 2008
+Subject: [HyperDB] Requst that Install the HyperDb
+In-Reply-To: <bc35075d0811041702o6d993964j5a31994c034e6e87@mail.gmail.com>
+References: <bc35075d0811041702o6d993964j5a31994c034e6e87@mail.gmail.com>
+Message-ID: <1225875254.3250.9.camel@rillian.narnia.sunriseroad.net>
+
+On Wed, 2008-11-05 at 10:02 +0900, ??? wrote:
+> I wonder what I update that
+
+I found this further in the file:
+
+        // Database servers grouped by dataset. (Totally tabular, dude!)
+        // R can be 0 (no reads) or a positive integer indicating the order
+        // in which to attempt communication (all locals, then all remotes)
+        
+        //dataset, partition, datacenter, R, W,             internet host:port,     internal network host:port,   database,        user,        password
+        
+        // Next line populates 'global' dataset from wp-config.php for instant compatibility. Remove it when you put your settings here.
+        add_db_server('global', 0,    '', 1, 1,                        DB_HOST,                        DB_HOST,    DB_NAME,     DB_USER,     DB_PASSWORD);
+        
+        /*
+        add_db_server(  'misc', 0, 'lax', 1, 1,     'misc.db.example.com:3722',     'misc.db.example.lan:3722',  'wp-misc',  'miscuser',  'miscpassword');
+        add_db_server('global', 0, 'nyc', 1, 1,'global.mysql.example.com:3509','global.mysql.example.lan:3509','global-db','globaluser','globalpassword');
+        */
+
+So it looks like you have to add some add_db_server() lines of your own.
+These lines should reflect your MySQL server details, which you should
+already know if you are setting up HyperDB.
+
+If this is still too complicated, I do not recommend running HyperDB at
+all. You have already said that you have got WordPress working without
+HyperDB. Unless you have more than, say, 100 pageviews per second, I see
+no reason for you to use HyperDB, especially if WordPress is already
+working well for you.
+
+-- 
+Jeremy Visser                                 http://jeremy.visser.name/
+
+No Internet Censorship for Australia             http://nocleanfeed.com/
+
+From joe at hazardcell.com  Thu Nov 27 18:15:53 2008
+From: joe at hazardcell.com (Joe Jacobs)
+Date: Thu Nov 27 18:16:04 2008
+Subject: [HyperDB] WP 2.7
+Message-ID: <cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com>
+
+Any plans to port HyperDB to WP 2.7? Or can the current release be used for
+2.7?
+
+Cheers,
+Joe Jacobs
+http://joejacobs.org/
+From skeltoac at gmail.com  Thu Nov 27 18:32:13 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Nov 27 18:32:20 2008
+Subject: [HyperDB] WP 2.7
+In-Reply-To: <cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com>
+References: <cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com>
+Message-ID: <e6ec604d0811271032x6b8dd083j2de099035948090e@mail.gmail.com>
+
+On Thu, Nov 27, 2008 at 12:15 PM, Joe Jacobs <joe@hazardcell.com> wrote:
+> Any plans to port HyperDB to WP 2.7? Or can the current release be used for
+> 2.7?
+
+I've only seen a few small updates to wpdb in 2.7. They will be merged
+into hyperdb but it should still work pretty well as-is. Please let us
+know if you find problems.
+
+Andy
+From trent.adams at gmail.com  Thu Nov 27 18:33:55 2008
+From: trent.adams at gmail.com (Trent Adams)
+Date: Thu Nov 27 18:34:04 2008
+Subject: [HyperDB] WP 2.7
+In-Reply-To: <e6ec604d0811271032x6b8dd083j2de099035948090e@mail.gmail.com>
+References: <cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com>
+	<e6ec604d0811271032x6b8dd083j2de099035948090e@mail.gmail.com>
+Message-ID: <1478c5740811271033s1cf88af8j76fa1985d107927f@mail.gmail.com>
+
+> I've only seen a few small updates to wpdb in 2.7. They will be merged
+> into hyperdb but it should still work pretty well as-is. Please let us
+> know if you find problems.
+>
+> Andy
+
+
+If you add the function has_cap from wpdb.php below the
+support_collation function in db.php it works fine.
+
+Trent
+From skeltoac at gmail.com  Thu Nov 27 19:50:47 2008
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Nov 27 19:50:57 2008
+Subject: [HyperDB] WP 2.7
+In-Reply-To: <e6ec604d0811271032x6b8dd083j2de099035948090e@mail.gmail.com>
+References: <cf5b5650811271015s7ef9782dnabdc29469b2298c5@mail.gmail.com>
+	<e6ec604d0811271032x6b8dd083j2de099035948090e@mail.gmail.com>
+Message-ID: <e6ec604d0811271150v132e99cfn90cfecdd3a7c2419@mail.gmail.com>
+
+On Thu, Nov 27, 2008 at 12:32 PM, Andy Skelton <skeltoac@gmail.com> wrote:
+> I've only seen a few small updates to wpdb in 2.7. They will be merged
+> into hyperdb but it should still work pretty well as-is. Please let us
+> know if you find problems.
+
+Merged: http://plugins.trac.wordpress.org/changeset/76172
+
+Please test before deploying to a production environment. Let us know
+how it goes.
+
+Andy

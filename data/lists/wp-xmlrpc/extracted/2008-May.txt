@@ -1,0 +1,327 @@
+From yahoo2 at yarrowsoft.com  Thu May  1 13:06:10 2008
+From: yahoo2 at yarrowsoft.com (Vladimir Yushko)
+Date: Thu May  1 13:09:05 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+Message-ID: <000901c8ab8c$7509b240$f77814ac@nota>
+
+ Hi!
+I am using modern style of more tag like <!--more My anchor text-->
+When I received post through xml-rpc I cant find anchor text in more tag.
+
+-- 
+Best regards, Vladimir Yushko
+http://commentclient.com/
+
+From joseph at randomnetworks.com  Thu May  1 15:54:25 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu May  1 15:54:53 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+In-Reply-To: <000901c8ab8c$7509b240$f77814ac@nota>
+References: <000901c8ab8c$7509b240$f77814ac@nota>
+Message-ID: <B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>
+
+
+On May 1, 2008, at 7:06 AM, Vladimir Yushko wrote:
+
+> I am using modern style of more tag like <!--more My anchor text-->
+> When I received post through xml-rpc I cant find anchor text in  
+> more tag.
+
+
+I haven't seen that style of <!--more--> used, can you point to code  
+or docs where that's out lined?
+
+For getting posts (metaWeblog.getPost) the XML-RPC code doesn't do  
+any parsing of the post content, it populates the returning struct  
+via the existing WordPress function calls.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From yahoo2 at yarrowsoft.com  Thu May  1 17:25:37 2008
+From: yahoo2 at yarrowsoft.com (Vladimir Yushko)
+Date: Thu May  1 17:26:30 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+References: <000901c8ab8c$7509b240$f77814ac@nota>
+	<B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>
+Message-ID: <000301c8abb0$6ce6fbd0$059114ac@nota>
+
+> I haven't seen that style of <!--more--> used, can you point to code
+> or docs where that's out lined?
+
+You can see about tag here:
+http://codex.wordpress.org/Customizing_the_Read_More
+
+> For getting posts (metaWeblog.getPost) the XML-RPC code doesn't do
+> any parsing of the post content, it populates the returning struct
+> via the existing WordPress function calls.
+
+I known.  Perhaps need to look on  difference between wp_get_single_post and
+get_post functions. If I am using tag more then xml-rpc method returns
+content divided by two parts without tag.
+
+--
+Best regards, Vladimir Yushko
+http://commentclient.com/
+
+From joseph at randomnetworks.com  Thu May  1 18:11:20 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu May  1 18:11:47 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+In-Reply-To: <000301c8abb0$6ce6fbd0$059114ac@nota>
+References: <000901c8ab8c$7509b240$f77814ac@nota>
+	<B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>
+	<000301c8abb0$6ce6fbd0$059114ac@nota>
+Message-ID: <1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+
+
+On May 1, 2008, at 11:25 AM, Vladimir Yushko wrote:
+
+>> I haven't seen that style of <!--more--> used, can you point to code
+>> or docs where that's out lined?
+>
+> You can see about tag here:
+> http://codex.wordpress.org/Customizing_the_Read_More
+
+Ahh, I'd read that page, but missed the section on "Having a custom  
+text for each post".
+
+
+>> For getting posts (metaWeblog.getPost) the XML-RPC code doesn't do
+>> any parsing of the post content, it populates the returning struct
+>> via the existing WordPress function calls.
+>
+> I known.  Perhaps need to look on  difference between  
+> wp_get_single_post and
+> get_post functions. If I am using tag more then xml-rpc method returns
+> content divided by two parts without tag.
+
+
+After looking at this a bit more, I don't think there's anything in  
+the current APIs to address this issue.  The actual tag isn't  
+provided in any of the fields (by design) and it's parsed out when  
+creating a new post or editing one via XML-RPC.  That's what the  
+mt_text_more field is for.
+
+The case where I see this being issue would be:
+
+1 - User creates new post in wp-admin which includes <!--more My  
+Custom String Here -->
+2 - User fetches the post via XML-RPC
+3 - XML-RPC in WordPress has no knowledge of the 'My Custom String  
+Here' part, so that essentially is lost
+
+This isn't an issue for posts created via XML-RPC because there's no  
+way to set the 'My Custom String Here' part in the first place.
+
+Solution wise it seems that a new field (more_text?) would be  
+needed.  This field would include the 'My Custom String Here' text  
+via metaWeblog.getPost and would be used in the <!--more--> tag when  
+set via metaWeblog.newPost/editPost.  This puts some extra work on  
+the blog client as well, to join and parse things out correctly.
+
+Does that seem like a reasonable option?  I'd like to hear feedback  
+from some of the other blog clients out there on this as well.
+
+Also, the custom read more feature doesn't appear to work in -trunk  
+right now.  Need to figure out what's going on there before we worry  
+about making it work via XML-RPC :-)
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From Joe.Cheng at microsoft.com  Thu May  1 18:17:26 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Thu May  1 18:17:41 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+In-Reply-To: <1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+References: <000901c8ab8c$7509b240$f77814ac@nota>
+	<B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>
+	<000301c8abb0$6ce6fbd0$059114ac@nota>
+	<1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A212745747A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+> Does that seem like a reasonable option?  I'd like to hear feedback
+> from some of the other blog clients out there on this as well.
+
+Sounds like you've got it right. I'm not sure whether we would let you
+customize the more_text from within WLW, or merely ensure that custom
+text you set from the web admin is preserved.
+From joseph at randomnetworks.com  Thu May  1 18:26:54 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu May  1 18:27:20 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+In-Reply-To: <1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+References: <000901c8ab8c$7509b240$f77814ac@nota>
+	<B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>
+	<000301c8abb0$6ce6fbd0$059114ac@nota>
+	<1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+Message-ID: <8678EC5A-3D49-4E55-BD4F-AD3C64B54C8F@randomnetworks.com>
+
+
+On May 1, 2008, at 12:11 PM, Joseph Scott wrote:
+
+> Also, the custom read more feature doesn't appear to work in -trunk  
+> right now.  Need to figure out what's going on there before we  
+> worry about making it work via XML-RPC :-)
+
+
+I was wrong about this, user error on my part.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From peter.westwood at ftwr.co.uk  Thu May  1 21:12:37 2008
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Thu May  1 21:12:51 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+In-Reply-To: <8678EC5A-3D49-4E55-BD4F-AD3C64B54C8F@randomnetworks.com>
+References: <000901c8ab8c$7509b240$f77814ac@nota>	<B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>	<000301c8abb0$6ce6fbd0$059114ac@nota>	<1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+	<8678EC5A-3D49-4E55-BD4F-AD3C64B54C8F@randomnetworks.com>
+Message-ID: <481A3245.9040201@ftwr.co.uk>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Hmm. Back in the day this worked for xmlrpc.
+
+I remember writing the patch that made it work!
+
+The original ticket was [1] - what was the reasoning behind the changes
+in 2.5 that removed this feature from xmlrpc posts - was it to better
+implement the API as per standards?
+
+[1] http://trac.wordpress.org/ticket/2991
+- --
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+~ C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.7 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFIGjJFVPRdzag0AcURAl/cAKC+9cu86/dML1MfNbLuYG98aENcvQCeMyyp
+iybRcyUUdK6fvnyIi9+IX6Y=
+=lh3Y
+-----END PGP SIGNATURE-----
+From joseph at randomnetworks.com  Thu May  1 22:08:40 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu May  1 22:09:06 2008
+Subject: [wp-xmlrpc] Loosing text in more tag
+In-Reply-To: <481A3245.9040201@ftwr.co.uk>
+References: <000901c8ab8c$7509b240$f77814ac@nota>	<B16D4C15-B046-4AF6-9D51-6F607DEC872C@randomnetworks.com>	<000301c8abb0$6ce6fbd0$059114ac@nota>	<1896AF6E-5949-43DC-8C70-9EAC6A572C33@randomnetworks.com>
+	<8678EC5A-3D49-4E55-BD4F-AD3C64B54C8F@randomnetworks.com>
+	<481A3245.9040201@ftwr.co.uk>
+Message-ID: <4A803B31-BE57-44E7-ADD9-F509CD084C4C@randomnetworks.com>
+
+
+On May 1, 2008, at 3:12 PM, Peter Westwood wrote:
+
+> Hmm. Back in the day this worked for xmlrpc.
+>
+> I remember writing the patch that made it work!
+>
+> The original ticket was [1] - what was the reasoning behind the  
+> changes
+> in 2.5 that removed this feature from xmlrpc posts - was it to better
+> implement the API as per standards?
+>
+> [1] http://trac.wordpress.org/ticket/2991
+
+
+If I'm reading the diffs on that ticket right, the assumption was  
+that the <!--more--> tag would be in-lined as part of the  
+"description" field (in XML-RPC) and not make use of the  
+"mt_text_more" field.  I haven't tried it, but I suspect that would  
+probably work.  That would make it possible to create a new post via  
+XML-RPC that uses a custom more text, although it should be noted  
+that this should be done via the mt_text_more field.  Unfortunately  
+it would still run into the case that outlined before:
+
+1 - User creates new post in wp-admin which includes <!--more My  
+Custom String Here -->
+2 - User fetches the post via XML-RPC
+3 - XML-RPC in WordPress has no knowledge of the 'My Custom String  
+Here' part, so that essentially is lost
+
+You don't even have to create the post in wp-admin for this to be  
+true.  And the reason for that is WordPress will break the post into  
+the description and mt_text_more fields for metaWeblog.getPost, the  
+raw <!--more--> is never included and is therefore lost.  At this  
+point the blog client has no way of knowing that what was really used  
+was <!--more Some Custom Text Here-->.
+
+At this point I still think that a new field is going to be needed to  
+store the breaking tag text in order for this to work.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Tue May  6 17:21:37 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue May  6 17:22:07 2008
+Subject: [wp-xmlrpc] page template support in XML-RPC
+Message-ID: <4A082C23-4CE7-40EB-A54D-28B9318F7CDC@randomnetworks.com>
+
+
+You can now manipulate the page template setting for Pages in  
+WordPress via XML-RPC:
+
+http://trac.wordpress.org/ticket/6098
+
+Ryan committed this to -trunk and it will be in the 2.6 release  
+(which will probably be out some time this summer).
+
+Here's the details:
+
+New field in wp.getPage/newPage/editPage: wp_page_template
+New method: wp.getPageTemplates which returns a struct like:
+	{
+		Archives = "archives.php",
+		Default = "default",
+		Links = "links.php",
+		TP1 = "tp1.php"
+	}
+
+The template description is used as the key, and the proper template  
+value (used by wp_page_template) is the value in the struct.  In  
+order to change the template a page uses wp_page_template must be  
+provided a value.  If the field is sent with an empty value no  
+changes will be made.  The value of "default" is special, that's the  
+default page template value and is always available to use.
+
+If you attempt to set wp_page_template to an unsupported value then  
+you'll get an error on the wp.newPage/editPage call.
+
+Please try this out and let us know if you run into any problems or  
+have any questions, we want to make sure that this works as expected  
+when 2.6 is released.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+

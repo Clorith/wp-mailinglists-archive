@@ -1,0 +1,151 @@
+From trent.adams at gmail.com  Sat Jul  5 23:46:11 2008
+From: trent.adams at gmail.com (Trent Adams)
+Date: Sat Jul  5 23:46:18 2008
+Subject: [HyperDB] HyperDB Latest WPMU Trunk
+Message-ID: <1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com>
+
+Hey everyone!   I am happy to finally have signed up for this list and
+report back on what I have found out.    With the recent update from
+Andy in the SVN (thanks for that), I have HyperDB working with
+multiple datacenters and multiple server replication on the latest
+version of TRAC for WPMU (rev 1353).    I know Andy mentioned he
+hadn't tested out the advanced features, but everything is working
+alright for me.    I thank everyone for their work on this and
+extremely happy to hear that you will be updating it against the WP
+trunk now as most people here are early adapters and testers anyways
+:)   I tested it quickly on the latest 2.6 beta 3 code and it worked
+as well, but I am sure that doesn't surprise people :)
+
+Thanks,
+
+Trent
+From kingler at 72pines.com  Sun Jul  6 08:14:56 2008
+From: kingler at 72pines.com (kingler)
+Date: Sun Jul  6 08:15:28 2008
+Subject: [HyperDB] HyperDB Latest WPMU Trunk
+In-Reply-To: <1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com>
+References: <1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com>
+Message-ID: <67c2d6930807060114u3698e35as11def7858d8cdc10@mail.gmail.com>
+
+Does it make sense now to start tagging the hyperdb for different
+versions of WP and WPMU?
+
+This way, people can find the right HyperDB version for their WP
+installation easily, while developers use the trunk for the latest
+trac version.
+
+-Liang
+
+On Sat, Jul 5, 2008 at 4:46 PM, Trent Adams <trent.adams@gmail.com> wrote:
+> Hey everyone!   I am happy to finally have signed up for this list and
+> report back on what I have found out.    With the recent update from
+> Andy in the SVN (thanks for that), I have HyperDB working with
+> multiple datacenters and multiple server replication on the latest
+> version of TRAC for WPMU (rev 1353).    I know Andy mentioned he
+> hadn't tested out the advanced features, but everything is working
+> alright for me.    I thank everyone for their work on this and
+> extremely happy to hear that you will be updating it against the WP
+> trunk now as most people here are early adapters and testers anyways
+> :)   I tested it quickly on the latest 2.6 beta 3 code and it worked
+> as well, but I am sure that doesn't surprise people :)
+>
+> Thanks,
+>
+> Trent
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From trent.adams at gmail.com  Sun Jul  6 14:44:11 2008
+From: trent.adams at gmail.com (Trent Adams)
+Date: Sun Jul  6 14:44:19 2008
+Subject: [HyperDB] HyperDB Latest WPMU Trunk
+In-Reply-To: <67c2d6930807060114u3698e35as11def7858d8cdc10@mail.gmail.com>
+References: <1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com>
+	<67c2d6930807060114u3698e35as11def7858d8cdc10@mail.gmail.com>
+Message-ID: <1478c5740807060744o22cc5fffw911fe31620c34109@mail.gmail.com>
+
+I would imagine since the WPMU Trac replicates the changes of the
+normal WP Trunk it shouldn't matter.   It really only involved the one
+small extra change to wp-config.php which really isn't a problem.
+
+On Sun, Jul 6, 2008 at 2:14 AM, kingler <kingler@72pines.com> wrote:
+> Does it make sense now to start tagging the hyperdb for different
+> versions of WP and WPMU?
+>
+> This way, people can find the right HyperDB version for their WP
+> installation easily, while developers use the trunk for the latest
+> trac version.
+>
+> -Liang
+From kingler at 72pines.com  Sun Jul  6 17:41:19 2008
+From: kingler at 72pines.com (kingler)
+Date: Sun Jul  6 17:41:39 2008
+Subject: [HyperDB] HyperDB Latest WPMU Trunk
+In-Reply-To: <1478c5740807060744o22cc5fffw911fe31620c34109@mail.gmail.com>
+References: <1478c5740807051646w7ea3bfe5i7b81ad6df25ee1c9@mail.gmail.com>
+	<67c2d6930807060114u3698e35as11def7858d8cdc10@mail.gmail.com>
+	<1478c5740807060744o22cc5fffw911fe31620c34109@mail.gmail.com>
+Message-ID: <67c2d6930807061041w480b9210tedbf95c6b4a01799@mail.gmail.com>
+
+I was mostly concerned about the difference between WP versions, not
+WP and WPMU differences.
+
+Many WPMU installations are not upgraded to the latest version yet,
+and it would be nice to have a tagged version of HyperDB for WPMU
+1.3.3 and 1.5.1, while having the trunk of HyperDB always tracking the
+latest Trac version. What do you guys think?
+
+-Liang
+
+On Sun, Jul 6, 2008 at 7:44 AM, Trent Adams <trent.adams@gmail.com> wrote:
+> I would imagine since the WPMU Trac replicates the changes of the
+> normal WP Trunk it shouldn't matter.   It really only involved the one
+> small extra change to wp-config.php which really isn't a problem.
+>
+> On Sun, Jul 6, 2008 at 2:14 AM, kingler <kingler@72pines.com> wrote:
+>> Does it make sense now to start tagging the hyperdb for different
+>> versions of WP and WPMU?
+>>
+>> This way, people can find the right HyperDB version for their WP
+>> installation easily, while developers use the trunk for the latest
+>> trac version.
+>>
+>> -Liang
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From wesamcis at gmail.com  Wed Jul  9 08:42:05 2008
+From: wesamcis at gmail.com (Wesam Al-Yazjeen)
+Date: Wed Jul  9 08:42:16 2008
+Subject: [HyperDB] hyperdb + WPMU
+Message-ID: <bf68cbcd0807090142y4d9d1fado1867ffeebc1c361f@mail.gmail.com>
+
+i need install hyperdb plugin with word press mu 1.5.1 and i need to
+configure hyperdb plugin to work with 10 partitioned database and 1 global
+databse.
+
+and am add this in db-settings.php file
+
+add_db_server('partitioned', 0, '', 1, 1, 'IP-Adress', 'IP-Adress', 'DB1',
+'uname', 'upass!');
+add_db_server('partitioned', 0, '', 1, 1, 'IP-Adress', 'IP-Adress', 'DB2',
+'uname', 'upass!');
+add_db_server('global'       , 0, '', 1, 1, 'IP-Adress', 'IP-Adress', 'DB3',
+'uname', 'upass!');
+
+and try to create new blogs, more than 10 blogs. but all blugs created in
+global databse (DB3).
+
+
+i need to partition blogs into 2 databses DB1 and DB2 and use DB3 for
+general  tables
+
+
+how i can do that, any one can help me and let me what's wrong.
+
+-- 
+Wesam Al-Yazjeen...

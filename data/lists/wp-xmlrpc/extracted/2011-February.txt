@@ -1,0 +1,296 @@
+From abdlquadri at googlemail.com  Wed Feb  2 15:45:22 2011
+From: abdlquadri at googlemail.com (Mumuney Abdlquadri)
+Date: Wed, 2 Feb 2011 10:45:22 -0500
+Subject: [wp-xmlrpc] xmlrpc methods for wp-property plugin
+Message-ID: <AANLkTikH=tF76Q2ePpjZT3iwyLfo_Fp04XoQQLThUrZs@mail.gmail.com>
+
+Hi all,
+
+I am using wp-property plugin in my site. I want to write a client to
+access the site. Does any one know xmlrpc methods exposed by
+wp-property plugin.
+
+It seems the plugin has a whole new post type called properties.
+
+Thanks. Regards
+
+From paul at codehooligans.com  Wed Feb  2 16:03:56 2011
+From: paul at codehooligans.com (Paul)
+Date: Wed, 2 Feb 2011 11:03:56 -0500
+Subject: [wp-xmlrpc] xmlrpc methods for wp-property plugin
+In-Reply-To: <AANLkTikH=tF76Q2ePpjZT3iwyLfo_Fp04XoQQLThUrZs@mail.gmail.com>
+References: <AANLkTikH=tF76Q2ePpjZT3iwyLfo_Fp04XoQQLThUrZs@mail.gmail.com>
+Message-ID: <DAF8B719-44F5-4BDC-BA2D-8A28CB721542@codehooligans.com>
+
+I would think the answer is no. The plugin does not appear to hook into the filter 'xmlrpc_methods'. Which is where you would need to extend the default XML-RPC methods. 
+
+P-
+
+On Feb 2, 2011, at 10:45 AM, Mumuney Abdlquadri wrote:
+
+> Hi all,
+> 
+> I am using wp-property plugin in my site. I want to write a client to
+> access the site. Does any one know xmlrpc methods exposed by
+> wp-property plugin.
+> 
+> It seems the plugin has a whole new post type called properties.
+> 
+> Thanks. Regards
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From abdlquadri at googlemail.com  Fri Feb  4 10:46:18 2011
+From: abdlquadri at googlemail.com (Mumuney Abdlquadri)
+Date: Fri, 4 Feb 2011 05:46:18 -0500
+Subject: [wp-xmlrpc] user regisration through xmlrpc
+Message-ID: <AANLkTikVqTMW_5fJgYF+5PrTX8jZatxPBLyhjTf2cvdm@mail.gmail.com>
+
+Hi all,
+
+Is it possible to allow users register to my site through a client
+using xmlrpc? If yes how do I do this.
+
+Regards
+
+From joseph at josephscott.org  Fri Feb  4 15:42:46 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 4 Feb 2011 08:42:46 -0700
+Subject: [wp-xmlrpc] user regisration through xmlrpc
+In-Reply-To: <AANLkTikVqTMW_5fJgYF+5PrTX8jZatxPBLyhjTf2cvdm@mail.gmail.com>
+References: <AANLkTikVqTMW_5fJgYF+5PrTX8jZatxPBLyhjTf2cvdm@mail.gmail.com>
+Message-ID: <AANLkTi=6n6w5NCpM2fiDfTi2QFhZw5Lc55-BDHq_C8F+@mail.gmail.com>
+
+Not currently.  A feature like that would certainly be possible, but
+you'd want to heavily restrict it, otherwise you'll get spammers mass
+creating accounts.
+
+On Fri, Feb 4, 2011 at 3:46 AM, Mumuney Abdlquadri
+<abdlquadri at googlemail.com> wrote:
+> Is it possible to allow users register to my site through a client
+> using xmlrpc? If yes how do I do this.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From tony at baldwinsoftware.com  Fri Feb  4 18:37:30 2011
+From: tony at baldwinsoftware.com (tony baldwin)
+Date: Fri, 4 Feb 2011 13:37:30 -0500
+Subject: [wp-xmlrpc] user regisration through xmlrpc
+In-Reply-To: <AANLkTi=6n6w5NCpM2fiDfTi2QFhZw5Lc55-BDHq_C8F+@mail.gmail.com>
+References: <AANLkTikVqTMW_5fJgYF+5PrTX8jZatxPBLyhjTf2cvdm@mail.gmail.com>
+	<AANLkTi=6n6w5NCpM2fiDfTi2QFhZw5Lc55-BDHq_C8F+@mail.gmail.com>
+Message-ID: <AANLkTimcJ3Fv+mioa=D47S2m+zbPyjiMpjfZN3=8AtEV@mail.gmail.com>
+
+On Fri, Feb 4, 2011 at 10:42 AM, Joseph Scott <joseph at josephscott.org> wrote:
+> Not currently. ?A feature like that would certainly be possible, but
+> you'd want to heavily restrict it, otherwise you'll get spammers mass
+> creating accounts.
+>
+> On Fri, Feb 4, 2011 at 3:46 AM, Mumuney Abdlquadri
+> <abdlquadri at googlemail.com> wrote:
+>> Is it possible to allow users register to my site through a client
+>> using xmlrpc? If yes how do I do this.
+>
+>
+
+Personally, I think remote registation vai xmlrpc is a bad idea.
+Wouldn't that make it all too simple for spambots to register?
+
+Tony
+
+-- 
+http://www.baldwinlinguas.com
+http://www.baldwinsoftware.com
+
+From nsebban at gmail.com  Thu Feb 24 11:50:00 2011
+From: nsebban at gmail.com (nico)
+Date: Thu, 24 Feb 2011 12:50:00 +0100
+Subject: [wp-xmlrpc] New XML-RPC features in WP3.1 ?
+Message-ID: <AANLkTi==4s-FzgvjVYmaYw3Ntmz0wC=+bkoHWi3KrjvK@mail.gmail.com>
+
+Hello,
+
+Are there any new features on the XML-RPC side, in the shiny new WP3.1
+release ?
+
+Cheers !
+Nicolas
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110224/0a554511/attachment.htm>
+
+From jorge at automattic.com  Thu Feb 24 11:58:46 2011
+From: jorge at automattic.com (Jorge Bernal)
+Date: Thu, 24 Feb 2011 12:58:46 +0100
+Subject: [wp-xmlrpc] New XML-RPC features in WP3.1 ?
+In-Reply-To: <AANLkTi==4s-FzgvjVYmaYw3Ntmz0wC=+bkoHWi3KrjvK@mail.gmail.com>
+References: <AANLkTi==4s-FzgvjVYmaYw3Ntmz0wC=+bkoHWi3KrjvK@mail.gmail.com>
+Message-ID: <AANLkTim1Yd4RaU-oXKmK=YOe8L8Vok3fuBoi-2hoPkyq@mail.gmail.com>
+
+As far as I know, just some new media-related methods:
+wp.getMediaSettings
+wp.setMediaSettings
+wp.getMediaLibrary
+wp.getMediaItem
+
+http://core.trac.wordpress.org/ticket/15153
+http://core.trac.wordpress.org/ticket/15151
+
+On Thu, Feb 24, 2011 at 12:50 PM, nico <nsebban at gmail.com> wrote:
+> Hello,
+> Are there any new features on the XML-RPC side, in the shiny new WP3.1
+> release ?
+> Cheers !
+> Nicolas
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+
+
+
+-- 
+Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+Mobile Engineer @ Automattic | http://automattic.com/
+
+http://jorgebernal.info/ | http://jorgebernal.es/ | http://twitter.com/koke
+
+From eric at eam.me  Thu Feb 24 15:04:40 2011
+From: eric at eam.me (Eric Mann)
+Date: Thu, 24 Feb 2011 07:04:40 -0800
+Subject: [wp-xmlrpc] New XML-RPC features in WP3.1 ?
+In-Reply-To: <AANLkTim1Yd4RaU-oXKmK=YOe8L8Vok3fuBoi-2hoPkyq@mail.gmail.com>
+References: <AANLkTi==4s-FzgvjVYmaYw3Ntmz0wC=+bkoHWi3KrjvK@mail.gmail.com>
+	<AANLkTim1Yd4RaU-oXKmK=YOe8L8Vok3fuBoi-2hoPkyq@mail.gmail.com>
+Message-ID: <AANLkTi=rFVGQPXuzQ-Nn4Y+T=q=3CzwEv__35tZJdGfP@mail.gmail.com>
+
+Also, we extended metaWeblog.newPost, metaWeblog.editPost, and
+metaWeblog.getPost to support the new post format feature.  We've also added
+wp.getPostFormats to return an array of supported post formats for the site.
+
+http://core.trac.wordpress.org/ticket/15405
+
+On Thu, Feb 24, 2011 at 3:58 AM, Jorge Bernal <jorge at automattic.com> wrote:
+
+> As far as I know, just some new media-related methods:
+> wp.getMediaSettings
+> wp.setMediaSettings
+> wp.getMediaLibrary
+> wp.getMediaItem
+>
+> http://core.trac.wordpress.org/ticket/15153
+> http://core.trac.wordpress.org/ticket/15151
+>
+> On Thu, Feb 24, 2011 at 12:50 PM, nico <nsebban at gmail.com> wrote:
+> > Hello,
+> > Are there any new features on the XML-RPC side, in the shiny new WP3.1
+> > release ?
+> > Cheers !
+> > Nicolas
+> > _______________________________________________
+> > wp-xmlrpc mailing list
+> > wp-xmlrpc at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+> >
+> >
+>
+>
+>
+> --
+> Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+> Mobile Engineer @ Automattic | http://automattic.com/
+>
+> http://jorgebernal.info/ | http://jorgebernal.es/ |
+> http://twitter.com/koke
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110224/ea3eb3bd/attachment.htm>
+
+From nsebban at gmail.com  Thu Feb 24 15:06:55 2011
+From: nsebban at gmail.com (nico)
+Date: Thu, 24 Feb 2011 16:06:55 +0100
+Subject: [wp-xmlrpc] New XML-RPC features in WP3.1 ?
+In-Reply-To: <AANLkTi=rFVGQPXuzQ-Nn4Y+T=q=3CzwEv__35tZJdGfP@mail.gmail.com>
+References: <AANLkTi==4s-FzgvjVYmaYw3Ntmz0wC=+bkoHWi3KrjvK@mail.gmail.com>
+	<AANLkTim1Yd4RaU-oXKmK=YOe8L8Vok3fuBoi-2hoPkyq@mail.gmail.com>
+	<AANLkTi=rFVGQPXuzQ-Nn4Y+T=q=3CzwEv__35tZJdGfP@mail.gmail.com>
+Message-ID: <AANLkTinFNvjuOb6pYCfDTrTr+rL=-0WQZv7td1WTfFGS@mail.gmail.com>
+
+Thank you for your insightful (and fast) answers !
+
+Nicolas
+
+
+On Thu, Feb 24, 2011 at 4:04 PM, Eric Mann <eric at eam.me> wrote:
+
+> Also, we extended metaWeblog.newPost, metaWeblog.editPost, and
+> metaWeblog.getPost to support the new post format feature.  We've also added
+> wp.getPostFormats to return an array of supported post formats for the site.
+>
+> http://core.trac.wordpress.org/ticket/15405
+>
+>
+> On Thu, Feb 24, 2011 at 3:58 AM, Jorge Bernal <jorge at automattic.com>wrote:
+>
+>> As far as I know, just some new media-related methods:
+>> wp.getMediaSettings
+>> wp.setMediaSettings
+>> wp.getMediaLibrary
+>> wp.getMediaItem
+>>
+>> http://core.trac.wordpress.org/ticket/15153
+>> http://core.trac.wordpress.org/ticket/15151
+>>
+>> On Thu, Feb 24, 2011 at 12:50 PM, nico <nsebban at gmail.com> wrote:
+>> > Hello,
+>> > Are there any new features on the XML-RPC side, in the shiny new WP3.1
+>> > release ?
+>> > Cheers !
+>> > Nicolas
+>> > _______________________________________________
+>> > wp-xmlrpc mailing list
+>> > wp-xmlrpc at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>> >
+>> >
+>>
+>>
+>>
+>> --
+>> Jorge Bernal | jbernal at gmail.com | jorge at automattic.com
+>> Mobile Engineer @ Automattic | http://automattic.com/
+>>
+>> http://jorgebernal.info/ | http://jorgebernal.es/ |
+>> http://twitter.com/koke
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20110224/328b4109/attachment.htm>
+

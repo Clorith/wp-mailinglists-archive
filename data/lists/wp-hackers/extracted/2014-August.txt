@@ -1,0 +1,2699 @@
+From rahul.110392 at gmail.com  Fri Aug  1 17:50:36 2014
+From: rahul.110392 at gmail.com (Rahul Raja)
+Date: Fri, 1 Aug 2014 23:20:36 +0530
+Subject: [wp-hackers] WordCamp Mobile App
+In-Reply-To: <CAEi=p51iuXov8E26N1LWt3LnbfJGggVCBfioMRhg+-gB2n56Ow@mail.gmail.com>
+References: <CAH7vCCcHr1LoGXtwNTHcCPXNKhd6T1d1PFdggNByQqr5mOgPuw@mail.gmail.com>
+ <CAEi=p51iuXov8E26N1LWt3LnbfJGggVCBfioMRhg+-gB2n56Ow@mail.gmail.com>
+Message-ID: <CAH7vCCdAK1MtUnR+yF58ND+K57DSTcwF8mA=QU2JFyMM-3NBew@mail.gmail.com>
+
+Of course when its open source then anyone can work on it.
+But this will also require some support from the Wordpress community like
+feedbacks on my
+UIs and code and slight help sometimes.
+Also as Eric said, are the efforts towards this app welcome?
+If  the community gives heads up, then i would like to start some time
+after GSOC ends.
+
+
+Best.
+
+
+On Fri, Aug 1, 2014 at 8:01 PM, Eric Mann <eric at eamann.com> wrote:
+
+> There are no rules saying you can't. All of the *WordPress* mobile apps
+> are fully open source and maintained by the community. If you were to
+> independently work on a *WordCamp* mobile app, I'm sure the effort would
+> be welcome!
+>
+>
+> On Thu, Jul 31, 2014 at 12:01 PM, Rahul Raja <rahul.110392 at gmail.com>
+> wrote:
+>
+>> Hi All.
+>>
+>> I whole heartedly wanted to take up the Wordcamp  App development in GSOC
+>> but none of the wordcamp proposals were selected this year.
+>>
+>> So can i take this  development work as an open-source project after this
+>> GSOC ends? I built some nice UIs and would iterate on them to build a great
+>> application.Also,is the WP-API consistent consistent enough for Wordcamp?
+>>
+>> I have worked extensively on Android in the past 4 years and also as a
+>> developer in GSOC.
+>>
+>>
+>> Best.
+>> Rahul
+>>
+>
+>
+
+From david at wordshell.net  Tue Aug  5 08:54:31 2014
+From: david at wordshell.net (David Anderson)
+Date: Tue, 05 Aug 2014 09:54:31 +0100
+Subject: [wp-hackers] At last... (PHP versions)
+Message-ID: <53E09BC7.7020300@wordshell.net>
+
+
+Rejoice: PHP 5.3 is, at last, on the threshold of overtaking PHP 5.2 as 
+the most common version that WordPress is being run on...
+
+http://wordpress.org/about/stats/
+
+... just in time for the PHP 5.3 end-of-life! 
+http://marc.info/?l=php-internals&m=140605526629324&w=2 (though for 
+many, there will continue to be security patches for several more years, 
+since PHP 5.3 was part of RHEL 5 and hence Cent OS 5).
+
+ From the end of this month, around 21.5% of WordPress installations 
+will be running on non-EOL-ed PHP versions.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From david at wordshell.net  Wed Aug  6 09:50:52 2014
+From: david at wordshell.net (David Anderson)
+Date: Wed, 06 Aug 2014 10:50:52 +0100
+Subject: [wp-hackers] Blocking SEO robots
+Message-ID: <53E1FA7C.5070405@wordshell.net>
+
+This isn't specifically a WP issue, but I think it will be relevant to 
+lots of us, trying to maximise our resources...
+
+Issue: I find that a disproportionate amount of server resources are 
+consumed by a certain subset crawlers/robots which contribute nothing. 
+I'd like to just block them. I have in mind the various semi-private 
+search engines run by SEO companies/backlink-checkers, e.g. 
+http://en.seokicks.de/, https://ahrefs.com/. These things happily spider 
+a few thousand pages, every author, tag, category, etc., archive. Some 
+of them refuse to obey robots.txt (the one that specifically annoys is 
+when they ignore the Crawl-Delay directive. I even came across one that 
+proudly had a section on its website explaining that robots.txt was a 
+stupid idea, so they always ignored it!).
+
+I'd like to just block such crawlers. So: does anyone know of where a 
+reliable list of the IP addresses used by these services is kept? 
+Specifically, I want to block the semi-private or obscure crawlers that 
+do nothing useful for my sites. I don't want to block mainstream search 
+engines, of course. I've done some Googling, and haven't managed to find 
+something that makes this distinction.
+
+Or alternatively - anyone think this is a bad idea?
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From hendronix at gmail.com  Wed Aug  6 09:58:00 2014
+From: hendronix at gmail.com (Eric Hendrix)
+Date: Wed, 6 Aug 2014 05:58:00 -0400
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <53E1FA7C.5070405@wordshell.net>
+References: <53E1FA7C.5070405@wordshell.net>
+Message-ID: <CAAkktv2zVFOnLzzJsV03HuwKP_ua=NNcdEXWB6f6u9SLVLNZdw@mail.gmail.com>
+
+This is not a bad idea at all - and I'd like to second the request if
+anyone has researched this previously. David is correct as I've found the
+same issue with valuable server resources - especially when you're running
+a handful of heavy WP sites.
+
+So, bot experts, what say you?
+
+
+On Wed, Aug 6, 2014 at 5:50 AM, David Anderson <david at wordshell.net> wrote:
+
+> This isn't specifically a WP issue, but I think it will be relevant to
+> lots of us, trying to maximise our resources...
+>
+> Issue: I find that a disproportionate amount of server resources are
+> consumed by a certain subset crawlers/robots which contribute nothing. I'd
+> like to just block them. I have in mind the various semi-private search
+> engines run by SEO companies/backlink-checkers, e.g.
+> http://en.seokicks.de/, https://ahrefs.com/. These things happily spider
+> a few thousand pages, every author, tag, category, etc., archive. Some of
+> them refuse to obey robots.txt (the one that specifically annoys is when
+> they ignore the Crawl-Delay directive. I even came across one that proudly
+> had a section on its website explaining that robots.txt was a stupid idea,
+> so they always ignored it!).
+>
+> I'd like to just block such crawlers. So: does anyone know of where a
+> reliable list of the IP addresses used by these services is kept?
+> Specifically, I want to block the semi-private or obscure crawlers that do
+> nothing useful for my sites. I don't want to block mainstream search
+> engines, of course. I've done some Googling, and haven't managed to find
+> something that makes this distinction.
+>
+> Or alternatively - anyone think this is a bad idea?
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+
+
+*Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+(910) 644-8940
+
+*"Non Timebo Mala"*
+
+From halukkaramete at gmail.com  Wed Aug  6 10:06:47 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 6 Aug 2014 03:06:47 -0700
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CAAkktv2zVFOnLzzJsV03HuwKP_ua=NNcdEXWB6f6u9SLVLNZdw@mail.gmail.com>
+References: <53E1FA7C.5070405@wordshell.net>
+ <CAAkktv2zVFOnLzzJsV03HuwKP_ua=NNcdEXWB6f6u9SLVLNZdw@mail.gmail.com>
+Message-ID: <CAHERW=1FBKbqwrrQ21KyxZqD91u-pAAF17Fjo1hyU89MFGqTQA@mail.gmail.com>
+
+Could this list help you? ->http://www.robotstxt.org/db/all.txt
+
+Source:
+
+http://stackoverflow.com/questions/1717049/tell-bots-apart-from-human-visitors-for-stats
+This is not a bad idea at all - and I'd like to second the request if
+anyone has researched this previously. David is correct as I've found the
+same issue with valuable server resources - especially when you're running
+a handful of heavy WP sites.
+
+So, bot experts, what say you?
+
+
+On Wed, Aug 6, 2014 at 5:50 AM, David Anderson <david at wordshell.net> wrote:
+
+> This isn't specifically a WP issue, but I think it will be relevant to
+> lots of us, trying to maximise our resources...
+>
+> Issue: I find that a disproportionate amount of server resources are
+> consumed by a certain subset crawlers/robots which contribute nothing. I'd
+> like to just block them. I have in mind the various semi-private search
+> engines run by SEO companies/backlink-checkers, e.g.
+> http://en.seokicks.de/, https://ahrefs.com/. These things happily spider
+> a few thousand pages, every author, tag, category, etc., archive. Some of
+> them refuse to obey robots.txt (the one that specifically annoys is when
+> they ignore the Crawl-Delay directive. I even came across one that proudly
+> had a section on its website explaining that robots.txt was a stupid idea,
+> so they always ignored it!).
+>
+> I'd like to just block such crawlers. So: does anyone know of where a
+> reliable list of the IP addresses used by these services is kept?
+> Specifically, I want to block the semi-private or obscure crawlers that do
+> nothing useful for my sites. I don't want to block mainstream search
+> engines, of course. I've done some Googling, and haven't managed to find
+> something that makes this distinction.
+>
+> Or alternatively - anyone think this is a bad idea?
+>
+> Best wishes,
+> David
+>
+> --
+> UpdraftPlus - best WordPress backups - http://updraftplus.com
+> WordShell - WordPress fast from the CLI - http://wordshell.net
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+--
+
+
+*Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+(910) 644-8940
+
+*"Non Timebo Mala"*
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From info at bluechives.com  Wed Aug  6 10:15:05 2014
+From: info at bluechives.com (Blue Chives)
+Date: Wed, 6 Aug 2014 11:15:05 +0100
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CAAkktv2zVFOnLzzJsV03HuwKP_ua=NNcdEXWB6f6u9SLVLNZdw@mail.gmail.com>
+References: <53E1FA7C.5070405@wordshell.net>
+ <CAAkktv2zVFOnLzzJsV03HuwKP_ua=NNcdEXWB6f6u9SLVLNZdw@mail.gmail.com>
+Message-ID: <B846C099-69CA-4108-9BD7-3BB0FDBD41E8@bluechives.com>
+
+Depending on the web server software you are using you can look at using the htaccess file and block users/bot based on their user agent.
+
+This article should help:
+
+http://www.javascriptkit.com/howto/htaccess13.shtml
+
+Alternatively do drop me a line if you would like a hand with this as we manage the hosting for a number of WordPress blogs/websites.
+
+
+Cheers
+John
+
+> On 6 Aug 2014, at 10:58, Eric Hendrix <hendronix at gmail.com> wrote:
+> 
+> This is not a bad idea at all - and I'd like to second the request if
+> anyone has researched this previously. David is correct as I've found the
+> same issue with valuable server resources - especially when you're running
+> a handful of heavy WP sites.
+> 
+> So, bot experts, what say you?
+> 
+> 
+>> On Wed, Aug 6, 2014 at 5:50 AM, David Anderson <david at wordshell.net> wrote:
+>> 
+>> This isn't specifically a WP issue, but I think it will be relevant to
+>> lots of us, trying to maximise our resources...
+>> 
+>> Issue: I find that a disproportionate amount of server resources are
+>> consumed by a certain subset crawlers/robots which contribute nothing. I'd
+>> like to just block them. I have in mind the various semi-private search
+>> engines run by SEO companies/backlink-checkers, e.g.
+>> http://en.seokicks.de/, https://ahrefs.com/. These things happily spider
+>> a few thousand pages, every author, tag, category, etc., archive. Some of
+>> them refuse to obey robots.txt (the one that specifically annoys is when
+>> they ignore the Crawl-Delay directive. I even came across one that proudly
+>> had a section on its website explaining that robots.txt was a stupid idea,
+>> so they always ignored it!).
+>> 
+>> I'd like to just block such crawlers. So: does anyone know of where a
+>> reliable list of the IP addresses used by these services is kept?
+>> Specifically, I want to block the semi-private or obscure crawlers that do
+>> nothing useful for my sites. I don't want to block mainstream search
+>> engines, of course. I've done some Googling, and haven't managed to find
+>> something that makes this distinction.
+>> 
+>> Or alternatively - anyone think this is a bad idea?
+>> 
+>> Best wishes,
+>> David
+>> 
+>> --
+>> UpdraftPlus - best WordPress backups - http://updraftplus.com
+>> WordShell - WordPress fast from the CLI - http://wordshell.net
+>> 
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> 
+> 
+> 
+> -- 
+> 
+> 
+> *Eric A. HendrixUSA, MSG(R)*hendronix at gmail.com
+> (910) 644-8940
+> 
+> *"Non Timebo Mala"*
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From pushpendu.mondal at delgence.com  Wed Aug  6 10:46:42 2014
+From: pushpendu.mondal at delgence.com (pushpendu mondal)
+Date: Wed, 6 Aug 2014 16:16:42 +0530
+Subject: [wp-hackers] Adding Date-picker to Widget.
+Message-ID: <CADOT46mM0uUf-kKGjKgYRehfqMJ7RB=rzeMYUCqfuvN3GNfcHQ@mail.gmail.com>
+
+Hi ,
+
+I want to add a Datepicker field to my custom widget. So that I can select
+a date from backend. I have tried a lot but no proper solution. Can anyone
+help me out how can I complete the task.
+
+Regards
+Pushpendu
+
+From david at wordshell.net  Wed Aug  6 12:08:26 2014
+From: david at wordshell.net (David Anderson)
+Date: Wed, 06 Aug 2014 13:08:26 +0100
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+Message-ID: <53E21ABA.7070600@wordshell.net>
+
+Haluk Karamete wrote:
+> Could this list help you?http://www.robotstxt.org/db/all.txt
+At first this looks potentially useful - since it is in a 
+machine-readable format, and can be parsed to find a list of bots that 
+match specified criteria.... but on a second glance, it looks not so 
+useful. I searched for 3 of the recent bots I've seen most regularly in 
+my logs: SEOKicks, AHrefs, Majestic12 - and it doesn't have any of them.
+
+Blue Chives wrote:
+> Depending on the web server software you are using you can look at using the htaccess file and block users/bot based on their user agent.
+>
+> This article should help:
+>
+> http://www.javascriptkit.com/howto/htaccess13.shtml
+The issue's not about how to write blocklist rules; it's about having a 
+reliable, maintained, categorised list of bots such that it's easy to 
+automate the blocklist. Turning the list into .htaccess rules is the 
+easy bit; what I want to avoid is having to spend long churning through 
+log files to obtain the source data, because it feels very much like 
+something there 'ought' to be pre-existing data out there for, given how 
+many watts the world's servers must be wasting on such bots.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From jer at simianuprising.com  Wed Aug  6 12:31:29 2014
+From: jer at simianuprising.com (Jeremy Clarke)
+Date: Wed, 6 Aug 2014 08:31:29 -0400
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <53E21ABA.7070600@wordshell.net>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+Message-ID: <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+
+On Wednesday, August 6, 2014, David Anderson <david at wordshell.net> wrote:
+
+> The issue's not about how to write blocklist rules; it's about having a
+> reliable, maintained, categorised list of bots such that it's easy to
+> automate the blocklist. Turning the list into .htaccess rules is the easy
+> bit; what I want to avoid is having to spend long churning through log
+> files to obtain the source data, because it feels very much like something
+> there 'ought' to be pre-existing data out there for, given how many watts
+> the world's servers must be wasting on such bots.
+
+
+The best answer is the htaccess-based blacklists from PerishablePress. I
+think this is the latest one:
+
+http://perishablepress.com/5g-blacklist-2013/
+
+He uses a mix of blocked user agents, blocked IP's and blocked requests
+(i.e /admin.php, intrusion scans for other software). He's been updating it
+for years and it's definitely a WP-centric project.
+
+In the past some good stuff has been blocked by his lists (Facebook spider
+blocked because it had an empty user agent, common spiders used by
+academics were blocked) but that's bound to happen and I'm sure every UA
+was used by a spammer at some point.
+
+I run a ton of sites on my server so I hate the .htaccess format (which is
+a pain to implement alongside wp+super cache rules). If I used multisite it
+would be less of a big deal. Either way, know that you can block UA's for
+all virtual hosts if that's relevant.
+
+Note that ip blocking is a lot more effective at the server level because
+blocking with Apache still uses a ton of resources (but at least no MySQL
+etc). On Linux an iptables based block is much more effective.
+
+
+
+
+-- 
+Jeremy Clarke
+Code and Design ? globalvoicesonline.org
+
+From malkir at gmail.com  Thu Aug  7 04:26:22 2014
+From: malkir at gmail.com (Daniel)
+Date: Wed, 6 Aug 2014 21:26:22 -0700
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+ <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+Message-ID: <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+
+Set up a trap. A link hidden by CSS on each page that if hit, the IP gets
+blacklisted for a period of time. No human will ever come across the link
+unless they're digging. No bot actually renders the entire page out before
+deciding what to use.
+
+
+On Wed, Aug 6, 2014 at 5:31 AM, Jeremy Clarke <jer at simianuprising.com>
+wrote:
+
+> On Wednesday, August 6, 2014, David Anderson <david at wordshell.net> wrote:
+>
+> > The issue's not about how to write blocklist rules; it's about having a
+> > reliable, maintained, categorised list of bots such that it's easy to
+> > automate the blocklist. Turning the list into .htaccess rules is the easy
+> > bit; what I want to avoid is having to spend long churning through log
+> > files to obtain the source data, because it feels very much like
+> something
+> > there 'ought' to be pre-existing data out there for, given how many watts
+> > the world's servers must be wasting on such bots.
+>
+>
+> The best answer is the htaccess-based blacklists from PerishablePress. I
+> think this is the latest one:
+>
+> http://perishablepress.com/5g-blacklist-2013/
+>
+> He uses a mix of blocked user agents, blocked IP's and blocked requests
+> (i.e /admin.php, intrusion scans for other software). He's been updating it
+> for years and it's definitely a WP-centric project.
+>
+> In the past some good stuff has been blocked by his lists (Facebook spider
+> blocked because it had an empty user agent, common spiders used by
+> academics were blocked) but that's bound to happen and I'm sure every UA
+> was used by a spammer at some point.
+>
+> I run a ton of sites on my server so I hate the .htaccess format (which is
+> a pain to implement alongside wp+super cache rules). If I used multisite it
+> would be less of a big deal. Either way, know that you can block UA's for
+> all virtual hosts if that's relevant.
+>
+> Note that ip blocking is a lot more effective at the server level because
+> blocking with Apache still uses a ton of resources (but at least no MySQL
+> etc). On Linux an iptables based block is much more effective.
+>
+>
+>
+>
+> --
+> Jeremy Clarke
+> Code and Design ? globalvoicesonline.org
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+-Dan
+
+From malkir at gmail.com  Thu Aug  7 04:28:33 2014
+From: malkir at gmail.com (Daniel)
+Date: Wed, 6 Aug 2014 21:28:33 -0700
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+ <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+ <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+Message-ID: <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+
+Almost forgot, the link should be in a subdirectory that is marked in
+robots.txt to ignore, so anything ignoring robots.txt is whats hit.
+
+
+On Wed, Aug 6, 2014 at 9:26 PM, Daniel <malkir at gmail.com> wrote:
+
+> Set up a trap. A link hidden by CSS on each page that if hit, the IP gets
+> blacklisted for a period of time. No human will ever come across the link
+> unless they're digging. No bot actually renders the entire page out before
+> deciding what to use.
+>
+>
+> On Wed, Aug 6, 2014 at 5:31 AM, Jeremy Clarke <jer at simianuprising.com>
+> wrote:
+>
+>> On Wednesday, August 6, 2014, David Anderson <david at wordshell.net> wrote:
+>>
+>> > The issue's not about how to write blocklist rules; it's about having a
+>> > reliable, maintained, categorised list of bots such that it's easy to
+>> > automate the blocklist. Turning the list into .htaccess rules is the
+>> easy
+>> > bit; what I want to avoid is having to spend long churning through log
+>> > files to obtain the source data, because it feels very much like
+>> something
+>> > there 'ought' to be pre-existing data out there for, given how many
+>> watts
+>> > the world's servers must be wasting on such bots.
+>>
+>>
+>> The best answer is the htaccess-based blacklists from PerishablePress. I
+>> think this is the latest one:
+>>
+>> http://perishablepress.com/5g-blacklist-2013/
+>>
+>> He uses a mix of blocked user agents, blocked IP's and blocked requests
+>> (i.e /admin.php, intrusion scans for other software). He's been updating
+>> it
+>> for years and it's definitely a WP-centric project.
+>>
+>> In the past some good stuff has been blocked by his lists (Facebook spider
+>> blocked because it had an empty user agent, common spiders used by
+>> academics were blocked) but that's bound to happen and I'm sure every UA
+>> was used by a spammer at some point.
+>>
+>> I run a ton of sites on my server so I hate the .htaccess format (which is
+>> a pain to implement alongside wp+super cache rules). If I used multisite
+>> it
+>> would be less of a big deal. Either way, know that you can block UA's for
+>> all virtual hosts if that's relevant.
+>>
+>> Note that ip blocking is a lot more effective at the server level because
+>> blocking with Apache still uses a ton of resources (but at least no MySQL
+>> etc). On Linux an iptables based block is much more effective.
+>>
+>>
+>>
+>>
+>> --
+>> Jeremy Clarke
+>> Code and Design ? globalvoicesonline.org
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>
+>
+>
+> --
+> -Dan
+>
+
+
+
+-- 
+-Dan
+
+From mickyhulse.lists at gmail.com  Thu Aug  7 04:30:43 2014
+From: mickyhulse.lists at gmail.com (Micky Hulse)
+Date: Wed, 6 Aug 2014 21:30:43 -0700
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+ <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+ <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+ <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+Message-ID: <CALri7Mkv_q3-DApUEOb7w1i=FkpUBK5=x_GuWQAskerobfGqaw@mail.gmail.com>
+
+On Wed, Aug 6, 2014 at 9:28 PM, Daniel <malkir at gmail.com> wrote:
+> the link should be in a subdirectory that is marked in
+> robots.txt to ignore, so anything ignoring robots.txt is whats hit.
+
+That's an awesome tip! :)
+
+Thanks!!!!
+
+-- 
+<git.io/micky>
+
+From danielx386 at gmail.com  Thu Aug  7 04:31:16 2014
+From: danielx386 at gmail.com (Daniel Fenn)
+Date: Thu, 7 Aug 2014 14:31:16 +1000
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+ <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+ <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+ <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+Message-ID: <CAJ5Hi2g9BE=oi=Fhpk2BWZrGVCdWdwN=N0R9JzJ7uF2ZGzJYnA@mail.gmail.com>
+
+I like to use a nice tool from http://www.spambotsecurity.com/ but it
+may cause more issues for some people though. Best thing is that it
+very fast and dowsn't slow down unlike .htaccess
+Regards,
+Daniel Fenn
+
+
+
+
+
+
+On Thu, Aug 7, 2014 at 2:28 PM, Daniel <malkir at gmail.com> wrote:
+> Almost forgot, the link should be in a subdirectory that is marked in
+> robots.txt to ignore, so anything ignoring robots.txt is whats hit.
+>
+>
+> On Wed, Aug 6, 2014 at 9:26 PM, Daniel <malkir at gmail.com> wrote:
+>
+>> Set up a trap. A link hidden by CSS on each page that if hit, the IP gets
+>> blacklisted for a period of time. No human will ever come across the link
+>> unless they're digging. No bot actually renders the entire page out before
+>> deciding what to use.
+>>
+>>
+>> On Wed, Aug 6, 2014 at 5:31 AM, Jeremy Clarke <jer at simianuprising.com>
+>> wrote:
+>>
+>>> On Wednesday, August 6, 2014, David Anderson <david at wordshell.net> wrote:
+>>>
+>>> > The issue's not about how to write blocklist rules; it's about having a
+>>> > reliable, maintained, categorised list of bots such that it's easy to
+>>> > automate the blocklist. Turning the list into .htaccess rules is the
+>>> easy
+>>> > bit; what I want to avoid is having to spend long churning through log
+>>> > files to obtain the source data, because it feels very much like
+>>> something
+>>> > there 'ought' to be pre-existing data out there for, given how many
+>>> watts
+>>> > the world's servers must be wasting on such bots.
+>>>
+>>>
+>>> The best answer is the htaccess-based blacklists from PerishablePress. I
+>>> think this is the latest one:
+>>>
+>>> http://perishablepress.com/5g-blacklist-2013/
+>>>
+>>> He uses a mix of blocked user agents, blocked IP's and blocked requests
+>>> (i.e /admin.php, intrusion scans for other software). He's been updating
+>>> it
+>>> for years and it's definitely a WP-centric project.
+>>>
+>>> In the past some good stuff has been blocked by his lists (Facebook spider
+>>> blocked because it had an empty user agent, common spiders used by
+>>> academics were blocked) but that's bound to happen and I'm sure every UA
+>>> was used by a spammer at some point.
+>>>
+>>> I run a ton of sites on my server so I hate the .htaccess format (which is
+>>> a pain to implement alongside wp+super cache rules). If I used multisite
+>>> it
+>>> would be less of a big deal. Either way, know that you can block UA's for
+>>> all virtual hosts if that's relevant.
+>>>
+>>> Note that ip blocking is a lot more effective at the server level because
+>>> blocking with Apache still uses a ton of resources (but at least no MySQL
+>>> etc). On Linux an iptables based block is much more effective.
+>>>
+>>>
+>>>
+>>>
+>>> --
+>>> Jeremy Clarke
+>>> Code and Design ? globalvoicesonline.org
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>
+>>
+>>
+>> --
+>> -Dan
+>>
+>
+>
+>
+> --
+> -Dan
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From malkir at gmail.com  Thu Aug  7 05:31:13 2014
+From: malkir at gmail.com (Daniel)
+Date: Wed, 6 Aug 2014 22:31:13 -0700
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CALri7Mkv_q3-DApUEOb7w1i=FkpUBK5=x_GuWQAskerobfGqaw@mail.gmail.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+ <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+ <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+ <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+ <CALri7Mkv_q3-DApUEOb7w1i=FkpUBK5=x_GuWQAskerobfGqaw@mail.gmail.com>
+Message-ID: <CA+BSZUTSS8rGhxeJySBtBqG3VSmZjSuRedG4xUhijZC0yv8usA@mail.gmail.com>
+
+It also works for forms, in addition to a captcha have a hidden form and
+anything touching that input gets denied :)
+
+
+On Wed, Aug 6, 2014 at 9:30 PM, Micky Hulse <mickyhulse.lists at gmail.com>
+wrote:
+
+> On Wed, Aug 6, 2014 at 9:28 PM, Daniel <malkir at gmail.com> wrote:
+> > the link should be in a subdirectory that is marked in
+> > robots.txt to ignore, so anything ignoring robots.txt is whats hit.
+>
+> That's an awesome tip! :)
+>
+> Thanks!!!!
+>
+> --
+> <git.io/micky>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+
+-- 
+-Dan
+
+From mickyhulse.lists at gmail.com  Thu Aug  7 05:59:55 2014
+From: mickyhulse.lists at gmail.com (Micky Hulse)
+Date: Wed, 6 Aug 2014 22:59:55 -0700
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <CA+BSZUTSS8rGhxeJySBtBqG3VSmZjSuRedG4xUhijZC0yv8usA@mail.gmail.com>
+References: <mailman.15.1407326401.10763.wp-hackers@lists.automattic.com>
+ <53E21ABA.7070600@wordshell.net>
+ <CAAHgzDOdnBCVOz7PRsRD19ZYOK-ZMk+7OWJq8u_M21-kZMTHdQ@mail.gmail.com>
+ <CA+BSZUT3wLT3TUTt5_wSZepc98JWhEESLnqJP5=u+40psfM_bQ@mail.gmail.com>
+ <CA+BSZUQP3vY-L=Ggc7kFRgHVQMM7PdUQn7cnArZd6gw2RS1eyg@mail.gmail.com>
+ <CALri7Mkv_q3-DApUEOb7w1i=FkpUBK5=x_GuWQAskerobfGqaw@mail.gmail.com>
+ <CA+BSZUTSS8rGhxeJySBtBqG3VSmZjSuRedG4xUhijZC0yv8usA@mail.gmail.com>
+Message-ID: <CALri7M=wLV0YALO+ni9ceWmrWA97JiLHU+=YH3_SqRqdx-o6-w@mail.gmail.com>
+
+On Wed, Aug 6, 2014 at 10:31 PM, Daniel <malkir at gmail.com> wrote:
+> It also works for forms, in addition to a captcha have a hidden form and
+> anything touching that input gets denied :)
+
+Nice! I'm looking forward to giving that a try. Thanks again for sharing tips!
+
+This thread has been a good read.
+
+-- 
+<git.io/micky>
+
+From david at wordshell.net  Thu Aug  7 08:20:18 2014
+From: david at wordshell.net (David Anderson)
+Date: Thu, 07 Aug 2014 09:20:18 +0100
+Subject: [wp-hackers] Blocking SEO robots
+In-Reply-To: <mailman.39456.1407391236.20500.wp-hackers@lists.automattic.com>
+References: <mailman.39456.1407391236.20500.wp-hackers@lists.automattic.com>
+Message-ID: <53E336C2.6040208@wordshell.net>
+
+Jeremy Clarke wrote:
+>
+> The best answer is the htaccess-based blacklists from PerishablePress. I
+> think this is the latest one:
+>
+> http://perishablepress.com/5g-blacklist-2013/
+This looks like an interesting list, but doesn't fit the use case. The 
+proprietor says "the 5G Blacklist helps reduce the number of malicious 
+URL requests that hit your website" - and reading the list confirms 
+that's what he's aiming for. I'm aiming to block non-malicious actors 
+who are running their own private search engines - i.e. those who want 
+to spider the web as part of creating their own non-public products 
+(e.g. databases of SEO back-links). It's not about site security; it's 
+about not being spidered each day by search engines that Joe Public will 
+never use. If you have a shared server used to host many sites for your 
+managed clients, then this quickly adds up.
+
+At the moment the best solution I have is adding a robots.txt to every 
+site with "Crawl-delay: 15" in it, to slow down the rate of compliant 
+bots and spread the load around a bit.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From nikolov.tmw at gmail.com  Fri Aug  8 11:36:07 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 8 Aug 2014 14:36:07 +0300
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+Message-ID: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+
+Hi everyone,
+
+I was working with a client that was using the Fundify WordPress theme,
+which was powered by a combination of Fundify Crowdfunding(
+https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+
+I wanted to download the source of the plugin to my computer to easily
+navigate through the codebase. On the plugin page they've added "(Moved)"
+to the name of the plugin.
+Once I extracted the archive, there was nothing but an empty .php file and
+a readme.txt file.
+
+My question in this case is - is this allowed and isn't that a terrible way
+of discontinuing a plugin? What if someone updates the plugin and their
+site stops working? Or someone installs the plugin and nothing happens...
+
+Is there anything the WordPress.org plugins team can do about it?
+
+Best regards,
+Nikola
+
+From martin at lazarov.bg  Fri Aug  8 11:56:37 2014
+From: martin at lazarov.bg (Martin Lazarov)
+Date: Fri, 8 Aug 2014 14:56:37 +0300
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+Message-ID: <CAFJ6JWE=4g_eYssiP+NFKHSrA2L2+WQ-HjatCtFmOhqBhZHYSw@mail.gmail.com>
+
+Hi Nikola,
+
+you can aways download previews versions:
+
+http://downloads.wordpress.org/plugin/appthemer-crowdfunding.1.8.1.zip
+insteat of http://downloads.wordpress.org/plugin/appthemer-crowdfunding.1.8.[2].zip
+
+Martin
+
+On Fri, Aug 8, 2014 at 2:36 PM, Nikola Nikolov <nikolov.tmw at gmail.com> wrote:
+> Hi everyone,
+>
+> I was working with a client that was using the Fundify WordPress theme,
+> which was powered by a combination of Fundify Crowdfunding(
+> https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+>
+> I wanted to download the source of the plugin to my computer to easily
+> navigate through the codebase. On the plugin page they've added "(Moved)"
+> to the name of the plugin.
+> Once I extracted the archive, there was nothing but an empty .php file and
+> a readme.txt file.
+>
+> My question in this case is - is this allowed and isn't that a terrible way
+> of discontinuing a plugin? What if someone updates the plugin and their
+> site stops working? Or someone installs the plugin and nothing happens...
+>
+> Is there anything the WordPress.org plugins team can do about it?
+>
+> Best regards,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From otto at ottodestruct.com  Fri Aug  8 12:23:13 2014
+From: otto at ottodestruct.com (Otto)
+Date: Fri, 8 Aug 2014 07:23:13 -0500
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+Message-ID: <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+
+Yes, that is a terrible way to discontinue a plugin, but people do it
+anyway. When we find them, we close them so that listing is removed.
+
+
+-Otto
+
+
+On Fri, Aug 8, 2014 at 6:36 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> Hi everyone,
+>
+> I was working with a client that was using the Fundify WordPress theme,
+> which was powered by a combination of Fundify Crowdfunding(
+> https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+>
+> I wanted to download the source of the plugin to my computer to easily
+> navigate through the codebase. On the plugin page they've added "(Moved)"
+> to the name of the plugin.
+> Once I extracted the archive, there was nothing but an empty .php file and
+> a readme.txt file.
+>
+> My question in this case is - is this allowed and isn't that a terrible way
+> of discontinuing a plugin? What if someone updates the plugin and their
+> site stops working? Or someone installs the plugin and nothing happens...
+>
+> Is there anything the WordPress.org plugins team can do about it?
+>
+> Best regards,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Fri Aug  8 12:50:53 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 8 Aug 2014 15:50:53 +0300
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+Message-ID: <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+
+I'm aware that I can download the previous versions of the plugin(well most
+users are probably not though), but the thing is that you shouldn't have to
+do that.
+
+Otto - I guess it's probably more headaches than it's worth, but what about
+reverting the last commit(or just moving the code back to /trunk or the
+stable tag) and changing the readme to state that the plugin is no longer
+going to be supported.
+You then revoke access to the plugin's repository(so that the authors can
+no longer do the same thing).
+
+Ultimately I think that if there's a list of plugins that are no longer
+supported by their authors and are put up "for adoption" by other
+developers everyone could benefit(not sure if that's fair/possible?). Yes,
+you can just fork the plugin and upload it as a new one, but the users of
+the old plugin probably won't be aware that there's a new version of the
+plugin.
+
+Anyway, just some thoughts.
+
+
+On Fri, Aug 8, 2014 at 3:23 PM, Otto <otto at ottodestruct.com> wrote:
+
+> Yes, that is a terrible way to discontinue a plugin, but people do it
+> anyway. When we find them, we close them so that listing is removed.
+>
+>
+> -Otto
+>
+>
+> On Fri, Aug 8, 2014 at 6:36 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > Hi everyone,
+> >
+> > I was working with a client that was using the Fundify WordPress theme,
+> > which was powered by a combination of Fundify Crowdfunding(
+> > https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+> >
+> > I wanted to download the source of the plugin to my computer to easily
+> > navigate through the codebase. On the plugin page they've added "(Moved)"
+> > to the name of the plugin.
+> > Once I extracted the archive, there was nothing but an empty .php file
+> and
+> > a readme.txt file.
+> >
+> > My question in this case is - is this allowed and isn't that a terrible
+> way
+> > of discontinuing a plugin? What if someone updates the plugin and their
+> > site stops working? Or someone installs the plugin and nothing happens...
+> >
+> > Is there anything the WordPress.org plugins team can do about it?
+> >
+> > Best regards,
+> > Nikola
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From otto at ottodestruct.com  Fri Aug  8 12:55:43 2014
+From: otto at ottodestruct.com (Otto)
+Date: Fri, 8 Aug 2014 07:55:43 -0500
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+Message-ID: <CAD-Fghzj18EHWcP9JJuSH5Jg8qGC-bxfLSpF_D4OUAbw-CmXGA@mail.gmail.com>
+
+Well, it is their plugin. If they don't want to support it or have people
+download it anymore, then I have no real problem with that. So removing the
+listing is the best way to do that, as I see it. I don't think we should
+revert it and force it to be available if they don't want it available
+anymore.
+
+If somebody wants to remove their own plugin from the listings, then we can
+do that. Simply nulling it out and putting "moved" on it is a bad idea, but
+just getting rid of the URL entirely is fine with me.
+
+-Otto
+
+
+On Fri, Aug 8, 2014 at 7:50 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> I'm aware that I can download the previous versions of the plugin(well most
+> users are probably not though), but the thing is that you shouldn't have to
+> do that.
+>
+> Otto - I guess it's probably more headaches than it's worth, but what about
+> reverting the last commit(or just moving the code back to /trunk or the
+> stable tag) and changing the readme to state that the plugin is no longer
+> going to be supported.
+> You then revoke access to the plugin's repository(so that the authors can
+> no longer do the same thing).
+>
+> Ultimately I think that if there's a list of plugins that are no longer
+> supported by their authors and are put up "for adoption" by other
+> developers everyone could benefit(not sure if that's fair/possible?). Yes,
+> you can just fork the plugin and upload it as a new one, but the users of
+> the old plugin probably won't be aware that there's a new version of the
+> plugin.
+>
+> Anyway, just some thoughts.
+>
+>
+> On Fri, Aug 8, 2014 at 3:23 PM, Otto <otto at ottodestruct.com> wrote:
+>
+> > Yes, that is a terrible way to discontinue a plugin, but people do it
+> > anyway. When we find them, we close them so that listing is removed.
+> >
+> >
+> > -Otto
+> >
+> >
+> > On Fri, Aug 8, 2014 at 6:36 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> > wrote:
+> >
+> > > Hi everyone,
+> > >
+> > > I was working with a client that was using the Fundify WordPress theme,
+> > > which was powered by a combination of Fundify Crowdfunding(
+> > > https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+> > >
+> > > I wanted to download the source of the plugin to my computer to easily
+> > > navigate through the codebase. On the plugin page they've added
+> "(Moved)"
+> > > to the name of the plugin.
+> > > Once I extracted the archive, there was nothing but an empty .php file
+> > and
+> > > a readme.txt file.
+> > >
+> > > My question in this case is - is this allowed and isn't that a terrible
+> > way
+> > > of discontinuing a plugin? What if someone updates the plugin and their
+> > > site stops working? Or someone installs the plugin and nothing
+> happens...
+> > >
+> > > Is there anything the WordPress.org plugins team can do about it?
+> > >
+> > > Best regards,
+> > > Nikola
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Fri Aug  8 12:57:36 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 8 Aug 2014 15:57:36 +0300
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAD-Fghzj18EHWcP9JJuSH5Jg8qGC-bxfLSpF_D4OUAbw-CmXGA@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+ <CAD-Fghzj18EHWcP9JJuSH5Jg8qGC-bxfLSpF_D4OUAbw-CmXGA@mail.gmail.com>
+Message-ID: <CAOwx47d7iqc=7W5PFTqOihPaAAFn-Ntxm80eO6_P3Und=-GGkQ@mail.gmail.com>
+
+That makes sense.
+
+
+On Fri, Aug 8, 2014 at 3:55 PM, Otto <otto at ottodestruct.com> wrote:
+
+> Well, it is their plugin. If they don't want to support it or have people
+> download it anymore, then I have no real problem with that. So removing the
+> listing is the best way to do that, as I see it. I don't think we should
+> revert it and force it to be available if they don't want it available
+> anymore.
+>
+> If somebody wants to remove their own plugin from the listings, then we can
+> do that. Simply nulling it out and putting "moved" on it is a bad idea, but
+> just getting rid of the URL entirely is fine with me.
+>
+> -Otto
+>
+>
+> On Fri, Aug 8, 2014 at 7:50 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > I'm aware that I can download the previous versions of the plugin(well
+> most
+> > users are probably not though), but the thing is that you shouldn't have
+> to
+> > do that.
+> >
+> > Otto - I guess it's probably more headaches than it's worth, but what
+> about
+> > reverting the last commit(or just moving the code back to /trunk or the
+> > stable tag) and changing the readme to state that the plugin is no longer
+> > going to be supported.
+> > You then revoke access to the plugin's repository(so that the authors can
+> > no longer do the same thing).
+> >
+> > Ultimately I think that if there's a list of plugins that are no longer
+> > supported by their authors and are put up "for adoption" by other
+> > developers everyone could benefit(not sure if that's fair/possible?).
+> Yes,
+> > you can just fork the plugin and upload it as a new one, but the users of
+> > the old plugin probably won't be aware that there's a new version of the
+> > plugin.
+> >
+> > Anyway, just some thoughts.
+> >
+> >
+> > On Fri, Aug 8, 2014 at 3:23 PM, Otto <otto at ottodestruct.com> wrote:
+> >
+> > > Yes, that is a terrible way to discontinue a plugin, but people do it
+> > > anyway. When we find them, we close them so that listing is removed.
+> > >
+> > >
+> > > -Otto
+> > >
+> > >
+> > > On Fri, Aug 8, 2014 at 6:36 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> > > wrote:
+> > >
+> > > > Hi everyone,
+> > > >
+> > > > I was working with a client that was using the Fundify WordPress
+> theme,
+> > > > which was powered by a combination of Fundify Crowdfunding(
+> > > > https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+> > > >
+> > > > I wanted to download the source of the plugin to my computer to
+> easily
+> > > > navigate through the codebase. On the plugin page they've added
+> > "(Moved)"
+> > > > to the name of the plugin.
+> > > > Once I extracted the archive, there was nothing but an empty .php
+> file
+> > > and
+> > > > a readme.txt file.
+> > > >
+> > > > My question in this case is - is this allowed and isn't that a
+> terrible
+> > > way
+> > > > of discontinuing a plugin? What if someone updates the plugin and
+> their
+> > > > site stops working? Or someone installs the plugin and nothing
+> > happens...
+> > > >
+> > > > Is there anything the WordPress.org plugins team can do about it?
+> > > >
+> > > > Best regards,
+> > > > Nikola
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From ipstenu at halfelf.org  Fri Aug  8 15:01:10 2014
+From: ipstenu at halfelf.org (Half-Elf on Tech)
+Date: Fri, 8 Aug 2014 08:01:10 -0700
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAOwx47d7iqc=7W5PFTqOihPaAAFn-Ntxm80eO6_P3Und=-GGkQ@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+ <CAD-Fghzj18EHWcP9JJuSH5Jg8qGC-bxfLSpF_D4OUAbw-CmXGA@mail.gmail.com>
+ <CAOwx47d7iqc=7W5PFTqOihPaAAFn-Ntxm80eO6_P3Und=-GGkQ@mail.gmail.com>
+Message-ID: <etPan.53e4e636.643c9869.6b07@Louis-Fish>
+
+Among the reasons we don?t keep an official list of ?plugins ready for adoption? is that the plugin team doesn?t have the time, and any attempt to use a wiki would be easy to mess up by people listing plugins that are not ready to be taken over.
+
+I say this a lot. If YOU have a plugin you want to stop working on, push an update that makes it clear on the plugin settings page, the plugin listing on the plugins.php page, AND in your readme for the wporg repo. Tell people ?I?m not working on this anymore.? and if you?re inclined, give them a way to contact you to take it over.
+
+Because y?know :) We?re cool with that!
+
+Also remember we generally aren?t going to hand over your plugin to random people.
+
+https://make.wordpress.org/plugins/2014/02/06/clarification-on-taking-over-plugins/
+
+So keep your email address on WPORG valid and up to date, and do please whitelist plugins AT wordpress.org :D
+
+--  
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org | http://halfelf.org
+
+On August 8, 2014 at 5:57:40 AM, Nikola Nikolov (nikolov.tmw at gmail.com) wrote:
+> That makes sense.
+>  
+>  
+> On Fri, Aug 8, 2014 at 3:55 PM, Otto wrote:
+>  
+> > Well, it is their plugin. If they don't want to support it or have people
+> > download it anymore, then I have no real problem with that. So removing the
+> > listing is the best way to do that, as I see it. I don't think we should
+> > revert it and force it to be available if they don't want it available
+> > anymore.
+> >
+> > If somebody wants to remove their own plugin from the listings, then we can
+> > do that. Simply nulling it out and putting "moved" on it is a bad idea, but
+> > just getting rid of the URL entirely is fine with me.
+> >
+> > -Otto
+> >
+> >
+> > On Fri, Aug 8, 2014 at 7:50 AM, Nikola Nikolov  
+> > wrote:
+> >
+> > > I'm aware that I can download the previous versions of the plugin(well
+> > most
+> > > users are probably not though), but the thing is that you shouldn't have
+> > to
+> > > do that.
+> > >
+> > > Otto - I guess it's probably more headaches than it's worth, but what
+> > about
+> > > reverting the last commit(or just moving the code back to /trunk or the
+> > > stable tag) and changing the readme to state that the plugin is no longer
+> > > going to be supported.
+> > > You then revoke access to the plugin's repository(so that the authors can
+> > > no longer do the same thing).
+> > >
+> > > Ultimately I think that if there's a list of plugins that are no longer
+> > > supported by their authors and are put up "for adoption" by other
+> > > developers everyone could benefit(not sure if that's fair/possible?).
+> > Yes,
+> > > you can just fork the plugin and upload it as a new one, but the users of
+> > > the old plugin probably won't be aware that there's a new version of the
+> > > plugin.
+> > >
+> > > Anyway, just some thoughts.
+> > >
+> > >
+> > > On Fri, Aug 8, 2014 at 3:23 PM, Otto wrote:
+> > >
+> > > > Yes, that is a terrible way to discontinue a plugin, but people do it
+> > > > anyway. When we find them, we close them so that listing is removed.
+> > > >
+> > > >
+> > > > -Otto
+> > > >
+> > > >
+> > > > On Fri, Aug 8, 2014 at 6:36 AM, Nikola Nikolov  
+> > > > wrote:
+> > > >
+> > > > > Hi everyone,
+> > > > >
+> > > > > I was working with a client that was using the Fundify WordPress
+> > theme,
+> > > > > which was powered by a combination of Fundify Crowdfunding(
+> > > > > https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+> > > > >
+> > > > > I wanted to download the source of the plugin to my computer to
+> > easily
+> > > > > navigate through the codebase. On the plugin page they've added
+> > > "(Moved)"
+> > > > > to the name of the plugin.
+> > > > > Once I extracted the archive, there was nothing but an empty .php
+> > file
+> > > > and
+> > > > > a readme.txt file.
+> > > > >
+> > > > > My question in this case is - is this allowed and isn't that a
+> > terrible
+> > > > way
+> > > > > of discontinuing a plugin? What if someone updates the plugin and
+> > their
+> > > > > site stops working? Or someone installs the plugin and nothing
+> > > happens...
+> > > > >
+> > > > > Is there anything the WordPress.org plugins team can do about it?
+> > > > >
+> > > > > Best regards,
+> > > > > Nikola
+> > > > > _______________________________________________
+> > > > > wp-hackers mailing list
+> > > > > wp-hackers at lists.automattic.com
+> > > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > > >
+> > > > _______________________________________________
+> > > > wp-hackers mailing list
+> > > > wp-hackers at lists.automattic.com
+> > > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>  
+
+
+From hello at chriscct7.com  Fri Aug  8 15:16:11 2014
+From: hello at chriscct7.com (Chris Christoff)
+Date: Fri, 08 Aug 2014 15:16:11 +0000
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <etPan.53e4e636.643c9869.6b07@Louis-Fish>
+References: <etPan.53e4e636.643c9869.6b07@Louis-Fish>
+Message-ID: <reply-5002-40552874-97080275-1407510971-1314743581@helpscout.net>
+
+-- Please reply above this line --
+
+-----------------------------------------------------------
+## Chris replied, on Aug 8 @ 11:15am (AMT):
+
+the issue is that there are a lot, probably thousands of users running
+that plugin and by pushing an update that nulls it those site owners
+are losing real money in a very big way. If they didn't want to
+support it use the adopt me tag or something. The problem with
+removing it from the listings IMO is that those users who we're
+running it live need to have a way of getting the previous version
+zip, and for most users the easiest way (other than reverting the
+update) would e to grab the last version zip off the dev tab on the
+listing.
+--
+Chris Christoff
+hello at chriscct7.com
+http://www.chriscct7.com [1]
+@chriscct7
+If you feel the need to donate, as a college student, I appreciate
+donations of any amount. The easiest way to donate to my college fund
+is via the donation button at the bottom of my
+homepage:?http://chriscct7.com/ [2]
+
+Links:
+------
+[1] http://www.chriscct7.com
+[2] http://chriscct7.com/
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 11:01am (AMT):
+
+Among the reasons we don?t keep an official list of ?plugins ready
+for adoption? is that the plugin team doesn?t have the time, and
+any attempt to use a wiki would be easy to mess up by people listing
+plugins that are not ready to be taken over.
+
+ I say this a lot. If YOU have a plugin you want to stop working on,
+push an update that makes it clear on the plugin settings page, the
+plugin listing on the plugins.php page, AND in your readme for the
+wporg repo. Tell people ?I?m not working on this anymore.? and
+if you?re inclined, give them a way to contact you to take it over.
+
+ Because y?know :) We?re cool with that!
+
+ Also remember we generally aren?t going to hand over your plugin to
+random people.
+
+ https://make.wordpress.org/plugins/2014/02/06/clarification-on-taking-over-plugins/
+[1]
+
+ So keep your email address on WPORG valid and up to date, and do
+please whitelist plugins AT wordpress.org :D
+
+ --
+ Mika A Epstein (aka Ipstenu)
+ http://ipstenu.org [2] | http://halfelf.org [3]
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [4]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [5]
+
+Links:
+------
+[1]
+https://make.wordpress.org/plugins/2014/02/06/clarification-on-taking-over-plugins/
+[2] http://ipstenu.org
+[3] http://halfelf.org
+[4] mailto:wp-hackers at lists.automattic.com
+[5] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 8:57am (AMT):
+
+That makes sense.
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [1]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [2]
+
+Links:
+------
+[1] mailto:wp-hackers at lists.automattic.com
+[2] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 8:56am (AMT):
+
+Well, it is their plugin. If they don't want to support it or have
+people
+ download it anymore, then I have no real problem with that. So
+removing the
+ listing is the best way to do that, as I see it. I don't think we
+should
+ revert it and force it to be available if they don't want it
+available
+ anymore.
+
+ If somebody wants to remove their own plugin from the listings, then
+we can
+ do that. Simply nulling it out and putting "moved" on it is a bad
+idea, but
+ just getting rid of the URL entirely is fine with me.
+
+ -Otto
+
+ wrote:
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [1]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [2]
+
+Links:
+------
+[1] mailto:wp-hackers at lists.automattic.com
+[2] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 8:51am (AMT):
+
+I'm aware that I can download the previous versions of the plugin(well
+most
+ users are probably not though), but the thing is that you shouldn't
+have to
+ do that.
+
+ Otto - I guess it's probably more headaches than it's worth, but what
+about
+ reverting the last commit(or just moving the code back to /trunk or
+the
+ stable tag) and changing the readme to state that the plugin is no
+longer
+ going to be supported.
+ You then revoke access to the plugin's repository(so that the authors
+can
+ no longer do the same thing).
+
+ Ultimately I think that if there's a list of plugins that are no
+longer
+ supported by their authors and are put up "for adoption" by other
+ developers everyone could benefit(not sure if that's fair/possible?).
+Yes,
+ you can just fork the plugin and upload it as a new one, but the
+users of
+ the old plugin probably won't be aware that there's a new version of
+the
+ plugin.
+
+ Anyway, just some thoughts.
+
+ > Yes, that is a terrible way to discontinue a plugin, but people
+do it
+ > anyway. When we find them, we close them so that listing is
+removed.
+ >
+ >
+ > -Otto
+ >
+ >
+ >
+ > > Hi everyone,
+ > >
+ > > I was working with a client that was using the Fundify
+WordPress theme,
+ > > which was powered by a combination of Fundify
+Crowdfunding(
+ > > https://wordpress.org/plugins/appthemer-crowdfunding/ [1]
+) and EDD.
+ > >
+ > > I wanted to download the source of the plugin to my
+computer to easily
+ > > navigate through the codebase. On the plugin page they've
+added "(Moved)"
+ > > to the name of the plugin.
+ > > Once I extracted the archive, there was nothing but an
+empty .php file
+ > and
+ > > a readme.txt file.
+ > >
+ > > My question in this case is - is this allowed and isn't
+that a terrible
+ > way
+ > > of discontinuing a plugin? What if someone updates the
+plugin and their
+ > > site stops working? Or someone installs the plugin and
+nothing happens...
+ > >
+ > > Is there anything the WordPress.org plugins team can do
+about it?
+ > >
+ > > Best regards,
+ > > Nikola
+ > > _______________________________________________
+ > > wp-hackers mailing list
+ > > wp-hackers at lists.automattic.com [2]
+ > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+[3]
+ > >
+ > _______________________________________________
+ > wp-hackers mailing list
+ > wp-hackers at lists.automattic.com [4]
+ > http://lists.automattic.com/mailman/listinfo/wp-hackers [5]
+ >
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [6]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [7]
+
+Links:
+------
+[1] https://wordpress.org/plugins/appthemer-crowdfunding/
+[2] mailto:wp-hackers at lists.automattic.com
+[3] http://lists.automattic.com/mailman/listinfo/wp-hackers
+[4] mailto:wp-hackers at lists.automattic.com
+[5] http://lists.automattic.com/mailman/listinfo/wp-hackers
+[6] mailto:wp-hackers at lists.automattic.com
+[7] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 8:24am (AMT):
+
+Yes, that is a terrible way to discontinue a plugin, but people do it
+ anyway. When we find them, we close them so that listing is removed.
+
+ -Otto
+
+ wrote:
+
+ > Hi everyone,
+ >
+ > I was working with a client that was using the Fundify
+WordPress theme,
+ > which was powered by a combination of Fundify Crowdfunding(
+ > https://wordpress.org/plugins/appthemer-crowdfunding/ [1] ) and
+EDD.
+ >
+ > I wanted to download the source of the plugin to my computer to
+easily
+ > navigate through the codebase. On the plugin page they've added
+"(Moved)"
+ > to the name of the plugin.
+ > Once I extracted the archive, there was nothing but an empty
+.php file and
+ > a readme.txt file.
+ >
+ > My question in this case is - is this allowed and isn't that a
+terrible way
+ > of discontinuing a plugin? What if someone updates the plugin
+and their
+ > site stops working? Or someone installs the plugin and nothing
+happens...
+ >
+ > Is there anything the WordPress.org plugins team can do about
+it?
+ >
+ > Best regards,
+ > Nikola
+ > _______________________________________________
+ > wp-hackers mailing list
+ > wp-hackers at lists.automattic.com [2]
+ > http://lists.automattic.com/mailman/listinfo/wp-hackers [3]
+ >
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [4]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [5]
+
+Links:
+------
+[1] https://wordpress.org/plugins/appthemer-crowdfunding/
+[2] mailto:wp-hackers at lists.automattic.com
+[3] http://lists.automattic.com/mailman/listinfo/wp-hackers
+[4] mailto:wp-hackers at lists.automattic.com
+[5] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+
+
+From otto at ottodestruct.com  Fri Aug  8 15:18:54 2014
+From: otto at ottodestruct.com (Otto)
+Date: Fri, 8 Aug 2014 10:18:54 -0500
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+Message-ID: <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+
+On Fri, Aug 8, 2014 at 7:50 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+wrote:
+
+> Ultimately I think that if there's a list of plugins that are no longer
+> supported by their authors and are put up "for adoption" by other
+> developers everyone could benefit(not sure if that's fair/possible?). Yes,
+> you can just fork the plugin and upload it as a new one, but the users of
+> the old plugin probably won't be aware that there's a new version of the
+> plugin.
+>
+
+LOL. Honestly, every time the issue of adoption comes up for plugins, I
+can't help but laugh a bit. :)
+
+Plugin adoption is not a real issue, because there is nobody out there
+actually wanting to adopt other people's code.
+
+Seriously, nobody wants to do it. People keep asking why there is no
+"for-adoption" list, and the answer is simply because it is not necessary.
+There's no shortage of abandoned plugins, but there's a serious shortage of
+caring wanna-be-parents for those plugins.
+
+I can think of maybe 10 times that a plugin has been adopted. Total. Ever.
+It just doesn't come up that often. The whole thing is a total non-issue
+because the truth of the matter is that no coder really wants to take over
+somebody else's code. It's a lot more fun to write your own code instead.
+And when you're doing things for free, "fun" is your primary purpose.
+
+If anybody wants to adopt a plugin and cannot get in touch with the author,
+you can email the plugins team and they will facilitate the process or make
+contact or whatever. But this virtually never happens. There's no need for
+a list because it's not like we're swamped with requests or anything.
+
+-Otto
+
+From hello at chriscct7.com  Fri Aug  8 15:24:01 2014
+From: hello at chriscct7.com (Chris Christoff)
+Date: Fri, 08 Aug 2014 15:24:01 +0000
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+References: <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+Message-ID: <reply-5002-40552874-97083628-1407511440-1239030132@helpscout.net>
+
+-- Please reply above this line --
+
+-----------------------------------------------------------
+## Chris replied, on Aug 8 @ 11:23am (AMT):
+
+It depends on the plugin. Given the one in question was used by a lot
+of people and is a mandatory plugin for several themes not written by
+that developer there would probably be a very high chance this one
+would be adopted if allowed
+--
+Chris Christoff
+hello at chriscct7.com
+http://www.chriscct7.com [1]
+@chriscct7
+If you feel the need to donate, as a college student, I appreciate
+donations of any amount. The easiest way to donate to my college fund
+is via the donation button at the bottom of my
+homepage:?http://chriscct7.com/ [2]
+
+Links:
+------
+[1] http://www.chriscct7.com
+[2] http://chriscct7.com/
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 11:19am (AMT):
+
+wrote:
+
+ > Ultimately I think that if there's a list of plugins that are
+no longer
+ > supported by their authors and are put up "for adoption" by
+other
+ > developers everyone could benefit(not sure if that's
+fair/possible?). Yes,
+ > you can just fork the plugin and upload it as a new one, but
+the users of
+ > the old plugin probably won't be aware that there's a new
+version of the
+ > plugin.
+ >
+
+ LOL. Honestly, every time the issue of adoption comes up for plugins,
+I
+ can't help but laugh a bit. :)
+
+ Plugin adoption is not a real issue, because there is nobody out
+there
+ actually wanting to adopt other people's code.
+
+ Seriously, nobody wants to do it. People keep asking why there is no
+ "for-adoption" list, and the answer is simply because it is not
+necessary.
+ There's no shortage of abandoned plugins, but there's a serious
+shortage of
+ caring wanna-be-parents for those plugins.
+
+ I can think of maybe 10 times that a plugin has been adopted. Total.
+Ever.
+ It just doesn't come up that often. The whole thing is a total
+non-issue
+ because the truth of the matter is that no coder really wants to take
+over
+ somebody else's code. It's a lot more fun to write your own code
+instead.
+ And when you're doing things for free, "fun" is your primary purpose.
+
+ If anybody wants to adopt a plugin and cannot get in touch with the
+author,
+ you can email the plugins team and they will facilitate the process
+or make
+ contact or whatever. But this virtually never happens. There's no
+need for
+ a list because it's not like we're swamped with requests or anything.
+
+ -Otto
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [1]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [2]
+
+Links:
+------
+[1] mailto:wp-hackers at lists.automattic.com
+[2] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## Chris replied, on Aug 8 @ 11:15am (AMT):
+
+the issue is that there are a lot, probably thousands of users running
+that plugin and by pushing an update that nulls it those site owners
+are losing real money in a very big way. If they didn't want to
+support it use the adopt me tag or something. The problem with
+removing it from the listings IMO is that those users who we're
+running it live need to have a way of getting the previous version
+zip, and for most users the easiest way (other than reverting the
+update) would e to grab the last version zip off the dev tab on the
+listing.
+--
+Chris Christoff
+hello at chriscct7.com
+http://www.chriscct7.com [1]
+@chriscct7
+If you feel the need to donate, as a college student, I appreciate
+donations of any amount. The easiest way to donate to my college fund
+is via the donation button at the bottom of my
+homepage:?http://chriscct7.com/ [2]
+
+Links:
+------
+[1] http://www.chriscct7.com
+[2] http://chriscct7.com/
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 11:01am (AMT):
+
+Among the reasons we don?t keep an official list of ?plugins ready
+for adoption? is that the plugin team doesn?t have the time, and
+any attempt to use a wiki would be easy to mess up by people listing
+plugins that are not ready to be taken over.
+
+ I say this a lot. If YOU have a plugin you want to stop working on,
+push an update that makes it clear on the plugin settings page, the
+plugin listing on the plugins.php page, AND in your readme for the
+wporg repo. Tell people ?I?m not working on this anymore.? and
+if you?re inclined, give them a way to contact you to take it over.
+
+ Because y?know :) We?re cool with that!
+
+ Also remember we generally aren?t going to hand over your plugin to
+random people.
+
+ https://make.wordpress.org/plugins/2014/02/06/clarification-on-taking-over-plugins/
+[1]
+
+ So keep your email address on WPORG valid and up to date, and do
+please whitelist plugins AT wordpress.org :D
+
+ --
+ Mika A Epstein (aka Ipstenu)
+ http://ipstenu.org [2] | http://halfelf.org [3]
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [4]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [5]
+
+Links:
+------
+[1]
+https://make.wordpress.org/plugins/2014/02/06/clarification-on-taking-over-plugins/
+[2] http://ipstenu.org
+[3] http://halfelf.org
+[4] mailto:wp-hackers at lists.automattic.com
+[5] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 8:57am (AMT):
+
+That makes sense.
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [1]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [2]
+
+Links:
+------
+[1] mailto:wp-hackers at lists.automattic.com
+[2] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on Aug 8 @ 8:56am (AMT):
+
+Well, it is their plugin. If they don't want to support it or have
+people
+ download it anymore, then I have no real problem with that. So
+removing the
+ listing is the best way to do that, as I see it. I don't think we
+should
+ revert it and force it to be available if they don't want it
+available
+ anymore.
+
+ If somebody wants to remove their own plugin from the listings, then
+we can
+ do that. Simply nulling it out and putting "moved" on it is a bad
+idea, but
+ just getting rid of the URL entirely is fine with me.
+
+ -Otto
+
+ wrote:
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com [1]
+ http://lists.automattic.com/mailman/listinfo/wp-hackers [2]
+
+Links:
+------
+[1] mailto:wp-hackers at lists.automattic.com
+[2] http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+-----------------------------------------------------------
+
+
+From chip at chipbennett.net  Fri Aug  8 16:09:01 2014
+From: chip at chipbennett.net (Chip Bennett)
+Date: Fri, 8 Aug 2014 11:09:01 -0500
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+ <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+Message-ID: <CAPdLKqd2QN5_ZszJXNoU11bH6WPxSSNrmdyouZsthUuH5_4L=w@mail.gmail.com>
+
+I have "adopted" three Plugins (one of which - thankfully - the primary
+development was taken back over by the original developer). But what Otto
+said is entirely correct: if someone wants to adopt a Plugin, just contact
+the developer. From there, it's a simple matter of the developer entering
+your WPORG username in the correct field on the Plugin's Admin page in the
+Plugin Directory.
+
+On a related note: I forked a Plugin a long time ago, and eventually, that
+Plugin's functionality was entirely superseded by core functionality. The
+Plugin had tens of thousands of downloads, so I couldn't simply stop
+maintaining it, or blanking out the latest version in SVN. Instead, I added
+information to the readme.txt explaining why the Plugin's functionality was
+no longer necessary, then in a later version, I gracefully backed out the
+Plugin's hooks, then in a much later version, removed the no-longer-hooked
+Plugin functions:
+
+http://wordpress.org/plugins/cbnet-ping-optimizer/
+
+I had thought about asking the Plugin team to remove it, but since I still
+see quite a bit of misinformation about the Plugin's necessity from time to
+time, it seems to be more beneficial to leave it as-is.
+
+So, that might be an approach worth taking for the OP's Plugin.
+
+
+On Fri, Aug 8, 2014 at 10:18 AM, Otto <otto at ottodestruct.com> wrote:
+
+> On Fri, Aug 8, 2014 at 7:50 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+>
+> > Ultimately I think that if there's a list of plugins that are no longer
+> > supported by their authors and are put up "for adoption" by other
+> > developers everyone could benefit(not sure if that's fair/possible?).
+> Yes,
+> > you can just fork the plugin and upload it as a new one, but the users of
+> > the old plugin probably won't be aware that there's a new version of the
+> > plugin.
+> >
+>
+> LOL. Honestly, every time the issue of adoption comes up for plugins, I
+> can't help but laugh a bit. :)
+>
+> Plugin adoption is not a real issue, because there is nobody out there
+> actually wanting to adopt other people's code.
+>
+> Seriously, nobody wants to do it. People keep asking why there is no
+> "for-adoption" list, and the answer is simply because it is not necessary.
+> There's no shortage of abandoned plugins, but there's a serious shortage of
+> caring wanna-be-parents for those plugins.
+>
+> I can think of maybe 10 times that a plugin has been adopted. Total. Ever.
+> It just doesn't come up that often. The whole thing is a total non-issue
+> because the truth of the matter is that no coder really wants to take over
+> somebody else's code. It's a lot more fun to write your own code instead.
+> And when you're doing things for free, "fun" is your primary purpose.
+>
+> If anybody wants to adopt a plugin and cannot get in touch with the author,
+> you can email the plugins team and they will facilitate the process or make
+> contact or whatever. But this virtually never happens. There's no need for
+> a list because it's not like we're swamped with requests or anything.
+>
+> -Otto
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From ipstenu at halfelf.org  Fri Aug  8 16:35:59 2014
+From: ipstenu at halfelf.org (Half-Elf on Tech)
+Date: Fri, 8 Aug 2014 09:35:59 -0700
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAPdLKqd2QN5_ZszJXNoU11bH6WPxSSNrmdyouZsthUuH5_4L=w@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+ <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+ <CAPdLKqd2QN5_ZszJXNoU11bH6WPxSSNrmdyouZsthUuH5_4L=w@mail.gmail.com>
+Message-ID: <etPan.53e4fc70.66334873.6b07@Louis-Fish>
+
+As a reminder, if we ?remove? your plugin, it just means not?s not going to be listed in WPORG anymore. You can still check in SVN code and all that. So in this case, Chip, closing the plugin would prevent anyone new from using it, while leaving your support forum intact. I?d probably do that since it?s not needed anymore.
+
+Just ping us at plugins AT wordpress.org and let us know :)
+
+(There?s also a way to disable the plugin, so you can push updates while not allowing new people to download, which is also a good idea to do WHILE you?re backing it out)
+
+--  
+Mika A Epstein (aka Ipstenu)
+http://ipstenu.org | http://halfelf.org
+
+On August 8, 2014 at 9:09:07 AM, Chip Bennett (chip at chipbennett.net) wrote:
+>  
+> http://wordpress.org/plugins/cbnet-ping-optimizer/
+>  
+> I had thought about asking the Plugin team to remove it, but since I still
+> see quite a bit of misinformation about the Plugin's necessity from time to
+> time, it seems to be more beneficial to leave it as-is.
+>  
+> So, that might be an approach worth taking for the OP's Plugin.
+
+
+From nikolov.tmw at gmail.com  Fri Aug  8 17:23:43 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Fri, 8 Aug 2014 20:23:43 +0300
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <etPan.53e4fc70.66334873.6b07@Louis-Fish>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+ <CAD-FghyTri6JTJ4ovmRafuac424kfvJj-qDzYMoyTTcX-=atyQ@mail.gmail.com>
+ <CAOwx47cFL8AEn5CHKoqaacyyU1pHBh9zbgYqHgemEvWAd-hZug@mail.gmail.com>
+ <CAD-Fghz33o8LCNF1k8Ts-1WhSozEuY-rrKV9URSZNZyMtZhSgA@mail.gmail.com>
+ <CAPdLKqd2QN5_ZszJXNoU11bH6WPxSSNrmdyouZsthUuH5_4L=w@mail.gmail.com>
+ <etPan.53e4fc70.66334873.6b07@Louis-Fish>
+Message-ID: <CAOwx47e6nTcBHGYN855r1AGNOHvmrgDKTAyEYaN+cOe6tZB4yA@mail.gmail.com>
+
+Tons of great information on the subject - thanks everyone!
+
+Otto - it's true that usually no one likes working on other people's
+code(yuk!), but Chris is right I think - this is a pretty popular plugin
+and I'm assuming there would have been someone interested in adopting the
+plugin.
+
+
+On Fri, Aug 8, 2014 at 7:35 PM, Half-Elf on Tech <ipstenu at halfelf.org>
+wrote:
+
+> As a reminder, if we ?remove? your plugin, it just means not?s not going
+> to be listed in WPORG anymore. You can still check in SVN code and all
+> that. So in this case, Chip, closing the plugin would prevent anyone new
+> from using it, while leaving your support forum intact. I?d probably do
+> that since it?s not needed anymore.
+>
+> Just ping us at plugins AT wordpress.org and let us know :)
+>
+> (There?s also a way to disable the plugin, so you can push updates while
+> not allowing new people to download, which is also a good idea to do WHILE
+> you?re backing it out)
+>
+> --
+> Mika A Epstein (aka Ipstenu)
+> http://ipstenu.org | http://halfelf.org
+>
+> On August 8, 2014 at 9:09:07 AM, Chip Bennett (chip at chipbennett.net)
+> wrote:
+> >
+> > http://wordpress.org/plugins/cbnet-ping-optimizer/
+> >
+> > I had thought about asking the Plugin team to remove it, but since I
+> still
+> > see quite a bit of misinformation about the Plugin's necessity from time
+> to
+> > time, it seems to be more beneficial to leave it as-is.
+> >
+> > So, that might be an approach worth taking for the OP's Plugin.
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From burobjorn at gmail.com  Tue Aug 12 11:38:58 2014
+From: burobjorn at gmail.com (BjornW)
+Date: Tue, 12 Aug 2014 13:38:58 +0200
+Subject: [wp-hackers] Discontinuing a plugin on WordPress.org
+In-Reply-To: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+References: <CAOwx47ee4KD2n7bCtreg4hxA=p5-rCJzuVo716Xau2225Ujhng@mail.gmail.com>
+Message-ID: <53E9FCD2.2000705@gmail.com>
+
+Hi,
+
+For those of you looking for the Crowdfunding plugin sourcecode. I added 
+this to my Github repos a few months back. The last commit from the 
+original repo was from 23rd april. If anyone has a newer version, let me 
+know, but for now you'll at least have access to the sourcecode.
+
+https://github.com/BjornW/crowdfunding
+
+ps: I'm not planning to maintain this plugin, just sharing it as a 
+courtesy to fellow developers.
+
+On 08/08/2014 01:36 PM, Nikola Nikolov wrote:
+> Hi everyone,
+>
+> I was working with a client that was using the Fundify WordPress theme,
+> which was powered by a combination of Fundify Crowdfunding(
+> https://wordpress.org/plugins/appthemer-crowdfunding/ ) and EDD.
+>
+> I wanted to download the source of the plugin to my computer to easily
+> navigate through the codebase. On the plugin page they've added "(Moved)"
+> to the name of the plugin.
+> Once I extracted the archive, there was nothing but an empty .php file and
+> a readme.txt file.
+>
+> My question in this case is - is this allowed and isn't that a terrible way
+> of discontinuing a plugin? What if someone updates the plugin and their
+> site stops working? Or someone installs the plugin and nothing happens...
+>
+> Is there anything the WordPress.org plugins team can do about it?
+>
+> Best regards,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+-- 
+
+met vriendelijke groet,
+Bjorn Wijers
+
+* b u r o b j o r n .nl *
+digitaal vakmanschap | digital craftsmanship
+
+Postbus 14145
+3508 SE Utrecht
+The Netherlands
+
+tel: +31 6 49 74 78 70
+http://www.burobjorn.nl
+
+
+From yok2504 at gmail.com  Tue Aug 19 22:49:16 2014
+From: yok2504 at gmail.com (Sinan)
+Date: Wed, 20 Aug 2014 01:49:16 +0300
+Subject: [wp-hackers] Is anyone here has experience with wpmu membership
+	plugin
+Message-ID: <CABmkrsEjoec_kzazL97eJ-ESgRUSrkEghqqW2fFE9zXMXU=ktw@mail.gmail.com>
+
+Is anyone here has experience with wpmu membership plugin?
+
+https://premium.wpmudev.org/project/membership/
+
+-- 
+Sinan ??LER
+sinanisler.com <http://www.sinanisler.com/>
+
+From paul at codehooligans.com  Tue Aug 19 23:35:10 2014
+From: paul at codehooligans.com (Paul Menard)
+Date: Tue, 19 Aug 2014 19:35:10 -0400
+Subject: [wp-hackers] Is anyone here has experience with wpmu membership
+	plugin
+In-Reply-To: <CABmkrsEjoec_kzazL97eJ-ESgRUSrkEghqqW2fFE9zXMXU=ktw@mail.gmail.com>
+References: <CABmkrsEjoec_kzazL97eJ-ESgRUSrkEghqqW2fFE9zXMXU=ktw@mail.gmail.com>
+Message-ID: <B92AAD6E-08D5-4961-8E41-3D4DF61C1C34@codehooligans.com>
+
+Probably best you contact WPMU Dev directly for support on their product. I'm just saying.
+
+P-
+
+On Aug 19, 2014, at 6:49 PM, Sinan <yok2504 at gmail.com> wrote:
+
+> Is anyone here has experience with wpmu membership plugin?
+> 
+> https://premium.wpmudev.org/project/membership/
+> 
+> -- 
+> Sinan ??LER
+> sinanisler.com <http://www.sinanisler.com/>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From security at dxw.com  Wed Aug 20 10:32:29 2014
+From: security at dxw.com (dxw Security)
+Date: Wed, 20 Aug 2014 10:32:29 +0000
+Subject: [wp-hackers] Information disclosure vulnerability in WordPress
+	Mobile Pack allows anybody to read password protected posts
+	(WordPress plugin)
+Message-ID: <74bec0f6c035c1f1c9912107f941f4c8@security.dxw.com>
+
+Details
+================
+Software: WordPress Mobile Pack
+Version: 2.0.1
+Homepage: http://wordpress.org/plugins/wordpress-mobile-pack/
+Advisory report: https://security.dxw.com/advisories/information-disclosure-vulnerability-in-wordpress-mobile-pack-allows-anybody-to-read-password-protected-posts/
+CVE: Awaiting assignment
+CVSS: 5 (Medium; AV:N/AC:L/Au:N/C:P/I:N/A:N)
+
+Description
+================
+Information disclosure vulnerability in WordPress Mobile Pack allows anybody to read password protected posts
+
+Vulnerability
+================
+WordPress Mobile Pack contains a PHP file which allows anybody ? authenticated or otherwise ? to read?all public and password protected posts (draft and private posts appear not to be affected).
+
+Proof of concept
+================
+
+Create a password-protected post
+Enable WordPress Mobile Pack
+Visit http://localhost/wp-content/plugins/wordpress-mobile-pack/export/content.php?content=exportarticles&callback=x
+Your password-protected post is now visible to everybody in the form of JSON wrapped in ?x()?
+
+Example output:
+x (
+    {
+        \"articles\": [
+            {
+                \"id\": 849,
+                \"title\": \"Secret post\",
+                \"timestamp\": 1406231170,
+                \"author\": \"admin\",
+                \"date\": \"Thu, Jul 24, 2014, 19:46\",
+                \"link\": \"http://wp.local/?p=849\",
+                \"image\": \"\",
+                \"description\": \"<p>HUSH THIS IS A SECRET</p>n\",
+                \"content\": \"\",
+                \"category_id\": 1,
+                \"category_name\": \"Uncategorized\"
+            }
+        ]
+    }
+)
+
+Mitigations
+================
+
+Disclosure policy
+================
+dxw believes in responsible disclosure. Your attention is drawn to our disclosure policy: https://security.dxw.com/disclosure/
+
+Please contact us on security at dxw.com to acknowledge this report if you received it via a third party (for example, plugins at wordpress.org) as they generally cannot communicate with us on your behalf.
+
+This vulnerability will be published if we do not receive a response to this report with 14 days.
+
+Timeline
+================
+
+2014-07-24: Discovered
+2014-07-13: Reported to developer via email
+2014-08-19: Developer reported the issue fixed
+2014-08-20: Advisory published
+
+
+
+Discovered by dxw:
+================
+Tom Adams
+Please visit security.dxw.com for more information.
+          
+
+
+From dino at duechiacchiere.it  Wed Aug 20 12:01:53 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 20 Aug 2014 08:01:53 -0400
+Subject: [wp-hackers] Work on draft while page is published
+Message-ID: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+
+Hi all, 
+
+Say I've already published a page or post. I now want to make changes, but I want a colleague to check them over before they go live. Is there any way of doing this? 
+
+Thank you, 
+Dino 
+-- 
+Sent from my Android device with K-9 Mail. Please excuse my brevity.
+
+From wordpress at zed1.com  Wed Aug 20 12:29:01 2014
+From: wordpress at zed1.com (Mike Little)
+Date: Wed, 20 Aug 2014 13:29:01 +0100
+Subject: [wp-hackers] Work on draft while page is published
+In-Reply-To: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+References: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+Message-ID: <CAMb54M0xR-U3bS+vzOuOZSUjOEAbP+FqOqvkhu+Eber0JT6D9g@mail.gmail.com>
+
+On 20 August 2014 13:01, Dino Termini <dino at duechiacchiere.it> wrote:
+
+> Hi all,
+>
+> Say I've already published a page or post. I now want to make changes, but
+> I want a colleague to check them over before they go live. Is there any way
+> of doing this?
+>
+> Thank you,
+> Dino
+>
+
+
+Revisionary (http://wordpress.org/plugins/revisionary/) is one such plugin
+that looks to provide what you need.  Note: it hasn't been updated
+recently, so make sure to test thoroughly.
+
+I'm sure there are other plugins with similar functionality.
+
+
+Mike
+-- 
+Mike Little
+*WordPress Specialist*
+
+Web: mikelittle.org
+Skype: mike.little.zed1
+Twitter: @mikelittlezed1
+LinkedIn: linkedin.com/in/mikelittle
+
+Founder and Director
+*Zed1.com Limited*
+http://zed1.com/
+Registered in England & Wales, no. 6745562
+
+From dino at duechiacchiere.it  Wed Aug 20 13:17:57 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 20 Aug 2014 09:17:57 -0400
+Subject: [wp-hackers] Work on draft while page is published
+In-Reply-To: <CAMb54M0xR-U3bS+vzOuOZSUjOEAbP+FqOqvkhu+Eber0JT6D9g@mail.gmail.com>
+References: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+ <CAMb54M0xR-U3bS+vzOuOZSUjOEAbP+FqOqvkhu+Eber0JT6D9g@mail.gmail.com>
+Message-ID: <53F4A005.9060106@duechiacchiere.it>
+
+Hi Mike,
+
+I had already stumbled upon Revisionary, indeed. But, as you noted, it 
+hasn't been updated in a while. I was wondering if this is something 
+that could be considered as a core feature to enhance the revision 
+system already available in WordPress. Basically a way to edit a 
+"future" revision and preview it.
+
+Thank you,
+Dino.
+
+On 8/20/14, 8:29 AM, Mike Little wrote:
+> On 20 August 2014 13:01, Dino Termini <dino at duechiacchiere.it> wrote:
+>
+>> Hi all,
+>>
+>> Say I've already published a page or post. I now want to make changes, but
+>> I want a colleague to check them over before they go live. Is there any way
+>> of doing this?
+>>
+>> Thank you,
+>> Dino
+>>
+>
+> Revisionary (http://wordpress.org/plugins/revisionary/) is one such plugin
+> that looks to provide what you need.  Note: it hasn't been updated
+> recently, so make sure to test thoroughly.
+>
+> I'm sure there are other plugins with similar functionality.
+>
+>
+> Mike
+
+
+From nikolov.tmw at gmail.com  Wed Aug 20 13:21:28 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Wed, 20 Aug 2014 16:21:28 +0300
+Subject: [wp-hackers] Work on draft while page is published
+In-Reply-To: <53F4A005.9060106@duechiacchiere.it>
+References: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+ <CAMb54M0xR-U3bS+vzOuOZSUjOEAbP+FqOqvkhu+Eber0JT6D9g@mail.gmail.com>
+ <53F4A005.9060106@duechiacchiere.it>
+Message-ID: <CAOwx47fmOzR-aL6906+7iX0fM=Vokb6Su9c7swbi3HtvcVgXNg@mail.gmail.com>
+
+I'd think that you can have a plugin that allows you to select which
+revision is visible by default - you'd select an older revision, but you
+should be able to preview the current state of the post as well. Doesn't
+sounds like too much work and should in theory work - haven't tested
+anything like that before though.
+
+
+On Wed, Aug 20, 2014 at 4:17 PM, Dino Termini <dino at duechiacchiere.it>
+wrote:
+
+> Hi Mike,
+>
+> I had already stumbled upon Revisionary, indeed. But, as you noted, it
+> hasn't been updated in a while. I was wondering if this is something that
+> could be considered as a core feature to enhance the revision system
+> already available in WordPress. Basically a way to edit a "future" revision
+> and preview it.
+>
+> Thank you,
+> Dino.
+>
+>
+> On 8/20/14, 8:29 AM, Mike Little wrote:
+>
+>> On 20 August 2014 13:01, Dino Termini <dino at duechiacchiere.it> wrote:
+>>
+>>  Hi all,
+>>>
+>>> Say I've already published a page or post. I now want to make changes,
+>>> but
+>>> I want a colleague to check them over before they go live. Is there any
+>>> way
+>>> of doing this?
+>>>
+>>> Thank you,
+>>> Dino
+>>>
+>>>
+>> Revisionary (http://wordpress.org/plugins/revisionary/) is one such
+>> plugin
+>> that looks to provide what you need.  Note: it hasn't been updated
+>> recently, so make sure to test thoroughly.
+>>
+>> I'm sure there are other plugins with similar functionality.
+>>
+>>
+>> Mike
+>>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From jdg at codesymphony.co  Wed Aug 20 13:40:50 2014
+From: jdg at codesymphony.co (J.D. Grimes)
+Date: Wed, 20 Aug 2014 09:40:50 -0400
+Subject: [wp-hackers] Work on draft while page is published
+In-Reply-To: <CAOwx47fmOzR-aL6906+7iX0fM=Vokb6Su9c7swbi3HtvcVgXNg@mail.gmail.com>
+References: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+ <CAMb54M0xR-U3bS+vzOuOZSUjOEAbP+FqOqvkhu+Eber0JT6D9g@mail.gmail.com>
+ <53F4A005.9060106@duechiacchiere.it>
+ <CAOwx47fmOzR-aL6906+7iX0fM=Vokb6Su9c7swbi3HtvcVgXNg@mail.gmail.com>
+Message-ID: <89746573-3D64-4D3D-9B2D-D59CA0647876@codesymphony.co>
+
+There?s also the Post Forking plugin <https://github.com/post-forking/post-forking>
+
+I?ve never used it, and I think maybe it?s overkill for what you?re after.
+
+Also happened to spot this: https://github.com/ibotty/wp-post-merge I think it would let you create two different posts, and then merge them.
+
+-J.D.
+
+
+From dino at duechiacchiere.it  Wed Aug 20 14:43:01 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 20 Aug 2014 10:43:01 -0400
+Subject: [wp-hackers] Work on draft while page is published
+In-Reply-To: <89746573-3D64-4D3D-9B2D-D59CA0647876@codesymphony.co>
+References: <20d07f2e-ee4e-4eef-bbf9-badd1db7aa16@email.android.com>
+ <CAMb54M0xR-U3bS+vzOuOZSUjOEAbP+FqOqvkhu+Eber0JT6D9g@mail.gmail.com>
+ <53F4A005.9060106@duechiacchiere.it>
+ <CAOwx47fmOzR-aL6906+7iX0fM=Vokb6Su9c7swbi3HtvcVgXNg@mail.gmail.com>
+ <89746573-3D64-4D3D-9B2D-D59CA0647876@codesymphony.co>
+Message-ID: <53F4B3F5.1050902@duechiacchiere.it>
+
+Let's see if this helps ;)
+
+https://core.trac.wordpress.org/ticket/29276
+
+On 8/20/14, 9:40 AM, J.D. Grimes wrote:
+> There?s also the Post Forking plugin <https://github.com/post-forking/post-forking>
+>
+> I?ve never used it, and I think maybe it?s overkill for what you?re after.
+>
+> Also happened to spot this: https://github.com/ibotty/wp-post-merge I think it would let you create two different posts, and then merge them.
+>
+> -J.D.
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From dino at duechiacchiere.it  Thu Aug 21 03:24:54 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Wed, 20 Aug 2014 23:24:54 -0400
+Subject: [wp-hackers] Language Packs for plugins
+Message-ID: <53F56686.8050703@duechiacchiere.it>
+
+Hi,
+
+does anyone know what's the status of this feature?
+
+http://ottopress.com/2013/language-packs-101-prepwork/
+
+Otto had announced this feature in version 3.7: is there a page where we 
+can learn more on how to implement it in our plugins?
+
+Thanks,
+Dino.
+
+From otto at ottodestruct.com  Thu Aug 21 05:32:06 2014
+From: otto at ottodestruct.com (Otto)
+Date: Thu, 21 Aug 2014 00:32:06 -0500
+Subject: [wp-hackers] Language Packs for plugins
+In-Reply-To: <53F56686.8050703@duechiacchiere.it>
+References: <53F56686.8050703@duechiacchiere.it>
+Message-ID: <CAD-FghzKyJ2jCz29jn9494n-L6jhrp9YKW1_fwboBsdwKo0U-w@mail.gmail.com>
+
+A lot of language stuff is in 4.0. It will be coming sometime after that.
+
+-Otto
+
+
+On Wed, Aug 20, 2014 at 10:24 PM, Dino Termini <dino at duechiacchiere.it>
+wrote:
+
+> Hi,
+>
+> does anyone know what's the status of this feature?
+>
+> http://ottopress.com/2013/language-packs-101-prepwork/
+>
+> Otto had announced this feature in version 3.7: is there a page where we
+> can learn more on how to implement it in our plugins?
+>
+> Thanks,
+> Dino.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From dino at duechiacchiere.it  Thu Aug 21 13:02:25 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Thu, 21 Aug 2014 09:02:25 -0400
+Subject: [wp-hackers] Language Packs for plugins
+In-Reply-To: <CAD-FghzKyJ2jCz29jn9494n-L6jhrp9YKW1_fwboBsdwKo0U-w@mail.gmail.com>
+References: <53F56686.8050703@duechiacchiere.it>
+ <CAD-FghzKyJ2jCz29jn9494n-L6jhrp9YKW1_fwboBsdwKo0U-w@mail.gmail.com>
+Message-ID: <53F5EDE1.1080706@duechiacchiere.it>
+
+Thank you, Otto.
+
+On 8/21/14, 1:32 AM, Otto wrote:
+> A lot of language stuff is in 4.0. It will be coming sometime after that.
+>
+> -Otto
+>
+
+
+From lukebryan at sharefaith.com  Wed Aug 27 07:10:05 2014
+From: lukebryan at sharefaith.com (Luke Bryan)
+Date: Wed, 27 Aug 2014 00:10:05 -0700
+Subject: [wp-hackers] Extensibility and shortcodes
+Message-ID: <CAFnKAk2jXvS7wHwdPD77ZO7PoEuQY9UcTUOnubOYE9i3=4oPUQ@mail.gmail.com>
+
+Greetings all,
+
+I was looking at the wp media shortcode and wp-views, and noticed a few
+things that seem not-too-portable in the view ajax and rendering:
+
+In ajax-actions.php of Wordpress 4.0 we see this render-and-return routine
+requiring a post_id of post the user can edit:
+
+
+function wp_ajax_parse_media_shortcode() {
+    global $post, $wp_scripts;
+
+    if ( ! $post = get_post( (int) $_REQUEST['post_ID'] ) ) {
+        wp_send_json_error();
+    }
+
+    if ( empty( $_POST['shortcode'] ) || ! current_user_can( 'edit_post',
+$post->ID ) ) {
+        wp_send_json_error();
+    }
+
+    setup_postdata( $post );
+    $shortcode = do_shortcode( wp_unslash( $_REQUEST['shortcode'] ) );
+
+    if ( empty( $shortcode ) ) {
+        wp_send_json_error( array(
+            'type' => 'no-items',
+            'message' => __( 'No items found.' ),
+        ) );
+    }
+
+    $head = '';
+    $styles = wpview_media_sandbox_styles();
+
+    foreach ( $styles as $style ) {
+        $head .= '<link type="text/css" rel="stylesheet" href="' . $style .
+'">';
+    }
+
+    if ( ! empty( $wp_scripts ) ) {
+        $wp_scripts->done = array();
+    }
+
+    ob_start();
+
+    echo $shortcode;
+
+    if ( 'playlist' === $_REQUEST['type'] ) {
+        wp_underscore_playlist_templates();
+
+        wp_print_scripts( 'wp-playlist' );
+    } else {
+        wp_print_scripts( 'wp-mediaelement' );
+    }
+
+    wp_send_json_success( array(
+        'head' => $head,
+        'body' => ob_get_clean()
+    ) );
+}
+
+
+Why must this ajax call tie to the post-id of the post page containing the
+shortcode to be rendered? Is it meant to soon have "symbolically-linked"
+galleries and shortcodes that are linked to multiple post-ids, not just
+embedded as shortcode in post_content? Or is there another reason for
+requiring a post-id of a post the user can edit, not just "0", when
+rendering playlist views?
+
+I also noticed the Javascript mce object functions calling that ajax
+action  were hardcoded to look for an element with a certain id, #post_ID.
+(in wp-includes/js/media-views.js, wp-includes/js/mce-view.js). While it
+works well for the wp-admin pages as given by Wordpress, it seems it could
+use a more generic item, like a property in whatever the current tinymce
+editor is? What do you think?
+
+Glad to see there is good progress in wp 4.0
+
+Best regards,
+Luke
+
+From admin at laptoptips.ca  Wed Aug 27 20:58:48 2014
+From: admin at laptoptips.ca (Andrew Ozz)
+Date: Wed, 27 Aug 2014 13:58:48 -0700
+Subject: [wp-hackers] Extensibility and shortcodes
+In-Reply-To: <CAFnKAk2jXvS7wHwdPD77ZO7PoEuQY9UcTUOnubOYE9i3=4oPUQ@mail.gmail.com>
+References: <CAFnKAk2jXvS7wHwdPD77ZO7PoEuQY9UcTUOnubOYE9i3=4oPUQ@mail.gmail.com>
+Message-ID: <53FE4688.6020101@laptoptips.ca>
+
+On 27/08/2014 12:10 AM, Luke Bryan wrote:
+> I was looking at the wp media shortcode and wp-views, and noticed a few
+> things that seem not-too-portable in the view ajax and rendering:
+>
+> In ajax-actions.php of Wordpress 4.0 we see this render-and-return routine
+> requiring a post_id of post the user can edit:
+> ...
+> Why must this ajax call tie to the post-id of the post page containing the
+> shortcode to be rendered?
+
+This is meant for rendering the previews for these shortcodes in wpView, 
+not for returning the HTML for arbitrary shortcodes.
+
+As this happens only when a user is writing/editing a post, the AJAX 
+action requires the post_id and checks if the current user can actually 
+edit that post.
+
+

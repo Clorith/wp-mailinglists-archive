@@ -1,0 +1,5226 @@
+From dino at duechiacchiere.it  Thu May  1 22:15:27 2014
+From: dino at duechiacchiere.it (Dino Termini)
+Date: Thu, 01 May 2014 18:15:27 -0400
+Subject: [wp-hackers] Git best practices
+Message-ID: <24a8d9c6-4b91-42aa-afc1-ac886761f082@email.android.com>
+
+Hi list, 
+
+This is a question for those of you who have teams of developers working on multiple WordPress projects. What best practices do you follow to setup your dev environment with git? Does each developer get his own WP MU where he develops his piece of the project? (And how are those pieces reconciled with the git workflow?) Or they have a standalone wp install for each project?
+
+Thank you, 
+Dino
+
+From david at wordshell.net  Fri May  2 11:22:52 2014
+From: david at wordshell.net (David Anderson)
+Date: Fri, 02 May 2014 12:22:52 +0100
+Subject: [wp-hackers] Server-wide plugins
+Message-ID: <5363800C.8050801@wordshell.net>
+
+Hi,
+
+As someone who manages servers hosting lots of WordPress websites, I've 
+often wanted a convenient way for all WordPress websites on the server 
+to be able to include a plugin that's basically an mu-plugin (must-use).
+
+* Collating system-wide IP data from distributed attacks (and feeding 
+that data to a firewall)
+* Detect and terminate brute-force attacks early (e.g. detect certain 
+$_POST patterns, and end execution before further server resources are used)
+* Require a local plugin on every site, without needing to manage every 
+site individually (e.g. hosting-company-provided automatic backups)
+* Have a default hook into wp_mail() that uses the local SMTP setup
+* Hook into a local cacheing system
+
+Currently, doing this is really hack-ish. You can play around with PHP's 
+auto_prepend or auto_append configuration variables, or set up something 
+to automatically detect WordPress installs and to drop a file or symlink 
+into wp-content/mu-plugins.
+
+I've now found time to author a core patch for this: 
+https://core.trac.wordpress.org/ticket/28105
+
+The ticket has a few anticipated questions and answers about the 
+approach, so please do take a look at the ticket if this interests you.
+
+I'd love to hear feedback from other hosting providers who'd find this 
+useful. I think it'd be good if the core devs could here about the level 
+of demand from server owners for the ability to do this. Personally I'd 
+find it hugely useful.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From halukkaramete at gmail.com  Sat May  3 21:05:58 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sat, 3 May 2014 14:05:58 -0700
+Subject: [wp-hackers] Querying MicroSoft SQL server from within WordPress
+Message-ID: <CAHERW=3=oMmvhF1ACFERL83MkJ7QHAjbpu=YPTzhb4_4rWutBw@mail.gmail.com>
+
+What's the most recommended way to query MS-SQL from WordPress?
+
+I'd like to use the WordPress Database API's and the available functions as
+much as I can. Does the current codebase ( 3.9with the myqli ) support
+this?
+
+Or do I need to write my own code using PDO?
+In my theme, I need to query MSSQL and display the results within a page.
+That's what I'm up against.
+
+From nl at thoughtrefinery.com  Sat May  3 21:22:20 2014
+From: nl at thoughtrefinery.com (Nicholas Ciske)
+Date: Sat, 3 May 2014 16:22:20 -0500
+Subject: [wp-hackers] Querying MicroSoft SQL server from within WordPress
+In-Reply-To: <CAHERW=3=oMmvhF1ACFERL83MkJ7QHAjbpu=YPTzhb4_4rWutBw@mail.gmail.com>
+References: <CAHERW=3=oMmvhF1ACFERL83MkJ7QHAjbpu=YPTzhb4_4rWutBw@mail.gmail.com>
+Message-ID: <E4AFD724-14C7-41AB-8207-6B85F8E0F0B0@thoughtrefinery.com>
+
+> What's the most recommended way to query MS-SQL from WordPress?
+
+Not sure this really exists... see below for why.
+
+> I'd like to use the WordPress Database API's and the available functions as
+> much as I can. Does the current codebase ( 3.9with the myqli ) support
+> this?
+
+WordPress does not natively support databases other than MySQL. YMMV, but I'm not sure you can repoint WP_Query to MSSQL without hacking core, or that it would even work if you did.
+
+No, mysqli does not support MS SQL -- it's a MySQL library (hence the name ;-).
+http://www.php.net/manual/en/intro.mysqli.php
+
+See also:
+https://codex.wordpress.org/Using_Alternative_Databases
+
+
+> Or do I need to write my own code using PDO?
+
+
+PDO
+or
+http://www.php.net/manual/en/intro.mssql.php
+or
+http://msdn.microsoft.com/en-us/sqlserver/ff657782.aspx
+
+Depends on what version of MS SQL you?re connecting to, and which version of PHP you?re going to run the code in (as well as what the host has enabled).
+
+_________________________
+Nick Ciske
+http://thoughtrefinery.com/
+@nciske	
+
+On May 3, 2014, at 4:05 PM, Haluk Karamete <halukkaramete at gmail.com> wrote:
+
+> What's the most recommended way to query MS-SQL from WordPress?
+> 
+> I'd like to use the WordPress Database API's and the available functions as
+> much as I can. Does the current codebase ( 3.9with the myqli ) support
+> this?
+> 
+> Or do I need to write my own code using PDO?
+> In my theme, I need to query MSSQL and display the results within a page.
+> That's what I'm up against.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+From paul at codehooligans.com  Sat May  3 23:19:29 2014
+From: paul at codehooligans.com (Paul Menard)
+Date: Sat, 3 May 2014 19:19:29 -0400
+Subject: [wp-hackers] prevent theme's functions.php from loading in
+	wp-settings
+Message-ID: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+
+Greetings. I custom processing loop outside of WordPress. This is a custom
+AJAX handler and depending on the POST arguments I do some stuff outside of
+WordPress or as in this case I load WP via the following.
+
+define( 'SHORTINIT', false );
+define( 'WP_USE_THEMES', false );
+define( 'WP_DEBUG', false );
+
+// Load in WP core.
+require( $configs_array['ABSPATH'] .'wp-load.php' );
+
+So as anyone knows wp-load.php then calls wp-config.php which in turn calls
+wp-settings.php
+
+Within wp-settings.php line 324 begins the logic and my issue.
+
+if ( ! defined( 'WP_INSTALLING' ) || 'wp-activate.php' === $pagenow ) {
+if ( TEMPLATEPATH !== STYLESHEETPATH && file_exists( STYLESHEETPATH .
+'/functions.php' ) )
+include( STYLESHEETPATH . '/functions.php' );
+if ( file_exists( TEMPLATEPATH . '/functions.php' ) )
+include( TEMPLATEPATH . '/functions.php' );
+}
+
+Seems I had always thought setting the define 'WP_USER_THEME' as false
+would prevent the theme from loading. I guess I was wrong.
+
+What I'm really trying to prevent is a query used within the TwentyFourteen
+theme in twentyfourteen/inc/featured-content.php where registers an action
+for when 'wp_load' action hits. This in turn causes a get_option call for
+featured content in line 471 Not that this is a big query.
+
+$saved = (array) get_option( 'featured-content' );
+
+ Just bugs me that I can't stop it from being called.
+
+From wp at andrewnacin.com  Sat May  3 23:24:10 2014
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sat, 3 May 2014 19:24:10 -0400
+Subject: [wp-hackers] prevent theme's functions.php from loading in
+	wp-settings
+In-Reply-To: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+References: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+Message-ID: <CAP29PvjxXEHfB3o_UoDTyNB0E_4Q6ahz+2KpPca8Y9mkwMVV3g@mail.gmail.com>
+
+Well, you could stop it from being called. But trying to prevent
+functions.php from loading just to stop a single get_option() call is like
+amputating a limb because of a paper cut.
+
+If you're seeing that query, then the featured-content option isn't
+initialized. Just add that option manually (something the theme probably
+does upon save or something) and you'll avoid the SQL query. Example:
+add_option( 'featured-content', array() );
+
+
+On Sat, May 3, 2014 at 7:19 PM, Paul Menard <paul at codehooligans.com> wrote:
+
+> Greetings. I custom processing loop outside of WordPress. This is a custom
+> AJAX handler and depending on the POST arguments I do some stuff outside of
+> WordPress or as in this case I load WP via the following.
+>
+> define( 'SHORTINIT', false );
+> define( 'WP_USE_THEMES', false );
+> define( 'WP_DEBUG', false );
+>
+> // Load in WP core.
+> require( $configs_array['ABSPATH'] .'wp-load.php' );
+>
+> So as anyone knows wp-load.php then calls wp-config.php which in turn calls
+> wp-settings.php
+>
+> Within wp-settings.php line 324 begins the logic and my issue.
+>
+> if ( ! defined( 'WP_INSTALLING' ) || 'wp-activate.php' === $pagenow ) {
+> if ( TEMPLATEPATH !== STYLESHEETPATH && file_exists( STYLESHEETPATH .
+> '/functions.php' ) )
+> include( STYLESHEETPATH . '/functions.php' );
+> if ( file_exists( TEMPLATEPATH . '/functions.php' ) )
+> include( TEMPLATEPATH . '/functions.php' );
+> }
+>
+> Seems I had always thought setting the define 'WP_USER_THEME' as false
+> would prevent the theme from loading. I guess I was wrong.
+>
+> What I'm really trying to prevent is a query used within the TwentyFourteen
+> theme in twentyfourteen/inc/featured-content.php where registers an action
+> for when 'wp_load' action hits. This in turn causes a get_option call for
+> featured content in line 471 Not that this is a big query.
+>
+> $saved = (array) get_option( 'featured-content' );
+>
+>  Just bugs me that I can't stop it from being called.
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From paul at codehooligans.com  Sat May  3 23:29:04 2014
+From: paul at codehooligans.com (Paul Menard)
+Date: Sat, 3 May 2014 19:29:04 -0400
+Subject: [wp-hackers] prevent theme's functions.php from loading in
+	wp-settings
+In-Reply-To: <CAP29PvjxXEHfB3o_UoDTyNB0E_4Q6ahz+2KpPca8Y9mkwMVV3g@mail.gmail.com>
+References: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+ <CAP29PvjxXEHfB3o_UoDTyNB0E_4Q6ahz+2KpPca8Y9mkwMVV3g@mail.gmail.com>
+Message-ID: <CAHTDVP=DXAiD7tMXyskavDDvuxZy_hvN_J0Yc+tm=Yv0qjFjPA@mail.gmail.com>
+
+Thanks Andrew. But my point was more about the theme functions.php being
+loaded at all from wp-settings.php. Sure I can figure out a way to short
+circuit the get_options call but that is for TwentyFourteen. What is there
+is another theme used and the functions.php does many other queries I
+really don't want? Just seems less efficient not being able to control this
+via the WP_USE_THEMES define.
+
+P-
+
+
+On Sat, May 3, 2014 at 7:24 PM, Andrew Nacin <wp at andrewnacin.com> wrote:
+
+> Well, you could stop it from being called. But trying to prevent
+> functions.php from loading just to stop a single get_option() call is like
+> amputating a limb because of a paper cut.
+>
+> If you're seeing that query, then the featured-content option isn't
+> initialized. Just add that option manually (something the theme probably
+> does upon save or something) and you'll avoid the SQL query. Example:
+> add_option( 'featured-content', array() );
+>
+>
+> On Sat, May 3, 2014 at 7:19 PM, Paul Menard <paul at codehooligans.com>
+> wrote:
+>
+> > Greetings. I custom processing loop outside of WordPress. This is a
+> custom
+> > AJAX handler and depending on the POST arguments I do some stuff outside
+> of
+> > WordPress or as in this case I load WP via the following.
+> >
+> > define( 'SHORTINIT', false );
+> > define( 'WP_USE_THEMES', false );
+> > define( 'WP_DEBUG', false );
+> >
+> > // Load in WP core.
+> > require( $configs_array['ABSPATH'] .'wp-load.php' );
+> >
+> > So as anyone knows wp-load.php then calls wp-config.php which in turn
+> calls
+> > wp-settings.php
+> >
+> > Within wp-settings.php line 324 begins the logic and my issue.
+> >
+> > if ( ! defined( 'WP_INSTALLING' ) || 'wp-activate.php' === $pagenow ) {
+> > if ( TEMPLATEPATH !== STYLESHEETPATH && file_exists( STYLESHEETPATH .
+> > '/functions.php' ) )
+> > include( STYLESHEETPATH . '/functions.php' );
+> > if ( file_exists( TEMPLATEPATH . '/functions.php' ) )
+> > include( TEMPLATEPATH . '/functions.php' );
+> > }
+> >
+> > Seems I had always thought setting the define 'WP_USER_THEME' as false
+> > would prevent the theme from loading. I guess I was wrong.
+> >
+> > What I'm really trying to prevent is a query used within the
+> TwentyFourteen
+> > theme in twentyfourteen/inc/featured-content.php where registers an
+> action
+> > for when 'wp_load' action hits. This in turn causes a get_option call for
+> > featured content in line 471 Not that this is a big query.
+> >
+> > $saved = (array) get_option( 'featured-content' );
+> >
+> >  Just bugs me that I can't stop it from being called.
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From lists at rotorised.com  Sun May  4 02:06:49 2014
+From: lists at rotorised.com (Ryan McCue)
+Date: Sun, 04 May 2014 12:06:49 +1000
+Subject: [wp-hackers] Querying MicroSoft SQL server from within WordPress
+In-Reply-To: <CAHERW=3=oMmvhF1ACFERL83MkJ7QHAjbpu=YPTzhb4_4rWutBw@mail.gmail.com>
+References: <CAHERW=3=oMmvhF1ACFERL83MkJ7QHAjbpu=YPTzhb4_4rWutBw@mail.gmail.com>
+Message-ID: <5365A0B9.5050402@rotorised.com>
+
+On 2014-05-04 7:05, Haluk Karamete wrote:
+> Or do I need to write my own code using PDO?
+> In my theme, I need to query MSSQL and display the results within a page.
+> That's what I'm up against.
+
+You'll have to write your own code for this. wpdb is heavily reliant on 
+MySQL, and isn't really intended for use outside of WP core.
+
+If you want a similar class for MSSQL, you could try something like 
+Doctrine's DBAL: http://www.doctrine-project.org/
+
+Thanks,
+Ryan
+
+From guus at inspiration-for-success.com  Sun May  4 08:18:38 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Sun, 4 May 2014 16:18:38 +0800
+Subject: [wp-hackers] problem with wp_signon
+Message-ID: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+
+Hi,
+
+I am having a problem signing a user in with wp_signon. When calling it (before the headers have been sent) the first time the user appears not to be logged in when using is_user_logged_in. When going to another page the user is signed in however. Only the first page opened tells the users is signed in, which apparently somehow is the case.
+
+Please advise,
+
+Guus
+
+From nikolov.tmw at gmail.com  Sun May  4 08:31:47 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Sun, 4 May 2014 11:31:47 +0300
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+Message-ID: <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+
+I think the cookies are not set on the first load - so you'd have to
+redirect them in order for WordPress to detect that the user is actually
+logged-in.
+
+I could be wrong though, so if someone else has a clue...
+
+
+On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+guus at inspiration-for-success.com> wrote:
+
+> Hi,
+>
+> I am having a problem signing a user in with wp_signon. When calling it
+> (before the headers have been sent) the first time the user appears not to
+> be logged in when using is_user_logged_in. When going to another page the
+> user is signed in however. Only the first page opened tells the users is
+> signed in, which apparently somehow is the case.
+>
+> Please advise,
+>
+> Guus
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From guus at inspiration-for-success.com  Sun May  4 10:30:45 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Sun, 4 May 2014 18:30:45 +0800
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+Message-ID: <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+
+Thanks for your reply. Tried that and didn't work. I just found myself it's 
+a bug in is_user_logged_in().
+
+Nicest work around I found is to call set_current_user() just after the 
+wp_signon(), of course if the user was really logged in. Answer is here: 
+http://blog.rhysgoodwin.com/programming/wordpress-wp_signon-current_user-is-not-populated/.
+
+I guess it's time for the Wordpress team to fix that bug as it took me hours 
+and hours to figure this out. Didn't expect this type of bug in Wordpress.
+
+Guys,  please fix.
+
+-----Original Message----- 
+From: Nikola Nikolov
+Sent: Sunday, May 04, 2014 4:31 PM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] problem with wp_signon
+
+I think the cookies are not set on the first load - so you'd have to
+redirect them in order for WordPress to detect that the user is actually
+logged-in.
+
+I could be wrong though, so if someone else has a clue...
+
+
+On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+guus at inspiration-for-success.com> wrote:
+
+> Hi,
+>
+> I am having a problem signing a user in with wp_signon. When calling it
+> (before the headers have been sent) the first time the user appears not to
+> be logged in when using is_user_logged_in. When going to another page the
+> user is signed in however. Only the first page opened tells the users is
+> signed in, which apparently somehow is the case.
+>
+> Please advise,
+>
+> Guus
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From list at jaimemartinez.nl  Sun May  4 11:34:19 2014
+From: list at jaimemartinez.nl (=?utf-8?Q?Jaime_Mart=C3=ADnez?=)
+Date: Sun, 4 May 2014 13:34:19 +0200
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+Message-ID: <97CF539C-8D21-49E7-9097-1BEF13A288FC@jaimemartinez.nl>
+
+Hi Guus,
+
+You mind opening a Trac issue for this if it isn't already there on the system. Then it doens't gets lost here on the list and Trac is the place to open bugreports, right? Then the likelyhood of it being fixed will be bigger. 
+If you attach a possible patch, maybe even bigger. Thanks.
+
+Greetz,
+
+Jaime
+
+> On 4 mei 2014, at 12:30, "Guus \(IFS\)" <guus at inspiration-for-success.com> wrote:
+> 
+> Thanks for your reply. Tried that and didn't work. I just found myself it's a bug in is_user_logged_in().
+> 
+> Nicest work around I found is to call set_current_user() just after the wp_signon(), of course if the user was really logged in. Answer is here: http://blog.rhysgoodwin.com/programming/wordpress-wp_signon-current_user-is-not-populated/.
+> 
+> I guess it's time for the Wordpress team to fix that bug as it took me hours and hours to figure this out. Didn't expect this type of bug in Wordpress.
+> 
+> Guys,  please fix.
+> 
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Sunday, May 04, 2014 4:31 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+> 
+> I think the cookies are not set on the first load - so you'd have to
+> redirect them in order for WordPress to detect that the user is actually
+> logged-in.
+> 
+> I could be wrong though, so if someone else has a clue...
+> 
+> 
+> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+> guus at inspiration-for-success.com> wrote:
+> 
+>> Hi,
+>> 
+>> I am having a problem signing a user in with wp_signon. When calling it
+>> (before the headers have been sent) the first time the user appears not to
+>> be logged in when using is_user_logged_in. When going to another page the
+>> user is signed in however. Only the first page opened tells the users is
+>> signed in, which apparently somehow is the case.
+>> 
+>> Please advise,
+>> 
+>> Guus
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers 
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From guus at inspiration-for-success.com  Sun May  4 13:15:33 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Sun, 4 May 2014 21:15:33 +0800
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <97CF539C-8D21-49E7-9097-1BEF13A288FC@jaimemartinez.nl>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <97CF539C-8D21-49E7-9097-1BEF13A288FC@jaimemartinez.nl>
+Message-ID: <E4663B021A674861B547FA97FBF517A8@megaheights.net>
+
+https://core.trac.wordpress.org/ticket/28116
+
+-----Original Message----- 
+From: Jaime Mart?nez
+Sent: Sunday, May 04, 2014 7:34 PM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] problem with wp_signon
+
+Hi Guus,
+
+You mind opening a Trac issue for this if it isn't already there on the 
+system. Then it doens't gets lost here on the list and Trac is the place to 
+open bugreports, right? Then the likelyhood of it being fixed will be 
+bigger.
+If you attach a possible patch, maybe even bigger. Thanks.
+
+Greetz,
+
+Jaime
+
+> On 4 mei 2014, at 12:30, "Guus \(IFS\)" <guus at inspiration-for-success.com> 
+> wrote:
+>
+> Thanks for your reply. Tried that and didn't work. I just found myself 
+> it's a bug in is_user_logged_in().
+>
+> Nicest work around I found is to call set_current_user() just after the 
+> wp_signon(), of course if the user was really logged in. Answer is here: 
+> http://blog.rhysgoodwin.com/programming/wordpress-wp_signon-current_user-is-not-populated/.
+>
+> I guess it's time for the Wordpress team to fix that bug as it took me 
+> hours and hours to figure this out. Didn't expect this type of bug in 
+> Wordpress.
+>
+> Guys,  please fix.
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Sunday, May 04, 2014 4:31 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+> I think the cookies are not set on the first load - so you'd have to
+> redirect them in order for WordPress to detect that the user is actually
+> logged-in.
+>
+> I could be wrong though, so if someone else has a clue...
+>
+>
+> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+> guus at inspiration-for-success.com> wrote:
+>
+>> Hi,
+>>
+>> I am having a problem signing a user in with wp_signon. When calling it
+>> (before the headers have been sent) the first time the user appears not 
+>> to
+>> be logged in when using is_user_logged_in. When going to another page the
+>> user is signed in however. Only the first page opened tells the users is
+>> signed in, which apparently somehow is the case.
+>>
+>> Please advise,
+>>
+>> Guus
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From otto at ottodestruct.com  Sun May  4 19:39:31 2014
+From: otto at ottodestruct.com (Otto)
+Date: Sun, 4 May 2014 14:39:31 -0500
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+Message-ID: <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+
+This isn't really a bug. I think you're just using the wrong function for
+your purpose.
+
+The purpose of calling wp_signon is to validate credentials and then send
+back appropriate authentication cookies to the visitor's browser. It
+doesn't set the current user because it doesn't have to do that. Setting
+the current user in wp_signon would serve no real purpose at this point in
+the code.
+
+The thing is, you don't need a username or password or anything else to set
+the current user. Just call wp_set_current_user with the user's ID, and
+bam, you're that user.
+
+In your _my_user_login function, you call wp_signon totally unnecessarily.
+You can just take the ID you got from the user you created in the function
+before that and simple set the current user to that ID. The only thing
+calling wp_signon will do here is send the auth cookie back to the browser.
+
+-Otto
+
+
+
+On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Thanks for your reply. Tried that and didn't work. I just found myself
+> it's a bug in is_user_logged_in().
+>
+> Nicest work around I found is to call set_current_user() just after the
+> wp_signon(), of course if the user was really logged in. Answer is here:
+> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+> signon-current_user-is-not-populated/.
+>
+> I guess it's time for the Wordpress team to fix that bug as it took me
+> hours and hours to figure this out. Didn't expect this type of bug in
+> Wordpress.
+>
+> Guys,  please fix.
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Sunday, May 04, 2014 4:31 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+>
+> I think the cookies are not set on the first load - so you'd have to
+> redirect them in order for WordPress to detect that the user is actually
+> logged-in.
+>
+> I could be wrong though, so if someone else has a clue...
+>
+>
+> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+> guus at inspiration-for-success.com> wrote:
+>
+>  Hi,
+>>
+>> I am having a problem signing a user in with wp_signon. When calling it
+>> (before the headers have been sent) the first time the user appears not to
+>> be logged in when using is_user_logged_in. When going to another page the
+>> user is signed in however. Only the first page opened tells the users is
+>> signed in, which apparently somehow is the case.
+>>
+>> Please advise,
+>>
+>> Guus
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From guus at inspiration-for-success.com  Mon May  5 04:49:53 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Mon, 5 May 2014 12:49:53 +0800
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+Message-ID: <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+
+Well, I'm not sure how it was all meant to be, but to me it's pretty 
+confusing if I try to sign the user in with wp_signon() and then cannot 
+check later on in the code if the user is logged in with 
+is_user_logged_in(), especially finding that the user was actually logged in 
+with wp_signon() when going to another page (which was also confirmed as a 
+user object was returned and not an error code.
+
+It took me hours in actual time and weeks in lead time to finally find out 
+it doesn't work as I expected it to work.
+
+-----Original Message----- 
+From: Otto
+Sent: Monday, May 05, 2014 3:39 AM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] problem with wp_signon
+
+This isn't really a bug. I think you're just using the wrong function for
+your purpose.
+
+The purpose of calling wp_signon is to validate credentials and then send
+back appropriate authentication cookies to the visitor's browser. It
+doesn't set the current user because it doesn't have to do that. Setting
+the current user in wp_signon would serve no real purpose at this point in
+the code.
+
+The thing is, you don't need a username or password or anything else to set
+the current user. Just call wp_set_current_user with the user's ID, and
+bam, you're that user.
+
+In your _my_user_login function, you call wp_signon totally unnecessarily.
+You can just take the ID you got from the user you created in the function
+before that and simple set the current user to that ID. The only thing
+calling wp_signon will do here is send the auth cookie back to the browser.
+
+-Otto
+
+
+
+On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Thanks for your reply. Tried that and didn't work. I just found myself
+> it's a bug in is_user_logged_in().
+>
+> Nicest work around I found is to call set_current_user() just after the
+> wp_signon(), of course if the user was really logged in. Answer is here:
+> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+> signon-current_user-is-not-populated/.
+>
+> I guess it's time for the Wordpress team to fix that bug as it took me
+> hours and hours to figure this out. Didn't expect this type of bug in
+> Wordpress.
+>
+> Guys,  please fix.
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Sunday, May 04, 2014 4:31 PM
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+>
+> I think the cookies are not set on the first load - so you'd have to
+> redirect them in order for WordPress to detect that the user is actually
+> logged-in.
+>
+> I could be wrong though, so if someone else has a clue...
+>
+>
+> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+> guus at inspiration-for-success.com> wrote:
+>
+>  Hi,
+>>
+>> I am having a problem signing a user in with wp_signon. When calling it
+>> (before the headers have been sent) the first time the user appears not 
+>> to
+>> be logged in when using is_user_logged_in. When going to another page the
+>> user is signed in however. Only the first page opened tells the users is
+>> signed in, which apparently somehow is the case.
+>>
+>> Please advise,
+>>
+>> Guus
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From nikolov.tmw at gmail.com  Mon May  5 08:16:53 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 5 May 2014 11:16:53 +0300
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+ <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+Message-ID: <CAOwx47frLuitGJwLZdkyKFZL8z_XJ=twNL7rBXLmsLhqNGTveA@mail.gmail.com>
+
+If you look into wp-login.php, you'll see that after wp_signon() is called,
+the user is redirected(if the credentials were correct) right away, which
+basically loads another page and the cookie becomes available.
+In general this is how cookies work :) If you set a cookie with PHP, it
+will not be available in the same script execution, but in a following
+one(since I assume PHP gets cookies data before/at the very beginning of
+execution and doesn't modify it after setcookie() calls).
+
+Slightly off-topic - whenever I need to log-in to a site without the
+credentials(for instance when the admin hasn't given me access to the
+dashboard, but wants me to fix a problem), I use a combination of
+wp_set_current_user( $user->ID, $user->user_login );
+wp_set_auth_cookie( $user->ID, true );
+do_action( 'wp_login', $user->user_login, $user );
+
+This immediately makes me seem logged-in(because of wp_set_current_user()
+), but obviously doesn't make any security checks.
+
+
+On Mon, May 5, 2014 at 7:49 AM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Well, I'm not sure how it was all meant to be, but to me it's pretty
+> confusing if I try to sign the user in with wp_signon() and then cannot
+> check later on in the code if the user is logged in with
+> is_user_logged_in(), especially finding that the user was actually logged
+> in with wp_signon() when going to another page (which was also confirmed as
+> a user object was returned and not an error code.
+>
+> It took me hours in actual time and weeks in lead time to finally find out
+> it doesn't work as I expected it to work.
+>
+> -----Original Message----- From: Otto
+> Sent: Monday, May 05, 2014 3:39 AM
+>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+> This isn't really a bug. I think you're just using the wrong function for
+> your purpose.
+>
+> The purpose of calling wp_signon is to validate credentials and then send
+> back appropriate authentication cookies to the visitor's browser. It
+> doesn't set the current user because it doesn't have to do that. Setting
+> the current user in wp_signon would serve no real purpose at this point in
+> the code.
+>
+> The thing is, you don't need a username or password or anything else to set
+> the current user. Just call wp_set_current_user with the user's ID, and
+> bam, you're that user.
+>
+> In your _my_user_login function, you call wp_signon totally unnecessarily.
+> You can just take the ID you got from the user you created in the function
+> before that and simple set the current user to that ID. The only thing
+> calling wp_signon will do here is send the auth cookie back to the browser.
+>
+> -Otto
+>
+>
+>
+> On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.
+> com
+>
+>> wrote:
+>>
+>
+>  Thanks for your reply. Tried that and didn't work. I just found myself
+>> it's a bug in is_user_logged_in().
+>>
+>> Nicest work around I found is to call set_current_user() just after the
+>> wp_signon(), of course if the user was really logged in. Answer is here:
+>> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+>> signon-current_user-is-not-populated/.
+>>
+>> I guess it's time for the Wordpress team to fix that bug as it took me
+>> hours and hours to figure this out. Didn't expect this type of bug in
+>> Wordpress.
+>>
+>> Guys,  please fix.
+>>
+>> -----Original Message----- From: Nikola Nikolov
+>> Sent: Sunday, May 04, 2014 4:31 PM
+>> To: wp-hackers at lists.automattic.com
+>> Subject: Re: [wp-hackers] problem with wp_signon
+>>
+>>
+>> I think the cookies are not set on the first load - so you'd have to
+>> redirect them in order for WordPress to detect that the user is actually
+>> logged-in.
+>>
+>> I could be wrong though, so if someone else has a clue...
+>>
+>>
+>> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+>> guus at inspiration-for-success.com> wrote:
+>>
+>>  Hi,
+>>
+>>>
+>>> I am having a problem signing a user in with wp_signon. When calling it
+>>> (before the headers have been sent) the first time the user appears not
+>>> to
+>>> be logged in when using is_user_logged_in. When going to another page the
+>>> user is signed in however. Only the first page opened tells the users is
+>>> signed in, which apparently somehow is the case.
+>>>
+>>> Please advise,
+>>>
+>>> Guus
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>>  _______________________________________________
+>>>
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nl at thoughtrefinery.com  Mon May  5 14:56:12 2014
+From: nl at thoughtrefinery.com (Nicholas Ciske)
+Date: Mon, 5 May 2014 09:56:12 -0500
+Subject: [wp-hackers] prevent theme's functions.php from loading in
+	wp-settings
+In-Reply-To: <CAHTDVP=DXAiD7tMXyskavDDvuxZy_hvN_J0Yc+tm=Yv0qjFjPA@mail.gmail.com>
+References: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+ <CAP29PvjxXEHfB3o_UoDTyNB0E_4Q6ahz+2KpPca8Y9mkwMVV3g@mail.gmail.com>
+ <CAHTDVP=DXAiD7tMXyskavDDvuxZy_hvN_J0Yc+tm=Yv0qjFjPA@mail.gmail.com>
+Message-ID: <14E9CECB-D177-4CD2-B560-6CF59BC361FC@thoughtrefinery.com>
+
+Tried define( 'SHORTINIT', true ); ? That keeps wp-settings.php from loading in the first place.
+
+What if you define 'WP_INSTALLING' to something? That would seem to preclude the loading of functions.php -- but feels hacky.
+
+See also:
+http://wordpress.org/support/topic/load-wp-core-in-another-framework-shortinit-wp_query
+
+Or perhaps you need to reframe the problem and just use a WP Ajax handler instead?
+
+_________________________
+Nick Ciske
+http://thoughtrefinery.com/
+@nciske	
+
+On May 3, 2014, at 6:29 PM, Paul Menard <paul at codehooligans.com> wrote:
+
+> Thanks Andrew. But my point was more about the theme functions.php being
+> loaded at all from wp-settings.php. Sure I can figure out a way to short
+> circuit the get_options call but that is for TwentyFourteen. What is there
+> is another theme used and the functions.php does many other queries I
+> really don't want? Just seems less efficient not being able to control this
+> via the WP_USE_THEMES define.
+> 
+> P-
+
+From nikolov.tmw at gmail.com  Mon May  5 15:07:32 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 5 May 2014 18:07:32 +0300
+Subject: [wp-hackers] prevent theme's functions.php from loading in
+	wp-settings
+In-Reply-To: <14E9CECB-D177-4CD2-B560-6CF59BC361FC@thoughtrefinery.com>
+References: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+ <CAP29PvjxXEHfB3o_UoDTyNB0E_4Q6ahz+2KpPca8Y9mkwMVV3g@mail.gmail.com>
+ <CAHTDVP=DXAiD7tMXyskavDDvuxZy_hvN_J0Yc+tm=Yv0qjFjPA@mail.gmail.com>
+ <14E9CECB-D177-4CD2-B560-6CF59BC361FC@thoughtrefinery.com>
+Message-ID: <CAOwx47etRqpMkG4XJry2wJniWu4aVGtjOwbbyVCWj8VxwdWoKg@mail.gmail.com>
+
+WP Ajax handlers(the one at /wp-admin/admin-ajax.php) load all plugins and
+themes as well(since themes can also register AJAX action handlers).
+
+
+On Mon, May 5, 2014 at 5:56 PM, Nicholas Ciske <nl at thoughtrefinery.com>wrote:
+
+> Tried define( 'SHORTINIT', true ); ? That keeps wp-settings.php from
+> loading in the first place.
+>
+> What if you define 'WP_INSTALLING' to something? That would seem to
+> preclude the loading of functions.php -- but feels hacky.
+>
+> See also:
+>
+> http://wordpress.org/support/topic/load-wp-core-in-another-framework-shortinit-wp_query
+>
+> Or perhaps you need to reframe the problem and just use a WP Ajax handler
+> instead?
+>
+> _________________________
+> Nick Ciske
+> http://thoughtrefinery.com/
+> @nciske
+>
+> On May 3, 2014, at 6:29 PM, Paul Menard <paul at codehooligans.com> wrote:
+>
+> > Thanks Andrew. But my point was more about the theme functions.php being
+> > loaded at all from wp-settings.php. Sure I can figure out a way to short
+> > circuit the get_options call but that is for TwentyFourteen. What is
+> there
+> > is another theme used and the functions.php does many other queries I
+> > really don't want? Just seems less efficient not being able to control
+> this
+> > via the WP_USE_THEMES define.
+> >
+> > P-
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From paul at codehooligans.com  Mon May  5 15:57:02 2014
+From: paul at codehooligans.com (Paul Menard)
+Date: Mon, 5 May 2014 11:57:02 -0400
+Subject: [wp-hackers] prevent theme's functions.php from loading in
+	wp-settings
+In-Reply-To: <CAOwx47etRqpMkG4XJry2wJniWu4aVGtjOwbbyVCWj8VxwdWoKg@mail.gmail.com>
+References: <CAHTDVP=KumqQ1o6Yf8dQmh2KXtivoirO637m00+_qWVGqu0VtA@mail.gmail.com>
+ <CAP29PvjxXEHfB3o_UoDTyNB0E_4Q6ahz+2KpPca8Y9mkwMVV3g@mail.gmail.com>
+ <CAHTDVP=DXAiD7tMXyskavDDvuxZy_hvN_J0Yc+tm=Yv0qjFjPA@mail.gmail.com>
+ <14E9CECB-D177-4CD2-B560-6CF59BC361FC@thoughtrefinery.com>
+ <CAOwx47etRqpMkG4XJry2wJniWu4aVGtjOwbbyVCWj8VxwdWoKg@mail.gmail.com>
+Message-ID: <CAHTDVPnYQqYn8hh9KhVC58igcKw+jxid110RDD3hRbS-qCqDzQ@mail.gmail.com>
+
+Nick,
+
+I'm using SHORTINIT in another area of the AJAX handler when I don't need
+to load the entire WP environment. So yes, I'm aware of how this works.
+Have not tried WP_INSTALLING. And agree it seems hack-ish. But might just
+work.
+
+To restate when I define WP_USE_THEMES as false I would expect no part of
+the theme to be loaded including the theme functions.php. This is
+regardless of using my own AJAX handler. What if I were just side-loading
+WordPress and needed WP core functionality but not the theme?
+
+Not a big issues. I'm already gaining a large efficiency using the
+SHORTINIT and bypassing loading all the plugins for each request.
+
+
+Nikola,
+
+Correct. When using the WP admin-ajax handler it loads all plugins into the
+environment before servicing the specific ajax handler. This is expected.
+And this is where I'm using my own handler. Then I can decide what parts of
+WP I needed to load.
+
+Paul
+
+
+
+
+On Mon, May 5, 2014 at 11:07 AM, Nikola Nikolov <nikolov.tmw at gmail.com>wrote:
+
+> WP Ajax handlers(the one at /wp-admin/admin-ajax.php) load all plugins and
+> themes as well(since themes can also register AJAX action handlers).
+>
+>
+> On Mon, May 5, 2014 at 5:56 PM, Nicholas Ciske <nl at thoughtrefinery.com
+> >wrote:
+>
+> > Tried define( 'SHORTINIT', true ); ? That keeps wp-settings.php from
+> > loading in the first place.
+> >
+> > What if you define 'WP_INSTALLING' to something? That would seem to
+> > preclude the loading of functions.php -- but feels hacky.
+> >
+> > See also:
+> >
+> >
+> http://wordpress.org/support/topic/load-wp-core-in-another-framework-shortinit-wp_query
+> >
+> > Or perhaps you need to reframe the problem and just use a WP Ajax handler
+> > instead?
+> >
+> > _________________________
+> > Nick Ciske
+> > http://thoughtrefinery.com/
+> > @nciske
+> >
+> > On May 3, 2014, at 6:29 PM, Paul Menard <paul at codehooligans.com> wrote:
+> >
+> > > Thanks Andrew. But my point was more about the theme functions.php
+> being
+> > > loaded at all from wp-settings.php. Sure I can figure out a way to
+> short
+> > > circuit the get_options call but that is for TwentyFourteen. What is
+> > there
+> > > is another theme used and the functions.php does many other queries I
+> > > really don't want? Just seems less efficient not being able to control
+> > this
+> > > via the WP_USE_THEMES define.
+> > >
+> > > P-
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From guus at inspiration-for-success.com  Mon May  5 18:03:21 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Tue, 6 May 2014 02:03:21 +0800
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <CAOwx47frLuitGJwLZdkyKFZL8z_XJ=twNL7rBXLmsLhqNGTveA@mail.gmail.com>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+ <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+ <CAOwx47frLuitGJwLZdkyKFZL8z_XJ=twNL7rBXLmsLhqNGTveA@mail.gmail.com>
+Message-ID: <607D8D78D80746FF97BE43F99655C556@megaheights.net>
+
+Hi Nikola,
+
+Thanks for explaining, but I tried redirecting after wp_signon and that 
+still didn't work.
+
+And my problem is either there is a bug in is_user_logged_in() or the 
+documentation of either wp_signon() or is_user_logged_in() is wrong, at 
+least unclear,
+
+Guus
+
+-----Original Message----- 
+From: Nikola Nikolov
+Sent: Monday, May 05, 2014 4:16 PM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] problem with wp_signon
+
+If you look into wp-login.php, you'll see that after wp_signon() is called,
+the user is redirected(if the credentials were correct) right away, which
+basically loads another page and the cookie becomes available.
+In general this is how cookies work :) If you set a cookie with PHP, it
+will not be available in the same script execution, but in a following
+one(since I assume PHP gets cookies data before/at the very beginning of
+execution and doesn't modify it after setcookie() calls).
+
+Slightly off-topic - whenever I need to log-in to a site without the
+credentials(for instance when the admin hasn't given me access to the
+dashboard, but wants me to fix a problem), I use a combination of
+wp_set_current_user( $user->ID, $user->user_login );
+wp_set_auth_cookie( $user->ID, true );
+do_action( 'wp_login', $user->user_login, $user );
+
+This immediately makes me seem logged-in(because of wp_set_current_user()
+), but obviously doesn't make any security checks.
+
+
+On Mon, May 5, 2014 at 7:49 AM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Well, I'm not sure how it was all meant to be, but to me it's pretty
+> confusing if I try to sign the user in with wp_signon() and then cannot
+> check later on in the code if the user is logged in with
+> is_user_logged_in(), especially finding that the user was actually logged
+> in with wp_signon() when going to another page (which was also confirmed 
+> as
+> a user object was returned and not an error code.
+>
+> It took me hours in actual time and weeks in lead time to finally find out
+> it doesn't work as I expected it to work.
+>
+> -----Original Message----- From: Otto
+> Sent: Monday, May 05, 2014 3:39 AM
+>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+> This isn't really a bug. I think you're just using the wrong function for
+> your purpose.
+>
+> The purpose of calling wp_signon is to validate credentials and then send
+> back appropriate authentication cookies to the visitor's browser. It
+> doesn't set the current user because it doesn't have to do that. Setting
+> the current user in wp_signon would serve no real purpose at this point in
+> the code.
+>
+> The thing is, you don't need a username or password or anything else to 
+> set
+> the current user. Just call wp_set_current_user with the user's ID, and
+> bam, you're that user.
+>
+> In your _my_user_login function, you call wp_signon totally unnecessarily.
+> You can just take the ID you got from the user you created in the function
+> before that and simple set the current user to that ID. The only thing
+> calling wp_signon will do here is send the auth cookie back to the 
+> browser.
+>
+> -Otto
+>
+>
+>
+> On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.
+> com
+>
+>> wrote:
+>>
+>
+>  Thanks for your reply. Tried that and didn't work. I just found myself
+>> it's a bug in is_user_logged_in().
+>>
+>> Nicest work around I found is to call set_current_user() just after the
+>> wp_signon(), of course if the user was really logged in. Answer is here:
+>> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+>> signon-current_user-is-not-populated/.
+>>
+>> I guess it's time for the Wordpress team to fix that bug as it took me
+>> hours and hours to figure this out. Didn't expect this type of bug in
+>> Wordpress.
+>>
+>> Guys,  please fix.
+>>
+>> -----Original Message----- From: Nikola Nikolov
+>> Sent: Sunday, May 04, 2014 4:31 PM
+>> To: wp-hackers at lists.automattic.com
+>> Subject: Re: [wp-hackers] problem with wp_signon
+>>
+>>
+>> I think the cookies are not set on the first load - so you'd have to
+>> redirect them in order for WordPress to detect that the user is actually
+>> logged-in.
+>>
+>> I could be wrong though, so if someone else has a clue...
+>>
+>>
+>> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+>> guus at inspiration-for-success.com> wrote:
+>>
+>>  Hi,
+>>
+>>>
+>>> I am having a problem signing a user in with wp_signon. When calling it
+>>> (before the headers have been sent) the first time the user appears not
+>>> to
+>>> be logged in when using is_user_logged_in. When going to another page 
+>>> the
+>>> user is signed in however. Only the first page opened tells the users is
+>>> signed in, which apparently somehow is the case.
+>>>
+>>> Please advise,
+>>>
+>>> Guus
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>>  _______________________________________________
+>>>
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From nikolov.tmw at gmail.com  Mon May  5 18:22:34 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 5 May 2014 21:22:34 +0300
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <607D8D78D80746FF97BE43F99655C556@megaheights.net>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+ <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+ <CAOwx47frLuitGJwLZdkyKFZL8z_XJ=twNL7rBXLmsLhqNGTveA@mail.gmail.com>
+ <607D8D78D80746FF97BE43F99655C556@megaheights.net>
+Message-ID: <CAOwx47cGOcOyPBnAgPdB2LRtTXdOozjx=xfniGFUfwoaf5mibw@mail.gmail.com>
+
+The thing is there shouldn't be a problem, since that's what is used in
+WP-core to log users in from wp-login.php.. Can you post your code(to
+gist.github.com or similar), so we can look at an example where this
+occurs? If you can strip as much possible until you get code that can be
+used to reproduce the issue, that will be pretty helpful as well.
+
+Nikola
+
+
+On Mon, May 5, 2014 at 9:03 PM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Hi Nikola,
+>
+> Thanks for explaining, but I tried redirecting after wp_signon and that
+> still didn't work.
+>
+> And my problem is either there is a bug in is_user_logged_in() or the
+> documentation of either wp_signon() or is_user_logged_in() is wrong, at
+> least unclear,
+>
+> Guus
+>
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Monday, May 05, 2014 4:16 PM
+>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+> If you look into wp-login.php, you'll see that after wp_signon() is called,
+> the user is redirected(if the credentials were correct) right away, which
+> basically loads another page and the cookie becomes available.
+> In general this is how cookies work :) If you set a cookie with PHP, it
+> will not be available in the same script execution, but in a following
+> one(since I assume PHP gets cookies data before/at the very beginning of
+> execution and doesn't modify it after setcookie() calls).
+>
+> Slightly off-topic - whenever I need to log-in to a site without the
+> credentials(for instance when the admin hasn't given me access to the
+> dashboard, but wants me to fix a problem), I use a combination of
+> wp_set_current_user( $user->ID, $user->user_login );
+> wp_set_auth_cookie( $user->ID, true );
+> do_action( 'wp_login', $user->user_login, $user );
+>
+> This immediately makes me seem logged-in(because of wp_set_current_user()
+> ), but obviously doesn't make any security checks.
+>
+>
+> On Mon, May 5, 2014 at 7:49 AM, Guus (IFS) <guus at inspiration-for-success.
+> com
+>
+>> wrote:
+>>
+>
+>  Well, I'm not sure how it was all meant to be, but to me it's pretty
+>> confusing if I try to sign the user in with wp_signon() and then cannot
+>> check later on in the code if the user is logged in with
+>> is_user_logged_in(), especially finding that the user was actually logged
+>> in with wp_signon() when going to another page (which was also confirmed
+>> as
+>> a user object was returned and not an error code.
+>>
+>> It took me hours in actual time and weeks in lead time to finally find out
+>> it doesn't work as I expected it to work.
+>>
+>> -----Original Message----- From: Otto
+>> Sent: Monday, May 05, 2014 3:39 AM
+>>
+>> To: wp-hackers at lists.automattic.com
+>> Subject: Re: [wp-hackers] problem with wp_signon
+>>
+>> This isn't really a bug. I think you're just using the wrong function for
+>> your purpose.
+>>
+>> The purpose of calling wp_signon is to validate credentials and then send
+>> back appropriate authentication cookies to the visitor's browser. It
+>> doesn't set the current user because it doesn't have to do that. Setting
+>> the current user in wp_signon would serve no real purpose at this point in
+>> the code.
+>>
+>> The thing is, you don't need a username or password or anything else to
+>> set
+>> the current user. Just call wp_set_current_user with the user's ID, and
+>> bam, you're that user.
+>>
+>> In your _my_user_login function, you call wp_signon totally unnecessarily.
+>> You can just take the ID you got from the user you created in the function
+>> before that and simple set the current user to that ID. The only thing
+>> calling wp_signon will do here is send the auth cookie back to the
+>> browser.
+>>
+>> -Otto
+>>
+>>
+>>
+>> On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.
+>> com
+>>
+>>  wrote:
+>>>
+>>>
+>>  Thanks for your reply. Tried that and didn't work. I just found myself
+>>
+>>> it's a bug in is_user_logged_in().
+>>>
+>>> Nicest work around I found is to call set_current_user() just after the
+>>> wp_signon(), of course if the user was really logged in. Answer is here:
+>>> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+>>> signon-current_user-is-not-populated/.
+>>>
+>>> I guess it's time for the Wordpress team to fix that bug as it took me
+>>> hours and hours to figure this out. Didn't expect this type of bug in
+>>> Wordpress.
+>>>
+>>> Guys,  please fix.
+>>>
+>>> -----Original Message----- From: Nikola Nikolov
+>>> Sent: Sunday, May 04, 2014 4:31 PM
+>>> To: wp-hackers at lists.automattic.com
+>>> Subject: Re: [wp-hackers] problem with wp_signon
+>>>
+>>>
+>>> I think the cookies are not set on the first load - so you'd have to
+>>> redirect them in order for WordPress to detect that the user is actually
+>>> logged-in.
+>>>
+>>> I could be wrong though, so if someone else has a clue...
+>>>
+>>>
+>>> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+>>> guus at inspiration-for-success.com> wrote:
+>>>
+>>>  Hi,
+>>>
+>>>
+>>>> I am having a problem signing a user in with wp_signon. When calling it
+>>>> (before the headers have been sent) the first time the user appears not
+>>>> to
+>>>> be logged in when using is_user_logged_in. When going to another page
+>>>> the
+>>>> user is signed in however. Only the first page opened tells the users is
+>>>> signed in, which apparently somehow is the case.
+>>>>
+>>>> Please advise,
+>>>>
+>>>> Guus
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>>
+>>>>  _______________________________________________
+>>>>
+>>>>  wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>>  _______________________________________________
+>>>
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From developer at rogerhub.com  Tue May  6 01:30:54 2014
+From: developer at rogerhub.com (Roger Chen (RogerHub))
+Date: Mon, 5 May 2014 18:30:54 -0700
+Subject: [wp-hackers] Git best practices
+In-Reply-To: <24a8d9c6-4b91-42aa-afc1-ac886761f082@email.android.com>
+References: <24a8d9c6-4b91-42aa-afc1-ac886761f082@email.android.com>
+Message-ID: <CAEdQCeVdMsVDqhgqABGjh7BBRZ5apEyvxBb9HY1rSgLEKscSgw@mail.gmail.com>
+
+Our developers use Vagrant with a simple configuration that sets up WPMU on
+a VM with some essential themes, plugins, settings (from a database dump)
+etc. Everything is kept under version control with git. Then, most of our
+devs use rsync or something similar to test code on their VM. When they're
+done, they commit back to git from their hosts (not within the VM). I find
+it easier than hosting VM's centrally. If they're working on more than one
+project, you can always setup multiple VMs. Unless there's some bizarre
+reason why database data needs to be shared among developers, it's usually
+enough to just check in updated code to version control.
+
+I would highly recommend Vagrant, no matter what plan you go with..
+
+Best,
+
+Roger
+
+
+On Thu, May 1, 2014 at 3:15 PM, Dino Termini <dino at duechiacchiere.it> wrote:
+
+> Hi list,
+>
+> This is a question for those of you who have teams of developers working
+> on multiple WordPress projects. What best practices do you follow to setup
+> your dev environment with git? Does each developer get his own WP MU where
+> he develops his piece of the project? (And how are those pieces reconciled
+> with the git workflow?) Or they have a standalone wp install for each
+> project?
+>
+> Thank you,
+> Dino
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From funkatronic at gmail.com  Tue May  6 03:28:29 2014
+From: funkatronic at gmail.com (Funkatron)
+Date: Mon, 5 May 2014 22:28:29 -0500
+Subject: [wp-hackers] Calling the Edit Gallery/Playlist modals via JS
+Message-ID: <CA+-Vqo8vwVRjSZem4YRtOkn49PMErG_qTwjgPPAFytxyQQGb3Q@mail.gmail.com>
+
+Playing around with the code of the new media modals.  Thanks to some help,
+I've found out how to call the modals related to editing the audio and
+video shortcodes (via wp.media() ) but I can't figure out how to call the
+ones for gallery and playlists.  Been digging through the code and I can't
+seem to find any info.  Can anyone help me?
+
+From guus at inspiration-for-success.com  Tue May  6 10:00:02 2014
+From: guus at inspiration-for-success.com (Guus (IFS))
+Date: Tue, 6 May 2014 18:00:02 +0800
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <CAOwx47cGOcOyPBnAgPdB2LRtTXdOozjx=xfniGFUfwoaf5mibw@mail.gmail.com>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+ <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+ <CAOwx47frLuitGJwLZdkyKFZL8z_XJ=twNL7rBXLmsLhqNGTveA@mail.gmail.com>
+ <607D8D78D80746FF97BE43F99655C556@megaheights.net>
+ <CAOwx47cGOcOyPBnAgPdB2LRtTXdOozjx=xfniGFUfwoaf5mibw@mail.gmail.com>
+Message-ID: <778C15ED77944B4BA898890386A7CEFB@megaheights.net>
+
+I just called wp_signon() before the headers were sent as you can find 
+anywhere. Tried different places and result object was user, so user 
+supposedly logged in.
+
+Then I called is_user_logged_in() in the template which returned false. When 
+clicking any menu item after, the user was logged in. I tried to call 
+header('Location: xxx') just after the wp_signon(), but that didn't work.
+
+That's all I found and I found a similar issue described on the internet 
+http://wordpress.org/support/topic/is_user_logged_in-not-working-as-expected, 
+where I also found the solution/work-around with calling 
+wp_set_current_user() just after wp_signon(). And that worked straight away.
+
+-----Original Message----- 
+From: Nikola Nikolov
+Sent: Tuesday, May 06, 2014 2:22 AM
+To: wp-hackers at lists.automattic.com
+Subject: Re: [wp-hackers] problem with wp_signon
+
+The thing is there shouldn't be a problem, since that's what is used in
+WP-core to log users in from wp-login.php.. Can you post your code(to
+gist.github.com or similar), so we can look at an example where this
+occurs? If you can strip as much possible until you get code that can be
+used to reproduce the issue, that will be pretty helpful as well.
+
+Nikola
+
+
+On Mon, May 5, 2014 at 9:03 PM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> Hi Nikola,
+>
+> Thanks for explaining, but I tried redirecting after wp_signon and that
+> still didn't work.
+>
+> And my problem is either there is a bug in is_user_logged_in() or the
+> documentation of either wp_signon() or is_user_logged_in() is wrong, at
+> least unclear,
+>
+> Guus
+>
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Monday, May 05, 2014 4:16 PM
+>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+> If you look into wp-login.php, you'll see that after wp_signon() is 
+> called,
+> the user is redirected(if the credentials were correct) right away, which
+> basically loads another page and the cookie becomes available.
+> In general this is how cookies work :) If you set a cookie with PHP, it
+> will not be available in the same script execution, but in a following
+> one(since I assume PHP gets cookies data before/at the very beginning of
+> execution and doesn't modify it after setcookie() calls).
+>
+> Slightly off-topic - whenever I need to log-in to a site without the
+> credentials(for instance when the admin hasn't given me access to the
+> dashboard, but wants me to fix a problem), I use a combination of
+> wp_set_current_user( $user->ID, $user->user_login );
+> wp_set_auth_cookie( $user->ID, true );
+> do_action( 'wp_login', $user->user_login, $user );
+>
+> This immediately makes me seem logged-in(because of wp_set_current_user()
+> ), but obviously doesn't make any security checks.
+>
+>
+> On Mon, May 5, 2014 at 7:49 AM, Guus (IFS) <guus at inspiration-for-success.
+> com
+>
+>> wrote:
+>>
+>
+>  Well, I'm not sure how it was all meant to be, but to me it's pretty
+>> confusing if I try to sign the user in with wp_signon() and then cannot
+>> check later on in the code if the user is logged in with
+>> is_user_logged_in(), especially finding that the user was actually logged
+>> in with wp_signon() when going to another page (which was also confirmed
+>> as
+>> a user object was returned and not an error code.
+>>
+>> It took me hours in actual time and weeks in lead time to finally find 
+>> out
+>> it doesn't work as I expected it to work.
+>>
+>> -----Original Message----- From: Otto
+>> Sent: Monday, May 05, 2014 3:39 AM
+>>
+>> To: wp-hackers at lists.automattic.com
+>> Subject: Re: [wp-hackers] problem with wp_signon
+>>
+>> This isn't really a bug. I think you're just using the wrong function for
+>> your purpose.
+>>
+>> The purpose of calling wp_signon is to validate credentials and then send
+>> back appropriate authentication cookies to the visitor's browser. It
+>> doesn't set the current user because it doesn't have to do that. Setting
+>> the current user in wp_signon would serve no real purpose at this point 
+>> in
+>> the code.
+>>
+>> The thing is, you don't need a username or password or anything else to
+>> set
+>> the current user. Just call wp_set_current_user with the user's ID, and
+>> bam, you're that user.
+>>
+>> In your _my_user_login function, you call wp_signon totally 
+>> unnecessarily.
+>> You can just take the ID you got from the user you created in the 
+>> function
+>> before that and simple set the current user to that ID. The only thing
+>> calling wp_signon will do here is send the auth cookie back to the
+>> browser.
+>>
+>> -Otto
+>>
+>>
+>>
+>> On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.
+>> com
+>>
+>>  wrote:
+>>>
+>>>
+>>  Thanks for your reply. Tried that and didn't work. I just found myself
+>>
+>>> it's a bug in is_user_logged_in().
+>>>
+>>> Nicest work around I found is to call set_current_user() just after the
+>>> wp_signon(), of course if the user was really logged in. Answer is here:
+>>> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+>>> signon-current_user-is-not-populated/.
+>>>
+>>> I guess it's time for the Wordpress team to fix that bug as it took me
+>>> hours and hours to figure this out. Didn't expect this type of bug in
+>>> Wordpress.
+>>>
+>>> Guys,  please fix.
+>>>
+>>> -----Original Message----- From: Nikola Nikolov
+>>> Sent: Sunday, May 04, 2014 4:31 PM
+>>> To: wp-hackers at lists.automattic.com
+>>> Subject: Re: [wp-hackers] problem with wp_signon
+>>>
+>>>
+>>> I think the cookies are not set on the first load - so you'd have to
+>>> redirect them in order for WordPress to detect that the user is actually
+>>> logged-in.
+>>>
+>>> I could be wrong though, so if someone else has a clue...
+>>>
+>>>
+>>> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+>>> guus at inspiration-for-success.com> wrote:
+>>>
+>>>  Hi,
+>>>
+>>>
+>>>> I am having a problem signing a user in with wp_signon. When calling it
+>>>> (before the headers have been sent) the first time the user appears not
+>>>> to
+>>>> be logged in when using is_user_logged_in. When going to another page
+>>>> the
+>>>> user is signed in however. Only the first page opened tells the users 
+>>>> is
+>>>> signed in, which apparently somehow is the case.
+>>>>
+>>>> Please advise,
+>>>>
+>>>> Guus
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>>
+>>>>  _______________________________________________
+>>>>
+>>>>  wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>>  _______________________________________________
+>>>
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers 
+
+
+From nikolov.tmw at gmail.com  Tue May  6 10:32:11 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 6 May 2014 13:32:11 +0300
+Subject: [wp-hackers] problem with wp_signon
+In-Reply-To: <778C15ED77944B4BA898890386A7CEFB@megaheights.net>
+References: <9666E8AE630E42F28D996B65453D270B@megaheights.net>
+ <CAOwx47cctJPhOfveArV6zVDSSzWM0wij-m72sX4gpwdZHhK7yw@mail.gmail.com>
+ <534C4CD53EC44DA4AC0D56A8E7AD564E@megaheights.net>
+ <CAD-FghxA9NqLDggYV0AW=PvMSX_fEg31_zc7___bkeu_wYoFWw@mail.gmail.com>
+ <D6F46E876A9F472DBAD5979C727FD604@megaheights.net>
+ <CAOwx47frLuitGJwLZdkyKFZL8z_XJ=twNL7rBXLmsLhqNGTveA@mail.gmail.com>
+ <607D8D78D80746FF97BE43F99655C556@megaheights.net>
+ <CAOwx47cGOcOyPBnAgPdB2LRtTXdOozjx=xfniGFUfwoaf5mibw@mail.gmail.com>
+ <778C15ED77944B4BA898890386A7CEFB@megaheights.net>
+Message-ID: <CAOwx47fA718guy-es0H=wW_wOaeqfvD1_TUdHJp9bpAW9zENqQ@mail.gmail.com>
+
+Hi Guus,
+
+Here's what worked for me:
+
+if ( isset( $_GET['login'] ) && ! is_user_logged_in() ) {
+if ( ! is_wp_error( $result = wp_signon( array( 'user_login' => 'admin',
+'user_password' => 'demo', 'rememberme' => true ) ) ) ) {
+wp_redirect( remove_query_arg( 'login' ) );
+exit;
+} else {
+var_dump( $result );
+}
+}
+
+All I did was put that code this code in twentytwelve's functions.php and
+it worked like a charm.
+
+Again - there's no apparent reason for wp_signon() followed by
+wp_redirect() (or similar) not to work - if it didn't, you'd know :)
+
+To sum it up:
+
+wp_signon() followed immediately by is_user_logged_in() or similar *will
+not work*, due to the way that cookies are processed(the browser received
+the cookie and will send it back to the server in the following requests).
+wp_signon() followed by a page reload(so that the browser can make a new
+request) *will work*.
+
+Hope that makes sense,
+Nikola
+
+
+On Tue, May 6, 2014 at 1:00 PM, Guus (IFS) <guus at inspiration-for-success.com
+> wrote:
+
+> I just called wp_signon() before the headers were sent as you can find
+> anywhere. Tried different places and result object was user, so user
+> supposedly logged in.
+>
+> Then I called is_user_logged_in() in the template which returned false.
+> When clicking any menu item after, the user was logged in. I tried to call
+> header('Location: xxx') just after the wp_signon(), but that didn't work.
+>
+> That's all I found and I found a similar issue described on the internet
+> http://wordpress.org/support/topic/is_user_logged_in-not-
+> working-as-expected, where I also found the solution/work-around with
+> calling wp_set_current_user() just after wp_signon(). And that worked
+> straight away.
+>
+>
+> -----Original Message----- From: Nikola Nikolov
+> Sent: Tuesday, May 06, 2014 2:22 AM
+>
+> To: wp-hackers at lists.automattic.com
+> Subject: Re: [wp-hackers] problem with wp_signon
+>
+> The thing is there shouldn't be a problem, since that's what is used in
+> WP-core to log users in from wp-login.php.. Can you post your code(to
+> gist.github.com or similar), so we can look at an example where this
+> occurs? If you can strip as much possible until you get code that can be
+> used to reproduce the issue, that will be pretty helpful as well.
+>
+> Nikola
+>
+>
+> On Mon, May 5, 2014 at 9:03 PM, Guus (IFS) <guus at inspiration-for-success.
+> com
+>
+>> wrote:
+>>
+>
+>  Hi Nikola,
+>>
+>> Thanks for explaining, but I tried redirecting after wp_signon and that
+>> still didn't work.
+>>
+>> And my problem is either there is a bug in is_user_logged_in() or the
+>> documentation of either wp_signon() or is_user_logged_in() is wrong, at
+>> least unclear,
+>>
+>> Guus
+>>
+>>
+>> -----Original Message----- From: Nikola Nikolov
+>> Sent: Monday, May 05, 2014 4:16 PM
+>>
+>> To: wp-hackers at lists.automattic.com
+>> Subject: Re: [wp-hackers] problem with wp_signon
+>>
+>> If you look into wp-login.php, you'll see that after wp_signon() is
+>> called,
+>> the user is redirected(if the credentials were correct) right away, which
+>> basically loads another page and the cookie becomes available.
+>> In general this is how cookies work :) If you set a cookie with PHP, it
+>> will not be available in the same script execution, but in a following
+>> one(since I assume PHP gets cookies data before/at the very beginning of
+>> execution and doesn't modify it after setcookie() calls).
+>>
+>> Slightly off-topic - whenever I need to log-in to a site without the
+>> credentials(for instance when the admin hasn't given me access to the
+>> dashboard, but wants me to fix a problem), I use a combination of
+>> wp_set_current_user( $user->ID, $user->user_login );
+>> wp_set_auth_cookie( $user->ID, true );
+>> do_action( 'wp_login', $user->user_login, $user );
+>>
+>> This immediately makes me seem logged-in(because of wp_set_current_user()
+>> ), but obviously doesn't make any security checks.
+>>
+>>
+>> On Mon, May 5, 2014 at 7:49 AM, Guus (IFS) <guus at inspiration-for-success.
+>> com
+>>
+>>  wrote:
+>>>
+>>>
+>>  Well, I'm not sure how it was all meant to be, but to me it's pretty
+>>
+>>> confusing if I try to sign the user in with wp_signon() and then cannot
+>>> check later on in the code if the user is logged in with
+>>> is_user_logged_in(), especially finding that the user was actually logged
+>>> in with wp_signon() when going to another page (which was also confirmed
+>>> as
+>>> a user object was returned and not an error code.
+>>>
+>>> It took me hours in actual time and weeks in lead time to finally find
+>>> out
+>>> it doesn't work as I expected it to work.
+>>>
+>>> -----Original Message----- From: Otto
+>>> Sent: Monday, May 05, 2014 3:39 AM
+>>>
+>>> To: wp-hackers at lists.automattic.com
+>>> Subject: Re: [wp-hackers] problem with wp_signon
+>>>
+>>> This isn't really a bug. I think you're just using the wrong function for
+>>> your purpose.
+>>>
+>>> The purpose of calling wp_signon is to validate credentials and then send
+>>> back appropriate authentication cookies to the visitor's browser. It
+>>> doesn't set the current user because it doesn't have to do that. Setting
+>>> the current user in wp_signon would serve no real purpose at this point
+>>> in
+>>> the code.
+>>>
+>>> The thing is, you don't need a username or password or anything else to
+>>> set
+>>> the current user. Just call wp_set_current_user with the user's ID, and
+>>> bam, you're that user.
+>>>
+>>> In your _my_user_login function, you call wp_signon totally
+>>> unnecessarily.
+>>> You can just take the ID you got from the user you created in the
+>>> function
+>>> before that and simple set the current user to that ID. The only thing
+>>> calling wp_signon will do here is send the auth cookie back to the
+>>> browser.
+>>>
+>>> -Otto
+>>>
+>>>
+>>>
+>>> On Sun, May 4, 2014 at 5:30 AM, Guus (IFS) <guus at inspiration-for-success.
+>>> com
+>>>
+>>>  wrote:
+>>>
+>>>>
+>>>>
+>>>>   Thanks for your reply. Tried that and didn't work. I just found myself
+>>>
+>>>  it's a bug in is_user_logged_in().
+>>>>
+>>>> Nicest work around I found is to call set_current_user() just after the
+>>>> wp_signon(), of course if the user was really logged in. Answer is here:
+>>>> http://blog.rhysgoodwin.com/programming/wordpress-wp_
+>>>> signon-current_user-is-not-populated/.
+>>>>
+>>>> I guess it's time for the Wordpress team to fix that bug as it took me
+>>>> hours and hours to figure this out. Didn't expect this type of bug in
+>>>> Wordpress.
+>>>>
+>>>> Guys,  please fix.
+>>>>
+>>>> -----Original Message----- From: Nikola Nikolov
+>>>> Sent: Sunday, May 04, 2014 4:31 PM
+>>>> To: wp-hackers at lists.automattic.com
+>>>> Subject: Re: [wp-hackers] problem with wp_signon
+>>>>
+>>>>
+>>>> I think the cookies are not set on the first load - so you'd have to
+>>>> redirect them in order for WordPress to detect that the user is actually
+>>>> logged-in.
+>>>>
+>>>> I could be wrong though, so if someone else has a clue...
+>>>>
+>>>>
+>>>> On Sun, May 4, 2014 at 11:18 AM, Guus (IFS) <
+>>>> guus at inspiration-for-success.com> wrote:
+>>>>
+>>>>  Hi,
+>>>>
+>>>>
+>>>>  I am having a problem signing a user in with wp_signon. When calling it
+>>>>> (before the headers have been sent) the first time the user appears not
+>>>>> to
+>>>>> be logged in when using is_user_logged_in. When going to another page
+>>>>> the
+>>>>> user is signed in however. Only the first page opened tells the users
+>>>>> is
+>>>>> signed in, which apparently somehow is the case.
+>>>>>
+>>>>> Please advise,
+>>>>>
+>>>>> Guus
+>>>>> _______________________________________________
+>>>>> wp-hackers mailing list
+>>>>> wp-hackers at lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>>>
+>>>>>  _______________________________________________
+>>>>>
+>>>>>  wp-hackers mailing list
+>>>>>
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>> _______________________________________________
+>>>> wp-hackers mailing list
+>>>> wp-hackers at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>>
+>>>>  _______________________________________________
+>>>>
+>>>>  wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>>  _______________________________________________
+>>>
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>  _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From eric.andrew.lewis at gmail.com  Tue May  6 12:43:10 2014
+From: eric.andrew.lewis at gmail.com (Eric Andrew Lewis)
+Date: Tue, 6 May 2014 08:43:10 -0400
+Subject: [wp-hackers] Calling the Edit Gallery/Playlist modals via JS
+In-Reply-To: <CA+-Vqo8vwVRjSZem4YRtOkn49PMErG_qTwjgPPAFytxyQQGb3Q@mail.gmail.com>
+References: <CA+-Vqo8vwVRjSZem4YRtOkn49PMErG_qTwjgPPAFytxyQQGb3Q@mail.gmail.com>
+Message-ID: <14ECC6FD34A5463AAB4BA68E5623DA18@gmail.com>
+
+The modal has default frame workflows you can use by passing different `frame` attributes into the wp.media() arguments object.   
+
+i.e.
+
+var myFrame = wp.media( { frame: ?select? } );
+
+Select will allow the user to choose one attachment from the library, although you can make it multiple by setting the `multiple` flag in the attributes object.  
+
+var myFrame = wp.media( { frame: ?select?, multple: true } );
+
+There is a separate frame called ?Post,? which is intended for inserting content into an editor. It is invoked via var myFrame = wp.media( { frame: ?post? } ); To utilize this in a WP editor you can use the wp.media.editor.open() method to open a modal and bind it to an editor element, so when the ?insert? button is clicked, everything is wired up for you automatically and you don?t need to write more handler code.
+
+When you?re creating a gallery or a playlist, you are within a ?state? of the Post frame workflow (hold on to your seat). Depending on your needs, you might be able to just use the Post frame workflow. For anything else, you?re going to want to look into creating a custom frame workflow and duplicating the states you want from the Post frame workflow, and modifying according to your needs.
+
+--  
+Eric Andrew Lewis
+
+
+On Monday, May 5, 2014 at 11:28 PM, Funkatron wrote:
+
+> Playing around with the code of the new media modals. Thanks to some help,
+> I've found out how to call the modals related to editing the audio and
+> video shortcodes (via wp.media() ) but I can't figure out how to call the
+> ones for gallery and playlists. Been digging through the code and I can't
+> seem to find any info. Can anyone help me?
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com (mailto:wp-hackers at lists.automattic.com)
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>  
+>  
+
+
+
+From jbutkus at time.ly  Thu May  8 09:07:23 2014
+From: jbutkus at time.ly (Justas Butkus)
+Date: Thu, 08 May 2014 12:07:23 +0300
+Subject: [wp-hackers] GlotPress as a plugin
+Message-ID: <536B494B.4040705@time.ly>
+
+Hi all.
+
+I know there was work started by Marko Heijnen [1] which allowed 
+GlotPress to function as a plugin [2].
+
+There were no changes [2] for over a year. Given WordPress 3.9 and that 
+plugin - it doesn't seem to function properly, nor it's up to date with 
+GlotPress [3] itself.
+
+What do you use for translating plugins:
+     * use dedicated GlotPress set-up and use some SSO solution;
+     * do not maintain any relation between GlotPress and other sites;
+     * some other way out?
+
+
+
+-- 
+Justas Butkus
+Time.ly Network Inc.
+
+[1]: http://markoheijnen.com/glotpress/
+[2]: https://github.com/markoheijnen/glotpress-plugin
+[3]: http://blog.glotpress.org/
+
+From nikolov.tmw at gmail.com  Thu May  8 11:53:29 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Thu, 8 May 2014 14:53:29 +0300
+Subject: [wp-hackers] GlotPress as a plugin
+In-Reply-To: <536B494B.4040705@time.ly>
+References: <536B494B.4040705@time.ly>
+Message-ID: <CAOwx47dEMEzFdZeEd1VKuw_ivdFe5J7z1znMnVZEuvQo36qw1g@mail.gmail.com>
+
+I just always use Codestyling localization - it's obviously not an ideal
+way, but in my opinion it has a very easy-to-use and intuitive interface :)
+
+
+On Thu, May 8, 2014 at 12:07 PM, Justas Butkus <jbutkus at time.ly> wrote:
+
+> Hi all.
+>
+> I know there was work started by Marko Heijnen [1] which allowed GlotPress
+> to function as a plugin [2].
+>
+> There were no changes [2] for over a year. Given WordPress 3.9 and that
+> plugin - it doesn't seem to function properly, nor it's up to date with
+> GlotPress [3] itself.
+>
+> What do you use for translating plugins:
+>     * use dedicated GlotPress set-up and use some SSO solution;
+>     * do not maintain any relation between GlotPress and other sites;
+>     * some other way out?
+>
+>
+>
+> --
+> Justas Butkus
+> Time.ly Network Inc.
+>
+> [1]: http://markoheijnen.com/glotpress/
+> [2]: https://github.com/markoheijnen/glotpress-plugin
+> [3]: http://blog.glotpress.org/
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Wed May 14 07:22:57 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 14 May 2014 00:22:57 -0700
+Subject: [wp-hackers] Advanced Taxonomy Query Question
+Message-ID: <CAHERW=2h1Yy7KqDK=2Yj8S7HUH3GGMw2c+AirmVjaDCDRox4zQ@mail.gmail.com>
+
+In the following sample Advanced Tax. Query, I have 2 questions.
+
+1. does the fact that posts_per_page is being sent in as 'string' ( as
+opposed to 'integer' ) makes a difference to WordPress?
+
+2. please take a look at the branch dealing with the 'source' taxonomy, ( -
+the last one ). As you see there, the 'source' taxonomy has only one item
+to worry about and that is 'sourceX'. In a single term case like that, does
+the operator being set as 'IN' as opposed to being set as  'AND' makes a
+difference to WordPress?
+
+Sample Advanced Tax. Query
+
+Array
+(
+    [posts_per_page] => 10   <var_dump reports this as string>
+    [order] => DESC
+    [tax_query] => Array
+        (
+            [relation] => AND
+            [0] => Array
+                (
+                    [taxonomy] => category
+                    [field] => slug
+                    [terms] => Array
+                        (
+                            [0] => cat1
+                            [1] => cat2
+                        )
+
+                    [operator] => AND
+                    [include_children] =>
+                )
+
+            [1] => Array
+                (
+                    [taxonomy] => post_tag
+                    [field] => slug
+                    [terms] => Array
+                        (
+                            [0] => tag 1
+                            [1] => tag2
+                            [2] => tag3
+                        )
+
+                    [operator] => IN
+                    [include_children] => 1
+                )
+
+            [2] => Array
+                (
+                    [taxonomy] => source
+                    [field] => slug
+                    [terms] => Array
+                        (
+                            [0] => sourceX
+                        )
+
+                    [operator] => IN     <on a single term, does IN or
+AND matters?>
+                    [include_children] => 1
+                )
+
+        )
+
+)
+
+From nikolov.tmw at gmail.com  Wed May 14 07:43:05 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Wed, 14 May 2014 10:43:05 +0300
+Subject: [wp-hackers] Advanced Taxonomy Query Question
+In-Reply-To: <CAHERW=2h1Yy7KqDK=2Yj8S7HUH3GGMw2c+AirmVjaDCDRox4zQ@mail.gmail.com>
+References: <CAHERW=2h1Yy7KqDK=2Yj8S7HUH3GGMw2c+AirmVjaDCDRox4zQ@mail.gmail.com>
+Message-ID: <CAOwx47efrn1J7YKh=iPrxSBDBL7HRaJaG78awrYLjNuw2xRtOg@mail.gmail.com>
+
+Hi Haluk,
+
+1 - no it doesn't matter. As far as I'm aware, WordPress will type-juggle
+it as necessary( so it will end-up as int(10) ), or it will just use it
+as-is, since it's ending-up as a string anyway(in the MySQL query).
+
+2 - that should not be a problem. Basically the difference is the
+following:
+ - When you use "=" operator, the part of the WHERE clause will look like
+*slug='sourceX'*
+ - When you use "IN" operator, it will look like *slug IN ('sourceX')*
+
+Both of those are just fine, except for the second option(the way you do it
+at the moment) will allow you to query for multiple terms in the future.
+
+Hope that helps,
+Nikola
+
+
+On Wed, May 14, 2014 at 10:22 AM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> In the following sample Advanced Tax. Query, I have 2 questions.
+>
+> 1. does the fact that posts_per_page is being sent in as 'string' ( as
+> opposed to 'integer' ) makes a difference to WordPress?
+>
+> 2. please take a look at the branch dealing with the 'source' taxonomy, ( -
+> the last one ). As you see there, the 'source' taxonomy has only one item
+> to worry about and that is 'sourceX'. In a single term case like that, does
+> the operator being set as 'IN' as opposed to being set as  'AND' makes a
+> difference to WordPress?
+>
+> Sample Advanced Tax. Query
+>
+> Array
+> (
+>     [posts_per_page] => 10   <var_dump reports this as string>
+>     [order] => DESC
+>     [tax_query] => Array
+>         (
+>             [relation] => AND
+>             [0] => Array
+>                 (
+>                     [taxonomy] => category
+>                     [field] => slug
+>                     [terms] => Array
+>                         (
+>                             [0] => cat1
+>                             [1] => cat2
+>                         )
+>
+>                     [operator] => AND
+>                     [include_children] =>
+>                 )
+>
+>             [1] => Array
+>                 (
+>                     [taxonomy] => post_tag
+>                     [field] => slug
+>                     [terms] => Array
+>                         (
+>                             [0] => tag 1
+>                             [1] => tag2
+>                             [2] => tag3
+>                         )
+>
+>                     [operator] => IN
+>                     [include_children] => 1
+>                 )
+>
+>             [2] => Array
+>                 (
+>                     [taxonomy] => source
+>                     [field] => slug
+>                     [terms] => Array
+>                         (
+>                             [0] => sourceX
+>                         )
+>
+>                     [operator] => IN     <on a single term, does IN or
+> AND matters?>
+>                     [include_children] => 1
+>                 )
+>
+>         )
+>
+> )
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Wed May 14 19:49:30 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 14 May 2014 12:49:30 -0700
+Subject: [wp-hackers] shortcode API > $content > TINY MCE filters
+Message-ID: <CAHERW=2BsXov65Q86MM50pEcpL4V5VGdV8khv2Dm7QQyO=nTrw@mail.gmail.com>
+
+When, we place the following sample text into the text editor ( thru the
+text tab right of the tiny MCE );
+
+line1 & < >
+line2
+
+line3
+
+and we save the post, we save it as is.
+
+Carriage returns are preserved and the & < > stays as they are.
+
+However, when this section makes it into a shortcode as part of the
+$content portion.
+
+the content becomes like this;
+
+<p>line1 &#038; < ><br />
+> line2</p>
+> <p>line3</p>
+> <p>{args}<br />
+>
+>
+
+Mind due the wp_posts.post_content field does not have those <br /> and <p>
+add ons.
+When my shortcode $content has the above red text, it appears in the DB as
+follows;
+
+line1 & < >
+> line2
+>
+> line3
+>
+
+
+I'm wondering what's the best course of action for me to take in my
+shortcode so that I can reverse this $content back to how it was stored in
+the database?
+
+If you are wondering, why on earth I'd do something ike this; here is the
+reasoning;
+I'm exploring some new things with the WordPress' shortcode system and I'm
+using the content area which makes it into my shortcode function as
+$content for storing structured data.
+
+And when I see my structured data has been filtered and changed, I feel
+like I have to undo all that changes so that I can get it exactly how it
+was authored in Tiny MCE's Text Tab.
+But I do not want to get into a bunch of replacestring operations to
+achieve that.
+
+What's the best way to address this problem?
+
+I also noticed that when you do a quick click on visual tab and then
+another quick click back on the TEXT tab, I end up changing this original
+text
+
+line1 & < >
+line2
+
+line3
+
+into this;
+
+line1 &amp; &lt; &gt;
+line2
+
+line3
+
+Though, this part is not as important as my first question, but I'm very
+curious to know thw wisdom to do so. I'm also wondering if there are ways
+to prevent that from happening and what would be harms of doing so?  Is
+that to take care of an XSS issues?
+
+From wordpress at web-warlocks.net  Wed May 14 22:43:19 2014
+From: wordpress at web-warlocks.net (Xavier Faraudo i Gener)
+Date: Thu, 15 May 2014 00:43:19 +0200
+Subject: [wp-hackers] shortcode API > $content > TINY MCE filters
+In-Reply-To: <CAHERW=2BsXov65Q86MM50pEcpL4V5VGdV8khv2Dm7QQyO=nTrw@mail.gmail.com>
+References: <CAHERW=2BsXov65Q86MM50pEcpL4V5VGdV8khv2Dm7QQyO=nTrw@mail.gmail.com>
+Message-ID: <5373F187.1040705@web-warlocks.net>
+
+Hello,
+
+The filters for content are tricky, specially wptexturize and wpautop. 
+(Which, if I don't remember it wrong, sets single line breaks to br tag, 
+and doubles to p tag.) Removing them is IMHO a very bad idea, but 
+setting them to another priority may be useful in some cases. You're 
+risking conflicts with other author's plugins and shortcodes, though.
+
+I've been toying with shortcode system for a bit now (doing things like 
+the BBCode syntax of [code=value /] or nesting the very same shortcode, 
+for instance, which actually are pretty easy things to do once you look 
+at how shortcode atts are parsed). For your issue with "structured data" 
+into shortcodes, I'd suggest to structure the params in a semantically 
+meaningful way, using shortcodes for params in a similar way to object 
+and param HTML tags, like this:
+
+[complex_shortcode]
+[complex_shortcode_param_1]value 1[/complex_shortcode_param_1]
+[complex_shortcode_param_2]value 2[/complex_shortcode_param_2]
+[/complex_shortcode]
+
+Use then the param shortcodes to parse and *properly sanitize* values, 
+store them in a global var (prefix it with underscore _ to show it's a 
+private use var), and retrieve the values from the complex_shortcode 
+function. Just make sure to do_shortcode *before* trying to access the 
+global vars (otherwise, they won't be properly populated).
+
+All this, yes, is a bit like saying that if you don't like how WP 
+filters your values (something totally legit, BTW), filter them yourself 
+with your favo(u)rite flavo(u)r :). That's what I do and works fine for 
+me, but "your mileage may vary" :)
+
+Note that using the params-shortcode technique, you are no longer 
+constrained by order of params, may have empty/null params, &c. Which 
+works great in combination with options to set defaults.
+
+Also, please note that:
+
+> (snip)
+> When my shortcode $content has the above red text, it appears in the DB as
+> follows;
+> (/snip)
+
+?are of little help when we're reading this list as plain text: we're 
+effectively HTML color blind.
+
+
+Best,
+
+Xavier
+
+
+-- 
+Xavier Faraudo i Gener (the WordPress Web Warlock)
+
+From halukkaramete at gmail.com  Thu May 15 00:38:41 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 14 May 2014 17:38:41 -0700
+Subject: [wp-hackers] shortcode API > $content > TINY MCE filters
+In-Reply-To: <5373F187.1040705@web-warlocks.net>
+References: <CAHERW=2BsXov65Q86MM50pEcpL4V5VGdV8khv2Dm7QQyO=nTrw@mail.gmail.com>
+ <5373F187.1040705@web-warlocks.net>
+Message-ID: <CAHERW=1Ox5_YPuW3T6Dk=W2Gywx-TgDJGjQKQ-nU0Ffw-3xyfw@mail.gmail.com>
+
+Thanks Xavier, for your detailed response.
+
+I ended up doing the following old-->new replacements and that set seemed
+to take care of my structured-data issue. Now I am retriveing it exactly as
+how I entered it.
+
+&#038; -->  &
+<br /> -->    "\n"
+</p> -->
+<p> -->
+
+&#8211; -->  -
+&#8216; -->  '
+&#8221; -->  "
+
+
+// incase visual tab to text tab thing took place, the following takes care
+of that problem
+
+&amp; --> &
+&gt -->      >
+&lt; -->      <
+
+
+
+
+
+On Wed, May 14, 2014 at 3:43 PM, Xavier Faraudo i Gener <
+wordpress at web-warlocks.net> wrote:
+
+> Hello,
+>
+> The filters for content are tricky, specially wptexturize and wpautop.
+> (Which, if I don't remember it wrong, sets single line breaks to br tag,
+> and doubles to p tag.) Removing them is IMHO a very bad idea, but setting
+> them to another priority may be useful in some cases. You're risking
+> conflicts with other author's plugins and shortcodes, though.
+>
+> I've been toying with shortcode system for a bit now (doing things like
+> the BBCode syntax of [code=value /] or nesting the very same shortcode, for
+> instance, which actually are pretty easy things to do once you look at how
+> shortcode atts are parsed). For your issue with "structured data" into
+> shortcodes, I'd suggest to structure the params in a semantically
+> meaningful way, using shortcodes for params in a similar way to object and
+> param HTML tags, like this:
+>
+> [complex_shortcode]
+> [complex_shortcode_param_1]value 1[/complex_shortcode_param_1]
+> [complex_shortcode_param_2]value 2[/complex_shortcode_param_2]
+> [/complex_shortcode]
+>
+> Use then the param shortcodes to parse and *properly sanitize* values,
+> store them in a global var (prefix it with underscore _ to show it's a
+> private use var), and retrieve the values from the complex_shortcode
+> function. Just make sure to do_shortcode *before* trying to access the
+> global vars (otherwise, they won't be properly populated).
+>
+> All this, yes, is a bit like saying that if you don't like how WP filters
+> your values (something totally legit, BTW), filter them yourself with your
+> favo(u)rite flavo(u)r :). That's what I do and works fine for me, but "your
+> mileage may vary" :)
+>
+> Note that using the params-shortcode technique, you are no longer
+> constrained by order of params, may have empty/null params, &c. Which works
+> great in combination with options to set defaults.
+>
+> Also, please note that:
+>
+>  (snip)
+>>
+>> When my shortcode $content has the above red text, it appears in the DB as
+>> follows;
+>> (/snip)
+>>
+>
+> ?are of little help when we're reading this list as plain text: we're
+> effectively HTML color blind.
+>
+>
+> Best,
+>
+> Xavier
+>
+>
+> --
+> Xavier Faraudo i Gener (the WordPress Web Warlock)
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From danielx386 at gmail.com  Sun May 18 00:38:44 2014
+From: danielx386 at gmail.com (Daniel)
+Date: Sun, 18 May 2014 10:38:44 +1000
+Subject: [wp-hackers] is using "WP_INSTALLING" constant a doing_it_wrong
+	matter?
+Message-ID: <CAJ5Hi2i=QgBvqtNo1isFwfc8G3g65gPviuA894RgPNHKJ95Uew@mail.gmail.com>
+
+Hi guys,
+
+I've done some research and I found that I could fire up wordpress
+without any plugins or theme loading by setting "WP_INSTALLING" to
+true.
+
+After doing some more reading, I found that it may not be the best idea. [1] [2]
+
+What I'm doing is I got a bridge that connect phpBB and wordpress
+together and when someone logs in and out of phpBB I need to call up
+wp-load so that I can do things like checking to see if an account is
+created or logging the user out of wordpress.
+
+My question is, do I have a valid case of using "WP_INSTALLING"? The
+file that I'm calling wp-load.php from is outside of WordPress so it
+won't get loaded as a plugin.
+
+Thank-you
+
+[1]http://wordpress-hackers.1065353.n5.nabble.com/Is-WP-INSTALLING-constant-here-to-stay-td40569.html
+[2]http://ottopress.com/2010/dont-include-wp-load-please/
+
+Regards,
+Daniel Fenn
+
+From nl at thoughtrefinery.com  Sun May 18 08:37:28 2014
+From: nl at thoughtrefinery.com (Nicholas Ciske)
+Date: Sun, 18 May 2014 03:37:28 -0500
+Subject: [wp-hackers] is using "WP_INSTALLING" constant a doing_it_wrong
+	matter?
+In-Reply-To: <CAJ5Hi2i=QgBvqtNo1isFwfc8G3g65gPviuA894RgPNHKJ95Uew@mail.gmail.com>
+References: <CAJ5Hi2i=QgBvqtNo1isFwfc8G3g65gPviuA894RgPNHKJ95Uew@mail.gmail.com>
+Message-ID: <BCF01DE1-2CCD-44AD-A90C-077AE04AAF29@thoughtrefinery.com>
+
+This is probably what you want to use instead:
+
+define( 'SHORTINIT', true );
+
+http://kynatro.com/blog/2012/12/11/finally-a-practical-use-for-wordpress-secret-shortinit-constant/
+
+http://wpengineer.com/2449/load-minimum-of-wordpress/
+
+https://coderwall.com/p/of7y2q
+
+_________________________
+Nick Ciske
+http://thoughtrefinery.com/
+@nciske	
+
+On May 17, 2014, at 7:38 PM, Daniel <danielx386 at gmail.com> wrote:
+
+> My question is, do I have a valid case of using "WP_INSTALLING"? The
+> file that I'm calling wp-load.php from is outside of WordPress so it
+> won't get loaded as a plugin.
+
+
+From info at urbanlegendweb.co.nz  Tue May 20 00:17:19 2014
+From: info at urbanlegendweb.co.nz (Urban Legend web, Duncan O'Neill)
+Date: Tue, 20 May 2014 12:17:19 +1200
+Subject: [wp-hackers] Peer to peer marketplace
+Message-ID: <537A9F0F.7000406@urbanlegendweb.co.nz>
+
+Hi,
+
+first time post here.
+
+Just wondering if anyone here has built, or knows of examples
+of peer to peer /marketplaces/ built on the WP platform.
+
+I'm aware of scribu's Posts to Posts plugin, which apparently
+can create many-to-many relationships between users, but
+obviously that hasn't got e-commerce functionality built in.
+So would need extending to work as an e-commerce platform.
+
+I've also searched WooCommerce for plugins which will create
+a p2p marketplace, but no results there.
+
+Another avenue I've searched is buddypress, but can't see any
+plugin examples of e-commerce functionality.
+
+I'm trying to find existing functionality, because I don't
+want to attempt to build it from scratch ( not sure I could ).
+
+thanks in advance,
+
+-- 
+Duncan O'Neill
+http://urbanlegendweb.co.nz/
+mob:+64 27 385 8086
+skype: maxwell_s
+
+From danielx386 at gmail.com  Tue May 20 00:24:29 2014
+From: danielx386 at gmail.com (Daniel)
+Date: Tue, 20 May 2014 10:24:29 +1000
+Subject: [wp-hackers] is using "WP_INSTALLING" constant a doing_it_wrong
+	matter?
+In-Reply-To: <BCF01DE1-2CCD-44AD-A90C-077AE04AAF29@thoughtrefinery.com>
+References: <CAJ5Hi2i=QgBvqtNo1isFwfc8G3g65gPviuA894RgPNHKJ95Uew@mail.gmail.com>
+ <BCF01DE1-2CCD-44AD-A90C-077AE04AAF29@thoughtrefinery.com>
+Message-ID: <CAJ5Hi2i=9_d5YxAZGU+3Ubv9Bq2=Mvoutk+4WNvmmGGy3ndnPg@mail.gmail.com>
+
+Hi Nick,
+
+Thank-you for providing those links, I'll give that a try and see if
+it does the same thing.
+
+Regards,
+Daniel Fenn
+
+
+
+
+
+
+On Sun, May 18, 2014 at 6:37 PM, Nicholas Ciske <nl at thoughtrefinery.com> wrote:
+> This is probably what you want to use instead:
+>
+> define( 'SHORTINIT', true );
+>
+> http://kynatro.com/blog/2012/12/11/finally-a-practical-use-for-wordpress-secret-shortinit-constant/
+>
+> http://wpengineer.com/2449/load-minimum-of-wordpress/
+>
+> https://coderwall.com/p/of7y2q
+>
+> _________________________
+> Nick Ciske
+> http://thoughtrefinery.com/
+> @nciske
+>
+> On May 17, 2014, at 7:38 PM, Daniel <danielx386 at gmail.com> wrote:
+>
+>> My question is, do I have a valid case of using "WP_INSTALLING"? The
+>> file that I'm calling wp-load.php from is outside of WordPress so it
+>> won't get loaded as a plugin.
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From chris at lod.com  Tue May 20 00:56:31 2014
+From: chris at lod.com (Chris McCoy)
+Date: Mon, 19 May 2014 20:56:31 -0400
+Subject: [wp-hackers] Peer to peer marketplace
+Message-ID: <CFA0203E.A637%chris@lod.com>
+
+Ive seen a premium theme that lets you users create a store within a store.
+
+So each user can have their own marketplace.
+
+http://wedevs.com/theme/dokan/
+
+
+Not sure if that is what you are after.
+
+On 2014-05-19, 8:17 PM, "Urban Legend web, Duncan O'Neill"
+<info at urbanlegendweb.co.nz> wrote:
+
+>Hi,
+>
+>first time post here.
+>
+>Just wondering if anyone here has built, or knows of examples
+>of peer to peer /marketplaces/ built on the WP platform.
+>
+>I'm aware of scribu's Posts to Posts plugin, which apparently
+>can create many-to-many relationships between users, but
+>obviously that hasn't got e-commerce functionality built in.
+>So would need extending to work as an e-commerce platform.
+>
+>I've also searched WooCommerce for plugins which will create
+>a p2p marketplace, but no results there.
+>
+>Another avenue I've searched is buddypress, but can't see any
+>plugin examples of e-commerce functionality.
+>
+>I'm trying to find existing functionality, because I don't
+>want to attempt to build it from scratch ( not sure I could ).
+>
+>thanks in advance,
+>
+>-- 
+>Duncan O'Neill
+>http://urbanlegendweb.co.nz/
+>mob:+64 27 385 8086
+>skype: maxwell_s
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+
+From info at urbanlegendweb.co.nz  Tue May 20 01:43:08 2014
+From: info at urbanlegendweb.co.nz (Urban Legend web, Duncan O'Neill)
+Date: Tue, 20 May 2014 13:43:08 +1200
+Subject: [wp-hackers] Peer to peer marketplace
+In-Reply-To: <CFA0203E.A637%chris@lod.com>
+References: <CFA0203E.A637%chris@lod.com>
+Message-ID: <537AB32C.9020001@urbanlegendweb.co.nz>
+
+On 20/05/2014 12:56 p.m., Chris McCoy wrote:
+> Ive seen a premium theme that lets you users create a store within a store.
+>
+> So each user can have their own marketplace.
+>
+> http://wedevs.com/theme/dokan/
+
+Thanks for your reply Chris,
+
+but this is not what I'm after. I'm after something
+which will let users 'buy' direct from other users.
+When a 'sale' occurs, the seller's account is debited.
+
+Something like one of the links on this page;
+
+http://p2pmarketplaces.wordpress.com/
+
+e.g.  http://www.9flats.com/
+
+except the above doesn't use WP.
+
+best,
+
+>
+>
+> Not sure if that is what you are after.
+>
+> On 2014-05-19, 8:17 PM, "Urban Legend web, Duncan O'Neill"
+> <info at urbanlegendweb.co.nz> wrote:
+>
+>> Hi,
+>>
+>> first time post here.
+>>
+>> Just wondering if anyone here has built, or knows of examples
+>> of peer to peer /marketplaces/ built on the WP platform.
+>>
+>> I'm aware of scribu's Posts to Posts plugin, which apparently
+>> can create many-to-many relationships between users, but
+>> obviously that hasn't got e-commerce functionality built in.
+>> So would need extending to work as an e-commerce platform.
+>>
+>> I've also searched WooCommerce for plugins which will create
+>> a p2p marketplace, but no results there.
+>>
+>> Another avenue I've searched is buddypress, but can't see any
+>> plugin examples of e-commerce functionality.
+>>
+>> I'm trying to find existing functionality, because I don't
+>> want to attempt to build it from scratch ( not sure I could ).
+>>
+>> thanks in advance,
+>>
+>> --
+>> Duncan O'Neill
+>> http://urbanlegendweb.co.nz/
+>> mob:+64 27 385 8086
+>> skype: maxwell_s
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+
+-- 
+Duncan O'Neill
+http://urbanlegendweb.co.nz/
+mob:+64 27 385 8086
+skype: maxwell_s
+
+From coenjacobs at gmail.com  Tue May 20 09:01:19 2014
+From: coenjacobs at gmail.com (Coen Jacobs)
+Date: Tue, 20 May 2014 11:01:19 +0200
+Subject: [wp-hackers] Peer to peer marketplace
+In-Reply-To: <537AB32C.9020001@urbanlegendweb.co.nz>
+References: <CFA0203E.A637%chris@lod.com>
+ <537AB32C.9020001@urbanlegendweb.co.nz>
+Message-ID: <CANa=bdqdszD4pthom-1-SAbZQ+LD0CgQ44EBB77uJaGnZqLMwA@mail.gmail.com>
+
+There is the Product Vendors extension for WooCommerce:
+http://www.woothemes.com/products/product-vendors/ and I'm pretty sure
+there are similar extensions for the other eCommerce plugins out there.
+
+- Coen
+On May 20, 2014 3:43 AM, "Urban Legend web, Duncan O'Neill" <
+info at urbanlegendweb.co.nz> wrote:
+
+> On 20/05/2014 12:56 p.m., Chris McCoy wrote:
+>
+>> Ive seen a premium theme that lets you users create a store within a
+>> store.
+>>
+>> So each user can have their own marketplace.
+>>
+>> http://wedevs.com/theme/dokan/
+>>
+>
+> Thanks for your reply Chris,
+>
+> but this is not what I'm after. I'm after something
+> which will let users 'buy' direct from other users.
+> When a 'sale' occurs, the seller's account is debited.
+>
+> Something like one of the links on this page;
+>
+> http://p2pmarketplaces.wordpress.com/
+>
+> e.g.  http://www.9flats.com/
+>
+> except the above doesn't use WP.
+>
+> best,
+>
+>
+>>
+>> Not sure if that is what you are after.
+>>
+>> On 2014-05-19, 8:17 PM, "Urban Legend web, Duncan O'Neill"
+>> <info at urbanlegendweb.co.nz> wrote:
+>>
+>>  Hi,
+>>>
+>>> first time post here.
+>>>
+>>> Just wondering if anyone here has built, or knows of examples
+>>> of peer to peer /marketplaces/ built on the WP platform.
+>>>
+>>> I'm aware of scribu's Posts to Posts plugin, which apparently
+>>> can create many-to-many relationships between users, but
+>>> obviously that hasn't got e-commerce functionality built in.
+>>> So would need extending to work as an e-commerce platform.
+>>>
+>>> I've also searched WooCommerce for plugins which will create
+>>> a p2p marketplace, but no results there.
+>>>
+>>> Another avenue I've searched is buddypress, but can't see any
+>>> plugin examples of e-commerce functionality.
+>>>
+>>> I'm trying to find existing functionality, because I don't
+>>> want to attempt to build it from scratch ( not sure I could ).
+>>>
+>>> thanks in advance,
+>>>
+>>> --
+>>> Duncan O'Neill
+>>> http://urbanlegendweb.co.nz/
+>>> mob:+64 27 385 8086
+>>> skype: maxwell_s
+>>> _______________________________________________
+>>> wp-hackers mailing list
+>>> wp-hackers at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>>
+>>
+>>
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>>
+>
+> --
+> Duncan O'Neill
+> http://urbanlegendweb.co.nz/
+> mob:+64 27 385 8086
+> skype: maxwell_s
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From info at marcogiustini.info  Tue May 20 20:29:15 2014
+From: info at marcogiustini.info (Marco Giustini)
+Date: Tue, 20 May 2014 22:29:15 +0200
+Subject: [wp-hackers] Remote shared ecommerce
+Message-ID: <CAMFKyxBBn42LhmXhcqBAa2sqhhm-35gsnBrTPsFQ6iik3Gthwg@mail.gmail.com>
+
+Hi all,
+
+I have an idea I wish to propose to the community.
+
+Imagine you want to buy some. If you buy it alone, the good have an high
+price. But if lot of people buy the same good all togheter is possible to
+cut the price. Is the way as already work the groups' buying. But my
+proposal is quite different and is strictly related to Wordpress.
+
+Imagine to have a plugin that enable remotely, using XML/RPC, SOAP or JSON,
+all the users of Wordpress websites that have this plugin installed (and an
+ecommerce plugin also) to collectively buy the same good.
+
+Is it feasible such a plugin? Is there someone interested in developping it?
+
+Marco
+
+From info at urbanlegendweb.co.nz  Tue May 20 22:41:09 2014
+From: info at urbanlegendweb.co.nz (Urban Legend web, Duncan O'Neill)
+Date: Wed, 21 May 2014 10:41:09 +1200
+Subject: [wp-hackers] Peer to peer marketplace
+In-Reply-To: <CANa=bdqdszD4pthom-1-SAbZQ+LD0CgQ44EBB77uJaGnZqLMwA@mail.gmail.com>
+References: <CFA0203E.A637%chris@lod.com>
+ <537AB32C.9020001@urbanlegendweb.co.nz>
+ <CANa=bdqdszD4pthom-1-SAbZQ+LD0CgQ44EBB77uJaGnZqLMwA@mail.gmail.com>
+Message-ID: <537BDA05.2020009@urbanlegendweb.co.nz>
+
+On 20/05/2014 9:01 p.m., Coen Jacobs wrote:
+> There is the Product Vendors extension for WooCommerce:
+> http://www.woothemes.com/products/product-vendors/ and I'm pretty sure
+> there are similar extensions for the other eCommerce plugins out there.
+>
+> - Coen
+
+Thanks Chris and Coen for your replies.
+
+I hadn't been aware of the product vendors extension before.
+
+ From further discussions with the site owner it looks as if
+they /do/ want to go down the route of store within a store.
+
+best,
+
+
+> On May 20, 2014 3:43 AM, "Urban Legend web, Duncan O'Neill" <
+> info at urbanlegendweb.co.nz> wrote:
+>
+>> On 20/05/2014 12:56 p.m., Chris McCoy wrote:
+>>
+>>> Ive seen a premium theme that lets you users create a store within a
+>>> store.
+>>>
+>>> So each user can have their own marketplace.
+>>>
+>>> http://wedevs.com/theme/dokan/
+>>>
+>>
+
+
+-- 
+Duncan O'Neill
+http://urbanlegendweb.co.nz/
+mob:+64 27 385 8086
+skype: maxwell_s
+
+From hello at chriscct7.com  Wed May 21 04:06:02 2014
+From: hello at chriscct7.com (Chris Christoff)
+Date: Wed, 21 May 2014 04:06:02 +0000
+Subject: [wp-hackers] Peer to peer marketplace
+In-Reply-To: <537BDA05.2020009@urbanlegendweb.co.nz>
+References: <537BDA05.2020009@urbanlegendweb.co.nz>
+Message-ID: <reply-5002-31650096-74795427-1400645162-1705612281@helpscout.net>
+
+-- Please reply above this line --
+
+-----------------------------------------------------------
+## Chris replied, on May 21 @ 12:05am (AMT):
+
+A similar extension, Frontend Submissions, is available for Easy
+Digital Downloads, where the main difference from Woo's Product
+Vendors, is that in EDD's version vendors do everything on the
+frontend, and don't need to see or access the backend.
+--
+Chris Christoff
+hello at chriscct7.com
+http://www.chriscct7.com [1]
+@chriscct7
+If you feel the need to donate, as a college student, I appreciate
+donations of any amount. The easiest way to donate to my college fund
+is via the donation button at the bottom of my
+homepage:?http://chriscct7.com/ [2]
+
+Links:
+------
+[1] http://www.chriscct7.com
+[2] http://chriscct7.com/
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on May 20 @ 6:41pm (AMT):
+
+There is the Product Vendors extension for WooCommerce:
+ > http://www.woothemes.com/products/product-vendors/ and I'm
+pretty sure
+ > there are similar extensions for the other eCommerce plugins
+out there.
+ >
+ > - Coen
+
+ Thanks Chris and Coen for your replies.
+
+ I hadn't been aware of the product vendors extension before.
+
+ From further discussions with the site owner it looks as if
+ they /do/ want to go down the route of store within a store.
+
+ best,
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on May 20 @ 5:01am (AMT):
+
+There is the Product Vendors extension for WooCommerce:
+ http://www.woothemes.com/products/product-vendors/ and I'm pretty
+sure
+ there are similar extensions for the other eCommerce plugins out
+there.
+
+ - Coen
+ On May 20, 2014 3:43 AM, "Urban Legend web, Duncan O'Neill" <
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com
+ http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com replied, on May 19 @ 9:43pm (AMT):
+
+Ive seen a premium theme that lets you users create a store within a
+store.
+ >
+ > So each user can have their own marketplace.
+ >
+ > http://wedevs.com/theme/dokan/
+
+ Thanks for your reply Chris,
+
+ but this is not what I'm after. I'm after something
+ which will let users 'buy' direct from other users.
+ When a 'sale' occurs, the seller's account is debited.
+
+ Something like one of the links on this page;
+
+ http://p2pmarketplaces.wordpress.com/
+
+ e.g. http://www.9flats.com/
+
+ except the above doesn't use WP.
+
+ best,
+
+-----------------------------------------------------------
+## Conversation started by wp-hackers at lists.automattic.com, on May 19 @ 8:56pm (AMT):
+
+Ive seen a premium theme that lets you users create a store within a
+store.
+
+ So each user can have their own marketplace.
+
+ http://wedevs.com/theme/dokan/
+
+ Not sure if that is what you are after.
+
+ On 2014-05-19, 8:17 PM, "Urban Legend web, Duncan O'Neill"
+ <info at urbanlegendweb.co.nz> wrote:
+
+ >Hi,
+ >
+ >first time post here.
+ >
+ >Just wondering if anyone here has built, or knows of examples
+ >of peer to peer /marketplaces/ built on the WP platform.
+ >
+ >I'm aware of scribu's Posts to Posts plugin, which apparently
+ >can create many-to-many relationships between users, but
+ >obviously that hasn't got e-commerce functionality built in.
+ >So would need extending to work as an e-commerce platform.
+ >
+ >I've also searched WooCommerce for plugins which will create
+ >a p2p marketplace, but no results there.
+ >
+ >Another avenue I've searched is buddypress, but can't see any
+ >plugin examples of e-commerce functionality.
+ >
+ >I'm trying to find existing functionality, because I don't
+ >want to attempt to build it from scratch ( not sure I could ).
+ >
+ >thanks in advance,
+ >
+ >-- 
+ >Duncan O'Neill
+ >http://urbanlegendweb.co.nz/
+ >mob:+64 27 385 8086
+ >skype: maxwell_s
+ >_______________________________________________
+ >wp-hackers mailing list
+ >wp-hackers at lists.automattic.com
+ >http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+ _______________________________________________
+ wp-hackers mailing list
+ wp-hackers at lists.automattic.com
+ http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+-----------------------------------------------------------
+
+
+From david at wordshell.net  Wed May 21 07:30:28 2014
+From: david at wordshell.net (David Anderson)
+Date: Wed, 21 May 2014 08:30:28 +0100
+Subject: [wp-hackers] Preferring SSL for plugin updates
+Message-ID: <537C5614.1080402@wordshell.net>
+
+Hi,
+
+I was wondering if any of the WordPress core devs could comment on the 
+use of SSL by default for fetching plugin update information and plugin 
+downloads.
+
+I'm considering doing this for a premium plugin. I'm wondering a) the 
+likely failure rates (I have enough customers that any weird/broken 
+setup that could possibly exist in the world is out there for multiple 
+customers somewhere) and b) strategies to cope with that. What's been 
+your experience with doing this for WordPress core? Any general advice 
+that I and others on the list might find useful?
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From brian at brianhogg.ca  Wed May 21 13:39:56 2014
+From: brian at brianhogg.ca (Brian Hogg)
+Date: Wed, 21 May 2014 08:39:56 -0500
+Subject: [wp-hackers] Stay/Leave Message on Save
+Message-ID: <DE105CB8-F906-48D0-8D5A-EE4D38FB24FB@brianhogg.ca>
+
+Hi all,
+
+I built in extra fields / meta boxes in the admin panel as part of a theme, and added extra submit buttons so users didn?t have to scroll all the way up to click Publish/Save.  Since WP 3.9 there?s now a "stay/leave? popup appearing when the extra submit buttons are used and the description/title has been changed.
+
+I?ve searched around the js a bit and am not seeing where the window.onbeforeunload function is being set, and setting window.onbeforeunload = null; when the extra submit buttons are clicked has no effect.  The post does still save when ?Leave this page? is selected in the popup.  Is there another way to hook in and disable this stay/leave message?
+
+Thanks!
+Brian
+
+---
+brianhogg.com
+905.966.1778
+
+
+From nikolov.tmw at gmail.com  Wed May 21 13:52:30 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Wed, 21 May 2014 16:52:30 +0300
+Subject: [wp-hackers] Stay/Leave Message on Save
+In-Reply-To: <DE105CB8-F906-48D0-8D5A-EE4D38FB24FB@brianhogg.ca>
+References: <DE105CB8-F906-48D0-8D5A-EE4D38FB24FB@brianhogg.ca>
+Message-ID: <CAOwx47cP64nCR+ivxFgZtOzvVaUBckJSd0+axtpqSmkjKSfVmw@mail.gmail.com>
+
+Hi Brian,
+
+What about hooking a callback to your buttons "click" event and just
+triggering a "click" on the WP Save button? That should do the trick in my
+opinion, but I haven't tested it.
+
+
+On Wed, May 21, 2014 at 4:39 PM, Brian Hogg <brian at brianhogg.ca> wrote:
+
+> Hi all,
+>
+> I built in extra fields / meta boxes in the admin panel as part of a
+> theme, and added extra submit buttons so users didn?t have to scroll all
+> the way up to click Publish/Save.  Since WP 3.9 there?s now a "stay/leave?
+> popup appearing when the extra submit buttons are used and the
+> description/title has been changed.
+>
+> I?ve searched around the js a bit and am not seeing where the
+> window.onbeforeunload function is being set, and setting
+> window.onbeforeunload = null; when the extra submit buttons are clicked has
+> no effect.  The post does still save when ?Leave this page? is selected in
+> the popup.  Is there another way to hook in and disable this stay/leave
+> message?
+>
+> Thanks!
+> Brian
+>
+> ---
+> brianhogg.com
+> 905.966.1778
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From brian at brianhogg.ca  Wed May 21 14:26:38 2014
+From: brian at brianhogg.ca (Brian Hogg)
+Date: Wed, 21 May 2014 09:26:38 -0500
+Subject: [wp-hackers] Stay/Leave Message on Save
+In-Reply-To: <CAOwx47cP64nCR+ivxFgZtOzvVaUBckJSd0+axtpqSmkjKSfVmw@mail.gmail.com>
+References: <DE105CB8-F906-48D0-8D5A-EE4D38FB24FB@brianhogg.ca>
+ <CAOwx47cP64nCR+ivxFgZtOzvVaUBckJSd0+axtpqSmkjKSfVmw@mail.gmail.com>
+Message-ID: <D28CA44B-29DC-4F5D-B869-C0867DEAFA73@brianhogg.ca>
+
+Hi Nikola,
+
+Yeah, I think a jQuery('#publish').click() will do the trick. There's some logic based on the button clicked (which is passed in POST), but I should be able to fake that by injecting a hidden input.
+
+Thanks!
+Brian
+
+
+----
+brianhogg.com
+905-966-1778
+
+> On May 21, 2014, at 8:52 AM, Nikola Nikolov <nikolov.tmw at gmail.com> wrote:
+> 
+> Hi Brian,
+> 
+> What about hooking a callback to your buttons "click" event and just
+> triggering a "click" on the WP Save button? That should do the trick in my
+> opinion, but I haven't tested it.
+> 
+> 
+>> On Wed, May 21, 2014 at 4:39 PM, Brian Hogg <brian at brianhogg.ca> wrote:
+>> 
+>> Hi all,
+>> 
+>> I built in extra fields / meta boxes in the admin panel as part of a
+>> theme, and added extra submit buttons so users didn?t have to scroll all
+>> the way up to click Publish/Save.  Since WP 3.9 there?s now a "stay/leave?
+>> popup appearing when the extra submit buttons are used and the
+>> description/title has been changed.
+>> 
+>> I?ve searched around the js a bit and am not seeing where the
+>> window.onbeforeunload function is being set, and setting
+>> window.onbeforeunload = null; when the extra submit buttons are clicked has
+>> no effect.  The post does still save when ?Leave this page? is selected in
+>> the popup.  Is there another way to hook in and disable this stay/leave
+>> message?
+>> 
+>> Thanks!
+>> Brian
+>> 
+>> ---
+>> brianhogg.com
+>> 905.966.1778
+>> 
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From nikolov.tmw at gmail.com  Wed May 21 15:05:59 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Wed, 21 May 2014 18:05:59 +0300
+Subject: [wp-hackers] Stay/Leave Message on Save
+In-Reply-To: <D28CA44B-29DC-4F5D-B869-C0867DEAFA73@brianhogg.ca>
+References: <DE105CB8-F906-48D0-8D5A-EE4D38FB24FB@brianhogg.ca>
+ <CAOwx47cP64nCR+ivxFgZtOzvVaUBckJSd0+axtpqSmkjKSfVmw@mail.gmail.com>
+ <D28CA44B-29DC-4F5D-B869-C0867DEAFA73@brianhogg.ca>
+Message-ID: <CAOwx47eh6FTPPwVkY8kYHEQcMJQsG6F7MjLZ1TxxBZ-MywLd=g@mail.gmail.com>
+
+In theory it should work. I do remember the logic you're mentioning(I've
+seen it before when I was going through core), but I can't remember exactly
+where it's located...
+
+Well - give it a try and see if it fixes the problem, if it doesn't we'll
+give it another try.
+
+Nikola
+
+
+On Wed, May 21, 2014 at 5:26 PM, Brian Hogg <brian at brianhogg.ca> wrote:
+
+> Hi Nikola,
+>
+> Yeah, I think a jQuery('#publish').click() will do the trick. There's some
+> logic based on the button clicked (which is passed in POST), but I should
+> be able to fake that by injecting a hidden input.
+>
+> Thanks!
+> Brian
+>
+>
+> ----
+> brianhogg.com
+> 905-966-1778
+>
+> > On May 21, 2014, at 8:52 AM, Nikola Nikolov <nikolov.tmw at gmail.com>
+> wrote:
+> >
+> > Hi Brian,
+> >
+> > What about hooking a callback to your buttons "click" event and just
+> > triggering a "click" on the WP Save button? That should do the trick in
+> my
+> > opinion, but I haven't tested it.
+> >
+> >
+> >> On Wed, May 21, 2014 at 4:39 PM, Brian Hogg <brian at brianhogg.ca> wrote:
+> >>
+> >> Hi all,
+> >>
+> >> I built in extra fields / meta boxes in the admin panel as part of a
+> >> theme, and added extra submit buttons so users didn?t have to scroll all
+> >> the way up to click Publish/Save.  Since WP 3.9 there?s now a
+> "stay/leave?
+> >> popup appearing when the extra submit buttons are used and the
+> >> description/title has been changed.
+> >>
+> >> I?ve searched around the js a bit and am not seeing where the
+> >> window.onbeforeunload function is being set, and setting
+> >> window.onbeforeunload = null; when the extra submit buttons are clicked
+> has
+> >> no effect.  The post does still save when ?Leave this page? is selected
+> in
+> >> the popup.  Is there another way to hook in and disable this stay/leave
+> >> message?
+> >>
+> >> Thanks!
+> >> Brian
+> >>
+> >> ---
+> >> brianhogg.com
+> >> 905.966.1778
+> >>
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From david at wordshell.net  Wed May 21 22:04:50 2014
+From: david at wordshell.net (David Anderson)
+Date: Wed, 21 May 2014 23:04:50 +0100
+Subject: [wp-hackers] Uploading plugins larger than the PHP upload limit
+Message-ID: <537D2302.1020409@wordshell.net>
+
+Hi,
+
+A mention of a free plugin I've just created that others may find useful...
+
+I've been hindered upon occasion by web hosting setups where the PHP 
+maximum upload limit is as low as 2Mb - and I've wanted to upload a 
+plugin that's larger than this. WordPress uses just a standard file 
+upload, so it can't be done. You have to resort to going manually via 
+FTP, if that's an option.
+
+This could be solved if someone could create a plugin that replaced the 
+WordPress file upload field on the "Plugins -> Add" page with something 
+that can chunk the upload. That's now done; if you ever have this issue, 
+then use this: http://wordpress.org/plugins/upload-larger-plugins/. I've 
+only tested it on WP 3.9 - though the plupload component it uses is in 
+WP since 3.3, so you should be OK back until then.
+
+Best wishes,
+David
+
+-- 
+UpdraftPlus - best WordPress backups - http://updraftplus.com
+WordShell - WordPress fast from the CLI - http://wordshell.net
+
+
+From greglancaster71 at gmail.com  Thu May 22 05:57:15 2014
+From: greglancaster71 at gmail.com (BenderisGreat)
+Date: Wed, 21 May 2014 22:57:15 -0700 (PDT)
+Subject: [wp-hackers] Adding new Menu Modules to Wordpress
+In-Reply-To: <CAOwx47fF3FPWD=w-upzrT+DQ8FcAq4a10mTuFLh3LpeVMMHy_Q@mail.gmail.com>
+References: <1391030499555-43267.post@n5.nabble.com>
+ <F59CCC8E-B49E-453F-8559-6570397AC1DD@ramapo.edu>
+ <CAOwx47fzSNvo96x3NOTBVdqq2F9Ud9s3sq-WegJjBZZyVRgGYg@mail.gmail.com>
+ <CAOwx47fF3FPWD=w-upzrT+DQ8FcAq4a10mTuFLh3LpeVMMHy_Q@mail.gmail.com>
+Message-ID: <1400738235968-43969.post@n5.nabble.com>
+
+I have been making use of the code Nikola shared for a few months.  Recently
+however I need to create tiered menu items.  That means generating fake
+page_ids for the parent - I am stuck on if this is even possible.  
+
+Could it be possible to use a string as the ID rather than an integer?  If
+that was/is possible then I could use the title field. It does not seem to
+work though.  So from my testing, it requires a real page_id attached to a
+post.  
+
+Does anyone know of a way to create a tiered nav_menu_item dynamically,
+without creating a real page for each post item?
+
+
+
+--
+View this message in context: http://wordpress-hackers.1065353.n5.nabble.com/Adding-new-Menu-Modules-to-Wordpress-tp43267p43969.html
+Sent from the Wordpress Hackers mailing list archive at Nabble.com.
+
+From halukkaramete at gmail.com  Sun May 25 18:47:27 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 25 May 2014 11:47:27 -0700
+Subject: [wp-hackers] wordpress shortcode attribute escapes
+Message-ID: <CAHERW=38nEJVTZD9-uSchEeTxmm=SVnQyHY4Hy2CNb2RdE4CgA@mail.gmail.com>
+
+I'm very curious to see if there is a way to escape " and ] in the
+following shortcode?
+
+[my_shortcode my_variable=" Here is a double quote "  and here is a right
+> bracket ] "][/my_shortcode]
+>
+
+surely, I could have opted in using a single quote (') as the my_variable's
+string delimiters but that would not have satisfied my curiousity. :)
+
+I tried  \" and  \\" , but that did not help.
+
+Is the only way to use the html ascii entities here?
+such as  &#34 or &quot; for the double quote case
+and the &#93; or the right bracket case.
+
+From nikolov.tmw at gmail.com  Sun May 25 23:00:06 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 26 May 2014 02:00:06 +0300
+Subject: [wp-hackers] Getting lowest/last-level terms in hierarchical
+	taxonomy
+Message-ID: <CAOwx47dy=sNxO0U71MZ-qJyiNdjvUAaiY0=8tVyfUa2X2s73JQ@mail.gmail.com>
+
+Here's an interesting one - how can I get all of the *last-level* terms in
+a hierarchical taxonomy?
+
+Take the following hierarchy for instance:
+
+ - Food
+ - - Vegetables
+ - - - Cucumber
+ - - - Carrot
+ - - Bread
+ - - Fruits
+ - - - Citrus Fruits
+ - - - - Orange
+ - - - - Pomelo
+ - Potato
+
+( I know the potato doesn't make sense, but I just wanted to illustrate the
+fact that some terms might be without children )
+
+In this case, I'd want to grab the following terms: Cucumber, Carrot,
+Bread, Orange, Pomelo, Potato.
+
+I've been looking around I haven't found an easy solution so far.
+
+I can think of two options - getting all terms and then recreating the tree
+from them, or getting each level of terms and doing subsequent get_terms()
+calls(which I don't like, since it's probably going to be very
+inefficient).
+
+My goal is to be able to present to the user a list of all last-level terms
+in the taxonomy and then behind the scenes assign the post to all terms
+from that tree(so, if you select Carrot, your post would be added to
+Vegetables and Food).
+I need to do that, since I have a custom table that stores post to post
+relations and I need to be able to query for all items in a specific
+category/list of categories with as little extra requests as possible(lots
+of data is expected to be stored and performance is key).
+
+Thanks,
+Nikola
+
+From halukkaramete at gmail.com  Mon May 26 03:19:10 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Sun, 25 May 2014 20:19:10 -0700
+Subject: [wp-hackers] Getting lowest/last-level terms in hierarchical
+	taxonomy
+In-Reply-To: <CAOwx47dy=sNxO0U71MZ-qJyiNdjvUAaiY0=8tVyfUa2X2s73JQ@mail.gmail.com>
+References: <CAOwx47dy=sNxO0U71MZ-qJyiNdjvUAaiY0=8tVyfUa2X2s73JQ@mail.gmail.com>
+Message-ID: <CAHERW=2t3kGxTvPe-RiK_JyB2oL7SX6-SNVNPoXw0yAHqBUkKg@mail.gmail.com>
+
+HI Nikola
+what if you walk thru all terms in that tax and check if the current term
+has children or not.
+
+http://codex.wordpress.org/Function_Reference/get_term_children
+
+Did I understand you correctly?
+Here's an interesting one - how can I get all of the *last-level* terms in
+a hierarchical taxonomy?
+
+Take the following hierarchy for instance:
+
+ - Food
+ - - Vegetables
+ - - - Cucumber
+ - - - Carrot
+ - - Bread
+ - - Fruits
+ - - - Citrus Fruits
+ - - - - Orange
+ - - - - Pomelo
+ - Potato
+
+( I know the potato doesn't make sense, but I just wanted to illustrate the
+fact that some terms might be without children )
+
+In this case, I'd want to grab the following terms: Cucumber, Carrot,
+Bread, Orange, Pomelo, Potato.
+
+I've been looking around I haven't found an easy solution so far.
+
+I can think of two options - getting all terms and then recreating the tree
+from them, or getting each level of terms and doing subsequent get_terms()
+calls(which I don't like, since it's probably going to be very
+inefficient).
+
+My goal is to be able to present to the user a list of all last-level terms
+in the taxonomy and then behind the scenes assign the post to all terms
+from that tree(so, if you select Carrot, your post would be added to
+Vegetables and Food).
+I need to do that, since I have a custom table that stores post to post
+relations and I need to be able to query for all items in a specific
+category/list of categories with as little extra requests as possible(lots
+of data is expected to be stored and performance is key).
+
+Thanks,
+Nikola
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From nikolov.tmw at gmail.com  Mon May 26 08:33:37 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 26 May 2014 11:33:37 +0300
+Subject: [wp-hackers] Getting lowest/last-level terms in hierarchical
+	taxonomy
+In-Reply-To: <CAHERW=2t3kGxTvPe-RiK_JyB2oL7SX6-SNVNPoXw0yAHqBUkKg@mail.gmail.com>
+References: <CAOwx47dy=sNxO0U71MZ-qJyiNdjvUAaiY0=8tVyfUa2X2s73JQ@mail.gmail.com>
+ <CAHERW=2t3kGxTvPe-RiK_JyB2oL7SX6-SNVNPoXw0yAHqBUkKg@mail.gmail.com>
+Message-ID: <CAOwx47dNd4orUwGH7nBKhbJL_YmZHRn3E2R9Fy3s7xgH23J30g@mail.gmail.com>
+
+Yeah, that's one my thoughts, but I'm afraid it will cause too many queries
+perhaps? Although from looking at the code it seems like
+get_term_children() is calling _get_term_hierarchy() every time, which on
+the other hand is storing it's data in an option in the options table...
+I guess that might work :)
+
+Alternatively, I can store the last-level terms(once I fetch them) in an
+option as well and flush that option when a term is added/updated/deleted
+from that taxonomy.
+
+Any other ideas?
+
+
+On Mon, May 26, 2014 at 6:19 AM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> HI Nikola
+> what if you walk thru all terms in that tax and check if the current term
+> has children or not.
+>
+> http://codex.wordpress.org/Function_Reference/get_term_children
+>
+> Did I understand you correctly?
+> Here's an interesting one - how can I get all of the *last-level* terms in
+> a hierarchical taxonomy?
+>
+> Take the following hierarchy for instance:
+>
+>  - Food
+>  - - Vegetables
+>  - - - Cucumber
+>  - - - Carrot
+>  - - Bread
+>  - - Fruits
+>  - - - Citrus Fruits
+>  - - - - Orange
+>  - - - - Pomelo
+>  - Potato
+>
+> ( I know the potato doesn't make sense, but I just wanted to illustrate the
+> fact that some terms might be without children )
+>
+> In this case, I'd want to grab the following terms: Cucumber, Carrot,
+> Bread, Orange, Pomelo, Potato.
+>
+> I've been looking around I haven't found an easy solution so far.
+>
+> I can think of two options - getting all terms and then recreating the tree
+> from them, or getting each level of terms and doing subsequent get_terms()
+> calls(which I don't like, since it's probably going to be very
+> inefficient).
+>
+> My goal is to be able to present to the user a list of all last-level terms
+> in the taxonomy and then behind the scenes assign the post to all terms
+> from that tree(so, if you select Carrot, your post would be added to
+> Vegetables and Food).
+> I need to do that, since I have a custom table that stores post to post
+> relations and I need to be able to query for all items in a specific
+> category/list of categories with as little extra requests as possible(lots
+> of data is expected to be stored and performance is key).
+>
+> Thanks,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From simon.vart at exigences.biz  Mon May 26 09:07:30 2014
+From: simon.vart at exigences.biz (Simon Vart)
+Date: Mon, 26 May 2014 11:07:30 +0200
+Subject: [wp-hackers] Getting lowest/last-level terms in hierarchical
+	taxonomy
+In-Reply-To: <CAOwx47dNd4orUwGH7nBKhbJL_YmZHRn3E2R9Fy3s7xgH23J30g@mail.gmail.com>
+References: <CAOwx47dy=sNxO0U71MZ-qJyiNdjvUAaiY0=8tVyfUa2X2s73JQ@mail.gmail.com>
+ <CAHERW=2t3kGxTvPe-RiK_JyB2oL7SX6-SNVNPoXw0yAHqBUkKg@mail.gmail.com>
+ <CAOwx47dNd4orUwGH7nBKhbJL_YmZHRn3E2R9Fy3s7xgH23J30g@mail.gmail.com>
+Message-ID: <CAL96uY_C-uS7=N28Oi-QuRZ3AKO9pUc48n2o_nO6iMM2XfaSkg@mail.gmail.com>
+
+One idea could be to create a transient to store the results of your query
+for one day (or more) on first parsing, then delete it each time a category
+is create/deleted/updated
+
+
+2014-05-26 10:33 GMT+02:00 Nikola Nikolov <nikolov.tmw at gmail.com>:
+
+> Yeah, that's one my thoughts, but I'm afraid it will cause too many queries
+> perhaps? Although from looking at the code it seems like
+> get_term_children() is calling _get_term_hierarchy() every time, which on
+> the other hand is storing it's data in an option in the options table...
+> I guess that might work :)
+>
+> Alternatively, I can store the last-level terms(once I fetch them) in an
+> option as well and flush that option when a term is added/updated/deleted
+> from that taxonomy.
+>
+> Any other ideas?
+>
+>
+> On Mon, May 26, 2014 at 6:19 AM, Haluk Karamete <halukkaramete at gmail.com
+> >wrote:
+>
+> > HI Nikola
+> > what if you walk thru all terms in that tax and check if the current term
+> > has children or not.
+> >
+> > http://codex.wordpress.org/Function_Reference/get_term_children
+> >
+> > Did I understand you correctly?
+> > Here's an interesting one - how can I get all of the *last-level* terms
+> in
+> > a hierarchical taxonomy?
+> >
+> > Take the following hierarchy for instance:
+> >
+> >  - Food
+> >  - - Vegetables
+> >  - - - Cucumber
+> >  - - - Carrot
+> >  - - Bread
+> >  - - Fruits
+> >  - - - Citrus Fruits
+> >  - - - - Orange
+> >  - - - - Pomelo
+> >  - Potato
+> >
+> > ( I know the potato doesn't make sense, but I just wanted to illustrate
+> the
+> > fact that some terms might be without children )
+> >
+> > In this case, I'd want to grab the following terms: Cucumber, Carrot,
+> > Bread, Orange, Pomelo, Potato.
+> >
+> > I've been looking around I haven't found an easy solution so far.
+> >
+> > I can think of two options - getting all terms and then recreating the
+> tree
+> > from them, or getting each level of terms and doing subsequent
+> get_terms()
+> > calls(which I don't like, since it's probably going to be very
+> > inefficient).
+> >
+> > My goal is to be able to present to the user a list of all last-level
+> terms
+> > in the taxonomy and then behind the scenes assign the post to all terms
+> > from that tree(so, if you select Carrot, your post would be added to
+> > Vegetables and Food).
+> > I need to do that, since I have a custom table that stores post to post
+> > relations and I need to be able to query for all items in a specific
+> > category/list of categories with as little extra requests as
+> possible(lots
+> > of data is expected to be stored and performance is key).
+> >
+> > Thanks,
+> > Nikola
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From harry at dxw.com  Mon May 26 10:06:53 2014
+From: harry at dxw.com (Harry Metcalfe)
+Date: Mon, 26 May 2014 11:06:53 +0100
+Subject: [wp-hackers] Getting lowest/last-level terms in hierarchical
+ taxonomy
+Message-ID: <x2inl1pa4j64n5frdukr3j5e.1401098813608@email.android.com>
+
+You could maybe make a new table that stores details about leaf terms, and update it when terms are modified?
+
+I helped out on a project where performance was also key, where we did the above, and it worked well. To be honest, I don't think WordPress's taxonomies will ever be very good if you need something highly performant - since parent/child relationships are only defined upwards (which is your problem here) and any nontrivial reading or manipulation either requires loads of joins or manipulation of large arrays. Or both.
+
+Harry
+
+Sent from my mobile
+
+<div>-------- Original message --------</div><div>From: Nikola Nikolov <nikolov.tmw at gmail.com> </div><div>Date:2014/05/26  09:33  (GMT+00:00) </div><div>To: wp-hackers at lists.automattic.com </div><div>Subject: Re: [wp-hackers] Getting lowest/last-level terms in hierarchical
+ 	taxonomy </div><div>
+</div>Yeah, that's one my thoughts, but I'm afraid it will cause too many queries
+perhaps? Although from looking at the code it seems like
+get_term_children() is calling _get_term_hierarchy() every time, which on
+the other hand is storing it's data in an option in the options table...
+I guess that might work :)
+
+Alternatively, I can store the last-level terms(once I fetch them) in an
+option as well and flush that option when a term is added/updated/deleted
+from that taxonomy.
+
+Any other ideas?
+
+
+On Mon, May 26, 2014 at 6:19 AM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> HI Nikola
+> what if you walk thru all terms in that tax and check if the current term
+> has children or not.
+>
+> http://codex.wordpress.org/Function_Reference/get_term_children
+>
+> Did I understand you correctly?
+> Here's an interesting one - how can I get all of the *last-level* terms in
+> a hierarchical taxonomy?
+>
+> Take the following hierarchy for instance:
+>
+>  - Food
+>  - - Vegetables
+>  - - - Cucumber
+>  - - - Carrot
+>  - - Bread
+>  - - Fruits
+>  - - - Citrus Fruits
+>  - - - - Orange
+>  - - - - Pomelo
+>  - Potato
+>
+> ( I know the potato doesn't make sense, but I just wanted to illustrate the
+> fact that some terms might be without children )
+>
+> In this case, I'd want to grab the following terms: Cucumber, Carrot,
+> Bread, Orange, Pomelo, Potato.
+>
+> I've been looking around I haven't found an easy solution so far.
+>
+> I can think of two options - getting all terms and then recreating the tree
+> from them, or getting each level of terms and doing subsequent get_terms()
+> calls(which I don't like, since it's probably going to be very
+> inefficient).
+>
+> My goal is to be able to present to the user a list of all last-level terms
+> in the taxonomy and then behind the scenes assign the post to all terms
+> from that tree(so, if you select Carrot, your post would be added to
+> Vegetables and Food).
+> I need to do that, since I have a custom table that stores post to post
+> relations and I need to be able to query for all items in a specific
+> category/list of categories with as little extra requests as possible(lots
+> of data is expected to be stored and performance is key).
+>
+> Thanks,
+> Nikola
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+From nikolov.tmw at gmail.com  Mon May 26 10:22:31 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Mon, 26 May 2014 13:22:31 +0300
+Subject: [wp-hackers] Getting lowest/last-level terms in hierarchical
+	taxonomy
+In-Reply-To: <x2inl1pa4j64n5frdukr3j5e.1401098813608@email.android.com>
+References: <x2inl1pa4j64n5frdukr3j5e.1401098813608@email.android.com>
+Message-ID: <CAOwx47dDw1K3Si3MHemm4ZhaRmB3GBTcd2B0qjR7ReMsCs5HFw@mail.gmail.com>
+
+That's probably going to be the best solution, thanks for the idea.
+
+I think I might go with storing the lowest level terms in an option, since
+we're getting close to running out of time for that particular milestone -
+that should have very good performance as well.
+
+Thanks everyone for the ideas,
+Nikola
+
+
+On Mon, May 26, 2014 at 1:06 PM, Harry Metcalfe <harry at dxw.com> wrote:
+
+> You could maybe make a new table that stores details about leaf terms, and
+> update it when terms are modified?
+>
+> I helped out on a project where performance was also key, where we did the
+> above, and it worked well. To be honest, I don't think WordPress's
+> taxonomies will ever be very good if you need something highly performant -
+> since parent/child relationships are only defined upwards (which is your
+> problem here) and any nontrivial reading or manipulation either requires
+> loads of joins or manipulation of large arrays. Or both.
+>
+> Harry
+>
+> Sent from my mobile
+>
+> <div>-------- Original message --------</div><div>From: Nikola Nikolov <
+> nikolov.tmw at gmail.com> </div><div>Date:2014/05/26  09:33  (GMT+00:00)
+> </div><div>To: wp-hackers at lists.automattic.com </div><div>Subject: Re:
+> [wp-hackers] Getting lowest/last-level terms in hierarchical
+>         taxonomy </div><div>
+> </div>Yeah, that's one my thoughts, but I'm afraid it will cause too many
+> queries
+> perhaps? Although from looking at the code it seems like
+> get_term_children() is calling _get_term_hierarchy() every time, which on
+> the other hand is storing it's data in an option in the options table...
+> I guess that might work :)
+>
+> Alternatively, I can store the last-level terms(once I fetch them) in an
+> option as well and flush that option when a term is added/updated/deleted
+> from that taxonomy.
+>
+> Any other ideas?
+>
+>
+> On Mon, May 26, 2014 at 6:19 AM, Haluk Karamete <halukkaramete at gmail.com
+> >wrote:
+>
+> > HI Nikola
+> > what if you walk thru all terms in that tax and check if the current term
+> > has children or not.
+> >
+> > http://codex.wordpress.org/Function_Reference/get_term_children
+> >
+> > Did I understand you correctly?
+> > Here's an interesting one - how can I get all of the *last-level* terms
+> in
+> > a hierarchical taxonomy?
+> >
+> > Take the following hierarchy for instance:
+> >
+> >  - Food
+> >  - - Vegetables
+> >  - - - Cucumber
+> >  - - - Carrot
+> >  - - Bread
+> >  - - Fruits
+> >  - - - Citrus Fruits
+> >  - - - - Orange
+> >  - - - - Pomelo
+> >  - Potato
+> >
+> > ( I know the potato doesn't make sense, but I just wanted to illustrate
+> the
+> > fact that some terms might be without children )
+> >
+> > In this case, I'd want to grab the following terms: Cucumber, Carrot,
+> > Bread, Orange, Pomelo, Potato.
+> >
+> > I've been looking around I haven't found an easy solution so far.
+> >
+> > I can think of two options - getting all terms and then recreating the
+> tree
+> > from them, or getting each level of terms and doing subsequent
+> get_terms()
+> > calls(which I don't like, since it's probably going to be very
+> > inefficient).
+> >
+> > My goal is to be able to present to the user a list of all last-level
+> terms
+> > in the taxonomy and then behind the scenes assign the post to all terms
+> > from that tree(so, if you select Carrot, your post would be added to
+> > Vegetables and Food).
+> > I need to do that, since I have a custom table that stores post to post
+> > relations and I need to be able to query for all items in a specific
+> > category/list of categories with as little extra requests as
+> possible(lots
+> > of data is expected to be stored and performance is key).
+> >
+> > Thanks,
+> > Nikola
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue May 27 00:31:52 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 26 May 2014 17:31:52 -0700
+Subject: [wp-hackers] single quote in content ends up as Unicode Character
+ 'RIGHT SINGLE QUOTATION MARK'
+Message-ID: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+
+This is a trickty one...
+
+When I type in ' ( which is a simple single quote) in the content area in
+my shortcode, I see that it ends up as a 'right single quotation mark' that
+is &#8217;
+
+That's observation #1.
+
+It gets even more interesting, but when I put two of them, one after the
+other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+&#8217;&#8217;).
+
+This is very confusing to me cause I'm middle of parsing my structured data
+based shortcode. The content area interferes with me big time.
+
+Could you tell me which WordPress function(s) involve here so that a
+simple good old (') single quote ends up with &#8217;? Could you point me
+the location where this is happening?
+
+With that location, I'm hoping to see the complete view of what other
+conversion are happening that my parser be aware of.
+
+Thank you
+
+From otto at ottodestruct.com  Tue May 27 01:15:46 2014
+From: otto at ottodestruct.com (Otto)
+Date: Mon, 26 May 2014 20:15:46 -0500
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+Message-ID: <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+
+That would be the wptexturize function.
+
+http://codex.wordpress.org/Function_Reference/wptexturize
+
+-Otto
+
+
+On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> This is a trickty one...
+>
+> When I type in ' ( which is a simple single quote) in the content area in
+> my shortcode, I see that it ends up as a 'right single quotation mark' that
+> is &#8217;
+>
+> That's observation #1.
+>
+> It gets even more interesting, but when I put two of them, one after the
+> other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+> &#8217;&#8217;).
+>
+> This is very confusing to me cause I'm middle of parsing my structured data
+> based shortcode. The content area interferes with me big time.
+>
+> Could you tell me which WordPress function(s) involve here so that a
+> simple good old (') single quote ends up with &#8217;? Could you point me
+> the location where this is happening?
+>
+> With that location, I'm hoping to see the complete view of what other
+> conversion are happening that my parser be aware of.
+>
+> Thank you
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue May 27 01:18:45 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Mon, 26 May 2014 18:18:45 -0700
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+ <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+Message-ID: <CAHERW=2gGxrvPEjA7kcTiATi7-VX=KNmin4+j8_aHnx-ve93xg@mail.gmail.com>
+
+Thank you Otto. That nails it.
+On May 26, 2014 6:16 PM, "Otto" <otto at ottodestruct.com> wrote:
+
+> That would be the wptexturize function.
+>
+> http://codex.wordpress.org/Function_Reference/wptexturize
+>
+> -Otto
+>
+>
+> On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <halukkaramete at gmail.com
+> >wrote:
+>
+> > This is a trickty one...
+> >
+> > When I type in ' ( which is a simple single quote) in the content area in
+> > my shortcode, I see that it ends up as a 'right single quotation mark'
+> that
+> > is &#8217;
+> >
+> > That's observation #1.
+> >
+> > It gets even more interesting, but when I put two of them, one after the
+> > other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+> > &#8217;&#8217;).
+> >
+> > This is very confusing to me cause I'm middle of parsing my structured
+> data
+> > based shortcode. The content area interferes with me big time.
+> >
+> > Could you tell me which WordPress function(s) involve here so that a
+> > simple good old (') single quote ends up with &#8217;? Could you point me
+> > the location where this is happening?
+> >
+> > With that location, I'm hoping to see the complete view of what other
+> > conversion are happening that my parser be aware of.
+> >
+> > Thank you
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue May 27 10:55:38 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 27 May 2014 03:55:38 -0700
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+ <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+Message-ID: <CAHERW=2KvdHU9_k7i+Jbo7rL_ceTaTr4gwsCNVU7rB7=hSsujA@mail.gmail.com>
+
+Otto,
+
+The wp_texturize has a great functionality; If you use the HTML tag <code>
+& </code> in your shortcode content area, it leaves that section untouched.
+This way you can create sections within your shortcode as to which area
+wp_texturize to operate on or off.
+
+So for all the special symbols used within the <code> & </code> block,
+(such as the single quote <code>'</code>), I get them as is. For example,
+for the ', I get it as '. I do not get the &#8217; anymore. The <code>
+feature simply takes care of the problem - in a brilliant way.
+
+But...
+
+If when you switch the post editor's Tiny MCI's visual tab, that simple &
+innocent action ( which is irreversible ) removes the <code> and </code>
+tags permanently and replaces them with &nbsp;! Then all bets are off.
+
+Is it possible to prevent that from happening so that the structured data
+area that I'm trying to protect thru the <code></code> in my shortcode is
+immune to those innocent and accidental switches that may happen anytime on
+the user's end?
+
+I thought of tapping into the no_texturize_shortcodes filter - as expained
+here (
+http://codex.wordpress.org/Plugin_API/Filter_Reference/no_texturize_shortcodes),
+as a different way to tackle the whole thing...
+
+But I sense that that would assume the entire content area of the to be
+avoided by the wp_texturize.
+
+My shortcode has two sections... the regular content area section... and
+the code section that has the code instructions ..  I'd like to be able to
+separate these  two sections ( code and content ) from one another.
+
+In other words, I'd like wp_texturize to do what's designed for on the
+"content-content" area in my shortcode but leave the "content-code" section
+alone..
+
+If the <code></code> were to be preserved upon the visual-tab switch, I
+would be done with this issue and programming the parser now. But I cannot
+move on at this moment before I nail this issue in a future proof way.
+
+What do you think can be done to pull this wish off?
+
+
+
+On Mon, May 26, 2014 at 6:15 PM, Otto <otto at ottodestruct.com> wrote:
+
+> That would be the wptexturize function.
+>
+> http://codex.wordpress.org/Function_Reference/wptexturize
+>
+> -Otto
+>
+>
+> On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <halukkaramete at gmail.com
+> >wrote:
+>
+> > This is a trickty one...
+> >
+> > When I type in ' ( which is a simple single quote) in the content area in
+> > my shortcode, I see that it ends up as a 'right single quotation mark'
+> that
+> > is &#8217;
+> >
+> > That's observation #1.
+> >
+> > It gets even more interesting, but when I put two of them, one after the
+> > other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+> > &#8217;&#8217;).
+> >
+> > This is very confusing to me cause I'm middle of parsing my structured
+> data
+> > based shortcode. The content area interferes with me big time.
+> >
+> > Could you tell me which WordPress function(s) involve here so that a
+> > simple good old (') single quote ends up with &#8217;? Could you point me
+> > the location where this is happening?
+> >
+> > With that location, I'm hoping to see the complete view of what other
+> > conversion are happening that my parser be aware of.
+> >
+> > Thank you
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue May 27 11:39:42 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 27 May 2014 04:39:42 -0700
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAHERW=2KvdHU9_k7i+Jbo7rL_ceTaTr4gwsCNVU7rB7=hSsujA@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+ <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+ <CAHERW=2KvdHU9_k7i+Jbo7rL_ceTaTr4gwsCNVU7rB7=hSsujA@mail.gmail.com>
+Message-ID: <CAHERW=212iGVr3wfJmVt+P=74APdCFDLcj=JNTx7A_KfGSvCTA@mail.gmail.com>
+
+Otto,
+
+I've found a solution to the issue. ( I tested and saw it works )
+
+I simply switched point of views: Instead of protecting the structured data
+within the <code></code> area ( which is problematic as my prev message
+pointed out) and make that section immune to the wptexturize, I went the
+other way. I made the entire shortcode to be exempt from the wptexturize
+and mark the content-content section  using a non-HTML delim (that the
+visual tab editor cannot do anything about ) and apply the wptexturize
+myself in the back end.
+
+The simple steps are as follows;
+
+step 1
+use the no_texturize_shortcodes filter and made the shortcode to be exempt.
+
+step 2
+simply wrap the content area in my shortcode that I want to be processed by
+wptexturize in {content}{content} delims.
+
+step 3
+in the back end, when processing the $content in my shortcode function,
+simply do
+
+$content = wptexturize($content);
+
+- to apply the wptexturize magic over that section
+
+This gives me piece of mind that the section that is not wrapped in
+{content}{content}  blocks are not processed by the wptexturize - thanks to
+the step 1.
+
+This approach has solved my problem.
+
+Now I will see what I can do to do for the little brother of wptexturize
+which is wpautop. :)
+
+
+
+
+On Tue, May 27, 2014 at 3:55 AM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> Otto,
+>
+> The wp_texturize has a great functionality; If you use the HTML tag <code>
+> & </code> in your shortcode content area, it leaves that section untouched.
+> This way you can create sections within your shortcode as to which area
+> wp_texturize to operate on or off.
+>
+> So for all the special symbols used within the <code> & </code> block,
+> (such as the single quote <code>'</code>), I get them as is. For example,
+> for the ', I get it as '. I do not get the &#8217; anymore. The <code>
+> feature simply takes care of the problem - in a brilliant way.
+>
+> But...
+>
+> If when you switch the post editor's Tiny MCI's visual tab, that simple &
+> innocent action ( which is irreversible ) removes the <code> and </code>
+> tags permanently and replaces them with &nbsp;! Then all bets are off.
+>
+> Is it possible to prevent that from happening so that the structured data
+> area that I'm trying to protect thru the <code></code> in my shortcode is
+> immune to those innocent and accidental switches that may happen anytime on
+> the user's end?
+>
+> I thought of tapping into the no_texturize_shortcodes filter - as expained
+> here (
+> http://codex.wordpress.org/Plugin_API/Filter_Reference/no_texturize_shortcodes), as a different way to tackle the whole thing...
+>
+> But I sense that that would assume the entire content area of the to be
+> avoided by the wp_texturize.
+>
+> My shortcode has two sections... the regular content area section... and
+> the code section that has the code instructions ..  I'd like to be able to
+> separate these  two sections ( code and content ) from one another.
+>
+> In other words, I'd like wp_texturize to do what's designed for on the
+> "content-content" area in my shortcode but leave the "content-code" section
+> alone..
+>
+> If the <code></code> were to be preserved upon the visual-tab switch, I
+> would be done with this issue and programming the parser now. But I cannot
+> move on at this moment before I nail this issue in a future proof way.
+>
+> What do you think can be done to pull this wish off?
+>
+>
+>
+> On Mon, May 26, 2014 at 6:15 PM, Otto <otto at ottodestruct.com> wrote:
+>
+>> That would be the wptexturize function.
+>>
+>> http://codex.wordpress.org/Function_Reference/wptexturize
+>>
+>> -Otto
+>>
+>>
+>> On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <halukkaramete at gmail.com
+>> >wrote:
+>>
+>> > This is a trickty one...
+>> >
+>> > When I type in ' ( which is a simple single quote) in the content area
+>> in
+>> > my shortcode, I see that it ends up as a 'right single quotation mark'
+>> that
+>> > is &#8217;
+>> >
+>> > That's observation #1.
+>> >
+>> > It gets even more interesting, but when I put two of them, one after the
+>> > other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+>> > &#8217;&#8217;).
+>> >
+>> > This is very confusing to me cause I'm middle of parsing my structured
+>> data
+>> > based shortcode. The content area interferes with me big time.
+>> >
+>> > Could you tell me which WordPress function(s) involve here so that a
+>> > simple good old (') single quote ends up with &#8217;? Could you point
+>> me
+>> > the location where this is happening?
+>> >
+>> > With that location, I'm hoping to see the complete view of what other
+>> > conversion are happening that my parser be aware of.
+>> >
+>> > Thank you
+>> > _______________________________________________
+>> > wp-hackers mailing list
+>> > wp-hackers at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+>> >
+>> _______________________________________________
+>> wp-hackers mailing list
+>> wp-hackers at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>>
+>
+>
+
+From nikolov.tmw at gmail.com  Tue May 27 12:14:44 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 27 May 2014 15:14:44 +0300
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAHERW=212iGVr3wfJmVt+P=74APdCFDLcj=JNTx7A_KfGSvCTA@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+ <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+ <CAHERW=2KvdHU9_k7i+Jbo7rL_ceTaTr4gwsCNVU7rB7=hSsujA@mail.gmail.com>
+ <CAHERW=212iGVr3wfJmVt+P=74APdCFDLcj=JNTx7A_KfGSvCTA@mail.gmail.com>
+Message-ID: <CAOwx47dLDJ41ysXwQqjRZJH8F_1m8npuWv9XutpDW480cfqR-w@mail.gmail.com>
+
+Slightly off-topic, but Haluk - what are you trying to do with structured
+data in shortcodes and aren't there any other options to store that data?
+
+I'm guessing you're not manually entering structured data in the shortcode,
+but are generating it instead?
+
+Simply because if you find a different way to store and access this data.
+you'll save yourself all of the troubles that you're having at the
+moment(and such solutions can always conflict with some plugin in the
+future) :)
+
+Nikola
+
+
+On Tue, May 27, 2014 at 2:39 PM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> Otto,
+>
+> I've found a solution to the issue. ( I tested and saw it works )
+>
+> I simply switched point of views: Instead of protecting the structured data
+> within the <code></code> area ( which is problematic as my prev message
+> pointed out) and make that section immune to the wptexturize, I went the
+> other way. I made the entire shortcode to be exempt from the wptexturize
+> and mark the content-content section  using a non-HTML delim (that the
+> visual tab editor cannot do anything about ) and apply the wptexturize
+> myself in the back end.
+>
+> The simple steps are as follows;
+>
+> step 1
+> use the no_texturize_shortcodes filter and made the shortcode to be exempt.
+>
+> step 2
+> simply wrap the content area in my shortcode that I want to be processed by
+> wptexturize in {content}{content} delims.
+>
+> step 3
+> in the back end, when processing the $content in my shortcode function,
+> simply do
+>
+> $content = wptexturize($content);
+>
+> - to apply the wptexturize magic over that section
+>
+> This gives me piece of mind that the section that is not wrapped in
+> {content}{content}  blocks are not processed by the wptexturize - thanks to
+> the step 1.
+>
+> This approach has solved my problem.
+>
+> Now I will see what I can do to do for the little brother of wptexturize
+> which is wpautop. :)
+>
+>
+>
+>
+> On Tue, May 27, 2014 at 3:55 AM, Haluk Karamete <halukkaramete at gmail.com
+> >wrote:
+>
+> > Otto,
+> >
+> > The wp_texturize has a great functionality; If you use the HTML tag
+> <code>
+> > & </code> in your shortcode content area, it leaves that section
+> untouched.
+> > This way you can create sections within your shortcode as to which area
+> > wp_texturize to operate on or off.
+> >
+> > So for all the special symbols used within the <code> & </code> block,
+> > (such as the single quote <code>'</code>), I get them as is. For example,
+> > for the ', I get it as '. I do not get the &#8217; anymore. The <code>
+> > feature simply takes care of the problem - in a brilliant way.
+> >
+> > But...
+> >
+> > If when you switch the post editor's Tiny MCI's visual tab, that simple &
+> > innocent action ( which is irreversible ) removes the <code> and </code>
+> > tags permanently and replaces them with &nbsp;! Then all bets are off.
+> >
+> > Is it possible to prevent that from happening so that the structured data
+> > area that I'm trying to protect thru the <code></code> in my shortcode is
+> > immune to those innocent and accidental switches that may happen anytime
+> on
+> > the user's end?
+> >
+> > I thought of tapping into the no_texturize_shortcodes filter - as
+> expained
+> > here (
+> >
+> http://codex.wordpress.org/Plugin_API/Filter_Reference/no_texturize_shortcodes),
+> as a different way to tackle the whole thing...
+> >
+> > But I sense that that would assume the entire content area of the to be
+> > avoided by the wp_texturize.
+> >
+> > My shortcode has two sections... the regular content area section... and
+> > the code section that has the code instructions ..  I'd like to be able
+> to
+> > separate these  two sections ( code and content ) from one another.
+> >
+> > In other words, I'd like wp_texturize to do what's designed for on the
+> > "content-content" area in my shortcode but leave the "content-code"
+> section
+> > alone..
+> >
+> > If the <code></code> were to be preserved upon the visual-tab switch, I
+> > would be done with this issue and programming the parser now. But I
+> cannot
+> > move on at this moment before I nail this issue in a future proof way.
+> >
+> > What do you think can be done to pull this wish off?
+> >
+> >
+> >
+> > On Mon, May 26, 2014 at 6:15 PM, Otto <otto at ottodestruct.com> wrote:
+> >
+> >> That would be the wptexturize function.
+> >>
+> >> http://codex.wordpress.org/Function_Reference/wptexturize
+> >>
+> >> -Otto
+> >>
+> >>
+> >> On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <
+> halukkaramete at gmail.com
+> >> >wrote:
+> >>
+> >> > This is a trickty one...
+> >> >
+> >> > When I type in ' ( which is a simple single quote) in the content area
+> >> in
+> >> > my shortcode, I see that it ends up as a 'right single quotation mark'
+> >> that
+> >> > is &#8217;
+> >> >
+> >> > That's observation #1.
+> >> >
+> >> > It gets even more interesting, but when I put two of them, one after
+> the
+> >> > other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+> >> > &#8217;&#8217;).
+> >> >
+> >> > This is very confusing to me cause I'm middle of parsing my structured
+> >> data
+> >> > based shortcode. The content area interferes with me big time.
+> >> >
+> >> > Could you tell me which WordPress function(s) involve here so that a
+> >> > simple good old (') single quote ends up with &#8217;? Could you point
+> >> me
+> >> > the location where this is happening?
+> >> >
+> >> > With that location, I'm hoping to see the complete view of what other
+> >> > conversion are happening that my parser be aware of.
+> >> >
+> >> > Thank you
+> >> > _______________________________________________
+> >> > wp-hackers mailing list
+> >> > wp-hackers at lists.automattic.com
+> >> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >> >
+> >> _______________________________________________
+> >> wp-hackers mailing list
+> >> wp-hackers at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >>
+> >
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From halukkaramete at gmail.com  Tue May 27 12:22:47 2014
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Tue, 27 May 2014 05:22:47 -0700
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAOwx47dLDJ41ysXwQqjRZJH8F_1m8npuWv9XutpDW480cfqR-w@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+ <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+ <CAHERW=2KvdHU9_k7i+Jbo7rL_ceTaTr4gwsCNVU7rB7=hSsujA@mail.gmail.com>
+ <CAHERW=212iGVr3wfJmVt+P=74APdCFDLcj=JNTx7A_KfGSvCTA@mail.gmail.com>
+ <CAOwx47dLDJ41ysXwQqjRZJH8F_1m8npuWv9XutpDW480cfqR-w@mail.gmail.com>
+Message-ID: <CAHERW=1DL52MN400a9hTLVvj59tHAck08DWq4t7Az8LQzkhBuw@mail.gmail.com>
+
+THank you Nikola, for your interest in this.
+
+As to your point on
+
+I'm guessing you're not manually entering structured data in the shortcode,
+> but are generating it instead?
+>
+
+I'm doing exactly that - that is manually entering structured data in the
+shortcode.
+
+I am planning to use this shortcode as a development tool, a utility to
+pass safe data between the front and the back-end. with 0 eval.
+
+This is a concept that I put a lot of time thinking about. When it shapes
+up and matures, and hence becomes worthwhile to talk about or share, I will
+do so.
+
+
+
+On Tue, May 27, 2014 at 5:14 AM, Nikola Nikolov <nikolov.tmw at gmail.com>wrote:
+
+> Slightly off-topic, but Haluk - what are you trying to do with structured
+> data in shortcodes and aren't there any other options to store that data?
+>
+> I'm guessing you're not manually entering structured data in the shortcode,
+> but are generating it instead?
+>
+> Simply because if you find a different way to store and access this data.
+> you'll save yourself all of the troubles that you're having at the
+> moment(and such solutions can always conflict with some plugin in the
+> future) :)
+>
+> Nikola
+>
+>
+> On Tue, May 27, 2014 at 2:39 PM, Haluk Karamete <halukkaramete at gmail.com
+> >wrote:
+>
+> > Otto,
+> >
+> > I've found a solution to the issue. ( I tested and saw it works )
+> >
+> > I simply switched point of views: Instead of protecting the structured
+> data
+> > within the <code></code> area ( which is problematic as my prev message
+> > pointed out) and make that section immune to the wptexturize, I went the
+> > other way. I made the entire shortcode to be exempt from the wptexturize
+> > and mark the content-content section  using a non-HTML delim (that the
+> > visual tab editor cannot do anything about ) and apply the wptexturize
+> > myself in the back end.
+> >
+> > The simple steps are as follows;
+> >
+> > step 1
+> > use the no_texturize_shortcodes filter and made the shortcode to be
+> exempt.
+> >
+> > step 2
+> > simply wrap the content area in my shortcode that I want to be processed
+> by
+> > wptexturize in {content}{content} delims.
+> >
+> > step 3
+> > in the back end, when processing the $content in my shortcode function,
+> > simply do
+> >
+> > $content = wptexturize($content);
+> >
+> > - to apply the wptexturize magic over that section
+> >
+> > This gives me piece of mind that the section that is not wrapped in
+> > {content}{content}  blocks are not processed by the wptexturize - thanks
+> to
+> > the step 1.
+> >
+> > This approach has solved my problem.
+> >
+> > Now I will see what I can do to do for the little brother of wptexturize
+> > which is wpautop. :)
+> >
+> >
+> >
+> >
+> > On Tue, May 27, 2014 at 3:55 AM, Haluk Karamete <halukkaramete at gmail.com
+> > >wrote:
+> >
+> > > Otto,
+> > >
+> > > The wp_texturize has a great functionality; If you use the HTML tag
+> > <code>
+> > > & </code> in your shortcode content area, it leaves that section
+> > untouched.
+> > > This way you can create sections within your shortcode as to which area
+> > > wp_texturize to operate on or off.
+> > >
+> > > So for all the special symbols used within the <code> & </code> block,
+> > > (such as the single quote <code>'</code>), I get them as is. For
+> example,
+> > > for the ', I get it as '. I do not get the &#8217; anymore. The <code>
+> > > feature simply takes care of the problem - in a brilliant way.
+> > >
+> > > But...
+> > >
+> > > If when you switch the post editor's Tiny MCI's visual tab, that
+> simple &
+> > > innocent action ( which is irreversible ) removes the <code> and
+> </code>
+> > > tags permanently and replaces them with &nbsp;! Then all bets are off.
+> > >
+> > > Is it possible to prevent that from happening so that the structured
+> data
+> > > area that I'm trying to protect thru the <code></code> in my shortcode
+> is
+> > > immune to those innocent and accidental switches that may happen
+> anytime
+> > on
+> > > the user's end?
+> > >
+> > > I thought of tapping into the no_texturize_shortcodes filter - as
+> > expained
+> > > here (
+> > >
+> >
+> http://codex.wordpress.org/Plugin_API/Filter_Reference/no_texturize_shortcodes
+> ),
+> > as a different way to tackle the whole thing...
+> > >
+> > > But I sense that that would assume the entire content area of the to be
+> > > avoided by the wp_texturize.
+> > >
+> > > My shortcode has two sections... the regular content area section...
+> and
+> > > the code section that has the code instructions ..  I'd like to be able
+> > to
+> > > separate these  two sections ( code and content ) from one another.
+> > >
+> > > In other words, I'd like wp_texturize to do what's designed for on the
+> > > "content-content" area in my shortcode but leave the "content-code"
+> > section
+> > > alone..
+> > >
+> > > If the <code></code> were to be preserved upon the visual-tab switch, I
+> > > would be done with this issue and programming the parser now. But I
+> > cannot
+> > > move on at this moment before I nail this issue in a future proof way.
+> > >
+> > > What do you think can be done to pull this wish off?
+> > >
+> > >
+> > >
+> > > On Mon, May 26, 2014 at 6:15 PM, Otto <otto at ottodestruct.com> wrote:
+> > >
+> > >> That would be the wptexturize function.
+> > >>
+> > >> http://codex.wordpress.org/Function_Reference/wptexturize
+> > >>
+> > >> -Otto
+> > >>
+> > >>
+> > >> On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <
+> > halukkaramete at gmail.com
+> > >> >wrote:
+> > >>
+> > >> > This is a trickty one...
+> > >> >
+> > >> > When I type in ' ( which is a simple single quote) in the content
+> area
+> > >> in
+> > >> > my shortcode, I see that it ends up as a 'right single quotation
+> mark'
+> > >> that
+> > >> > is &#8217;
+> > >> >
+> > >> > That's observation #1.
+> > >> >
+> > >> > It gets even more interesting, but when I put two of them, one after
+> > the
+> > >> > other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+> > >> > &#8217;&#8217;).
+> > >> >
+> > >> > This is very confusing to me cause I'm middle of parsing my
+> structured
+> > >> data
+> > >> > based shortcode. The content area interferes with me big time.
+> > >> >
+> > >> > Could you tell me which WordPress function(s) involve here so that a
+> > >> > simple good old (') single quote ends up with &#8217;? Could you
+> point
+> > >> me
+> > >> > the location where this is happening?
+> > >> >
+> > >> > With that location, I'm hoping to see the complete view of what
+> other
+> > >> > conversion are happening that my parser be aware of.
+> > >> >
+> > >> > Thank you
+> > >> > _______________________________________________
+> > >> > wp-hackers mailing list
+> > >> > wp-hackers at lists.automattic.com
+> > >> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >> >
+> > >> _______________________________________________
+> > >> wp-hackers mailing list
+> > >> wp-hackers at lists.automattic.com
+> > >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >>
+> > >
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From nikolov.tmw at gmail.com  Tue May 27 12:57:51 2014
+From: nikolov.tmw at gmail.com (Nikola Nikolov)
+Date: Tue, 27 May 2014 15:57:51 +0300
+Subject: [wp-hackers] single quote in content ends up as Unicode
+ Character 'RIGHT SINGLE QUOTATION MARK'
+In-Reply-To: <CAHERW=1DL52MN400a9hTLVvj59tHAck08DWq4t7Az8LQzkhBuw@mail.gmail.com>
+References: <CAHERW=030YzBzCvbQuzFer1W2v=4=Qe-c0XMoYywKU72fe+5ZQ@mail.gmail.com>
+ <CAD-FghwgCCdxqjJ-bCVArjAH8=8HyaeLn8HoAkHWKAO1uSM69A@mail.gmail.com>
+ <CAHERW=2KvdHU9_k7i+Jbo7rL_ceTaTr4gwsCNVU7rB7=hSsujA@mail.gmail.com>
+ <CAHERW=212iGVr3wfJmVt+P=74APdCFDLcj=JNTx7A_KfGSvCTA@mail.gmail.com>
+ <CAOwx47dLDJ41ysXwQqjRZJH8F_1m8npuWv9XutpDW480cfqR-w@mail.gmail.com>
+ <CAHERW=1DL52MN400a9hTLVvj59tHAck08DWq4t7Az8LQzkhBuw@mail.gmail.com>
+Message-ID: <CAOwx47cOBtLA8ZUDPSzEBcCBxnkpgWQx0TjEsWsPMynw+mN9eQ@mail.gmail.com>
+
+Okay, I see now.
+
+Then, in that case I'm not sure whether you can use a custom field to do
+that same thing. It's just a thought and will probably decrease the ease of
+use, but what about the following:
+
+You have a single text area custom field that will hold all of your
+structured data. It won't be affected by any of the filtering functions,
+other plugins, etc.
+In there if you need to(I'm not sure what your goal is), you can define
+multiple data sets, or just a single one - based on whether you need to
+have one or multiple sets of data.
+
+Your shortcode will then look-up that data and if you have multiple sets of
+data, find the correct one and do whatever it's supposed to do with it.
+
+Again - that might make it a bit harder to use and design(especially if you
+have to separate multiple data sets), but will save you the filters
+headaches.
+
+Nikola
+
+
+On Tue, May 27, 2014 at 3:22 PM, Haluk Karamete <halukkaramete at gmail.com>wrote:
+
+> THank you Nikola, for your interest in this.
+>
+> As to your point on
+>
+> I'm guessing you're not manually entering structured data in the shortcode,
+> > but are generating it instead?
+> >
+>
+> I'm doing exactly that - that is manually entering structured data in the
+> shortcode.
+>
+> I am planning to use this shortcode as a development tool, a utility to
+> pass safe data between the front and the back-end. with 0 eval.
+>
+> This is a concept that I put a lot of time thinking about. When it shapes
+> up and matures, and hence becomes worthwhile to talk about or share, I will
+> do so.
+>
+>
+>
+> On Tue, May 27, 2014 at 5:14 AM, Nikola Nikolov <nikolov.tmw at gmail.com
+> >wrote:
+>
+> > Slightly off-topic, but Haluk - what are you trying to do with structured
+> > data in shortcodes and aren't there any other options to store that data?
+> >
+> > I'm guessing you're not manually entering structured data in the
+> shortcode,
+> > but are generating it instead?
+> >
+> > Simply because if you find a different way to store and access this data.
+> > you'll save yourself all of the troubles that you're having at the
+> > moment(and such solutions can always conflict with some plugin in the
+> > future) :)
+> >
+> > Nikola
+> >
+> >
+> > On Tue, May 27, 2014 at 2:39 PM, Haluk Karamete <halukkaramete at gmail.com
+> > >wrote:
+> >
+> > > Otto,
+> > >
+> > > I've found a solution to the issue. ( I tested and saw it works )
+> > >
+> > > I simply switched point of views: Instead of protecting the structured
+> > data
+> > > within the <code></code> area ( which is problematic as my prev message
+> > > pointed out) and make that section immune to the wptexturize, I went
+> the
+> > > other way. I made the entire shortcode to be exempt from the
+> wptexturize
+> > > and mark the content-content section  using a non-HTML delim (that the
+> > > visual tab editor cannot do anything about ) and apply the wptexturize
+> > > myself in the back end.
+> > >
+> > > The simple steps are as follows;
+> > >
+> > > step 1
+> > > use the no_texturize_shortcodes filter and made the shortcode to be
+> > exempt.
+> > >
+> > > step 2
+> > > simply wrap the content area in my shortcode that I want to be
+> processed
+> > by
+> > > wptexturize in {content}{content} delims.
+> > >
+> > > step 3
+> > > in the back end, when processing the $content in my shortcode function,
+> > > simply do
+> > >
+> > > $content = wptexturize($content);
+> > >
+> > > - to apply the wptexturize magic over that section
+> > >
+> > > This gives me piece of mind that the section that is not wrapped in
+> > > {content}{content}  blocks are not processed by the wptexturize -
+> thanks
+> > to
+> > > the step 1.
+> > >
+> > > This approach has solved my problem.
+> > >
+> > > Now I will see what I can do to do for the little brother of
+> wptexturize
+> > > which is wpautop. :)
+> > >
+> > >
+> > >
+> > >
+> > > On Tue, May 27, 2014 at 3:55 AM, Haluk Karamete <
+> halukkaramete at gmail.com
+> > > >wrote:
+> > >
+> > > > Otto,
+> > > >
+> > > > The wp_texturize has a great functionality; If you use the HTML tag
+> > > <code>
+> > > > & </code> in your shortcode content area, it leaves that section
+> > > untouched.
+> > > > This way you can create sections within your shortcode as to which
+> area
+> > > > wp_texturize to operate on or off.
+> > > >
+> > > > So for all the special symbols used within the <code> & </code>
+> block,
+> > > > (such as the single quote <code>'</code>), I get them as is. For
+> > example,
+> > > > for the ', I get it as '. I do not get the &#8217; anymore. The
+> <code>
+> > > > feature simply takes care of the problem - in a brilliant way.
+> > > >
+> > > > But...
+> > > >
+> > > > If when you switch the post editor's Tiny MCI's visual tab, that
+> > simple &
+> > > > innocent action ( which is irreversible ) removes the <code> and
+> > </code>
+> > > > tags permanently and replaces them with &nbsp;! Then all bets are
+> off.
+> > > >
+> > > > Is it possible to prevent that from happening so that the structured
+> > data
+> > > > area that I'm trying to protect thru the <code></code> in my
+> shortcode
+> > is
+> > > > immune to those innocent and accidental switches that may happen
+> > anytime
+> > > on
+> > > > the user's end?
+> > > >
+> > > > I thought of tapping into the no_texturize_shortcodes filter - as
+> > > expained
+> > > > here (
+> > > >
+> > >
+> >
+> http://codex.wordpress.org/Plugin_API/Filter_Reference/no_texturize_shortcodes
+> > ),
+> > > as a different way to tackle the whole thing...
+> > > >
+> > > > But I sense that that would assume the entire content area of the to
+> be
+> > > > avoided by the wp_texturize.
+> > > >
+> > > > My shortcode has two sections... the regular content area section...
+> > and
+> > > > the code section that has the code instructions ..  I'd like to be
+> able
+> > > to
+> > > > separate these  two sections ( code and content ) from one another.
+> > > >
+> > > > In other words, I'd like wp_texturize to do what's designed for on
+> the
+> > > > "content-content" area in my shortcode but leave the "content-code"
+> > > section
+> > > > alone..
+> > > >
+> > > > If the <code></code> were to be preserved upon the visual-tab
+> switch, I
+> > > > would be done with this issue and programming the parser now. But I
+> > > cannot
+> > > > move on at this moment before I nail this issue in a future proof
+> way.
+> > > >
+> > > > What do you think can be done to pull this wish off?
+> > > >
+> > > >
+> > > >
+> > > > On Mon, May 26, 2014 at 6:15 PM, Otto <otto at ottodestruct.com> wrote:
+> > > >
+> > > >> That would be the wptexturize function.
+> > > >>
+> > > >> http://codex.wordpress.org/Function_Reference/wptexturize
+> > > >>
+> > > >> -Otto
+> > > >>
+> > > >>
+> > > >> On Mon, May 26, 2014 at 7:31 PM, Haluk Karamete <
+> > > halukkaramete at gmail.com
+> > > >> >wrote:
+> > > >>
+> > > >> > This is a trickty one...
+> > > >> >
+> > > >> > When I type in ' ( which is a simple single quote) in the content
+> > area
+> > > >> in
+> > > >> > my shortcode, I see that it ends up as a 'right single quotation
+> > mark'
+> > > >> that
+> > > >> > is &#8217;
+> > > >> >
+> > > >> > That's observation #1.
+> > > >> >
+> > > >> > It gets even more interesting, but when I put two of them, one
+> after
+> > > the
+> > > >> > other  like this, ( '' ) , I ended up with &#8221;  ( instead of
+> > > >> > &#8217;&#8217;).
+> > > >> >
+> > > >> > This is very confusing to me cause I'm middle of parsing my
+> > structured
+> > > >> data
+> > > >> > based shortcode. The content area interferes with me big time.
+> > > >> >
+> > > >> > Could you tell me which WordPress function(s) involve here so
+> that a
+> > > >> > simple good old (') single quote ends up with &#8217;? Could you
+> > point
+> > > >> me
+> > > >> > the location where this is happening?
+> > > >> >
+> > > >> > With that location, I'm hoping to see the complete view of what
+> > other
+> > > >> > conversion are happening that my parser be aware of.
+> > > >> >
+> > > >> > Thank you
+> > > >> > _______________________________________________
+> > > >> > wp-hackers mailing list
+> > > >> > wp-hackers at lists.automattic.com
+> > > >> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >> >
+> > > >> _______________________________________________
+> > > >> wp-hackers mailing list
+> > > >> wp-hackers at lists.automattic.com
+> > > >> http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > > >>
+> > > >
+> > > >
+> > > _______________________________________________
+> > > wp-hackers mailing list
+> > > wp-hackers at lists.automattic.com
+> > > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> > >
+> > _______________________________________________
+> > wp-hackers mailing list
+> > wp-hackers at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-hackers
+> >
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From funkatronic at gmail.com  Sat May 31 03:39:15 2014
+From: funkatronic at gmail.com (Funkatron)
+Date: Fri, 30 May 2014 22:39:15 -0500
+Subject: [wp-hackers] Responsive Embedded Videos
+Message-ID: <CA+-Vqo811QVUO4KMjspiF8yKAKju3ON_sgNMkg0-mahxE9nrZA@mail.gmail.com>
+
+I've run into a problem playing around with videos uploaded and embedded
+into a WP post.  In A theme like Twenty Thirteen, the videos are
+responsive; ie they resize when you resize the window.  In other themes,
+such Highwind (https://wordpress.org/themes/highwind ), not only is the
+video not responsive but it might overflow out of the content area.
+
+I know its related to the css and I've been trying and failing to figure
+out what seems to be the difference between the two themes.  I have found a
+solution: the following css will make all videos responsive and max the
+width to 100% the content area:
+
+.wp-video video {
+max-width: 100%;
+}
+
+Question is: is there any chance of this breaking anything?  Also if I
+wanted to submit a patch, which css file do I patch it in?  there doesn't
+seem to be one for media.
+
+From chris at lod.com  Sat May 31 03:50:18 2014
+From: chris at lod.com (Chris McCoy)
+Date: Fri, 30 May 2014 23:50:18 -0400
+Subject: [wp-hackers] Responsive Embedded Videos
+In-Reply-To: <CA+-Vqo811QVUO4KMjspiF8yKAKju3ON_sgNMkg0-mahxE9nrZA@mail.gmail.com>
+References: <CA+-Vqo811QVUO4KMjspiF8yKAKju3ON_sgNMkg0-mahxE9nrZA@mail.gmail.com>
+Message-ID: <CFAEC838.AB53%chris@lod.com>
+
+check 2013 functions file it might run a filter on oembed so it ads the
+resonsive css element.
+
+probably embed_oembed_html
+
+On 2014-05-30, 11:39 PM, "Funkatron" <funkatronic at gmail.com> wrote:
+
+>I've run into a problem playing around with videos uploaded and embedded
+>into a WP post.  In A theme like Twenty Thirteen, the videos are
+>responsive; ie they resize when you resize the window.  In other themes,
+>such Highwind (https://wordpress.org/themes/highwind ), not only is the
+>video not responsive but it might overflow out of the content area.
+>
+>I know its related to the css and I've been trying and failing to figure
+>out what seems to be the difference between the two themes.  I have found
+>a
+>solution: the following css will make all videos responsive and max the
+>width to 100% the content area:
+>
+>.wp-video video {
+>max-width: 100%;
+>}
+>
+>Question is: is there any chance of this breaking anything?  Also if I
+>wanted to submit a patch, which css file do I patch it in?  there doesn't
+>seem to be one for media.
+>_______________________________________________
+>wp-hackers mailing list
+>wp-hackers at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+
+

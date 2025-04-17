@@ -1,0 +1,101 @@
+From jerome.m at gmail.com  Wed Feb  1 18:24:48 2012
+From: jerome.m at gmail.com (J M)
+Date: Wed, 1 Feb 2012 13:24:48 -0500
+Subject: [HyperDB] wp-config.php and db-config.php
+Message-ID: <CA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com>
+
+hi,
+
+  DB_HOST entry in wp-config, is it still a requirement?  I tried to put a
+bogus IP then browsed the site and everything looks fine..  I can go to
+wp_admin/ without an issue.. traverse on the site without an issue..
+(db-config.php master and slave properly configured)
+
+  Just recently, I was thinking of enabling logging and I found a bunch of
+errors saying cant connect to the bogus IP I placed in wp-config.php.
+
+  Do I need to configure something? Do I need to leave the DB_HOST to point
+to the master DB in wp-config.php?
+
+tia,
+
+From skeltoac at gmail.com  Wed Feb  1 19:14:13 2012
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Wed, 1 Feb 2012 13:14:13 -0600
+Subject: [HyperDB] wp-config.php and db-config.php
+In-Reply-To: <CA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com>
+References: <CA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com>
+Message-ID: <CABVyDWU1VVUMzFTZbLneOLX891NAGDxnm0bbSN7=A1Z_UTVBAg@mail.gmail.com>
+
+In db-config.php you should have removed or commented out Sample
+Configuration 1.
+
+Andy
+
+On Wed, Feb 1, 2012 at 12:24 PM, J M <jerome.m at gmail.com> wrote:
+> hi,
+>
+> ?DB_HOST entry in wp-config, is it still a requirement? ?I tried to put a
+> bogus IP then browsed the site and everything looks fine.. ?I can go to
+> wp_admin/ without an issue.. traverse on the site without an issue..
+> (db-config.php master and slave properly configured)
+>
+> ?Just recently, I was thinking of enabling logging and I found a bunch of
+> errors saying cant connect to the bogus IP I placed in wp-config.php.
+>
+> ?Do I need to configure something? Do I need to leave the DB_HOST to point
+> to the master DB in wp-config.php?
+>
+> tia,
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From jerome.m at gmail.com  Thu Feb  2 01:55:55 2012
+From: jerome.m at gmail.com (J M)
+Date: Wed, 1 Feb 2012 20:55:55 -0500
+Subject: [HyperDB] wp-config.php and db-config.php
+In-Reply-To: <CABVyDWU1VVUMzFTZbLneOLX891NAGDxnm0bbSN7=A1Z_UTVBAg@mail.gmail.com>
+References: <CA+77pikxe6do5r3svFE-HnX+jCb7B5gRogf-fVt7e07+hV8d0A@mail.gmail.com>
+	<CABVyDWU1VVUMzFTZbLneOLX891NAGDxnm0bbSN7=A1Z_UTVBAg@mail.gmail.com>
+Message-ID: <CA+77pikUo1CJnCXJB-R+D7S3ae3W-VvZgtr6L-And8hHR38Bmg@mail.gmail.com>
+
+aha!!! thats the reason why... i better fix my vi or emacs for proper
+coloring..
+
+
+
+On Wed, Feb 1, 2012 at 2:14 PM, Andy Skelton <skeltoac at gmail.com> wrote:
+
+> In db-config.php you should have removed or commented out Sample
+> Configuration 1.
+>
+> Andy
+>
+> On Wed, Feb 1, 2012 at 12:24 PM, J M <jerome.m at gmail.com> wrote:
+> > hi,
+> >
+> >  DB_HOST entry in wp-config, is it still a requirement?  I tried to put a
+> > bogus IP then browsed the site and everything looks fine..  I can go to
+> > wp_admin/ without an issue.. traverse on the site without an issue..
+> > (db-config.php master and slave properly configured)
+> >
+> >  Just recently, I was thinking of enabling logging and I found a bunch of
+> > errors saying cant connect to the bogus IP I placed in wp-config.php.
+> >
+> >  Do I need to configure something? Do I need to leave the DB_HOST to
+> point
+> > to the master DB in wp-config.php?
+> >
+> > tia,
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+

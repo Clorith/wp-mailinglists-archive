@@ -1,0 +1,544 @@
+From yojoaquin at gmail.com  Tue Jul  7 13:26:25 2015
+From: yojoaquin at gmail.com (Joaquin Rodriguez Montero)
+Date: Tue, 7 Jul 2015 10:26:25 -0300
+Subject: [wp-hackers] Repeated Posts In Backend
+Message-ID: <CAAVCQdEzYEXspH-WZO-XOATut=3iFXSgNeMuWQ3TZQDp8KJg=A@mail.gmail.com>
+
+Hi guys!
+
+This is a very strange case which I don't know how to solve or even know
+what's going on.
+I have 8.636 posts (post type 'document').  245 of them are published with
+the same date (January 6th 2008).
+When I filter by date: January 2008, I get all 245 (according the number
+showed next to the pagination buttons) but the thing is I don't and plus I
+get repeated posts! why?!
+Funny thing is that when I change the "number of elements per page" to 50
+(instead of 20) I get the proper list.. no repeated elements, etc.
+Has anyone experienced this? It's super weird.
+Thanks!
+
+J
+
+From halukkaramete at gmail.com  Wed Jul  8 16:36:24 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 8 Jul 2015 09:36:24 -0700
+Subject: [wp-hackers] identifying if a transient exists without the
+	WordPress APIs
+Message-ID: <CAHERW=2vA1NJeu=KfCDmNnGN8xVJRbQ_97L+eG8=igPGspfK+w@mail.gmail.com>
+
+Hi guys,
+
+I know this would have been an easy one using the WordPress API's - as the
+answer to my question would be -> just use get_transient dude!
+
+But I want to figure this out with straight mysql - as I need this
+information at the mother of all pages, the index.php at the site root -
+before it has loaded the blog-header.
+
+If the name of the transient I'm after is 'my_transient', what mysql
+statement would reliably get me its contents - if 'my_transient' has not
+expired and still available?
+
+Needless to say, that SQL statement cannot tap into the wpdb APIs for the
+same very reason; WordPress has not loaded yet. So this has to be straight
+mysql solution.
+
+I know that the transients may not always be stored in the options table (
+ it could be memory based ) but here we will assume that we use options
+table for that.
+
+From halukkaramete at gmail.com  Wed Jul  8 17:02:35 2015
+From: halukkaramete at gmail.com (Haluk Karamete)
+Date: Wed, 8 Jul 2015 10:02:35 -0700
+Subject: [wp-hackers] identifying if a transient exists without the
+	WordPress APIs
+In-Reply-To: <CAHERW=2vA1NJeu=KfCDmNnGN8xVJRbQ_97L+eG8=igPGspfK+w@mail.gmail.com>
+References: <CAHERW=2vA1NJeu=KfCDmNnGN8xVJRbQ_97L+eG8=igPGspfK+w@mail.gmail.com>
+Message-ID: <CAHERW=09haJ7+iVbTMUs-MuBSfUH6ypvNL5AtVQyuHZVoOzvXA@mail.gmail.com>
+
+I've got this sorted out!
+
+Am I missing anything?
+
+
+$my_transient = 'my_transient';
+ $transient_timeout = '_transient_timeout_' . $my_transient;
+ if ( blp_get_option( $transient_timeout ) < time() ): //see the wrapper
+function I included below
+ //all bets are off!
+//the transient I'm after must have been expired or never existed to begin
+with!
+ else:
+ //bingo transient is available, get it.
+$value = blp_get_option( $my_transient );
+ endif;
+
+ // the wrapper function ( which was inspired by the get_option's guts )
+ function blp_get_option( $transient_name ) {
+ run the following SQL and return the result either FALSE or with the
+matched option value
+ "SELECT option_value FROM `our_prefix_here_options` WHERE option_name =
+'{$transient_name}' LIMIT 1";
+ }
+
+
+On Wed, Jul 8, 2015 at 9:36 AM, Haluk Karamete <halukkaramete at gmail.com>
+wrote:
+
+> Hi guys,
+>
+> I know this would have been an easy one using the WordPress API's - as the
+> answer to my question would be -> just use get_transient dude!
+>
+> But I want to figure this out with straight mysql - as I need this
+> information at the mother of all pages, the index.php at the site root -
+> before it has loaded the blog-header.
+>
+> If the name of the transient I'm after is 'my_transient', what mysql
+> statement would reliably get me its contents - if 'my_transient' has not
+> expired and still available?
+>
+> Needless to say, that SQL statement cannot tap into the wpdb APIs for the
+> same very reason; WordPress has not loaded yet. So this has to be straight
+> mysql solution.
+>
+> I know that the transients may not always be stored in the options table (
+>  it could be memory based ) but here we will assume that we use options
+> table for that.
+>
+>
+
+From yojoaquin at gmail.com  Thu Jul  9 18:07:32 2015
+From: yojoaquin at gmail.com (Joaquin Rodriguez Montero)
+Date: Thu, 9 Jul 2015 15:07:32 -0300
+Subject: [wp-hackers] wp-hackers Digest, Vol 126, Issue 2
+In-Reply-To: <mailman.9.1436443202.32029.wp-hackers@lists.automattic.com>
+References: <mailman.9.1436443202.32029.wp-hackers@lists.automattic.com>
+Message-ID: <CAAVCQdE7K5Jzr0WOwsDZpH4XFyJco+vL+9-YJ4cD2he6RatHww@mail.gmail.com>
+
+Hi guys!
+
+This is a very strange case which I don't know how to solve or even know
+what's going on.
+I have 8.636 posts (post type 'document').  245 of them are published with
+the same date (January 6th 2008).
+When I filter by date: January 2008, I get all 245 (according the number
+showed next to the pagination buttons) but the thing is I don't and plus I
+get repeated posts! why?!
+Funny thing is that when I change the "number of elements per page" to 50
+(instead of 20) I get the proper list.. no repeated elements, etc.
+Has anyone experienced this? It's super weird.
+Thanks!
+
+From fastmoverr at gmail.com  Thu Jul  9 21:41:44 2015
+From: fastmoverr at gmail.com (fastmoverr at gmail.com)
+Date: Thu, 09 Jul 2015 21:41:44 +0000
+Subject: [wp-hackers] wp-hackers Digest, Vol 126, Issue 2
+In-Reply-To: <CAAVCQdE7K5Jzr0WOwsDZpH4XFyJco+vL+9-YJ4cD2he6RatHww@mail.gmail.com>
+References: <mailman.9.1436443202.32029.wp-hackers@lists.automattic.com>
+ <CAAVCQdE7K5Jzr0WOwsDZpH4XFyJco+vL+9-YJ4cD2he6RatHww@mail.gmail.com>
+Message-ID: <CALxoguN0k3822usf31gFtgjbSvbtCeah0v7E8KU9UJkPpvAbmg@mail.gmail.com>
+
+By default WordPress sorts by date, this can be confusing when all the
+dates are the same. If you do a second sorry parameter of title or id this
+should solve your issue.
+
+On Thu, Jul 9, 2015, 1:08 PM Joaquin Rodriguez Montero <yojoaquin at gmail.com>
+wrote:
+
+> Hi guys!
+>
+> This is a very strange case which I don't know how to solve or even know
+> what's going on.
+> I have 8.636 posts (post type 'document').  245 of them are published with
+> the same date (January 6th 2008).
+> When I filter by date: January 2008, I get all 245 (according the number
+> showed next to the pagination buttons) but the thing is I don't and plus I
+> get repeated posts! why?!
+> Funny thing is that when I change the "number of elements per page" to 50
+> (instead of 20) I get the proper list.. no repeated elements, etc.
+> Has anyone experienced this? It's super weird.
+> Thanks!
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+
+From rarylson at gmail.com  Thu Jul 16 03:52:54 2015
+From: rarylson at gmail.com (Rarylson Freitas)
+Date: Thu, 16 Jul 2015 00:52:54 -0300
+Subject: [wp-hackers] Optimizing a SQL query used to get all custom post
+	metakeys
+Message-ID: <CAB_n18Aks2ivDNUowHOteLqME-mmWn03Rs0fBY=VzV6PFbiBeA@mail.gmail.com>
+
+Hi,
+
+I am responsible for a Wordpress site with more than 500.000 posts (more
+than half million posts).
+
+Recently, I've discovered some performance problems in the function
+meta_form, file wp-admin/includes/template.php. This function "Prints the
+form in the Custom Fields meta box".
+
+The problem was at line 674, where the SQL query was defined.
+
+I'm putting the raw (already processed) SQL query here:
+
+SELECT meta_key
+    FROM wp_postmeta
+    GROUP BY meta_key
+    HAVING meta_key NOT LIKE '\_%'
+    ORDER BY meta_key
+    LIMIT 30
+
+To run this query, MySQL will sort all meta_key lines, including all custom
+fields and all the other fields (starting with '_'), unify them, select the
+desired fields, and them return them.
+
+The problem with its query is that it will run a sort over all of the
+entries (due to the GROUP BY part), and select the desired entries after
+the group by (HAVING part). A more efficient solution should consider
+excluding unnecessary entries before sorting/unifying them.
+
+A better query could be:
+
+SELECT UNIQUE meta_key
+    FROM wp_postmeta
+    WHERE meta_key NOT LIKE '\_%'
+    ORDER BY meta_key
+    LIMIT 30
+
+In my case, this simply change gave us a performance improvement of 4x
+(from 8s to less then 2s).
+
+So, I'm proposing this patch to this file, and I hope that it can be useful
+to make the Wordpress project better.
+
+--- wp-admin/includes/template.php.orig    2015-07-16 00:22:28.000000000
+-0300
++++ wp-admin/includes/template.php    2015-07-16 00:23:06.000000000 -0300
+@@ -671,10 +671,9 @@
+      * @param int $limit Number of custom fields to retrieve. Default 30.
+      */
+     $limit = apply_filters( 'postmeta_form_limit', 30 );
+-    $sql = "SELECT meta_key
++    $sql = "SELECT UNIQUE meta_key
+         FROM $wpdb->postmeta
+-        GROUP BY meta_key
+-        HAVING meta_key NOT LIKE %s
++        WHERE meta_key NOT LIKE %s
+         ORDER BY meta_key
+         LIMIT %d";
+     $keys = $wpdb->get_col( $wpdb->prepare( $sql, $wpdb->esc_like( '_' ) .
+'%', $limit ) );
+
+
+--
+
+*Rarylson Freitas*Engenheiro de Computa??o
+Instituto Militar de Engenharia
+
+From hello at chriscct7.com  Thu Jul 16 03:59:51 2015
+From: hello at chriscct7.com (Chris Christoff)
+Date: Thu, 16 Jul 2015 03:59:51 +0000
+Subject: [wp-hackers] Optimizing a SQL query used to get all custom post
+	metakeys
+In-Reply-To: <CAB_n18Aks2ivDNUowHOteLqME-mmWn03Rs0fBY=VzV6PFbiBeA@mail.gmail.com>
+References: <CAB_n18Aks2ivDNUowHOteLqME-mmWn03Rs0fBY=VzV6PFbiBeA@mail.gmail.com>
+Message-ID: <reply-5002-104992058-268605834-1437019191-1466270155@helpscout.net>
+
+-- Please reply above this line --
+
+-----------------------------------------------------------
+## Chris replied, on Jul 15 @ 11:59pm (AMT):
+
+see https://core.trac.wordpress.org/ticket/24498#comment:10 [1]
+
+Links:
+------
+[1] https://core.trac.wordpress.org/ticket/24498#comment:10
+
+--
+Chris Christoff
+hello at chriscct7.com
+http://www.chriscct7.com [1]
+@chriscct7
+
+Links:
+------
+[1] http://www.chriscct7.com
+
+
+-----------------------------------------------------------
+## wp-hackers at lists.automattic.com sent a message, on Jul 15 @ 11:53pm (AMT):
+
+Hi,
+
+I am responsible for a Wordpress site with more than 500.000 posts
+(more
+than half million posts).
+
+Recently, I've discovered some performance problems in the function
+meta_form, file wp-admin/includes/template.php. This function "Prints
+the
+form in the Custom Fields meta box".
+
+The problem was at line 674, where the SQL query was defined.
+
+I'm putting the raw (already processed) SQL query here:
+
+SELECT meta_key
+    FROM wp_postmeta
+    GROUP BY meta_key
+    HAVING meta_key NOT LIKE '_%'
+    ORDER BY meta_key
+    LIMIT 30
+
+To run this query, MySQL will sort all meta_key lines, including all
+custom
+fields and all the other fields (starting with '_'), unify them,
+select the
+desired fields, and them return them.
+
+The problem with its query is that it will run a sort over all of the
+entries (due to the GROUP BY part), and select the desired entries
+after
+the group by (HAVING part). A more efficient solution should consider
+excluding unnecessary entries before sorting/unifying them.
+
+A better query could be:
+
+SELECT UNIQUE meta_key
+    FROM wp_postmeta
+    WHERE meta_key NOT LIKE '_%'
+    ORDER BY meta_key
+    LIMIT 30
+
+In my case, this simply change gave us a performance improvement of 4x
+(from 8s to less then 2s).
+
+So, I'm proposing this patch to this file, and I hope that it can be
+useful
+to make the Wordpress project better.
+
+--- wp-admin/includes/template.php.orig    2015-07-16
+00:22:28.000000000
+-0300
++++ wp-admin/includes/template.php    2015-07-16 00:23:06.000000000
+-0300
+@@ -671,10 +671,9 @@
+      * @param int $limit Number of custom fields to retrieve. Default
+30.
+      */
+     $limit = apply_filters( 'postmeta_form_limit', 30 );
+-    $sql = "SELECT meta_key
++    $sql = "SELECT UNIQUE meta_key
+         FROM $wpdb->postmeta
+-        GROUP BY meta_key
+-        HAVING meta_key NOT LIKE %s
++        WHERE meta_key NOT LIKE %s
+         ORDER BY meta_key
+         LIMIT %d";
+     $keys = $wpdb->get_col( $wpdb->prepare( $sql,
+$wpdb->esc_like( '_' ) .
+'%', $limit ) );
+
+--
+
+*Rarylson Freitas*Engenheiro de Computa??o
+Instituto Militar de Engenharia
+_______________________________________________
+wp-hackers mailing list
+wp-hackers at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-hackers
+
+-----------------------------------------------------------
+
+
+From lox.dev at knc.nc  Thu Jul 16 23:29:17 2015
+From: lox.dev at knc.nc (Lox)
+Date: Fri, 17 Jul 2015 10:29:17 +1100
+Subject: [wp-hackers] Contextual Customizer Option
+Message-ID: <CA+sFoLrabGui53kksHvvDkqEQQ5EVc8PWCQvKmSECeSGoG+p4Q@mail.gmail.com>
+
+Hello,
+
+I need some contextual options in the customizer (related to the current
+post in view)
+Displaying a contextual panel/section/control is straight forward, but I
+have issues saving/getting the option data from post metas.
+
+My example is as simple as providing a page template dropdown for pages
+(getting the control to display isn't the issue)
+
+<?php
+
+function customize_save_page_template ($value) {
+    return update_post_meta( get_queried_object_id(), '_wp_page_template',
+$value );
+}
+add_action( 'customize_save_page_template', 'customize_save_page_template');
+
+function customize_update_page_template ($value) {
+    return update_post_meta( get_queried_object_id(), '_wp_page_template',
+$value );
+}
+add_action( 'customize_update_page_template',
+'customize_update_page_template');
+
+function customize_value_page_template ($default) {
+    return get_post_meta( get_queried_object_id(), '_wp_page_template',
+true );
+}
+add_action( 'customize_value_page_template',
+'customize_value_page_template');
+
+None of those work: it seems the customizer isn't aware of the current post
+ID.
+
+Any idea ?
+
+Regards.
+
+-- 
+Lox
+lox.dev at knc.nc
+
+From rarylson at gmail.com  Fri Jul 17 02:42:57 2015
+From: rarylson at gmail.com (Rarylson Freitas)
+Date: Thu, 16 Jul 2015 23:42:57 -0300
+Subject: [wp-hackers] Optimizing a SQL query used to get all custom post
+	metakeys
+In-Reply-To: <reply-5002-104992058-268605834-1437019191-1466270155@helpscout.net>
+References: <CAB_n18Aks2ivDNUowHOteLqME-mmWn03Rs0fBY=VzV6PFbiBeA@mail.gmail.com>
+ <reply-5002-104992058-268605834-1437019191-1466270155@helpscout.net>
+Message-ID: <CAB_n18Dx2sN_pc_TRFgJjBywkasBQMcmBhEymZoLWesky1wjbg@mail.gmail.com>
+
+Hi Chris,
+
+Thank you for your appointment!
+
+--
+
+*Rarylson Freitas*Engenheiro de Computa??o
+Instituto Militar de Engenharia
+
+On Thu, Jul 16, 2015 at 12:59 AM, Chris Christoff <hello at chriscct7.com>
+wrote:
+
+> -- Please reply above this line --
+>
+> -----------------------------------------------------------
+> ## Chris replied, on Jul 15 @ 11:59pm (AMT):
+>
+> see https://core.trac.wordpress.org/ticket/24498#comment:10 [1]
+>
+> Links:
+> ------
+> [1] https://core.trac.wordpress.org/ticket/24498#comment:10
+>
+> --
+> Chris Christoff
+> hello at chriscct7.com
+> http://www.chriscct7.com [1]
+> @chriscct7
+>
+> Links:
+> ------
+> [1] http://www.chriscct7.com
+>
+>
+> -----------------------------------------------------------
+> ## wp-hackers at lists.automattic.com sent a message, on Jul 15 @ 11:53pm
+> (AMT):
+>
+> Hi,
+>
+> I am responsible for a Wordpress site with more than 500.000 posts
+> (more
+> than half million posts).
+>
+> Recently, I've discovered some performance problems in the function
+> meta_form, file wp-admin/includes/template.php. This function "Prints
+> the
+> form in the Custom Fields meta box".
+>
+> The problem was at line 674, where the SQL query was defined.
+>
+> I'm putting the raw (already processed) SQL query here:
+>
+> SELECT meta_key
+>     FROM wp_postmeta
+>     GROUP BY meta_key
+>     HAVING meta_key NOT LIKE '_%'
+>     ORDER BY meta_key
+>     LIMIT 30
+>
+> To run this query, MySQL will sort all meta_key lines, including all
+> custom
+> fields and all the other fields (starting with '_'), unify them,
+> select the
+> desired fields, and them return them.
+>
+> The problem with its query is that it will run a sort over all of the
+> entries (due to the GROUP BY part), and select the desired entries
+> after
+> the group by (HAVING part). A more efficient solution should consider
+> excluding unnecessary entries before sorting/unifying them.
+>
+> A better query could be:
+>
+> SELECT UNIQUE meta_key
+>     FROM wp_postmeta
+>     WHERE meta_key NOT LIKE '_%'
+>     ORDER BY meta_key
+>     LIMIT 30
+>
+> In my case, this simply change gave us a performance improvement of 4x
+> (from 8s to less then 2s).
+>
+> So, I'm proposing this patch to this file, and I hope that it can be
+> useful
+> to make the Wordpress project better.
+>
+> --- wp-admin/includes/template.php.orig    2015-07-16
+> 00:22:28.000000000
+> -0300
+> +++ wp-admin/includes/template.php    2015-07-16 00:23:06.000000000
+> -0300
+> @@ -671,10 +671,9 @@
+>       * @param int $limit Number of custom fields to retrieve. Default
+> 30.
+>       */
+>      $limit = apply_filters( 'postmeta_form_limit', 30 );
+> -    $sql = "SELECT meta_key
+> +    $sql = "SELECT UNIQUE meta_key
+>          FROM $wpdb->postmeta
+> -        GROUP BY meta_key
+> -        HAVING meta_key NOT LIKE %s
+> +        WHERE meta_key NOT LIKE %s
+>          ORDER BY meta_key
+>          LIMIT %d";
+>      $keys = $wpdb->get_col( $wpdb->prepare( $sql,
+> $wpdb->esc_like( '_' ) .
+> '%', $limit ) );
+>
+> --
+>
+> *Rarylson Freitas*Engenheiro de Computa??o
+> Instituto Militar de Engenharia
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+> -----------------------------------------------------------
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+

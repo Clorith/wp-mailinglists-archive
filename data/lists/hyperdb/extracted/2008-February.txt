@@ -1,0 +1,405 @@
+From dan at instinct.co.nz  Tue Feb  5 11:51:56 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Tue Feb  5 11:52:09 2008
+Subject: [HyperDB] documentation?
+In-Reply-To: <4707B217.1090501@mullenweg.com>
+References: <004a01c80761$46dd9cd0$eb011b0c@dantre>
+	<4707B217.1090501@mullenweg.com>
+Message-ID: <47A84DDC.3060604@instinct.co.nz>
+
+Hi Guys,
+
+We're mucking around with an MU powered site that we expect to get 
+pretty big quite fast - we made the mistake of using an ext3 file 
+system. So what this means is that when we hit around the 350 users mark 
+our server will freak out due to ext3 limitations.
+
+So this seems to me like a good opportunity to use get a new server for 
+just the databases and use Hyper DB on a new XFS filesystem.
+
+One thing I want to do though is use Super Cache 2. Does this sound like 
+a good idea - can anybody see any reason why it wouldn't work.
+
+Ciao,
+
+Dan
+From kingattitude at gmail.com  Tue Feb  5 16:34:35 2008
+From: kingattitude at gmail.com (King of punk)
+Date: Tue Feb  5 16:34:58 2008
+Subject: [HyperDB] documentation?
+In-Reply-To: <47A84DDC.3060604@instinct.co.nz>
+References: <004a01c80761$46dd9cd0$eb011b0c@dantre>	<4707B217.1090501@mullenweg.com>
+	<47A84DDC.3060604@instinct.co.nz>
+Message-ID: <47A8901B.5090703@gmail.com>
+
+Hello
+I am also putting myself on that big MU adventures, but how come that 
+your server "freak out" with only 350 users ???
+
+Kingofpunk
+
+
+
+
+
+Dan Milward wrote:
+> Hi Guys,
+> 
+> We're mucking around with an MU powered site that we expect to get 
+> pretty big quite fast - we made the mistake of using an ext3 file 
+> system. So what this means is that when we hit around the 350 users mark 
+> our server will freak out due to ext3 limitations.
+> 
+> So this seems to me like a good opportunity to use get a new server for 
+> just the databases and use Hyper DB on a new XFS filesystem.
+> 
+> One thing I want to do though is use Super Cache 2. Does this sound like 
+> a good idea - can anybody see any reason why it wouldn't work.
+> 
+> Ciao,
+> 
+> Dan
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+
+From dan at instinct.co.nz  Wed Feb  6 23:21:01 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Wed Feb  6 23:21:18 2008
+Subject: [HyperDB] documentation?
+In-Reply-To: <47A8901B.5090703@gmail.com>
+References: <004a01c80761$46dd9cd0$eb011b0c@dantre>	<4707B217.1090501@mullenweg.com>	<47A84DDC.3060604@instinct.co.nz>
+	<47A8901B.5090703@gmail.com>
+Message-ID: <47AA40DD.5010106@instinct.co.nz>
+
+We are using the ext3 file system which apparently supports around 
+32,000 files in one directory.
+
+As we are using WordPress MU which creates multiple tables per user 
+(more then normal as we are using several plugins). Because each of 
+those tables is actually several files in the MySQL directory we have 
+calculated that unless MySQL does something smart like nesting of 
+directories to work around the problem...
+
+...Then we will probably hit the limit of files at around 350 users. At 
+which point we will not be able to create files in that directory which 
+means no more users will be able to sign up with other possible nasty 
+side effects for whatever user puts it over the limit - for instance 
+that user might only get half tables created necessary for their 
+wordpress blog to run.
+
+So what I want to know is whether or not MySQL does something smart to 
+work around this - and if not does a separate machine running HyperDB 
+sound like a good idea.
+
+And does HyperDB work well with Super Cache 2 :))
+
+d
+
+King of punk wrote:
+> Hello
+> I am also putting myself on that big MU adventures, but how come that 
+> your server "freak out" with only 350 users ???
+>
+> Kingofpunk
+>
+>
+>
+>
+>
+> Dan Milward wrote:
+>> Hi Guys,
+>>
+>> We're mucking around with an MU powered site that we expect to get 
+>> pretty big quite fast - we made the mistake of using an ext3 file 
+>> system. So what this means is that when we hit around the 350 users 
+>> mark our server will freak out due to ext3 limitations.
+>>
+>> So this seems to me like a good opportunity to use get a new server 
+>> for just the databases and use Hyper DB on a new XFS filesystem.
+>>
+>> One thing I want to do though is use Super Cache 2. Does this sound 
+>> like a good idea - can anybody see any reason why it wouldn't work.
+>>
+>> Ciao,
+>>
+>> Dan
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From m at mullenweg.com  Thu Feb  7 00:28:27 2008
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu Feb  7 00:29:13 2008
+Subject: [HyperDB] documentation?
+In-Reply-To: <47AA40DD.5010106@instinct.co.nz>
+References: <004a01c80761$46dd9cd0$eb011b0c@dantre>	<4707B217.1090501@mullenweg.com>	<47A84DDC.3060604@instinct.co.nz>	<47A8901B.5090703@gmail.com>
+	<47AA40DD.5010106@instinct.co.nz>
+Message-ID: <47AA50AB.4080905@mullenweg.com>
+
+Dan Milward wrote:
+> ...Then we will probably hit the limit of files at around 350 users.
+
+32,000 / 3 files per table = 10666 tables / 350 blogs = 30 tables per 
+blog? That seems high, even with plugins.
+
+Also as far as I know the 32k file limit is only with 2.4 kernels, not 
+2.6 ones.
+
+> So what I want to know is whether or not MySQL does something smart to 
+> work around this - and if not does a separate machine running HyperDB 
+> sound like a good idea.
+
+With InnoDB all tables are put in a single file.
+
+But really you should use a kernel made within the past few years.
+
+> And does HyperDB work well with Super Cache 2 :))
+
+I don't see how they're related.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://automattic.com
+From kingattitude at gmail.com  Thu Feb  7 00:48:02 2008
+From: kingattitude at gmail.com (King of punk)
+Date: Thu Feb  7 00:48:26 2008
+Subject: [HyperDB] documentation?
+In-Reply-To: <47AA50AB.4080905@mullenweg.com>
+References: <004a01c80761$46dd9cd0$eb011b0c@dantre>	<4707B217.1090501@mullenweg.com>	<47A84DDC.3060604@instinct.co.nz>	<47A8901B.5090703@gmail.com>	<47AA40DD.5010106@instinct.co.nz>
+	<47AA50AB.4080905@mullenweg.com>
+Message-ID: <47AA5542.9040703@gmail.com>
+
+Maybe the solution is a ReiserFs linux partitioning ?
+
+Matt Mullenweg wrote:
+> Dan Milward wrote:
+>> ...Then we will probably hit the limit of files at around 350 users.
+> 
+> 32,000 / 3 files per table = 10666 tables / 350 blogs = 30 tables per 
+> blog? That seems high, even with plugins.
+> 
+> Also as far as I know the 32k file limit is only with 2.4 kernels, not 
+> 2.6 ones.
+> 
+>> So what I want to know is whether or not MySQL does something smart to 
+>> work around this - and if not does a separate machine running HyperDB 
+>> sound like a good idea.
+> 
+> With InnoDB all tables are put in a single file.
+> 
+> But really you should use a kernel made within the past few years.
+> 
+>> And does HyperDB work well with Super Cache 2 :))
+> 
+> I don't see how they're related.
+> 
+
+From quenting at gmail.com  Thu Feb  7 12:56:09 2008
+From: quenting at gmail.com (Quentin Gouedard)
+Date: Thu Feb  7 13:01:19 2008
+Subject: [HyperDB] Re: HyperDB Digest, Vol 6, Issue 3
+In-Reply-To: <20080207120029.4802C75DD@comox.textdrive.com>
+References: <20080207120029.4802C75DD@comox.textdrive.com>
+Message-ID: <58a8266c0802070456p1ed4c258r773c7984c97171b3@mail.gmail.com>
+
+The 32k limit is for subdirectories within a directory, not files within a
+directory.
+In the past we've had up to hundreds of thousands of files in a mysql db
+directory. It's not recommended for performance reasons, but it still does
+work.
+Quentin
+http://unblog.fr
+
+On Feb 7, 2008 1:00 PM, <hyperdb-request@lists.automattic.com> wrote:
+
+> Send HyperDB mailing list submissions to
+>        hyperdb@lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        http://lists.automattic.com/mailman/listinfo/hyperdb
+> or, via email, send a message with subject or body 'help' to
+>        hyperdb-request@lists.automattic.com
+>
+> You can reach the person managing the list at
+>        hyperdb-owner@lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of HyperDB digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Re: documentation? (Dan Milward)
+>   2. Re: documentation? (Matt Mullenweg)
+>   3. Re: documentation? (King of punk)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Thu, 07 Feb 2008 12:21:01 +1300
+> From: Dan Milward <dan@instinct.co.nz>
+> Subject: Re: [HyperDB] documentation?
+> To: hyperdb@lists.automattic.com
+> Message-ID: <47AA40DD.5010106@instinct.co.nz>
+> Content-Type: text/plain; charset=UTF-8; format=flowed
+>
+> We are using the ext3 file system which apparently supports around
+> 32,000 files in one directory.
+>
+> As we are using WordPress MU which creates multiple tables per user
+> (more then normal as we are using several plugins). Because each of
+> those tables is actually several files in the MySQL directory we have
+> calculated that unless MySQL does something smart like nesting of
+> directories to work around the problem...
+>
+> ...Then we will probably hit the limit of files at around 350 users. At
+> which point we will not be able to create files in that directory which
+> means no more users will be able to sign up with other possible nasty
+> side effects for whatever user puts it over the limit - for instance
+> that user might only get half tables created necessary for their
+> wordpress blog to run.
+>
+> So what I want to know is whether or not MySQL does something smart to
+> work around this - and if not does a separate machine running HyperDB
+> sound like a good idea.
+>
+> And does HyperDB work well with Super Cache 2 :))
+>
+> d
+>
+> King of punk wrote:
+> > Hello
+> > I am also putting myself on that big MU adventures, but how come that
+> > your server "freak out" with only 350 users ???
+> >
+> > Kingofpunk
+> >
+> >
+> >
+> >
+> >
+> > Dan Milward wrote:
+> >> Hi Guys,
+> >>
+> >> We're mucking around with an MU powered site that we expect to get
+> >> pretty big quite fast - we made the mistake of using an ext3 file
+> >> system. So what this means is that when we hit around the 350 users
+> >> mark our server will freak out due to ext3 limitations.
+> >>
+> >> So this seems to me like a good opportunity to use get a new server
+> >> for just the databases and use Hyper DB on a new XFS filesystem.
+> >>
+> >> One thing I want to do though is use Super Cache 2. Does this sound
+> >> like a good idea - can anybody see any reason why it wouldn't work.
+> >>
+> >> Ciao,
+> >>
+> >> Dan
+> >> _______________________________________________
+> >> HyperDB mailing list
+> >> HyperDB@lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/hyperdb
+> >>
+> >
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> >
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Wed, 06 Feb 2008 16:28:27 -0800
+> From: Matt Mullenweg <m@mullenweg.com>
+> Subject: Re: [HyperDB] documentation?
+> To: hyperdb@lists.automattic.com
+> Message-ID: <47AA50AB.4080905@mullenweg.com>
+> Content-Type: text/plain; charset=UTF-8; format=flowed
+>
+> Dan Milward wrote:
+> > ...Then we will probably hit the limit of files at around 350 users.
+>
+> 32,000 / 3 files per table = 10666 tables / 350 blogs = 30 tables per
+> blog? That seems high, even with plugins.
+>
+> Also as far as I know the 32k file limit is only with 2.4 kernels, not
+> 2.6 ones.
+>
+> > So what I want to know is whether or not MySQL does something smart to
+> > work around this - and if not does a separate machine running HyperDB
+> > sound like a good idea.
+>
+> With InnoDB all tables are put in a single file.
+>
+> But really you should use a kernel made within the past few years.
+>
+> > And does HyperDB work well with Super Cache 2 :))
+>
+> I don't see how they're related.
+>
+> --
+> Matt Mullenweg
+> http://ma.tt | http://automattic.com
+>
+>
+> ------------------------------
+>
+> Message: 3
+> Date: Thu, 07 Feb 2008 01:48:02 +0100
+> From: King of punk <kingattitude@gmail.com>
+> Subject: Re: [HyperDB] documentation?
+> To: hyperdb@lists.automattic.com
+> Message-ID: <47AA5542.9040703@gmail.com>
+> Content-Type: text/plain; charset=UTF-8; format=flowed
+>
+> Maybe the solution is a ReiserFs linux partitioning ?
+>
+> Matt Mullenweg wrote:
+> > Dan Milward wrote:
+> >> ...Then we will probably hit the limit of files at around 350 users.
+> >
+> > 32,000 / 3 files per table = 10666 tables / 350 blogs = 30 tables per
+> > blog? That seems high, even with plugins.
+> >
+> > Also as far as I know the 32k file limit is only with 2.4 kernels, not
+> > 2.6 ones.
+> >
+> >> So what I want to know is whether or not MySQL does something smart to
+> >> work around this - and if not does a separate machine running HyperDB
+> >> sound like a good idea.
+> >
+> > With InnoDB all tables are put in a single file.
+> >
+> > But really you should use a kernel made within the past few years.
+> >
+> >> And does HyperDB work well with Super Cache 2 :))
+> >
+> > I don't see how they're related.
+> >
+>
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+>
+> End of HyperDB Digest, Vol 6, Issue 3
+> *************************************
+>

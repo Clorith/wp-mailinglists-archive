@@ -1,0 +1,4421 @@
+From cclarkson at htcomp.net  Fri Jan  2 19:53:16 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Fri Jan  2 19:53:45 2009
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <49588568.80707@santosj.name>
+References: <49569416.8000206@gaarai.com>	<4956AE9B.8050702@poplarware.com>	<4956B2DE.5000102@gaarai.com>	<49587CCE.4010100@htcomp.net>
+	<49588568.80707@santosj.name>
+Message-ID: <495E70AC.7050105@htcomp.net>
+
+Hello,
+
+I sent a copy of this message to the WP-Hackers list for reference. 
+Let's keep further discussion on the Documentation list, please.
+
+Thank you.
+
+
+Jacob Santos wrote:
+
+ > You should have mentioned the Perl automated script.
+
+It started as a simple script with a few dozen lines that only I would
+ever use to skip over common sections in the Codex and blossomed into a
+multi-file, thousand line behemoth one long weekend. I didn't want to
+disclose it in its current condition. It's pretty slim on documentation.
+I did send Chris Jean a copy of it, however.
+
+
+ > Hmm, it seems that whatever you conclude on, it will be interesting.
+ > Hopefully, the conclusion will be sooner rather than later, because I
+ > don't think any one else will attempt what you guys are doing at the
+ > moment or at least not in the near future.
+
+== Function Pages Planning ==
+
+I just read the December Archives on the Hackers list. It looks like
+there is some interest there by real life programmers and hackers who
+are more familiar with the WordPress code and PHP than I am. Together we
+should be able to come up with an easy to update version of the codex on
+both a sample site and in the Codex Function Reference.
+
+Hopefully we will use the inline documentation you started as our
+starting point and provide updates for it as we move forward.
+
+
+== Function Pages Progress ==
+
+I intend to continue adding new function reference pages to the Codex
+while we discuss implementation of future Codex Function Reference
+pages. I'd like to see something up on the Codex rather than nothing
+until we sort out the details. So, the planning phase shouldn't hold up
+the action phase. We will just have to do some back-tracking later on.
+
+I added about 82 new function pages in December. I hope to add more in
+January. Wish us luck and perseverance. We'll need both.
+
+
+Have A Happy New Year,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+
+From wordpress at santosj.name  Sat Jan  3 01:40:52 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Sat Jan  3 01:41:14 2009
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <495E70AC.7050105@htcomp.net>
+References: <49569416.8000206@gaarai.com>	<4956AE9B.8050702@poplarware.com>	<4956B2DE.5000102@gaarai.com>	<49587CCE.4010100@htcomp.net>	<49588568.80707@santosj.name>
+	<495E70AC.7050105@htcomp.net>
+Message-ID: <495EC224.303@santosj.name>
+
+Well, like I said, If you get it started, then I'll join in and walk 
+beside you on your journey to achieving enlightenment. I would rather 
+join in once I have time and I can contribute something that would only 
+take a few hours or so a week. I'd be happy to add a few examples and 
+improve the details, but that would mean that the page already exists.
+
+Your script will hopefully carefully update the existing codex pages and 
+not replace everything. The examples should always be applicable, unless 
+there is a regression or the specs change.
+
+Good luck.
+
+Jacob Santos
+
+Charles K. Clarkson wrote:
+> Hello,
+>
+> I sent a copy of this message to the WP-Hackers list for reference. 
+> Let's keep further discussion on the Documentation list, please.
+>
+> Thank you.
+>
+>
+> Jacob Santos wrote:
+>
+> > You should have mentioned the Perl automated script.
+>
+> It started as a simple script with a few dozen lines that only I would
+> ever use to skip over common sections in the Codex and blossomed into a
+> multi-file, thousand line behemoth one long weekend. I didn't want to
+> disclose it in its current condition. It's pretty slim on documentation.
+> I did send Chris Jean a copy of it, however.
+>
+>
+> > Hmm, it seems that whatever you conclude on, it will be interesting.
+> > Hopefully, the conclusion will be sooner rather than later, because I
+> > don't think any one else will attempt what you guys are doing at the
+> > moment or at least not in the near future.
+>
+> == Function Pages Planning ==
+>
+> I just read the December Archives on the Hackers list. It looks like
+> there is some interest there by real life programmers and hackers who
+> are more familiar with the WordPress code and PHP than I am. Together we
+> should be able to come up with an easy to update version of the codex on
+> both a sample site and in the Codex Function Reference.
+>
+> Hopefully we will use the inline documentation you started as our
+> starting point and provide updates for it as we move forward.
+>
+>
+> == Function Pages Progress ==
+>
+> I intend to continue adding new function reference pages to the Codex
+> while we discuss implementation of future Codex Function Reference
+> pages. I'd like to see something up on the Codex rather than nothing
+> until we sort out the details. So, the planning phase shouldn't hold up
+> the action phase. We will just have to do some back-tracking later on.
+>
+> I added about 82 new function pages in December. I hope to add more in
+> January. Wish us luck and perseverance. We'll need both.
+>
+>
+> Have A Happy New Year,
+>
+> Charles Clarkson
+
+From lorellevan at gmail.com  Sat Jan  3 18:42:14 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Sat Jan  3 18:42:24 2009
+Subject: [wp-docs] CSS Styles in the Codex
+In-Reply-To: <495B8282.70606@gaarai.com>
+References: <fded39850812281230i11f5c7afsbbf41531158bd88a@mail.gmail.com>
+	<495B8282.70606@gaarai.com>
+Message-ID: <fded39850901031042k142d02e9i6ed1cc057ff9d914@mail.gmail.com>
+
+Excellent list, just remember, DO NOT custom style the DL tags. Those are a
+mistake and will be fixed and I'd hate to undo any custom stuff you've done
+while waiting for those styles to be fixed.
+
+@Charles: Thanks for the input, too.
+
+Anyone else have any Codex Style requests and fixes to add to the list? I'm
+so excited we're finally going to get this all cleaned up!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090103/fda4ff30/attachment.htm
+From jayarjo at gmail.com  Sun Jan  4 08:02:07 2009
+From: jayarjo at gmail.com (dave jaggy)
+Date: Sun Jan  4 08:02:20 2009
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <495EC224.303@santosj.name>
+References: <49569416.8000206@gaarai.com> <4956AE9B.8050702@poplarware.com>
+	<4956B2DE.5000102@gaarai.com> <49587CCE.4010100@htcomp.net>
+	<49588568.80707@santosj.name> <495E70AC.7050105@htcomp.net>
+	<495EC224.303@santosj.name>
+Message-ID: <9aa12a490901040002o7cfbf101yb240916376c9a6a3@mail.gmail.com>
+
+It looks like the effort does worth it. Although it's not quite what I
+expected or wanted it to be.
+
+I still think (and as it turned out - I'm not the only one who does),
+that user contributions in form of regular comments are very
+important. Many interesting things at php.net are found in comments
+and not in a description of a function itself. Comments may become a
+base for wiki entry. As I said, users make comments more easily then
+they write structured articles.
+
+I respect Charles and what he does right now, but I do not see how I
+can help. Perl is not my strong point and hence I can't contribute to
+the parser-script. The only thing I can do in established context is
+to edit texts on Function Reference page. Or, and that's more logical,
+I should start editing inline documentation?.. Maybe we should remove
+Codex Editing ability from Function Reference Part? Or somehow connect
+it with inline documentation? Otherwise we will again get two
+different and independent versions of documentation.
+
+I'm new to wp-docs, so that I haven't got a single letter from it yet
+for this conversation. Can anyone post anything, so that I could post
+a response to a corresponding thread?
+
+
+On Sat, Jan 3, 2009 at 5:40 AM, Jacob Santos <wordpress@santosj.name> wrote:
+> Well, like I said, If you get it started, then I'll join in and walk beside
+> you on your journey to achieving enlightenment. I would rather join in once
+> I have time and I can contribute something that would only take a few hours
+> or so a week. I'd be happy to add a few examples and improve the details,
+> but that would mean that the page already exists.
+>
+> Your script will hopefully carefully update the existing codex pages and not
+> replace everything. The examples should always be applicable, unless there
+> is a regression or the specs change.
+>
+> Good luck.
+>
+> Jacob Santos
+>
+> Charles K. Clarkson wrote:
+>>
+>> Hello,
+>>
+>> I sent a copy of this message to the WP-Hackers list for reference. Let's
+>> keep further discussion on the Documentation list, please.
+>>
+>> Thank you.
+>>
+>>
+>> Jacob Santos wrote:
+>>
+>> > You should have mentioned the Perl automated script.
+>>
+>> It started as a simple script with a few dozen lines that only I would
+>> ever use to skip over common sections in the Codex and blossomed into a
+>> multi-file, thousand line behemoth one long weekend. I didn't want to
+>> disclose it in its current condition. It's pretty slim on documentation.
+>> I did send Chris Jean a copy of it, however.
+>>
+>>
+>> > Hmm, it seems that whatever you conclude on, it will be interesting.
+>> > Hopefully, the conclusion will be sooner rather than later, because I
+>> > don't think any one else will attempt what you guys are doing at the
+>> > moment or at least not in the near future.
+>>
+>> == Function Pages Planning ==
+>>
+>> I just read the December Archives on the Hackers list. It looks like
+>> there is some interest there by real life programmers and hackers who
+>> are more familiar with the WordPress code and PHP than I am. Together we
+>> should be able to come up with an easy to update version of the codex on
+>> both a sample site and in the Codex Function Reference.
+>>
+>> Hopefully we will use the inline documentation you started as our
+>> starting point and provide updates for it as we move forward.
+>>
+>>
+>> == Function Pages Progress ==
+>>
+>> I intend to continue adding new function reference pages to the Codex
+>> while we discuss implementation of future Codex Function Reference
+>> pages. I'd like to see something up on the Codex rather than nothing
+>> until we sort out the details. So, the planning phase shouldn't hold up
+>> the action phase. We will just have to do some back-tracking later on.
+>>
+>> I added about 82 new function pages in December. I hope to add more in
+>> January. Wish us luck and perseverance. We'll need both.
+>>
+>>
+>> Have A Happy New Year,
+>>
+>> Charles Clarkson
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+David Barbakadze
+
+System Administrator
+IT Development Center
+www.itdc.ge
+Tel.: (+995 32) 996118 ; (+995 32) 509049
+Fax.: (+995 32) 996118
+From gaarai at gaarai.com  Sun Jan  4 13:02:49 2009
+From: gaarai at gaarai.com (Gaarai)
+Date: Sun Jan  4 13:04:27 2009
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <9aa12a490901040002o7cfbf101yb240916376c9a6a3@mail.gmail.com>
+References: <49569416.8000206@gaarai.com>
+	<4956AE9B.8050702@poplarware.com>	<4956B2DE.5000102@gaarai.com>
+	<49587CCE.4010100@htcomp.net>	<49588568.80707@santosj.name>
+	<495E70AC.7050105@htcomp.net>	<495EC224.303@santosj.name>
+	<9aa12a490901040002o7cfbf101yb240916376c9a6a3@mail.gmail.com>
+Message-ID: <4960B379.8070002@gaarai.com>
+
+The idea isn't to replace all user-contributed content with a team of 
+Perl scripts. Rather, the idea is to use the scripts to help expedite a 
+complete overhaul of the core information while creating consistent 
+results. People manually adding examples, additional information on 
+usage nuances, crosslinks with relevant Codex pages, notes, etc will 
+still be crucial.
+
+As for wanting people to post things that you can respond to, I'm not 
+sure what you are asking for there.
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+
+
+dave jaggy wrote:
+> It looks like the effort does worth it. Although it's not quite what I
+> expected or wanted it to be.
+>
+> I still think (and as it turned out - I'm not the only one who does),
+> that user contributions in form of regular comments are very
+> important. Many interesting things at php.net are found in comments
+> and not in a description of a function itself. Comments may become a
+> base for wiki entry. As I said, users make comments more easily then
+> they write structured articles.
+>
+> I respect Charles and what he does right now, but I do not see how I
+> can help. Perl is not my strong point and hence I can't contribute to
+> the parser-script. The only thing I can do in established context is
+> to edit texts on Function Reference page. Or, and that's more logical,
+> I should start editing inline documentation?.. Maybe we should remove
+> Codex Editing ability from Function Reference Part? Or somehow connect
+> it with inline documentation? Otherwise we will again get two
+> different and independent versions of documentation.
+>
+> I'm new to wp-docs, so that I haven't got a single letter from it yet
+> for this conversation. Can anyone post anything, so that I could post
+> a response to a corresponding thread?
+>
+>
+> On Sat, Jan 3, 2009 at 5:40 AM, Jacob Santos <wordpress@santosj.name> wrote:
+>   
+>> Well, like I said, If you get it started, then I'll join in and walk beside
+>> you on your journey to achieving enlightenment. I would rather join in once
+>> I have time and I can contribute something that would only take a few hours
+>> or so a week. I'd be happy to add a few examples and improve the details,
+>> but that would mean that the page already exists.
+>>
+>> Your script will hopefully carefully update the existing codex pages and not
+>> replace everything. The examples should always be applicable, unless there
+>> is a regression or the specs change.
+>>
+>> Good luck.
+>>
+>> Jacob Santos
+>>
+>> Charles K. Clarkson wrote:
+>>     
+>>> Hello,
+>>>
+>>> I sent a copy of this message to the WP-Hackers list for reference. Let's
+>>> keep further discussion on the Documentation list, please.
+>>>
+>>> Thank you.
+>>>
+>>>
+>>> Jacob Santos wrote:
+>>>
+>>>       
+>>>> You should have mentioned the Perl automated script.
+>>>>         
+>>> It started as a simple script with a few dozen lines that only I would
+>>> ever use to skip over common sections in the Codex and blossomed into a
+>>> multi-file, thousand line behemoth one long weekend. I didn't want to
+>>> disclose it in its current condition. It's pretty slim on documentation.
+>>> I did send Chris Jean a copy of it, however.
+>>>
+>>>
+>>>       
+>>>> Hmm, it seems that whatever you conclude on, it will be interesting.
+>>>> Hopefully, the conclusion will be sooner rather than later, because I
+>>>> don't think any one else will attempt what you guys are doing at the
+>>>> moment or at least not in the near future.
+>>>>         
+>>> == Function Pages Planning ==
+>>>
+>>> I just read the December Archives on the Hackers list. It looks like
+>>> there is some interest there by real life programmers and hackers who
+>>> are more familiar with the WordPress code and PHP than I am. Together we
+>>> should be able to come up with an easy to update version of the codex on
+>>> both a sample site and in the Codex Function Reference.
+>>>
+>>> Hopefully we will use the inline documentation you started as our
+>>> starting point and provide updates for it as we move forward.
+>>>
+>>>
+>>> == Function Pages Progress ==
+>>>
+>>> I intend to continue adding new function reference pages to the Codex
+>>> while we discuss implementation of future Codex Function Reference
+>>> pages. I'd like to see something up on the Codex rather than nothing
+>>> until we sort out the details. So, the planning phase shouldn't hold up
+>>> the action phase. We will just have to do some back-tracking later on.
+>>>
+>>> I added about 82 new function pages in December. I hope to add more in
+>>> January. Wish us luck and perseverance. We'll need both.
+>>>
+>>>
+>>> Have A Happy New Year,
+>>>
+>>> Charles Clarkson
+>>>       
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>     
+>
+>
+>
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090104/73df4cc2/attachment.htm
+From wordpress at santosj.name  Sun Jan  4 21:07:58 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Sun Jan  4 21:08:11 2009
+Subject: [wp-docs] Re: [wp-hackers] Codex function page proposal
+In-Reply-To: <9aa12a490901040002o7cfbf101yb240916376c9a6a3@mail.gmail.com>
+References: <49569416.8000206@gaarai.com>
+	<4956AE9B.8050702@poplarware.com>	<4956B2DE.5000102@gaarai.com>
+	<49587CCE.4010100@htcomp.net>	<49588568.80707@santosj.name>
+	<495E70AC.7050105@htcomp.net>	<495EC224.303@santosj.name>
+	<9aa12a490901040002o7cfbf101yb240916376c9a6a3@mail.gmail.com>
+Message-ID: <4961252E.1000704@santosj.name>
+
+As for the explanation as to why the comments are used is that usually 
+are from people who don't have a php.net email account and don't want to 
+or don't know how to submit a patch or ticket to correct the 
+documentation. Also it is normally faster in any case to add a comment 
+then it is to wait for the documentation page to be updated. Usually, 
+any corrections in the comments that pertain to the documentation are 
+usually just fixed and committed by those approving the comments.
+
+Regardless, most of what the comments handles on php.net can just be 
+dealt with by clicking on "edit" and modifying the text directly. For 
+the other half, the discussion page can work, however, I suppose the 
+complaint with that, is that you have to check it manually instead of 
+being able to go down on the page to see. Therefore, you can probably 
+assume that if "comments" were added to the discussion page, then most 
+people will not be looking at it. Unless of course, the documentation 
+doesn't make something clear, and then some of those will check the 
+discussion to complain about the lack of information or clarity.
+
+Jacob Santos
+
+dave jaggy wrote:
+> It looks like the effort does worth it. Although it's not quite what I
+> expected or wanted it to be.
+>
+> I still think (and as it turned out - I'm not the only one who does),
+> that user contributions in form of regular comments are very
+> important. Many interesting things at php.net are found in comments
+> and not in a description of a function itself. Comments may become a
+> base for wiki entry. As I said, users make comments more easily then
+> they write structured articles.
+>
+> I respect Charles and what he does right now, but I do not see how I
+> can help. Perl is not my strong point and hence I can't contribute to
+> the parser-script. The only thing I can do in established context is
+> to edit texts on Function Reference page. Or, and that's more logical,
+> I should start editing inline documentation?.. Maybe we should remove
+> Codex Editing ability from Function Reference Part? Or somehow connect
+> it with inline documentation? Otherwise we will again get two
+> different and independent versions of documentation.
+>
+> I'm new to wp-docs, so that I haven't got a single letter from it yet
+> for this conversation. Can anyone post anything, so that I could post
+> a response to a corresponding thread?
+>
+>
+> On Sat, Jan 3, 2009 at 5:40 AM, Jacob Santos <wordpress@santosj.name> wrote:
+>   
+>> Well, like I said, If you get it started, then I'll join in and walk beside
+>> you on your journey to achieving enlightenment. I would rather join in once
+>> I have time and I can contribute something that would only take a few hours
+>> or so a week. I'd be happy to add a few examples and improve the details,
+>> but that would mean that the page already exists.
+>>
+>> Your script will hopefully carefully update the existing codex pages and not
+>> replace everything. The examples should always be applicable, unless there
+>> is a regression or the specs change.
+>>
+>> Good luck.
+>>
+>> Jacob Santos
+>>
+>> Charles K. Clarkson wrote:
+>>     
+>>> Hello,
+>>>
+>>> I sent a copy of this message to the WP-Hackers list for reference. Let's
+>>> keep further discussion on the Documentation list, please.
+>>>
+>>> Thank you.
+>>>
+>>>
+>>> Jacob Santos wrote:
+>>>
+>>>       
+>>>> You should have mentioned the Perl automated script.
+>>>>         
+>>> It started as a simple script with a few dozen lines that only I would
+>>> ever use to skip over common sections in the Codex and blossomed into a
+>>> multi-file, thousand line behemoth one long weekend. I didn't want to
+>>> disclose it in its current condition. It's pretty slim on documentation.
+>>> I did send Chris Jean a copy of it, however.
+>>>
+>>>
+>>>       
+>>>> Hmm, it seems that whatever you conclude on, it will be interesting.
+>>>> Hopefully, the conclusion will be sooner rather than later, because I
+>>>> don't think any one else will attempt what you guys are doing at the
+>>>> moment or at least not in the near future.
+>>>>         
+>>> == Function Pages Planning ==
+>>>
+>>> I just read the December Archives on the Hackers list. It looks like
+>>> there is some interest there by real life programmers and hackers who
+>>> are more familiar with the WordPress code and PHP than I am. Together we
+>>> should be able to come up with an easy to update version of the codex on
+>>> both a sample site and in the Codex Function Reference.
+>>>
+>>> Hopefully we will use the inline documentation you started as our
+>>> starting point and provide updates for it as we move forward.
+>>>
+>>>
+>>> == Function Pages Progress ==
+>>>
+>>> I intend to continue adding new function reference pages to the Codex
+>>> while we discuss implementation of future Codex Function Reference
+>>> pages. I'd like to see something up on the Codex rather than nothing
+>>> until we sort out the details. So, the planning phase shouldn't hold up
+>>> the action phase. We will just have to do some back-tracking later on.
+>>>
+>>> I added about 82 new function pages in December. I hope to add more in
+>>> January. Wish us luck and perseverance. We'll need both.
+>>>
+>>>
+>>> Have A Happy New Year,
+>>>
+>>> Charles Clarkson
+>>>       
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>     
+>
+>
+>
+>   
+
+From listswpdocs at mist.org.uk  Thu Jan  8 19:26:34 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Thu Jan  8 19:26:43 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+
+What's happened to the codex menus?  Everything seems to have jumped 
+over to the right hand side of the page, so now instead of the "home 
+page" link being fairly obviously positioned, it's half-way down the 
+right-hand menu.
+
+Recent Changes is even worse, it used to be fairly accessible but now 
+it's off the bottom of the screen.
+
+Is this intended to be a final layout?  I don't think that it helps with 
+Codex user-friendliness.
+-- 
+mrmist
+From ab006 at chebucto.ns.ca  Thu Jan  8 20:11:11 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Thu Jan  8 20:07:31 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090108131111.5ll7cxlv4s4sos8c@webmail.chebucto.ns.ca>
+
+mrmist wrote:
+> What's happened to the codex menus? [...]
+WFM
+
+bdt
+
+
+-- 
+ |-------------------                        -------------------|
+ |    Bernard D. Tremblay (Ben)   |  Ben Tremblay & Associates  |
+           My LiveJournal: http://hfx_ben.livejournal.com
+|---------------                                  ---------------|
+|  Confusion is a kinky form of enlightenment, clarity in drag.  |
+|  Uncertainty is certainty that has stepped on a banana peel.   |
+|  Negativity is brilliance competing with itself.               |
+|------------------------                 Sherab Chodzin Kohn ---|
+
+
+From listswpdocs at mist.org.uk  Thu Jan  8 20:41:02 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Thu Jan  8 20:41:13 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <20090108131111.5ll7cxlv4s4sos8c@webmail.chebucto.ns.ca>
+References: <20090108131111.5ll7cxlv4s4sos8c@webmail.chebucto.ns.ca>
+Message-ID: <LQMCqYDeTmZJFwWL@dsl-217-155-35-239.zen.co.uk>
+
+In message <20090108131111.5ll7cxlv4s4sos8c@webmail.chebucto.ns.ca>, 
+Bernard D. Tremblay <ab006@chebucto.ns.ca> writes
+>mrmist wrote:
+>> What's happened to the codex menus? [...]
+>WFM
+>
+
+As a normal logged in user?
+
+Seriously.  All the meta navigation is stuffed down the right hand side 
+in one big list.
+
+Views
+Article
+Discussion
+Edit
+History
+Move
+Watch
+
+Toolbox
+What links here
+Related changes
+Upload file
+Special pages
+
+Home Page
+WordPress Lessons
+Getting Started
+Working with WordPress
+Design and Layout
+Advanced Topics
+Troubleshooting
+Developer Docs
+About WordPress
+
+Codex Resources
+Community portal
+Current events
+Recent changes
+Random page
+Help
+
+I'm sure it used to be better set-out than that.  I didn't have to 
+scroll 1.5 pages to get to "recent changes".  Pretty sure it was on the 
+LHS.
+
+-- 
+mrmist
+From ab006 at chebucto.ns.ca  Thu Jan  8 21:00:42 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Thu Jan  8 20:57:02 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090108140042.78zen1ygmc8gw400@webmail.chebucto.ns.ca>
+
+
+mrmist wrote:
+> Bernard D. Tremblay (ben) <ab006@chebucto.ns.ca> writes
+>> mrmist wrote:
+>>> What's happened to the codex menus? [...]
+>> WFM
+> As a normal logged in user?
+Ayup
+
+> Seriously.  All the meta navigation is stuffed down the right hand
+> side in one big list.
+No need to list them.
+
+But no, I see a perfectly fine left sidebar.
+Viz: http://bentrem.sycks.net/images/codex.jpg ...
+... from 2 minutes ago.
+
+FF2.0.0.20
+
+bdt
+
+From ab006 at chebucto.ns.ca  Thu Jan  8 21:04:30 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Thu Jan  8 21:00:46 2009
+Subject: My bad: wrong site? [was Re: [wp-docs] Codex menus]
+Message-ID: <20090108140430.s130h4a4g4wcs44o@webmail.chebucto.ns.ca>
+
+I assumed this was about codex.wordpress.org ...
+... apologies as required.
+
+
+bdt
+From kparsell-wp at kpdesign.net  Thu Jan  8 21:20:54 2009
+From: kparsell-wp at kpdesign.net (Kim Parsell)
+Date: Thu Jan  8 21:21:13 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <20090108140042.78zen1ygmc8gw400@webmail.chebucto.ns.ca>
+References: <20090108140042.78zen1ygmc8gw400@webmail.chebucto.ns.ca>
+Message-ID: <49666E36.7030407@kpdesign.net>
+
+Bernard -
+
+I believe mrmist is referring to this version of the Codex, which is 
+showing the menu now on the right, as opposed to the left side where it 
+used to be:
+
+http://codex.wordpress.org/
+
+What is the link to what you posted a screenshot of?
+
+Kim
+
+------------------------
+
+Bernard D. Tremblay wrote:
+> mrmist wrote:
+>   
+>> Bernard D. Tremblay (ben) <ab006@chebucto.ns.ca> writes
+>>     
+>>> mrmist wrote:
+>>>       
+>>>> What's happened to the codex menus? [...]
+>>>>         
+>>> WFM
+>>>       
+>> As a normal logged in user?
+>>     
+> Ayup
+>
+>   
+>> Seriously.  All the meta navigation is stuffed down the right hand
+>> side in one big list.
+>>     
+> No need to list them.
+>
+> But no, I see a perfectly fine left sidebar.
+> Viz: http://bentrem.sycks.net/images/codex.jpg ...
+> ... from 2 minutes ago.
+>
+> FF2.0.0.20
+>
+> bdt
+From listswpdocs at mist.org.uk  Thu Jan  8 21:30:28 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Thu Jan  8 21:30:35 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <49666E36.7030407@kpdesign.net>
+References: <20090108140042.78zen1ygmc8gw400@webmail.chebucto.ns.ca>
+	<49666E36.7030407@kpdesign.net>
+Message-ID: <twmLCKE0BnZJFwB+@dsl-217-155-35-239.zen.co.uk>
+
+In message <49666E36.7030407@kpdesign.net>, Kim Parsell 
+<kparsell-wp@kpdesign.net> writes
+>Bernard -
+>
+>I believe mrmist is referring to this version of the Codex, which is 
+>showing the menu now on the right, as opposed to the left side where it 
+>used to be:
+>
+>http://codex.wordpress.org/
+>
+>What is the link to what you posted a screenshot of?
+>
+
+Ahh, ok.
+
+It's skin dependant.  Until 2 minutes ago I didn't realise there were 
+skins.
+
+However, only the codex (default) is WordPress branded, the rest seem 
+somewhat half-baked.  (Un)fortunately only codex (default) is broken.
+-- 
+mrmist
+From cclarkson at htcomp.net  Thu Jan  8 21:33:18 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Thu Jan  8 21:33:46 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+References: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <4966711E.9040307@htcomp.net>
+
+mrmist wrote:
+
+> Recent Changes is even worse, it used to be fairly accessible but now 
+> it's off the bottom of the screen.
+
+     Why rely on the web page navigation? Bookmark it in your browser.
+
+     I have a Projects button on my Firefox toolbar. I click on the 
+button and a drop-down menu appears. The Codex folder has all my most 
+visited destinations on the Codex.
+
+     When I'm uploading and editing function pages in the Codex I like 
+to have certain tabs open every time. In Firefox, I created a folder 
+under the Codex folder mentioned above with bookmarks to these pages. At 
+the bottom of the menu for that folder is an "Open All in Tabs" option. 
+I click on that menu option and all the tabs I want open for me. No 
+muss. No Fuss.
+
+     Web page designers change layouts based on customer complaints and 
+     other input. There are a few marketing groups which do tests to see 
+what the average user wants and what turns them away. Frequent users are 
+rarely average users. There is a constant trade-off between pleasing 
+existing users and attracting new users.
+
+     Still, I find the squeaky wheel gets the oil.
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From ab006 at chebucto.ns.ca  Thu Jan  8 21:55:14 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Thu Jan  8 21:51:32 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090108145514.pv7nxdwq8sw8c4oc@webmail.chebucto.ns.ca>
+
+mrmist wrote:
+> Kim Parsell <kparsell-wp@kpdesign.net> writes
+>> Bernard -
+"ben", please
+
+>> I believe mrmist is referring to this version of the Codex, which is
+>> showing the menu now on the right, as opposed to the left side where
+>> it used to be:
+Nope ... there's more to it than that.
+
+>> http://codex.wordpress.org/
+>> What is the link to what you posted a screenshot of?
+Recent Changes. *blink*
+
+I used that cuz the date shows there.
+
+> Ahh, ok.
+> It's skin dependant.
+Or sumthin'.
+
+> However, only the codex (default) is WordPress branded, the rest
+> seem somewhat half-baked.  (Un)fortunately only codex (default)
+> is broken.
+Here's a screenshot of RecentChanges after I logged out:
+http://bentrem.sycks.net/images/codex2.jpg
+
+I see a left SideBar ...
+... and note that the ToC is, well, *cough* sub-optimal.
+
+
+ben
+
+From lorellevan at gmail.com  Fri Jan  9 01:16:03 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Fri Jan  9 01:16:12 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+References: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <fded39850901081716u4d866c49kd02f7a2504941412@mail.gmail.com>
+
+The Codex is in the process of design changes. Hang on and be patient. We've
+been waiting for a LONG time for this.
+
+The menus were supposed to be on the left, but they are now both on the
+right. Oh, well, it still is much improved. Before, it had menus on the left
+for everyone, and then a menu on the right when logged in, which squished
+the editing/content area. We needed to have them on only one side so allow
+the widest area for content and code.
+
+I'm thrilled with what I see now, and we're on the right track. I posted a
+note on this mailing list a couple weeks ago inviting people to submit their
+CSS style requests to fix the design, so you are welcome to comment on that
+thread and add your thoughts to the content design elements.
+
+I'm looking forward to getting the Codex finally cleaned up. This is so
+exciting!
+
+Thanks WordPress team!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090109/d1452ce8/attachment-0001.htm
+From ab006 at chebucto.ns.ca  Fri Jan  9 02:07:46 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 02:04:05 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090108190746.csfhgcwwg8g8k44o@webmail.chebucto.ns.ca>
+
+Lorelle VanFossen wrote:
+> [...]
+> The menus were supposed to be on the left,
+> but they are now both on the right.
+
+You don't say.
+
+Sooooo I musta been in the grips of some profound delusion when I made those
+screenshots, saved those screenshots, uploaded those screenshots, and posted
+about those screenshots.
+
+OpenSource projects leave me feeling schizophrenic.
+And I ain't.
+(Gawd, the early days of Mozilla were like end-to-end horror movies.)
+
+bdt
+
+p.s. Don't worry about me; all I do is bring back memories SigInt / NORAD/SAC /
+MilSpec and I feel right as rain again.
+From lorellevan at gmail.com  Fri Jan  9 02:11:48 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Fri Jan  9 02:12:00 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <20090108190746.csfhgcwwg8g8k44o@webmail.chebucto.ns.ca>
+References: <20090108190746.csfhgcwwg8g8k44o@webmail.chebucto.ns.ca>
+Message-ID: <fded39850901081811y2dbd2927vb438c89a83495408@mail.gmail.com>
+
+Honey, it's time to take your drugs. Okay? :D It will be okay. Just breath.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090109/11c8f321/attachment.htm
+From ab006 at chebucto.ns.ca  Fri Jan  9 03:04:30 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 03:00:44 2009
+Subject: Mind Games [was Re: [wp-docs] Codex menus]
+Message-ID: <20090108200430.obkcl1llz40wsskw@webmail.chebucto.ns.ca>
+
+Lorelle VanFossen wrote:
+> Honey, it's time to take your drugs. Okay? :D It will be okay. Just breath.
+heh ... you're funny.
+Since you don't like me, you won't be honest with me.
+I can live with that ... got no choice: swallow it, or leave. Right?
+
+But at least read what I wrote:
+> Don't worry about me; all I do is bring back memories SigInt
+> / NORAD/SAC / MilSpec and I feel right as rain again.
+That's called reality.
+It works fine.
+
+Now if you think I'd take your advice ...
+... heh ... time for you to take /your/ meds.
+
+*OpenSource projects make people crazy.*
+
+bdt
+
+p.s. what about the 2 screenshots? Don't tell me; let me guess: you couldn't be
+bothered to click the links.
+
+From wordpress at santosj.name  Fri Jan  9 03:47:35 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Fri Jan  9 03:47:48 2009
+Subject: Mind Games [was Re: [wp-docs] Codex menus]
+In-Reply-To: <20090108200430.obkcl1llz40wsskw@webmail.chebucto.ns.ca>
+References: <20090108200430.obkcl1llz40wsskw@webmail.chebucto.ns.ca>
+Message-ID: <4966C8D7.7060005@santosj.name>
+
+You're obviously trolling, since you seem intelligent enough to either 
+have read the full thread before making assertions that were answered in 
+said thread.
+
+Your first screenshot was probably a mistake with the template either 
+having an error and reverting back to the original or some modification 
+that went awry.
+
+Your second screenshot is what the Codex is supposed to look like, so no 
+problem there.
+
+You seem to assert that there is some problem with the second 
+screenshot. I will counter with the argument above and that since the 
+look is intentional that there is nothing wrong. If you do not like the 
+design, then there is no reason to give grieve to those who agree with 
+you that having the navigation on the right is problematic.
+
+I would give it some time. It is obvious also a work in progress, so 
+allow Lorelle to beat the "Other Matt" down to fix the template (For 
+some reason I want to use "Thompson" for the surname, I guess because 
+that has always been my alias for forms that I don't want to give my 
+real name to).
+
+Chill. There is a difference between being an asshole and being a wrong 
+asshole. The first is acceptable within certain constraints (hell, I'm 
+often both) and the latter is never acceptable. It is better to play it 
+safe and be "nice". How you want to define that is up to you.
+
+Jacob Santos
+
+Bernard D. Tremblay wrote:
+> Lorelle VanFossen wrote:
+>   
+>> Honey, it's time to take your drugs. Okay? :D It will be okay. Just breath.
+>>     
+> heh ... you're funny.
+> Since you don't like me, you won't be honest with me.
+> I can live with that ... got no choice: swallow it, or leave. Right?
+>
+> But at least read what I wrote:
+>   
+>> Don't worry about me; all I do is bring back memories SigInt
+>> / NORAD/SAC / MilSpec and I feel right as rain again.
+>>     
+> That's called reality.
+> It works fine.
+>
+> Now if you think I'd take your advice ...
+> ... heh ... time for you to take /your/ meds.
+>
+> *OpenSource projects make people crazy.*
+>
+> bdt
+>
+> p.s. what about the 2 screenshots? Don't tell me; let me guess: you couldn't be
+> bothered to click the links.
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+
+From ab006 at chebucto.ns.ca  Fri Jan  9 04:18:42 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 04:14:58 2009
+Subject: Mind Games [was Re: [wp-docs] Codex menus]
+Message-ID: <20090108211842.susqjw44s40cgko8@webmail.chebucto.ns.ca>
+
+Jacob Santos wrote:
+> You're obviously trolling, since you seem intelligent enough to
+> either have read the full thread before making assertions that
+> were answered in said thread.
+I replied to items and then replied to responses after that.
+
+I don't have a clue what you're talking about.
+Which strikes me as just plain sad.
+
+These personalitly games suck.
+
+"Trolling" my ass.
+
+> Your first screenshot was probably a mistake with the template either
+> having an error and reverting back to the original or some modification
+> that went awry.
+Absolutely no clue what you're on about.
+What shows in the first screenshot is a totally normal wiki skin.
+
+What was said (if you read) was that the sidebar was on the left.
+What I saw was that it was on the right.
+
+How stupid am I?
+I took a screenshot, uploaded, and posted.
+
+I'm supposed to apologize for that?
+You're nutz.
+
+> Your second screenshot is what the Codex is supposed to look like,
+> so no problem there.
+Exactly.
+
+So when someone said it was a problem with skins I took that screenshot.
+The ToC may not be exactly where I'd like it, but otherwise it's fine.
+
+I have no clue what you're on about.
+
+
+> You seem to assert that there is some problem with the
+> second screenshot.
+Apparently those little black squiggly things on the screen (letters) only
+matter to you when they're from a pal!
+
+> I will counter with the argument above and that since the look
+> is intentional that there is nothing wrong.
+Fine.
+I said what you said.
+Perhaps some day you'll do me the courtesy of responding to those actualities.
+
+> If you do not like the design, then there is no reason to give grieve
+> to those who agree with you that having the navigation on the
+> right is problematic.
+Can you be honest?
+For a moment?
+Even though I haven't sucked up to anybody here?
+
+Where, pray tell (This is totally f**d) where did I give anybody any "grief"?
+Execpt in my response to Lorelle's totally patronizing contempt?
+
+So let's be straight: suck up or STFU ...
+... did I get that just about right?
+
+And please, spare me the dramatic fictions.
+
+You know ... words?
+
+> Chill.
+Screw you.
+
+I'm outta here
+
+WordPress project is just a children's insane asylum.
+
+> There is a difference between being an asshole and being a wrong asshole.
+You been saving that one up?
+
+> The first is acceptable within certain constraints (hell, I'm often
+> both) and the latter is never acceptable. It is better to play it safe
+> and be "nice". How you want to define that is up to you.
+
+Hey, why doncha try replying to what I actually wrote ...
+... even though I haven't sucked up to you.
+
+Go ahead.
+Try.
+
+> Jacob Santos
+
+*buncha twats*
+
+Bernard D. Tremblay (ben)
+
+p.s. I expect crap from snotty yuppies' kidz ... and also from Lorelle, because
+she's a goddess ... but Lord Thunderin'Christ Jacob, grab a brain.
+
+really disappointed in you
+
+
+-- 
+ |-------------------                        -------------------|
+ |    Bernard D. Tremblay (Ben)   |  Ben Tremblay & Associates  |
+           My LiveJournal: http://hfx_ben.livejournal.com
+|---------------                                  ---------------|
+|  Confusion is a kinky form of enlightenment, clarity in drag.  |
+|  Uncertainty is certainty that has stepped on a banana peel.   |
+|  Negativity is brilliance competing with itself.               |
+|------------------------                 Sherab Chodzin Kohn ---|
+
+
+From cclarkson at htcomp.net  Fri Jan  9 04:25:47 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Fri Jan  9 04:26:16 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <20090108145514.pv7nxdwq8sw8c4oc@webmail.chebucto.ns.ca>
+References: <20090108145514.pv7nxdwq8sw8c4oc@webmail.chebucto.ns.ca>
+Message-ID: <4966D1CB.4030306@htcomp.net>
+
+Bernard D. Tremblay wrote:
+
+> Here's a screenshot of RecentChanges after I logged out:
+> http://bentrem.sycks.net/images/codex2.jpg
+> 
+> I see a left SideBar ...
+
+     One person's sidebar is another person's content. The content of 
+the Main Page is a list of links, not a sidebar. The TOC is on the right 
+of the content and the menu is on the far right.
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From ab006 at chebucto.ns.ca  Fri Jan  9 04:31:03 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 04:27:16 2009
+Subject: Erratta Re: Mind Games [was Re: [wp-docs] Codex menus]
+Message-ID: <20090108213103.ydrcnzhjkkc8ck8k@webmail.chebucto.ns.ca>
+
+> > Your first screenshot was probably a mistake with the template either
+> > having an error and reverting back to the original or some modification
+> > that went awry.
+>Absolutely no clue what you're on about.
+>What shows in the first screenshot is a totally normal wiki skin.
+
+> What was said (if you read) was that the sidebar was on the left.
+
+s / "on the left" / "on the right"
+
+> What I saw was that it was on the right.
+
+s / "on the right" / "on the left"
+
+I tried to correct something; I got contempt and abuse.
+
+*outta here*
+From ab006 at chebucto.ns.ca  Fri Jan  9 04:42:05 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 04:38:22 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090108214205.i1q17umlxcsk48kk@webmail.chebucto.ns.ca>
+
+Charles K. Clarkson wrote:
+> Bernard D. Tremblay wrote:
+>> Here's a screenshot of RecentChanges after I logged out:
+>> http://bentrem.sycks.net/images/codex2.jpg
+>>
+>> I see a left SideBar ...
+>     One person's sidebar is another person's content. [...]
+
+And so, to disambiguate, I bothered grabbing the screen.
+
+apologies as required / appropriate
+
+bdt
+
+From lorellevan at gmail.com  Fri Jan  9 06:21:13 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Fri Jan  9 06:21:22 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <20090108214205.i1q17umlxcsk48kk@webmail.chebucto.ns.ca>
+References: <20090108214205.i1q17umlxcsk48kk@webmail.chebucto.ns.ca>
+Message-ID: <fded39850901082221o28840081jbf99d07264d1f220@mail.gmail.com>
+
+Ah, now I understand. Thanks for translating. For some reason, the
+code to hide the TOC on the front page of the Codex, or any page on
+the Codex, is __NOTOC__ and it was removed for some reason. It
+shouldn't be on the front page, but it should be on all the pages, but
+you can control where it goes by putting in __TOC__ where you want it
+to appear. It will automatically appear at the top (on the right) of
+any page in the Codex with headings. We often moved it lower if we put
+code or an image at the top of the page so it wouldn't squish the
+content.
+
+I was looking on the other pages on the Codex, not the front page
+specifically. Thanks for clearing that up!
+
+All fixed.
+
+Lorelle
+From lorellevan at gmail.com  Fri Jan  9 06:37:54 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Fri Jan  9 06:38:03 2009
+Subject: Mind Games [was Re: [wp-docs] Codex menus]
+In-Reply-To: <4966C8D7.7060005@santosj.name>
+References: <20090108200430.obkcl1llz40wsskw@webmail.chebucto.ns.ca>
+	<4966C8D7.7060005@santosj.name>
+Message-ID: <fded39850901082237y2aa293a3ybae8e27ef933a551@mail.gmail.com>
+
+Bernard was not trolling. He's a valuable member of our documentation
+team. Sorry you haven't had a chance to get to know his humor before
+slamming. He's doing great work and exploring thoroughly WordPressMU
+and development documentation, which is desperately needed here.
+
+Come on folks, let's all lighten up. I'm here at WordCamp Las Vegas
+getting ready to meet some awesome WordPress folks, and trying to
+understand what happened with the Codex and what everyone is saying.
+
+I've fixed the front page. I looked at the screenshots and then went
+to the Codex (any page) and saw it was changed. YEAH! CHEERS for the
+WordPress team to finally help us. I was so excited about that, I
+didn't look into the details to see that the table of contents
+accidentally appeared on the front page, the real page that was of
+concern. I'm in between meetings and greetings, so I was the careless
+one with that. My replies were meant to be helpful, and a little
+silly, so pardon if they were taken personally. I'm giddy that the
+Codex is being worked on - in any direction.
+
+Before things go down the drain, remember, we are all volunteers here
+trying to do our best. We rely upon the WordPress staff to help run
+the code under the hood, and we should all be cheering that the Codex
+is finally starting to look so good.
+
+I started a thread a week or two ago asking for more input on what
+needs fixing in the styles on the Codex, and maybe everyone didn't get
+it, but now work is at hand and your input is desired and much
+appreciated. As work continues to improve the design, there will be
+changes as part of the construction. Consider yourselves all warned.
+It's going to be great, but have patience.
+
+And while we're trying to lighten the load, I'm usually the first in
+line to use "potty mouth" (nephews call it that) language and name
+calling, so please, leave that to me and let's use sir and madam the
+rest of the time. :D
+
+And let's get back to helping the WordPress Community get the
+information they need to help them blog better. It takes all of our
+creative and unique talents to make the Codex possible, and the
+unappreciated gem that it is. Thanks all for all of your hard work.
+
+And again, my apologies for the confusion. I screwed up.
+
+Lorelle
+From ab006 at chebucto.ns.ca  Fri Jan  9 06:58:00 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 06:54:12 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090108235800.5ysa3500gc8c8w48@webmail.chebucto.ns.ca>
+
+*In case this was in reply to me*
+
+Lorelle VanFossen wrote:
+> I was looking on the other pages on the Codex, not the front page
+> specifically. Thanks for clearing that up!
+
+I took a screenshot of RecentChanges: it's self-evident as to location. It even
+includes date and approximatge time. (In case someone couldn't be bothered to
+read the page title.)
+And still people were unclear as to which page it was. One guy actually asked
+me. In perfectly good English. Clearly. "What page is that a picture of."
+
+So ... if that screenshot is ambiguous ... I dunno.
+Like I say, these projects leave me feeling distinctly schiz.
+
+bdt
+From ab006 at chebucto.ns.ca  Fri Jan  9 07:05:30 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 07:01:49 2009
+Subject: Mind Games [was Re: [wp-docs] Codex menus]
+Message-ID: <20090109000530.rhc9qnt20cwk4g8c@webmail.chebucto.ns.ca>
+
+Lorelle VanFossen wrote:
+> Bernard was not trolling. He's a valuable member of our documentation
+> team. Sorry you haven't had a chance to get to know his humor before
+> slamming. He's doing great work and exploring thoroughly WordPressMU
+> and development documentation, which is desperately needed here.
+
+Thank you. I had no idea.
+(In fact and actually I've done very little ... before I move things I get
+things clear. And when getting even the slightest thing clear causes shit-storm
+/ trash-talk, then I want my money back. And a raise. There. That's my idea of a
+joke. But nothing I wrote previously was intended to be humourous.)
+
+I don't need to be told to chill, to take my meds, to stop being an asshole, to
+stop trolling, etc etc etc.
+
+And I don't accept smileys and vague self-serving half-apologies ... that's just
+the ticket price for passive-aggression ... personality politics loyalty checks
+... it compels people to eat shit with a grin.
+I've been at it decades (12th hour at the keyboard today; time for Daily Show),
+I smoke, I drink, and I'm healthy as a horse / fit as a fiddle. Cuz I don't eat
+shit >period<.
+
+have lots and lots of fun
+
+ben
+
+
+-- 
+http://bentrem.sycks.net
+http://bentrem.issuepress.com
+From lorellevan at gmail.com  Fri Jan  9 07:09:38 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Fri Jan  9 07:09:49 2009
+Subject: Mind Games [was Re: [wp-docs] Codex menus]
+In-Reply-To: <20090109000530.rhc9qnt20cwk4g8c@webmail.chebucto.ns.ca>
+References: <20090109000530.rhc9qnt20cwk4g8c@webmail.chebucto.ns.ca>
+Message-ID: <fded39850901082309o51ecb04bl8fb834334bc28650@mail.gmail.com>
+
+Again, I take full responsibility for starting a misinterpretation here. I'm
+sorry. The thrill of changes to the Codex design have been tarnished due to
+my careless attention. I hope all will forgive and forget and we can move
+on, no more mind games.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090109/40c83280/attachment.htm
+From gaarai at gaarai.com  Fri Jan  9 16:40:52 2009
+From: gaarai at gaarai.com (Chris Jean)
+Date: Fri Jan  9 16:41:08 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <20090109000530.rhc9qnt20cwk4g8c@webmail.chebucto.ns.ca>
+References: <20090109000530.rhc9qnt20cwk4g8c@webmail.chebucto.ns.ca>
+Message-ID: <49677E14.3090502@gaarai.com>
+
+In order to get everyone on the same page, Ben is using a different skin 
+(Classic rather than Codex) on his Codex view. It's the same site, 
+different skin. So, he sees a different site layout than most of the 
+rest of us are looking at.
+
+This was quickly noticed and handled by mrmist, and that should have 
+been the end of the confusion.
+
+
+Ben,
+
+Jacob may have been quick to call you a troll, but you have been very 
+vocal, extremely rude, and quick to judgment yourself when it was you 
+who made the mistaken assumption (that you too would see the changes 
+even though you are using a non-default skin). Rather than trying to 
+figure out why seemingly everyone else couldn't understand what you were 
+talking about, you proceeded to believe that everyone was an idiot, that 
+open source projects are a tragedy, and that you are being crapped on. A 
+wisdom I learned a while back applies here: If it seems like everyone 
+around me is horribly wrong, it's more likely that I've misunderstood 
+something and that I'm actually the one that is wrong. This wisdom is 
+extremely valuable in the technical field.
+
+Just so you know what we are seeing, this is what I see while using the 
+default skin: http://tinyurl.com/7ev65h
+
+As you can see, the changes that everyone have been talking about are on 
+this skin and not on your's. If you wish to continue discussing changes 
+to the Codex layout, I recommend that you change your skin to default.
+
+
+Everyone,
+
+Frankly, I think that this could have been handled better by everyone. 
+Most of the response I've seen in this thread have been laced with 
+assumptions and incomplete thoughts. Even if you know 100% that people 
+know exactly what you are talking about, it always helps to provide a 
+link to the page that is being discussed. It also helps to note whether 
+or not your are logged in and if you see any differences when you are 
+logged in or not logged in. Using full, detailed sentences for both 
+questions and responses helps cut off spiraling circles of confusion 
+like this.
+
+Screenshots are a great tool. I think if Ben had been provided with a 
+screenshot of what we see earlier that this mess could have been much 
+smaller. So maybe another good practice is to always send a link to a 
+screenshot if the discussion is about site layout/design issues.
+
+I'm not sure that this is relevant to this thread, but in general, the 
+following is also good practice to prevent confusion: Keep in mind that 
+while English is the language used on this list, not everyone is from 
+the same region/country/part of the world that you are. English is very 
+diverse, as such, using abundant detail to describe things can help 
+people that have a different usage of English or use English as a 
+secondary language.
+
+Chris Jean
+http://gaarai.com/
+http://wp-roadmap.com/
+
+
+
+Bernard D. Tremblay wrote:
+> Lorelle VanFossen wrote:
+>   
+>> Bernard was not trolling. He's a valuable member of our documentation
+>> team. Sorry you haven't had a chance to get to know his humor before
+>> slamming. He's doing great work and exploring thoroughly WordPressMU
+>> and development documentation, which is desperately needed here.
+>>     
+>
+> Thank you. I had no idea.
+> (In fact and actually I've done very little ... before I move things I get
+> things clear. And when getting even the slightest thing clear causes shit-storm
+> / trash-talk, then I want my money back. And a raise. There. That's my idea of a
+> joke. But nothing I wrote previously was intended to be humourous.)
+>
+> I don't need to be told to chill, to take my meds, to stop being an asshole, to
+> stop trolling, etc etc etc.
+>
+> And I don't accept smileys and vague self-serving half-apologies ... that's just
+> the ticket price for passive-aggression ... personality politics loyalty checks
+> ... it compels people to eat shit with a grin.
+> I've been at it decades (12th hour at the keyboard today; time for Daily Show),
+> I smoke, I drink, and I'm healthy as a horse / fit as a fiddle. Cuz I don't eat
+> shit >period<.
+>
+> have lots and lots of fun
+>
+> ben
+>
+>
+>   
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090109/306055e2/attachment.htm
+From ab006 at chebucto.ns.ca  Fri Jan  9 17:00:06 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 16:56:18 2009
+Subject: [wp-docs] Codex menus
+Message-ID: <20090109100006.gcgdwf7dw0swcos8@webmail.chebucto.ns.ca>
+
+Chris Jean wrote:
+> In order to get everyone on the same page, Ben is using a different skin
+(Classic rather than Codex) on his Codex view. It's the same site, different
+skin. So, he sees a different site layout than most of the rest of us are
+looking at.
+Good point. I assumed that skin changed nothing funtional i.e. that sidebars and
+menus would be the same for both.
+> Ben,
+
+> Jacob may have been quick to call you a troll
+So you acknowledge something like a third of his diss ...
+... personality politics works well for you: honesty and precision count for
+nothing.
+
+> but you have been very vocal, extremely rude, and quick to judgment
+> yourself when it was you who made the mistaken assumption (that you
+> too would see the changes even though you are using a non-default skin).
+I notice you don't quote or cite, while making accusations and distorting the
+truth.
+
+In fact and actually there wasn't the slightest wiff of conflict in this thread.
+
+I'm sure Jacob appreciates your un-reasoned support.
+I sure don't.
+
+I'll let you get back to your games now.
+This is all just plain disgusting.
+
+bdt
+From ab006 at chebucto.ns.ca  Fri Jan  9 17:15:11 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan  9 17:11:27 2009
+Subject: [wp-docs] For the record; "codex menus" thread
+Message-ID: <20090109101511.06i539wf0gggc000@webmail.chebucto.ns.ca>
+
+Chris Jean pontificated thusly:
+> but you have been very vocal, extremely rude, and quick to judgment
+> yourself when it was you who made the mistaken assumption (that you
+> too would see the changes even though you are using a non-default skin).
+
+Here are the messages I wrote in this thread ... the stuff that supposedly gave
+rise to "take your meds" ... not my reaction to that, note. The basis. Not the
+response, but what Chris Jean depicts as the proximate cause.
+
+I made no judgments, I posted 2 screenshots to buttress the discussion, and I
+threw no shit.
+But that's not good enough for the the sophists.
+
+*shrug*
+Personality politics and mind games ...
+... "same as it ever was".
+
+bdt
+
+====
+Date:   	Thu, 08 Jan 2009 13:11:11 -0700 [ 8 Jan 2009 01:11:11 PM MST]
+From:  	"Bernard D. Tremblay" <ab006@chebucto.ns.ca>
+To:  	WordPress Documentation <wp-docs@lists.automattic.com>
+Subject:  	Re: [wp-docs] Codex menus
+mrmist wrote:
+> What's happened to the codex menus? [...]
+WFM
+
+bdt
+
+====
+
+Date:   	Thu, 08 Jan 2009 14:00:42 -0700 [ 8 Jan 2009 02:00:42 PM MST]
+
+mrmist wrote:
+> Bernard D. Tremblay (ben) <ab006@chebucto.ns.ca> writes
+>> mrmist wrote:
+>>> What's happened to the codex menus? [...]
+>> WFM
+> As a normal logged in user?
+Ayup
+
+> Seriously.  All the meta navigation is stuffed down the right hand
+> side in one big list.
+No need to list them.
+
+But no, I see a perfectly fine left sidebar.
+Viz: http://bentrem.sycks.net/images/codex.jpg ...
+... from 2 minutes ago.
+
+FF2.0.0.20
+
+bdt
+
+====
+
+Date:   	Thu, 08 Jan 2009 14:04:30 -0700 [ 8 Jan 2009 02:04:30 PM MST]
+Subject:  	My bad: wrong site? [was Re: [wp-docs] Codex menus]
+Headers:  	Show All Headers
+
+I assumed this was about codex.wordpress.org ...
+... apologies as required.
+
+
+bdt
+
+====
+
+Date:   	Thu, 08 Jan 2009 14:55:14 -0700 [ 8 Jan 2009 02:55:14 PM MST]
+
+mrmist wrote:
+> Kim Parsell <kparsell-wp@kpdesign.net> writes
+>> Bernard -
+"ben", please
+
+>> I believe mrmist is referring to this version of the Codex, which is
+>> showing the menu now on the right, as opposed to the left side where
+>> it used to be:
+Nope ... there's more to it than that.
+
+>> http://codex.wordpress.org/
+>> What is the link to what you posted a screenshot of?
+Recent Changes. *blink*
+
+I used that cuz the date shows there.
+
+> Ahh, ok.
+> It's skin dependant.
+Or sumthin'.
+
+> However, only the codex (default) is WordPress branded, the rest
+> seem somewhat half-baked.  (Un)fortunately only codex (default)
+> is broken.
+Here's a screenshot of RecentChanges after I logged out:
+http://bentrem.sycks.net/images/codex2.jpg
+
+I see a left SideBar ...
+... and note that the ToC is, well, *cough* sub-optimal.
+
+
+ben
+
+====
+
+Date:   	Thu, 08 Jan 2009 19:07:46 -0700 [ 8 Jan 2009 07:07:46 PM MST]
+
+Lorelle VanFossen wrote:
+> [...]
+> The menus were supposed to be on the left,
+> but they are now both on the right.
+
+You don't say.
+
+Sooooo I musta been in the grips of some profound delusion when I made those
+screenshots, saved those screenshots, uploaded those screenshots, and posted
+about those screenshots.
+
+OpenSource projects leave me feeling schizophrenic.
+And I ain't.
+(Gawd, the early days of Mozilla were like end-to-end horror movies.)
+
+bdt
+
+p.s. Don't worry about me; all I do is bring back memories SigInt / NORAD/SAC /
+MilSpec and I feel right as rain again.
+
+====
+
+
+-- 
+   |-------------------                        -------------------|
+   |    Bernard D. Tremblay (Ben)   |  Ben Tremblay & Associates  |
+             My LiveJournal: http://hfx_ben.livejournal.com
+  |---------------                                  ---------------|
+  |  Confusion is a kinky form of enlightenment, clarity in drag.  |
+  |  Uncertainty is certainty that has stepped on a banana peel.   |
+  |  Negativity is brilliance competing with itself.               |
+  |------------------------                 Sherab Chodzin Kohn ---|
+From lorellevan at gmail.com  Fri Jan  9 17:14:02 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Fri Jan  9 17:14:11 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <49677E14.3090502@gaarai.com>
+References: <20090109000530.rhc9qnt20cwk4g8c@webmail.chebucto.ns.ca>
+	<49677E14.3090502@gaarai.com>
+Message-ID: <fded39850901090914sfc0ad4aq1198deba9b52b0cd@mail.gmail.com>
+
+It wasn't until after I posted my reply to the initial request for help that
+I saw that mrmist has stepped in and cleaned it up. These mailing lists are
+great, but the timeliness is sometimes off. Thanks mrmist for helping
+resolve this.
+
+And thanks for your calm voice, Chris.
+
+Once again, thanks to the WordPress team for fixing the styles in the Codex.
+Input is still being requested if anyone on the documentation team has more
+recommendations. I've been waiting for these so I can clean up the Table of
+Contents for the whole Codex. I've been doing a lot of sorting and cleaning,
+and have a long list of things to do with the Codex, so I'm eager to get it
+looking great, so we can move forward with the incorporation of new videos,
+screencasts, guides, and updates.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090109/e56c81c5/attachment.htm
+From listswpdocs at mist.org.uk  Fri Jan  9 18:06:48 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Fri Jan  9 18:08:39 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <fded39850901081716u4d866c49kd02f7a2504941412@mail.gmail.com>
+References: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+	<fded39850901081716u4d866c49kd02f7a2504941412@mail.gmail.com>
+Message-ID: <tvl71uA4I5ZJFwAx@dsl-217-155-35-239.zen.co.uk>
+
+In message 
+<fded39850901081716u4d866c49kd02f7a2504941412@mail.gmail.com>, Lorelle 
+VanFossen <lorellevan@gmail.com> writes
+>The Codex is in the process of design changes. Hang on and be patient.
+>We've been waiting for a LONG time for this.
+>
+>The menus were supposed to be on the left, but they are now both on the
+>right. Oh, well, it still is much improved. Before, it had menus on the left
+>for everyone, and then a menu on the right when logged in, which squished
+>the editing/content area. We needed to have them on only one side so
+>allow the widest area for content and code.
+>
+
+
+Ok thanks for the explanation!  I never expected my little question to 
+cause such a fuss :o
+-- 
+mrmist
+From noel at automattic.com  Fri Jan  9 20:39:16 2009
+From: noel at automattic.com (Noel Jackson)
+Date: Fri Jan  9 20:39:40 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <tvl71uA4I5ZJFwAx@dsl-217-155-35-239.zen.co.uk>
+References: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+	<fded39850901081716u4d866c49kd02f7a2504941412@mail.gmail.com>
+	<tvl71uA4I5ZJFwAx@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <CDAB8DF5-5DEB-4888-ABEE-7525BC49B1B5@automattic.com>
+
+Apologies for not speaking out sooner (my day's been busy!)
+
+The codex is in a little bit of a flux. I've been working with Lorelle  
+and Matt Thomas to get some bugs squashed and some layout issues taken  
+care of - but it's a bit of a process.
+
+We're still debating on how to handle the sidebar, but for now, a two  
+column design allows better readability than the three column layout  
+before. I can see arguments for both, but I believe with a better  
+organized sidebar, the two column layout will prevail.
+
+Hugs, Love, WordPress, Repeat.
+
+-Noel
+
+--
+noel jackson | noel@automattic.com | http://jcksn.com
+734.236.1033 | skype/aim: noelndj
+
+
+
+
+
+From listswpdocs at mist.org.uk  Fri Jan  9 21:18:17 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Fri Jan  9 21:48:13 2009
+Subject: [wp-docs] Codex menus
+In-Reply-To: <CDAB8DF5-5DEB-4888-ABEE-7525BC49B1B5@automattic.com>
+References: <9Th$67BqNlZJFwhI@dsl-217-155-35-239.zen.co.uk>
+	<fded39850901081716u4d866c49kd02f7a2504941412@mail.gmail.com>
+	<tvl71uA4I5ZJFwAx@dsl-217-155-35-239.zen.co.uk>
+	<CDAB8DF5-5DEB-4888-ABEE-7525BC49B1B5@automattic.com>
+Message-ID: <y8dMxAGZ87ZJFwju@dsl-217-155-35-239.zen.co.uk>
+
+In message <CDAB8DF5-5DEB-4888-ABEE-7525BC49B1B5@automattic.com>, Noel 
+Jackson <noel@automattic.com> writes
+>Apologies for not speaking out sooner (my day's been busy!)
+>
+>The codex is in a little bit of a flux. I've been working with Lorelle 
+>and Matt Thomas to get some bugs squashed and some layout issues taken 
+>care of - but it's a bit of a process.
+>
+>We're still debating on how to handle the sidebar, but for now, a two 
+>column design allows better readability than the three column layout 
+>before. I can see arguments for both, but I believe with a better 
+>organized sidebar, the two column layout will prevail.
+>
+
+Yep.  I've absolutely no issues with a two-column layout.  I only 
+mentioned it really in case it was actually broken somehow.  The bits 
+that got me were firstly that the "home page" bit got lost (there's no 
+section head and ideally I think it would be at the top) and that I 
+wasn't expecting to be over the right hand side for the recent activity.
+
+I suppose it depends on what the aim is, but one thing I would consider 
+is that the menu in WordPress itself has migrated from top to left, not 
+top to right.  It might be nice to keep some UI consistency.(By which I 
+mean keep the menu on the left.)   Obviously though everyone will have 
+their own view.  It's not massively important.
+
+-- 
+mrmist
+From cclarkson at htcomp.net  Tue Jan 20 02:51:51 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Tue Jan 20 02:52:45 2009
+Subject: [wp-docs] RFC: New Global Variables page for the Function Reference
+Message-ID: <49753C47.5080602@htcomp.net>
+
+Hello,
+
+     I would like to add a new page to the Function Reference on the 
+Codex about WordPress Global Variables. There are a few lists around the 
+web, but no full list in the Codex documentation.
+
+     I explain some of my reasoning in a rough draft [1]. Mainly I want 
+to have a single location to point to from the Codex Function Reference 
+pages for each global variable.
+
+     The Source Code Documentation Parser (The Parser) will 
+automatically add links to the appropriate sections of this page to most 
+global declarations.
+
+     Hopefully, this will allow programmers to add notes in the source 
+code about a particular global variable usage while allowing the Codex 
+to automatically refer to more detailed information about that variable.
+
+     The Parser adds globals that are not defined by the Inline 
+Documentation (probably because the programmer didn't think them 
+important), but that are included in the function to the Codex Function 
+Reference Page. So, there is a need for a good definition in the Codex.
+
+
+     Is anyone else working on this?
+
+     Can you see any room for improvement?
+
+
+     The new page would reside at:
+     http://codex.wordpress.org/Function_Reference/Global_Variables.
+
+
+
+[1] http://codex.wordpress.org/User:CharlesClarkson/Global_Variables
+
+
+TIA,
+
+Charles Clarkson
+--
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From mikeschinkel at newclarity.net  Tue Jan 20 06:11:54 2009
+From: mikeschinkel at newclarity.net (Mike Schinkel)
+Date: Tue Jan 20 06:12:19 2009
+Subject: [wp-docs] RFC: New Global Variables page for the Function
+	Reference
+In-Reply-To: <49753C47.5080602@htcomp.net>
+Message-ID: <6101743.91232431922377.JavaMail.DELL-1405$@Dell-1405>
+
+Nice!
+
+-Mike Schinkel
+http://mikeschinkel.com/
+
+----- Original Message -----
+From: "Charles K. Clarkson" <cclarkson@htcomp.net>
+To: "WordPress Documentation" <wp-docs@lists.automattic.com>
+Sent: Monday, January 19, 2009 9:51:51 PM GMT -05:00 US/Canada Eastern
+Subject: [wp-docs] RFC: New Global Variables page for the Function Reference
+
+Hello,
+
+     I would like to add a new page to the Function Reference on the 
+Codex about WordPress Global Variables. There are a few lists around the 
+web, but no full list in the Codex documentation.
+
+     I explain some of my reasoning in a rough draft [1]. Mainly I want 
+to have a single location to point to from the Codex Function Reference 
+pages for each global variable.
+
+     The Source Code Documentation Parser (The Parser) will 
+automatically add links to the appropriate sections of this page to most 
+global declarations.
+
+     Hopefully, this will allow programmers to add notes in the source 
+code about a particular global variable usage while allowing the Codex 
+to automatically refer to more detailed information about that variable.
+
+     The Parser adds globals that are not defined by the Inline 
+Documentation (probably because the programmer didn't think them 
+important), but that are included in the function to the Codex Function 
+Reference Page. So, there is a need for a good definition in the Codex.
+
+
+     Is anyone else working on this?
+
+     Can you see any room for improvement?
+
+
+     The new page would reside at:
+     http://codex.wordpress.org/Function_Reference/Global_Variables.
+
+
+
+[1] http://codex.wordpress.org/User:CharlesClarkson/Global_Variables
+
+
+TIA,
+
+Charles Clarkson
+--
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+_______________________________________________
+wp-docs mailing list
+wp-docs@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-docs
+From wordpress at santosj.name  Tue Jan 20 12:51:05 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Tue Jan 20 12:51:17 2009
+Subject: [wp-docs] Singleton Glossary Term
+Message-ID: <4975C8B9.7020202@santosj.name>
+
+After getting my ass spanked on my own blog for screwing up [2] the 
+definition for Singleton, I've decided to fix the Glossary Term [1]. It 
+is interesting that class patterns would be part of the WordPress Codex, 
+figuring that while most class patterns are possible in PHP4, it is 
+usually not as well defined as it should be by using an language that 
+actually supports the proper constructs to implement the pattern correctly.
+
+If anyone wants to rewrite the glossary term to remove the erroneous 
+example(s), then they can be my guest.
+
+Jacob Santos
+
+
+[1] http://codex.wordpress.org/Glossary#Singleton
+
+[2] 
+http://funcdoc.wordpress.com/2008/01/16/writing-plugins-dont-overuse-singletons/ 
+- Blog is currently dead. Haven't posted there in a while.
+From kaf at szub.net  Tue Jan 20 13:24:10 2009
+From: kaf at szub.net (Kaf Oseo)
+Date: Tue Jan 20 13:24:21 2009
+Subject: [wp-docs] Singleton Glossary Term
+In-Reply-To: <4975C8B9.7020202@santosj.name>
+References: <4975C8B9.7020202@santosj.name>
+Message-ID: <4975D07A.1070709@szub.net>
+
+Why not remove it from the glossary?
+
+It's not a term you find in even infrequent use among the WordPress 
+community. A correct definition might only confuse things just as much. 
+Do we even have an example of the Singleton pattern in use in the WP 
+framework?
+
+-Kaf
+
+Jacob Santos wrote:
+> After getting my ass spanked on my own blog for screwing up [2] the 
+> definition for Singleton, I've decided to fix the Glossary Term [1]. It 
+> is interesting that class patterns would be part of the WordPress Codex, 
+> figuring that while most class patterns are possible in PHP4, it is 
+> usually not as well defined as it should be by using an language that 
+> actually supports the proper constructs to implement the pattern correctly.
+> 
+> If anyone wants to rewrite the glossary term to remove the erroneous 
+> example(s), then they can be my guest.
+> 
+> Jacob Santos
+
+From justmichaelh at gmail.com  Tue Jan 20 13:52:35 2009
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Tue Jan 20 13:52:44 2009
+Subject: [wp-docs] Singleton Glossary Term
+References: <4975C8B9.7020202@santosj.name>
+Message-ID: <0dc501c97b06$5a649050$6701a8c0@dell8600>
+
+
+----- Original Message ----- 
+From: "Jacob Santos" <wordpress@santosj.name>
+> If anyone wants to rewrite the glossary term to remove the erroneous 
+> example(s), then they can be my guest.
+>
+> Jacob Santos
+>
+>
+> [1] http://codex.wordpress.org/Glossary#Singleton
+
+
+Corrected the definition of Singleton to be:
+
+"Singletons are objects that exist globally and are the only one of their 
+class; if one instance of a class is created per request, this instance is a 
+singleton object. "
+
+MichaelH
+
+
+From wordpress at santosj.name  Tue Jan 20 14:03:52 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Tue Jan 20 14:04:07 2009
+Subject: [wp-docs] Singleton Glossary Term
+In-Reply-To: <0dc501c97b06$5a649050$6701a8c0@dell8600>
+References: <4975C8B9.7020202@santosj.name>
+	<0dc501c97b06$5a649050$6701a8c0@dell8600>
+Message-ID: <4975D9C8.6070504@santosj.name>
+
+No. Singleton is not an object, it is a class pattern.
+
+"Singletons are objects that exist globally and are the only one of 
+their class." - Is correct
+
+The rest is not. The Singleton class pattern puts constraints on exactly 
+how many instances can be created, not the total number that are 
+created, if that was the case then the majority of objects in WordPress 
+would be Singletons because they are only created once. There are no 
+Singletons in the WordPress library, actual all of the WordPress class 
+library follows the normal object practices.
+
+Searching Google for "Singleton object" only comes up with the Pattern. 
+The Singleton is a pattern not an object, if anything it is a class 
+methodology.
+
+Jacob Santos
+
+Michael E. Hancock wrote:
+>
+> ----- Original Message ----- From: "Jacob Santos" 
+> <wordpress@santosj.name>
+>> If anyone wants to rewrite the glossary term to remove the erroneous 
+>> example(s), then they can be my guest.
+>>
+>> Jacob Santos
+>>
+>>
+>> [1] http://codex.wordpress.org/Glossary#Singleton
+>
+>
+> Corrected the definition of Singleton to be:
+>
+> "Singletons are objects that exist globally and are the only one of 
+> their class; if one instance of a class is created per request, this 
+> instance is a singleton object. "
+>
+> MichaelH
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+From justmichaelh at gmail.com  Tue Jan 20 14:05:47 2009
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Tue Jan 20 14:05:54 2009
+Subject: [wp-docs] Singleton Glossary Term
+References: <4975C8B9.7020202@santosj.name> <4975D07A.1070709@szub.net>
+Message-ID: <0de801c97b08$321a50b0$6701a8c0@dell8600>
+
+
+
+----- Original Message ----- 
+From: "Kaf Oseo" <kaf@szub.net>
+
+
+> Why not remove it from the glossary?
+> 
+> It's not a term you find in even infrequent use among the WordPress 
+> community. A correct definition might only confuse things just as much. 
+> Do we even have an example of the Singleton pattern in use in the WP 
+> framework?
+
+Hey Kaf!
+
+That's even better.
+
+Done.
+
+Gone.
+
+MichaelH
+
+
+From lorellevan at gmail.com  Tue Jan 20 18:01:04 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Tue Jan 20 18:01:12 2009
+Subject: [wp-docs] RFC: New Global Variables page for the Function
+	Reference
+In-Reply-To: <6101743.91232431922377.JavaMail.DELL-1405$@Dell-1405>
+References: <49753C47.5080602@htcomp.net>
+	<6101743.91232431922377.JavaMail.DELL-1405$@Dell-1405>
+Message-ID: <fded39850901201001l3b22d0c2qf915e1a9db0c4c0a@mail.gmail.com>
+
+My worry at first is whether or not this page should be in the root rather
+than as a sub page under Functions, a minor technicality in Codex structure.
+If it is that integrated into Functions, then a sub page is appropriate. If
+it is really its own subject and a key part of building functions and more,
+then it needs to be its own page.
+
+What do you think?
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090120/3f3dfa92/attachment.htm
+From lorelleonwordpress at gmail.com  Tue Jan 20 18:47:43 2009
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue Jan 20 18:47:54 2009
+Subject: [wp-docs] New WordPress Handbook
+Message-ID: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+
+Some of you may have heard Matt Mullenweg's announcement at WordCamp Las
+Vegas of the WordPress Handbook, a free online manual for WordPress users. I
+chatted with him about the future of WordPress documentation, the WordPress
+Codex, and this new handbook.
+
+First, the WordPress Handbook is NOT a replacement for the Codex. The
+handbook will be the essence of a basic manual for using WordPress. The
+Codex may actually expand to cover everything outside of the core essentials
+for using WordPress. For now, it will continue to be the source of
+information for developers and core functions.
+
+The WordPress Handbook will begin with a very basic "How to Use WordPress"
+core that guides the user through installation, upgrades, and basic user
+functions like how to write a post, upload images, embed multimedia, install
+Plugins and Themes, and the core functionality of using WordPress. Much of
+it will use Codex content regarding those tasks and the WordPress
+Administration Panels.
+
+A "design and customization" version will include tips on choosing a
+WordPress Theme and Plugin, installing, customizing and tweaking.
+
+A developer version will follow to help Theme and Plugin authors and third
+party apps to hook into WordPress to add features and functionality.
+
+The WordPress Handbooks will not be in wiki form. They will be created using
+Subversion. An example is the http://svnbook.red-bean.com/ Version Control
+with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael
+Pilato.
+
+The handbook will be in XML form tied to Subversion (SVN), allowing easy
+updating for version specific issues within the documentation, linking to
+the online handbook directly from WordPress based upon version, branching
+into version specific guides. It will also include options for HTML and PDF
+versions, and the ability to submit patches and updates just as is currently
+being done with WordPress and many other programs. The idea is to keep the
+handbook updated and current with the latest version of WordPress, as well
+as past versions, while continuing to allow community participation and
+"proofing" for checks and balances in the documentation.
+
+The WordPress Handbook will continue to follow in the footsteps of its
+predecessors as an open source project under the GPL. Some staff may be
+hired or given responsibility to implement and oversee the project, but it
+will be community driven, allowing anyone to submit changes and additions
+through the Subversion repository.
+
+Matt is working on the fundamental programming and process for which to
+start integrating appropriate Codex and original WordPress 2.7 specific
+content into the handbook. We'll be calling upon the WordPress Codex
+documentation team to help us update and choose what information "must" be
+in the handbooks, as well as updating the Codex. Calls will be put out to
+the WordPress Community for recommendations on content and topics as well,
+letting their needs guide the final choices.
+
+The handbooks must service basic beginners to intermediate users, which
+means the Codex may become the historical repository and technical guide
+beyond the handbook. The writing style will be different from the Codex in
+keeping with a basic manual rather than a guide.
+
+The Handbook will be a major shift for those used to the Codex and Mediawiki
+who wish to contribute, especially for those with no experience with
+Subversion. We'll be writing up guidelines and tips for submitting content
+and patches, as well as a style guide, on the Codex.
+
+Here are some links to help you familiarize yourself with how Subversion,
+and the example of the free online Subversion book, works:
+
+http://svnbook.red-bean.com/ Version Control with Subversion by Ben
+Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato
+http://www.open.collab.net/community/subversion/svnbook/ - Open Collab.net
+version of the SVN book
+http://www.open.collab.net/community/subversion/svnbook/svn.preface.organization.htmlOpen
+Collab.net version of the organizational structure of the SVN book and
+how to use Subversion
+http://code.google.com/p/svnbook/issues/list
+http://svn.red-bean.com/svnbook/trunk/
+http://oreilly.com/catalog/9780596004484/ - the printed book
+http://subversion.tigris.org/faq.html - using subversion
+http://osdir.com/ml/version-control.subversion.book/ - mailing list for the
+Version Control Subversion book
+
+If you have any links on the step-by-step process of using Subversion as a
+manual or book, please let us know.
+
+Again, this is not the end of the WordPress Codex. This is an exciting shift
+for WordPress documentation. This is the start of a conversation about where
+the Codex is going, and what key content should be in the handbook. We'll
+have information on the technical process soon.
+
+For now, we need to start work updating the Codex for WordPress 2.7,
+including adding new screenshots, screencasts, incorporating the technical,
+how-to videos from WordPress.tv, creating our own short, technical videos,
+and continuing the tremendous work of so many volunteers within the
+WordPress Community to offer technical and reference material to WordPress
+users.
+
+Lorelle VanFossen
+Twitter: lorelleonwp
+Email: lorelleonwordpress at gmail.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090120/93b55da6/attachment-0001.htm
+From listswpdocs at mist.org.uk  Tue Jan 20 18:59:40 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Tue Jan 20 19:01:31 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+Message-ID: <I34yjpBc8hdJFwlX@dsl-217-155-35-239.zen.co.uk>
+
+In message 
+<fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>, Lorelle 
+on WordPress <lorelleonwordpress@gmail.com> writes
+>Some of you may have heard Matt Mullenweg's announcement at
+>WordCamp Las Vegas of the WordPress Handbook, a free online manual
+>for WordPress users. I chatted with him about the future of WordPress
+>documentation, the WordPress Codex, and this new handbook.
+>
+>First, the WordPress Handbook is NOT a replacement for the Codex. The
+
+<snip>
+
+Sounds interesting.  I wonder are there any plans to somehow 
+programmatically link the content of the handbook with the (same areas 
+of) content in the Codex?  If so, great.  If not, I think that's 
+something that should be given serious consideration, so as to avoid 
+duplication of work, and potentially conflicting sources of info.  I 
+expect it would be some great programming feat to accomplish, mind.
+-- 
+mrmist
+From hempsworth at googlemail.com  Tue Jan 20 19:10:33 2009
+From: hempsworth at googlemail.com (Alex Hempton-Smith)
+Date: Tue Jan 20 19:10:43 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <I34yjpBc8hdJFwlX@dsl-217-155-35-239.zen.co.uk>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<I34yjpBc8hdJFwlX@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <5a1dad880901201110o6f8ee2eaxdd01754bf331a7ac@mail.gmail.com>
+
+> The handbook will be in XML form tied to Subversion (SVN), allowing easy>
+updating for version specific issues within the documentation, linking to
+the
+> online handbook directly from WordPress based upon version, branching into
+> version specific guides.
+
+Does that mean the manual will actually be outputted on relevant pages in
+that 'Help' dropdown? That would be pretty cool :)
+
+-- Alex
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090120/9287bc64/attachment.htm
+From lorellevan at gmail.com  Tue Jan 20 19:27:31 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Tue Jan 20 19:27:40 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <5a1dad880901201110o6f8ee2eaxdd01754bf331a7ac@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<I34yjpBc8hdJFwlX@dsl-217-155-35-239.zen.co.uk>
+	<5a1dad880901201110o6f8ee2eaxdd01754bf331a7ac@mail.gmail.com>
+Message-ID: <fded39850901201127h402f3b14w54446b16e09731ed@mail.gmail.com>
+
+The Handbook will link to expanded information in the Codex, when
+appropriate, as that is a natural function of the two, I'm sure. After all,
+instead of code it will be content, and there will be links to appropriate
+and related content within the documentation of the Handbook.
+
+And I agree. This is VERY cool and has a lot of potential for integration
+within the WordPress Administration Panels as well as a "stand alone book."
+We get a lot of requests for a printed version of the Codex, and the SVN
+Handbook will have that feature built in, though I'd hate to think of all
+the wasted paper if they printed out the WHOLE thing. :D
+
+There is a lot of work that has to go into the integration of the content
+into Subversion, and creation of forms for us to add and patch content in
+documentation style rather than strictly code, but the Subversion book has
+already laid the groundwork and we have a lot to learn from their past
+mistakes. It's back to the books, folks. :D
+
+I'm very excited about this next step. We have a LOT of work on the Codex to
+do, along side the Handbook development, so let's get cracking!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090120/d5ac5862/attachment.htm
+From peter.westwood at ftwr.co.uk  Tue Jan 20 21:51:50 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Tue Jan 20 21:52:32 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+Message-ID: <90559FDD-86AC-46DD-93B8-CA3A29D92205@ftwr.co.uk>
+
+
+On 20 Jan 2009, at 18:47, Lorelle on WordPress wrote:
+
+> Some of you may have heard Matt Mullenweg's announcement at  
+> WordCamp Las Vegas of the WordPress Handbook, a free online manual  
+> for WordPress users. I chatted with him about the future of  
+> WordPress documentation, the WordPress Codex, and this new handbook.
+
+> The handbook will be in XML form tied to Subversion (SVN), allowing  
+> easy updating for version specific issues within the documentation,  
+> linking to the online handbook directly from WordPress based upon  
+> version, branching into version specific guides. It will also  
+> include options for HTML and PDF versions, and the ability to  
+> submit patches and updates just as is currently being done with  
+> WordPress and many other programs. The idea is to keep the handbook  
+> updated and current with the latest version of WordPress, as well  
+> as past versions, while continuing to allow community participation  
+> and "proofing" for checks and balances in the documentation.
+>
+> The WordPress Handbook will continue to follow in the footsteps of  
+> its predecessors as an open source project under the GPL. Some  
+> staff may be hired or given responsibility to implement and oversee  
+> the project, but it will be community driven, allowing anyone to  
+> submit changes and additions through the Subversion repository.
+>
+> Matt is working on the fundamental programming and process for  
+> which to start integrating appropriate Codex and original WordPress  
+> 2.7 specific content into the handbook. We'll be calling upon the  
+> WordPress Codex documentation team to help us update and choose  
+> what information "must" be in the handbooks, as well as updating  
+> the Codex. Calls will be put out to the WordPress Community for  
+> recommendations on content and topics as well, letting their needs  
+> guide the final choices.
+>
+
+Three words:
+
+Cool Cool Cool.
+
+Doing it in the style of the subversion book is going to be real cool.
+
+I am looking forward to contributing.
+
+westi
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+From cclarkson at htcomp.net  Tue Jan 20 22:14:13 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Tue Jan 20 22:15:09 2009
+Subject: [wp-docs] RFC: New Global Variables page for the
+	Function	Reference
+In-Reply-To: <fded39850901201001l3b22d0c2qf915e1a9db0c4c0a@mail.gmail.com>
+References: <49753C47.5080602@htcomp.net>	<6101743.91232431922377.JavaMail.DELL-1405$@Dell-1405>
+	<fded39850901201001l3b22d0c2qf915e1a9db0c4c0a@mail.gmail.com>
+Message-ID: <49764CB5.7050800@htcomp.net>
+
+Lorelle VanFossen wrote:
+
+ > My worry at first is whether or not this page should be in the root
+ > rather than as a sub page under Functions, a minor technicality in Codex
+ > structure. If it is that integrated into Functions, then a sub page is
+ > appropriate. If it is really its own subject and a key part of building
+ > functions and more, then it needs to be its own page.
+
+     " ... And he puzzled three hours, till his puzzler was sore. Then 
+the Grinch thought of something he hadn't before!" :)
+
+ > What do you think?
+
+     The programmer in me convinced that Template Tags, Conditional Tags 
+and Include Tags, filters and actions are actually functions and 
+probably should not exist outside a Function Reference.
+
+     (That is a problem for me. To go to the definition of is_new_day() 
+without using Codex Search, I have to know that it is /not/ a 
+Conditional Tag or a Template Tag, even though it looks and acts like 
+one of those.)
+
+     Since Template Tags, Conditional Tags and Include Tags do not fall 
+under the Function Reference pages in the Codex, perhaps it would be 
+better to place Global Variables on the same level.
+
+     However, some existing pages dedicated to WordPress classes are 
+tied very tightly with the definition of specific global variables.
+
+     For Example:
+     $wpdb       http://codex.wordpress.org/Function_Reference/wpdb_Class
+     $wp_query   http://codex.wordpress.org/Function_Reference/WP_Query
+     $wp_rewrite http://codex.wordpress.org/Function_Reference/WP_Rewrite
+
+     Another question begs: Should WordPress Classes be under the 
+Function Reference?
+
+
+HTH,
+
+Charles Clarkson
+--
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From tekapo at gmail.com  Wed Jan 21 06:24:38 2009
+From: tekapo at gmail.com (tai)
+Date: Wed Jan 21 06:24:51 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+Message-ID: <171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+
+Sounds great!
+Do you have any plans for other languages?
+
+On Wed, Jan 21, 2009 at 3:47 AM, Lorelle on WordPress
+<lorelleonwordpress@gmail.com> wrote:
+>
+> Some of you may have heard Matt Mullenweg's announcement at WordCamp Las Vegas of the WordPress Handbook, a free online manual for WordPress users. I chatted with him about the future of WordPress documentation, the WordPress Codex, and this new handbook.
+>
+> First, the WordPress Handbook is NOT a replacement for the Codex. The handbook will be the essence of a basic manual for using WordPress. The Codex may actually expand to cover everything outside of the core essentials for using WordPress. For now, it will continue to be the source of information for developers and core functions.
+>
+> The WordPress Handbook will begin with a very basic "How to Use WordPress" core that guides the user through installation, upgrades, and basic user functions like how to write a post, upload images, embed multimedia, install Plugins and Themes, and the core functionality of using WordPress. Much of it will use Codex content regarding those tasks and the WordPress Administration Panels.
+>
+> A "design and customization" version will include tips on choosing a WordPress Theme and Plugin, installing, customizing and tweaking.
+>
+> A developer version will follow to help Theme and Plugin authors and third party apps to hook into WordPress to add features and functionality.
+>
+> The WordPress Handbooks will not be in wiki form. They will be created using Subversion. An example is the http://svnbook.red-bean.com/ Version Control with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.
+>
+> The handbook will be in XML form tied to Subversion (SVN), allowing easy updating for version specific issues within the documentation, linking to the online handbook directly from WordPress based upon version, branching into version specific guides. It will also include options for HTML and PDF versions, and the ability to submit patches and updates just as is currently being done with WordPress and many other programs. The idea is to keep the handbook updated and current with the latest version of WordPress, as well as past versions, while continuing to allow community participation and "proofing" for checks and balances in the documentation.
+>
+> The WordPress Handbook will continue to follow in the footsteps of its predecessors as an open source project under the GPL. Some staff may be hired or given responsibility to implement and oversee the project, but it will be community driven, allowing anyone to submit changes and additions through the Subversion repository.
+>
+> Matt is working on the fundamental programming and process for which to start integrating appropriate Codex and original WordPress 2.7 specific content into the handbook. We'll be calling upon the WordPress Codex documentation team to help us update and choose what information "must" be in the handbooks, as well as updating the Codex. Calls will be put out to the WordPress Community for recommendations on content and topics as well, letting their needs guide the final choices.
+>
+> The handbooks must service basic beginners to intermediate users, which means the Codex may become the historical repository and technical guide beyond the handbook. The writing style will be different from the Codex in keeping with a basic manual rather than a guide.
+>
+> The Handbook will be a major shift for those used to the Codex and Mediawiki who wish to contribute, especially for those with no experience with Subversion. We'll be writing up guidelines and tips for submitting content and patches, as well as a style guide, on the Codex.
+>
+> Here are some links to help you familiarize yourself with how Subversion, and the example of the free online Subversion book, works:
+>
+> http://svnbook.red-bean.com/ Version Control with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato
+> http://www.open.collab.net/community/subversion/svnbook/ - Open Collab.net version of the SVN book
+> http://www.open.collab.net/community/subversion/svnbook/svn.preface.organization.html Open Collab.net version of the organizational structure of the SVN book and how to use Subversion
+> http://code.google.com/p/svnbook/issues/list
+> http://svn.red-bean.com/svnbook/trunk/
+> http://oreilly.com/catalog/9780596004484/ - the printed book
+> http://subversion.tigris.org/faq.html - using subversion
+> http://osdir.com/ml/version-control.subversion.book/ - mailing list for the Version Control Subversion book
+>
+> If you have any links on the step-by-step process of using Subversion as a manual or book, please let us know.
+>
+> Again, this is not the end of the WordPress Codex. This is an exciting shift for WordPress documentation. This is the start of a conversation about where the Codex is going, and what key content should be in the handbook. We'll have information on the technical process soon.
+>
+> For now, we need to start work updating the Codex for WordPress 2.7, including adding new screenshots, screencasts, incorporating the technical, how-to videos from WordPress.tv, creating our own short, technical videos, and continuing the tremendous work of so many volunteers within the WordPress Community to offer technical and reference material to WordPress users.
+>
+> Lorelle VanFossen
+> Twitter: lorelleonwp
+> Email: lorelleonwordpress at gmail.com
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+--
+Tai
+http://tekapo.com
+From lorellevan at gmail.com  Wed Jan 21 17:12:17 2009
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Wed Jan 21 17:12:25 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+Message-ID: <fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+
+@tai - translations are the hope and could be much easier with this new
+technique.
+
+Imagine how easy it would be to submit patches to improve translation!
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090121/a7375f84/attachment.htm
+From tekapo at gmail.com  Thu Jan 22 12:31:59 2009
+From: tekapo at gmail.com (tai)
+Date: Thu Jan 22 12:32:14 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+Message-ID: <171aba370901220431w124775f5ueb4b0c92ac6150d9@mail.gmail.com>
+
+Umm,,, I'm not sure it would be easier for us translators, though, It
+might be a good idea to have a web UI like Launchpad:
+https://translations.launchpad.net/
+
+Anyway, that's good to know, so I will be watching the list. :-)
+Thank you very much, Lorelle!
+
+On Thu, Jan 22, 2009 at 2:12 AM, Lorelle VanFossen <lorellevan@gmail.com> wrote:
+> @tai - translations are the hope and could be much easier with this new
+> technique.
+>
+> Imagine how easy it would be to submit patches to improve translation!
+>
+> Lorelle
+>
+
+
+
+-- 
+Tai
+From wordpress at santosj.name  Thu Jan 22 14:35:06 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Thu Jan 22 14:35:18 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+Message-ID: <4978841A.1040707@santosj.name>
+
+I had to laugh, because I have like 6 or 7 patches for WordPress which 
+haven't been committed yet and I'm still waiting. I also don't think you 
+are being sarcastic, which I mean you know, it actually isn't too easy 
+to have patches committed.
+
+Yeah, it is super easy to submit patches, we'll have to see how quick 
+the commit process is. It really depends on who is babysitting the 
+repository and how many people have commit access. If one or two people 
+from Automattic or outside entity have commit access, then I'll tell you 
+right now, that it won't be easy, based upon the patch process for the 
+WordPress Tests Repository. If they don't think your documentation 
+correction is worth it, then you'll have made the patch for nothing.
+
+If you do think that the patch is worth it, then you are going to have 
+to battle to the death and debate those with commit access to death on 
+the correction or addition. I really don't see a lot of people 
+contributing to it, besides Automattic and a few other people. Really it 
+depends on how they implement the patch system.
+
+Translations will be easier and I think many in the translation team 
+will contribute to those portions.
+
+Jacob Santos
+
+
+Lorelle VanFossen wrote:
+> @tai - translations are the hope and could be much easier with this 
+> new technique.
+>
+> Imagine how easy it would be to submit patches to improve translation!
+>
+> Lorelle
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+
+From hempsworth at googlemail.com  Thu Jan 22 14:46:04 2009
+From: hempsworth at googlemail.com (Alex Hempton-Smith)
+Date: Thu Jan 22 14:46:16 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4978841A.1040707@santosj.name>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+Message-ID: <5a1dad880901220646kb682562q70503a18b1062ae6@mail.gmail.com>
+
+Hopefully we can have something really useful built to support the patch
+creation/submissions process...
+
+A web-based UI (a bit like Launchpad), where you didn't need any installed
+software to create patches. The patches could then be added to a 'pending
+approval' section, where users could vote on how good/useful they think the
+patch is - therefore making it easy for people with commit access to see
+which patches are the best/most wanted.
+
+Also making it easy for people to see what needs adding to - perhaps having
+hidden tags within the XML files like in the wiki 'stub' or 'needs work' etc
+- these could then be filtered so somebody who knows a lot about a certain
+thing can search for the pages which need updating/working on, that are
+relevant to them.
+
+I'm thinking tag clouds, filtering pages and voting mechanisms.
+
+-- Alex
+
+
+On Thu, Jan 22, 2009 at 2:35 PM, Jacob Santos <wordpress@santosj.name>wrote:
+
+> I had to laugh, because I have like 6 or 7 patches for WordPress which
+> haven't been committed yet and I'm still waiting. I also don't think you are
+> being sarcastic, which I mean you know, it actually isn't too easy to have
+> patches committed.
+>
+> Yeah, it is super easy to submit patches, we'll have to see how quick the
+> commit process is. It really depends on who is babysitting the repository
+> and how many people have commit access. If one or two people from Automattic
+> or outside entity have commit access, then I'll tell you right now, that it
+> won't be easy, based upon the patch process for the WordPress Tests
+> Repository. If they don't think your documentation correction is worth it,
+> then you'll have made the patch for nothing.
+>
+> If you do think that the patch is worth it, then you are going to have to
+> battle to the death and debate those with commit access to death on the
+> correction or addition. I really don't see a lot of people contributing to
+> it, besides Automattic and a few other people. Really it depends on how they
+> implement the patch system.
+>
+> Translations will be easier and I think many in the translation team will
+> contribute to those portions.
+>
+> Jacob Santos
+>
+>
+> Lorelle VanFossen wrote:
+>
+>>  @tai - translations are the hope and could be much easier with this new
+>> technique.
+>>
+>> Imagine how easy it would be to submit patches to improve translation!
+>>
+>> Lorelle
+>> ------------------------------------------------------------------------
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090122/ad6ece54/attachment.htm
+From if.website at gmail.com  Thu Jan 22 16:28:16 2009
+From: if.website at gmail.com (Austin Matzko)
+Date: Thu Jan 22 16:28:27 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+Message-ID: <674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+
+> The WordPress Handbooks will not be in wiki form. They will be created using
+> Subversion. An example is the http://svnbook.red-bean.com/ Version Control
+> with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael
+> Pilato.
+
+I'm trying to understand the problems that will be solved by creating
+a Subversion-controlled manual.  The practical realities that make
+Subversion such a helpful tool for software development are either not
+present or already addressed with a wiki.  So for example, if the
+Codex were overwhelmed by ideologues trying to reshape the Codex, or
+if vandalism were a constant problem, then I could understand
+tightening up control.
+
+If the issue is a matter having professionals generate the content,
+why not unleash those professional writers on the Codex?  The Codex
+quality will improve all around, as you'd be combining the work of the
+paid writers and volunteers who for the most part seem to know their
+stuff.
+
+> The writing style will be different from the Codex in keeping with a basic manual rather than a guide.
+
+In practice the distinction between a "manual" and a "guide" is a very
+fine line, one crossed in many places already in the Codex.  If that
+distinction is the main issue, why not just supplement the Codex with
+a "manual" section?
+
+I'm concerned that this manual will have the effect of undermining the
+perceived value of the Codex, which will mean fewer people will
+consult it, and fewer volunteers will contribute both to the Codex and
+to the manual (with its higher barrier of entry).  Of course,
+potential deficits like that might be worthwhile in light of the
+overall benefit, but I'm having difficulty seeing the benefit.
+
+> Cool Cool Cool.
+>
+> Doing it in the style of the subversion book is going to be real cool.
+>
+> I am looking forward to contributing.
+
+Why is it more fun to contribute using Subversion than a wiki?
+From listswpdocs at mist.org.uk  Thu Jan 22 18:12:16 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Thu Jan 22 18:13:36 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4978841A.1040707@santosj.name>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+Message-ID: <$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+
+In message <4978841A.1040707@santosj.name>, Jacob Santos 
+<wordpress@santosj.name> writes
+>I had to laugh, because I have like 6 or 7 patches for WordPress which 
+>haven't been committed yet and I'm still waiting. I also don't think 
+>you are being sarcastic, which I mean you know, it actually isn't too 
+>easy to have patches committed.
+>
+
+Yeah that could be a concern really.  You only have to look at the 
+wordpress trac, there's 340 tickets marked has-patch.  Some of them are 
+3 years old.  If the manual goes that way it would get stale really 
+quickly.
+
+Part of the beauty of the wiki codex is that changes have instant 
+feedback. You see something wrong, you fix it. Done.  That's pretty 
+gratifying.  It's much less gratifying to do something and then see it 
+languish.
+
+-- 
+mrmist
+From peter.westwood at ftwr.co.uk  Thu Jan 22 18:39:35 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Thu Jan 22 18:40:19 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+Message-ID: <95A31954-3975-4C8E-98E6-DD88099275CE@ftwr.co.uk>
+
+
+On 22 Jan 2009, at 16:28, Austin Matzko wrote:
+
+>> The WordPress Handbooks will not be in wiki form. They will be  
+>> created using
+>> Subversion. An example is the http://svnbook.red-bean.com/ Version  
+>> Control
+>> with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C.  
+>> Michael
+>> Pilato.
+>
+> I'm trying to understand the problems that will be solved by creating
+> a Subversion-controlled manual.  The practical realities that make
+> Subversion such a helpful tool for software development are either not
+> present or already addressed with a wiki.  So for example, if the
+> Codex were overwhelmed by ideologues trying to reshape the Codex, or
+> if vandalism were a constant problem, then I could understand
+> tightening up control.
+
+Easier Editing in a more WYSWIG environment.
+
+Easy merging of changes
+
+Easier translation.
+
+Working offline
+
+>
+>> Cool Cool Cool.
+>>
+>> Doing it in the style of the subversion book is going to be real  
+>> cool.
+>>
+>> I am looking forward to contributing.
+>
+> Why is it more fun to contribute using Subversion than a wiki?
+>
+
+See above
+
+Peter
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+From tomjohnson1492 at gmail.com  Thu Jan 22 18:40:15 2009
+From: tomjohnson1492 at gmail.com (Tom Johnson)
+Date: Thu Jan 22 18:40:26 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <26e509c20901221040q55901cf2j2ca3a3b1f58ba4d1@mail.gmail.com>
+
+I agree with the concerns Austin raised about the questionable benefit of
+converting to Subversion rather than using a wiki format. I'm not even sure
+how that would work. Each writer would need to check out a topic and then
+check it back in, and then the whole thing would be compiled into a
+book-like format? I haven't used Subversion before, so I'm unfamiliar with
+it. If it requires too much ramping up to contribute, the contributions will
+decrease.
+
+I find the WordPress Codex a fascinating project, one that ideally I should
+be actively contributing to but am not. My only contribution has been the
+WordPress Quick Start Guide page,
+http://codex.wordpress.org/WordPress_Quick_Start_Guide, which I felt was
+sorely needed.
+
+The technical communication community has made some progress in solving
+problems that the Codex poses, but it goes a different route and employs a
+technology called DITA (Darwin Information Typing Architecture). Ideally,
+you would have a content management system based on the DITA architecture
+that would enable multiple authors to create topics formatted in DITA that
+could then be published in a variety of formats and deliverables. The CMS
+would contain all topics. For a light guide, you would choose to include
+only certain topics in your publication. But if you wanted to include it
+all, you would map a table of contents including all topics. Additionally,
+some companies are now creating DITA-to-wiki capabilities.
+
+However, putting questions of technology aside, the larger problem with
+WordPress' documentation is that, except for the recent screencast guy who
+publishes release videos, the documentation effort seems to be mainly put in
+the hands of the community. Isn't this a lot to ask of the community? I
+think WordPress should hire a professional technical writer to manage the
+entire project. I don't mean any disrepect to the documentation team with
+this recommendation, only that this is too monumental of a task to leave
+entirely up to the community to create and maintain.
+
+Tom
+
+http://idratherbewriting.com
+http://twitter.com/tomjohnson
+
+
+On Thu, Jan 22, 2009 at 11:12 AM, mrmist <listswpdocs@mist.org.uk> wrote:
+
+> In message <4978841A.1040707@santosj.name>, Jacob Santos <
+> wordpress@santosj.name> writes
+>
+>> I had to laugh, because I have like 6 or 7 patches for WordPress which
+>> haven't been committed yet and I'm still waiting. I also don't think you are
+>> being sarcastic, which I mean you know, it actually isn't too easy to have
+>> patches committed.
+>>
+>>
+> Yeah that could be a concern really.  You only have to look at the
+> wordpress trac, there's 340 tickets marked has-patch.  Some of them are 3
+> years old.  If the manual goes that way it would get stale really quickly.
+>
+> Part of the beauty of the wiki codex is that changes have instant feedback.
+> You see something wrong, you fix it. Done.  That's pretty gratifying.  It's
+> much less gratifying to do something and then see it languish.
+>
+> --
+> mrmist
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+---------------------
+cell: 801-822-2241
+blog: www.idratherbewriting.com
+twitter: www.twitter.com/tomjohnson
+news: www.writerriver.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090122/2309cb25/attachment-0001.htm
+From wordpress at santosj.name  Thu Jan 22 19:12:13 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Thu Jan 22 19:12:24 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+Message-ID: <4978C50D.2060301@santosj.name>
+
+The Manual is a concise, detailed explanation with a limited and defined 
+set of topics. The Codex is a guide, which consists of topics which 
+range from anything and everything, which are in some areas easy to find 
+and others more difficult to find. The problem with the Codex, which the 
+Manual will solve is that some topics have a lot of information and 
+others have none or stub amount of information. In theory, the Manual 
+will contain enough information to understand the concept and work off 
+of it, but doesn't mean that it will contain all knowledge on that topic.
+
+Therefore, the Manual will contain more concise, detailed information 
+that pinpoint problem and solutions with the explanation with the topics 
+it covers. The edge cases, will have to be covered on the Codex.
+
+That is how I would see the Manual, if I were to write it. Also, look at 
+the OpenX ad Manual system and what it contains vs what the Codex 
+contains. In some areas, the information is a lot and covers what you 
+need, but I've found that there are several areas where the information 
+given is not enough or accurate enough, which the Codex would be better 
+to explain.
+
+Jacob Santos
+
+Austin Matzko wrote:
+>> The WordPress Handbooks will not be in wiki form. They will be created using
+>> Subversion. An example is the http://svnbook.red-bean.com/ Version Control
+>> with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael
+>> Pilato.
+>>     
+>
+> I'm trying to understand the problems that will be solved by creating
+> a Subversion-controlled manual.  The practical realities that make
+> Subversion such a helpful tool for software development are either not
+> present or already addressed with a wiki.  So for example, if the
+> Codex were overwhelmed by ideologues trying to reshape the Codex, or
+> if vandalism were a constant problem, then I could understand
+> tightening up control.
+>
+> If the issue is a matter having professionals generate the content,
+> why not unleash those professional writers on the Codex?  The Codex
+> quality will improve all around, as you'd be combining the work of the
+> paid writers and volunteers who for the most part seem to know their
+> stuff.
+>
+>   
+>> The writing style will be different from the Codex in keeping with a basic manual rather than a guide.
+>>     
+>
+> In practice the distinction between a "manual" and a "guide" is a very
+> fine line, one crossed in many places already in the Codex.  If that
+> distinction is the main issue, why not just supplement the Codex with
+> a "manual" section?
+>
+> I'm concerned that this manual will have the effect of undermining the
+> perceived value of the Codex, which will mean fewer people will
+> consult it, and fewer volunteers will contribute both to the Codex and
+> to the manual (with its higher barrier of entry).  Of course,
+> potential deficits like that might be worthwhile in light of the
+> overall benefit, but I'm having difficulty seeing the benefit.
+>
+>   
+>> Cool Cool Cool.
+>>
+>> Doing it in the style of the subversion book is going to be real cool.
+>>
+>> I am looking forward to contributing.
+>>     
+>
+> Why is it more fun to contribute using Subversion than a wiki?
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+
+From ab006 at chebucto.ns.ca  Thu Jan 22 19:25:21 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Thu Jan 22 19:20:01 2009
+Subject: [wp-docs] New WordPress Handbook
+Message-ID: <20090122122521.fdf8iw8mas48ogco@webmail.chebucto.ns.ca>
+
+mrmist wrote:
+> Jacob Santos <wordpress@santosj.name> wrote:
+>> I had to laugh, because I have like 6 or 7 patches ... which
+>> haven't been committed yet and I'm still waiting. [...]
+>> it actually isn't too easy to have patches committed.
+> [...] You only have to look at the wordpress trac, there's 340
+> tickets marked has-patch.  Some of them are 3 years old.
+> [...]
+> It's much less gratifying to do something and then see it languish.
+
+IIRC Mozilla came up with a fairly formal solution to this problem:
+someone (2 or 3?) had the task of de-languishing material,
+sort of a cat herder.
+I'd call it "ram-rod" but there was a better term that I don't
+recall just now.
+
+bdt
+From jane at automattic.com  Thu Jan 22 19:20:43 2009
+From: jane at automattic.com (Jane Wells)
+Date: Thu Jan 22 19:20:34 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <20090121062451.81A596686@comox.textdrive.com>
+References: <20090121062451.81A596686@comox.textdrive.com>
+Message-ID: <5ABFFD64-4D66-491A-B8EF-5130D5CD6ADD@automattic.com>
+
+From: "Alex Hempton-Smith" <hempsworth@googlemail.com>
+> Does that mean the manual will actually be outputted on relevant  
+> pages in that 'Help' dropdown?
+
+--Yes, that was part of the idea behind the help tab.
+
+
+
+From: Austin Matzko <if.website@gmail.com>
+I'm trying to understand the problems that will be solved by creating  
+a Subversion-controlled manual.  The practical realities that make  
+Subversion such a helpful tool for software development are either  
+not present or already addressed with a wiki.
+
+--I think there are a few benefits. Wikis aren't set up for the kind  
+of navigation that the handbook could have. A lot of people find the  
+Codex overwhelming and think it's hard to find things. Outdated  
+information isn't marked as outdated until someone goes in and  
+manually identifies it as relating to an earlier version. With a  
+Subversion controlled manual, there could be a new copy with each  
+release that is easier to bring up to date. (Ever tried to go through  
+every Codex page? It is a major pain because of the way wikis are  
+structured.) Sometimes I come across Codex pages that have been cut  
+and pasted from others to take advantage of repeat information, but  
+the paster forgot to do the small edits necessary to the pasted text,  
+and the Codex page would actually be incorrect. A patch system would  
+make it easier for an editorial team/technical writer/whomever to  
+proofread submissions before they go live, identify duplicate  
+content, etc. That instant change on the wiki is great when the info  
+is accurate, but what about if it's a little bit off, poorly written,  
+or ignores an already written explanation elsewhere in the Codex that  
+the new contributor just didn't know about because of the way wiki  
+navigation is structured? It's hard to keep tabs on everything in a  
+wiki.
+
+Also, as Lorelle mentioned, the Handbook is really meant to be more  
+like the owner's manual for your camera or iPhone... get you enough  
+information to get up and running and do basic troubleshooting, but  
+not so much that it would overwhelm with technical details that  
+mostly are useful to more advanced users.
+
+
+Jane
+
+
+
+
+From mike_walsh at mindspring.com  Thu Jan 22 19:46:39 2009
+From: mike_walsh at mindspring.com (Mike Walsh)
+Date: Thu Jan 22 19:46:54 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <20090122184027.CE3AA6DD9@comox.textdrive.com>
+References: <20090122184027.CE3AA6DD9@comox.textdrive.com>
+Message-ID: <008f01c97cca$252bdf40$6f839dc0$@com>
+
+>> The WordPress Handbooks will not be in wiki form. They will be created
+using
+>> Subversion. An example is the http://svnbook.red-bean.com/ Version
+Control
+>> with Subversion by Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael
+>> Pilato.
+>
+>I'm trying to understand the problems that will be solved by creating
+>a Subversion-controlled manual.  The practical realities that make
+>Subversion such a helpful tool for software development are either not
+>present or already addressed with a wiki.  So for example, if the
+>Codex were overwhelmed by ideologues trying to reshape the Codex, or
+>if vandalism were a constant problem, then I could understand
+>tightening up control.
+
+Personally I think this move to Subversion and the model used by the
+Subversion book is a great idea.  As a plugin developer I find the Codex
+documentation cumbersome and I work offline a lot so having a real reference
+book would be a huge benefit.  I actually have Adobe Acrobat walk the Codex
+periodically just so I can have something to reference when I am not
+connected.  I do a lot of work when I am on an airplane - offline
+documentation is a big benefit for me  I always keep a PDF version of the
+Subversion book on my laptop and found it so useful I ordered the printed
+version from ORA.
+
+Besides offline access, the biggest benefit I see is the ability to tag a
+version of the documentation against a WordPress release.  Need to do some
+work on 2.6.3?  You would reference the 2.6.3 SVN branch of the book.  No
+need to worry about heading down a dead end path based on Codex content
+which is only relevant to a newer release.  Right now there is very little
+information in the Codex that helps you differentiate information which
+changes from release to release.  The same is true for a Wiki.
+
+Mike
+
+--
+Mike Walsh - mike underscore walsh at mindspring dot com
+
+
+
+From cclarkson at htcomp.net  Thu Jan 22 20:15:11 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Thu Jan 22 20:18:09 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4978841A.1040707@santosj.name>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+Message-ID: <4978D3CF.2050500@htcomp.net>
+
+Jacob Santos wrote:
+
+> I had to laugh, because I have like 6 or 7 patches for WordPress which 
+> haven't been committed yet and I'm still waiting. I also don't think you 
+> are being sarcastic, which I mean you know, it actually isn't too easy 
+> to have patches committed.
+
+Are those documentation only patches or do they change the code? Do you 
+find your Inline Document changes take an equally long time to be committed?
+
+
+ > If one or two people from Automattic or outside entity have commit
+ > access, then I'll tell you right now, that it won't be easy, based
+ > upon the patch process for the WordPress Tests Repository.
+
+I would guess (because I really don't know) that part of the hold up for
+WordPress Trac is the testing process. Even automated testing can
+produce a lot of problems which need to be examined.
+
+In a handbook SVN I would guess that rigorous testing would be mostly
+eliminated. I think the approval process needed to commit changes would
+be the bottleneck.
+
+
+ > If [those with commit access] don't think your documentation
+ > correction is worth it, then you'll have made the patch for nothing.
+
+It seems that changes to the handbook would be approved by some small
+group of people. We have to assume an appreciable amount of effort will
+not make it into the handbook, but I am not convinced it would be for
+nothing. That same rejected work might fit in on the Codex.
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From hempsworth at googlemail.com  Thu Jan 22 20:56:42 2009
+From: hempsworth at googlemail.com (Alex Hempton-Smith)
+Date: Thu Jan 22 20:56:52 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4978D3CF.2050500@htcomp.net>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name> <4978D3CF.2050500@htcomp.net>
+Message-ID: <5a1dad880901221256x6e16a335u5d0f782ad2ed29af@mail.gmail.com>
+
+A lot of people have been addressing concerns with the submission of content
+to the SVN repo, and as I mentioned earlier a web-based editor would solve
+this - allowing it to be as easy (if not easier) to add content just like
+with the wiki. I like the idea of being able to tag documentation to a
+release, and a dropdown to choose the relevant release would make that
+functionality accessible.
+What this comes down to is quality, SVN means a chosen few (maybe even
+professionals in this field) could be employed to 'vet' or check each
+submission, ensuring a better quality of content.
+
+Also, as I mentioned previously, because the changes actually take the form
+of a 'change' (technically a patch file), users can vote on the best
+'changes' and the good additions make their way to the top of the commit
+list.
+
+Just my 2 cents on the whole thing,
+Alex
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090122/595b7bca/attachment.htm
+From m at mullenweg.com  Thu Jan 22 23:09:31 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu Jan 22 23:09:53 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <I34yjpBc8hdJFwlX@dsl-217-155-35-239.zen.co.uk>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<I34yjpBc8hdJFwlX@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <4978FCAB.2040408@mullenweg.com>
+
+mrmist wrote:
+> Sounds interesting.  I wonder are there any plans to somehow 
+> programmatically link the content of the handbook with the (same areas 
+> of) content in the Codex?
+
+Nope.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From m at mullenweg.com  Thu Jan 22 23:11:41 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu Jan 22 23:12:02 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>	<4978841A.1040707@santosj.name>
+	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <4978FD2D.70209@mullenweg.com>
+
+mrmist wrote:
+> Yeah that could be a concern really.  You only have to look at the 
+> wordpress trac, there's 340 tickets marked has-patch.  Some of them are 
+> 3 years old.  If the manual goes that way it would get stale really 
+> quickly.
+
+Just because there's a patch for something doesn't mean it should be 
+accepted.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From m at mullenweg.com  Thu Jan 22 23:15:57 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu Jan 22 23:16:18 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<674b4a3b0901220828nd773f1eo96e3335011e0ae64@mail.gmail.com>
+Message-ID: <4978FE2D.4030909@mullenweg.com>
+
+Austin Matzko wrote:
+> I'm trying to understand the problems that will be solved by creating
+> a Subversion-controlled manual.
+
+Branching is one, for example when we do a release we can branch the 
+handbook. It's been near-impossible to "version" the Codex for different 
+releases of WP.
+
+Another is that Docbook can easily output to many different formats, 
+including CHM, and of course we could even do on-demand printed copies 
+of the handbook. Printing out the whole Codex would be... harmful to our 
+rain forests. :)
+
+> if vandalism were a constant problem, then I could understand
+> tightening up control.
+
+Spam is a constant problem, but that's a separate issue.
+
+> If the issue is a matter having professionals generate the content,
+
+It's not an issue in my opinion.
+
+> I'm concerned that this manual will have the effect of undermining the
+> perceived value of the Codex, which will mean fewer people will
+> consult it, and fewer volunteers will contribute both to the Codex and
+> to the manual (with its higher barrier of entry).  Of course,
+> potential deficits like that might be worthwhile in light of the
+> overall benefit, but I'm having difficulty seeing the benefit.
+
+I hope that things in the handbook will become the canonical resources 
+for those parts of WP, just like we used to have certain important docs 
+on WordPress.org.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From wordpress at santosj.name  Fri Jan 23 00:44:54 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Fri Jan 23 00:45:01 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4978D3CF.2050500@htcomp.net>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>	<4978841A.1040707@santosj.name>
+	<4978D3CF.2050500@htcomp.net>
+Message-ID: <49791306.20400@santosj.name>
+
+You will have to forgive me for being somewhat disillusioned. I'm sure 
+that if the same people that have commit access to the WordPress 
+repository have commit access to the WordPress DocBook repository that 
+there should be a pretty fast turnaround for patches. That would also 
+mean that there would be around 5 to 7 people with commit access, which 
+means more people who will be on the look out for committing patches.
+
+The core team has been extremely good with committing documentation only 
+patches (what? They don't break anything, so no testing). Whether there 
+is a similar experience for this new repository is to be seen. I do hope 
+that there is a quick commit turn-around for patches after a review. I 
+shouldn't say it will be the experience given that it hasn't been 
+released yet, so complaining is premature at this point. Well, there 
+will be a wait period anyway, but I do hope that it isn't more than two 
+weeks. If it is more than two weeks, then I will say that it is a bad 
+experience for the new repository.
+
+Me complaining (You don't have to read on):
+
+I think my problem is more or less, I don't think I should need to tell 
+people that I have a patch ready to be committed or reviewed ('commit' 
+keyword should work for that). The process appears to be see ticket, 
+write patch, submit complaint to wp-hackers or IRC to have them 
+committed. God help you, if the core team or someone from Automattic 
+disagrees with your patch or the ticket itself. So I always laugh, when 
+like the commit team or it is mentioned that, patches are committed 
+easily or tickets need patches (doesn't mean they'll be committed). No, 
+historically, the process hasn't been as seamless as I think it should 
+be. Although, to be fair, I usually work with low priority tickets, so 
+that is a good reason for not caring. Not all of my patches were worth 
+being committed and some of the tickets I wrote patches for weren't 
+worth being part of WordPress.
+
+That said, I haven't had one bad experience with having my patches 
+committed, I've had two (and don't ask, I've all but blocked the 
+experiences from my mind) and I don't count waiting a long time as an 
+bad experience, waiting a long time is a "WTF?". I would say that except 
+for a few code patches that were committed really fast (Yeah!), the only 
+other patches I've submitted that had good experiences, were the inline 
+documentation ones. I've often thought about transferring the tips I 
+wrote on the funcdoc blog over to the codex to help those, who might 
+give up after their first patch isn't committed in a timely fashion.
+
+Jacob Santos
+
+Charles K. Clarkson wrote:
+> Jacob Santos wrote:
+>
+>> I had to laugh, because I have like 6 or 7 patches for WordPress 
+>> which haven't been committed yet and I'm still waiting. I also don't 
+>> think you are being sarcastic, which I mean you know, it actually 
+>> isn't too easy to have patches committed.
+>
+> Are those documentation only patches or do they change the code? Do 
+> you find your Inline Document changes take an equally long time to be 
+> committed?
+>
+>
+> > If one or two people from Automattic or outside entity have commit
+> > access, then I'll tell you right now, that it won't be easy, based
+> > upon the patch process for the WordPress Tests Repository.
+>
+> I would guess (because I really don't know) that part of the hold up for
+> WordPress Trac is the testing process. Even automated testing can
+> produce a lot of problems which need to be examined.
+>
+> In a handbook SVN I would guess that rigorous testing would be mostly
+> eliminated. I think the approval process needed to commit changes would
+> be the bottleneck.
+>
+>
+> > If [those with commit access] don't think your documentation
+> > correction is worth it, then you'll have made the patch for nothing.
+>
+> It seems that changes to the handbook would be approved by some small
+> group of people. We have to assume an appreciable amount of effort will
+> not make it into the handbook, but I am not convinced it would be for
+> nothing. That same rejected work might fit in on the Codex.
+>
+> HTH,
+>
+> Charles Clarkson
+
+From ab006 at chebucto.ns.ca  Fri Jan 23 08:01:53 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan 23 07:56:29 2009
+Subject: [wp-docs] New WordPress Handbook
+Message-ID: <20090123010153.flfhy4q14ow0csc8@webmail.chebucto.ns.ca>
+
+Matt Mullenweg wrote:
+> mrmist wrote:
+>> Yeah that could be a concern really.  You only have to look at the
+>> wordpress trac, there's 340 tickets marked has-patch.  Some of them
+>> are 3 years old.  If the manual goes that way it would get stale
+>> really quickly.
+> Just because there's a patch for something doesn't mean it
+> should be accepted.
+1) If I said this I'd get bitch-slapped within an inch of my life
+2) My reply was a good deal more substantial.
+
+But to deal with the existentials:
+That there /is/ a commit demands/requires that there be a response.
+
+IFF you want Subversion then c'mon, get off the pot. Or piss off.
+
+Personality politics distort /everyRPTevery/ thing.
+
+bdt
+
+IMSNHO, of course. I've only done NAV-AID MIL-SPEC 60hr/wk for years ... nothing
+I can count on to matter here. *throws batton; dives; terrified cat leaps
+yet.again*
+
+From ab006 at chebucto.ns.ca  Fri Jan 23 08:07:25 2009
+From: ab006 at chebucto.ns.ca (Bernard D. Tremblay)
+Date: Fri Jan 23 08:02:04 2009
+Subject: [wp-docs] New WordPress Handbook
+Message-ID: <20090123010725.i0jx7yvu7wccwc4o@webmail.chebucto.ns.ca>
+
+Matt Mullenweg wrote:
+> I hope that things in the handbook will become the canonical
+> resources for those parts of WP, just like we used to have
+> certain important docs on WordPress.org.
+
+Oooh I love this ...
+... the snooker of IT.
+
+"Canonical" ehh whot?
+You mean, like, "change management"?
+
+Dunno ... I'm only good at herding cats and nailing jello to the wall.
+heh, fact is I do taxonomy ferr fun. *I will deny having said this.*
+
+"Canonical", you say.
+
+So someone commits a patch ...
+... and it sits there festering?
+
+Nooooo ...
+... count me out.
+Again / still.
+
+Do / not do ...
+... there is no "try".
+
+heh
+
+bdt
+
+p.s. sorry, I only /do/. *shrug* The other stuff is out of my pay grade.
+*snort/giggle/choke/sputter*
+From listswpdocs at mist.org.uk  Fri Jan 23 17:08:24 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Fri Jan 23 17:45:00 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <4978FD2D.70209@mullenweg.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+	<4978FD2D.70209@mullenweg.com>
+Message-ID: <DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+
+In message <4978FD2D.70209@mullenweg.com>, Matt Mullenweg 
+<m@mullenweg.com> writes
+>mrmist wrote:
+>> Yeah that could be a concern really.  You only have to look at the 
+>>wordpress trac, there's 340 tickets marked has-patch.  Some of them 
+>>are  3 years old.  If the manual goes that way it would get stale 
+>>really quickly.
+>
+>Just because there's a patch for something doesn't mean it should be 
+>accepted.
+>
+
+For sure, it has to be reviewed and might not be suitable etc.. But 
+really that's not the point.  The point is that something should happen 
+with the tickets.  Quite a lot of the WP trac tickets with patches just 
+get bumped until they become redundant or outdated.  Of course this is 
+not a discussion about WP trac, but all I was meaning was that It'd be a 
+shame if that happened with the doc tickets as well.
+
+Of course noone knows yet what would happen with this.  Let's hope it is 
+all a smooth system.
+
+-- 
+mrmist
+From mike at zed1.com  Fri Jan 23 21:57:43 2009
+From: mike at zed1.com (Mike Little)
+Date: Fri Jan 23 21:57:56 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+	<4978FD2D.70209@mullenweg.com>
+	<DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+
+I've waited a while to see how this conversation develops before joining in.
+
+Lorelle (and other non technical folks) the fact that Subversion is to
+be used is not really very important. It is merely revision control of
+the changes. The most important thing we will get from Subversion, as
+Mike and Matt pointed out, is the ability to branch the book's
+'source' and to continue to develop those branches of the book
+independently.
+
+Austin you asked what problems using subversion will solve that the
+wiki doesn't  - the main one is the ability to have one or more
+'released' versions of the book at the same time as one or more
+versions in development. A wiki is always the 'latest' version,
+regardless of whether people are in the middle of updating things.
+Sure you can look at past revisions of individual pages, but for
+someone who wants to look at the 'current' documentation as opposed to
+the half finished next version, they're stuck. You end up trying to
+work around this problem with duplicated extra pages or marking up
+sections of a page with a version indicator. Far from ideal.
+
+For those assuming the process of submitting updated and new content
+for a book will be in any way related to the process for submitting
+code, there really is no correspondence. If you submit a patch to the
+handbook that is 'wrong', at worst a paragraph or two might not make
+sense, or will be grammaticality incorrect.  Whereas submitting code
+that is worng means the program doesn't run or it corrupts the
+database or leaves a security hole.
+The two are not comparable. I also don't' expect the exact same set of
+people will be involved.
+
+Now to the important stuff: The real value of using the 'subversion
+book' method is that it is using docbook to generate the output. That
+is, the raw content of the book (the chapters, paragraphs, tables,
+screen shots, etc.) is stored in DocBook's XML format. This has a
+number of advatnages, many of which have been raised in this thread,
+including supporting multiple formats, building the book on demand and
+so on.
+
+However, I need to raise some very serious problems with the
+'subversion book' method.
+
+Firstly, the subversion book is stored in just 16 files! That is each
+chapter and appendix is a single file. The largest of which is 300K.
+It will be impossible for multiple people to contribute to such large
+pieces of work with actual patches. As soon as the first couple of
+patches are applied the rest will be hopelessly out of date.
+
+Which brings me to a  second problem. Subversion does not to my
+knowledge diff xml files as xml files. That is, it does not understand
+the semantics of an xml file structure. It treats them as ascii
+records (lines) and that doesn't work for structured files. I am not
+aware of a third party add-on that will do the job either (subversion
+supports pluggable diff engines). At least not an open source one.
+
+The upshot of which is that I do not believe subversion can be used to
+directly manage 'patches' to the document in the way it is used for
+code.
+
+The files size issue could be addressed by splitting things up into
+much smaller pieces (I presume DocBook supports that), but it still
+doesn't solve the diff and patch issue.
+
+
+So how to address that problem?
+
+As was mentioned by Tom Johnson, I believe DITA is the correct
+solution. Some background: At my last job the technical documentation
+team and I came up with a solution to overwhelming documentation
+demands and problems by creating a system based on DITA, Subversion,
+some home grown php code, oh, and WordPress.
+
+In a large nutshell, the DITA system breaks the content (the words in
+the book) into manageable, and *reusable* chunks. Those chunks can be
+as large as a whole chapter (not practical as given above) or as small
+as a single phrase (which could be just one word -- probably going to
+far). Most chunks are at the sub-topic level -- a couple of paragraphs
+or so.
+
+These chunks are then assembled in two ways, the first, by creating
+topics which reference (and pull in) the smaller chunks to create a
+topic about a particular subject.
+Then those topics  are pulled to together in (a topicmap or bookmap --
+like docBooks 'book' xml) to create chapters and whole books.
+
+Now for the clever bits.
+
+Firstly, single sourcing or re-use: wherever you have a common phrase,
+or couple of sentences (a chunk), perhaps a common overview of a
+subject that needs to be in several different topics (because in
+reference books you do have to repeat yourself a lot), you write that
+once, then reference it in all the topics it has to appear.
+Got a typo - fix it once, and all the topics which reference it are
+now fixed! Need to update it for the new version of WP - update it
+once and all those topics are now updated.
+
+Next: audiences and other meta data. Think of adding tags to the
+content. Tags like 'WP2.6, WP2.7, Advanced-level, beginner-level,
+offline, etc. You can add those at the level of an individual chunk, a
+topic, or a whole chapter (in a topicmap).
+
+So you might have a topic that begins with an intro (pulled in from a
+common chunk) an overview, a simple beginners run through (tagged
+beginner-level), followed by an advanced run through -- tagged with
+advanced-level. Finally you tag all the screen shots with 'offiline'.
+
+Now imagine being able to say "I want to build a beginner's manual for
+version 2.6 in PDF"  - so you include chunks with tag WP2.6, exclude
+chunks with tag advanced-level and include chunks with tag offline,
+and build as PDF.
+
+Or you want version 2.7 advanced manual in RTF? Include chunks with
+WP2.6, beginner-level, advanced-level, and offline and build.
+
+How about a beginners guide for on-line help use. Exclude
+advanced-level and exclude offline, build as XHTML. Why exclude
+offline? Screen shots don't add much to the 'help when you have the
+screen in front of you.
+
+Oh and I mentioned WordPress -- I built an importer which will take
+the XHTML generated by DITA and import it into WordPress as a
+hierarchical set of pages. I even have a version for WPMU that
+supports populating each mu blog with separate areas of content.
+
+Here is a link about DITA for the curious:
+http://dita.xml.org/book/getting-started
+
+Rather than have you Google search for this stuff and the lovely Miss
+Von Tees show up at awkward moments, try my delicious links
+http://delicious.com/mikelittle/dita
+
+By the way, this doesn't solve the problem of diffs and patches, but
+the much smaller chunks are manageable with a locking pattern rather
+than copy and merge (I know its sacrilege to use Subversion in that
+way!)
+
+Hope this gives some food for thought. I have a whole load more on
+process, standards, user contribution mechanisms and the need for
+control.
+
+
+Mike
+-- 
+Mike Little
+http://zed1.com/
+From tomjohnson1492 at gmail.com  Fri Jan 23 23:52:50 2009
+From: tomjohnson1492 at gmail.com (Tom Johnson)
+Date: Fri Jan 23 23:53:03 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>
+	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>
+	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>
+	<4978841A.1040707@santosj.name>
+	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>
+	<4978FD2D.70209@mullenweg.com>
+	<DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+	<7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+Message-ID: <26e509c20901231552y7584ac8fs36de798ef5c7bd3b@mail.gmail.com>
+
+I read Mike's comments with a lot of enthusiasm because he communicated the
+whole DITA concept and benefits with a lot of clarity. I was especially
+intrigued by his statement,
+
+"Oh and I mentioned WordPress -- I built an importer which will take the
+XHTML generated by DITA and import it into WordPress as a hierarchical set
+of pages."
+
+I would love to see WordPress harnessed as a DITA authoring tool. In some
+way, the structured blogging plugin (http://structuredblogging.org/) is a
+step in this direction. The posts created using the structured blogging
+plugging are semantically structured in a way that enables them to be
+syndicated and pulled into other systems, or something to that effect. It's
+the concept of microformats -- like with hcalendar. The idea is to create
+content structured in a way that all systems can parse and manipulate.
+
+DITA is essentially the same idea. Create an XML structure for help material
+that breaks free of any proprietary constraints or formats of specific
+software, and the information you create is then free. It can move between
+systems and be manipulated into different formats and deliverables.
+
+DITA has been the hottest topic in technical communication for the last year
+and a half. There is a tremendous industry push among almost all help
+authoring tools to include support for DITA.
+
+Would it be possible to enable WordPress to create DITA-structured topics?
+All it would take is some kind of plugin similar to the structured blogging
+plugin (perhaps the integration of the DITA Storm editor). If you can
+empower WordPress as a DITA authoring tool, *you will then enable anyone to
+create a topic structured in DITA. With these topics, you could create a
+DITA map (table of contents) where you could pull in the topics you want
+into the books you want (e.g., advanced, beginner, CSS-based).* *Essentially,
+you enable every member of the community to become a help author, without
+worrying about structure or other formatting expertise.*
+
+As Mike pointed out, DITA is not only more scalable than DocBook, it's also
+more flexible. The goal is not to produce a massive printable version of
+WordPress documentation, but to provide specialized outputs for different
+purposes, interests, and roles.
+
+Although I'm not a DITA expert myself, I am very well connected to some DITA
+experts (as well as DocBook experts) and would like get more involved in
+this project, if this is a route you're interested in pursuing.
+
+Tom
+http://idratherbewriting.com
+
+
+
+On Fri, Jan 23, 2009 at 2:57 PM, Mike Little <mike@zed1.com> wrote:
+
+> I've waited a while to see how this conversation develops before joining
+> in.
+>
+> Lorelle (and other non technical folks) the fact that Subversion is to
+> be used is not really very important. It is merely revision control of
+> the changes. The most important thing we will get from Subversion, as
+> Mike and Matt pointed out, is the ability to branch the book's
+> 'source' and to continue to develop those branches of the book
+> independently.
+>
+> Austin you asked what problems using subversion will solve that the
+> wiki doesn't  - the main one is the ability to have one or more
+> 'released' versions of the book at the same time as one or more
+> versions in development. A wiki is always the 'latest' version,
+> regardless of whether people are in the middle of updating things.
+> Sure you can look at past revisions of individual pages, but for
+> someone who wants to look at the 'current' documentation as opposed to
+> the half finished next version, they're stuck. You end up trying to
+> work around this problem with duplicated extra pages or marking up
+> sections of a page with a version indicator. Far from ideal.
+>
+> For those assuming the process of submitting updated and new content
+> for a book will be in any way related to the process for submitting
+> code, there really is no correspondence. If you submit a patch to the
+> handbook that is 'wrong', at worst a paragraph or two might not make
+> sense, or will be grammaticality incorrect.  Whereas submitting code
+> that is worng means the program doesn't run or it corrupts the
+> database or leaves a security hole.
+> The two are not comparable. I also don't' expect the exact same set of
+> people will be involved.
+>
+> Now to the important stuff: The real value of using the 'subversion
+> book' method is that it is using docbook to generate the output. That
+> is, the raw content of the book (the chapters, paragraphs, tables,
+> screen shots, etc.) is stored in DocBook's XML format. This has a
+> number of advatnages, many of which have been raised in this thread,
+> including supporting multiple formats, building the book on demand and
+> so on.
+>
+> However, I need to raise some very serious problems with the
+> 'subversion book' method.
+>
+> Firstly, the subversion book is stored in just 16 files! That is each
+> chapter and appendix is a single file. The largest of which is 300K.
+> It will be impossible for multiple people to contribute to such large
+> pieces of work with actual patches. As soon as the first couple of
+> patches are applied the rest will be hopelessly out of date.
+>
+> Which brings me to a  second problem. Subversion does not to my
+> knowledge diff xml files as xml files. That is, it does not understand
+> the semantics of an xml file structure. It treats them as ascii
+> records (lines) and that doesn't work for structured files. I am not
+> aware of a third party add-on that will do the job either (subversion
+> supports pluggable diff engines). At least not an open source one.
+>
+> The upshot of which is that I do not believe subversion can be used to
+> directly manage 'patches' to the document in the way it is used for
+> code.
+>
+> The files size issue could be addressed by splitting things up into
+> much smaller pieces (I presume DocBook supports that), but it still
+> doesn't solve the diff and patch issue.
+>
+>
+> So how to address that problem?
+>
+> As was mentioned by Tom Johnson, I believe DITA is the correct
+> solution. Some background: At my last job the technical documentation
+> team and I came up with a solution to overwhelming documentation
+> demands and problems by creating a system based on DITA, Subversion,
+> some home grown php code, oh, and WordPress.
+>
+> In a large nutshell, the DITA system breaks the content (the words in
+> the book) into manageable, and *reusable* chunks. Those chunks can be
+> as large as a whole chapter (not practical as given above) or as small
+> as a single phrase (which could be just one word -- probably going to
+> far). Most chunks are at the sub-topic level -- a couple of paragraphs
+> or so.
+>
+> These chunks are then assembled in two ways, the first, by creating
+> topics which reference (and pull in) the smaller chunks to create a
+> topic about a particular subject.
+> Then those topics  are pulled to together in (a topicmap or bookmap --
+> like docBooks 'book' xml) to create chapters and whole books.
+>
+> Now for the clever bits.
+>
+> Firstly, single sourcing or re-use: wherever you have a common phrase,
+> or couple of sentences (a chunk), perhaps a common overview of a
+> subject that needs to be in several different topics (because in
+> reference books you do have to repeat yourself a lot), you write that
+> once, then reference it in all the topics it has to appear.
+> Got a typo - fix it once, and all the topics which reference it are
+> now fixed! Need to update it for the new version of WP - update it
+> once and all those topics are now updated.
+>
+> Next: audiences and other meta data. Think of adding tags to the
+> content. Tags like 'WP2.6, WP2.7, Advanced-level, beginner-level,
+> offline, etc. You can add those at the level of an individual chunk, a
+> topic, or a whole chapter (in a topicmap).
+>
+> So you might have a topic that begins with an intro (pulled in from a
+> common chunk) an overview, a simple beginners run through (tagged
+> beginner-level), followed by an advanced run through -- tagged with
+> advanced-level. Finally you tag all the screen shots with 'offiline'.
+>
+> Now imagine being able to say "I want to build a beginner's manual for
+> version 2.6 in PDF"  - so you include chunks with tag WP2.6, exclude
+> chunks with tag advanced-level and include chunks with tag offline,
+> and build as PDF.
+>
+> Or you want version 2.7 advanced manual in RTF? Include chunks with
+> WP2.6, beginner-level, advanced-level, and offline and build.
+>
+> How about a beginners guide for on-line help use. Exclude
+> advanced-level and exclude offline, build as XHTML. Why exclude
+> offline? Screen shots don't add much to the 'help when you have the
+> screen in front of you.
+>
+> Oh and I mentioned WordPress -- I built an importer which will take
+> the XHTML generated by DITA and import it into WordPress as a
+> hierarchical set of pages. I even have a version for WPMU that
+> supports populating each mu blog with separate areas of content.
+>
+> Here is a link about DITA for the curious:
+> http://dita.xml.org/book/getting-started
+>
+> Rather than have you Google search for this stuff and the lovely Miss
+> Von Tees show up at awkward moments, try my delicious links
+> http://delicious.com/mikelittle/dita
+>
+> By the way, this doesn't solve the problem of diffs and patches, but
+> the much smaller chunks are manageable with a locking pattern rather
+> than copy and merge (I know its sacrilege to use Subversion in that
+> way!)
+>
+> Hope this gives some food for thought. I have a whole load more on
+> process, standards, user contribution mechanisms and the need for
+> control.
+>
+>
+> Mike
+> --
+> Mike Little
+> http://zed1.com/
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+-- 
+---------------------
+cell: 801-822-2241
+blog: www.idratherbewriting.com
+twitter: www.twitter.com/tomjohnson
+news: www.writerriver.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20090123/ccf0c63e/attachment-0001.htm
+From wordpress at santosj.name  Sat Jan 24 00:58:46 2009
+From: wordpress at santosj.name (Jacob Santos)
+Date: Sat Jan 24 00:59:00 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>	<4978841A.1040707@santosj.name>	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>	<4978FD2D.70209@mullenweg.com>	<DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+	<7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+Message-ID: <497A67C6.9010407@santosj.name>
+
+DocBook 5 allows you use the XInclude XML standard to include files, so 
+in theory you can split chapters any way you want.
+
+Jacob Santos
+
+Mike Little wrote:
+> I've waited a while to see how this conversation develops before joining in.
+>
+> Lorelle (and other non technical folks) the fact that Subversion is to
+> be used is not really very important. It is merely revision control of
+> the changes. The most important thing we will get from Subversion, as
+> Mike and Matt pointed out, is the ability to branch the book's
+> 'source' and to continue to develop those branches of the book
+> independently.
+>
+> Austin you asked what problems using subversion will solve that the
+> wiki doesn't  - the main one is the ability to have one or more
+> 'released' versions of the book at the same time as one or more
+> versions in development. A wiki is always the 'latest' version,
+> regardless of whether people are in the middle of updating things.
+> Sure you can look at past revisions of individual pages, but for
+> someone who wants to look at the 'current' documentation as opposed to
+> the half finished next version, they're stuck. You end up trying to
+> work around this problem with duplicated extra pages or marking up
+> sections of a page with a version indicator. Far from ideal.
+>
+> For those assuming the process of submitting updated and new content
+> for a book will be in any way related to the process for submitting
+> code, there really is no correspondence. If you submit a patch to the
+> handbook that is 'wrong', at worst a paragraph or two might not make
+> sense, or will be grammaticality incorrect.  Whereas submitting code
+> that is worng means the program doesn't run or it corrupts the
+> database or leaves a security hole.
+> The two are not comparable. I also don't' expect the exact same set of
+> people will be involved.
+>
+> Now to the important stuff: The real value of using the 'subversion
+> book' method is that it is using docbook to generate the output. That
+> is, the raw content of the book (the chapters, paragraphs, tables,
+> screen shots, etc.) is stored in DocBook's XML format. This has a
+> number of advatnages, many of which have been raised in this thread,
+> including supporting multiple formats, building the book on demand and
+> so on.
+>
+> However, I need to raise some very serious problems with the
+> 'subversion book' method.
+>
+> Firstly, the subversion book is stored in just 16 files! That is each
+> chapter and appendix is a single file. The largest of which is 300K.
+> It will be impossible for multiple people to contribute to such large
+> pieces of work with actual patches. As soon as the first couple of
+> patches are applied the rest will be hopelessly out of date.
+>
+> Which brings me to a  second problem. Subversion does not to my
+> knowledge diff xml files as xml files. That is, it does not understand
+> the semantics of an xml file structure. It treats them as ascii
+> records (lines) and that doesn't work for structured files. I am not
+> aware of a third party add-on that will do the job either (subversion
+> supports pluggable diff engines). At least not an open source one.
+>
+> The upshot of which is that I do not believe subversion can be used to
+> directly manage 'patches' to the document in the way it is used for
+> code.
+>
+> The files size issue could be addressed by splitting things up into
+> much smaller pieces (I presume DocBook supports that), but it still
+> doesn't solve the diff and patch issue.
+>
+>
+> So how to address that problem?
+>
+> As was mentioned by Tom Johnson, I believe DITA is the correct
+> solution. Some background: At my last job the technical documentation
+> team and I came up with a solution to overwhelming documentation
+> demands and problems by creating a system based on DITA, Subversion,
+> some home grown php code, oh, and WordPress.
+>
+> In a large nutshell, the DITA system breaks the content (the words in
+> the book) into manageable, and *reusable* chunks. Those chunks can be
+> as large as a whole chapter (not practical as given above) or as small
+> as a single phrase (which could be just one word -- probably going to
+> far). Most chunks are at the sub-topic level -- a couple of paragraphs
+> or so.
+>
+> These chunks are then assembled in two ways, the first, by creating
+> topics which reference (and pull in) the smaller chunks to create a
+> topic about a particular subject.
+> Then those topics  are pulled to together in (a topicmap or bookmap --
+> like docBooks 'book' xml) to create chapters and whole books.
+>
+> Now for the clever bits.
+>
+> Firstly, single sourcing or re-use: wherever you have a common phrase,
+> or couple of sentences (a chunk), perhaps a common overview of a
+> subject that needs to be in several different topics (because in
+> reference books you do have to repeat yourself a lot), you write that
+> once, then reference it in all the topics it has to appear.
+> Got a typo - fix it once, and all the topics which reference it are
+> now fixed! Need to update it for the new version of WP - update it
+> once and all those topics are now updated.
+>
+> Next: audiences and other meta data. Think of adding tags to the
+> content. Tags like 'WP2.6, WP2.7, Advanced-level, beginner-level,
+> offline, etc. You can add those at the level of an individual chunk, a
+> topic, or a whole chapter (in a topicmap).
+>
+> So you might have a topic that begins with an intro (pulled in from a
+> common chunk) an overview, a simple beginners run through (tagged
+> beginner-level), followed by an advanced run through -- tagged with
+> advanced-level. Finally you tag all the screen shots with 'offiline'.
+>
+> Now imagine being able to say "I want to build a beginner's manual for
+> version 2.6 in PDF"  - so you include chunks with tag WP2.6, exclude
+> chunks with tag advanced-level and include chunks with tag offline,
+> and build as PDF.
+>
+> Or you want version 2.7 advanced manual in RTF? Include chunks with
+> WP2.6, beginner-level, advanced-level, and offline and build.
+>
+> How about a beginners guide for on-line help use. Exclude
+> advanced-level and exclude offline, build as XHTML. Why exclude
+> offline? Screen shots don't add much to the 'help when you have the
+> screen in front of you.
+>
+> Oh and I mentioned WordPress -- I built an importer which will take
+> the XHTML generated by DITA and import it into WordPress as a
+> hierarchical set of pages. I even have a version for WPMU that
+> supports populating each mu blog with separate areas of content.
+>
+> Here is a link about DITA for the curious:
+> http://dita.xml.org/book/getting-started
+>
+> Rather than have you Google search for this stuff and the lovely Miss
+> Von Tees show up at awkward moments, try my delicious links
+> http://delicious.com/mikelittle/dita
+>
+> By the way, this doesn't solve the problem of diffs and patches, but
+> the much smaller chunks are manageable with a locking pattern rather
+> than copy and merge (I know its sacrilege to use Subversion in that
+> way!)
+>
+> Hope this gives some food for thought. I have a whole load more on
+> process, standards, user contribution mechanisms and the need for
+> control.
+>
+>
+> Mike
+>   
+
+From hendry.lee at gmail.com  Sat Jan 24 01:28:37 2009
+From: hendry.lee at gmail.com (Hendry Lee)
+Date: Sat Jan 24 01:28:52 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>	<4978841A.1040707@santosj.name>	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>	<4978FD2D.70209@mullenweg.com>
+	<DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <497a6ec8.20018e0a.01e0.1616@mx.google.com>
+
+Just for reference, here are two useful documents I found:
+
+http://dev.day.com/microsling/content/blogs/main/docbookdita.html
+http://blogs.sun.com/coolstuff/entry/modular_docs_part_2_dita
+
+DITA, while more extensible and editable, is not without drawbacks. It costs
+more time to integrate but on the long run seems to be very solid.
+
+-Hendry
+
+
+From jidanni at jidanni.org  Mon Jan 26 22:26:16 2009
+From: jidanni at jidanni.org (jidanni@jidanni.org)
+Date: Mon Jan 26 22:26:31 2009
+Subject: [wp-docs] ghastly old MediaWiki version
+Message-ID: <87skn566wn.fsf@jidanni.org>
+
+Gentlemen, you have blown it in that you
+1. Use a ghastly outdated MediaWiki[1].
+2. Have even gobbed up you ghastly outdated version of MediaWiki in
+that e.g., any notification of redirection isn't shown. [2]
+3. Even fixing 1 will not fix
+http://codex.wordpress.org/Codex_talk:Maintenance#Interwiki_links
+which you need to update by hand in the MediaWiki maintenance
+directory after updating.
+P.S., links to http://wordpress.org/report-bugs/ should probably be
+removed, as that form apparently leads to some black hole.
+
+Footnotes:
+[1]  http://codex.wordpress.org/Special:Version
+[2]  http://codex.wordpress.org/FAQ_Using_WordPress?redirect=no , a
+redirect, with no notification on
+http://codex.wordpress.org/FAQ_Using_WordPress
+From jidanni at jidanni.org  Mon Jan 26 22:43:01 2009
+From: jidanni at jidanni.org (jidanni@jidanni.org)
+Date: Mon Jan 26 22:43:16 2009
+Subject: [wp-docs] Subversion vs. git
+References: <497A67C6.9010407@santosj.name>
+Message-ID: <87ocxt664q.fsf_-_@jidanni.org>
+
+Gentlemen, I couldn't help notice you were talking about Subversion.
+Well, without wasting time seeing if it is indeed relevant to the
+thread in question, I would like to save your day with
+http://www.google.com/search?q=git+linus+subversion
+Linus Torvalds on GIT and SCM:
+http://codicesoftware.blogspot.com/2007/05/linus-torvalds-on-git-and-scm.html
+From cclarkson at htcomp.net  Mon Jan 26 22:43:09 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Mon Jan 26 22:44:02 2009
+Subject: [wp-docs] ghastly old MediaWiki version
+In-Reply-To: <87skn566wn.fsf@jidanni.org>
+References: <87skn566wn.fsf@jidanni.org>
+Message-ID: <497E3C7D.4000501@htcomp.net>
+
+jidanni@jidanni.org wrote:
+
+> Gentlemen, you have blown it in that you
+[snip]
+
+     Okay. That tears it. How come the women are blameless?
+Their doing the same things we are.
+
+     I'm getting my mom.
+
+     Oh wait.
+
+
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From jidanni at jidanni.org  Mon Jan 26 22:56:04 2009
+From: jidanni at jidanni.org (jidanni@jidanni.org)
+Date: Mon Jan 26 22:56:18 2009
+Subject: [wp-docs] links like [http://codex.wordpress.org/Clodsburger
+	Clodsburger]
+References: <5ABFFD64-4D66-491A-B8EF-5130D5CD6ADD@automattic.com>
+Message-ID: <87k58h65iz.fsf_-_@jidanni.org>
+
+JW> Sometimes I come across Codex pages that have been cut and pasted
+
+Indeed. I find many pages edited by amateurs, pure amateurs. OK, I
+fixed one,
+http://codex.wordpress.org/index.php?title=User:Matt&diff=66621&oldid=59872
+but I can't fix them all.
+
+The main problem is links like
+[http://codex.wordpress.org/Clodsburger Clodsburger]
+which need to be replaced by just
+[[Clodsburger]]
+perhaps by some bot. Otherwise it is just a never ending monkey see monkey do.
+From m at mullenweg.com  Mon Jan 26 23:40:08 2009
+From: m at mullenweg.com (Matt)
+Date: Mon Jan 26 23:40:23 2009
+Subject: [wp-docs] ghastly old MediaWiki version
+In-Reply-To: <87skn566wn.fsf@jidanni.org>
+References: <87skn566wn.fsf@jidanni.org>
+Message-ID: <497E49D8.5040806@mullenweg.com>
+
+jidanni@jidanni.org wrote:
+> P.S., links to http://wordpress.org/report-bugs/ should probably be
+> removed, as that form apparently leads to some black hole.
+
+It doesn't, but sorry you didn't get a reply. Due to the volume it 
+receives not everything is responded to.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From jidanni at jidanni.org  Tue Jan 27 01:19:14 2009
+From: jidanni at jidanni.org (jidanni@jidanni.org)
+Date: Tue Jan 27 01:19:28 2009
+Subject: [wp-docs] favicon.ico linked to a wiki page
+Message-ID: <87tz7l4kbx.fsf@jidanni.org>
+
+I can't believe you have linked http://codex.wordpress.org/favicon.ico
+to a wiki page,
+http://codex.wordpress.org/Special:WhatLinksHere/Creating_a_Favicon
+
+Would professionals do such a thing? http://en.wikipedia.org/favicon.ico
+
+And low and behold right there in your headers is <link rel="shortcut
+icon" href="/favicon.ico" />
+
+I would recommenced you cease and desist from messing up your wiki.
+
+In fact all these days I've been using emacs-w3m to read your wiki,
+and downloading it to a PDA, so accessibility is really important to
+me.
+
+Well, today to see if I could see you favicon, I fired up Firefox, and
+boy what a wait, google-analytic links, the works. Never waited around
+for it to finish.
+
+Anyway, I don't see any google-analytics links on the aforementioned
+professionals website...
+From cclarkson at htcomp.net  Tue Jan 27 05:17:31 2009
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Tue Jan 27 05:18:29 2009
+Subject: [wp-docs] favicon.ico linked to a wiki page
+In-Reply-To: <87tz7l4kbx.fsf@jidanni.org>
+References: <87tz7l4kbx.fsf@jidanni.org>
+Message-ID: <497E98EB.7020407@htcomp.net>
+
+jidanni@jidanni.org wrote:
+
+> And low and behold right there in your headers is <link rel="shortcut
+> icon" href="/favicon.ico" />
+
+     On the main Codex Docs page, a little farther down there is this:
+
+<link rel="shortcut icon" href="http://s.wordpress.org/favicon.ico"
+type="image/x-icon" />
+
+     I don't see that first link on every Codex page. Perhaps it was not
+removed when the icon file was last updated.
+
+
+> I would recommenced you cease and desist from messing up your wiki.
+
+     I used to play a lot of Dungeons and Dragons. One game we had a
+new player and I threw a new characteristic into the game. The new guy
+cried foul because there was no such characteristic in the rules. He
+said, "You are ruining your game." To which a long time player replied,
+"Operative words there 'your game.' It's his game to mess up."
+
+     You can make this wiki your wiki by getting involved. If you see 
+something wrong, change it. If it is something you cannot change, *ask* 
+who can and contact them. Be courteous. You will attract more flies with 
+honey than with vinegar.
+
+
+> Well, today to see if I could see you favicon, I fired up Firefox, and
+> boy what a wait, google-analytic links, the works. Never waited around
+> for it to finish.
+
+     There is always room for improvement. Perhaps you could submit some
+solutions that solve the problems you are seeing.
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+
+From justmichaelh at gmail.com  Tue Jan 27 16:04:28 2009
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Tue Jan 27 16:04:43 2009
+Subject: [wp-docs] Several issues with Codex
+Message-ID: <054e01c98098$efc88510$6701a8c0@dell8600>
+
+Just a heads up to the Automattic crew.
+
+
+1. If I visit http://codex.wordpress.org/FAQ it wants to open that as a 
+file...
+
+2. Recent Changes seems to show  a bunch of weird characters for new users. 
+Reported this yesterday via "Report a site bug".
+
+
+MichaelH
+
+From jidanni at jidanni.org  Thu Jan 29 14:59:04 2009
+From: jidanni at jidanni.org (jidanni@jidanni.org)
+Date: Thu Jan 29 14:59:23 2009
+Subject: [wp-docs] Re: Several issues with Codex
+References: <054e01c98098$efc88510$6701a8c0@dell8600>
+Message-ID: <877i4e88g7.fsf@jidanni.org>
+
+MEH> 1. If I visit http://codex.wordpress.org/FAQ it wants to open that as a file...
+Indeed. One must use http://codex.wordpress.org/index.php?title=FAQ
+
+Perhaps the administrators could use something like
+http://www.mediawiki.org/wiki/Manual:DumpBackup.php to reinstall the
+wiki on fresh disks to shake out all the weirdness that has crept in...
+
+MEH> 2. Recent Changes seems to show  a bunch of weird characters for new
+MEH> users. Reported this yesterday via "Report a site bug".
+
+All I notice is _lots of new users being created all day long_... uh oh.
+From m at mullenweg.com  Fri Jan 30 08:33:57 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri Jan 30 08:34:13 2009
+Subject: [wp-docs] Several issues with Codex
+In-Reply-To: <054e01c98098$efc88510$6701a8c0@dell8600>
+References: <054e01c98098$efc88510$6701a8c0@dell8600>
+Message-ID: <4982BB75.5080400@mullenweg.com>
+
+Michael E. Hancock wrote:
+> 1. If I visit http://codex.wordpress.org/FAQ it wants to open that as a 
+> file...
+
+This is fixed.
+
+> 2. Recent Changes seems to show  a bunch of weird characters for new 
+> users. Reported this yesterday via "Report a site bug".
+
+I don't know about the weird characters (they don't show up in Chrome) 
+but the user registrations are a side effect of an upgrade to Mediawiki. 
+(per request on the list.)
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From m at mullenweg.com  Fri Jan 30 08:35:45 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri Jan 30 08:36:01 2009
+Subject: [wp-docs] favicon.ico linked to a wiki page
+In-Reply-To: <87tz7l4kbx.fsf@jidanni.org>
+References: <87tz7l4kbx.fsf@jidanni.org>
+Message-ID: <4982BBE1.5090503@mullenweg.com>
+
+jidanni@jidanni.org wrote:
+> Would professionals do such a thing? http://en.wikipedia.org/favicon.ico
+> 
+> I would recommenced you cease and desist from messing up your wiki.
+
+I'm sure you could think of friendlier ways to put that.
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From m at mullenweg.com  Fri Jan 30 08:47:17 2009
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri Jan 30 08:47:32 2009
+Subject: [wp-docs] New WordPress Handbook
+In-Reply-To: <7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+References: <fded39850901201047k4a54e0f4x2c41386627f35647@mail.gmail.com>	<171aba370901202224wb8355f5i8eda4684612c88a5@mail.gmail.com>	<fded39850901210912x10c2e6b7ra37bc0a45d9de4af@mail.gmail.com>	<4978841A.1040707@santosj.name>	<$dMfp0AAcLeJFwYn@dsl-217-155-35-239.zen.co.uk>	<4978FD2D.70209@mullenweg.com>	<DJOQMsAImfeJFweP@dsl-217-155-35-239.zen.co.uk>
+	<7235ce780901231357y5f215893j44f6c5d8c017759f@mail.gmail.com>
+Message-ID: <4982BE95.3070405@mullenweg.com>
+
+Mike Little wrote:
+> Firstly, the subversion book is stored in just 16 files! That is each
+> chapter and appendix is a single file. The largest of which is 300K.
+> It will be impossible for multiple people to contribute to such large
+> pieces of work with actual patches. As soon as the first couple of
+> patches are applied the rest will be hopelessly out of date.
+
+When you make a patch it includes which revision you're working off, and 
+smart patch tools figure out how the lines have changed if there have 
+been changes since then, right? I usually don't have trouble applying 
+older patches to WP.
+
+> Which brings me to a  second problem. Subversion does not to my
+> knowledge diff xml files as xml files. That is, it does not understand
+> the semantics of an xml file structure. It treats them as ascii
+> records (lines) and that doesn't work for structured files. I am not
+> aware of a third party add-on that will do the job either (subversion
+> supports pluggable diff engines). At least not an open source one.
+
+I'm not sure what's the matter with this, any different than using 
+Subversion to manage a HTML file. Why does the diff engine need to be 
+aware of the markup language?
+
+-- 
+Matt Mullenweg
+http://ma.tt | http://wordpress.org | http://automattic.com
+From mike at zed1.com  Fri Jan 30 11:44:09 2009
+From: mike at zed1.com (Mike Little)
+Date: Fri Jan 30 11:44:24 2009
+Subject: [wp-docs] favicon.ico linked to a wiki page
+In-Reply-To: <4982BBE1.5090503@mullenweg.com>
+References: <87tz7l4kbx.fsf@jidanni.org> <4982BBE1.5090503@mullenweg.com>
+Message-ID: <7235ce780901300344u1f65e93agce9aa6f5e4ec6542@mail.gmail.com>
+
+I've fixed the links to the icon file within the wiki pages (which all
+seem to need to point to the "creating a " page.
+
+And I've escaped the example link tag on the "creating a " page, which
+I suspect was being turned into a real one by MediaWiki.
+
+But the url  http://codex.wordpress.org/favicon.ico  points to a
+slightly broken 301 handler: the content returned says
+The document has been permanently moved to <A HREF="%s">here</A>.<hr
+/> where %s has not been replaced.
+It seems to be a standard litespeed handler page.
+
+The headers returned do include location header of
+http://s.wordpress.org/favicon.ico which does return the ico file.
+
+
+Mike
+--
+Mike Little
+http://zed1.com/
+From justmichaelh at gmail.com  Fri Jan 30 14:07:15 2009
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Fri Jan 30 14:07:21 2009
+Subject: [wp-docs] Can't upload files to Codex
+Message-ID: <11b801c982e4$0ecb2b00$6701a8c0@dell8600>
+
+Trying to upload a file to Codex I get:
+
+"Internal error
+
+The upload directory (public) is not writable by the webserver. "
+
+
+MichaelH
+From justmichaelh at gmail.com  Fri Jan 30 14:14:19 2009
+From: justmichaelh at gmail.com (Michael E. Hancock)
+Date: Fri Jan 30 14:14:28 2009
+Subject: [wp-docs] Several issues with Codex
+References: <054e01c98098$efc88510$6701a8c0@dell8600>
+	<4982BB75.5080400@mullenweg.com>
+Message-ID: <11c101c982e5$0b677120$6701a8c0@dell8600>
+
+
+From: "Matt Mullenweg" <m@mullenweg.com>
+> Michael E. Hancock wrote:
+>> 1. If I visit http://codex.wordpress.org/FAQ it wants to open that as a 
+>> file...
+>
+> This is fixed.
+
+Thank you!
+
+>> 2. Recent Changes seems to show  a bunch of weird characters for new 
+>> users. Reported this yesterday via "Report a site bug".
+>
+> I don't know about the weird characters (they don't show up in Chrome) but 
+> the user registrations are a side effect of an upgrade to Mediawiki. (per 
+> request on the list.)
+
+Hmm, looks okay in IE6 also.  Here's screenshot from Firefox 3.0.5 with the 
+characters:
+http://i162.photobucket.com/albums/t249/wpphotobucket/rec_chgs_in_ff.png
+
+
+Regards.
+
+MichaelH
+
+From listswpdocs at mist.org.uk  Fri Jan 30 18:21:16 2009
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Fri Jan 30 18:21:32 2009
+Subject: [wp-docs] Re: Several issues with Codex
+In-Reply-To: <877i4e88g7.fsf@jidanni.org>
+References: <054e01c98098$efc88510$6701a8c0@dell8600>
+	<877i4e88g7.fsf@jidanni.org>
+Message-ID: <0i1t26AcU0gJFwb3@dsl-217-155-35-239.zen.co.uk>
+
+In message <877i4e88g7.fsf@jidanni.org>, jidanni@jidanni.org writes
+>
+>All I notice is _lots of new users being created all day long_... uh oh.
+
+You can filter those out of the recent changes by changing the namespace 
+pulldown to "main".
+
+-- 
+mrmist

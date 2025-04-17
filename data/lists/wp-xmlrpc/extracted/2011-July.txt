@@ -1,0 +1,359 @@
+From vikaslists at agrarianresearch.org  Tue Jul  5 02:14:47 2011
+From: vikaslists at agrarianresearch.org (Vikas Rawal)
+Date: Tue, 5 Jul 2011 07:44:47 +0530
+Subject: [wp-xmlrpc] Server error. Requested method wp.getUsersBlogs not
+	specified.
+Message-ID: <20110705021447.GB6196@panahar>
+
+I have a self-hosted blog on which I am having trouble using xmlrpc.
+
+When I use a client application to access the blog, I get the error:
+"Server error. Requested method wp.getUsersBlogs not specified."
+
+I have tried scribefire and Wordpress App for ipad. I get the same
+error on both.
+
+There is also another problem with my wordpress installation that may
+have something to do with the above error. When i try to login using
+http://mydomain.org/wp-admin it takes me to something like the
+following and just shows me the login screen again.
+
+http://mydomain.org/wp-login.php?redirect_to=http%3A%2F%2Fmydomain.org%2Fmydomain%2Fwp-admin%2F&reauth=1
+
+My solution to this problem has been to directly go to
+http://mydomain.org/wp-login.php and login from there.
+
+With this, the second problem does not bother me too much. The only
+reason I mention this is because I am not sure if both the problems
+are related.
+
+I have upgraded today to Wordpres 3.2 but have had this problem with
+my previous versions as well.
+
+Vikas
+
+From alex at buayacorp.com  Tue Jul  5 08:26:50 2011
+From: alex at buayacorp.com (Alexander Concha)
+Date: Tue, 5 Jul 2011 10:26:50 +0200
+Subject: [wp-xmlrpc] Server error. Requested method wp.getUsersBlogs not
+	specified.
+In-Reply-To: <20110705021447.GB6196@panahar>
+References: <20110705021447.GB6196@panahar>
+Message-ID: <CALt-Q2aH4uhShJGhF=zjb_+ae9gBpjskLbV9Vg-VbsbPUJ-TsQ@mail.gmail.com>
+
+On Tue, Jul 5, 2011 at 4:14 AM, Vikas Rawal
+<vikaslists at agrarianresearch.org> wrote:
+> I have a self-hosted blog on which I am having trouble using xmlrpc.
+>
+> When I use a client application to access the blog, I get the error:
+> "Server error. Requested method wp.getUsersBlogs not specified."
+>
+> I have tried scribefire and Wordpress App for ipad. I get the same
+> error on both.
+
+I have tried with scribefire on a clean install and I can't reproduce
+this issue. Have you tried disabling the active plugins?
+
+>
+> There is also another problem with my wordpress installation that may
+> have something to do with the above error. When i try to login using
+> http://mydomain.org/wp-admin it takes me to something like the
+> following and just shows me the login screen again.
+>
+> http://mydomain.org/wp-login.php?redirect_to=http%3A%2F%2Fmydomain.org%2Fmydomain%2Fwp-admin%2F&reauth=1
+
+What are the values you have for 'siteurl' (or WP_SITEURL) and 'home'
+(or WP_HOME) option ?
+
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From vikaslists at agrarianresearch.org  Tue Jul  5 11:14:01 2011
+From: vikaslists at agrarianresearch.org (Vikas Rawal)
+Date: Tue, 5 Jul 2011 16:44:01 +0530
+Subject: [wp-xmlrpc] Server error. Requested method wp.getUsersBlogs not
+ specified.
+In-Reply-To: <CALt-Q2aH4uhShJGhF=zjb_+ae9gBpjskLbV9Vg-VbsbPUJ-TsQ@mail.gmail.com>
+References: <20110705021447.GB6196@panahar>
+	<CALt-Q2aH4uhShJGhF=zjb_+ae9gBpjskLbV9Vg-VbsbPUJ-TsQ@mail.gmail.com>
+Message-ID: <20110705111401.GA19541@panahar>
+
+
+> 
+> I have tried with scribefire on a clean install and I can't reproduce
+> this issue. Have you tried disabling the active plugins?
+Yes, I just did. No luck.
+
+
+> What are the values you have for 'siteurl' (or WP_SITEURL) and 'home'
+> (or WP_HOME) option ?
+
+In Settings->General, both are written as http://www.mydomain.org
+
+I think, ths is correct. sn't it?
+
+Vikas
+
+From vikaslists at agrarianresearch.org  Tue Jul  5 15:04:01 2011
+From: vikaslists at agrarianresearch.org (Vikas Rawal)
+Date: Tue, 5 Jul 2011 20:34:01 +0530
+Subject: [wp-xmlrpc] Server error. Requested method wp.getUsersBlogs not
+ specified.
+In-Reply-To: <CALt-Q2aH4uhShJGhF=zjb_+ae9gBpjskLbV9Vg-VbsbPUJ-TsQ@mail.gmail.com>
+References: <20110705021447.GB6196@panahar>
+	<CALt-Q2aH4uhShJGhF=zjb_+ae9gBpjskLbV9Vg-VbsbPUJ-TsQ@mail.gmail.com>
+Message-ID: <20110705150401.GA22647@panahar>
+
+> 
+> I have tried with scribefire on a clean install and I can't reproduce
+> this issue. Have you tried disabling the active plugins?
+
+I understand that it is a problem with my install. Seems like in
+several upgrades that I have done since my first install (of wordpress
+and plugins) something dirty has creeped in.
+
+I disabled all plugins on your advice but no luck still.
+
+
+> What are the values you have for 'siteurl' (or WP_SITEURL) and 'home'
+> (or WP_HOME) option ?
+
+I do not have anything specified in wp-config.php. I have these
+specified to my base url in Settings->General. All files are in the
+base directory itself, so using base url for both should be okay.
+
+Vikas
+
+From mmuro at advance.ua.edu  Tue Jul  5 15:07:48 2011
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Tue, 5 Jul 2011 10:07:48 -0500
+Subject: [wp-xmlrpc] Server error. Requested method wp.getUsersBlogs
+	not	specified.
+In-Reply-To: <20110705021447.GB6196@panahar>
+References: <20110705021447.GB6196@panahar>
+Message-ID: <D7E48072-B1CA-4B65-AEBB-0BA974424817@ur.ua.edu>
+
+
+On Jul 4, 2011, at 9:14 PM, Vikas Rawal wrote:
+
+There is also another problem with my wordpress installation that may
+have something to do with the above error. When i try to login using
+http://mydomain.org/wp-admin it takes me to something like the
+following and just shows me the login screen again.
+
+http://mydomain.org/wp-login.php?redirect_to=http%3A%2F%2Fmydomain.org%2Fmydomain%2Fwp-admin%2F&reauth=1
+
+My solution to this problem has been to directly go to
+http://mydomain.org/wp-login.php and login from there.
+
+This sounds like an htaccess problem to me.
+http://codex.wordpress.org/Using_Permalinks#Creating_and_editing_.28.htaccess.29
+
+From wp-xmlrpc at ryanb.org  Wed Jul 13 15:17:34 2011
+From: wp-xmlrpc at ryanb.org (Ryan B)
+Date: Wed, 13 Jul 2011 08:17:34 -0700
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+Message-ID: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+
+hi wp-xmlrpc! i noticed an odd behavior today with a few methods like
+deleteComment and editComment. if you give them a nonexistent comment
+id, they say "you're not allowed to moderate this comment," even when
+you are allowed. it seems like they should say the comment doesn't
+exist. this seems like a bug, since deletePage, etc do tell you that
+the page doesn't exist.
+
+can you all confirm? if so, i'll gladly send the patch, it's pretty
+trivial. thanks!
+
+--
+http://snarfed.org/
+
+From alex at buayacorp.com  Wed Jul 13 15:25:52 2011
+From: alex at buayacorp.com (Alexander Concha)
+Date: Wed, 13 Jul 2011 17:25:52 +0200
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+In-Reply-To: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+References: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+Message-ID: <CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 5:17 PM, Ryan B <wp-xmlrpc at ryanb.org> wrote:
+> hi wp-xmlrpc! i noticed an odd behavior today with a few methods like
+> deleteComment and editComment. if you give them a nonexistent comment
+> id, they say "you're not allowed to moderate this comment," even when
+> you are allowed. it seems like they should say the comment doesn't
+> exist. this seems like a bug, since deletePage, etc do tell you that
+> the page doesn't exist.
+>
+> can you all confirm? if so, i'll gladly send the patch, it's pretty
+> trivial. thanks!
+
+Yes, the condition "if ( ! get_comment($comment_ID) )" should be done first.
+
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From joseph at josephscott.org  Wed Jul 13 16:48:13 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 13 Jul 2011 10:48:13 -0600
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+In-Reply-To: <CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+References: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+	<CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+Message-ID: <CAE81+yYd2kyENVPXD3B7iCK=1UCsK3bVWkg=m4BYPOYPp7gfWA@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 9:25 AM, Alexander Concha <alex at buayacorp.com> wrote:
+> On Wed, Jul 13, 2011 at 5:17 PM, Ryan B <wp-xmlrpc at ryanb.org> wrote:
+>> hi wp-xmlrpc! i noticed an odd behavior today with a few methods like
+>> deleteComment and editComment. if you give them a nonexistent comment
+>> id, they say "you're not allowed to moderate this comment," even when
+>> you are allowed. it seems like they should say the comment doesn't
+>> exist. this seems like a bug, since deletePage, etc do tell you that
+>> the page doesn't exist.
+>>
+>> can you all confirm? if so, i'll gladly send the patch, it's pretty
+>> trivial. thanks!
+>
+> Yes, the condition "if ( ! get_comment($comment_ID) )" should be done first.
+
+
+Correct.  Anyone filed a ticket on this yet?
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From alex at buayacorp.com  Wed Jul 13 16:55:20 2011
+From: alex at buayacorp.com (Alexander Concha)
+Date: Wed, 13 Jul 2011 18:55:20 +0200
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+In-Reply-To: <CAE81+yYd2kyENVPXD3B7iCK=1UCsK3bVWkg=m4BYPOYPp7gfWA@mail.gmail.com>
+References: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+	<CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+	<CAE81+yYd2kyENVPXD3B7iCK=1UCsK3bVWkg=m4BYPOYPp7gfWA@mail.gmail.com>
+Message-ID: <CALt-Q2bFzhm=t8o1ubRnH0dcqeVkWD1G-yaVMw+HX_Jm=2DgiA@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 6:48 PM, Joseph Scott <joseph at josephscott.org> wrote:
+> On Wed, Jul 13, 2011 at 9:25 AM, Alexander Concha <alex at buayacorp.com> wrote:
+>> On Wed, Jul 13, 2011 at 5:17 PM, Ryan B <wp-xmlrpc at ryanb.org> wrote:
+>>> hi wp-xmlrpc! i noticed an odd behavior today with a few methods like
+>>> deleteComment and editComment. if you give them a nonexistent comment
+>>> id, they say "you're not allowed to moderate this comment," even when
+>>> you are allowed. it seems like they should say the comment doesn't
+>>> exist. this seems like a bug, since deletePage, etc do tell you that
+>>> the page doesn't exist.
+>>>
+>>> can you all confirm? if so, i'll gladly send the patch, it's pretty
+>>> trivial. thanks!
+>>
+>> Yes, the condition "if ( ! get_comment($comment_ID) )" should be done first.
+>
+>
+> Correct. ?Anyone filed a ticket on this yet?
+
+Apparently not. I will do it.
+
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From alex at buayacorp.com  Wed Jul 13 17:12:54 2011
+From: alex at buayacorp.com (Alexander Concha)
+Date: Wed, 13 Jul 2011 19:12:54 +0200
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+In-Reply-To: <CALt-Q2bFzhm=t8o1ubRnH0dcqeVkWD1G-yaVMw+HX_Jm=2DgiA@mail.gmail.com>
+References: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+	<CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+	<CAE81+yYd2kyENVPXD3B7iCK=1UCsK3bVWkg=m4BYPOYPp7gfWA@mail.gmail.com>
+	<CALt-Q2bFzhm=t8o1ubRnH0dcqeVkWD1G-yaVMw+HX_Jm=2DgiA@mail.gmail.com>
+Message-ID: <CALt-Q2ZKig3rsJD-vu_YNOvZWyWSehZWa96faYcKSRCMutGOsg@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 6:55 PM, Alexander Concha <alex at buayacorp.com> wrote:
+>>> On Wed, Jul 13, 2011 at 5:17 PM, Ryan B <wp-xmlrpc at ryanb.org> wrote:
+>>>> hi wp-xmlrpc! i noticed an odd behavior today with a few methods like
+>>>> deleteComment and editComment. if you give them a nonexistent comment
+>>>> id, they say "you're not allowed to moderate this comment," even when
+>>>> you are allowed. it seems like they should say the comment doesn't
+>>>> exist. this seems like a bug, since deletePage, etc do tell you that
+>>>> the page doesn't exist.
+>>>>
+>>>> can you all confirm? if so, i'll gladly send the patch, it's pretty
+>>>> trivial. thanks!
+>>>
+>>> Yes, the condition "if ( ! get_comment($comment_ID) )" should be done first.
+>>
+>>
+>> Correct. ?Anyone filed a ticket on this yet?
+>
+> Apparently not. I will do it.
+
+Done.
+
+http://core.trac.wordpress.org/ticket/18104
+
+I am not sure if the first patch cover all the cases.
+-- 
+Alexander Concha
+http://www.buayacorp.com
+
+From wp-xmlrpc at ryanb.org  Wed Jul 13 17:15:26 2011
+From: wp-xmlrpc at ryanb.org (Ryan B)
+Date: Wed, 13 Jul 2011 10:15:26 -0700
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+In-Reply-To: <CALt-Q2ZKig3rsJD-vu_YNOvZWyWSehZWa96faYcKSRCMutGOsg@mail.gmail.com>
+References: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+	<CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+	<CAE81+yYd2kyENVPXD3B7iCK=1UCsK3bVWkg=m4BYPOYPp7gfWA@mail.gmail.com>
+	<CALt-Q2bFzhm=t8o1ubRnH0dcqeVkWD1G-yaVMw+HX_Jm=2DgiA@mail.gmail.com>
+	<CALt-Q2ZKig3rsJD-vu_YNOvZWyWSehZWa96faYcKSRCMutGOsg@mail.gmail.com>
+Message-ID: <CA+caGh_9q2AhOVsbGj=qV9GwqhWpd394ZT=FbWDcf1ePaV2sGg@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 10:12 AM, Alexander Concha <alex at buayacorp.com> wrote:
+
+> Done.
+>
+> http://core.trac.wordpress.org/ticket/18104
+>
+> I am not sure if the first patch cover all the cases.
+
+deleteComment and editComment are the two i noticed, so i'm happy with
+that patch. thanks!
+
+From joseph at josephscott.org  Wed Jul 13 17:18:32 2011
+From: joseph at josephscott.org (Joseph Scott)
+Date: Wed, 13 Jul 2011 11:18:32 -0600
+Subject: [wp-xmlrpc] possible bug: deleteComment,
+ etc say you're not authorized when comment doesn't exist
+In-Reply-To: <CALt-Q2ZKig3rsJD-vu_YNOvZWyWSehZWa96faYcKSRCMutGOsg@mail.gmail.com>
+References: <CA+caGh-kJGXswaDrfaeNs2RxZay4eO2RONqJQiCCb96-=XcdCA@mail.gmail.com>
+	<CALt-Q2b8gRkcsb1wT9cNi4iS=fkgfo+TPmXi6Zkpa5kbeB22VQ@mail.gmail.com>
+	<CAE81+yYd2kyENVPXD3B7iCK=1UCsK3bVWkg=m4BYPOYPp7gfWA@mail.gmail.com>
+	<CALt-Q2bFzhm=t8o1ubRnH0dcqeVkWD1G-yaVMw+HX_Jm=2DgiA@mail.gmail.com>
+	<CALt-Q2ZKig3rsJD-vu_YNOvZWyWSehZWa96faYcKSRCMutGOsg@mail.gmail.com>
+Message-ID: <CAE81+ybS5WJciZ6pbHCBQo76PEM_xqL_79HbWiBUBoagvvNGoA@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 11:12 AM, Alexander Concha <alex at buayacorp.com> wrote:
+>> Apparently not. I will do it.
+>
+> Done.
+>
+> http://core.trac.wordpress.org/ticket/18104
+>
+> I am not sure if the first patch cover all the cases.
+
+Thank you
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+

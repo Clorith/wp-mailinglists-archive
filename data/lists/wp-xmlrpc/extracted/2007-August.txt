@@ -1,0 +1,686 @@
+From joseph at randomnetworks.com  Thu Aug 16 20:00:28 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Aug 16 20:00:59 2007
+Subject: [wp-xmlrpc] date_created_gmt
+Message-ID: <1E78EA84-EB5E-4E0C-8691-E166222493A4@randomnetworks.com>
+
+
+We are coming up on another release and I'd like to get more of the  
+XML-RPC issues sorted out and resolved.  Starting with our old  
+friend, the time zone.
+
+I've prepared a patch that reverts the dateCreated field back to the  
+way it was before (blog time) and adds a new field,  
+date_created_gmt.  This new field has no time zone data in it, but by  
+definition is always GMT.
+
+This patch is against -trunck, instructions on getting that are at  
+http://wordpress.org/download/svn/
+
+The following methods are impacted by this:
+
+wp.getPage
+wp.getPageList
+metaWeblog.getPost
+metaWeblog.getRecentPosts
+mt.getRecentPostTitles
+
+With my test blog at -6 time zone offset all of the above methods  
+return date data as expected (dateCreated is blog time,  
+date_created_gmt is GMT).
+
+I'd appreciate if everyone would test this patch against their own  
+XML-RPC clients and confirm that this works as expected.
+
+The patch is attached to this trac ticket:
+
+http://trac.wordpress.org/ticket/4624
+
+it is the gmt-xmlrpc.php.diff patch.
+
+Thank you.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Fri Aug 17 17:32:22 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Aug 17 17:33:10 2007
+Subject: [wp-xmlrpc] date_created_gmt
+In-Reply-To: <1E78EA84-EB5E-4E0C-8691-E166222493A4@randomnetworks.com>
+References: <1E78EA84-EB5E-4E0C-8691-E166222493A4@randomnetworks.com>
+Message-ID: <1E3E168D-DA58-498B-BBB4-8AE18B9F9941@randomnetworks.com>
+
+
+On Aug 16, 2007, at 2:00 PM, Joseph Scott wrote:
+
+>
+> The patch is attached to this trac ticket:
+>
+> http://trac.wordpress.org/ticket/4624
+>
+> it is the gmt-xmlrpc.php.diff patch.
+
+
+Turns out that patch got committed to -trunk not long after sending  
+this out :-)
+
+http://trac.wordpress.org/changeset/5888
+
+Sync up to -trunk and you'll be able to test this.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Fri Aug 17 20:41:45 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Aug 17 20:43:06 2007
+Subject: [wp-xmlrpc] mt_allow_pings fix in metaWeblog.newPost
+Message-ID: <2E847381-D960-4688-8276-BDD54335C3CE@randomnetworks.com>
+
+
+Allan Odgaard had mentioned to me a problem with mt_allow_pings being  
+set properly in metaWeblog.newPost using the value of open, like this:
+
+>     <member>
+>         <name>mt_allow_pings</name>
+>         <value><string>open</string></value>
+>     </member>
+
+For the longest time I was unable to see why this was happening.   
+Today I finally found it, there was a typo that caused it to be  
+missed.  I've got a patch for this at:
+
+http://trac.wordpress.org/ticket/4770
+
+I'll see if I can get this into -trunk as well so that it makes into  
+the 2.3.
+
+Nuts, just looked and found another typo for this in  
+metaWeblog.editPost, same issue.  I've update the patch above with a  
+fix for that as well.  Beyond that editPost also had some duplicated  
+code that was processing mt_allow_pings a second time.
+
+I've already updated and deployed the code at wordpress.com with  
+these fixes.
+
+A big thank you Allan for pointing this out and keeping on me to get  
+it fixed.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Tue Aug 21 21:26:02 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Tue Aug 21 21:26:20 2007
+Subject: [wp-xmlrpc] WP doesn't identify xml document text encoding
+Message-ID: <7FDA9586-58EE-4D01-92D0-4AAE0FBC2969@red-sweater.com>
+
+
+I just reported an issue against WP's xml documents:
+
+http://trac.wordpress.org/ticket/4794
+
+The issue is that a non-UTF8 blog will vend xml documents with no  
+implied encoding, but which contain for instance ISO-8859-1 encoded  
+characters. This leaves client XML parsers in a tough situation,  
+because some common accented characters are legal in ISO-8859-1 but  
+are outside the legal range for UTF-8.
+
+I bring this up on the mailing lost both to help Joseph get more  
+opinions about whether it's a good idea to advertise the encoding on  
+the XML document, and to bring the attention to other client  
+developers, in case their code would be affected by the issue.
+
+The symptom "in the wild" is that parsing XML-RPC responses for some  
+blogs will fail if your parser assumes the content is UTF8 and comes  
+upon one of these accented characters.
+
+Daniel
+From joseph at randomnetworks.com  Fri Aug 24 01:17:48 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Aug 24 01:18:39 2007
+Subject: [wp-xmlrpc] 2.3 Release Timeline
+Message-ID: <202A9FAB-15E3-4548-8F65-57D4A267C80F@randomnetworks.com>
+
+
+Ryan posted the time line for WordPress 2.3 release on -hackers:
+
+http://comox.textdrive.com/pipermail/wp-hackers/2007-August/013962.html
+
+We are entering feature freeze and looking to track down bugs.  If  
+you've got any problems/issues with XML-RPC in WordPress now is the  
+time to speak up so that we can get it resolved in 2.3.
+
+If you post a ticket to trac please mention it here too so that I can  
+take a look and follow up on it.
+
+Thanks.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From m123ixd02 at sneakemail.com  Fri Aug 24 15:26:06 2007
+From: m123ixd02 at sneakemail.com (Allan Odgaard)
+Date: Fri Aug 24 15:57:39 2007
+Subject: [wp-xmlrpc] date_created_gmt
+In-Reply-To: <1E78EA84-EB5E-4E0C-8691-E166222493A4@randomnetworks.com>
+References: <1E78EA84-EB5E-4E0C-8691-E166222493A4@randomnetworks.com>
+Message-ID: <2504-81557@sneakemail.com>
+
+On Aug 16, 2007, at 4:00 PM, Joseph Scott wrote:
+
+> [...] I've prepared a patch that reverts the dateCreated field back  
+> to the way it was before (blog time) and adds a new field,  
+> date_created_gmt.
+
+I don?t know which case conventions exist, but isn?t it be better to  
+name it dateCreatedGMT?
+
+This also ensures the fields are shown after each other when sorted  
+alphabetically and just hints a stronger connection between the two.
+
+From joseph at randomnetworks.com  Fri Aug 24 16:59:13 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Aug 24 17:00:04 2007
+Subject: [wp-xmlrpc] date_created_gmt
+In-Reply-To: <2504-81557@sneakemail.com>
+References: <1E78EA84-EB5E-4E0C-8691-E166222493A4@randomnetworks.com>
+	<2504-81557@sneakemail.com>
+Message-ID: <549F61FB-F405-44A8-A848-16AC3B83037A@randomnetworks.com>
+
+
+On Aug 24, 2007, at 9:26 AM, Allan Odgaard wrote:
+
+> On Aug 16, 2007, at 4:00 PM, Joseph Scott wrote:
+>
+>> [...] I've prepared a patch that reverts the dateCreated field  
+>> back to the way it was before (blog time) and adds a new field,  
+>> date_created_gmt.
+>
+> I don?t know which case conventions exist, but isn?t it be better  
+> to name it dateCreatedGMT?
+>
+> This also ensures the fields are shown after each other when sorted  
+> alphabetically and just hints a stronger connection between the two.
+
+
+I went back and forth a bit on that at first.  After looking at all  
+other fields being returned by metaWeblog.getPost by WordPress  
+currently I found that dateCreated and permaLink were the only two  
+fields that used camel case.  All other fields were either a single  
+word or used underscores.  This seemed to be especially true of  
+fields not part of the original spec, like mt_* and wp_*.  Based on  
+that it went with the underscore.
+
+Sorting should still work, in metaWeblog.newPost they are the only  
+two field names that start with date.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Tue Aug 28 19:01:45 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Aug 28 19:38:48 2007
+Subject: [wp-xmlrpc] AtomPub updated in WordPress 2.3
+Message-ID: <3AC9DAAE-E37B-48B0-BFE2-2FB06A4CCB97@randomnetworks.com>
+
+
+The first beta of WordPress 2.3 is out:
+
+http://wordpress.org/development/2007/08/23-beta-1/
+
+Although not mentioned, this beta also includes updated AtomPub  
+support from Peter Lacey and Sam Ruby:
+
+http://intertwingly.net/blog/2007/08/03/WordPress-AtomPub-and-PHP5
+
+So if you are interested in AtomPub support in WordPress here is your  
+chance to test it out.  And of course, check on any XML-RPC issues :-)
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From systementor at yahoo.se  Wed Aug 29 07:01:49 2007
+From: systementor at yahoo.se (Stefan Holmberg)
+Date: Wed Aug 29 07:01:55 2007
+Subject: [wp-xmlrpc] XMLRPC link management into core
+Message-ID: <643308.73681.qm@web27512.mail.ukl.yahoo.com>
+
+Hi fellows, I'm new here, Stefan Holmberg - from Sweden. 
+   
+  Just got into WP and must say I'm so impressed I have more or less given up on my selfcoded commercial CMS script (written in asp.net, I am from the MS side of the world...). While the WP admin gui is sometimes not too intuitive the frontend and programmability (is there such a word in english...) features are amazing.   
+   
+  I have just published my very first plugin wpLinkMentor http://php.aspcode.net/category/wplinkmentor/ - which extends the XML-RPC interface with some link(blogroll) management functions. I created it simply because I needed it - and published it in the spirit of free code. Maybe someone has a use of it. 
+   
+  Just got an email from Joseph where he/you say 
+"We'd like to get wpLinkMentor into the core of WordPress.  I've  
+glanced over the code and looks pretty straight forward, although I'd  
+like to refine the API some."
+   
+  That email makes me
+a) happy and kind of flatterned :)
+b) nervous 
+   
+  Nervous because while I am a decent coder (C#, C++, VB etc)   
+a) I am pretty much a PHP beginner
+b) when it comes to XML-RPC - well lets say I got it working by looking into the existing core code and also in code from Brett Terpstras utw-rpc-autotag plugin. Also I have managed to get some C# client code to work against WP:s XMLRPC. But that's where it ends...
+   
+  Meaning I have indeed gotten some things to work - but have no idea if I have done it "the right way", and seldom cares for doing it the right way either, I have problems to solve and I solve them, end of story. But getting into the core I guess would put the "doing it the right way" pressure on the code.
+   
+  For example I see some stupid things I have done - for getLinks and deleteLinks I make my own db calls but when last was to implement the updateLink function I discovered there are existing functions in admin-db such as wp_insert_link - meaning I should have used the existing core functions  for getLinks/deleteLinks as well. As I said, I am a WP newbie...
+   
+  The plugin code is here if you'd care to take a look
+  http://php.aspcode.net/wp-content/uploads/2007/08/wplinkmentor.zip
+   
+  So to end it up - I don't have a clue on how to proceed with this "getting into the core" thing. Is it something you (automattic) do, or would you like me to develop it further? Either way I would sure like to get some input on how you'd like the interface - fucntion params etc - to look like :) 
+  
+Or/and if there are some obvious stupid mistakes I have done in my coding. 
+   
+  I will anyhow try to learn XML-RPC better, cause I have a lot more WP stuff I would like to manage remotely, So I have a lot more rpc functions I will create and publish, soon. 
+   
+  Last - sorry for the long mail, lol :)
+   
+
+       
+---------------------------------
+L?na pengar utan s?kerhet.
+S?k och j?mf?r hos Yahoo! Shopping.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20070829/8d99154a/attachment.htm
+From bghervan at adobe.com  Wed Aug 29 10:20:06 2007
+From: bghervan at adobe.com (Bogdan Ghervan)
+Date: Wed Aug 29 10:20:36 2007
+Subject: [wp-xmlrpc] Proposal for comment moderation support in XML-RPC API
+Message-ID: <E16A295A0FCDCD4B96A02B0AF85769AD09A2AB@eurmail.eur.adobe.com>
+
+Hello all,
+
+ 
+
+I work at an application that can run basic blog actions making calls to
+the WordPress' XML-RPC API. 
+
+ 
+
+Now I want to be able to retrieve and approve comments directly from my
+app, something that the API doesn't endorse. I have already started
+writing the methods that can handle this type of operations and I need
+to know how to submit them. Is it OK to commit the changes to the
+repository?
+
+ 
+
+I checked with the timeline of milestone 2.3 and I found out that the
+feature freeze occurred on Aug 23. I will be ready to submit
+modifications in a couple of days after I finish implementation and
+conduct some tests of my own.  If the changes can't make it to 2.3, what
+is the time they could get in a public release?
+
+ 
+
+Should I go and submit my proposal as a feature by pushing a ticket into
+trac?
+
+ 
+
+Best regards,
+
+Bogdan Ghervan
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20070829/db216a99/attachment.htm
+From joseph at randomnetworks.com  Wed Aug 29 15:11:53 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Aug 29 15:12:48 2007
+Subject: [wp-xmlrpc] tags
+Message-ID: <D6FBEF0B-BEB4-43E6-B3D9-01D42580EC93@randomnetworks.com>
+
+
+With WordPress 2.3 adding support for tags we'd like to expose these  
+via XML-RPC in a meaningful way.  From what I've seen there are other  
+services that support a mt_tags field, although I haven't seen any  
+documentation on how it should work.
+
+I'm looking for feedback from those of you who are using mt_tags in  
+your applications so that we can implement it in a compatible way.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Wed Aug 29 16:02:28 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Aug 29 16:03:30 2007
+Subject: [wp-xmlrpc] XMLRPC link management into core
+In-Reply-To: <643308.73681.qm@web27512.mail.ukl.yahoo.com>
+References: <643308.73681.qm@web27512.mail.ukl.yahoo.com>
+Message-ID: <E921673E-049B-4D2D-B03C-80DF2F59339B@randomnetworks.com>
+
+
+On Aug 29, 2007, at 1:01 AM, Stefan Holmberg wrote:
+
+> Hi fellows, I'm new here, Stefan Holmberg - from Sweden.
+>
+> Just got into WP and must say I'm so impressed I have more or less  
+> given up on my selfcoded commercial CMS script (written in asp.net,  
+> I am from the MS side of the world...). While the WP admin gui is  
+> sometimes not too intuitive the frontend and programmability (is  
+> there such a word in english...) features are amazing.
+>
+> I have just published my very first plugin wpLinkMentor http:// 
+> php.aspcode.net/category/wplinkmentor/ - which extends the XML-RPC  
+> interface with some link(blogroll) management functions. I created  
+> it simply because I needed it - and published it in the spirit of  
+> free code. Maybe someone has a use of it.
+>
+> Just got an email from Joseph where he/you say
+> "We'd like to get wpLinkMentor into the core of WordPress.  I've
+> glanced over the code and looks pretty straight forward, although I'd
+> like to refine the API some."
+>
+> That email makes me
+> a) happy and kind of flatterned :)
+> b) nervous
+
+Matt asked me to get this into core WordPress, so in it goes :-)
+
+I want to go ahead an jump into a specific API for core.  For our  
+other wp.* methods we've followed the metaWeblog.* format for method  
+arguments, so I'd suggest the following methods/arguments:
+
+wp.getLinkCategories
+	blog_id (int) required
+	username (string) required
+	password (string) required
+	
+wp.getLinks
+	blog_id (int) required
+	username (string) required
+	password (string) required
+	category_id (int) required
+	limit (int) optional
+
+wp.newLink
+	blog_id (int) required
+	username (string) required
+	password (string) required
+	link (struct) required
+		name (string) required
+		url (string) required
+		description (string) required, empty
+		visible (int) required
+		rel (string) required, empty
+		rss (string) required, empty
+		notes (string) required, empty
+		image (string) required, empty
+		categories (array) required
+			(int)
+			
+wp.editLink
+	blog_id (int) required
+	username (string) required
+	password (string) required
+	link (struct) required
+		id (int) required
+		name (string) required
+		url (string) required
+		description (string) required, empty
+		visible (int) required
+		rel (string) required, empty
+		rss (string) required, empty
+		notes (string) required, empty
+		image (string) required, empty
+		categories (array) required
+			(int)
+	
+wp.deleteLink
+	blog_id (int) required
+	username (string) required
+	password (string) required
+	link_id (int) required
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From Joe.Cheng at microsoft.com  Wed Aug 29 17:01:19 2007
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Wed Aug 29 17:01:28 2007
+Subject: [wp-xmlrpc] tags
+In-Reply-To: <D6FBEF0B-BEB4-43E6-B3D9-01D42580EC93@randomnetworks.com>
+References: <D6FBEF0B-BEB4-43E6-B3D9-01D42580EC93@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A21050E0756@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+mt_keywords? Are tags different than keywords?
+
+http://trac.wordpress.org/ticket/900
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Wednesday, August 29, 2007 8:12 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: [wp-xmlrpc] tags
+
+
+With WordPress 2.3 adding support for tags we'd like to expose these
+via XML-RPC in a meaningful way.  From what I've seen there are other
+services that support a mt_tags field, although I haven't seen any
+documentation on how it should work.
+
+I'm looking for feedback from those of you who are using mt_tags in
+your applications so that we can implement it in a compatible way.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+From joseph at randomnetworks.com  Wed Aug 29 21:28:00 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Aug 29 21:28:57 2007
+Subject: [wp-xmlrpc] tags
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21050E0756@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <D6FBEF0B-BEB4-43E6-B3D9-01D42580EC93@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21050E0756@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <2DFA5C43-668D-465E-96AB-30E7E86C707B@randomnetworks.com>
+
+
+On Aug 29, 2007, at 11:01 AM, Joe Cheng wrote:
+
+> mt_keywords? Are tags different than keywords?
+>
+> http://trac.wordpress.org/ticket/900
+
+I've see reference to mt_tags and mt_keywords on the sixapart site.   
+If mt_keywords is being used by others then we'll go that route.
+
+I'll start with patches on that ticket.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Wed Aug 29 23:31:38 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Aug 29 23:32:32 2007
+Subject: [wp-xmlrpc] mt_keywords support is in
+Message-ID: <16DEBA16-427B-4A17-9F6F-5EFC34D852DD@randomnetworks.com>
+
+
+Support for mt_keywords backed by the new tags system is now in - 
+trunk and will be WordPress 2.3.
+
+If you support mt_keywords for other services please test this out  
+and let me know if there are any issues.
+
+Thanks.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Thu Aug 30 04:42:47 2007
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Thu Aug 30 04:42:58 2007
+Subject: [wp-xmlrpc] tags
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A21050E0756@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <D6FBEF0B-BEB4-43E6-B3D9-01D42580EC93@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21050E0756@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <F23C32CB-6971-43D0-BF19-1AD39957AC14@red-sweater.com>
+
+mt_tags is a separate field that was added later than mt_keywords.  
+But I don't consider myself an expert in this area. It's something  
+I've been planning to look into more carefully when I get to finally  
+satisfying the request for "real" tags support in MarsEdit.
+
+Daniel
+
+On Aug 29, 2007, at 1:01 PM, Joe Cheng wrote:
+
+> mt_keywords? Are tags different than keywords?
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20070830/aee7774d/attachment.htm
+From lloydomattic at gmail.com  Thu Aug 30 17:35:01 2007
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Thu Aug 30 17:35:08 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] XMLRPC rework
+In-Reply-To: <46D6F03F.6080909@buayacorp.com>
+References: <46D6F03F.6080909@buayacorp.com>
+Message-ID: <70ebb7140708301035r1a5fca66nf8db25f26d10c6fa@mail.gmail.com>
+
+On 8/30/07, Alexander Concha <alex@buayacorp.com> wrote:
+> Hello Folks.
+>
+> I think WP's XMLRPC server needs more attention because it has some
+> buggy methods and by default allows to gather useful information to
+> unprivileged users.
+
+Hi Alex,
+
+Although a very appropriate topic for this list, there is now a list
+specifically for the topic: wp-xmlrpc@lists.automattic.com
+
+>
+> The following methods doesn't seem to work and because of security
+> implications, I suggest remove them -- although I'm not sure if they
+> were added for compatibility reasons.
+>
+> - blogger_getTemplate
+> - blogger_setTemplate
+>
+> OTOH, unprivileged users (aka anyone with a subscriber role) can
+> retrieve data which could be used for unknown purposes. Examples:
+>
+> - mw_getRecentPosts will return posts including private fields like
+> post_password.
+> - wp_getAuthors will return the list of users with private data (email
+> and role).
+>
+> Any comments?
+>
+> Regards.
+>
+> PS. Sorry for my bad English.
+> --
+> Alexander Concha
+> http://www.buayacorp.com/
+From joseph at randomnetworks.com  Fri Aug 31 18:51:09 2007
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Aug 31 18:52:11 2007
+Subject: [wp-xmlrpc] Re: [wp-hackers] XMLRPC rework
+In-Reply-To: <46D6F03F.6080909@buayacorp.com>
+References: <46D6F03F.6080909@buayacorp.com>
+Message-ID: <6CFF6945-BA15-49C8-A03C-DB3C2C9572DE@randomnetworks.com>
+
+
+I'm cross posting this so that folks to the wp-xmlrpc list are aware  
+of this.
+
+
+On Aug 30, 2007, at 10:28 AM, Alexander Concha wrote:
+
+> Hello Folks.
+>
+> I think WP's XMLRPC server needs more attention because it has some
+> buggy methods and by default allows to gather useful information to
+> unprivileged users.
+>
+> The following methods doesn't seem to work and because of security
+> implications, I suggest remove them -- although I'm not sure if they
+> were added for compatibility reasons.
+>
+> - blogger_getTemplate
+> - blogger_setTemplate
+
+
+I'm inclined to agree on removing these at this point.  From the  
+looks of things these haven't worked for a long time, if ever.  Even  
+if they were made to work it isn't clear what WordPress should do  
+with them.
+
+If we want to provide an interface for getting and updating templates  
+we could always implement our own wp.getTemplate wp.setTemplate  
+methods later.
+
+
+> OTOH, unprivileged users (aka anyone with a subscriber role) can
+> retrieve data which could be used for unknown purposes. Examples:
+>
+> - mw_getRecentPosts will return posts including private fields like
+> post_password.
+> - wp_getAuthors will return the list of users with private data (email
+> and role).
+
+
+We could tighten things up on these and other functions that can  
+return sensitive data.
+
+When returning post data I'd suggest limiting it to anyone that can  
+edit the post (the post author and anyone with editor and  
+administrator role).  This would make any of the methods that return  
+post data do the same sort of checks that mw_editPost does.  Is there  
+any reason why a user who can't edit a post should still be able to  
+get the post data via XML-RPC?
+
+For wp_getAuthors we could probably just trim it down to three  
+fields: user_id, user_login and display_name.  I don't see any  
+benefit derived from including the user_email and meta_value fields.   
+On the other hand, is there a potential issue with having the ability  
+to enumerate all of the usernames for a blog?  Perhaps this method  
+should only work for people who can edit posts (contributer, author,  
+edit and admin roles)?
+
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+

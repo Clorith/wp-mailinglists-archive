@@ -1,0 +1,1243 @@
+From joseph at randomnetworks.com  Mon Jul  7 16:35:44 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jul  7 16:36:08 2008
+Subject: [wp-xmlrpc] AtomPub problems with clean URLs
+Message-ID: <F6AFF822-074A-4EB7-85EB-BA935E79351A@randomnetworks.com>
+
+
+I ran into a problem where AtomPub would always return zero posts  
+when requesting a post collection (wp-app.php/posts) if the blog was  
+using a clean URL format.  A fix for this has been committed to - 
+trunk and will be part of the 2.6 release:
+
+http://trac.wordpress.org/ticket/7249
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Wed Jul  9 15:54:26 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jul  9 15:56:10 2008
+Subject: [wp-xmlrpc] RSD for private blogs on WordPress.com
+Message-ID: <336DC4E6-51BE-462E-AE21-836E37DDEF7F@randomnetworks.com>
+
+
+It was pointed out that me that WordPress.com isn't exposing the RSD  
+information on private blogs because it redirects to a login page.   
+We've changed this so that the login page provides the RSD (and WLW  
+manifest) details.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From jalkut at red-sweater.com  Wed Jul  9 15:57:56 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Jul  9 15:58:51 2008
+Subject: [wp-xmlrpc] RSD for private blogs on WordPress.com
+In-Reply-To: <336DC4E6-51BE-462E-AE21-836E37DDEF7F@randomnetworks.com>
+References: <336DC4E6-51BE-462E-AE21-836E37DDEF7F@randomnetworks.com>
+Message-ID: <EB89A7F5-2D49-425B-BC5A-FF8992DA9099@red-sweater.com>
+
+Nice! I just ran into a similar situation with Blogger. Maybe I can  
+convince them to do the same thing ;)
+
+Daniel
+
+On Jul 9, 2008, at 11:54 AM, Joseph Scott wrote:
+
+>
+> It was pointed out that me that WordPress.com isn't exposing the RSD  
+> information on private blogs because it redirects to a login page.   
+> We've changed this so that the login page provides the RSD (and WLW  
+> manifest) details.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From Joe.Cheng at microsoft.com  Wed Jul  9 16:40:30 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Wed Jul  9 16:40:45 2008
+Subject: [wp-xmlrpc] RSD for private blogs on WordPress.com
+In-Reply-To: <336DC4E6-51BE-462E-AE21-836E37DDEF7F@randomnetworks.com>
+References: <336DC4E6-51BE-462E-AE21-836E37DDEF7F@randomnetworks.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A24937ACF63@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Nice--we were planning to work around this problem, this obviously
+is a better solution :)
+
+Thanks!
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Wednesday, July 09, 2008 8:54 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: [wp-xmlrpc] RSD for private blogs on WordPress.com
+
+
+It was pointed out that me that WordPress.com isn't exposing the RSD
+information on private blogs because it redirects to a login page.
+We've changed this so that the login page provides the RSD (and WLW
+manifest) details.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Wed Jul  9 21:07:48 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jul  9 21:08:14 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+Message-ID: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>
+
+
+When a post is started in wp-admin and saved as a draft, it doesn't  
+appear to ever get exposed via any of the current XML-RPC methods.   
+If you happen to know the post_id for a draft you can still get at it  
+with metaWeblog.getPost, but finding out about that post in the first  
+place is the problem.  Since we now expose the post_status field I  
+don't see why metaWeblog.getRecentPosts couldn't include drafts as  
+well.  Anyone have objections/concerns to that?
+
+Along with this I've been thinking about the situation with getting  
+recent posts.  Seems like it would be handy to have a way to get all  
+of the valid post_id's, along with a little bit of info about each,  
+say the date_created_gmt and post_status fields.  Like this:
+
+[
+	1: {
+		date_created_gmt: 20080706T00:43:55,
+		post_status: draft
+		},
+	22: {
+		date_created_gmt: 20080706T00:43:55
+		post_status: publish
+		}
+]
+
+The index would be the post_id, with then a tiny bit of info about  
+each post.  Since this could potentially be a pretty long list of  
+data (for blogs with 10,000+ posts) the amount of data besides the  
+post_id should be kept to a minimum.  My first thought was to do  
+nothing but provide an array of post_ids, but then thought that was  
+probably a bit too sparse.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From jalkut at red-sweater.com  Wed Jul  9 21:14:23 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Jul  9 21:14:46 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+In-Reply-To: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>
+References: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>
+Message-ID: <38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>
+
+Hi Joseph - just a quick note - I haven't taken time to read through  
+your post yet and I'm out the door.
+
+But I wanted to chime in to possibly clarify a problem in your  
+premise. In my experience the draft post does get exposed by XMLRPC. I  
+think the problem you're running into is that there's a bug in the wp- 
+admin interface that causes draft posts to receive a "nil" date. This  
+causes them to sort all the way to the bottom of the getRecentPosts  
+array, and if you have many posts, virtually guarantees they won't  
+show up in the recent posts response.
+
+Daniel
+
+
+On Jul 9, 2008, at 5:07 PM, Joseph Scott wrote:
+
+>
+> When a post is started in wp-admin and saved as a draft, it doesn't  
+> appear to ever get exposed via any of the current XML-RPC methods.   
+> If you happen to know the post_id for a draft you can still get at  
+> it with metaWeblog.getPost, but finding out about that post in the  
+> first place is the problem.  Since we now expose the post_status  
+> field I don't see why metaWeblog.getRecentPosts couldn't include  
+> drafts as well.  Anyone have objections/concerns to that?
+>
+> Along with this I've been thinking about the situation with getting  
+> recent posts.  Seems like it would be handy to have a way to get all  
+> of the valid post_id's, along with a little bit of info about each,  
+> say the date_created_gmt and post_status fields.  Like this:
+>
+> [
+> 	1: {
+> 		date_created_gmt: 20080706T00:43:55,
+> 		post_status: draft
+> 		},
+> 	22: {
+> 		date_created_gmt: 20080706T00:43:55
+> 		post_status: publish
+> 		}
+> ]
+>
+> The index would be the post_id, with then a tiny bit of info about  
+> each post.  Since this could potentially be a pretty long list of  
+> data (for blogs with 10,000+ posts) the amount of data besides the  
+> post_id should be kept to a minimum.  My first thought was to do  
+> nothing but provide an array of post_ids, but then thought that was  
+> probably a bit too sparse.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Wed Jul  9 23:06:41 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Jul  9 23:17:42 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+In-Reply-To: <38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>
+References: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>
+	<38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>
+Message-ID: <4C7C9327-3D34-472D-9603-E74A58FEE2AB@randomnetworks.com>
+
+
+On Jul 9, 2008, at 3:14 PM, Daniel Jalkut wrote:
+
+> Hi Joseph - just a quick note - I haven't taken time to read  
+> through your post yet and I'm out the door.
+>
+> But I wanted to chime in to possibly clarify a problem in your  
+> premise. In my experience the draft post does get exposed by  
+> XMLRPC. I think the problem you're running into is that there's a  
+> bug in the wp-admin interface that causes draft posts to receive a  
+> "nil" date. This causes them to sort all the way to the bottom of  
+> the getRecentPosts array, and if you have many posts, virtually  
+> guarantees they won't show up in the recent posts response.
+
+
+Drafts are essentially always going to the oldest posts in your blog  
+because they are dated 0000-00-00 (why MySQL even allows such a date,  
+ug, that's another story).
+
+I'm not sure that it's a bug though.  Those are date fields generally  
+relate to published times, but we do have the post_modified/ 
+post_modified_gmt fields that could be used.  I guess what I should  
+have asked is, would changing the sort to be by post_modified_gmt  
+instead of post_date (published date) be ok?  Or do you think that  
+this would confuse the situation for blog clients?
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From Joe.Cheng at microsoft.com  Wed Jul  9 23:03:43 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Wed Jul  9 23:18:20 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+In-Reply-To: <38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>
+References: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>
+	<38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A24937AD34A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Daniel, do you have to create the draft in wp-admin to repro the nil
+date problem? If so, that would explain why I keep seeing complaints
+about this but can't repro it myself (since I create all my drafts
+in Writer).
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Daniel Jalkut
+Sent: Wednesday, July 09, 2008 2:14 PM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] exposing draft posts and listing all posts
+
+Hi Joseph - just a quick note - I haven't taken time to read through
+your post yet and I'm out the door.
+
+But I wanted to chime in to possibly clarify a problem in your
+premise. In my experience the draft post does get exposed by XMLRPC. I
+think the problem you're running into is that there's a bug in the wp-
+admin interface that causes draft posts to receive a "nil" date. This
+causes them to sort all the way to the bottom of the getRecentPosts
+array, and if you have many posts, virtually guarantees they won't
+show up in the recent posts response.
+
+Daniel
+
+
+On Jul 9, 2008, at 5:07 PM, Joseph Scott wrote:
+
+>
+> When a post is started in wp-admin and saved as a draft, it doesn't
+> appear to ever get exposed via any of the current XML-RPC methods.
+> If you happen to know the post_id for a draft you can still get at
+> it with metaWeblog.getPost, but finding out about that post in the
+> first place is the problem.  Since we now expose the post_status
+> field I don't see why metaWeblog.getRecentPosts couldn't include
+> drafts as well.  Anyone have objections/concerns to that?
+>
+> Along with this I've been thinking about the situation with getting
+> recent posts.  Seems like it would be handy to have a way to get all
+> of the valid post_id's, along with a little bit of info about each,
+> say the date_created_gmt and post_status fields.  Like this:
+>
+> [
+>       1: {
+>               date_created_gmt: 20080706T00:43:55,
+>               post_status: draft
+>               },
+>       22: {
+>               date_created_gmt: 20080706T00:43:55
+>               post_status: publish
+>               }
+> ]
+>
+> The index would be the post_id, with then a tiny bit of info about
+> each post.  Since this could potentially be a pretty long list of
+> data (for blogs with 10,000+ posts) the amount of data besides the
+> post_id should be kept to a minimum.  My first thought was to do
+> nothing but provide an array of post_ids, but then thought that was
+> probably a bit too sparse.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From jalkut at red-sweater.com  Thu Jul 10 04:27:30 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Thu Jul 10 04:28:20 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A24937AD34A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>
+	<38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A24937AD34A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <BC2D159D-A35B-4B76-A31C-A8FA25B8C279@red-sweater.com>
+
+On Jul 9, 2008, at 7:03 PM, Joe Cheng wrote:
+
+> Daniel, do you have to create the draft in wp-admin to repro the nil
+> date problem? If so, that would explain why I keep seeing complaints
+> about this but can't repro it myself (since I create all my drafts
+> in Writer).
+
+In my experience, yes, it's an issue only for wp-admin created draft  
+posts.  Furthermore, if the draft post is edited once after saving, in  
+the wp-admin interface, I think it gets a valid date.
+
+Check out: http://trac.wordpress.org/ticket/5698
+
+I think XMLRPC created drafts get a reasonable date because of the  
+lines in mw_newPost:
+
+		 if ( !empty( $dateCreated ) ) {
+                         $post_date =  
+get_date_from_gmt(iso8601_to_datetime($dateCreated));
+                         $post_date_gmt =  
+iso8601_to_datetime($dateCreated, GMT);
+                 } else {
+                         $post_date = current_time('mysql');
+                         $post_date_gmt = current_time('mysql', 1);
+                 }
+
+Which applies equally to drafts or otherwise.
+
+Daniel
+
+From dougal at gunters.org  Thu Jul 10 14:46:13 2008
+From: dougal at gunters.org (Dougal Campbell)
+Date: Thu Jul 10 14:47:03 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+In-Reply-To: <BC2D159D-A35B-4B76-A31C-A8FA25B8C279@red-sweater.com>
+References: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>	<38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>	<EF14FE208FC8364F94E8A58EF085979A24937AD34A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<BC2D159D-A35B-4B76-A31C-A8FA25B8C279@red-sweater.com>
+Message-ID: <487620B5.4000106@gunters.org>
+
+Should we just eliminate the default date setting in the else clause? Or 
+at least check for 'draft' status, to match up with what 
+wp_insert_post() does? If a date isn't explicitly passed in from a 
+client, we should probably leave it empty, and let wp_insert_post() do 
+it's normal thing, so that we keep consistency independent of the 
+posting mechanism (web or API). There's already logic in 
+wp_insert_post() to handle setting default date info, so we should avoid 
+duplication here, where possible.
+
+
+-- 
+Dougal Campbell <dougal@gunters.org>
+http://dougal.gunters.org/
+
+
+
+Daniel Jalkut wrote:
+> On Jul 9, 2008, at 7:03 PM, Joe Cheng wrote:
+>
+>> Daniel, do you have to create the draft in wp-admin to repro the nil
+>> date problem? If so, that would explain why I keep seeing complaints
+>> about this but can't repro it myself (since I create all my drafts
+>> in Writer).
+>
+> In my experience, yes, it's an issue only for wp-admin created draft 
+> posts.  Furthermore, if the draft post is edited once after saving, in 
+> the wp-admin interface, I think it gets a valid date.
+>
+> Check out: http://trac.wordpress.org/ticket/5698
+>
+> I think XMLRPC created drafts get a reasonable date because of the 
+> lines in mw_newPost:
+>
+>          if ( !empty( $dateCreated ) ) {
+>                         $post_date = 
+> get_date_from_gmt(iso8601_to_datetime($dateCreated));
+>                         $post_date_gmt = 
+> iso8601_to_datetime($dateCreated, GMT);
+>                 } else {
+>                         $post_date = current_time('mysql');
+>                         $post_date_gmt = current_time('mysql', 1);
+>                 }
+>
+> Which applies equally to drafts or otherwise.
+>
+> Daniel
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+
+From jalkut at red-sweater.com  Thu Jul 10 15:10:50 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Thu Jul 10 15:11:11 2008
+Subject: [wp-xmlrpc] exposing draft posts and listing all posts
+In-Reply-To: <487620B5.4000106@gunters.org>
+References: <56D07A78-AB0A-40C0-A803-A25665D06ED5@randomnetworks.com>	<38E27872-4D34-4C5F-AF1E-01859902B646@red-sweater.com>	<EF14FE208FC8364F94E8A58EF085979A24937AD34A@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<BC2D159D-A35B-4B76-A31C-A8FA25B8C279@red-sweater.com>
+	<487620B5.4000106@gunters.org>
+Message-ID: <FFFA9984-9574-49F5-A99A-B9474362FC19@red-sweater.com>
+
+Having one code path for the default date sounds like a good idea to  
+me, but since the gist of that bug I referenced is to fix the behavior  
+of leaving the date NULL for drafts, it might make sense to leave  
+xmlrpc.php alone (with the desired behavior) until the bug is fixed  
+for all of WP.
+
+Daniel
+
+On Jul 10, 2008, at 10:46 AM, Dougal Campbell wrote:
+
+> Should we just eliminate the default date setting in the else  
+> clause? Or at least check for 'draft' status, to match up with what  
+> wp_insert_post() does? If a date isn't explicitly passed in from a  
+> client, we should probably leave it empty, and let wp_insert_post()  
+> do it's normal thing, so that we keep consistency independent of the  
+> posting mechanism (web or API). There's already logic in  
+> wp_insert_post() to handle setting default date info, so we should  
+> avoid duplication here, where possible.
+>
+>
+> -- 
+> Dougal Campbell <dougal@gunters.org>
+> http://dougal.gunters.org/
+>
+>
+>
+> Daniel Jalkut wrote:
+>> On Jul 9, 2008, at 7:03 PM, Joe Cheng wrote:
+>>
+>>> Daniel, do you have to create the draft in wp-admin to repro the nil
+>>> date problem? If so, that would explain why I keep seeing complaints
+>>> about this but can't repro it myself (since I create all my drafts
+>>> in Writer).
+>>
+>> In my experience, yes, it's an issue only for wp-admin created  
+>> draft posts.  Furthermore, if the draft post is edited once after  
+>> saving, in the wp-admin interface, I think it gets a valid date.
+>>
+>> Check out: http://trac.wordpress.org/ticket/5698
+>>
+>> I think XMLRPC created drafts get a reasonable date because of the  
+>> lines in mw_newPost:
+>>
+>>         if ( !empty( $dateCreated ) ) {
+>>                        $post_date =  
+>> get_date_from_gmt(iso8601_to_datetime($dateCreated));
+>>                        $post_date_gmt =  
+>> iso8601_to_datetime($dateCreated, GMT);
+>>                } else {
+>>                        $post_date = current_time('mysql');
+>>                        $post_date_gmt = current_time('mysql', 1);
+>>                }
+>>
+>> Which applies equally to drafts or otherwise.
+>>
+>> Daniel
+>>
+>> _______________________________________________
+>> wp-xmlrpc mailing list
+>> wp-xmlrpc@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From Joe.Cheng at microsoft.com  Mon Jul 14 19:25:03 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jul 14 19:58:57 2008
+Subject: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+In-Reply-To: <8B8D6E54-5253-4C7B-A91D-84E18436CC18@red-sweater.com>
+References: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>
+	<8B8D6E54-5253-4C7B-A91D-84E18436CC18@red-sweater.com>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A249382AB48@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+I finally got a chance this weekend to install the WP 2.6 beta and see how the user experience is when trying to configure to a blog that has XML-RPC disabled. The error message I got was this:
+
+-32601: server error. requested method blogger.getUsersBlogs does not exist.
+
+Needless to say, this is pretty deeply unhelpful for users--any chance we can get a custom error code and error message for this condition?
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com [mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Daniel Jalkut
+Sent: Friday, June 20, 2008 9:18 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+
+Thanks  for the heads up, Joseph! I added my thoughts to the bug, but
+I'll repeat them here:
+
+What a bummer. Terrible news for desktop clients. I hope the security
+enhancing tradeoff is very high because this will be a support burden
+on developers who are supporting users of desktop clients.
+
+It's also worth noting that this will add friction to the process of
+using a remote client with WordPress, and therefore make other systems
+such as Blogger potentially more attractive to such users.
+
+Daniel
+
+On Jun 20, 2008, at 12:13 PM, Joseph Scott wrote:
+
+>
+> Big heads up here, XML-RPC and AtomPub will be disabled by default
+> in WordPress 2.6.  The code for XML-RPC has already been added to -
+> trunk and I'll be looking at the AtomPub code to figure out how best
+> address that.
+>
+>       http://trac.wordpress.org/ticket/7157
+>
+> They are easily turned back on in wp-admin.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Mon Jul 14 20:54:46 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jul 14 20:55:06 2008
+Subject: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A249382AB48@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>
+	<8B8D6E54-5253-4C7B-A91D-84E18436CC18@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A249382AB48@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <B98C7E25-7CFD-4D21-A687-4E92D0DC86C0@randomnetworks.com>
+
+
+On Jul 14, 2008, at 1:25 PM, Joe Cheng wrote:
+
+> I finally got a chance this weekend to install the WP 2.6 beta and  
+> see how the user experience is when trying to configure to a blog  
+> that has XML-RPC disabled. The error message I got was this:
+>
+> -32601: server error. requested method blogger.getUsersBlogs does  
+> not exist.
+>
+> Needless to say, this is pretty deeply unhelpful for users--any  
+> chance we can get a custom error code and error message for this  
+> condition?
+
+
+
+Exactly which beta did you install?  We've had a few recently: <http://boren.nu/ 
+ >
+
+We're expecting to make the 2.6 release today (assuming no major  
+issues show up) and the current error message when XML-RPC is disabled  
+is:
+
+"XML-RPC services are disabled on this blog.  An admin user can enable  
+them at %s"
+
+Where %s is the URL you need to go to enable XML-RPC.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From peter.westwood at ftwr.co.uk  Mon Jul 14 20:51:55 2008
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Mon Jul 14 21:21:54 2008
+Subject: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+In-Reply-To: <EF14FE208FC8364F94E8A58EF085979A249382AB48@NA-EXMSG-C109.redmond.corp.microsoft.com>
+References: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>	<8B8D6E54-5253-4C7B-A91D-84E18436CC18@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A249382AB48@NA-EXMSG-C109.redmond.corp.microsoft.com>
+Message-ID: <487BBC6B.4030700@ftwr.co.uk>
+
+Joe Cheng wrote:
+> I finally got a chance this weekend to install the WP 2.6 beta and see how the user experience is when trying to configure to a blog that has XML-RPC disabled. The error message I got was this:
+> 
+> -32601: server error. requested method blogger.getUsersBlogs does not exist.
+> 
+> Needless to say, this is pretty deeply unhelpful for users--any chance we can get a custom error code and error message for this condition?
+
+Looks like you running an old beta there.
+
+The first pass of the change removed the methods but the current code 
+does return a friendly error message.
+
+You should get:
+"XML-RPC services are disabled on this blog.  An admin user can enable 
+them at %s'"
+
+Please try RC1 (right at the bottom of this page 
+http://wordpress.org/download/release-archive/).
+
+Cheers
+
+westi
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+  C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+From Joe.Cheng at microsoft.com  Mon Jul 14 21:40:15 2008
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Mon Jul 14 21:40:28 2008
+Subject: [wp-xmlrpc] XML-RPC and AtomPub to be disabled by default in 2.6
+In-Reply-To: <487BBC6B.4030700@ftwr.co.uk>
+References: <9C4FC9FF-07EE-427D-8DA6-E83B1AFE2221@randomnetworks.com>
+	<8B8D6E54-5253-4C7B-A91D-84E18436CC18@red-sweater.com>
+	<EF14FE208FC8364F94E8A58EF085979A249382AB48@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<487BBC6B.4030700@ftwr.co.uk>
+Message-ID: <EF14FE208FC8364F94E8A58EF085979A249382ACA5@NA-EXMSG-C109.redmond.corp.microsoft.com>
+
+Oh, awesome. The only one I could find was 2.6-beta1 (having lost
+the URL for all the releases). I'll try RC1 now.
+From joseph at randomnetworks.com  Tue Jul 15 04:07:46 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Tue Jul 15 04:08:22 2008
+Subject: [wp-xmlrpc] WordPress 2.6 is out - XML-RPC and AtomPub changes
+Message-ID: <4EDD9568-C4E1-4AF1-9CE9-77E527180483@randomnetworks.com>
+
+
+Now that WordPress 2.6 is out, I've posted a summary of the changes  
+to XML-RPC and AtomPub since 2.51 at:
+
+http://joseph.randomnetworks.com/archives/2008/07/14/wordpress-26-xml- 
+rpc-atompub-changes/
+
+Here's summary version:
+
+XML-RPC
+
+     * The starify function was removed from xmlrpc.php (ticket 6634)
+     * New method - wp.getUsersBlogs see Blog ID in WordPress and XML- 
+RPC Blog APIs for some background (ticket 7130)
+     * New field - xmlrpc in blogger.getUsersBlogs (same background  
+as above, ticket 7130)
+     * New method - wp.getPageTemplates (ticket 6098)
+     * New field - wp_page_template in the wp.getPage method (ticket  
+6098)
+     * New method - wp.getOptions (ticket 7123)
+     * New method - wp.setOptions (ticket 7123)
+     * Added support for enclosures in metaWeblog.newPost and  
+metaWeblog.editPost (ticket 3405)
+     * The <!??more??> tag is no longer embeds newlines before and  
+after in metaWeblog.newPost and metaWeblog.editPost (ticket 6016)
+     * XML-RPC is disabled by default for new installs of WordPress.  
+Upgrading will NOT disable XML-RPC (ticket 7157)
+
+AtomPub
+
+     * If $_SERVER['ORIG_PATH_INFO'] is set, we use that instead of  
+$_SERVER['PATH_INFO'] in determining the $path value (ticket 6995)
+     * Fixed problem where using clean URLs (instead of ?p=1 style)  
+would cause wp-app.php/posts requests to return zero posts (ticket 7249)
+     * AtomPub is disabled by default for new installs of WordPress.  
+Upgrading will NOT disable AtomPub (ticket 7157)
+
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From alex at fav.or.it  Mon Jul 21 08:20:27 2008
+From: alex at fav.or.it (Alex Forrow)
+Date: Mon Jul 21 08:20:48 2008
+Subject: [wp-xmlrpc] Posting comments through XMLRPC
+Message-ID: <015101c8eb0a$a8634ee0$f929eca0$@or.it>
+
+Hi,
+
+We have written a plugin which integrates into our software to allow
+WordPress to receive comments through XMLRPC. The interface we have created
+is standard but to avoid spam, unless the user can authenticate, the plugin
+will only accept comments received for our site. Assuming we could find a
+more general method for avoiding spam, we would like to propose that this
+plugin is made generic and integrated into the WordPress codebase.
+
+If a user can authenticate to WordPress (either in the database of the
+WordPress installation, or against WordPress.com account for hosted blogs),
+this can be used to prove the users identity. Can't see any problems here.
+
+The more tricky situation is where anonymous comments need to be posted. I
+see no reason why not to mandate the sending of name and email with the
+comment and follow standard comment filtering rules, but ideally we would
+have another level of security. One suggestion is to provide a trackback
+service, so a trackback url is posted with the comment, which WordPress can
+connect back on using some kind of unique identifier, and verify the service
+did actually send the comment.
+
+Another, slightly more complicated idea could be based around the principles
+of DomainKeys, a technology for email-spam avoidance
+(http://en.wikipedia.org/wiki/DomainKeys). The comment sender could sign the
+comment using a public/private key pair, the public key being posted in a
+DNS TXT record of the domain of the sender. This enables the receiving
+XMLRPC to verify that the comment is actually from the domain the sender
+says they are in. Unfortunately this doesn't actually solve the spam
+problem, it only allows receivers to verify the sender of the comment. This,
+however, could be the basis of a another solution which requires sender
+verification (e.g. A managed blacklist/whitelist).
+
+The plugin in its current form is available at
+http://croc.favsys.net/alex/wp_favorit.zip if anyone would like to take a
+look.
+
+We're very keen to hear suggestions and comments from those that may have
+some thoughts.
+
+Kind regards,
+
+Alex Forrow
+Systems Administrator, Favorit Limited
+Blog: http://blog.fav.or.it/
+Telephone: 0845 643 0673
+Address: favorit Ltd, Building L033, London Road, Reading, RG1 5AQ
+
+This e-mail contains confidential information and is for the exclusive use
+of the addressee/s. If you are not the addressee, then any distribution,
+copying or use of this e-mail is prohibited. If received in error, please
+advise the sender and delete it immediately. We accept no liability for any
+loss or damage suffered by any person arising from use of this e-mail.
+favorit Limited
+Registered No: 06411859 England
+Registered Office: Reading Enterprise Hub, University of Reading, Earley
+Gate, Reading, Berkshire, RG6 6AU
+
+
+From joseph at randomnetworks.com  Mon Jul 21 18:02:38 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jul 21 18:03:13 2008
+Subject: [wp-xmlrpc] AtomPub auth via cookies
+Message-ID: <B30332CF-31B2-4DAB-887D-8298ED68E9DB@randomnetworks.com>
+
+
+Just a heads up, the cookie auth code in AtomPub was broken and has  
+been removed.
+
+I haven't seen anyone talking about cookie auth for AtomPub, so I  
+don't think this is going to cause problems.  Most folks are still  
+using HTTP Basic Auth for AtomPub requests.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Thu Jul 24 03:38:03 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Jul 24 03:38:37 2008
+Subject: [wp-xmlrpc] Posting comments through XMLRPC
+In-Reply-To: <015101c8eb0a$a8634ee0$f929eca0$@or.it>
+References: <015101c8eb0a$a8634ee0$f929eca0$@or.it>
+Message-ID: <653E9511-BA1C-42E3-80DC-8E6C91D6ED9E@randomnetworks.com>
+
+
+On Jul 21, 2008, at 2:20 AM, Alex Forrow wrote:
+
+> We have written a plugin which integrates into our software to allow
+> WordPress to receive comments through XMLRPC. The interface we have  
+> created
+> is standard but to avoid spam, unless the user can authenticate,  
+> the plugin
+> will only accept comments received for our site. Assuming we could  
+> find a
+> more general method for avoiding spam, we would like to propose  
+> that this
+> plugin is made generic and integrated into the WordPress codebase.
+>
+> If a user can authenticate to WordPress (either in the database of the
+> WordPress installation, or against WordPress.com account for hosted  
+> blogs),
+> this can be used to prove the users identity. Can't see any  
+> problems here.
+
+Comments that come with a valid username and password we could  
+consider trusted.
+
+
+> The more tricky situation is where anonymous comments need to be  
+> posted. I
+> see no reason why not to mandate the sending of name and email with  
+> the
+> comment and follow standard comment filtering rules, but ideally we  
+> would
+> have another level of security. One suggestion is to provide a  
+> trackback
+> service, so a trackback url is posted with the comment, which  
+> WordPress can
+> connect back on using some kind of unique identifier, and verify  
+> the service
+> did actually send the comment.
+
+I suppose technically there's no difference between submitting a form  
+and providing an API, but it would be nice not to provide one more  
+way for spammers to submit junk.
+
+
+> Another, slightly more complicated idea could be based around the  
+> principles
+> of DomainKeys, a technology for email-spam avoidance
+> (http://en.wikipedia.org/wiki/DomainKeys). The comment sender could  
+> sign the
+> comment using a public/private key pair, the public key being  
+> posted in a
+> DNS TXT record of the domain of the sender. This enables the receiving
+> XMLRPC to verify that the comment is actually from the domain the  
+> sender
+> says they are in. Unfortunately this doesn't actually solve the spam
+> problem, it only allows receivers to verify the sender of the  
+> comment. This,
+> however, could be the basis of a another solution which requires  
+> sender
+> verification (e.g. A managed blacklist/whitelist).
+>
+> The plugin in its current form is available at
+> http://croc.favsys.net/alex/wp_favorit.zip if anyone would like to  
+> take a
+> look.
+
+I don't think it's worth having two separate methods for this, may as  
+well just have one.  Then if the username and password aren't  
+provided we treat it as an unauthenticated comment.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From yahoo2 at yarrowsoft.com  Thu Jul 24 07:52:34 2008
+From: yahoo2 at yarrowsoft.com (Vladimir Yushko)
+Date: Thu Jul 24 07:53:29 2008
+Subject: [wp-xmlrpc] Posting comments through XMLRPC
+References: <015101c8eb0a$a8634ee0$f929eca0$@or.it>
+	<653E9511-BA1C-42E3-80DC-8E6C91D6ED9E@randomnetworks.com>
+Message-ID: <000801c8ed62$40577330$1d471cac@nota>
+
+ Hi!
+I have solution. This is comment server plugin which is server part  of
+comment client. Download here:
+http://commentclient.com/download/commentserver.zip
+
+Comment server have many features such as spam protected protocol which
+allows send comments from another blogs and include intgration with forms.
+Documentation not available, sorry.
+
+--
+Best regards, Vladimir Yushko
+http://commentclient.com/
+
+----- Original Message -----
+From: "Joseph Scott" <joseph@randomnetworks.com>
+To: <wp-xmlrpc@lists.automattic.com>
+Sent: Thursday, July 24, 2008 7:38 AM
+Subject: Re: [wp-xmlrpc] Posting comments through XMLRPC
+
+
+>
+> On Jul 21, 2008, at 2:20 AM, Alex Forrow wrote:
+>
+> > We have written a plugin which integrates into our software to allow
+> > WordPress to receive comments through XMLRPC. The interface we have
+> > created
+> > is standard but to avoid spam, unless the user can authenticate,
+> > the plugin
+> > will only accept comments received for our site. Assuming we could
+> > find a
+> > more general method for avoiding spam, we would like to propose
+> > that this
+> > plugin is made generic and integrated into the WordPress codebase.
+> >
+> > If a user can authenticate to WordPress (either in the database of the
+> > WordPress installation, or against WordPress.com account for hosted
+> > blogs),
+> > this can be used to prove the users identity. Can't see any
+> > problems here.
+>
+> Comments that come with a valid username and password we could
+> consider trusted.
+>
+>
+> > The more tricky situation is where anonymous comments need to be
+> > posted. I
+> > see no reason why not to mandate the sending of name and email with
+> > the
+> > comment and follow standard comment filtering rules, but ideally we
+> > would
+> > have another level of security. One suggestion is to provide a
+> > trackback
+> > service, so a trackback url is posted with the comment, which
+> > WordPress can
+> > connect back on using some kind of unique identifier, and verify
+> > the service
+> > did actually send the comment.
+>
+> I suppose technically there's no difference between submitting a form
+> and providing an API, but it would be nice not to provide one more
+> way for spammers to submit junk.
+>
+>
+> > Another, slightly more complicated idea could be based around the
+> > principles
+> > of DomainKeys, a technology for email-spam avoidance
+> > (http://en.wikipedia.org/wiki/DomainKeys). The comment sender could
+> > sign the
+> > comment using a public/private key pair, the public key being
+> > posted in a
+> > DNS TXT record of the domain of the sender. This enables the receiving
+> > XMLRPC to verify that the comment is actually from the domain the
+> > sender
+> > says they are in. Unfortunately this doesn't actually solve the spam
+> > problem, it only allows receivers to verify the sender of the
+> > comment. This,
+> > however, could be the basis of a another solution which requires
+> > sender
+> > verification (e.g. A managed blacklist/whitelist).
+> >
+> > The plugin in its current form is available at
+> > http://croc.favsys.net/alex/wp_favorit.zip if anyone would like to
+> > take a
+> > look.
+>
+> I don't think it's worth having two separate methods for this, may as
+> well just have one.  Then if the username and password aren't
+> provided we treat it as an unauthenticated comment.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Mon Jul 28 17:57:37 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Jul 28 17:57:54 2008
+Subject: [wp-xmlrpc] Posting comments through XMLRPC
+In-Reply-To: <000801c8ed62$40577330$1d471cac@nota>
+References: <015101c8eb0a$a8634ee0$f929eca0$@or.it>
+	<653E9511-BA1C-42E3-80DC-8E6C91D6ED9E@randomnetworks.com>
+	<000801c8ed62$40577330$1d471cac@nota>
+Message-ID: <D7945DE2-D63F-4218-BE81-31A5A0F5B216@randomnetworks.com>
+
+
+On Jul 24, 2008, at 1:52 AM, Vladimir Yushko wrote:
+
+> I have solution. This is comment server plugin which is server  
+> part  of
+> comment client. Download here:
+> http://commentclient.com/download/commentserver.zip
+>
+> Comment server have many features such as spam protected protocol  
+> which
+> allows send comments from another blogs and include intgration with  
+> forms.
+> Documentation not available, sorry.
+
+
+Sorry for not following up on this sooner, I've been very busy with  
+the new themes directory.
+
+I'll take a look at this API again (I recall looking over it  
+previously when you first posted about this) and see what may need to  
+be tweaked for a general WP comment API.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From alex at fav.or.it  Thu Jul 31 15:42:29 2008
+From: alex at fav.or.it (Alex Forrow)
+Date: Thu Jul 31 15:42:46 2008
+Subject: [wp-xmlrpc] Posting comments through XMLRPC
+In-Reply-To: <000801c8ed62$40577330$1d471cac@nota>
+References: <015101c8eb0a$a8634ee0$f929eca0$@or.it>	<653E9511-BA1C-42E3-80DC-8E6C91D6ED9E@randomnetworks.com>
+	<000801c8ed62$40577330$1d471cac@nota>
+Message-ID: <007301c8f324$0b4654f0$21d2fed0$@or.it>
+
+Hi,
+
+Had a look at commentserver and it seems to provide a pretty comprehensive
+set of functions for comment manipulation. The work I have been doing
+focuses just on the posting of new comments, not so much on the support
+afterwards, but these functions certainly look useful for blog authors.
+
+Unless I'm mistaken commentserver only opens up the comment api to WordPress
+users, so doesn't attempt to solve the anonymous comment problem.
+
+The only new thoughts I have had on this relate to the types of clients that
+would use XMLRPC for anonymous commenting. Its fair to say POSTing through
+the form is all be done through a browser, generally your average user.
+XMLRPC on the other hand is more likely to be used by either advanced users,
+or web services. As many/most WordPress installations already run through
+Akismet (a centralised service) would it be possible to require all
+anonymous comment senders using XMLRPC to pre-register. Once registered they
+build up kudos for each comment sent, which is fed back into the spam
+decision process for future comments. If a service starts abusing the XMLRPC
+interface, it loses kudos, making it less likely for its comments to get
+approved in future.
+
+Thats just a thought, but hopefully some of these ideas will lead us to a
+solution which is flexible without making the spam problem worse. 
+
+Btw Joseph, taken on board what you said about having a single function for
+anonymous and authenticated comments and have updated the plugin as a
+demonstration, does seem to keep things simpler. Its online at
+http://croc.fav.or.it/alex/wp_plugin_0.2.zip
+
+Kind regards,
+
+Alex Forrow
+Systems Administrator, Favorit Limited
+Blog: http://blog.fav.or.it/
+Telephone: 0845 643 0673
+Address: favorit Ltd, Building L033, London Road, Reading, RG1 5AQ
+
+This e-mail contains confidential information and is for the exclusive use
+of the addressee/s. If you are not the addressee, then any distribution,
+copying or use of this e-mail is prohibited. If received in error, please
+advise the sender and delete it immediately. We accept no liability for any
+loss or damage suffered by any person arising from use of this e-mail.
+favorit Limited
+Registered No: 06411859 England
+Registered Office: Reading Enterprise Hub, University of Reading, Earley
+Gate, Reading, Berkshire, RG6 6AU
+
+
+-----Original Message-----
+From: wp-xmlrpc-bounces@lists.automattic.com
+[mailto:wp-xmlrpc-bounces@lists.automattic.com] On Behalf Of Vladimir Yushko
+Sent: 24 July 2008 08:53
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Posting comments through XMLRPC
+
+ Hi!
+I have solution. This is comment server plugin which is server part  of
+comment client. Download here:
+http://commentclient.com/download/commentserver.zip
+
+Comment server have many features such as spam protected protocol which
+allows send comments from another blogs and include intgration with forms.
+Documentation not available, sorry.
+
+--
+Best regards, Vladimir Yushko
+http://commentclient.com/
+
+----- Original Message -----
+From: "Joseph Scott" <joseph@randomnetworks.com>
+To: <wp-xmlrpc@lists.automattic.com>
+Sent: Thursday, July 24, 2008 7:38 AM
+Subject: Re: [wp-xmlrpc] Posting comments through XMLRPC
+
+
+>
+> On Jul 21, 2008, at 2:20 AM, Alex Forrow wrote:
+>
+> > We have written a plugin which integrates into our software to allow
+> > WordPress to receive comments through XMLRPC. The interface we have
+> > created
+> > is standard but to avoid spam, unless the user can authenticate,
+> > the plugin
+> > will only accept comments received for our site. Assuming we could
+> > find a
+> > more general method for avoiding spam, we would like to propose
+> > that this
+> > plugin is made generic and integrated into the WordPress codebase.
+> >
+> > If a user can authenticate to WordPress (either in the database of the
+> > WordPress installation, or against WordPress.com account for hosted
+> > blogs),
+> > this can be used to prove the users identity. Can't see any
+> > problems here.
+>
+> Comments that come with a valid username and password we could
+> consider trusted.
+>
+>
+> > The more tricky situation is where anonymous comments need to be
+> > posted. I
+> > see no reason why not to mandate the sending of name and email with
+> > the
+> > comment and follow standard comment filtering rules, but ideally we
+> > would
+> > have another level of security. One suggestion is to provide a
+> > trackback
+> > service, so a trackback url is posted with the comment, which
+> > WordPress can
+> > connect back on using some kind of unique identifier, and verify
+> > the service
+> > did actually send the comment.
+>
+> I suppose technically there's no difference between submitting a form
+> and providing an API, but it would be nice not to provide one more
+> way for spammers to submit junk.
+>
+>
+> > Another, slightly more complicated idea could be based around the
+> > principles
+> > of DomainKeys, a technology for email-spam avoidance
+> > (http://en.wikipedia.org/wiki/DomainKeys). The comment sender could
+> > sign the
+> > comment using a public/private key pair, the public key being
+> > posted in a
+> > DNS TXT record of the domain of the sender. This enables the receiving
+> > XMLRPC to verify that the comment is actually from the domain the
+> > sender
+> > says they are in. Unfortunately this doesn't actually solve the spam
+> > problem, it only allows receivers to verify the sender of the
+> > comment. This,
+> > however, could be the basis of a another solution which requires
+> > sender
+> > verification (e.g. A managed blacklist/whitelist).
+> >
+> > The plugin in its current form is available at
+> > http://croc.favsys.net/alex/wp_favorit.zip if anyone would like to
+> > take a
+> > look.
+>
+> I don't think it's worth having two separate methods for this, may as
+> well just have one.  Then if the username and password aren't
+> provided we treat it as an unauthenticated comment.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+

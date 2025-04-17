@@ -1,0 +1,445 @@
+From joseph at randomnetworks.com  Thu Apr  3 21:47:29 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Apr  3 21:47:54 2008
+Subject: [wp-xmlrpc] small change to the way <!--more--> works
+Message-ID: <7E386CCC-63D6-4AB9-982F-3D763242AE95@randomnetworks.com>
+
+
+A small change has gone into -trunk in the way that XML-RPC handles  
+<!--more--> for posts.  The new behavior should more closely match  
+the way that <!--more--> works in wp-admin.  All it does is remove  
+the new lines that were hard coded around <!--more--> in the XML-RPC  
+code.
+
+http://trac.wordpress.org/ticket/6016
+
+This will be in 2.6, but not 2.5.x releases.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From joseph at randomnetworks.com  Mon Apr  7 18:42:10 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Apr  7 19:17:29 2008
+Subject: [wp-xmlrpc] wrapping faultstring value with CDATA
+In-Reply-To: <BE3E341E-FDA0-4689-947B-3FB968709019@randomnetworks.com>
+References: <67131C5C-576E-439E-BF3B-E5208AF44664@randomnetworks.com>
+	<EF14FE208FC8364F94E8A58EF085979A21137C0968@NA-EXMSG-C109.redmond.corp.microsoft.com>
+	<BE3E341E-FDA0-4689-947B-3FB968709019@randomnetworks.com>
+Message-ID: <F3C5F9AC-EF4D-492F-8222-1214899E6038@randomnetworks.com>
+
+
+On Jan 14, 2008, at 9:51 AM, Joseph Scott wrote:
+
+> On Jan 14, 2008, at 9:23 AM, Joe Cheng wrote:
+>
+>> Is $this->message XML-escaped today? What happens, for example, if  
+>> the error message contains the '&' character--will it be properly  
+>> escaped to "&amp;"?
+>
+> My gut response was going to be yes, but then I tried it.  Turns  
+> out the answer is no :-(
+>
+> I've created a ticket for this issue: http://trac.wordpress.org/ 
+> ticket/5666
+
+
+
+Following up on this issue, Ryan has committed this change to -trunk  
+and the 2.5 branch, so we'll see this in any 2.5.x releases and 2.6.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From yahoo2 at yarrowsoft.com  Thu Apr 10 16:40:20 2008
+From: yahoo2 at yarrowsoft.com (Vladimir Yushko)
+Date: Thu Apr 10 16:43:40 2008
+Subject: [wp-xmlrpc] API for remote access to comments
+Message-ID: <001101c89b29$ddb15550$7e4d14ac@nota>
+
+Hello!
+
+I developed comment client for WordPress. Comment client is administrative
+tool for manage comments. First upload to your blog xml-rpc server:
+http://commentclient.com/download/xmlrpc-comments.php
+
+After install client (all Windows platforms supports, 1.6Mb):
+http://commentclient.com/download/wpcommentclientsetup.exe
+
+
+
+I need help and feedback. Please tell me about my software.
+
+--
+
+Best regards, Vladimir Yushko
+
+http://commentclient.com/
+From joseph at randomnetworks.com  Thu Apr 10 19:03:53 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Apr 10 19:04:25 2008
+Subject: [wp-xmlrpc] API for remote access to comments
+In-Reply-To: <001101c89b29$ddb15550$7e4d14ac@nota>
+References: <001101c89b29$ddb15550$7e4d14ac@nota>
+Message-ID: <D9B801B2-F18C-4424-BF60-7BF34EB0156B@randomnetworks.com>
+
+
+On Apr 10, 2008, at 10:40 AM, Vladimir Yushko wrote:
+
+> I developed comment client for WordPress. Comment client is  
+> administrative
+> tool for manage comments. First upload to your blog xml-rpc server:
+> http://commentclient.com/download/xmlrpc-comments.php
+>
+> After install client (all Windows platforms supports, 1.6Mb):
+> http://commentclient.com/download/wpcommentclientsetup.exe
+>
+> I need help and feedback. Please tell me about my software.
+
+
+Providing a way to manage comments via XML-RPC is something that  
+we've talked about before, so one of these days it will make it into  
+the core WordPress code.  We haven't really talked much about API  
+specifics yet though.
+
+When I get a chance I'll take a look at your xmlrpc-comments.php file.
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Sun Apr 13 05:44:23 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sun Apr 13 06:07:33 2008
+Subject: [wp-xmlrpc] Problems with dateCreated in metaWeblog.newPost/editPost
+Message-ID: <CC22BE99-1CD0-455C-9425-577F1115EB14@randomnetworks.com>
+
+
+Ticket 6612 ( http://trac.wordpress.org/ticket/6612 ) points to a  
+blog post ( http://www.franzone.com/2007/07/30/wordpress-xml-rpc- 
+patch-for-metweblog-newpost-method/ ) that details a problem with the  
+dateCreated field in metaWeblog.newPost/editPost.
+
+I was rather surprised to confirm this bug as detailed in the post.   
+I figured if we'd had this problem for so long, one of the blog  
+client authors would have complained about it before now :-)
+
+I've attached a simple patch to the ticket that addresses this  
+issue.  But date/time fields are particularly fragile in the current  
+blog APIs, so I'd really like to get some feed back from folks in the  
+field who have to deal with this before pressing forward.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From jalkut at red-sweater.com  Sun Apr 13 06:33:50 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun Apr 13 06:34:08 2008
+Subject: [wp-xmlrpc] Problems with dateCreated in
+	metaWeblog.newPost/editPost
+In-Reply-To: <CC22BE99-1CD0-455C-9425-577F1115EB14@randomnetworks.com>
+References: <CC22BE99-1CD0-455C-9425-577F1115EB14@randomnetworks.com>
+Message-ID: <438703AF-BC49-4C7D-AC35-51CABF1DB9F8@red-sweater.com>
+
+Joseph, I think your instinct to be skeptical because of the lack of  
+complaints among blog clients, is correct.
+
+Have you confirmed the problem? I just tested with MarsEdit and  
+setting a date on a new post seems fine, with a cargo like:
+
+			<member>
+			<name>dateCreated</name>
+			<value><dateTime.iso8601>20080414T06:27:14Z</dateTime.iso8601></ 
+value>
+			</member>
+
+There may be something nuanced that is wrong with the API, but it's  
+not affecting me. I suspect it's not affecting other clients, either.   
+I haven't looked closely at the fix that the bug reporter is  
+proposing. As long as it doesn't break the current working behavior  
+I'm not opposed to it.
+
+Daniel
+
+
+On Apr 13, 2008, at 1:44 AM, Joseph Scott wrote:
+>
+> Ticket 6612 ( http://trac.wordpress.org/ticket/6612 ) points to a  
+> blog post ( http://www.franzone.com/2007/07/30/wordpress-xml-rpc-patch-for-metweblog-newpost-method/ 
+>  ) that details a problem with the dateCreated field in  
+> metaWeblog.newPost/editPost.
+>
+> I was rather surprised to confirm this bug as detailed in the post.   
+> I figured if we'd had this problem for so long, one of the blog  
+> client authors would have complained about it before now :-)
+>
+> I've attached a simple patch to the ticket that addresses this  
+> issue.  But date/time fields are particularly fragile in the current  
+> blog APIs, so I'd really like to get some feed back from folks in  
+> the field who have to deal with this before pressing forward.
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Sun Apr 13 07:02:53 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Sun Apr 13 07:03:30 2008
+Subject: [wp-xmlrpc] Problems with dateCreated in
+	metaWeblog.newPost/editPost
+In-Reply-To: <438703AF-BC49-4C7D-AC35-51CABF1DB9F8@red-sweater.com>
+References: <CC22BE99-1CD0-455C-9425-577F1115EB14@randomnetworks.com>
+	<438703AF-BC49-4C7D-AC35-51CABF1DB9F8@red-sweater.com>
+Message-ID: <FECD7297-8C19-4AAE-9B85-AF72EDA8132D@randomnetworks.com>
+
+
+On Apr 13, 2008, at 12:33 AM, Daniel Jalkut wrote:
+
+> Joseph, I think your instinct to be skeptical because of the lack  
+> of complaints among blog clients, is correct.
+>
+> Have you confirmed the problem? I just tested with MarsEdit and  
+> setting a date on a new post seems fine, with a cargo like:
+>
+> 			<member>
+> 			<name>dateCreated</name>
+> 			<value><dateTime.iso8601>20080414T06:27:14Z</dateTime.iso8601></ 
+> value>
+> 			</member>
+>
+> There may be something nuanced that is wrong with the API, but it's  
+> not affecting me. I suspect it's not affecting other clients,  
+> either.  I haven't looked closely at the fix that the bug reporter  
+> is proposing. As long as it doesn't break the current working  
+> behavior I'm not opposed to it.
+
+
+Thanks Daniel.  I suspect what was happening is that they were  
+sending the date as a string instead of dateTime.iso8601.  I'm not  
+sure why I didn't think about that earlier.
+
+I'll follow up with the ticket on Monday.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From toby at simmonsconsulting.com  Mon Apr 14 15:28:09 2008
+From: toby at simmonsconsulting.com (Toby Simmons)
+Date: Mon Apr 14 15:28:24 2008
+Subject: [wp-xmlrpc] Problems with dateCreated
+	in	metaWeblog.newPost/editPost
+In-Reply-To: <FECD7297-8C19-4AAE-9B85-AF72EDA8132D@randomnetworks.com>
+References: <CC22BE99-1CD0-455C-9425-577F1115EB14@randomnetworks.com>	<438703AF-BC49-4C7D-AC35-51CABF1DB9F8@red-sweater.com>
+	<FECD7297-8C19-4AAE-9B85-AF72EDA8132D@randomnetworks.com>
+Message-ID: <003201c89e44$254b0f60$6fe12e20$@com>
+
+Just to confirm, Zempt has no problems specifying a date in a new post with
+payload of with 2.5 off the shelf
+
+<member>
+<name>dateCreated</name>
+<value><dateTime.iso8601>20080412T07:00:00Z</dateTime.iso8601></value>
+</member>
+
+
+
+___________________________________
+W. Tobias Simmons
+Simmons Consulting, Web Design and Marketing
+toby@simmonsconsulting.com
+http://www.simmonsconsulting.com
+Phone: 501.821.4230 / Fax: 501.244.4416
+-----Original Message-----
+From: Joseph Scott [mailto:joseph@randomnetworks.com] 
+Sent: Sunday, April 13, 2008 2:03 AM
+To: wp-xmlrpc@lists.automattic.com
+Subject: Re: [wp-xmlrpc] Problems with dateCreated in
+metaWeblog.newPost/editPost
+
+
+On Apr 13, 2008, at 12:33 AM, Daniel Jalkut wrote:
+
+> Joseph, I think your instinct to be skeptical because of the lack  
+> of complaints among blog clients, is correct.
+>
+> Have you confirmed the problem? I just tested with MarsEdit and  
+> setting a date on a new post seems fine, with a cargo like:
+>
+> 			<member>
+> 			<name>dateCreated</name>
+>
+<value><dateTime.iso8601>20080414T06:27:14Z</dateTime.iso8601></ 
+> value>
+> 			</member>
+>
+> There may be something nuanced that is wrong with the API, but it's  
+> not affecting me. I suspect it's not affecting other clients,  
+> either.  I haven't looked closely at the fix that the bug reporter  
+> is proposing. As long as it doesn't break the current working  
+> behavior I'm not opposed to it.
+
+
+Thanks Daniel.  I suspect what was happening is that they were  
+sending the date as a string instead of dateTime.iso8601.  I'm not  
+sure why I didn't think about that earlier.
+
+I'll follow up with the ticket on Monday.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+
+
+From joseph at randomnetworks.com  Wed Apr 16 03:49:25 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Apr 16 03:49:59 2008
+Subject: [wp-xmlrpc] exif warnings in XML-RPC responses
+Message-ID: <3A70670E-666B-42C2-BBB0-6F3866F666C2@randomnetworks.com>
+
+
+Some of you may have run into malformed XML-RPC responses from 2.5  
+blogs because of an image processing function (exif).
+
+http://trac.wordpress.org/ticket/6571
+
+This is just a heads up that issue has been addressed in -trunk and  
+the 2.5 branch.
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From joseph at randomnetworks.com  Fri Apr 25 20:07:07 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Apr 25 20:07:29 2008
+Subject: [wp-xmlrpc] WordPress 2.5.1
+Message-ID: <D1A3442A-6E7B-43F4-ABC9-4EF6201F707B@randomnetworks.com>
+
+
+WordPress 2.5.1 was released this morning:
+
+http://wordpress.org/development/2008/04/wordpress-251/
+
+There are two XML-RPC specific fixes in this release:
+
+	faultString in xmlrpc responses is not properly escaped
+	http://trac.wordpress.org/ticket/5666
+
+	Warnings from EXIF reader cause malformed XMLRPC responses
+	http://trac.wordpress.org/ticket/6571
+
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+
+From jalkut at red-sweater.com  Fri Apr 25 20:08:29 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Fri Apr 25 20:08:51 2008
+Subject: [wp-xmlrpc] WordPress 2.5.1
+In-Reply-To: <D1A3442A-6E7B-43F4-ABC9-4EF6201F707B@randomnetworks.com>
+References: <D1A3442A-6E7B-43F4-ABC9-4EF6201F707B@randomnetworks.com>
+Message-ID: <57D887CE-9E20-4F7D-9E6D-DFF2FC38EC46@red-sweater.com>
+
+Awesome!
+
+On Apr 25, 2008, at 4:07 PM, Joseph Scott wrote:
+
+>
+> WordPress 2.5.1 was released this morning:
+>
+> http://wordpress.org/development/2008/04/wordpress-251/
+>
+> There are two XML-RPC specific fixes in this release:
+>
+> 	faultString in xmlrpc responses is not properly escaped
+> 	http://trac.wordpress.org/ticket/5666
+>
+> 	Warnings from EXIF reader cause malformed XMLRPC responses
+> 	http://trac.wordpress.org/ticket/6571
+>
+>
+>
+> --
+> Joseph Scott
+> joseph@randomnetworks.com
+> http://joseph.randomnetworks.com/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+From joseph at randomnetworks.com  Mon Apr 28 20:41:59 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Apr 28 20:42:17 2008
+Subject: [wp-xmlrpc] enclosure support for metaWeblog.newPost/editPost
+Message-ID: <5332CABB-D45C-4B80-97CE-853D089BC119@randomnetworks.com>
+
+
+Support for the enclosure element in metaWeblog.newPost/editPost was  
+added to -trunk today:
+
+http://trac.wordpress.org/ticket/3405
+http://trac.wordpress.org/changeset/7847
+
+Please test this out and let us know if there are any issues.  This  
+will be part of the 2.6 release, so we'd like to have any problems  
+with enclosures via XML-RPC resolved before then.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+

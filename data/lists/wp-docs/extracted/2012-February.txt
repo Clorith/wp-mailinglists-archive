@@ -1,0 +1,527 @@
+From sergeybiryukov.ru at gmail.com  Wed Feb  1 14:43:36 2012
+From: sergeybiryukov.ru at gmail.com (Sergey Biryukov)
+Date: Wed, 1 Feb 2012 18:43:36 +0400
+Subject: [wp-docs] wp_enqueue_script ... "can lead to problems"
+In-Reply-To: <CAK--mtqeBqDtENV-VLrTVVdj9WbK5Z6--sM2P9SWtC5oMOt=yA@mail.gmail.com>
+References: <CAK--mtqeBqDtENV-VLrTVVdj9WbK5Z6--sM2P9SWtC5oMOt=yA@mail.gmail.com>
+Message-ID: <CADVFKcvm1hXqh04+ZZr3bRE+J1w6T0D6BbE7YENjS8i1tj6_bw@mail.gmail.com>
+
+On Mon, Jan 30, 2012 at 2:32 PM, Ghodmode <ghodmode at ghodmode.com> wrote:
+> The ticket has already been fixed and there isn't any other supporting
+> reason not to use wp_enqueue_script. ?Also, the function is called
+> directly in current themes, including twentyeleven.
+>
+> This statement should be removed, shouldn't it?
+
+No. Calling wp_enqueue_script() directly would produce a
+_doing_it_wrong() notice with WP_DEBUG on (that was the consensus in
+the ticket) and still cause i18n problems (all JavaScript strings will
+be displayed in English).
+
+Twenty Ten and Twenty Eleven only call it directly in header.php,
+which is after WP_Scripts is properly initialized and therefore is
+safe.
+
+From ecordulack at gmail.com  Wed Feb  1 15:23:43 2012
+From: ecordulack at gmail.com (Evan Cordulack)
+Date: Wed, 1 Feb 2012 10:23:43 -0500
+Subject: [wp-docs] WordPress Guide in Codex
+Message-ID: <E2C57A8F-8037-4294-910C-2CA026A67B65@gmail.com>
+
+Hi All,
+
+Lorelle (and andrea_r) mentioned getting a WordPress Guide together at the end of December.  I am curious if this project was going ahead and if I can sign on to help.  (My apologies if this was better suited for a personal email, but since I hadn't seen the guide mentioned recently on list, I figured I would send it here.)
+
+Thanks!
+
+Evan Cordulack
+
+Web Applications Specialist - Academic
+College of William & Mary
+Williamsburg, VA 23185
+eacord at wm.edu
+
+
+
+
+
+From lorelleonwordpress at gmail.com  Thu Feb  2 19:17:35 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Thu, 2 Feb 2012 11:17:35 -0800
+Subject: [wp-docs] WordPress Guide in Codex
+In-Reply-To: <E2C57A8F-8037-4294-910C-2CA026A67B65@gmail.com>
+References: <E2C57A8F-8037-4294-910C-2CA026A67B65@gmail.com>
+Message-ID: <CAN2v4ZTUY9Use1EEHJ6YYG8EPcZB=T5u7iO3AxaCSbgCuC58Qg@mail.gmail.com>
+
+If you are on the WordPress Documentation team mailing list, you are signed
+up. The WordPress Codex is the WordPress Guide. Was there something else
+you thought it was? Did I miss something? You can contact me directly at
+lorelleonwordpress at gmail.com any time if you wish.
+
+If you wish to participate on the WordPress Codex documentation team and
+contribute to the Codex, welcome! Wonderful!
+
+Thanks,
+
+Lorelle
+
+
+On Wed, Feb 1, 2012 at 7:23 AM, Evan Cordulack <ecordulack at gmail.com> wrote:
+
+> Hi All,
+>
+> Lorelle (and andrea_r) mentioned getting a WordPress Guide together at the
+> end of December.  I am curious if this project was going ahead and if I can
+> sign on to help.  (My apologies if this was better suited for a personal
+> email, but since I hadn't seen the guide mentioned recently on list, I
+> figured I would send it here.)
+>
+> Thanks!
+>
+> Evan Cordulack
+>
+> Web Applications Specialist - Academic
+> College of William & Mary
+> Williamsburg, VA 23185
+> eacord at wm.edu
+>
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120202/034f1f88/attachment.htm>
+
+From rod.whiteley at gmail.com  Sat Feb  4 11:38:32 2012
+From: rod.whiteley at gmail.com (Rod Whiteley)
+Date: Sat, 4 Feb 2012 11:38:32 +0000
+Subject: [wp-docs] Action hooks
+Message-ID: <CABMPDWEUspRUhBDwdPTraxGrYcV1-1NTEdOMC07JZ2u=7cEvAg@mail.gmail.com>
+
+I notice that only a few of the many action hooks are documented.
+
+A stub article for each action hook could be produced automatically by
+parsing WordPress code. It is not possible to document them fully in
+this way, but I think it would be better than nothing. These stubs
+could be a one-time import into the Codex as a starting point for
+manual editing.
+
+I have a prototype that produces 480 articles in about 80 new
+subcategories of Category:Actions. See: http://wiki.co-synergy.com
+
+Is this a worthwhile exercise?
+
+-- 
+Rod
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120204/344fab83/attachment.htm>
+
+From eric.andrew.lewis at gmail.com  Sat Feb  4 18:24:39 2012
+From: eric.andrew.lewis at gmail.com (Eric Lewis)
+Date: Sat, 4 Feb 2012 13:24:39 -0500
+Subject: [wp-docs] Action hooks
+In-Reply-To: <CABMPDWEUspRUhBDwdPTraxGrYcV1-1NTEdOMC07JZ2u=7cEvAg@mail.gmail.com>
+References: <CABMPDWEUspRUhBDwdPTraxGrYcV1-1NTEdOMC07JZ2u=7cEvAg@mail.gmail.com>
+Message-ID: <CAMi+fEnHSMvLYU19QqGwggtnQ_2mu2jO3OEKgcaRbvbOD-4xtA@mail.gmail.com>
+
+I hold absolutely no sway in this but I support parsing PHPDoc to
+automatically add codex pages for every hook and function in WordPress.
+
+Eric
+
+On Sat, Feb 4, 2012 at 6:38 AM, Rod Whiteley <rod.whiteley at gmail.com> wrote:
+
+> I notice that only a few of the many action hooks are documented.
+>
+> A stub article for each action hook could be produced automatically by
+> parsing WordPress code. It is not possible to document them fully in
+> this way, but I think it would be better than nothing. These stubs
+> could be a one-time import into the Codex as a starting point for
+> manual editing.
+>
+> I have a prototype that produces 480 articles in about 80 new
+> subcategories of Category:Actions. See: http://wiki.co-synergy.com
+>
+> Is this a worthwhile exercise?
+>
+> --
+> Rod
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120204/68fb16b8/attachment.htm>
+
+From eric.andrew.lewis at gmail.com  Tue Feb 21 00:38:43 2012
+From: eric.andrew.lewis at gmail.com (Eric Lewis)
+Date: Mon, 20 Feb 2012 19:38:43 -0500
+Subject: [wp-docs] #wordpress-codex IRC?
+Message-ID: <CAMi+fEnOfgdUjHuVQTD9eTZfa6oi4z8FMKzfa3pSJr7125===Q@mail.gmail.com>
+
+Not sure if this idea has been floated before, but what does everybody
+think of an IRC room for the Codex chatter? Even if it turns out to be a
+place for very minor discussion, it might be a good community builder for
+codex contributors, general discussion of codex development, etc. Perhaps
+#wordpress-codex?
+
+Eric
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/283dded4/attachment.htm>
+
+From wordpress at danielbachhuber.com  Tue Feb 21 00:41:28 2012
+From: wordpress at danielbachhuber.com (Daniel Bachhuber)
+Date: Mon, 20 Feb 2012 16:41:28 -0800
+Subject: [wp-docs] #wordpress-codex IRC?
+In-Reply-To: <CAMi+fEnOfgdUjHuVQTD9eTZfa6oi4z8FMKzfa3pSJr7125===Q@mail.gmail.com>
+References: <CAMi+fEnOfgdUjHuVQTD9eTZfa6oi4z8FMKzfa3pSJr7125===Q@mail.gmail.com>
+Message-ID: <4F42E838.6040202@danielbachhuber.com>
+
+I like the idea. I've been meaning to start updating some of the codex 
+content around performance and IRC seems like it'd be a quicker way to 
+collaborate
+
+> Eric Lewis <mailto:eric.andrew.lewis at gmail.com>
+> February 20, 2012 4:38 PM
+> Not sure if this idea has been floated before, but what does everybody 
+> think of an IRC room for the Codex chatter? Even if it turns out to be 
+> a place for very minor discussion, it might be a good community 
+> builder for codex contributors, general discussion of codex 
+> development, etc. Perhaps #wordpress-codex?
+>
+> Eric
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/dc00db7c/attachment.htm>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: postbox-contact.jpg
+Type: image/jpeg
+Size: 1230 bytes
+Desc: not available
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/dc00db7c/attachment.jpg>
+
+From jane at automattic.com  Tue Feb 21 00:43:14 2012
+From: jane at automattic.com (Jane Wells)
+Date: Mon, 20 Feb 2012 19:43:14 -0500
+Subject: [wp-docs] #wordpress-codex IRC?
+In-Reply-To: <CAMi+fEnOfgdUjHuVQTD9eTZfa6oi4z8FMKzfa3pSJr7125===Q@mail.gmail.com>
+References: <CAMi+fEnOfgdUjHuVQTD9eTZfa6oi4z8FMKzfa3pSJr7125===Q@mail.gmail.com>
+Message-ID: <4F42E8A2.1080703@automattic.com>
+
+#wordpress-docs would be better and straddle more methods of 
+contribution (could include help tabs, any future non-codex docs, etc). 
+I can have sivel set it up if people think they would use it.
+j
+
+On 2/20/12 7:38 PM, Eric Lewis wrote:
+> Not sure if this idea has been floated before, but what does everybody 
+> think of an IRC room for the Codex chatter? Even if it turns out to be 
+> a place for very minor discussion, it might be a good community 
+> builder for codex contributors, general discussion of codex 
+> development, etc. Perhaps #wordpress-codex?
+>
+> Eric
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/a4ba04be/attachment.htm>
+
+From michael.d.beckwith at gmail.com  Tue Feb 21 01:06:01 2012
+From: michael.d.beckwith at gmail.com (Michael Beckwith)
+Date: Mon, 20 Feb 2012 19:06:01 -0600
+Subject: [wp-docs] #wordpress-codex IRC?
+In-Reply-To: <4F42E8A2.1080703@automattic.com>
+References: <CAMi+fEnOfgdUjHuVQTD9eTZfa6oi4z8FMKzfa3pSJr7125===Q@mail.gmail.com>
+	<4F42E8A2.1080703@automattic.com>
+Message-ID: <CAB+4Ooqn5nSu5Hy9-i85X68UBhFNFykA8DMOkGAiy9TAWk8U5A@mail.gmail.com>
+
+It'd likely join my auto-join rooms.
+
+On Mon, Feb 20, 2012 at 6:43 PM, Jane Wells <jane at automattic.com> wrote:
+
+>  #wordpress-docs would be better and straddle more methods of contribution
+> (could include help tabs, any future non-codex docs, etc). I can have sivel
+> set it up if people think they would use it.
+> j
+>
+> On 2/20/12 7:38 PM, Eric Lewis wrote:
+>
+> Not sure if this idea has been floated before, but what does everybody
+> think of an IRC room for the Codex chatter? Even if it turns out to be a
+> place for very minor discussion, it might be a good community builder for
+> codex contributors, general discussion of codex development, etc. Perhaps
+> #wordpress-codex?
+>
+>  Eric
+>
+>
+> _______________________________________________
+> wp-docs mailing listwp-docs at lists.automattic.comhttp://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/2bee381a/attachment.htm>
+
+From lorellevan at gmail.com  Tue Feb 21 01:10:59 2012
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Mon, 20 Feb 2012 17:10:59 -0800
+Subject: [wp-docs] Fwd: Re:  #wordpress-codex IRC?
+Message-ID: <18h655ghh5u36bg6xgekasc1.1329786659183@email.android.com>
+
+There has long been an irc for the docs team. it's featured in the Coded on the mailing list and contributors page. We created it in 2004.
+
+Lorelle
+
+
+Sent from my Samsung Epic? 4G Touch
+
+-------- Original message --------
+Subject: Re: [wp-docs] #wordpress-codex IRC? 
+From: Jane Wells <jane at automattic.com> 
+To: wp-docs at lists.automattic.com 
+CC:  
+
+?? ? #wordpress-docs would be better and straddle more methods of contribution (could include help tabs, any future non-codex docs, etc). I can have sivel set it up if people think they would use it.
+j
+
+On 2/20/12 7:38 PM, Eric Lewis wrote:
+Not sure if this idea has been floated before, but what does everybody think of an IRC room for the Codex chatter? Even if it turns out to be a place for very minor discussion, it might be a good community builder for codex contributors, general discussion of codex development, etc. Perhaps #wordpress-codex?
+
+Eric
+
+
+_______________________________________________
+wp-docs mailing list
+wp-docs at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/c0c661fc/attachment.htm>
+
+From lorellevan at gmail.com  Tue Feb 21 01:12:14 2012
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Mon, 20 Feb 2012 17:12:14 -0800
+Subject: [wp-docs] #wordpress-codex IRC?
+Message-ID: <4hxhmsacug7vo5beicmxa5q7.1329786734879@email.android.com>
+
+There has long been an IRC channel for the docs team. It is featured on the mailing list and contributors page in the Views. We started it in 2004.
+
+Lorelle?
+
+
+Sent from my Samsung Epic? 4G Touch
+
+-------- Original message --------
+Subject: Re: [wp-docs] #wordpress-codex IRC? 
+From: Jane Wells <jane at automattic.com> 
+To: wp-docs at lists.automattic.com 
+CC:  
+
+null
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/28cb3b72/attachment-0001.htm>
+
+From lorellevan at gmail.com  Tue Feb 21 01:16:14 2012
+From: lorellevan at gmail.com (Lorelle VanFossen)
+Date: Mon, 20 Feb 2012 17:16:14 -0800
+Subject: [wp-docs] #wordpress-codex IRC?
+Message-ID: <5y4hl282ygt0am01gfmn20l1.1329786919783@email.android.com>
+
+Most of the docs team haven't used the IRC channel in ages. It didn't fit into most contributors familiarity with such communications. We used it only during highly active campaigns.
+
+Remember that the docs team is a very diverse group with many with little such experience.
+
+I miss it but it took too much work to train people to use it. It also doesn't save very well for reference.
+
+Lorelle
+
+Sent from my Samsung Epic? 4G Touch
+
+-------- Original message --------
+Subject: Re: [wp-docs] #wordpress-codex IRC? 
+From: Daniel Bachhuber <wordpress at danielbachhuber.com> 
+To: WordPress Documentation <wp-docs at lists.automattic.com> 
+CC:  
+
+null
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/9f125397/attachment.htm>
+
+From jane at automattic.com  Tue Feb 21 01:30:36 2012
+From: jane at automattic.com (Jane Wells)
+Date: Mon, 20 Feb 2012 20:30:36 -0500
+Subject: [wp-docs] #wordpress-codex IRC?
+In-Reply-To: <5y4hl282ygt0am01gfmn20l1.1329786919783@email.android.com>
+References: <5y4hl282ygt0am01gfmn20l1.1329786919783@email.android.com>
+Message-ID: <4F42F3BC.8000001@automattic.com>
+
+On 2/20/12, Lorelle VanFossen wrote:
+> There has long been an IRC channel for the docs team. It is featured 
+> on the mailing list and contributors page in the Views. We started it 
+> in 2004.
+I'm not sure where you mean by "in the Views" -- can you give a URL? 
+Nothing for docs is listed at http://codex.wordpress.org/IRC.
+
+> It also doesn't save very well for reference.
+Here's the list of official channels that are logged. 
+https://irclogs.wordpress.org/
+If we want to have an official docs channel, it's a simple thing to add 
+it to the list for archiving.
+j
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/8202aa6e/attachment.htm>
+
+From eric.andrew.lewis at gmail.com  Tue Feb 21 01:42:30 2012
+From: eric.andrew.lewis at gmail.com (Eric Lewis)
+Date: Mon, 20 Feb 2012 20:42:30 -0500
+Subject: [wp-docs] #wordpress-codex IRC?
+In-Reply-To: <5y4hl282ygt0am01gfmn20l1.1329786919783@email.android.com>
+References: <5y4hl282ygt0am01gfmn20l1.1329786919783@email.android.com>
+Message-ID: <CAMi+fEmtiXt=nCvJEo7X_UZiYjTch7T4OEmykb9eUd=T-uuJ_w@mail.gmail.com>
+
+Just FYI, as I write this I'm answering someone's question about editing a
+codex page in #wordpress-docs.
+
+Just my humble opinion: IRC lends to creating a highly active,
+fast-developing community. WordPress core development groups have weekly
+meetings on IRC to plan, review and mobilize, which I also might even
+suggest for the codex, although I'm relatively new here and don't want to
+step on any toes with tons of suggestions.
+
+Setting up an IRC client is something that could be laid out in a tutorial
+in a matter of a few screenshots and simple layperson text, which I would
+be happy to help with. :)
+
+See yall in #wordpress-docs maybe?
+
+Eric
+
+On Mon, Feb 20, 2012 at 8:16 PM, Lorelle VanFossen <lorellevan at gmail.com>wrote:
+
+> Most of the docs team haven't used the IRC channel in ages. It didn't fit
+> into most contributors familiarity with such communications. We used it
+> only during highly active campaigns.
+>
+> Remember that the docs team is a very diverse group with many with little
+> such experience.
+>
+> I miss it but it took too much work to train people to use it. It also
+> doesn't save very well for reference.
+>
+> Lorelle
+>
+> Sent from my Samsung Epic? 4G Touch
+>
+>
+>
+> -------- Original message --------
+> Subject: Re: [wp-docs] #wordpress-codex IRC?
+> From: Daniel Bachhuber <wordpress at danielbachhuber.com>
+> To: WordPress Documentation <wp-docs at lists.automattic.com>
+> CC:
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/d7cb3502/attachment.htm>
+
+From lorelleonwordpress at gmail.com  Tue Feb 21 02:17:53 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Mon, 20 Feb 2012 18:17:53 -0800
+Subject: [wp-docs] #wordpress-codex IRC?
+In-Reply-To: <4F42F3BC.8000001@automattic.com>
+References: <5y4hl282ygt0am01gfmn20l1.1329786919783@email.android.com>
+	<4F42F3BC.8000001@automattic.com>
+Message-ID: <CAN2v4ZSudLa5KJkbLfQFtmTeLoiAJdP_5DMg18SwCCc93hOH7g@mail.gmail.com>
+
+Sorry, I was in the car stuck in traffic.
+
+It appears it was removed, put back  in, and removed, etc. as several of us
+maintained it alone for years with rarely a visitor.
+
+http://codex.wordpress.org/index.php?title=IRC&diff=111478&oldid=17564 is
+one example.
+
+#wordpress-docs was the channel.
+
+I'm thrilled if the team would like to give IRC another try. However, the
+key editors and experts on the Codex may not be able to monitor it so
+someone must report back in. We're still waiting on an official docs P2 or
+otherwise blog which we feel will be much more helpful than the mailing
+list or IRC for tracking tasks.
+
+Thanks for the irclogs site. That will be very helpful.
+
+Lorelle
+
+
+On Mon, Feb 20, 2012 at 5:30 PM, Jane Wells <jane at automattic.com> wrote:
+
+>  On 2/20/12, Lorelle VanFossen wrote:
+>
+> There has long been an IRC channel for the docs team. It is featured on
+> the mailing list and contributors page in the Views. We started it in 2004.
+>
+> I'm not sure where you mean by "in the Views" -- can you give a URL?
+> Nothing for docs is listed at http://codex.wordpress.org/IRC.
+>
+>
+> It also doesn't save very well for reference.
+>
+> Here's the list of official channels that are logged.
+> https://irclogs.wordpress.org/
+> If we want to have an official docs channel, it's a simple thing to add it
+> to the list for archiving.
+> j
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120220/c071a27e/attachment.htm>
+

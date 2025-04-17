@@ -1,0 +1,957 @@
+From fuzzyman at voidspace.org.uk  Thu Dec  1 15:35:49 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Thu, 01 Dec 2005 15:35:49 +0000
+Subject: [spam-stopper] API documentation
+In-Reply-To: <438E344B.9060405@mullenweg.com>
+References: <438E344B.9060405@mullenweg.com>
+Message-ID: <438F1855.1090907@voidspace.org.uk>
+
+Matt Mullenweg wrote:
+
+> First draft:
+>
+> http://akismet.com/development/api/
+>
+Thanks - this looks very useful.
+
+For reference I have started work on a Python interface to the API.
+
+I expect to have a 'beta' version ready by Monday or so.
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From kemayo at gmail.com  Thu Dec  1 20:18:24 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Thu, 1 Dec 2005 12:18:24 -0800
+Subject: [spam-stopper] Quirky error message
+Message-ID: <31f450f50512011218i40175285r1f56540155eb8cbf@mail.gmail.com>
+
+What am I getting wrong if comment-check is returning "Howdy, Wilbur."?
+
+I'm using an API key that checks out as valid when I use verify-key. 
+I'm submitting barebones data - only the stuff which the API docs say
+are required - blog, userip, user_agent, and comment_content.
+
+Thanks,
+David Lynch
+http://www.ficwad.com
+
+
+From kemayo at gmail.com  Thu Dec  1 21:05:38 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Thu, 1 Dec 2005 13:05:38 -0800
+Subject: [spam-stopper] Re: Quirky error message
+In-Reply-To: <31f450f50512011218i40175285r1f56540155eb8cbf@mail.gmail.com>
+References: <31f450f50512011218i40175285r1f56540155eb8cbf@mail.gmail.com>
+Message-ID: <31f450f50512011305rf9e741atdfda385e3716ef11@mail.gmail.com>
+
+Sorry, for reference here's the code that I'm using:
+
+http://www.kemayo.com/python/akismet/akismet.py
+
+On 12/1/05, David Lynch <kemayo at gmail.com> wrote:
+> What am I getting wrong if comment-check is returning "Howdy, Wilbur."?
+>
+> I'm using an API key that checks out as valid when I use verify-key.
+> I'm submitting barebones data - only the stuff which the API docs say
+> are required - blog, userip, user_agent, and comment_content.
+>
+> Thanks,
+> David Lynch
+> http://www.ficwad.com
+>
+
+
+From m at mullenweg.com  Fri Dec  2 00:02:13 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 01 Dec 2005 16:02:13 -0800
+Subject: [spam-stopper] Quirky error message
+In-Reply-To: <31f450f50512011218i40175285r1f56540155eb8cbf@mail.gmail.com>
+References: <31f450f50512011218i40175285r1f56540155eb8cbf@mail.gmail.com>
+Message-ID: <438F8F05.9020405@mullenweg.com>
+
+David Lynch wrote:
+> What am I getting wrong if comment-check is returning "Howdy, Wilbur."?
+
+That means you're missing a required field, like ip address.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From kemayo at gmail.com  Fri Dec  2 00:13:45 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Thu, 1 Dec 2005 16:13:45 -0800
+Subject: [spam-stopper] Quirky error message
+In-Reply-To: <438F8F05.9020405@mullenweg.com>
+References: <31f450f50512011218i40175285r1f56540155eb8cbf@mail.gmail.com>
+	<438F8F05.9020405@mullenweg.com>
+Message-ID: <31f450f50512011613n31e0474eodabc8d5970e60d12@mail.gmail.com>
+
+Ah, right.  Well, I feel embarassed.  (Typo in the user_ip key.)
+
+Thanks for the help!
+
+On 12/1/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> David Lynch wrote:
+> > What am I getting wrong if comment-check is returning "Howdy, Wilbur."?
+>
+> That means you're missing a required field, like ip address.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://akismet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+From kemayo at gmail.com  Fri Dec  2 00:15:29 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Thu, 1 Dec 2005 16:15:29 -0800
+Subject: [spam-stopper] Python API
+In-Reply-To: <20051130191818.GA24532@myelin.co.nz>
+References: <438C53FE.4020506@voidspace.org.uk>
+	<20051129205455.GA27987@myelin.co.nz>
+	<438D61EF.3080000@voidspace.org.uk>
+	<20051130102415.GA12999@myelin.co.nz> <438D8239.808@boakes.org>
+	<20051130191818.GA24532@myelin.co.nz>
+Message-ID: <31f450f50512011615l6325fa1dh3443bacc38c9ea4f@mail.gmail.com>
+
+Here's a basically functional Python Akismet interface.
+
+http://www.kemayo.com/python/akismet/akismet.py
+
+It's nicely 0.1, and thus is light on the documentation.
+
+If there are any problems, let me know.
+
+David
+http://www.ficwad.com/
+
+On 11/30/05, Phillip Pearson <pp at myelin.co.nz> wrote:
+> Aha, I missed that bit :-)
+>
+> So THAT'S why the ksd_* functions use $ksd_api_host while verify-key
+> goes straight to rest.akismet.com.
+>
+> That answers the question/concern nicely.  I'm sure the key is
+> checked.
+>
+> (Just goes to show: you shouldn't implement something just by looking
+> at the source, because you'll miss the important bits... you've gotta
+> snoop the HTTP connections to see what's REALLY going on!)
+>
+> Cheers,
+> Phil
+>
+> On Wed, Nov 30, 2005 at 10:43:05AM +0000, rich boakes wrote:
+> > Phillip Pearson wrote:
+> >
+> > >It seems odd, though, that comment-check, submit-spam and submit-ham
+> > >don't seem to require the 'key' argument.
+> >
+> > Hi Phil,
+> >
+> > In the latest version of Akismet (1.11),
+> > line 72, which sets the akismet host, reads:
+> >
+> > $ksd_api_host = get('wordpress_api_key') .
+> > '.rest.akismet.com';
+> >
+> > So they key is encoded into the connection
+> > rather than being passed as a parameter, and is
+> > therefore available for the server to check.
+> >
+> > Whether or not the key _is_ checked by the
+> > server I'll have to leave to Matt to confirm.
+> >
+> > Rich
+> > --
+> > http://boakes.org/
+> > http://dsg.port.ac.uk/~rjb/
+> >
+> > _______________________________________________
+> > spam-stopper mailing list
+> > spam-stopper at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/spam-stopper
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+From m at mullenweg.com  Fri Dec  2 02:13:56 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 01 Dec 2005 18:13:56 -0800
+Subject: [spam-stopper] Python API
+In-Reply-To: <31f450f50512011615l6325fa1dh3443bacc38c9ea4f@mail.gmail.com>
+References: <438C53FE.4020506@voidspace.org.uk>	<20051129205455.GA27987@myelin.co.nz>	<438D61EF.3080000@voidspace.org.uk>	<20051130102415.GA12999@myelin.co.nz>
+	<438D8239.808@boakes.org>	<20051130191818.GA24532@myelin.co.nz>
+	<31f450f50512011615l6325fa1dh3443bacc38c9ea4f@mail.gmail.com>
+Message-ID: <438FADE4.9090303@mullenweg.com>
+
+David Lynch wrote:
+> Here's a basically functional Python Akismet interface.
+> 
+> http://www.kemayo.com/python/akismet/akismet.py
+> 
+> It's nicely 0.1, and thus is light on the documentation.
+> 
+> If there are any problems, let me know.
+
+That looks pretty cool. If you blog it I'll link to it and maybe some 
+other python folks would be interested.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From kemayo at gmail.com  Fri Dec  2 06:43:20 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Thu, 1 Dec 2005 22:43:20 -0800
+Subject: [spam-stopper] Python API
+In-Reply-To: <438FADE4.9090303@mullenweg.com>
+References: <438C53FE.4020506@voidspace.org.uk>
+	<20051129205455.GA27987@myelin.co.nz>
+	<438D61EF.3080000@voidspace.org.uk>
+	<20051130102415.GA12999@myelin.co.nz> <438D8239.808@boakes.org>
+	<20051130191818.GA24532@myelin.co.nz>
+	<31f450f50512011615l6325fa1dh3443bacc38c9ea4f@mail.gmail.com>
+	<438FADE4.9090303@mullenweg.com>
+Message-ID: <31f450f50512012243n3b91c6b1y60bd89ef55857e9a@mail.gmail.com>
+
+On 12/1/05, Matt Mullenweg <m at mullenweg.com> wrote:
+>
+> That looks pretty cool. If you blog it I'll link to it and maybe some
+> other python folks would be interested.
+>
+
+Sounds good to me.  I've tweaked it up to have function documentation
+comments, written a brief example of usage, and put everything here:
+
+http://kemayo.wordpress.com/2005/12/02/akismet-py/
+
+David
+http://www.ficwad.com/
+
+
+From fuzzyman at voidspace.org.uk  Fri Dec  2 09:33:49 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 02 Dec 2005 09:33:49 +0000
+Subject: [spam-stopper] Another Python API
+Message-ID: <439014FD.9000707@voidspace.org.uk>
+
+Hello All,
+
+Hmmm... well I completed my Python API last night as well. Looks like
+there are two :-)
+
+http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=akismet-0.1.0.zip
+
+Mine is implemented differently - as a single class (using urllib2
+rather than httplib). There is sufficient documentation in the code.
+
+It can read the api key and blog url from a text file called 'apikey.txt'
+
+agent = 'Your program name'
+from akismet import Akismet
+api = Akismet(agent=agent)
+# this reads 'apikey.txt' automatically
+# or call :
+# api = Akismet(key, blog_url, agent=agent)
+check = api.verify_key()
+test = api.check_comment(comment, data)
+
+etc...
+
+I also wrote a test CGI to check the interface - before I plug it into
+my application. The verify key part works - unfortunately akismet seems
+to be marking all comments I make to my CGI as spam ???
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From fuzzyman at voidspace.org.uk  Fri Dec  2 09:34:45 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 02 Dec 2005 09:34:45 +0000
+Subject: [spam-stopper] check-comment function
+Message-ID: <43901535.9080305@voidspace.org.uk>
+
+Hello all,
+
+The API documentation says of the comment-check function :
+
+    "This call returns either "true" or "false" as the body content."
+
+I have been assuming that "false" means the comment *is* spam - is this
+correct ?
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From m at mullenweg.com  Fri Dec  2 09:38:18 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 02 Dec 2005 01:38:18 -0800
+Subject: [spam-stopper] check-comment function
+In-Reply-To: <43901535.9080305@voidspace.org.uk>
+References: <43901535.9080305@voidspace.org.uk>
+Message-ID: <4390160A.7090502@mullenweg.com>
+
+Fuzzyman wrote:
+> I have been assuming that "false" means the comment *is* spam - is this
+> correct ?
+
+That would be the problem. :)
+
+True = this is spam
+False = this is not spam
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From fuzzyman at voidspace.org.uk  Fri Dec  2 09:40:07 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 02 Dec 2005 09:40:07 +0000
+Subject: [spam-stopper] check-comment function
+In-Reply-To: <4390160A.7090502@mullenweg.com>
+References: <43901535.9080305@voidspace.org.uk>
+	<4390160A.7090502@mullenweg.com>
+Message-ID: <43901677.5000903@voidspace.org.uk>
+
+Matt Mullenweg wrote:
+
+> Fuzzyman wrote:
+>
+>> I have been assuming that "false" means the comment *is* spam - is this
+>> correct ?
+>
+>
+> That would be the problem. :)
+>
+> True = this is spam
+> False = this is not spam
+>
+Cool - in which case it works :-)
+
+Thanks
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From fuzzyman at voidspace.org.uk  Fri Dec  2 10:22:27 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Fri, 02 Dec 2005 10:22:27 +0000
+Subject: [spam-stopper] Another Python API
+In-Reply-To: <439014FD.9000707@voidspace.org.uk>
+References: <439014FD.9000707@voidspace.org.uk>
+Message-ID: <43902063.8070402@voidspace.org.uk>
+
+Hello All,
+
+I've corrected my ham/spam confusion.
+
+So the download url is now :
+
+http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=akismet-0.1.1.zip
+
+I've blogged about it at :
+
+http://www.voidspace.org.uk/python/weblog/arch_d7_2005_11_26.shtml#e150
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+Fuzzyman wrote:
+
+>Hello All,
+>
+>Hmmm... well I completed my Python API last night as well. Looks like
+>there are two :-)
+>
+>http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=akismet-0.1.0.zip
+>
+>Mine is implemented differently - as a single class (using urllib2
+>rather than httplib). There is sufficient documentation in the code.
+>
+>It can read the api key and blog url from a text file called 'apikey.txt'
+>
+>agent = 'Your program name'
+>from akismet import Akismet
+>api = Akismet(agent=agent)
+># this reads 'apikey.txt' automatically
+># or call :
+># api = Akismet(key, blog_url, agent=agent)
+>check = api.verify_key()
+>test = api.check_comment(comment, data)
+>
+>etc...
+>
+>I also wrote a test CGI to check the interface - before I plug it into
+>my application. The verify key part works - unfortunately akismet seems
+>to be marking all comments I make to my CGI as spam ???
+>
+>All the best,
+>
+>Fuzzyman
+>http://www.voidspace.org.uk/python/index.shtml
+>_______________________________________________
+>spam-stopper mailing list
+>spam-stopper at lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+>  
+>
+
+
+
+From m at mullenweg.com  Fri Dec  2 19:05:24 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 02 Dec 2005 11:05:24 -0800
+Subject: [spam-stopper] API documentation updates
+Message-ID: <43909AF4.2060702@mullenweg.com>
+
+I've updated the comment check portion of the API:
+
+http://akismet.com/development/api/#comment-check
+
+Now if you send "viagra-test-123" as the author it will always return 
+"true".
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From kemayo at gmail.com  Fri Dec  2 19:25:39 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Fri, 2 Dec 2005 11:25:39 -0800
+Subject: [spam-stopper] API documentation updates
+In-Reply-To: <43909AF4.2060702@mullenweg.com>
+References: <43909AF4.2060702@mullenweg.com>
+Message-ID: <31f450f50512021125l638cbb10vece3061f7a714f08@mail.gmail.com>
+
+On 12/2/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> I've updated the comment check portion of the API:
+>
+> http://akismet.com/development/api/#comment-check
+>
+> Now if you send "viagra-test-123" as the author it will always return
+> "true".
+>
+
+It might be wiser to throw the test switch into one of the optional
+submission keys instead. That way there's no chance of spam senders
+noticing that all they have to do to get their comments through is
+sign them viagra-test-123...
+
+Something like: "&Is-Akismet-Test=1"?
+
+David
+http://www.ficwad.com/
+
+
+From kemayo at gmail.com  Fri Dec  2 19:26:55 2005
+From: kemayo at gmail.com (David Lynch)
+Date: Fri, 2 Dec 2005 11:26:55 -0800
+Subject: [spam-stopper] API documentation updates
+In-Reply-To: <31f450f50512021125l638cbb10vece3061f7a714f08@mail.gmail.com>
+References: <43909AF4.2060702@mullenweg.com>
+	<31f450f50512021125l638cbb10vece3061f7a714f08@mail.gmail.com>
+Message-ID: <31f450f50512021126n5c32d186gf7456e69dd54896d@mail.gmail.com>
+
+Ahem, that should have been "no chance of legitimate, but silly,
+comments being caught."
+
+On 12/2/05, David Lynch <kemayo at gmail.com> wrote:
+> On 12/2/05, Matt Mullenweg <m at mullenweg.com> wrote:
+> > I've updated the comment check portion of the API:
+> >
+> > http://akismet.com/development/api/#comment-check
+> >
+> > Now if you send "viagra-test-123" as the author it will always return
+> > "true".
+> >
+>
+> It might be wiser to throw the test switch into one of the optional
+> submission keys instead. That way there's no chance of spam senders
+> noticing that all they have to do to get their comments through is
+> sign them viagra-test-123...
+>
+> Something like: "&Is-Akismet-Test=1"?
+>
+> David
+> http://www.ficwad.com/
+>
+
+
+From david at blojsom.com  Fri Dec  2 20:19:58 2005
+From: david at blojsom.com (David Czarnecki)
+Date: Fri, 02 Dec 2005 15:19:58 -0500
+Subject: [spam-stopper] Akismet Java API available
+Message-ID: <BFB6169E.1F58%david@blojsom.com>
+
+Here?s helping the Akismet cause from Java land :)
+
+http://www.blojsom.com/blog/java/2005/12/02/Akismet-Java-API-1-0-Available.h
+tml
+
+Download, 
+http://sourceforge.net/project/showfiles.php?group_id=72754&package_id=14611
+4&release_id=375434
+Javadocs, http://blojsom.sourceforge.net/akismet/
+
+I guess that?s about it.
+
+-- 
+David Czarnecki
+
+http://www.blojsom.com/blog/ | http://blojsom.sf.net
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051202/76f0a3b8/attachment.htm>
+
+From fuzzyman at voidspace.org.uk  Sat Dec  3 12:27:17 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Sat, 03 Dec 2005 12:27:17 +0000
+Subject: [spam-stopper] API documentation updates
+In-Reply-To: <43909AF4.2060702@mullenweg.com>
+References: <43909AF4.2060702@mullenweg.com>
+Message-ID: <43918F25.9090603@voidspace.org.uk>
+
+Matt Mullenweg wrote:
+
+> I've updated the comment check portion of the API:
+>
+> http://akismet.com/development/api/#comment-check
+>
+> Now if you send "viagra-test-123" as the author it will always return
+> "true".
+>
+Great this is very helpful.
+
+I (currently) have a test CGI running (to check my Python module).
+
+It's useful to have a positive test, thanks.
+
+Is it ok to point people to this as an example, or would you rather not
+have people banging away with random (non real) comments, potentially
+skewing your system ?
+
+It will be low traffic.
+
+Thanks
+
+Fuzzyman
+http://www.voidpsace.org.uk/python/index.shtml
+
+
+From david at blojsom.com  Sun Dec  4 16:57:56 2005
+From: david at blojsom.com (David Czarnecki)
+Date: Sun, 04 Dec 2005 11:57:56 -0500
+Subject: [spam-stopper] Akismet Ruby API Available
+Message-ID: <BFB88A44.1FBE%david@blojsom.com>
+
+Here?s an API for interacting with Akismet from Ruby.
+
+Blog post: 
+http://www.blojsom.com/blog/nerdery/2005/12/02/Akismet-API-in-Ruby.html
+Or direct download: http://blojsom.com/resources/david/Akismet.rb
+
+It was an easy way for me to start working on some Ruby, but as Ruby isn?t
+my strong language, there are probably improvements that could be made.
+
+-- 
+David Czarnecki
+
+http://www.blojsom.com/blog/ | http://blojsom.sf.net
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051204/f22edce8/attachment.htm>
+
+From m at mullenweg.com  Sun Dec  4 18:43:42 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Sun, 04 Dec 2005 19:43:42 +0100
+Subject: [spam-stopper] Akismet Ruby API Available
+In-Reply-To: <BFB88A44.1FBE%david@blojsom.com>
+References: <BFB88A44.1FBE%david@blojsom.com>
+Message-ID: <439338DE.3020308@mullenweg.com>
+
+David Czarnecki wrote:
+> Here?s an API for interacting with Akismet from Ruby.
+
+You're on a roll!
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From dirk at haun-online.de  Sun Dec  4 20:00:50 2005
+From: dirk at haun-online.de (Dirk Haun)
+Date: Sun, 4 Dec 2005 21:00:50 +0100
+Subject: [spam-stopper] Experimental Akismet modules for Geeklog
+Message-ID: <20051204200050.28955@smtp.haun-online.de>
+
+Well, it's not a another language, but I thought I'd join in with
+Akismet modules for Geeklog's spam filter:
+
+<http://lists.geeklog.net/pipermail/geeklog-spam/2005-December/000049.html>
+
+I've called them "experimental" as Geeklog currently discards spam posts
+immediately and so there's no way to correct false positives. Not
+Akismet's problems, obviously - we'll have to think of something for
+future Geeklog versions.
+
+bye, Dirk
+
+
+-- 
+http://www.geeklog.net/
+http://spam.tinyweb.net/
+
+
+
+From fuzzyman at voidspace.org.uk  Mon Dec  5 10:57:34 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Mon, 05 Dec 2005 10:57:34 +0000
+Subject: [spam-stopper] viagra-test-123
+Message-ID: <43941D1E.9010308@voidspace.org.uk>
+
+Hello all,
+
+I'm getting test posts with "comment_author" set to "viagra-test-123"
+marked as ham.
+
+Is there a problem ?
+
+All the best,
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From fuzzyman at voidspace.org.uk  Mon Dec  5 11:05:47 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Mon, 05 Dec 2005 11:05:47 +0000
+Subject: [spam-stopper] akismet.py - 0.1.2
+Message-ID: <43941F0B.6070002@voidspace.org.uk>
+
+Oh - by the way :
+
+I've updated my Python Interface to the Akismet API.
+
+It now has full docs (as well as a slight update).
+
+See http://www.voidspace.org.uk/python/modules.shtml#akismet
+
+Thanks
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From niels.leenheer at gmail.com  Tue Dec  6 14:30:37 2005
+From: niels.leenheer at gmail.com (Niels Leenheer)
+Date: Tue, 6 Dec 2005 15:30:37 +0100
+Subject: [spam-stopper] Akismet for Nucleus
+Message-ID: <63f27c3a0512060630j4216a232m4eb9ae61f233419b@mail.gmail.com>
+
+I just wanted to introduce myself and let every know that I am working
+on an Akismet plugin for Nucleus CMS.
+
+The plugin uses a new anti-spam plugin architecture that is being
+developed for the upcoming 3.3 version of Nucleus, so the plugin won't
+work by default on the current version. The plugin supports detection
+of spam and giving feedback back to Akismet.com.
+
+The latter is supported by the plugin, but Nucleus does not include a
+moderation queue by default, so this won't be used on a normal
+installation of Nucleus. I also developed a moderation queue plugin,
+which does hook into this feature, so the combination of these two
+plugins will give the ability to give feedback back to Aksimet.com.
+
+More information:
+http://forum.nucleuscms.org/viewtopic.php?t=9515
+
+Niels Leenheer
+niels.leenheer at gmail.com
+
+
+From m at mullenweg.com  Wed Dec  7 08:12:13 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Wed, 07 Dec 2005 09:12:13 +0100
+Subject: [spam-stopper] Akismet for Nucleus
+In-Reply-To: <63f27c3a0512060630j4216a232m4eb9ae61f233419b@mail.gmail.com>
+References: <63f27c3a0512060630j4216a232m4eb9ae61f233419b@mail.gmail.com>
+Message-ID: <4396995D.8000109@mullenweg.com>
+
+Niels Leenheer wrote:
+> I just wanted to introduce myself and let every know that I am working
+> on an Akismet plugin for Nucleus CMS.
+
+Cool let us know if you need any help. The WP Akismet plugin is GPL so 
+feel free to use any of that code you need.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From m at mullenweg.com  Thu Dec 15 19:47:10 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 15 Dec 2005 14:47:10 -0500
+Subject: [spam-stopper] New Development page
+Message-ID: <43A1C83E.3080705@mullenweg.com>
+
+http://akismet.com/development/
+
+If I missed any implementations from you guys let me know and I'll add 
+it. :)
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From fuzzyman at voidspace.org.uk  Thu Dec 22 10:21:13 2005
+From: fuzzyman at voidspace.org.uk (Fuzzyman)
+Date: Thu, 22 Dec 2005 10:21:13 +0000
+Subject: [spam-stopper] Testing Akismet
+Message-ID: <43AA7E19.3000008@voidspace.org.uk>
+
+Hello all,
+
+I've had a couple of false negatives with akismet and my guestbook. I'm
+using my Python Akismet module to do this -
+http://www.voidspace.org.uk/python/modules.shtml#akismet
+
+I *haven't* yet implemented a way to report false negatives and
+positives back to akismet. I'm rebuilding the guestbook to add an
+administrators interface that will allow this.
+
+It is *possible* that there is a bug in my implementation (slightly
+unlikely though -you guys have created a very simple interface, for
+which I'm very grateful).
+
+What worries me is that the 'test' for akismet doesn't appear to work.
+(It did work briefly after it was announced - but then stopped).
+
+When I enter posts with the name 'viagra-test-123' - they are marked as
+ham, not spam. Can you confirm whether this *is working* (and therefore
+there is a bug in my code), or if it is currently not working ? If it
+*isn't* working - can you switch it back on please, as it was very useful.
+
+My guestbook spam *has* reduced - I've only had two in forty-eight
+hours. This is still more than I would like. :-)
+
+An example of spam that got through :
+
+A new message has been posted in your guestbook by "Pit".
+Email "watson at vacation.fineststars.com".
+Homepage "http://debt.mylawsite.net".
+Location "Business".
+Time of Entry : "12:28 AM, Thursday 22 December, 2005".
+Message "Hi! Thanks for very useful place! <br />Debt consolidation online best resources <br />http://debt.mylawsite.net <br />mail: webmaster at debt.mylawsite.net".
+
+
+
+All the best,
+
+
+Fuzzyman
+http://www.voidspace.org.uk/python/index.shtml
+
+
+From m at mullenweg.com  Fri Dec 23 18:24:56 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Fri, 23 Dec 2005 12:24:56 -0600
+Subject: [spam-stopper] Testing Akismet
+In-Reply-To: <43AA7E19.3000008@voidspace.org.uk>
+References: <43AA7E19.3000008@voidspace.org.uk>
+Message-ID: <43AC40F8.5050602@mullenweg.com>
+
+Fuzzyman wrote:
+> When I enter posts with the name 'viagra-test-123' - they are marked as
+> ham, not spam. Can you confirm whether this *is working* (and therefore
+> there is a bug in my code), or if it is currently not working ? If it
+> *isn't* working - can you switch it back on please, as it was very useful.
+
+I'll look at this again over the weekend, it seems like the system 
+unlearned that as not being spammy based on the content it was getting. 
+There are so many levels and tests it obviously gets complicated at some 
+levels. :)
+
+"Good morning, Dave."
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From aditya.ml at gmail.com  Thu Dec 29 10:37:38 2005
+From: aditya.ml at gmail.com (Aditya Mooley)
+Date: Thu, 29 Dec 2005 10:37:38 +0000
+Subject: [spam-stopper] Akismet retunring spam as ham
+Message-ID: <bbef3fa80512290237j563307abu293fbba6bd1fc191@mail.gmail.com>
+
+Hello all,
+
+I am trying to imeplement the Akismet API but it is returning "false" for
+all the POSTS I pass to it even if they are spams.
+You can see the working example here:
+http://sanisoft-demo.com/akismet/akismetTest.php
+The comment_author as well as comment_content both are hardcoded to spam
+values. You can see the values on the browser.
+
+My API key is getting validated properly.
+
+Regards,
+
+--
+Aditya
+=============================================================
+PHP Applications for E-Biz: http://www.sanisoft.com
+Coppermine Picture Gallery: http://coppermine.sf.net
+=============================================================
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051229/dbfddce3/attachment.htm>
+
+From m at mullenweg.com  Thu Dec 29 18:36:25 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Thu, 29 Dec 2005 12:36:25 -0600
+Subject: [spam-stopper] Akismet retunring spam as ham
+In-Reply-To: <bbef3fa80512290237j563307abu293fbba6bd1fc191@mail.gmail.com>
+References: <bbef3fa80512290237j563307abu293fbba6bd1fc191@mail.gmail.com>
+Message-ID: <43B42CA9.5070902@mullenweg.com>
+
+Aditya Mooley wrote:
+> I am trying to imeplement the Akismet API but it is returning "false" 
+> for all the POSTS I pass to it even if they are spams.
+> You can see the working example here: 
+> http://sanisoft-demo.com/akismet/akismetTest.php
+> The comment_author as well as comment_content both are hardcoded to spam 
+> values. You can see the values on the browser.
+
+If Akismet is missing a spam, then it should be submitted using the 
+submit-spam API call. Because of how Akismet works it can be hard to 
+trigger spam in an artificial environment.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | http://akismet.com
+
+
+From aditya.ml at gmail.com  Thu Dec 29 18:47:42 2005
+From: aditya.ml at gmail.com (Aditya Mooley)
+Date: Thu, 29 Dec 2005 18:47:42 +0000
+Subject: [spam-stopper] Akismet retunring spam as ham
+In-Reply-To: <43B42CA9.5070902@mullenweg.com>
+References: <bbef3fa80512290237j563307abu293fbba6bd1fc191@mail.gmail.com>
+	<43B42CA9.5070902@mullenweg.com>
+Message-ID: <bbef3fa80512291047k34524295t4c5c0bdd1cdf32d5@mail.gmail.com>
+
+Hello Matt,
+Thanks for the reply.
+I understand that I should use API call to report it to Akismet but I tried
+the string which is given on website "viagra-test-123" and still it is
+returning "false" thats what concerned me.
+
+Any help on this will be appriciated.
+
+Wish you a all a very Happy New Year
+
+
+On 12/29/05, Matt Mullenweg <m at mullenweg.com> wrote:
+>
+> Aditya Mooley wrote:
+> > I am trying to imeplement the Akismet API but it is returning "false"
+> > for all the POSTS I pass to it even if they are spams.
+> > You can see the working example here:
+> > http://sanisoft-demo.com/akismet/akismetTest.php
+> > The comment_author as well as comment_content both are hardcoded to spam
+> > values. You can see the values on the browser.
+>
+> If Akismet is missing a spam, then it should be submitted using the
+> submit-spam API call. Because of how Akismet works it can be hard to
+> trigger spam in an artificial environment.
+>
+> --
+> Matt Mullenweg
+>   http://photomatt.net | http://wordpress.org
+> http://pingomatic.com | http://akismet.com
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+
+
+--
+Aditya
+=============================================================
+PHP Applications for E-Biz: http://www.sanisoft.com
+Coppermine Picture Gallery: http://coppermine.sf.net
+=============================================================
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20051229/deb8cd7e/attachment.htm>
+
+From nuclearmoose at gmail.com  Fri Dec 30 00:57:10 2005
+From: nuclearmoose at gmail.com (Craig)
+Date: Thu, 29 Dec 2005 17:57:10 -0700
+Subject: [spam-stopper] Has anyone seen this yet?
+Message-ID: <5aa3aa0512291657m631f2db7mc464159cee6fdd64@mail.gmail.com>
+
+Today I received an email that was obviously spam, however, there was
+an interesting twist to it that has me concerned.
+
+In the body of the message was my domain name, simply "Nuclearmoose"
+but with no .com or similar. I'm concerned that Akismet and indeed,
+any other spam-stopper might add that term to a blacklist or similar.
+
+Is this a new tactic, or have any of you seen this already? Should I
+be concerned about this?
+
+BTW, I flagged the email as spam so Akismet would deal with it,
+however, I did EDIT the post beforehand to delete "Nuclearmoose" from
+the text body.
+
+Craig.
+Nuclear Moose.
+
+

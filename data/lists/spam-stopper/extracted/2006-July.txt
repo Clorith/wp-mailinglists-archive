@@ -1,0 +1,111 @@
+From jjb at ibiblio.org  Thu Jul  6 15:41:07 2006
+From: jjb at ibiblio.org (John Joseph Bachir)
+Date: Thu, 6 Jul 2006 11:41:07 -0400 (EDT)
+Subject: [spam-stopper] A small akismet extension for separating ham from
+	spam
+In-Reply-To: <448063D4.5040709@boakes.org>
+References: <448063D4.5040709@boakes.org>
+Message-ID: <Pine.LNX.4.64.0607061140240.7865@tribal.metalab.unc.edu>
+
+This plugin is brilliant. Any chance this could get integrated into the 
+official Akismet WordPress plugin?
+
+
+On Fri, 2 Jun 2006, rich boakes wrote:
+
+> Hi Folks,
+>
+> For me, Akismet was great at first because it identified the spam, and 
+> (although rare) when there were false positives, there was only 10:1 spam 
+> ratio so the real messages were really obvious.
+>
+> The recent upsurge in comments (and thus the upsurge in Akismet's quarry) has 
+> had a detrimental knock-on effect on the ease of separating ham from spam.
+>
+> The task of spotting a piece of false-positive ham in the middle of hundreds 
+> of spams is no different to what we were doing before, manually sifting 
+> through every message - the only change is that instead of looking for "ham 
+> to accept" we now have to look for "ham to de-spam".
+>
+> To improve this I added a "Worst Offenders" section to the 1.15 version of 
+> Akismet.  It lists the IP addresses and domains that appear most frequently, 
+> and allows the user to delete these en-masse, reducing the amount of spam/ham 
+> filtering to a far more manageable amount.
+>
+> It's manageable on my site anyway, your mileage may differ.
+>
+> The updated plugin is here:
+> http://boakes.org/download/akismet-1.15-wo.zip
+>
+> It hopefully proves that such a system is fairly useful, and might give 
+> people a few ideas for better solutions.
+>
+> Thinking forward I was considering two avenues of development that might be 
+> useful:
+>
+> (1) combine the worst-offenders IP addresses with the existing WP capability 
+> to write the .htaccess file, thus having a dynamic deny list that targets 
+> active spam-bots.
+>
+> (2) to allow more experimentation, the Akismet size of things could be made a 
+> bit more pluggable with filters triggered when the spam page is submitted and 
+> displayed.  This could enable akismet plugin-lets to provide more intelligent 
+> management functions (like this one) without having to update the core 
+> plugin).
+>
+> Anyway; food for thought and a plugin to play with.  Hope it's useful :)
+>
+> Rich
+> --
+> http://boakes.org
+> _______________________________________________
+> spam-stopper mailing list
+> spam-stopper at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/spam-stopper
+>
+
+-- 
+John
+----
+aim/yim/msn/jabber.org: johnjosephbachir
+713.494.2704
+irc://irc.freenode.net/lyceum
+http://lyceum.ibiblio.org/
+http://blog.johnjosephbachir.org/
+
+
+From sunir at sunir.org  Thu Jul  6 15:51:58 2006
+From: sunir at sunir.org (Sunir Shah)
+Date: Thu, 6 Jul 2006 11:51:58 -0400
+Subject: [spam-stopper] MeatballWiki update
+In-Reply-To: <Pine.LNX.4.64.0607061140240.7865@tribal.metalab.unc.edu>
+Message-ID: <20060706155221.6EC3F649A@comox.textdrive.com>
+
+My test run on one of the Meatball wikis is working 
+beautifully. Nicely done, Matt. I'm recommending it
+to Socialtext.
+
+Best,
+Sunir
+
+
+
+From sunir at sunir.org  Mon Jul 24 15:45:31 2006
+From: sunir at sunir.org (Sunir Shah)
+Date: Mon, 24 Jul 2006 11:45:31 -0400
+Subject: [spam-stopper] Meatball experimenting with Akismet
+In-Reply-To: <44A16AB9.1090609@mullenweg.com>
+Message-ID: <20060724154536.9E6D96173@comox.textdrive.com>
+
+[re: one of the Meatball wikis adopted Akismet]
+> Let me know how the initial tests are, 
+
+It stops about 95% of spam. No false positives yet.
+I'll provide better tuned data in the fall when I'm
+back from vacation.
+
+Best,
+Sunir
+
+
+

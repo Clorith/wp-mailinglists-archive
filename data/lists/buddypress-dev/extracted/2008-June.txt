@@ -1,0 +1,4123 @@
+From andypeatling at automattic.com  Tue Jun  3 20:46:49 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue Jun  3 20:49:20 2008
+Subject: [buddypress-dev] BuddyPress Development Timeline
+Message-ID: <1C323AB7-0280-4C4B-9DAB-A31238923A9E@automattic.com>
+
+I've put together a Google calendar for the BuddyPress development  
+timeline.
+
+The start and end dates are based on only me working on components,  
+they do not take into account contributions from the community. This  
+basically means that any contributions and work done by others will  
+speed up the timeline.
+
+You can subscribe to the calendar with the following links:
+
+  * XML: http://www.google.com/calendar/feeds/46c3sjdmpi9gribubnk0gaa19o%40group.calendar.google.com/public/basic
+  * ICAL: http://www.google.com/calendar/ical/46c3sjdmpi9gribubnk0gaa19o%40group.calendar.google.com/public/basic.ics
+  * HTML: http://www.google.com/calendar/embed?src=46c3sjdmpi9gribubnk0gaa19o%40group.calendar.google.com&ctz=America/Los_Angeles
+
+Cheers,
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From andypeatling at automattic.com  Tue Jun  3 21:00:10 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue Jun  3 21:00:36 2008
+Subject: [buddypress-dev] modifications to bp-xprofile-templatetags.php
+In-Reply-To: <20080528000405.0rids3zysokgkw4k@www.dimensionmedia.com>
+References: <20080528000405.0rids3zysokgkw4k@www.dimensionmedia.com>
+Message-ID: <45F099AE-CB75-4DD2-9DE2-CEE3F9769E79@automattic.com>
+
+On 27-May-08, at 9:04 PM, David J. Bisset wrote:
+
+> Andy,
+>
+> I am trying to place specific information in specific places on my  
+> template, but I didn't see an easy way to do it in the files. Example:
+>
+> <?php if ( group_has_fields() ) : ?>
+> <?php while ( profile_fields() ) : the_profile_field(); ?>
+> <?php if ( the_profile_field_name(true) == "Zip Code" ) : ?>
+> <?php $zipCode = the_profile_field_value(true); ?>
+> <?php endif; ?>
+> <?php endwhile; ?>
+> <?php endif; ?>
+>
+> I'm realizing now that this probably isn't the best way, so perhaps  
+> you can show me the alternate?
+>
+
+I'm not sure there is a really easy way of doing this right now. The  
+best way would be to create a function that takes in the field name as  
+a parameter, then returns the value. That way you don't have to loop  
+through everything just to find one value.
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From kingler at 72pines.com  Tue Jun  3 22:23:24 2008
+From: kingler at 72pines.com (kingler)
+Date: Tue Jun  3 22:23:47 2008
+Subject: [buddypress-dev] BuddyPress Development Timeline
+In-Reply-To: <1C323AB7-0280-4C4B-9DAB-A31238923A9E@automattic.com>
+References: <1C323AB7-0280-4C4B-9DAB-A31238923A9E@automattic.com>
+Message-ID: <67c2d6930806031523w6675c766xc3358daba8868bc5@mail.gmail.com>
+
+Great. Hopefully I can find some time to contribute. :)
+Keep up the good work!
+
+-Liang
+
+On Tue, Jun 3, 2008 at 1:46 PM, Andy Peatling
+<andypeatling@automattic.com> wrote:
+> I've put together a Google calendar for the BuddyPress development timeline.
+>
+> The start and end dates are based on only me working on components, they do
+> not take into account contributions from the community. This basically means
+> that any contributions and work done by others will speed up the timeline.
+>
+> You can subscribe to the calendar with the following links:
+>
+>  * XML:
+> http://www.google.com/calendar/feeds/46c3sjdmpi9gribubnk0gaa19o%40group.calendar.google.com/public/basic
+>  * ICAL:
+> http://www.google.com/calendar/ical/46c3sjdmpi9gribubnk0gaa19o%40group.calendar.google.com/public/basic.ics
+>  * HTML:
+> http://www.google.com/calendar/embed?src=46c3sjdmpi9gribubnk0gaa19o%40group.calendar.google.com&ctz=America/Los_Angeles
+>
+> Cheers,
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From andrea at creativeweb.it  Mon Jun  9 13:52:01 2008
+From: andrea at creativeweb.it (Andrea)
+Date: Mon Jun  9 13:52:34 2008
+Subject: [buddypress-dev] Issue on bp messagges
+Message-ID: <12123016-7A5C-4A20-BA41-BA64A553A70C@creativeweb.it>
+
+On siteurl -> /wp-admin/wpmu-admin.php?page=bp-messages.php
+
+Error output:
+
+Warning: call_user_func_array() [function.call-user-func-array]: First  
+argumented is expected to be a valid callback, 'messages_settings' was  
+given in /var/www/htdocs/gorilla.creativenetwork.it/wp-includes/ 
+plugin.php on line 311
+
+due to line 75 in bp-messagges.php
+add_submenu_page ( 'wpmu-admin.php', __('Messages'), __('Messages'),  
+1, basename(__FILE__), "messages_settings" );
+
+messages_settings function seems not defined.
+
+Any help on it?
+
+Regards
+
+Andrea
+From jed at deafnation.com  Mon Jun  9 17:07:02 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Mon Jun  9 17:08:15 2008
+Subject: [buddypress-dev] Upload Profile photo error
+Message-ID: <899a0499aa024707b0e616bc4abbb22e@deafnation.com>
+
+Warning:  preg_match() expects parameter 2 to be string, object given in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/bp-xprofile-avatars.php on line 411
+
+Catchable fatal error:  Object of class WP_Error could not be converted to string in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/bp-xprofile-avatars.php on line 227
+
+I got the error when I tried to upload a profile picture. Where do I need to change the folder permission or any specific component to be turned on to work with this feature.
+
+Jed Barish
+DeafNation
+
+From jed at deafnation.com  Wed Jun 11 06:28:37 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Wed Jun 11 06:28:52 2008
+Subject: [buddypress-dev] Upload Profile photo error
+Message-ID: <080bbcbfd51b766a31e8af6906f0b41a@deafnation.com>
+
+Could someone comment on this issue? Is there a fix on it yet?
+
+Thanks, Jed
+
+> -----Original Message-----
+> From: "Jed Barish" <jed@deafnation.com>
+> To: "buddypress-dev@lists.automattic.com" <buddypress-dev@lists.automattic.com>
+> Date: 06/09/08 12:08
+> Subject: [buddypress-dev] Upload Profile photo error
+> 
+> Warning:  preg_match() expects parameter 2 to be string, object given in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/bp-xprofile-avatars.php on line 411
+> 
+> Catchable fatal error:  Object of class WP_Error could not be converted to string in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/bp-xprofile-avatars.php on line 227
+> 
+> I got the error when I tried to upload a profile picture. Where do I need to change the folder permission or any specific component to be turned on to work with this feature.
+> 
+> Jed Barish
+> DeafNation
+> 
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From dbisset at dimensionmedia.com  Wed Jun 11 12:23:52 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Wed Jun 11 12:24:12 2008
+Subject: [buddypress-dev] Getting Custom Field Values
+Message-ID: <20080611082352.fuaeobehgko0c0ws@www.dimensionmedia.com>
+
+Hi all,
+
+I wanted to share this function I built in  
+bp-xprofile-templatetags.php which allows one to grab custom profile  
+values.
+
+function get_field_value($fieldname, $output_field_name = false,  
+$dropdown = false) {
+	global $profile_template;
+	foreach ($profile_template->groups as $group) {
+		foreach ($group->fields as $field) {
+			if ($field->name == $fieldname && $field->data->value != '') {
+
+				if ($output_field_name) {
+					return $field->name . ": " . $field->data->value;
+				} else {
+					return $field->data->value;
+				}
+			}
+		}
+	}
+}
+
+This works for single-value profile values such as textboxes and  
+select dropdowns. Looking for ways to improve the function when it  
+comes to multiple-value values which would look like this in the  
+output (assuming the values "online" and "local" are selected):
+
+a:2:{i:0;s:6:"Online";i:1;s:5:"Local";}
+
+Regardless, the above function I hope is a step in the right direction.
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From andypeatling at automattic.com  Thu Jun 12 21:19:01 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 11:42:30 2008
+Subject: [buddypress-dev] RE: Issues on BP Messages
+Message-ID: <2B761534-A5A9-4C9D-BD7B-21E650B07031@automattic.com>
+
+> On siteurl -> /wp-admin/wpmu-admin.php?page=bp-messages.php
+> Error output: Warning: call_user_func_array() [function.call-user- 
+> func-array]: First argumented is expected to be a valid callback,  
+> 'messages_settings' was given in /var/www/htdocs/ 
+> gorilla.creativenetwork.it/wp-includes/ plugin.php on line 311
+> due to line 75 in bp-messagges.php add_submenu_page ( 'wpmu- 
+> admin.php', __('Messages'), __('Messages'), 1, basename(__FILE__),  
+> "messages_settings" );
+> messages_settings function seems not defined.
+It literally isn't defined yet. :) It's just a place holder for when  
+actual admin controlled settings are created.
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From andypeatling at automattic.com  Thu Jun 12 17:04:43 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 13:03:55 2008
+Subject: [buddypress-dev] Upload Profile photo error
+In-Reply-To: <080bbcbfd51b766a31e8af6906f0b41a@deafnation.com>
+References: <080bbcbfd51b766a31e8af6906f0b41a@deafnation.com>
+Message-ID: <BF300298-711E-4E5C-A7A9-6AC43635BFE7@automattic.com>
+
+On 10-Jun-08, at 11:28 PM, Jed Barish wrote:
+
+> Could someone comment on this issue? Is there a fix on it yet?
+
+Have you tried xprofile 0.3.2?
+
+Andy
+
+
+>
+>
+> Thanks, Jed
+>
+>> -----Original Message-----
+>> From: "Jed Barish" <jed@deafnation.com>
+>> To: "buddypress-dev@lists.automattic.com" <buddypress-dev@lists.automattic.com 
+>> >
+>> Date: 06/09/08 12:08
+>> Subject: [buddypress-dev] Upload Profile photo error
+>>
+>> Warning:  preg_match() expects parameter 2 to be string, object  
+>> given in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/ 
+>> bp-xprofile-avatars.php on line 411
+>>
+>> Catchable fatal error:  Object of class WP_Error could not be  
+>> converted to string in /home/sfcom/public_html/wp-content/mu- 
+>> plugins/bp-xprofile/bp-xprofile-avatars.php on line 227
+>>
+>> I got the error when I tried to upload a profile picture. Where do  
+>> I need to change the folder permission or any specific component to  
+>> be turned on to work with this feature.
+>>
+>> Jed Barish
+>> DeafNation
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andypeatling at automattic.com  Thu Jun 12 21:04:24 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 13:10:10 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+Message-ID: <D4930B20-00BA-4659-947C-3973F340A7CA@automattic.com>
+
+I've been working on a new default BuddyPress theme for the past week  
+or so.
+
+The current theme is just for testing purposes and really doesn't  
+achieve anything. The new theme will make use of all the BuddyPress  
+functionality and will hopeful provide theme designers with a theme to  
+copy and paste code from. It'll include all the new BuddyPress  
+template tags.
+
+I've explained more on the actual gallery page, so it's best to head  
+over there and take a look.
+
+http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+
+Cheers
+Andy
+
+PS: They are mockups right now, but I'm actively developing this.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From jeromebeta at gmail.com  Fri Jun 13 08:28:58 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Fri Jun 13 13:25:55 2008
+Subject: [buddypress-dev] New BuddyPress theme is awesome!
+Message-ID: <3f7bc4310806130128n640d093bgec083fe095a0c666@mail.gmail.com>
+
+New BuddyPress theme is awesome!  Thanks for the great job done so far!
+
+Can not wait to try it, when will it come out?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080613/b85aa4eb/attachment.htm
+From andypeatling at automattic.com  Thu Jun 12 22:54:24 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 13:56:37 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+Message-ID: <E1280A99-D185-46AC-A847-5521883D3866@automattic.com>
+
+I've been working on a new default BuddyPress theme for the past week  
+or so.
+
+The current theme is just for testing purposes and really doesn't  
+achieve anything. The new theme will make use of all the BuddyPress  
+functionality and will hopeful provide theme designers with a theme to  
+copy and paste code from. It'll include all the new BuddyPress  
+template tags.
+
+I've explained more on the actual gallery page, so it's best to head  
+over there and take a look.
+
+http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+
+Cheers
+Andy
+
+PS: They are mockups right now, but I'm actively developing this.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From beau at dentedreality.com.au  Fri Jun 13 06:00:21 2008
+From: beau at dentedreality.com.au (Beau Lebens)
+Date: Fri Jun 13 15:10:46 2008
+Subject: [buddypress-dev] Upload Profile photo error
+In-Reply-To: <899a0499aa024707b0e616bc4abbb22e@deafnation.com>
+References: <899a0499aa024707b0e616bc4abbb22e@deafnation.com>
+Message-ID: <5991FFE7-01C3-4068-AA2A-22BE3CEF4F95@dentedreality.com.au>
+
+Hi Jed, don't know if you got this sorted out alrady, but seems like  
+your normal WP uploads directory isn't writable. You'll want to make  
+wp-content/blogs.dir/ writable by the web server, and that should fix  
+that problem hopefully.
+
+Beau
+
+-- 
+Beau Lebens
+Dented Reality
+dentedreality.com.au
+beau@dentedreality.com.au
+
+On Jun 9, 2008, at 10:07 AM, Jed Barish wrote:
+
+> Warning:  preg_match() expects parameter 2 to be string, object  
+> given in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/ 
+> bp-xprofile-avatars.php on line 411
+>
+> Catchable fatal error:  Object of class WP_Error could not be  
+> converted to string in /home/sfcom/public_html/wp-content/mu- 
+> plugins/bp-xprofile/bp-xprofile-avatars.php on line 227
+>
+> I got the error when I tried to upload a profile picture. Where do  
+> I need to change the folder permission or any specific component to  
+> be turned on to work with this feature.
+>
+> Jed Barish
+> DeafNation
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andypeatling at automattic.com  Fri Jun 13 00:09:26 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 17:01:54 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+Message-ID: <6CB41E2B-D644-46F7-BCCE-87B773E4171B@automattic.com>
+
+I've been working on a new default BuddyPress theme for the past week  
+or so.
+
+The current theme is just for testing purposes and really doesn't  
+achieve anything. The new theme will make use of all the BuddyPress  
+functionality and will hopeful provide theme designers with a theme to  
+copy and paste code from. It'll include all the new BuddyPress  
+template tags.
+
+I've explained more on the actual gallery page, so it's best to head  
+over there and take a look.
+
+http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+
+Cheers
+Andy
+
+PS: They are mockups right now, but I'm actively developing this.
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From ponara at gmail.com  Fri Jun 13 15:43:35 2008
+From: ponara at gmail.com (Ponara)
+Date: Fri Jun 13 21:01:21 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <E1280A99-D185-46AC-A847-5521883D3866@automattic.com>
+References: <E1280A99-D185-46AC-A847-5521883D3866@automattic.com>
+Message-ID: <a3e04a520806130843x49521936nf6947f7cf210b436@mail.gmail.com>
+
+the theme looks beautiful..
+i'd like to know if options are being considered for making not just
+'friends' but also 'fans' - which don't require a confirmation.  This is
+especially helpful in news type social networks where you are bookmarking an
+article, favoriting or becoming a fan of an author, or rating an article
+up/down ala digg.  I'm thinking of these features along the lines of Movable
+Type's Community Solution, which HuffingtonPost.com and Gothamist use to
+good effect.
+
+
+On Thu, Jun 12, 2008 at 6:54 PM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+> I've been working on a new default BuddyPress theme for the past week or
+> so.
+>
+> The current theme is just for testing purposes and really doesn't achieve
+> anything. The new theme will make use of all the BuddyPress functionality
+> and will hopeful provide theme designers with a theme to copy and paste code
+> from. It'll include all the new BuddyPress template tags.
+>
+> I've explained more on the actual gallery page, so it's best to head over
+> there and take a look.
+>
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Cheers
+> Andy
+>
+> PS: They are mockups right now, but I'm actively developing this.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+..................................................................
+Ponara Steven Eng
+tel.: 212-810-6067
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080613/948d13dd/attachment.htm
+From barry at multipop.org  Fri Jun 13 15:59:12 2008
+From: barry at multipop.org (Barry Ceelen)
+Date: Fri Jun 13 21:08:17 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <E1280A99-D185-46AC-A847-5521883D3866@automattic.com>
+References: <E1280A99-D185-46AC-A847-5521883D3866@automattic.com>
+Message-ID: <ABE2FBF7-D869-411F-9E7D-7E1F9DAEBFE0@multipop.org>
+
+Theme looks good, super!
+
+On Jun 13, 2008, at 00:54, Andy Peatling wrote:
+
+> I've been working on a new default BuddyPress theme for the past  
+> week or so.
+>
+> The current theme is just for testing purposes and really doesn't  
+> achieve anything. The new theme will make use of all the BuddyPress  
+> functionality and will hopeful provide theme designers with a theme  
+> to copy and paste code from. It'll include all the new BuddyPress  
+> template tags.
+>
+> I've explained more on the actual gallery page, so it's best to head  
+> over there and take a look.
+>
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Cheers
+> Andy
+>
+> PS: They are mockups right now, but I'm actively developing this.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From jed at deafnation.com  Fri Jun 13 16:39:17 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Fri Jun 13 21:33:08 2008
+Subject: [buddypress-dev] Upload Profile photo error
+In-Reply-To: <5991FFE7-01C3-4068-AA2A-22BE3CEF4F95@dentedreality.com.au>
+Message-ID: <2116832866.16471213375157077.JavaMail.root@mail-3.01.com>
+
+Problem solved when I updated to 0.3.2! Thanks andy and looking forward to see the new theme released.
+
+Jed
+
+----- Original Message -----
+From: "Beau Lebens" <beau@dentedreality.com.au>
+To: buddypress-dev@lists.automattic.com
+Sent: Friday, June 13, 2008 1:00:21 AM GMT -06:00 US/Canada Central
+Subject: Re: [buddypress-dev] Upload Profile photo error
+
+Hi Jed, don't know if you got this sorted out alrady, but seems like  
+your normal WP uploads directory isn't writable. You'll want to make  
+wp-content/blogs.dir/ writable by the web server, and that should fix  
+that problem hopefully.
+
+Beau
+
+-- 
+Beau Lebens
+Dented Reality
+dentedreality.com.au
+beau@dentedreality.com.au
+
+On Jun 9, 2008, at 10:07 AM, Jed Barish wrote:
+
+> Warning:  preg_match() expects parameter 2 to be string, object  
+> given in /home/sfcom/public_html/wp-content/mu-plugins/bp-xprofile/ 
+> bp-xprofile-avatars.php on line 411
+>
+> Catchable fatal error:  Object of class WP_Error could not be  
+> converted to string in /home/sfcom/public_html/wp-content/mu- 
+> plugins/bp-xprofile/bp-xprofile-avatars.php on line 227
+>
+> I got the error when I tried to upload a profile picture. Where do  
+> I need to change the folder permission or any specific component to  
+> be turned on to work with this feature.
+>
+> Jed Barish
+> DeafNation
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From andypeatling at automattic.com  Fri Jun 13 17:06:50 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 21:41:19 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <6CB41E2B-D644-46F7-BCCE-87B773E4171B@automattic.com>
+References: <6CB41E2B-D644-46F7-BCCE-87B773E4171B@automattic.com>
+Message-ID: <17431086-1E2F-4DB6-88A7-1B33EAE31018@automattic.com>
+
+Seems there were troubles with the list software yesterday, so some  
+emails are coming through multiple times.
+
+Andy
+
+
+On 12-Jun-08, at 5:09 PM, Andy Peatling wrote:
+
+> I've been working on a new default BuddyPress theme for the past  
+> week or so.
+>
+> The current theme is just for testing purposes and really doesn't  
+> achieve anything. The new theme will make use of all the BuddyPress  
+> functionality and will hopeful provide theme designers with a theme  
+> to copy and paste code from. It'll include all the new BuddyPress  
+> template tags.
+>
+> I've explained more on the actual gallery page, so it's best to head  
+> over there and take a look.
+>
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Cheers
+> Andy
+>
+> PS: They are mockups right now, but I'm actively developing this.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From justinball at gmail.com  Fri Jun 13 17:35:23 2008
+From: justinball at gmail.com (Justin Ball)
+Date: Fri Jun 13 21:58:02 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <6CB41E2B-D644-46F7-BCCE-87B773E4171B@automattic.com>
+References: <6CB41E2B-D644-46F7-BCCE-87B773E4171B@automattic.com>
+Message-ID: <82aec6810806131035u76d3a27kd983ee954432fa40@mail.gmail.com>
+
+Hey Andy,
+
+These look awesome.  Can't wait to play with them.
+
+Justin
+
+On Thu, Jun 12, 2008 at 6:09 PM, Andy Peatling
+<andypeatling@automattic.com> wrote:
+> I've been working on a new default BuddyPress theme for the past week or so.
+>
+> The current theme is just for testing purposes and really doesn't achieve
+> anything. The new theme will make use of all the BuddyPress functionality
+> and will hopeful provide theme designers with a theme to copy and paste code
+> from. It'll include all the new BuddyPress template tags.
+>
+> I've explained more on the actual gallery page, so it's best to head over
+> there and take a look.
+>
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Cheers
+> Andy
+>
+> PS: They are mockups right now, but I'm actively developing this.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+From andypeatling at automattic.com  Fri Jun 13 19:12:46 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 13 22:32:53 2008
+Subject: [buddypress-dev] Getting Custom Field Values
+In-Reply-To: <20080611082352.fuaeobehgko0c0ws@www.dimensionmedia.com>
+References: <20080611082352.fuaeobehgko0c0ws@www.dimensionmedia.com>
+Message-ID: <3DF417EE-142D-48C7-8101-3E2725A2F45B@automattic.com>
+
+On 11-Jun-08, at 5:23 AM, David J. Bisset wrote:
+
+> Hi all,
+>
+> I wanted to share this function I built in bp-xprofile- 
+> templatetags.php which allows one to grab custom profile values.
+>
+> function get_field_value($fieldname, $output_field_name = false,  
+> $dropdown = false) {
+> 	global $profile_template;
+> 	foreach ($profile_template->groups as $group) {
+> 		foreach ($group->fields as $field) {
+> 			if ($field->name == $fieldname && $field->data->value != '') {
+>
+> 				if ($output_field_name) {
+> 					return $field->name . ": " . $field->data->value;
+> 				} else {
+> 					return $field->data->value;
+> 				}
+> 			}
+> 		}
+> 	}
+> }
+
+This is great, but the trouble I see is that you are having to loop  
+through everything to find the value you want. That is expensive.
+
+What I've done is created a function that will query the DB for the  
+specific values you want. This should be *a lot* faster.
+
+I'm going to check the function into the trunk later today, it can be  
+used as follows:
+
+bp_get_field_data( $field_names [, $user_id] );
+
+$field_names = Either a string containing the name of the field, or an  
+array of field names.
+$user_id = Optional. This will default to the id for the current user  
+being viewed, or you can pass an id for a specific user.
+
+The function will return a string containing the field value if you  
+only pass one field. It will return an array of values with the field  
+name as the key if you pass an array of field names.
+
+Examples:
+
+<?php echo bp_get_field_data( 'First Name' ); ?>
+
+<?php
+   $profile_data = bp_get_field_data( array( 'First Name', 'Last  
+Name', 'Home Town' ) );
+   echo 'First Name: ' . $profile_data['First Name'];
+   echo 'Last Name: ' . $profile_data['Last Name'];
+   echo 'Home Town: ' . $profile_data['Home Town'];
+?>
+
+That should hopefully satisfy the need to select and render specific  
+profile fields rather than just looping them all.
+
+I may include this function in a 0.3.3 release of extended profiles.
+
+> This works for single-value profile values such as textboxes and  
+> select dropdowns. Looking for ways to improve the function when it  
+> comes to multiple-value values which would look like this in the  
+> output (assuming the values "online" and "local" are selected):
+>
+> a:2:{i:0;s:6:"Online";i:1;s:5:"Local";}
+
+unserialize() will do that.
+
+
+Cheers
+Andy
+
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From jed at deafnation.com  Fri Jun 13 21:16:30 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Fri Jun 13 23:31:50 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <ABE2FBF7-D869-411F-9E7D-7E1F9DAEBFE0@multipop.org>
+Message-ID: <169185113.92441213391790327.JavaMail.root@mail-3.01.com>
+
+Groups and Friends are not ready to be integrated because there are some errors. Should I wait until they are ready to be integrated with other components? With your new theme, I am hoping to see them all ready soon but apparently it will be couple more months before we see them all ready.
+
+Let's say if I started a WPMU site with lots of new users until Buddypress is ready to roll out then how hard will it be integrated with current wpmu users. New theme will be taking over their own current design or will we see widgets instead to show my profile info, etc like we see on the new theme. If we could use the new theme as "stand alone" site under a wpmu site's author page. Let's say I am the blog owner of XYZ then a widget to show my author info/profile, etc. Anyone can click on it as profile page like myspace or others do. Will it be possible?
+
+Jed
+
+----- Original Message -----
+From: "Barry Ceelen" <barry@multipop.org>
+To: buddypress-dev@lists.automattic.com
+Sent: Friday, June 13, 2008 10:59:12 AM GMT -06:00 US/Canada Central
+Subject: Re: [buddypress-dev] New BuddyPress Theme
+
+Theme looks good, super!
+
+On Jun 13, 2008, at 00:54, Andy Peatling wrote:
+
+> I've been working on a new default BuddyPress theme for the past  
+> week or so.
+>
+> The current theme is just for testing purposes and really doesn't  
+> achieve anything. The new theme will make use of all the BuddyPress  
+> functionality and will hopeful provide theme designers with a theme  
+> to copy and paste code from. It'll include all the new BuddyPress  
+> template tags.
+>
+> I've explained more on the actual gallery page, so it's best to head  
+> over there and take a look.
+>
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Cheers
+> Andy
+>
+> PS: They are mockups right now, but I'm actively developing this.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From idawebco at yahoo.com  Sat Jun 14 01:22:44 2008
+From: idawebco at yahoo.com (Idaho Web Company)
+Date: Sat Jun 14 01:22:53 2008
+Subject: [buddypress-dev] Extended Profiles warning message on comment avatar
+Message-ID: <722677.76576.qm@web53203.mail.re2.yahoo.com>
+
+I installed BuddyPress: Extended Profiles today and receive the error below in comment posts. While searching for info about his error I did find some other sites that look like they are also giving this a try and having the same problem below. 
+
+Warning:  constant() [function.constant]: Couldn't find constant XPROFILE_AVATAR_V32_W in /home/user/public_html/wp-content/mu-plugins/bp-xprofile/bp-xprofile-avatars.php on line 37
+
+Anyone else have this issue or know how to fix/tweak this?
+
+
+      
+From fanismail at gmail.com  Sat Jun 14 09:44:08 2008
+From: fanismail at gmail.com (#FN$#)
+Date: Sat Jun 14 09:44:18 2008
+Subject: [buddypress-dev] Re: buddypress-dev Digest, Vol 3, Issue 7
+In-Reply-To: <20080613213309.76A746EAA@comox.textdrive.com>
+References: <20080613213309.76A746EAA@comox.textdrive.com>
+Message-ID: <352efba50806140244w1714b913g3465a0f69a53a64e@mail.gmail.com>
+
+Hi to all!
+As I can see,the whole project goes great!(Thanx to Andy and anyone else
+who've helped and is still helping!)
+
+BUT,I don't remember anything about the "subject" localization...
+Will BP be available on other languages?...
+If so,can we help to the translation?...
+Thank you for your time!
+Keep up!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080614/ecf85745/attachment.htm
+From graphite at joeyguerra.com  Sat Jun 14 16:01:49 2008
+From: graphite at joeyguerra.com (Joey Guerra)
+Date: Sat Jun 14 16:03:50 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <169185113.92441213391790327.JavaMail.root@mail-3.01.com>
+References: <169185113.92441213391790327.JavaMail.root@mail-3.01.com>
+Message-ID: <3324562E-57BB-4A36-A6D4-E46479B1EB6D@joeyguerra.com>
+
+Seems like that would almost be a buddypress plugin. That would be  
+sweet...buddypress widgets to use with wp themes.
+
+...am mobile.
+
+On Jun 13, 2008, at 4:16 PM, Jed Barish <jed@deafnation.com> wrote:
+
+> Groups and Friends are not ready to be integrated because there are  
+> some errors. Should I wait until they are ready to be integrated  
+> with other components? With your new theme, I am hoping to see them  
+> all ready soon but apparently it will be couple more months before  
+> we see them all ready.
+>
+> Let's say if I started a WPMU site with lots of new users until  
+> Buddypress is ready to roll out then how hard will it be integrated  
+> with current wpmu users. New theme will be taking over their own  
+> current design or will we see widgets instead to show my profile  
+> info, etc like we see on the new theme. If we could use the new  
+> theme as "stand alone" site under a wpmu site's author page. Let's  
+> say I am the blog owner of XYZ then a widget to show my author info/ 
+> profile, etc. Anyone can click on it as profile page like myspace or  
+> others do. Will it be possible?
+>
+> Jed
+>
+> ----- Original Message -----
+> From: "Barry Ceelen" <barry@multipop.org>
+> To: buddypress-dev@lists.automattic.com
+> Sent: Friday, June 13, 2008 10:59:12 AM GMT -06:00 US/Canada Central
+> Subject: Re: [buddypress-dev] New BuddyPress Theme
+>
+> Theme looks good, super!
+>
+> On Jun 13, 2008, at 00:54, Andy Peatling wrote:
+>
+>> I've been working on a new default BuddyPress theme for the past
+>> week or so.
+>>
+>> The current theme is just for testing purposes and really doesn't
+>> achieve anything. The new theme will make use of all the BuddyPress
+>> functionality and will hopeful provide theme designers with a theme
+>> to copy and paste code from. It'll include all the new BuddyPress
+>> template tags.
+>>
+>> I've explained more on the actual gallery page, so it's best to head
+>> over there and take a look.
+>>
+>> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>>
+>> Cheers
+>> Andy
+>>
+>> PS: They are mockups right now, but I'm actively developing this.
+>>
+>> ---------
+>> Andy Peatling | Social Engineer | Automattic
+>> http://andyinlife.com
+>>
+>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From beau at dentedreality.com.au  Sat Jun 14 17:09:52 2008
+From: beau at dentedreality.com.au (Beau Lebens)
+Date: Sat Jun 14 17:10:14 2008
+Subject: Localization (was Re: [buddypress-dev] Re: buddypress-dev Digest,
+	Vol 3, Issue 7)
+In-Reply-To: <352efba50806140244w1714b913g3465a0f69a53a64e@mail.gmail.com>
+References: <20080613213309.76A746EAA@comox.textdrive.com>
+	<352efba50806140244w1714b913g3465a0f69a53a64e@mail.gmail.com>
+Message-ID: <4E007B4B-23E9-46BC-BF5D-580EEC34DB2A@dentedreality.com.au>
+
+ From what I've seen in the code, all output is using WordPress'  
+built in localization functions, so you should be able to create .MO  
+files just like for WordPress for the BuddyPress UI and have it work  
+the same way.
+
+I don't actually know how you do that, but I know it's been done a  
+lot for WP and BP looks like it will work the same way.
+
+Beau
+
+
+On Jun 14, 2008, at 2:44 AM, #FN$# wrote:
+
+> Hi to all!
+> As I can see,the whole project goes great!(Thanx to Andy and anyone  
+> else who've helped and is still helping!)
+>
+> BUT,I don't remember anything about the "subject" localization...
+> Will BP be available on other languages?...
+> If so,can we help to the translation?...
+> Thank you for your time!
+> Keep up!
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andypeatling at automattic.com  Sat Jun 14 17:48:10 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Sat Jun 14 17:49:07 2008
+Subject: Localization (was Re: [buddypress-dev] Re: buddypress-dev Digest,
+	Vol 3, Issue 7)
+In-Reply-To: <4E007B4B-23E9-46BC-BF5D-580EEC34DB2A@dentedreality.com.au>
+References: <20080613213309.76A746EAA@comox.textdrive.com>
+	<352efba50806140244w1714b913g3465a0f69a53a64e@mail.gmail.com>
+	<4E007B4B-23E9-46BC-BF5D-580EEC34DB2A@dentedreality.com.au>
+Message-ID: <9C42E9C2-30FD-4734-B131-49351D8B223C@automattic.com>
+
+
+On 14-Jun-08, at 10:09 AM, Beau Lebens wrote:
+
+> From what I've seen in the code, all output is using WordPress'  
+> built in localization functions, so you should be able to create .MO  
+> files just like for WordPress for the BuddyPress UI and have it work  
+> the same way.
+
+Exactly, we've used localization functions everywhere so language  
+support should work the same way it does for WordPress.
+
+[...]
+
+> On Jun 14, 2008, at 2:44 AM, #FN$# wrote:
+>
+>> Hi to all!
+>> As I can see,the whole project goes great!(Thanx to Andy and anyone  
+>> else who've helped and is still helping!)
+>>
+>> BUT,I don't remember anything about the "subject" localization...
+>> Will BP be available on other languages?...
+>> If so,can we help to the translation?...
+>> Thank you for your time!
+>> Keep up!
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From kingler at 72pines.com  Sat Jun 14 20:29:26 2008
+From: kingler at 72pines.com (kingler)
+Date: Sat Jun 14 20:50:32 2008
+Subject: Localization (was Re: [buddypress-dev] Re: buddypress-dev Digest,
+	Vol 3, Issue 7)
+In-Reply-To: <9C42E9C2-30FD-4734-B131-49351D8B223C@automattic.com>
+References: <20080613213309.76A746EAA@comox.textdrive.com>
+	<352efba50806140244w1714b913g3465a0f69a53a64e@mail.gmail.com>
+	<4E007B4B-23E9-46BC-BF5D-580EEC34DB2A@dentedreality.com.au>
+	<9C42E9C2-30FD-4734-B131-49351D8B223C@automattic.com>
+Message-ID: <67c2d6930806141329g746a59fbv2709939c4ade663f@mail.gmail.com>
+
+Hi, Andy
+
+Actually, since BuddyPress is more like a plugin for WPMU, the textdomain
+probably should be different from the default WPMU. It simply means that
+instead of
+
+_e("text"), it is better to use _e("text", "buddypress");
+
+This way, translators can do WPMU translation and BuddyPress translations
+separately. And the buddypress translation can be made available for
+download with the BuddyPress package.
+
+Just my 2 cents. Once it is ready, Nikolay can probably setup an automatic
+POT file generation script for BuddyPress as well. :)
+
+-Liang
+
+On Sat, Jun 14, 2008 at 10:48 AM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+>
+> On 14-Jun-08, at 10:09 AM, Beau Lebens wrote:
+>
+>  From what I've seen in the code, all output is using WordPress' built in
+>> localization functions, so you should be able to create .MO files just like
+>> for WordPress for the BuddyPress UI and have it work the same way.
+>>
+>
+> Exactly, we've used localization functions everywhere so language support
+> should work the same way it does for WordPress.
+>
+> [...]
+>
+>
+>  On Jun 14, 2008, at 2:44 AM, #FN$# wrote:
+>>
+>>  Hi to all!
+>>> As I can see,the whole project goes great!(Thanx to Andy and anyone else
+>>> who've helped and is still helping!)
+>>>
+>>> BUT,I don't remember anything about the "subject" localization...
+>>> Will BP be available on other languages?...
+>>> If so,can we help to the translation?...
+>>> Thank you for your time!
+>>> Keep up!
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080614/a3267d7f/attachment.htm
+From david.nolan at celtic-irish.co.uk  Sun Jun 15 20:59:51 2008
+From: david.nolan at celtic-irish.co.uk (David Nolan)
+Date: Sun Jun 15 21:00:19 2008
+Subject: [buddypress-dev] New BuddyPress Theme
+In-Reply-To: <D4930B20-00BA-4659-947C-3973F340A7CA@automattic.com>
+References: <D4930B20-00BA-4659-947C-3973F340A7CA@automattic.com>
+Message-ID: <d4abb58e0806151359k4f74a8d7r8e9d0fddd33071dd@mail.gmail.com>
+
+Andy, That is a lovely looking theme.
+
+Well done!
+
+David
+
+2008/6/12 Andy Peatling <andypeatling@automattic.com>:
+
+> I've been working on a new default BuddyPress theme for the past week or
+> so.
+>
+> The current theme is just for testing purposes and really doesn't achieve
+> anything. The new theme will make use of all the BuddyPress functionality
+> and will hopeful provide theme designers with a theme to copy and paste code
+> from. It'll include all the new BuddyPress template tags.
+>
+> I've explained more on the actual gallery page, so it's best to head over
+> there and take a look.
+>
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Cheers
+> Andy
+>
+> PS: They are mockups right now, but I'm actively developing this.
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Help raise funds for our community events by visiting
+http://www.celtic-irish.co.uk/shop
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080615/b2e450cc/attachment.htm
+From dsmacdonald at gov.pe.ca  Mon Jun 16 14:13:50 2008
+From: dsmacdonald at gov.pe.ca (Scot MacDonald)
+Date: Mon Jun 16 14:17:44 2008
+Subject: [buddypress-dev] wpmu and buddpress
+Message-ID: <s8564bc9.039@peims4.peigov>
+
+can buddypress features work solely for the original blog created upon
+wpmu install where users can comment but not create new blogs?
+
+===============================================
+
+"The best way to predict the future...is to create it."
+
+D. Scot MacDonald
+Director, Business Investment Division
+Interactive Media, Games & Mobile
+Technology PEI
+PO Box 340
+Charlottetown, PEI
+C1A 7K7
+Phone: 902-368-5775
+Email: dsmacdonald@gov.pe.ca
+Web: www.gameplan.ca
+
+_______________________________
+
+The information transmitted is intended only for the person or entity
+to which
+it is addressed and may contain confidential and/or privileged
+material.  Any
+review, retransmission, dissemination or other use of, or taking of any
+action
+in reliance upon, this information by persons or entities other than
+the
+intended recipient is prohibited.   If you received this in error,
+please
+contact the sender and delete the material from any computer.
+
+
+
+
+
+
+-------------------------
+Statement of Confidentiality
+This message (including attachments) may contain confidential or privileged information intended for a specific individual or organization. If you have received this communication in error, please notify the sender immediately. If you are not the intended recipient, you are not authorized to use, disclose, distribute, copy, print or rely on this email, and should promptly delete this email from your entire computer system. 
+ 
+D?claration de confidentialit?
+Le pr?sent message (y compris les annexes) peut contenir des renseignements confidentiels ? l'intention d'une personne ou d'un organisme particulier. Si vous avez re?u la pr?sente communication par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous n'?tes pas le destinataire pr?vu, vous n'avez pas le droit d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou encore de vous en servir, et vous devriez l'effacer imm?diatement de votre syst?me informatique.
+-------------------------
+
+From sillyandrea at gmail.com  Mon Jun 16 14:37:14 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Mon Jun 16 14:29:50 2008
+Subject: [buddypress-dev] wpmu and buddpress
+In-Reply-To: <s8564bc9.039@peims4.peigov>
+References: <s8564bc9.039@peims4.peigov>
+Message-ID: <485678c6.4d5c220a.3324.3b96@mx.google.com>
+
+Yes. Just disable new registrations in the Site Admin area of MU.
+
+(Hi from next door in NB!)
+
+Andrea
+
+Scot MacDonald wrote:
+> can buddypress features work solely for the original blog created upon
+> wpmu install where users can comment but not create new blogs?
+>
+> ===============================================
+>
+> "The best way to predict the future...is to create it."
+>
+> D. Scot MacDonald
+> Director, Business Investment Division
+> Interactive Media, Games & Mobile
+> Technology PEI
+> PO Box 340
+> Charlottetown, PEI
+> C1A 7K7
+> Phone: 902-368-5775
+> Email: dsmacdonald@gov.pe.ca
+> Web: www.gameplan.ca
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From jeromebeta at gmail.com  Tue Jun 17 13:38:14 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Tue Jun 17 13:38:30 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+Message-ID: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+
+As we know, "Mutual Friends" and "People You May Know" are the important and
+attractive features on Facebook, are they in our BuddyPress plan? I did not
+see it on trac.buddypress.com yet so far, thanks!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080617/5a3061f0/attachment.htm
+From kylejones at thecorkboard.org  Tue Jun 17 16:51:54 2008
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Tue Jun 17 16:52:08 2008
+Subject: [buddypress-dev] Theme/admin issues
+Message-ID: <DFB3BA25-14A7-4F44-A8F3-DDE3D9B34C6F@thecorkboard.org>
+
+I'm working on developing a buddypress site for some grad students and  
+I'm running across the following issues:
+-The theme, when placed in the /wp-content/themes/default folder can  
+be activated but if fails to load (see this page: http://wpmu.thecorkboard.org/kyle/)
+-The theme snapshot preview doesn't show in the admin section
+-The ability to change my profile field options has disappeared
+
+Any help would be great-
+~Kyle~
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080617/cede72a8/attachment.htm
+From dsmacdonald at gov.pe.ca  Tue Jun 17 17:14:20 2008
+From: dsmacdonald at gov.pe.ca (Scot MacDonald)
+Date: Tue Jun 17 17:18:00 2008
+Subject: [buddypress-dev] Hosting
+Message-ID: <s857c789.022@peims4.peigov>
+
+Can anyone suggest a quality host who supports WPMU with sub-domains?
+
+===============================================
+
+"The best way to predict the future...is to create it."
+
+D. Scot MacDonald
+Director, Business Investment Division
+Interactive Media, Games & Mobile
+Technology PEI
+PO Box 340
+Charlottetown, PEI
+C1A 7K7
+Phone: 902-368-5775
+Email: dsmacdonald@gov.pe.ca
+Web: www.gameplan.ca
+
+_______________________________
+
+The information transmitted is intended only for the person or entity to which
+it is addressed and may contain confidential and/or privileged material.  Any
+review, retransmission, dissemination or other use of, or taking of any action
+in reliance upon, this information by persons or entities other than the
+intended recipient is prohibited.   If you received this in error, please
+contact the sender and delete the material from any computer.
+
+
+
+
+
+
+
+-------------------------
+Statement of Confidentiality
+This message (including attachments) may contain confidential or privileged information intended for a specific individual or organization. If you have received this communication in error, please notify the sender immediately. If you are not the intended recipient, you are not authorized to use, disclose, distribute, copy, print or rely on this email, and should promptly delete this email from your entire computer system. 
+ 
+D?claration de confidentialit?
+Le pr?sent message (y compris les annexes) peut contenir des renseignements confidentiels ? l'intention d'une personne ou d'un organisme particulier. Si vous avez re?u la pr?sente communication par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous n'?tes pas le destinataire pr?vu, vous n'avez pas le droit d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou encore de vous en servir, et vous devriez l'effacer imm?diatement de votre syst?me informatique.
+-------------------------
+
+From andypeatling at automattic.com  Tue Jun 17 17:56:01 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Tue Jun 17 17:56:17 2008
+Subject: [buddypress-dev] Theme/admin issues
+In-Reply-To: <DFB3BA25-14A7-4F44-A8F3-DDE3D9B34C6F@thecorkboard.org>
+References: <DFB3BA25-14A7-4F44-A8F3-DDE3D9B34C6F@thecorkboard.org>
+Message-ID: <DC61EDB3-04B6-4EEB-9957-1535D85654E2@automattic.com>
+
+On 17-Jun-08, at 9:51 AM, Kyle Jones wrote:
+
+> I'm working on developing a buddypress site for some grad students  
+> and I'm running across the following issues:
+> -The theme, when placed in the /wp-content/themes/default folder can  
+> be activated but if fails to load (see this page: http://wpmu.thecorkboard.org/kyle/)
+>
+
+I've been making a lot of changes to the way the theme works. This  
+includes changes to function names. It's likely that the old theme  
+references old function names which throws an error.
+
+I've just this morning checked in an early version of the new theme.  
+I'm not ready to tag a downloadable version of it yet, so only people  
+who know how to check out from the trunk should go ahead with this.
+
+I'm working as fast as possible to get this new theme up and running.  
+Once I do, I'll tag a version so people can begin to download and test  
+and use it however they like.
+
+Thanks
+Andy
+
+From chris at stillbreathing.co.uk  Tue Jun 17 18:01:58 2008
+From: chris at stillbreathing.co.uk (chris@stillbreathing.co.uk)
+Date: Tue Jun 17 18:02:19 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+In-Reply-To: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+References: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+Message-ID: <60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+
+Hi,
+
+We have the beginnings of a friend system but it needs a lot of work.
+The good news is it should be fairly easy to show 'friends of friends'
+and 'mutual friends'. I'm not sure how 'people you may know' works.
+Can someone explain?
+
+Chris
+
+On 6/17/08, Jerome <jeromebeta@gmail.com> wrote:
+> As we know, "Mutual Friends" and "People You May Know" are the important and
+> attractive features on Facebook, are they in our BuddyPress plan? I did not
+> see it on trac.buddypress.com yet so far, thanks!
+>
+From kylejones at thecorkboard.org  Tue Jun 17 18:14:15 2008
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Tue Jun 17 18:14:36 2008
+Subject: [buddypress-dev] Hosting
+In-Reply-To: <s857c789.022@peims4.peigov>
+References: <s857c789.022@peims4.peigov>
+Message-ID: <3E1E4980-C8C6-488F-8C94-1CB0B6028CF3@thecorkboard.org>
+
+Scot-
+
+I use Dreamhost and find it works quite well.  Easy to create  
+databases and just drop the WPMU folder into a directory, then plug in  
+the database name, host, and admin credentials.  Did it this morning,  
+actually.
+
+~K~
+
+On Jun 17, 2008, at 12:14 PM, Scot MacDonald wrote:
+
+> Can anyone suggest a quality host who supports WPMU with sub-domains?
+>
+> ===============================================
+>
+> "The best way to predict the future...is to create it."
+>
+> D. Scot MacDonald
+> Director, Business Investment Division
+> Interactive Media, Games & Mobile
+> Technology PEI
+> PO Box 340
+> Charlottetown, PEI
+> C1A 7K7
+> Phone: 902-368-5775
+> Email: dsmacdonald@gov.pe.ca
+> Web: www.gameplan.ca
+>
+> _______________________________
+>
+> The information transmitted is intended only for the person or  
+> entity to which
+> it is addressed and may contain confidential and/or privileged  
+> material.  Any
+> review, retransmission, dissemination or other use of, or taking of  
+> any action
+> in reliance upon, this information by persons or entities other than  
+> the
+> intended recipient is prohibited.   If you received this in error,  
+> please
+> contact the sender and delete the material from any computer.
+>
+>
+>
+>
+>
+>
+>
+> -------------------------
+> Statement of Confidentiality
+> This message (including attachments) may contain confidential or  
+> privileged information intended for a specific individual or  
+> organization. If you have received this communication in error,  
+> please notify the sender immediately. If you are not the intended  
+> recipient, you are not authorized to use, disclose, distribute,  
+> copy, print or rely on this email, and should promptly delete this  
+> email from your entire computer system.
+>
+> D?claration de confidentialit?
+> Le pr?sent message (y compris les annexes) peut contenir des  
+> renseignements confidentiels ? l'intention d'une personne ou d'un  
+> organisme particulier. Si vous avez re?u la pr?sente communication  
+> par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous  
+> n'?tes pas le destinataire pr?vu, vous n'avez pas le droit  
+> d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou  
+> encore de vous en servir, et vous devriez l'effacer imm?diatement de  
+> votre syst?me informatique.
+> -------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080617/acdaee3b/attachment.htm
+From ponara at gmail.com  Tue Jun 17 18:20:04 2008
+From: ponara at gmail.com (Ponara)
+Date: Tue Jun 17 18:20:19 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+In-Reply-To: <60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+References: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+	<60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+Message-ID: <a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+
+I would like to suggest that "people you may know" is unnecessary, it is in
+theory attempting to guess-match you to people you may know based on profile
+info and related friends, not an easy thing to do - and facebook has never
+shown me someone I "may know".
+I'm more hoping to allow people to be a fan of another author or member - a
+fan doesn't have to be "confirmed", this way a fan can be kept abreast of
+the author's latest blogs, comments, etc via the wire.  It is used to good
+effect on 2.0 news sites that are increasingly resembling a social network.
+(huffingtonpost.com, gothamist.com)
+
+
+On Tue, Jun 17, 2008 at 2:01 PM, <chris@stillbreathing.co.uk> wrote:
+
+> Hi,
+>
+> We have the beginnings of a friend system but it needs a lot of work.
+> The good news is it should be fairly easy to show 'friends of friends'
+> and 'mutual friends'. I'm not sure how 'people you may know' works.
+> Can someone explain?
+>
+> Chris
+>
+> On 6/17/08, Jerome <jeromebeta@gmail.com> wrote:
+> > As we know, "Mutual Friends" and "People You May Know" are the important
+> and
+> > attractive features on Facebook, are they in our BuddyPress plan? I did
+> not
+> > see it on trac.buddypress.com yet so far, thanks!
+> >
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+..................................................................
+Ponara Steven Eng
+tel.: 212-810-6067
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080617/6437820f/attachment-0001.htm
+From jeromebeta at gmail.com  Tue Jun 17 21:18:29 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Tue Jun 17 21:19:14 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+In-Reply-To: <a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+References: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+	<60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+	<a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+Message-ID: <3f7bc4310806171418q333018e6mdcc9c4812c22c6e5@mail.gmail.com>
+
+I agree about the "Fan" feature, I saw it has been used on many popular
+sites recently.
+
+On Tue, Jun 17, 2008 at 8:20 PM, Ponara <ponara@gmail.com> wrote:
+
+> I would like to suggest that "people you may know" is unnecessary, it is in
+> theory attempting to guess-match you to people you may know based on profile
+> info and related friends, not an easy thing to do - and facebook has never
+> shown me someone I "may know".
+> I'm more hoping to allow people to be a fan of another author or member - a
+> fan doesn't have to be "confirmed", this way a fan can be kept abreast of
+> the author's latest blogs, comments, etc via the wire.  It is used to good
+> effect on 2.0 news sites that are increasingly resembling a social network.
+> (huffingtonpost.com, gothamist.com)
+>
+>
+>
+> On Tue, Jun 17, 2008 at 2:01 PM, <chris@stillbreathing.co.uk> wrote:
+>
+>> Hi,
+>>
+>> We have the beginnings of a friend system but it needs a lot of work.
+>> The good news is it should be fairly easy to show 'friends of friends'
+>> and 'mutual friends'. I'm not sure how 'people you may know' works.
+>> Can someone explain?
+>>
+>> Chris
+>>
+>> On 6/17/08, Jerome <jeromebeta@gmail.com> wrote:
+>> > As we know, "Mutual Friends" and "People You May Know" are the important
+>> and
+>> > attractive features on Facebook, are they in our BuddyPress plan? I did
+>> not
+>> > see it on trac.buddypress.com yet so far, thanks!
+>> >
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+>
+> --
+> ..................................................................
+> Ponara Steven Eng
+> tel.: 212-810-6067
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080617/67752bce/attachment.htm
+From jeromebeta at gmail.com  Tue Jun 17 21:18:29 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Tue Jun 17 21:19:30 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+In-Reply-To: <a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+References: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+	<60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+	<a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+Message-ID: <3f7bc4310806171418q333018e6mdcc9c4812c22c6e5@mail.gmail.com>
+
+I agree about the "Fan" feature, I saw it has been used on many popular
+sites recently.
+
+On Tue, Jun 17, 2008 at 8:20 PM, Ponara <ponara@gmail.com> wrote:
+
+> I would like to suggest that "people you may know" is unnecessary, it is in
+> theory attempting to guess-match you to people you may know based on profile
+> info and related friends, not an easy thing to do - and facebook has never
+> shown me someone I "may know".
+> I'm more hoping to allow people to be a fan of another author or member - a
+> fan doesn't have to be "confirmed", this way a fan can be kept abreast of
+> the author's latest blogs, comments, etc via the wire.  It is used to good
+> effect on 2.0 news sites that are increasingly resembling a social network.
+> (huffingtonpost.com, gothamist.com)
+>
+>
+>
+> On Tue, Jun 17, 2008 at 2:01 PM, <chris@stillbreathing.co.uk> wrote:
+>
+>> Hi,
+>>
+>> We have the beginnings of a friend system but it needs a lot of work.
+>> The good news is it should be fairly easy to show 'friends of friends'
+>> and 'mutual friends'. I'm not sure how 'people you may know' works.
+>> Can someone explain?
+>>
+>> Chris
+>>
+>> On 6/17/08, Jerome <jeromebeta@gmail.com> wrote:
+>> > As we know, "Mutual Friends" and "People You May Know" are the important
+>> and
+>> > attractive features on Facebook, are they in our BuddyPress plan? I did
+>> not
+>> > see it on trac.buddypress.com yet so far, thanks!
+>> >
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+>
+> --
+> ..................................................................
+> Ponara Steven Eng
+> tel.: 212-810-6067
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080617/67752bce/attachment-0001.htm
+From chiara at corp.microjuris.com  Tue Jun 17 21:31:56 2008
+From: chiara at corp.microjuris.com (Chiara Merino)
+Date: Tue Jun 17 21:32:08 2008
+Subject: [buddypress-dev] Sample sites
+Message-ID: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>
+
+Hi all :)
+
+I've been following the BuddyPress development with great interest.
+Congrats to all :)
+
+Would any of you have any sample sites available to view?
+
+Thanks!
+
+Chiara
+
+
+
+-- 
+Chiara Merino P?rez-Carvajal
+Gerente Editorial y de Contenidos
+Microjuris.com
+
+url: www.microjuris.com
+tel. 787.724.3889 ext. 252
+skype: chiaramerino
+
+
+Nota de confidencialidad: Lo anterior constituye informaci?n
+confidencial y privilegiada entre el remitente y el destinatario.
+Cualquier uso de la misma por persona que no sea el destinatario esta
+prohibida. Su usted recibi? este mensaje por error, comun?quese con el
+remitente y proceda a borrar el mismo con todas las copias que posea.
+From brad at touesnard.com  Tue Jun 17 22:00:45 2008
+From: brad at touesnard.com (Brad Touesnard)
+Date: Tue Jun 17 22:01:02 2008
+Subject: [buddypress-dev] Hosting
+Message-ID: <4858340D.4060202@touesnard.com>
+
+Hey Scot,
+
+If you're looking for stable, reliable production web hosting you should 
+try us, your friendly neighbors in Fredericton, NB:
+http://www.zenutech.ca/.
+
+-- 
+Brad Touesnard
+Web: http://bradt.ca/
+Mobile: (604) 306-7484
+
+
+
+
+On Jun 17, 2008, at 12:14 PM, Scot MacDonald wrote:
+
+ > Can anyone suggest a quality host who supports WPMU with sub-domains?
+ >
+ > ===============================================
+ >
+ > "The best way to predict the future...is to create it."
+ >
+ > D. Scot MacDonald
+ > Director, Business Investment Division
+ > Interactive Media, Games & Mobile
+ > Technology PEI
+ > PO Box 340
+ > Charlottetown, PEI
+ > C1A 7K7
+ > Phone: 902-368-5775
+ > Email: dsmacdonald at gov.pe.ca
+ > Web: www.gameplan.ca
+ >
+ > _______________________________
+ >
+ > The information transmitted is intended only for the person or
+ > entity to which
+ > it is addressed and may contain confidential and/or privileged
+ > material.  Any
+ > review, retransmission, dissemination or other use of, or taking of
+ > any action
+ > in reliance upon, this information by persons or entities other than
+ > the
+ > intended recipient is prohibited.   If you received this in error,
+ > please
+ > contact the sender and delete the material from any computer.
+ >
+ >
+ >
+ >
+ >
+ >
+ >
+ > -------------------------
+ > Statement of Confidentiality
+ > This message (including attachments) may contain confidential or
+ > privileged information intended for a specific individual or
+ > organization. If you have received this communication in error,
+ > please notify the sender immediately. If you are not the intended
+ > recipient, you are not authorized to use, disclose, distribute,
+ > copy, print or rely on this email, and should promptly delete this
+ > email from your entire computer system.
+ >
+ > D?claration de confidentialit?
+ > Le pr?sent message (y compris les annexes) peut contenir des
+ > renseignements confidentiels ? l'intention d'une personne ou d'un
+ > organisme particulier. Si vous avez re?u la pr?sente communication
+ > par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous
+ > n'?tes pas le destinataire pr?vu, vous n'avez pas le droit
+ > d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou
+ > encore de vous en servir, et vous devriez l'effacer imm?diatement de
+ > votre syst?me informatique.
+ > -------------------------
+ >
+ > _______________________________________________
+ > buddypress-dev mailing list
+ > buddypress-dev at lists.automattic.com
+ > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From sillyandrea at gmail.com  Tue Jun 17 22:31:56 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Tue Jun 17 22:31:28 2008
+Subject: [buddypress-dev] Hosting
+In-Reply-To: <s857c789.022@peims4.peigov>
+References: <s857c789.022@peims4.peigov>
+Message-ID: <48583b2c.06e9220a.184f.5d45@mx.google.com>
+
+Just some friendly advice - if the site is going to have a large number 
+of users, you'll need to go with a VPS. I use futurehosting.biz.
+
+ For very small installs, you can get away with shared hosting for a 
+time, but MU usually winds up being a little more memory intensive when 
+you get up over a couple hundred users.
+
+Andrea
+http://wpmututorials.com
+
+Scot MacDonald wrote:
+> Can anyone suggest a quality host who supports WPMU with sub-domains?
+>
+> ===============================================
+>
+> "The best way to predict the future...is to create it."
+>
+> D. Scot MacDonald
+> Director, Business Investment Division
+> Interactive Media, Games & Mobile
+> Technology PEI
+> PO Box 340
+> Charlottetown, PEI
+> C1A 7K7
+> Phone: 902-368-5775
+> Email: dsmacdonald@gov.pe.ca
+> Web: www.gameplan.ca
+>
+> _______________________________
+>
+> The information transmitted is intended only for the person or entity to which
+> it is addressed and may contain confidential and/or privileged material.  Any
+> review, retransmission, dissemination or other use of, or taking of any action
+> in reliance upon, this information by persons or entities other than the
+> intended recipient is prohibited.   If you received this in error, please
+> contact the sender and delete the material from any computer.
+>
+>
+>
+>
+>
+>
+>
+> -------------------------
+> Statement of Confidentiality
+> This message (including attachments) may contain confidential or privileged information intended for a specific individual or organization. If you have received this communication in error, please notify the sender immediately. If you are not the intended recipient, you are not authorized to use, disclose, distribute, copy, print or rely on this email, and should promptly delete this email from your entire computer system. 
+>  
+> D?claration de confidentialit?
+> Le pr?sent message (y compris les annexes) peut contenir des renseignements confidentiels ? l'intention d'une personne ou d'un organisme particulier. Si vous avez re?u la pr?sente communication par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous n'?tes pas le destinataire pr?vu, vous n'avez pas le droit d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou encore de vous en servir, et vous devriez l'effacer imm?diatement de votre syst?me informatique.
+> -------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>   
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From sillyandrea at gmail.com  Tue Jun 17 22:32:37 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Tue Jun 17 22:32:03 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>
+Message-ID: <48583b50.18e9220a.467c.7193@mx.google.com>
+
+There's a plain vanilla install of WPMU & BuddyPress at 
+http://testdrivewpmu.com
+
+Andrea
+
+Chiara Merino wrote:
+> Hi all :)
+>
+> I've been following the BuddyPress development with great interest.
+> Congrats to all :)
+>
+> Would any of you have any sample sites available to view?
+>
+> Thanks!
+>
+> Chiara
+>
+>
+>
+>   
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From dan at instinct.co.nz  Tue Jun 17 22:55:34 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Tue Jun 17 22:55:54 2008
+Subject: [buddypress-dev] Hosting - Slicehost.com
+In-Reply-To: <48583b2c.06e9220a.184f.5d45@mx.google.com>
+References: <s857c789.022@peims4.peigov>
+	<48583b2c.06e9220a.184f.5d45@mx.google.com>
+Message-ID: <485840E6.1070306@instinct.co.nz>
+
+We use slicehost.com and they have very good support.
+
+They seem to be actively promoting best practices for running a big MU 
+type of site - they even have tutorials on how to use nginx as a 
+webserver as opposed to Apache.
+
+Also its not just me using slicehost.com - here is a post from dougal 
+who works on Wordpress:
+http://dougal.gunters.org/blog/2008/04/21/now-on-slicehost
+
+Use the Debian install - do not use CentOS on slicehost.com because 
+there are some seriously bad memory leaks happening. I could be wrong 
+but I think wordpress.com uses Debian - and we figure it is best to do 
+what they do - don't fix what isnt broke huh?
+
+And with slicehost.com you can start small like us and increase your 
+account size as you need to.
+
+This is what I would do (learned from hours of pain):
+- setup a debain slice at slicehost.com
+- install MU
+- off load your themes to amazon S3
+- explore using nginx as a webserver
+
+Using Amazon S3 to host your themes is a very very good idea. It will 
+mean your slicehost account can stay smaller for longer. This is because 
+S3 is doing a lot of the hard work with images. This is what 
+wordpress.com does and this is what started to do on getshopped.com ever 
+since we realised it meant we could save money and improve the user 
+experience at the same time.
+
+Don't think big. Think smart :))
+
+The plugin you want for S3 is this one:
+http://www.ringofblogs.com/2008/04/12/off-loading-wpmu-theme-files-to-amazon-s3/
+
+
+Ciao,
+
+Dan
+
+
+Andrea wrote:
+> Just some friendly advice - if the site is going to have a large 
+> number of users, you'll need to go with a VPS. I use futurehosting.biz.
+>
+> For very small installs, you can get away with shared hosting for a 
+> time, but MU usually winds up being a little more memory intensive 
+> when you get up over a couple hundred users.
+>
+> Andrea
+> http://wpmututorials.com
+>
+> Scot MacDonald wrote:
+>> Can anyone suggest a quality host who supports WPMU with sub-domains?
+>>
+>> ===============================================
+>>
+>> "The best way to predict the future...is to create it."
+>>
+>> D. Scot MacDonald
+>> Director, Business Investment Division
+>> Interactive Media, Games & Mobile
+>> Technology PEI
+>> PO Box 340
+>> Charlottetown, PEI
+>> C1A 7K7
+>> Phone: 902-368-5775
+>> Email: dsmacdonald@gov.pe.ca
+>> Web: www.gameplan.ca
+>>
+>> _______________________________
+>>
+>> The information transmitted is intended only for the person or entity 
+>> to which
+>> it is addressed and may contain confidential and/or privileged 
+>> material.  Any
+>> review, retransmission, dissemination or other use of, or taking of 
+>> any action
+>> in reliance upon, this information by persons or entities other than the
+>> intended recipient is prohibited.   If you received this in error, 
+>> please
+>> contact the sender and delete the material from any computer.
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>> -------------------------
+>> Statement of Confidentiality
+>> This message (including attachments) may contain confidential or 
+>> privileged information intended for a specific individual or 
+>> organization. If you have received this communication in error, 
+>> please notify the sender immediately. If you are not the intended 
+>> recipient, you are not authorized to use, disclose, distribute, copy, 
+>> print or rely on this email, and should promptly delete this email 
+>> from your entire computer system.  
+>> D?claration de confidentialit?
+>> Le pr?sent message (y compris les annexes) peut contenir des 
+>> renseignements confidentiels ? l'intention d'une personne ou d'un 
+>> organisme particulier. Si vous avez re?u la pr?sente communication 
+>> par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous 
+>> n'?tes pas le destinataire pr?vu, vous n'avez pas le droit 
+>> d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou 
+>> encore de vous en servir, et vous devriez l'effacer imm?diatement de 
+>> votre syst?me informatique.
+>> -------------------------
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>   
+>
+From sillyandrea at gmail.com  Tue Jun 17 23:12:53 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Tue Jun 17 23:12:24 2008
+Subject: [buddypress-dev] Hosting - Slicehost.com
+In-Reply-To: <485840E6.1070306@instinct.co.nz>
+References: <s857c789.022@peims4.peigov>	<48583b2c.06e9220a.184f.5d45@mx.google.com>
+	<485840E6.1070306@instinct.co.nz>
+Message-ID: <485844be.39e9220a.759f.135b@mx.google.com>
+
+But with BuddyPress most sites will probably use only one or two themes. :)
+
+A.
+
+Dan Milward wrote:
+> Using Amazon S3 to host your themes is a very very good idea. It will 
+> mean your slicehost account can stay smaller for longer. This is 
+> because S3 is doing a lot of the hard work with images. This is what 
+> wordpress.com does and this is what started to do on getshopped.com 
+> ever since we realised it meant we could save money and improve the 
+> user experience at the same time.
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From dan at instinct.co.nz  Tue Jun 17 23:48:51 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Tue Jun 17 23:49:11 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <48583b50.18e9220a.467c.7193@mx.google.com>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>
+	<48583b50.18e9220a.467c.7193@mx.google.com>
+Message-ID: <48584D63.4070708@instinct.co.nz>
+
+Hey Andrea,
+
+Can you add  this theme to the site for us please:
+http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+
+Ciao,
+
+Dan
+
+Andrea wrote:
+> There's a plain vanilla install of WPMU & BuddyPress at 
+> http://testdrivewpmu.com
+>
+> Andrea
+>
+> Chiara Merino wrote:
+>> Hi all :)
+>>
+>> I've been following the BuddyPress development with great interest.
+>> Congrats to all :)
+>>
+>> Would any of you have any sample sites available to view?
+>>
+>> Thanks!
+>>
+>> Chiara
+>>
+>>
+>>
+>>   
+>
+From jed at deafnation.com  Tue Jun 17 23:53:00 2008
+From: jed at deafnation.com (Jed Barish)
+Date: Tue Jun 17 23:53:54 2008
+Subject: [buddypress-dev] Hosting
+Message-ID: <889929051.747071213746780630.JavaMail.root@mail-3.01.com>
+
+Andrea, could u tell us why do you think futurehosting.biz a better choice over other vps providers? How long have u been using their vps and reliability? I am interested to know compared to a dedicated server.
+
+Thanks, Jed
+
+-----Original Message-----
+From: Andrea <sillyandrea@gmail.com>
+Sent: Tuesday, June 17, 2008 4:31 PM
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] Hosting
+
+Just some friendly advice - if the site is going to have a large number 
+of users, you'll need to go with a VPS. I use futurehosting.biz.
+
+ For very small installs, you can get away with shared hosting for a 
+time, but MU usually winds up being a little more memory intensive when 
+you get up over a couple hundred users.
+
+Andrea
+http://wpmututorials.com
+
+Scot MacDonald wrote:
+> Can anyone suggest a quality host who supports WPMU with sub-domains?
+>
+> ===============================================
+>
+> "The best way to predict the future...is to create it."
+>
+> D. Scot MacDonald
+> Director, Business Investment Division
+> Interactive Media, Games & Mobile
+> Technology PEI
+> PO Box 340
+> Charlottetown, PEI
+> C1A 7K7
+> Phone: 902-368-5775
+> Email: dsmacdonald@gov.pe.ca
+> Web: www.gameplan.ca
+>
+> _______________________________
+>
+> The information transmitted is intended only for the person or entity to which
+> it is addressed and may contain confidential and/or privileged material.  Any
+> review, retransmission, dissemination or other use of, or taking of any action
+> in reliance upon, this information by persons or entities other than the
+> intended recipient is prohibited.   If you received this in error, please
+> contact the sender and delete the material from any computer.
+>
+>
+>
+>
+>
+>
+>
+> -------------------------
+> Statement of Confidentiality
+> This message (including attachments) may contain confidential or privileged information intended for a specific individual or organization. If you have received this communication in error, please notify the sender immediately. If you are not the intended recipient, you are not authorized to use, disclose, distribute, copy, print or rely on this email, and should promptly delete this email from your entire computer system. 
+>  
+> D?claration de confidentialit?
+> Le pr?sent message (y compris les annexes) peut contenir des renseignements confidentiels ? l'intention d'une personne ou d'un organisme particulier. Si vous avez re?u la pr?sente communication par erreur, veuillez en informer l'exp?diteur imm?diatement. Si vous n'?tes pas le destinataire pr?vu, vous n'avez pas le droit d'utiliser, divulguer, distribuer, copier ou imprimer ce courriel ou encore de vous en servir, et vous devriez l'effacer imm?diatement de votre syst?me informatique.
+> -------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>   
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+From sillyandrea at gmail.com  Wed Jun 18 00:00:14 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Tue Jun 17 23:59:43 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <48584D63.4070708@instinct.co.nz>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>	<48583b50.18e9220a.467c.7193@mx.google.com>
+	<48584D63.4070708@instinct.co.nz>
+Message-ID: <48584fe1.092a400a.7b2a.ffffae8b@mx.google.com>
+
+That particular entry of Andy's just showed mockups. The initial theme 
+was just checked in literally 6 hours ago. Gimmie a bit. :D
+
+Andrea
+
+Dan Milward wrote:
+> Hey Andrea,
+>
+> Can you add  this theme to the site for us please:
+> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>
+> Ciao,
+>
+> Dan
+>
+> Andrea wrote:
+>> There's a plain vanilla install of WPMU & BuddyPress at 
+>> http://testdrivewpmu.com
+>>
+>> Andrea
+>>
+>> Chiara Merino wrote:
+>>> Hi all :)
+>>>
+>>> I've been following the BuddyPress development with great interest.
+>>> Congrats to all :)
+>>>
+>>> Would any of you have any sample sites available to view?
+>>>
+>>> Thanks!
+>>>
+>>> Chiara
+>>>
+>>>
+>>>
+>>>   
+>>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+-- 
+http://atypicalife.net/blog/  personal anecdotes from our days
+http://homeschooljournal.net/ free blogs for homeschoolers
+http://wpmututorials.com/     tutorials for WordpressMU
+http://ronandandrea.com       Web consulting
+
+From dan at instinct.co.nz  Wed Jun 18 00:06:23 2008
+From: dan at instinct.co.nz (Dan Milward)
+Date: Wed Jun 18 00:06:44 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <48584fe1.092a400a.7b2a.ffffae8b@mx.google.com>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>	<48583b50.18e9220a.467c.7193@mx.google.com>	<48584D63.4070708@instinct.co.nz>
+	<48584fe1.092a400a.7b2a.ffffae8b@mx.google.com>
+Message-ID: <4858517F.5070000@instinct.co.nz>
+
+Haha!!! Sorry... I was not sure whether it was ready or not. I just 
+assumed that it was :P
+
+Anyway nice to meet you and thanks for setting that up for everyone!!
+
+Ciao,
+
+Dan
+
+Andrea wrote:
+> That particular entry of Andy's just showed mockups. The initial theme 
+> was just checked in literally 6 hours ago. Gimmie a bit. :D
+>
+> Andrea
+>
+> Dan Milward wrote:
+>> Hey Andrea,
+>>
+>> Can you add  this theme to the site for us please:
+>> http://apeatling.wordpress.com/2008/06/12/new-buddypress-theme/
+>>
+>> Ciao,
+>>
+>> Dan
+>>
+>> Andrea wrote:
+>>> There's a plain vanilla install of WPMU & BuddyPress at 
+>>> http://testdrivewpmu.com
+>>>
+>>> Andrea
+>>>
+>>> Chiara Merino wrote:
+>>>> Hi all :)
+>>>>
+>>>> I've been following the BuddyPress development with great interest.
+>>>> Congrats to all :)
+>>>>
+>>>> Would any of you have any sample sites available to view?
+>>>>
+>>>> Thanks!
+>>>>
+>>>> Chiara
+>>>>
+>>>>
+>>>>
+>>>>   
+>>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+From cass at wildilocks.com  Wed Jun 18 01:17:48 2008
+From: cass at wildilocks.com (Cass Edwards)
+Date: Wed Jun 18 01:52:09 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+In-Reply-To: <a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+References: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+	<60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+	<a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+Message-ID: <e370b8da0806171817i6a92750nc40a343889c784f3@mail.gmail.com>
+
+I agree with Ponara, a one-way "fan" type designation is far more relevant
+to a blog-specific SN, than FB which is designed to be an
+acknowledgement-of-relationship tool.
+
+Cass
+
+On Wed, Jun 18, 2008 at 4:20 AM, Ponara <ponara@gmail.com> wrote:
+
+> I would like to suggest that "people you may know" is unnecessary, it is in
+> theory attempting to guess-match you to people you may know based on profile
+> info and related friends, not an easy thing to do - and facebook has never
+> shown me someone I "may know".
+> I'm more hoping to allow people to be a fan of another author or member - a
+> fan doesn't have to be "confirmed", this way a fan can be kept abreast of
+> the author's latest blogs, comments, etc via the wire.  It is used to good
+> effect on 2.0 news sites that are increasingly resembling a social network.
+> (huffingtonpost.com, gothamist.com)
+>
+>
+>
+> On Tue, Jun 17, 2008 at 2:01 PM, <chris@stillbreathing.co.uk> wrote:
+>
+>> Hi,
+>>
+>> We have the beginnings of a friend system but it needs a lot of work.
+>> The good news is it should be fairly easy to show 'friends of friends'
+>> and 'mutual friends'. I'm not sure how 'people you may know' works.
+>> Can someone explain?
+>>
+>> Chris
+>>
+>> On 6/17/08, Jerome <jeromebeta@gmail.com> wrote:
+>> > As we know, "Mutual Friends" and "People You May Know" are the important
+>> and
+>> > attractive features on Facebook, are they in our BuddyPress plan? I did
+>> not
+>> > see it on trac.buddypress.com yet so far, thanks!
+>> >
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+>
+> --
+> ..................................................................
+> Ponara Steven Eng
+> tel.: 212-810-6067
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080618/e293f004/attachment-0001.htm
+From aaron.jorbin at gmail.com  Wed Jun 18 08:22:52 2008
+From: aaron.jorbin at gmail.com (Aaron Jorbin)
+Date: Wed Jun 18 08:23:05 2008
+Subject: [buddypress-dev] "Mutual Friends" and "People You May Know"
+In-Reply-To: <e370b8da0806171817i6a92750nc40a343889c784f3@mail.gmail.com>
+References: <3f7bc4310806170638v6935b7aaq3c800bfe8a6e2d66@mail.gmail.com>
+	<60fe160a0806171101n27473492lb48e6b527873554@mail.gmail.com>
+	<a3e04a520806171120i7891b990nccff255d16a287b@mail.gmail.com>
+	<e370b8da0806171817i6a92750nc40a343889c784f3@mail.gmail.com>
+Message-ID: <21952a280806180122y1e699d17n747c38256f822248@mail.gmail.com>
+
+I think having a system of one way relationships would be the way to go.
+You could have people that are "Friends" where there are duel one-way
+relationships and "Buddies" which are completely one way.  That would allow
+people to be be connected and follow any one they want, along with the
+ability to also have a pre-arranged whitelist if you don't want the world to
+see anything.  A friend list could also have 3 sections: Friends, My Buddies
+(people I follow) and Budies of mine (people following me).
+
+aj
+
+On Tue, Jun 17, 2008 at 6:17 PM, Cass Edwards <cass@wildilocks.com> wrote:
+
+> I agree with Ponara, a one-way "fan" type designation is far more relevant
+> to a blog-specific SN, than FB which is designed to be an
+> acknowledgement-of-relationship tool.
+>
+> Cass
+>
+>
+> On Wed, Jun 18, 2008 at 4:20 AM, Ponara <ponara@gmail.com> wrote:
+>
+>> I would like to suggest that "people you may know" is unnecessary, it is
+>> in theory attempting to guess-match you to people you may know based on
+>> profile info and related friends, not an easy thing to do - and facebook has
+>> never shown me someone I "may know".
+>> I'm more hoping to allow people to be a fan of another author or member -
+>> a fan doesn't have to be "confirmed", this way a fan can be kept abreast of
+>> the author's latest blogs, comments, etc via the wire.  It is used to good
+>> effect on 2.0 news sites that are increasingly resembling a social network.
+>> (huffingtonpost.com, gothamist.com)
+>>
+>>
+>>
+>> On Tue, Jun 17, 2008 at 2:01 PM, <chris@stillbreathing.co.uk> wrote:
+>>
+>>> Hi,
+>>>
+>>> We have the beginnings of a friend system but it needs a lot of work.
+>>> The good news is it should be fairly easy to show 'friends of friends'
+>>> and 'mutual friends'. I'm not sure how 'people you may know' works.
+>>> Can someone explain?
+>>>
+>>> Chris
+>>>
+>>> On 6/17/08, Jerome <jeromebeta@gmail.com> wrote:
+>>> > As we know, "Mutual Friends" and "People You May Know" are the
+>>> important and
+>>> > attractive features on Facebook, are they in our BuddyPress plan? I did
+>>> not
+>>> > see it on trac.buddypress.com yet so far, thanks!
+>>> >
+>>> _______________________________________________
+>>> buddypress-dev mailing list
+>>> buddypress-dev@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>>
+>>
+>>
+>>
+>> --
+>> ..................................................................
+>> Ponara Steven Eng
+>> tel.: 212-810-6067
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080618/6bda0d99/attachment.htm
+From chiara at corp.microjuris.com  Wed Jun 18 18:09:40 2008
+From: chiara at corp.microjuris.com (Chiara Merino)
+Date: Wed Jun 18 18:09:52 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <48583b50.18e9220a.467c.7193@mx.google.com>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>
+	<48583b50.18e9220a.467c.7193@mx.google.com>
+Message-ID: <58057b700806181109y7617d7fek312da84ff5abe9b4@mail.gmail.com>
+
+Thanks Andrea :)
+
+On Tue, Jun 17, 2008 at 6:32 PM, Andrea <sillyandrea@gmail.com> wrote:
+
+> There's a plain vanilla install of WPMU & BuddyPress at
+> http://testdrivewpmu.com
+>
+> Andrea
+>
+> Chiara Merino wrote:
+>
+>> Hi all :)
+>>
+>> I've been following the BuddyPress development with great interest.
+>> Congrats to all :)
+>>
+>> Would any of you have any sample sites available to view?
+>>
+>> Thanks!
+>>
+>> Chiara
+>>
+>>
+>>
+>>
+>>
+>
+> --
+> http://atypicalife.net/blog/  personal anecdotes from our days
+> http://homeschooljournal.net/ free blogs for homeschoolers
+> http://wpmututorials.com/     tutorials for WordpressMU
+> http://ronandandrea.com       Web consulting
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+
+
+
+-- 
+Chiara Merino P?rez-Carvajal
+Gerente Editorial y de Contenidos
+Microjuris.com
+
+url: www.microjuris.com
+tel. 787.724.3889 ext. 252
+skype: chiaramerino
+
+
+Nota de confidencialidad: Lo anterior constituye informaci?n confidencial y
+privilegiada entre el remitente y el destinatario. Cualquier uso de la misma
+por persona que no sea el destinatario esta prohibida. Su usted recibi? este
+mensaje por error, comun?quese con el remitente y proceda a borrar el mismo
+con todas las copias que posea.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080618/22235ff7/attachment.htm
+From sillyandrea at gmail.com  Wed Jun 18 18:16:54 2008
+From: sillyandrea at gmail.com (Andrea)
+Date: Wed Jun 18 18:16:38 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <58057b700806181109y7617d7fek312da84ff5abe9b4@mail.gmail.com>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>	<48583b50.18e9220a.467c.7193@mx.google.com>
+	<58057b700806181109y7617d7fek312da84ff5abe9b4@mail.gmail.com>
+Message-ID: <485950f0.232d400a.3c7f.2e8a@mx.google.com>
+
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080618/8391c95e/attachment.htm
+From andypeatling at automattic.com  Wed Jun 18 18:47:28 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Wed Jun 18 18:47:43 2008
+Subject: [buddypress-dev] Sample sites
+In-Reply-To: <485950f0.232d400a.3c7f.2e8a@mx.google.com>
+References: <58057b700806171431h4ac43142h2520405fd0b17eb4@mail.gmail.com>	<48583b50.18e9220a.467c.7193@mx.google.com>
+	<58057b700806181109y7617d7fek312da84ff5abe9b4@mail.gmail.com>
+	<485950f0.232d400a.3c7f.2e8a@mx.google.com>
+Message-ID: <CB87956A-BCD9-476B-AE17-0E2265D1B07D@automattic.com>
+
+On 18-Jun-08, at 11:16 AM, Andrea wrote:
+
+> You're welcome. And it now has the new theme. :)
+
+If you have an existing account at testdrivewpmu.com, you'll need to  
+login, hit the design tab, and activate the new BuddyPress theme.
+
+> Doesn't have all the new features yet, but it looks pretty.
+
+It's coming along! It obviously has a massive amount of unfinished  
+work right now, but give me a few more days... :)
+
+Andy
+
+[...]
+
+> Chiara Merino wrote:
+>>
+>> Thanks Andrea :)
+>>
+>> On Tue, Jun 17, 2008 at 6:32 PM, Andrea <sillyandrea@gmail.com>  
+>> wrote:
+>> There's a plain vanilla install of WPMU & BuddyPress at http://testdrivewpmu.com
+>>
+>> Andrea
+>>
+>>
+>> Chiara Merino wrote:
+>> Hi all :)
+>>
+>> I've been following the BuddyPress development with great interest.
+>> Congrats to all :)
+>>
+>> Would any of you have any sample sites available to view?
+>>
+>> Thanks!
+>>
+>> Chiara
+>>
+>>
+>>
+>>
+>>
+>> -- 
+>> http://atypicalife.net/blog/  personal anecdotes from our days
+>> http://homeschooljournal.net/ free blogs for homeschoolers
+>> http://wpmututorials.com/     tutorials for WordpressMU
+>> http://ronandandrea.com       Web consulting
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>>
+>>
+>> -- 
+>> Chiara Merino P?rez-Carvajal
+>> Gerente Editorial y de Contenidos
+>> Microjuris.com
+>>
+>> url: www.microjuris.com
+>> tel. 787.724.3889 ext. 252
+>> skype: chiaramerino
+>>
+>>
+>> Nota de confidencialidad: Lo anterior constituye informaci?n  
+>> confidencial y privilegiada entre el remitente y el destinatario.  
+>> Cualquier uso de la misma por persona que no sea el destinatario  
+>> esta prohibida. Su usted recibi? este mensaje por error,  
+>> comun?quese con el remitente y proceda a borrar el mismo con todas  
+>> las copias que posea.
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+> -- 
+> http://atypicalife.net/blog/  personal anecdotes from our days
+> http://homeschooljournal.net/ free blogs for homeschoolers
+> http://wpmututorials.com/     tutorials for WordpressMU
+> http://ronandandrea.com       Web consulting
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From ponara at gmail.com  Wed Jun 18 19:14:40 2008
+From: ponara at gmail.com (Ponara)
+Date: Wed Jun 18 19:39:19 2008
+Subject: [buddypress-dev] up/down commenters on buddypress
+Message-ID: <a3e04a520806181214u770e4741he9ca28d334c80e89@mail.gmail.com>
+
+Was wondering whether anyone is considering the ability to up/down comments.
+A popular topic (politics, celebs, media, etc) usually attracts alot of
+comments, unfortunately many are very rude,
+the ability to thumbs down those comments so that better comments float to
+the top is done in a few places and always appreciated.
+
+Also simple linking the commenter to their profile page if they're members
+so we can see their blogs, wire, etc. would create a virtuous cycle of
+reading other people's posts.
+
+
+On Wed, Jun 18, 2008 at 2:16 PM, Andrea <sillyandrea@gmail.com> wrote:
+
+>  You're welcome. And it now has the new theme. :)
+>
+> Doesn't have all the new features yet, but it looks pretty.
+>
+> (and yes I will be addressing the splog signups. *sigh*.)
+> A.
+>
+> Chiara Merino wrote:
+>
+> Thanks Andrea :)
+>
+> On Tue, Jun 17, 2008 at 6:32 PM, Andrea <sillyandrea@gmail.com> wrote:
+>
+>> There's a plain vanilla install of WPMU & BuddyPress at
+>> http://testdrivewpmu.com
+>>
+>> Andrea
+>>
+>> Chiara Merino wrote:
+>>
+>>> Hi all :)
+>>>
+>>> I've been following the BuddyPress development with great interest.
+>>> Congrats to all :)
+>>>
+>>> Would any of you have any sample sites available to view?
+>>>
+>>> Thanks!
+>>>
+>>> Chiara
+>>>
+>>>
+>>>
+>>>
+>>>
+>>
+>> --
+>>  http://atypicalife.net/blog/  personal anecdotes from our days
+>> http://homeschooljournal.net/ free blogs for homeschoolers
+>> http://wpmututorials.com/     tutorials for WordpressMU
+>> http://ronandandrea.com       Web consulting
+>>
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>>
+>
+>
+>
+> --
+> Chiara Merino P?rez-Carvajal
+> Gerente Editorial y de Contenidos
+> Microjuris.com
+>
+> url: www.microjuris.com
+> tel. 787.724.3889 ext. 252
+> skype: chiaramerino
+>
+>
+> Nota de confidencialidad: Lo anterior constituye informaci?n confidencial y
+> privilegiada entre el remitente y el destinatario. Cualquier uso de la misma
+> por persona que no sea el destinatario esta prohibida. Su usted recibi? este
+> mensaje por error, comun?quese con el remitente y proceda a borrar el mismo
+> con todas las copias que posea.
+>
+> ------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing listbuddypress-dev@lists.automattic.comhttp://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> -- http://atypicalife.net/blog/  personal anecdotes from our dayshttp://homeschooljournal.net/ free blogs for homeschoolershttp://wpmututorials.com/     tutorials for WordpressMUhttp://ronandandrea.com       Web consulting
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+
+
+-- 
+..................................................................
+Ponara Steven Eng
+tel.: 212-810-6067
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080618/e5430f34/attachment.htm
+From martin at thrive-magazine.com  Thu Jun 19 16:30:03 2008
+From: martin at thrive-magazine.com (Martin)
+Date: Thu Jun 19 16:30:21 2008
+Subject: [buddypress-dev] Better way of doing this?
+Message-ID: <000601c8d229$bb990940$32cb1bc0$@com>
+
+Motivated by seeing Andy's screen shots of the new theme he is working on I
+have started work on my own BuddyPress compatible theme, but I have hit a
+problem that I have managed to solve but it required a change in the core
+Wordpress MU code, which I was trying to avoid if at all possible.
+
+ 
+
+First some background, I am working on a website that is running Wordpress
+MU in non virtual host mode, so the blogs are www.domainname.com/blogname,
+and want to allow for a user being an administrator on multiple blogs, and a
+blog to have multiple authors. I decided that I wanted
+www.domainname.com/members/username to show a user profile and list their
+blogs and www.domainname.com/profile to show the current user. First problem
+is that because I am not configured as a virtual host Wordpress MU tries to
+create a blog called members or profile, I have managed to solve this by
+changing a line in wpmu-settings.php from
+
+$blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp-includes',
+'wp-content', 'files', 'feed' );
+
+To
+
+$blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp-includes',
+'wp-content', 'files', 'feed', 'members', 'profile' ); 
+
+ 
+
+Is there a better way of getting Wordpress MU to allow this to go through?
+
+ 
+
+For those of you that may want to do the same thing I then modified my
+.htaccess and added the following lines to it:
+
+RewriteRule ^.*/?members/(.*)/ /index.php?sn_action=member&sn_member=$1 [L]
+
+RewriteRule ^.*/?profile/$ /index.php?sn_action=profile [L]
+
+ 
+
+I'm far from being a mod rewrite expert, so someone may be able to suggest a
+better way of doing this?
+
+ 
+
+I then wrote a plug-in that looks for sn_action and includes a page from the
+current template to display the information e.g.
+
+ function member_redirect() {
+
+  if (isset($_GET['sn_action'])) {
+
+        $action = $_GET['sn_action']; 
+
+            switch($action) {
+
+          case 'member':
+
+        if (isset($_GET['sn_member'])) {
+
+          $sn_member = $_GET['sn_member'];
+
+          if($template = get_query_template('member')) {
+
+            include($template);
+
+            exit;
+
+          }
+
+        }
+
+            exit;
+
+          break;  
+
+...<snip>
+
+ 
+
+add_action('template_redirect', 'member_redirect');
+
+ 
+
+Again I am no expert at this there may be a better way?
+
+ 
+
+All that remains to be done is to add a member.php etc. to the home
+template. You can then modify the default template to show all author
+information for the blog, with links to their profiles, instead of trying to
+figure out who's profile to show for the current blog.
+
+ 
+
+It will also allow me to add template changes so that a user can "follow" a
+blog, but be a "friend" to a user.
+
+ 
+
+Another problem I see with this method is the member URL is formed using the
+login name of the user, I really don't want to make that publically
+viewable, is there a way currently, or going to be a way in the future that
+I can create a required field in XProfile that should be unique across all
+users, so a user can enter what they want to be used for their URL?
+
+ 
+
+I love where BuddyPress is going, and have enjoyed working on my own theme
+for it, if any one wants more information on what I'm doing, let me know,
+
+ 
+
+Martin
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080619/cf085080/attachment.htm
+From jeromebeta at gmail.com  Thu Jun 19 17:48:14 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Thu Jun 19 17:48:22 2008
+Subject: [buddypress-dev] Integrate backend theme with buddypress new theme
+	seamlessly
+Message-ID: <3f7bc4310806191048v1bd2676ble3484e1180df3605@mail.gmail.com>
+
+Hi, All
+
+Integrating wpmu frontend with backend theme seamlessly is a proved success
+on my wpmu site, I implemented it by means of changing both backend theme
+and default theme (on my site the user can only use the default theme, based
+on my site's purpose and I will integrate buddypress on my site in future, I
+have a good reason to do this) , to make the menus and navigation bars look
+exactly same, so that the user won't feel any difference when they go to the
+backend (admin site), the users of my site like it very much and gave me
+many positive response.
+
+The new BuddyPress theme is awesome! I plan to change to it when it is
+completed, but the user will fell weird when they go to the backend and see
+the default wpmu backend theme. I wonder if you guys working on this theme
+have the plan to do the above wonderful things like I did? if yes, do you
+have any design thoughts already? probably it need change the core files
+since it need modify the backend theme as well, based on my experience,
+design it earlier will save you a lot of time in future.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080619/c08145b9/attachment.htm
+From andypeatling at automattic.com  Thu Jun 19 18:29:21 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Thu Jun 19 18:31:01 2008
+Subject: [buddypress-dev] Integrate backend theme with buddypress new
+	theme seamlessly
+In-Reply-To: <3f7bc4310806191048v1bd2676ble3484e1180df3605@mail.gmail.com>
+References: <3f7bc4310806191048v1bd2676ble3484e1180df3605@mail.gmail.com>
+Message-ID: <A926BB56-824D-44E2-9972-4DC8B2C74D63@automattic.com>
+
+On 19-Jun-08, at 10:48 AM, Jerome wrote:
+
+> Hi, All
+>
+> Integrating wpmu frontend with backend theme seamlessly is a proved  
+> success on my wpmu site, I implemented it by means of changing both  
+> backend theme and default theme (on my site the user can only use  
+> the default theme, based on my site's purpose and I will integrate  
+> buddypress on my site in future, I have a good reason to do this) ,  
+> to make the menus and navigation bars look exactly same, so that the  
+> user won't feel any difference when they go to the backend (admin  
+> site), the users of my site like it very much and gave me many  
+> positive response.
+>
+> The new BuddyPress theme is awesome! I plan to change to it when it  
+> is completed, but the user will fell weird when they go to the  
+> backend and see the default wpmu backend theme. I wonder if you guys  
+> working on this theme have the plan to do the above wonderful things  
+> like I did? if yes, do you have any design thoughts already?  
+> probably it need change the core files since it need modify the  
+> backend theme as well, based on my experience, design it earlier  
+> will save you a lot of time in future.
+
+In the default theme, all the backend functionality will be ported  
+through to the theme. Here's an example of editing your profile via  
+the theme (which is already working and has been checked in).
+
+http://apeatling.files.wordpress.com/2008/06/editing_example.png
+
+Andy
+From jeromebeta at gmail.com  Thu Jun 19 20:22:28 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Thu Jun 19 20:22:41 2008
+Subject: [buddypress-dev] Integrate backend theme with buddypress new
+	theme seamlessly
+In-Reply-To: <A926BB56-824D-44E2-9972-4DC8B2C74D63@automattic.com>
+References: <3f7bc4310806191048v1bd2676ble3484e1180df3605@mail.gmail.com>
+	<A926BB56-824D-44E2-9972-4DC8B2C74D63@automattic.com>
+Message-ID: <3f7bc4310806191322l29103e8bma08c8e537612dfdb@mail.gmail.com>
+
+Hi, Andy
+
+Thanks for your quick reply!
+
+I knew the buddpress features like profile and messages will be shown in the
+theme, I wonder what is the blog backend admin supposed to be, such as
+Manage, Write, Settings and etc. thanks!
+
+On Thu, Jun 19, 2008 at 8:29 PM, Andy Peatling <andypeatling@automattic.com>
+wrote:
+
+>  On 19-Jun-08, at 10:48 AM, Jerome wrote:
+>
+> Hi, All
+>>
+>> Integrating wpmu frontend with backend theme seamlessly is a proved
+>> success on my wpmu site, I implemented it by means of changing both backend
+>> theme and default theme (on my site the user can only use the default theme,
+>> based on my site's purpose and I will integrate buddypress on my site in
+>> future, I have a good reason to do this) , to make the menus and navigation
+>> bars look exactly same, so that the user won't feel any difference when they
+>> go to the backend (admin site), the users of my site like it very much and
+>> gave me many positive response.
+>>
+>> The new BuddyPress theme is awesome! I plan to change to it when it is
+>> completed, but the user will fell weird when they go to the backend and see
+>> the default wpmu backend theme. I wonder if you guys working on this theme
+>> have the plan to do the above wonderful things like I did? if yes, do you
+>> have any design thoughts already? probably it need change the core files
+>> since it need modify the backend theme as well, based on my experience,
+>> design it earlier will save you a lot of time in future.
+>>
+>
+> In the default theme, all the backend functionality will be ported through
+> to the theme. Here's an example of editing your profile via the theme (which
+> is already working and has been checked in).
+>
+> http://apeatling.files.wordpress.com/2008/06/editing_example.png
+>
+> Andy
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080619/bda7e6fc/attachment-0001.htm
+From jeromebeta at gmail.com  Thu Jun 19 20:40:34 2008
+From: jeromebeta at gmail.com (Jerome)
+Date: Thu Jun 19 20:40:45 2008
+Subject: [buddypress-dev] image.php ?
+Message-ID: <3f7bc4310806191340j5d37b499qf1c7155c61b7a4c7@mail.gmail.com>
+
+Hi, guys
+
+I noticed that image.php is not in the current theme folder yet, could you
+add it in so that Gallery shortcut could have a better presentation in the
+post? thanks!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/buddypress-dev/attachments/20080619/9e283f3a/attachment.htm
+From dbisset at dimensionmedia.com  Fri Jun 20 20:08:19 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Fri Jun 20 20:08:27 2008
+Subject: [buddypress-dev] bp-messages-admin.php - missing?
+Message-ID: <20080620160819.6h7ar58cv4gs84so@www.dimensionmedia.com>
+
+I just got the latest SVN of BP and when I applied it the buddypress  
+theme says i'm missing bp-messages-admin.php:
+
+Warning: main(bp-messages/bp-messages-admin.php) [function.main]:  
+failed to open stream: No such file or directory in  
+/var/www/vhosts/xxx/httpdocs/xxx/wp-content/mu-plugins/bp-messages.php  
+on line 14
+
+Warning: main() [function.include]: Failed opening  
+'bp-messages/bp-messages-admin.php' for inclusion  
+(include_path='.:/usr/share/pear') in  
+/var/www/vhosts/xxx/httpdocs/xxx/wp-content/mu-plugins/bp-messages.php  
+on line 14
+
+I commented out the line for now, but does this even exist? I can't  
+seem to determine that.
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From andypeatling at automattic.com  Fri Jun 20 20:21:48 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Fri Jun 20 20:22:07 2008
+Subject: [buddypress-dev] bp-messages-admin.php - missing?
+In-Reply-To: <20080620160819.6h7ar58cv4gs84so@www.dimensionmedia.com>
+References: <20080620160819.6h7ar58cv4gs84so@www.dimensionmedia.com>
+Message-ID: <93BC4C45-C21E-4BD2-8D8A-E86B9C5FC174@automattic.com>
+
+
+On 20-Jun-08, at 1:08 PM, David J. Bisset wrote:
+
+> I just got the latest SVN of BP and when I applied it the buddypress  
+> theme says i'm missing bp-messages-admin.php:
+>
+> Warning: main(bp-messages/bp-messages-admin.php) [function.main]:  
+> failed to open stream: No such file or directory in /var/www/vhosts/ 
+> xxx/httpdocs/xxx/wp-content/mu-plugins/bp-messages.php on line 14
+>
+> Warning: main() [function.include]: Failed opening 'bp-messages/bp- 
+> messages-admin.php' for inclusion (include_path='.:/usr/share/pear')  
+> in /var/www/vhosts/xxx/httpdocs/xxx/wp-content/mu-plugins/bp- 
+> messages.php on line 14
+>
+> I commented out the line for now, but does this even exist? I can't  
+> seem to determine that.
+>
+
+It does now, the file wasn't added to the repo. Sorry about that.
+
+Andy
+
+---------
+Andy Peatling | Social Engineer | Automattic
+http://andyinlife.com
+
+
+
+From jeroen at jeroensmeets.net  Fri Jun 20 20:28:18 2008
+From: jeroen at jeroensmeets.net (Jeroen Smeets)
+Date: Fri Jun 20 20:32:21 2008
+Subject: [buddypress-dev] bp-messages-admin.php - missing?
+In-Reply-To: <93BC4C45-C21E-4BD2-8D8A-E86B9C5FC174@automattic.com>
+References: <20080620160819.6h7ar58cv4gs84so@www.dimensionmedia.com>
+	<93BC4C45-C21E-4BD2-8D8A-E86B9C5FC174@automattic.com>
+Message-ID: <485C12E2.2000600@jeroensmeets.net>
+
+Thanks Andy and David,
+
+that answered my question -- I already added an empty php-file but that 
+didn't feel right... ;-)
+
+-- Jeroen
+
+Andy Peatling schreef:
+>
+> On 20-Jun-08, at 1:08 PM, David J. Bisset wrote:
+>
+>> I just got the latest SVN of BP and when I applied it the buddypress 
+>> theme says i'm missing bp-messages-admin.php:
+>>
+>> Warning: main(bp-messages/bp-messages-admin.php) [function.main]: 
+>> failed to open stream: No such file or directory in 
+>> /var/www/vhosts/xxx/httpdocs/xxx/wp-content/mu-plugins/bp-messages.php 
+>> on line 14
+>>
+>> Warning: main() [function.include]: Failed opening 
+>> 'bp-messages/bp-messages-admin.php' for inclusion 
+>> (include_path='.:/usr/share/pear') in 
+>> /var/www/vhosts/xxx/httpdocs/xxx/wp-content/mu-plugins/bp-messages.php 
+>> on line 14
+>>
+>> I commented out the line for now, but does this even exist? I can't 
+>> seem to determine that.
+>>
+>
+> It does now, the file wasn't added to the repo. Sorry about that.
+>
+> Andy
+>
+> ---------
+> Andy Peatling | Social Engineer | Automattic
+> http://andyinlife.com
+>
+>
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From dbisset at dimensionmedia.com  Sat Jun 21 12:31:42 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Sat Jun 21 12:32:00 2008
+Subject: [buddypress-dev] undefined function for groups?
+Message-ID: <20080621083142.hdmhcw81wkgc88cs@www.dimensionmedia.com>
+
+I'm getting this with the latest BP download when i attempt to go to  
+the main groups tab:
+
+Fatal error: Call to undefined function: bp_int() in  
+/var/www/vhosts/davidandpeta-gaye.com/httpdocs/amaco/wp-content/mu-plugins/bp-core/bp-core-pagination.php on line  
+9
+
+Anyone else experiencing this?
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From dbisset at dimensionmedia.com  Sun Jun 22 00:11:27 2008
+From: dbisset at dimensionmedia.com (David J. Bisset)
+Date: Sun Jun 22 00:11:47 2008
+Subject: [buddypress-dev] bp-messages-admin.php - missing?
+Message-ID: <20080621201127.7l94qowuo8o880kc@www.dimensionmedia.com>
+
+I found an older copy of bp-core.php, and comparing it to the latest  
+bp-core, there appears to be a chunk of functions missing including  
+bp_int(). Now, these functions could have been easily moved elsewhere  
+but a quick search reveals nothing. So it appears maybe they are  
+missing? The chunk is below. I took this chunk from 0.1.3 core and put  
+it in the latest bp-core.php and so far i'm not getting fatal errors.  
+I'm sure Andy can clear this up?
+
+// get the IDs of user blogs in a comma-separated list for use in SQL  
+statements
+function bp_get_blog_ids_of_user( $id, $all = false ) {
+	$blogs = get_blogs_of_user( $id, $all );
+	$blog_ids = "";
+
+	if ( $blogs && count($blogs) > 0 ){
+		foreach( $blogs as $blog ) {
+			$blog_ids .= $blog->blog_id.",";
+		}
+	}
+	$blog_ids = trim( $blog_ids, "," );
+	return $blog_ids;
+}
+
+// return a tick for a checkbox for a true boolean value
+function bp_boolean_ticked($bool) {
+	if ( $bool ) {
+		return " checked=\"checked\"";
+	}
+	return "";
+}
+
+// return a tick for a checkbox for a particular value
+function bp_value_ticked( $var, $value ) {
+	if ( $var == $value ) {
+		return " checked=\"checked\"";
+	}
+	return "";
+}
+
+// return true for a boolean value from a checkbox
+function bp_boolean( $value = 0 ) {
+	if ( $value != "" ) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+// return an integer
+function bp_int( $var, $nullToOne=false ) {
+	if ( @$var == "" ) {
+		if ( $nullToOne ) {
+			return 1;
+		} else {
+			return 0;
+		}
+	} else {
+		return (int)$var;
+	}
+}
+
+
+// show a friendly date
+function bp_friendly_date($timestamp) {
+	// set the timestamp to now if it hasn't been given
+	if ( strlen($timestamp) == 0 )
+		$timestamp = time();
+
+	// create the date string
+	if ( date( "m", $timestamp ) == date("m") && date( "d", $timestamp )  
+== date("d") - 1 && date( "Y", $timestamp ) == date("Y") ) {
+		return "yesterday at " . date( "g:i a", $timestamp );
+	} else if ( date( "m", $timestamp ) == date("m") && date( "d",  
+$timestamp ) == date("d") && date( "Y", $timestamp ) == date("Y") ) {
+		return "at " . date( "g:i a", $timestamp );
+	} else if ( date( "m", $timestamp) == date("m") && date( "d",  
+$timestamp ) > date("d") - 5 && date( "Y", $timestamp ) == date("Y") ) {
+		return "on " . date( "l", $timestamp ) . " at " . date( "g:i a",  
+$timestamp );
+	} else if ( date( "Y", $timestamp) == date("Y") ) {
+		return "on " . date( "F jS", $timestamp );
+	} else {
+		return "on " . date( "F jS Y", $timestamp );
+	}
+}
+
+// search users
+function bp_search_users( $q, $start = 0, $num = 10 ) {
+	if ( trim($q) != "" ) {
+		global $wpdb;
+		global $current_user;
+
+		$sql = "SELECT SQL_CALC_FOUND_ROWS id, user_login, display_name,  
+user_nicename
+		 		FROM " . $wpdb->base_prefix . "users
+				WHERE (user_nicename like '%" . $wpdb->escape($q) . "%'
+				OR user_email like '%" . $wpdb->escape($q) . "%'
+				OR display_name like '%" . $wpdb->escape($q) . "%')
+				AND (id <> " . $current_user->ID . " and id > 1)
+				LIMIT " . $wpdb->escape($start) . ", " . $wpdb->escape($num) . ";";
+
+		if ( !$users = $wpdb->get_results($sql) ) {
+			return false;
+		}
+
+		$rows = $wpdb->get_var( "SELECT found_rows() AS found_rows" );
+
+		if ( is_array($users) && count($users) > 0 ) {
+			for ( $i = 0; $i < count($users); $i++ ) {
+				$user          = $users[$i];
+				$user->siteurl = $user->user_url;
+				$user->blogs   = "";
+				$user->blogs   = get_blogs_of_user($user->id);
+				$user->rows    = $rows;
+			}
+			return $users;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+
+// return a ' if the text ends in an "s", or "'s" otherwise
+function bp_end_with_s( $string ) {
+	if ( substr( strtolower($string), - 1 ) == "s" ) {
+		return $string . "'";
+	} else {
+		return $string . "'s";
+	}
+}
+
+// pluralise a string
+function bp_plural( $num, $ifone = "", $ifmore = "s" ) {
+	if ( bp_int($num) != 1 ) {
+		return $ifmore;
+	} else {
+		return $ifone;
+	}
+}
+
+-- 
+David Bisset
+Director of Web Development
+Dimension Media, Inc.
+www.dimensionmedia.com
+http://www.linkedin.com/in/davidbisset
+
+From andypeatling at automattic.com  Mon Jun 23 17:20:40 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon Jun 23 17:20:54 2008
+Subject: [buddypress-dev] Better way of doing this?
+In-Reply-To: <000601c8d229$bb990940$32cb1bc0$@com>
+References: <000601c8d229$bb990940$32cb1bc0$@com>
+Message-ID: <DDACEE5C-F2D8-45A6-8625-6F7EDB628303@automattic.com>
+
+On 19-Jun-08, at 9:30 AM, Martin wrote:
+
+> Motivated by seeing Andy?s screen shots of the new theme he is  
+> working on I have started work on my own BuddyPress compatible  
+> theme, but I have hit a problem that I have managed to solve but it  
+> required a change in the core Wordpress MU code, which I was trying  
+> to avoid if at all possible.
+>
+> First some background, I am working on a website that is running  
+> Wordpress MU in non virtual host mode, so the blogs are www.domainname.com/blogname 
+> , and want to allow for a user being an administrator on multiple  
+> blogs, and a blog to have multiple authors. I decided that I wanted www.domainname.com/members/username 
+>  to show a user profile and list their blogs and www.domainname.com/profile 
+>  to show the current user. First problem is that because I am not  
+> configured as a virtual host Wordpress MU tries to create a blog  
+> called members or profile, I have managed to solve this by changing  
+> a line in wpmu-settings.php from
+> $blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp- 
+> includes', 'wp-content', 'files', 'feed' );
+> To
+> $blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp- 
+> includes', 'wp-content', 'files', 'feed', 'members', 'profile' );
+>
+> Is there a better way of getting Wordpress MU to allow this to go  
+> through?
+
+I've implemented some catch URI code based on Chris Taylor's work in  
+the latest version in trunk. Basically, it works like this:
+
+http://mydomain.com/username/[component_name]/[action_name]/ 
+[action_vars]
+
+So: http://buddypress.local/apeatling/profile/edit/group/1
+
+The following globals will be set:
+
+$current_component = 'profile'
+$current_action = 'edit'
+$action_variables = array ( 'group', 1 )
+
+You can access these variables wherever you like and use them within  
+your own custom template functions.
+
+I'm using them to direct to custom templates using the new 'bp_uri()'  
+function:
+
+if ( $current_action == 'change-avatar' && $loggedin_userid ==  
+$current_userid )
+	bp_catch_uri( 'profile/change-avatar' );
+
+Where 'profile/change-avatar' represents a folder and filename within  
+the template directory.
+
+This hopefully will allow BuddyPress to use a whole range of custom  
+URL's whilst still using the default .htaccess file for an MU install.
+
+
+>
+> For those of you that may want to do the same thing I then modified  
+> my .htaccess and added the following lines to it:
+> RewriteRule ^.*/?members/(.*)/ /index.php?sn_action=member&sn_member= 
+> $1 [L]
+> RewriteRule ^.*/?profile/$ /index.php?sn_action=profile [L]
+>
+> I?m far from being a mod rewrite expert, so someone may be able to  
+> suggest a better way of doing this?
+>
+> I then wrote a plug-in that looks for sn_action and includes a page  
+> from the current template to display the information e.g.
+>  function member_redirect() {
+>   if (isset($_GET['sn_action'])) {
+>         $action = $_GET['sn_action'];
+>             switch($action) {
+>           case 'member':
+>         if (isset($_GET['sn_member'])) {
+>           $sn_member = $_GET['sn_member'];
+>           if($template = get_query_template('member')) {
+>             include($template);
+>             exit;
+>           }
+>         }
+>             exit;
+>           break;
+> ...<snip>
+>
+> add_action('template_redirect', 'member_redirect');
+>
+> Again I am no expert at this there may be a better way?
+>
+> All that remains to be done is to add a member.php etc. to the home  
+> template. You can then modify the default template to show all  
+> author information for the blog, with links to their profiles,  
+> instead of trying to figure out who?s profile to show for the  
+> current blog.
+>
+> It will also allow me to add template changes so that a user can  
+> ?follow? a blog, but be a ?friend? to a user.
+>
+> Another problem I see with this method is the member URL is formed  
+> using the login name of the user, I really don?t want to make that  
+> publically viewable, is there a way currently, or going to be a way  
+> in the future that I can create a required field in XProfile that  
+> should be unique across all users, so a user can enter what they  
+> want to be used for their URL?
+>
+> I love where BuddyPress is going, and have enjoyed working on my own  
+> theme for it, if any one wants more information on what I?m doing,  
+> let me know,
+>
+> Martin
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From martin at thrive-magazine.com  Mon Jun 23 20:14:17 2008
+From: martin at thrive-magazine.com (Martin)
+Date: Mon Jun 23 20:14:34 2008
+Subject: [buddypress-dev] Better way of doing this?
+In-Reply-To: <DDACEE5C-F2D8-45A6-8625-6F7EDB628303@automattic.com>
+References: <000601c8d229$bb990940$32cb1bc0$@com>
+	<DDACEE5C-F2D8-45A6-8625-6F7EDB628303@automattic.com>
+Message-ID: <000601c8d56d$b80c3b20$2824b160$@com>
+
+Andy,
+
+This sounds great!
+
+Are there plans to increase the functionality of the new functions so you
+can catch URIs that don't have a username after the domain name (or is it
+already implemented that way)? 
+
+For example if I wanted to theme a group's moderation tasks I may want to
+intercept a URI like:
+http://buddypress.local/group_name/comment/edit/comment_id
+And pass it to code in the current template directory.
+
+Martin
+
+-----Original Message-----
+From: buddypress-dev-bounces@lists.automattic.com
+[mailto:buddypress-dev-bounces@lists.automattic.com] On Behalf Of Andy
+Peatling
+Sent: Monday, June 23, 2008 12:21 PM
+To: buddypress-dev@lists.automattic.com
+Subject: Re: [buddypress-dev] Better way of doing this?
+
+On 19-Jun-08, at 9:30 AM, Martin wrote:
+
+> Motivated by seeing Andy's screen shots of the new theme he is  
+> working on I have started work on my own BuddyPress compatible  
+> theme, but I have hit a problem that I have managed to solve but it  
+> required a change in the core Wordpress MU code, which I was trying  
+> to avoid if at all possible.
+>
+> First some background, I am working on a website that is running  
+> Wordpress MU in non virtual host mode, so the blogs are
+www.domainname.com/blogname 
+> , and want to allow for a user being an administrator on multiple  
+> blogs, and a blog to have multiple authors. I decided that I wanted
+www.domainname.com/members/username 
+>  to show a user profile and list their blogs and
+www.domainname.com/profile 
+>  to show the current user. First problem is that because I am not  
+> configured as a virtual host Wordpress MU tries to create a blog  
+> called members or profile, I have managed to solve this by changing  
+> a line in wpmu-settings.php from
+> $blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp- 
+> includes', 'wp-content', 'files', 'feed' );
+> To
+> $blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp- 
+> includes', 'wp-content', 'files', 'feed', 'members', 'profile' );
+>
+> Is there a better way of getting Wordpress MU to allow this to go  
+> through?
+
+I've implemented some catch URI code based on Chris Taylor's work in  
+the latest version in trunk. Basically, it works like this:
+
+http://mydomain.com/username/[component_name]/[action_name]/ 
+[action_vars]
+
+So: http://buddypress.local/apeatling/profile/edit/group/1
+
+The following globals will be set:
+
+$current_component = 'profile'
+$current_action = 'edit'
+$action_variables = array ( 'group', 1 )
+
+You can access these variables wherever you like and use them within  
+your own custom template functions.
+
+I'm using them to direct to custom templates using the new 'bp_uri()'  
+function:
+
+if ( $current_action == 'change-avatar' && $loggedin_userid ==  
+$current_userid )
+	bp_catch_uri( 'profile/change-avatar' );
+
+Where 'profile/change-avatar' represents a folder and filename within  
+the template directory.
+
+This hopefully will allow BuddyPress to use a whole range of custom  
+URL's whilst still using the default .htaccess file for an MU install.
+
+
+>
+> For those of you that may want to do the same thing I then modified  
+> my .htaccess and added the following lines to it:
+> RewriteRule ^.*/?members/(.*)/ /index.php?sn_action=member&sn_member= 
+> $1 [L]
+> RewriteRule ^.*/?profile/$ /index.php?sn_action=profile [L]
+>
+> I'm far from being a mod rewrite expert, so someone may be able to  
+> suggest a better way of doing this?
+>
+> I then wrote a plug-in that looks for sn_action and includes a page  
+> from the current template to display the information e.g.
+>  function member_redirect() {
+>   if (isset($_GET['sn_action'])) {
+>         $action = $_GET['sn_action'];
+>             switch($action) {
+>           case 'member':
+>         if (isset($_GET['sn_member'])) {
+>           $sn_member = $_GET['sn_member'];
+>           if($template = get_query_template('member')) {
+>             include($template);
+>             exit;
+>           }
+>         }
+>             exit;
+>           break;
+> ...<snip>
+>
+> add_action('template_redirect', 'member_redirect');
+>
+> Again I am no expert at this there may be a better way?
+>
+> All that remains to be done is to add a member.php etc. to the home  
+> template. You can then modify the default template to show all  
+> author information for the blog, with links to their profiles,  
+> instead of trying to figure out who's profile to show for the  
+> current blog.
+>
+> It will also allow me to add template changes so that a user can  
+> "follow" a blog, but be a "friend" to a user.
+>
+> Another problem I see with this method is the member URL is formed  
+> using the login name of the user, I really don't want to make that  
+> publically viewable, is there a way currently, or going to be a way  
+> in the future that I can create a required field in XProfile that  
+> should be unique across all users, so a user can enter what they  
+> want to be used for their URL?
+>
+> I love where BuddyPress is going, and have enjoyed working on my own  
+> theme for it, if any one wants more information on what I'm doing,  
+> let me know,
+>
+> Martin
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+_______________________________________________
+buddypress-dev mailing list
+buddypress-dev@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andypeatling at automattic.com  Mon Jun 23 20:23:08 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon Jun 23 20:23:23 2008
+Subject: [buddypress-dev] Better way of doing this?
+In-Reply-To: <000601c8d56d$b80c3b20$2824b160$@com>
+References: <000601c8d229$bb990940$32cb1bc0$@com>
+	<DDACEE5C-F2D8-45A6-8625-6F7EDB628303@automattic.com>
+	<000601c8d56d$b80c3b20$2824b160$@com>
+Message-ID: <E212DEFD-D997-4FC0-A31C-D24605C160D1@automattic.com>
+
+On 23-Jun-08, at 1:14 PM, Martin wrote:
+
+> Andy,
+>
+> This sounds great!
+>
+> Are there plans to increase the functionality of the new functions  
+> so you
+> can catch URIs that don't have a username after the domain name (or  
+> is it
+> already implemented that way)?
+>
+> For example if I wanted to theme a group's moderation tasks I may  
+> want to
+> intercept a URI like:
+> http://buddypress.local/group_name/comment/edit/comment_id
+> And pass it to code in the current template directory.
+
+Already implemented, it should work fine with both vhost installs and  
+non-vhost installs.
+
+Andy
+
+> On 19-Jun-08, at 9:30 AM, Martin wrote:
+>
+>> Motivated by seeing Andy's screen shots of the new theme he is
+>> working on I have started work on my own BuddyPress compatible
+>> theme, but I have hit a problem that I have managed to solve but it
+>> required a change in the core Wordpress MU code, which I was trying
+>> to avoid if at all possible.
+>>
+>> First some background, I am working on a website that is running
+>> Wordpress MU in non virtual host mode, so the blogs are
+> www.domainname.com/blogname
+>> , and want to allow for a user being an administrator on multiple
+>> blogs, and a blog to have multiple authors. I decided that I wanted
+> www.domainname.com/members/username
+>> to show a user profile and list their blogs and
+> www.domainname.com/profile
+>> to show the current user. First problem is that because I am not
+>> configured as a virtual host Wordpress MU tries to create a blog
+>> called members or profile, I have managed to solve this by changing
+>> a line in wpmu-settings.php from
+>> $blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp-
+>> includes', 'wp-content', 'files', 'feed' );
+>> To
+>> $blognames = array( 'page', 'comments', 'blog', 'wp-admin', 'wp-
+>> includes', 'wp-content', 'files', 'feed', 'members', 'profile' );
+>>
+>> Is there a better way of getting Wordpress MU to allow this to go
+>> through?
+>
+> I've implemented some catch URI code based on Chris Taylor's work in
+> the latest version in trunk. Basically, it works like this:
+>
+> http://mydomain.com/username/[component_name]/[action_name]/
+> [action_vars]
+>
+> So: http://buddypress.local/apeatling/profile/edit/group/1
+>
+> The following globals will be set:
+>
+> $current_component = 'profile'
+> $current_action = 'edit'
+> $action_variables = array ( 'group', 1 )
+>
+> You can access these variables wherever you like and use them within
+> your own custom template functions.
+>
+> I'm using them to direct to custom templates using the new 'bp_uri()'
+> function:
+>
+> if ( $current_action == 'change-avatar' && $loggedin_userid ==
+> $current_userid )
+> 	bp_catch_uri( 'profile/change-avatar' );
+>
+> Where 'profile/change-avatar' represents a folder and filename within
+> the template directory.
+>
+> This hopefully will allow BuddyPress to use a whole range of custom
+> URL's whilst still using the default .htaccess file for an MU install.
+>
+>
+>>
+>> For those of you that may want to do the same thing I then modified
+>> my .htaccess and added the following lines to it:
+>> RewriteRule ^.*/?members/(.*)/ /index.php?sn_action=member&sn_member=
+>> $1 [L]
+>> RewriteRule ^.*/?profile/$ /index.php?sn_action=profile [L]
+>>
+>> I'm far from being a mod rewrite expert, so someone may be able to
+>> suggest a better way of doing this?
+>>
+>> I then wrote a plug-in that looks for sn_action and includes a page
+>> from the current template to display the information e.g.
+>> function member_redirect() {
+>>  if (isset($_GET['sn_action'])) {
+>>        $action = $_GET['sn_action'];
+>>            switch($action) {
+>>          case 'member':
+>>        if (isset($_GET['sn_member'])) {
+>>          $sn_member = $_GET['sn_member'];
+>>          if($template = get_query_template('member')) {
+>>            include($template);
+>>            exit;
+>>          }
+>>        }
+>>            exit;
+>>          break;
+>> ...<snip>
+>>
+>> add_action('template_redirect', 'member_redirect');
+>>
+>> Again I am no expert at this there may be a better way?
+>>
+>> All that remains to be done is to add a member.php etc. to the home
+>> template. You can then modify the default template to show all
+>> author information for the blog, with links to their profiles,
+>> instead of trying to figure out who's profile to show for the
+>> current blog.
+>>
+>> It will also allow me to add template changes so that a user can
+>> "follow" a blog, but be a "friend" to a user.
+>>
+>> Another problem I see with this method is the member URL is formed
+>> using the login name of the user, I really don't want to make that
+>> publically viewable, is there a way currently, or going to be a way
+>> in the future that I can create a required field in XProfile that
+>> should be unique across all users, so a user can enter what they
+>> want to be used for their URL?
+>>
+>> I love where BuddyPress is going, and have enjoyed working on my own
+>> theme for it, if any one wants more information on what I'm doing,
+>> let me know,
+>>
+>> Martin
+>> _______________________________________________
+>> buddypress-dev mailing list
+>> buddypress-dev@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From andypeatling at automattic.com  Mon Jun 23 20:28:42 2008
+From: andypeatling at automattic.com (Andy Peatling)
+Date: Mon Jun 23 20:28:59 2008
+Subject: [buddypress-dev] bp-messages-admin.php - missing?
+In-Reply-To: <20080621201127.7l94qowuo8o880kc@www.dimensionmedia.com>
+References: <20080621201127.7l94qowuo8o880kc@www.dimensionmedia.com>
+Message-ID: <BD467100-10CF-498A-AC4D-AEA4AA519D18@automattic.com>
+
+On 21-Jun-08, at 5:11 PM, David J. Bisset wrote:
+
+> I found an older copy of bp-core.php, and comparing it to the latest  
+> bp-core, there appears to be a chunk of functions missing including  
+> bp_int(). Now, these functions could have been easily moved  
+> elsewhere but a quick search reveals nothing. So it appears maybe  
+> they are missing? The chunk is below. I took this chunk from 0.1.3  
+> core and put it in the latest bp-core.php and so far i'm not getting  
+> fatal errors. I'm sure Andy can clear this up?
+
+I've taken these out of the core for now, as I don't want to be  
+tagging core versions with code in it that applies to a yet untagged  
+component.
+
+For now, I will add these functions back into the groups code.
+
+Cheers
+Andy
+
+>
+>
+> // get the IDs of user blogs in a comma-separated list for use in  
+> SQL statements
+> function bp_get_blog_ids_of_user( $id, $all = false ) {
+> 	$blogs = get_blogs_of_user( $id, $all );
+> 	$blog_ids = "";
+>
+> 	if ( $blogs && count($blogs) > 0 ){
+> 		foreach( $blogs as $blog ) {
+> 			$blog_ids .= $blog->blog_id.",";
+> 		}
+> 	}
+> 	$blog_ids = trim( $blog_ids, "," );
+> 	return $blog_ids;
+> }
+>
+> // return a tick for a checkbox for a true boolean value
+> function bp_boolean_ticked($bool) {
+> 	if ( $bool ) {
+> 		return " checked=\"checked\"";
+> 	}
+> 	return "";
+> }
+>
+> // return a tick for a checkbox for a particular value
+> function bp_value_ticked( $var, $value ) {
+> 	if ( $var == $value ) {
+> 		return " checked=\"checked\"";
+> 	}
+> 	return "";
+> }
+>
+> // return true for a boolean value from a checkbox
+> function bp_boolean( $value = 0 ) {
+> 	if ( $value != "" ) {
+> 		return 1;
+> 	} else {
+> 		return 0;
+> 	}
+> }
+>
+> // return an integer
+> function bp_int( $var, $nullToOne=false ) {
+> 	if ( @$var == "" ) {
+> 		if ( $nullToOne ) {
+> 			return 1;
+> 		} else {
+> 			return 0;
+> 		}
+> 	} else {
+> 		return (int)$var;
+> 	}
+> }
+>
+>
+> // show a friendly date
+> function bp_friendly_date($timestamp) {
+> 	// set the timestamp to now if it hasn't been given
+> 	if ( strlen($timestamp) == 0 )
+> 		$timestamp = time();
+>
+> 	// create the date string
+> 	if ( date( "m", $timestamp ) == date("m") && date( "d",  
+> $timestamp ) == date("d") - 1 && date( "Y", $timestamp ) ==  
+> date("Y") ) {
+> 		return "yesterday at " . date( "g:i a", $timestamp );
+> 	} else if ( date( "m", $timestamp ) == date("m") && date( "d",  
+> $timestamp ) == date("d") && date( "Y", $timestamp ) == date("Y") ) {
+> 		return "at " . date( "g:i a", $timestamp );
+> 	} else if ( date( "m", $timestamp) == date("m") && date( "d",  
+> $timestamp ) > date("d") - 5 && date( "Y", $timestamp ) ==  
+> date("Y") ) {
+> 		return "on " . date( "l", $timestamp ) . " at " . date( "g:i a",  
+> $timestamp );
+> 	} else if ( date( "Y", $timestamp) == date("Y") ) {
+> 		return "on " . date( "F jS", $timestamp );
+> 	} else {
+> 		return "on " . date( "F jS Y", $timestamp );
+> 	}
+> }
+>
+> // search users
+> function bp_search_users( $q, $start = 0, $num = 10 ) {
+> 	if ( trim($q) != "" ) {
+> 		global $wpdb;
+> 		global $current_user;
+>
+> 		$sql = "SELECT SQL_CALC_FOUND_ROWS id, user_login, display_name,  
+> user_nicename
+> 		 		FROM " . $wpdb->base_prefix . "users
+> 				WHERE (user_nicename like '%" . $wpdb->escape($q) . "%'
+> 				OR user_email like '%" . $wpdb->escape($q) . "%'
+> 				OR display_name like '%" . $wpdb->escape($q) . "%')
+> 				AND (id <> " . $current_user->ID . " and id > 1)
+> 				LIMIT " . $wpdb->escape($start) . ", " . $wpdb->escape($num) .  
+> ";";
+>
+> 		if ( !$users = $wpdb->get_results($sql) ) {
+> 			return false;
+> 		}
+>
+> 		$rows = $wpdb->get_var( "SELECT found_rows() AS found_rows" );
+>
+> 		if ( is_array($users) && count($users) > 0 ) {
+> 			for ( $i = 0; $i < count($users); $i++ ) {
+> 				$user          = $users[$i];
+> 				$user->siteurl = $user->user_url;
+> 				$user->blogs   = "";
+> 				$user->blogs   = get_blogs_of_user($user->id);
+> 				$user->rows    = $rows;
+> 			}
+> 			return $users;
+> 		} else {
+> 			return false;
+> 		}
+> 	} else {
+> 		return false;
+> 	}
+> }
+>
+> // return a ' if the text ends in an "s", or "'s" otherwise
+> function bp_end_with_s( $string ) {
+> 	if ( substr( strtolower($string), - 1 ) == "s" ) {
+> 		return $string . "'";
+> 	} else {
+> 		return $string . "'s";
+> 	}
+> }
+>
+> // pluralise a string
+> function bp_plural( $num, $ifone = "", $ifmore = "s" ) {
+> 	if ( bp_int($num) != 1 ) {
+> 		return $ifmore;
+> 	} else {
+> 		return $ifone;
+> 	}
+> }
+>
+> -- 
+> David Bisset
+> Director of Web Development
+> Dimension Media, Inc.
+> www.dimensionmedia.com
+> http://www.linkedin.com/in/davidbisset
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+
+From jeroen at jeroensmeets.net  Thu Jun 26 09:35:21 2008
+From: jeroen at jeroensmeets.net (Jeroen Smeets)
+Date: Thu Jun 26 10:08:43 2008
+Subject: [buddypress-dev] name of bp-groups-functions.php in classes file
+Message-ID: <486362D9.6090706@jeroensmeets.net>
+
+Hi Andy,
+
+a small remark from someone who is happy with every new version in trunk:
+
+in bp-groups/bp-groups-class.php on line 9 you have
+
+    include_once ( 'bp_groups_functions.php' );
+
+That probably should be
+
+    include_once ( 'bp-groups-functions.php' );
+
+Maybe more important, the resulting warning is displayed twice, which 
+means the bp-groups-class.php is included twice on page display?
+
+Greetings,
+
+-- Jeroen
+From andreas at hanfelt.se  Mon Jun 30 20:10:25 2008
+From: andreas at hanfelt.se (Andreas Hanfelt)
+Date: Mon Jun 30 20:11:30 2008
+Subject: [buddypress-dev] Profile pic 2 admins...
+Message-ID: <E0150BE7-754C-46B0-A19C-C7CE836905C2@hanfelt.se>
+
+If you have 2 admins you will get no profile pic..
+I found some code and merged it with buddypress to get atleast one  
+admin profile pic to show up..
+
+this code can be pasted in optionsbar.php in the theme
+
+			<?php // bp_get_options_avatar() ?>
+			<?php
+			global $wpdb, $blog_id, $wpmuBaseTablePrefix;
+         	
+			$blogownerid = $wpdb->get_var("SELECT post_author FROM " .  
+$wpmuBaseTablePrefix . $blog_id . "_posts");
+			$bp_profile_pix = xprofile_get_avatar($blogownerid, $version = 1);
+		 echo $bp_profile_pix;
+
+It replaces the function above bp_get_options_avatar()
+
+Im no developer but i can understand some code i see. Maybe this is  
+useful for the developers of buddypress...
+
+Cheers!
+Andreas Hanfelt
+From andreas at hanfelt.se  Mon Jun 30 20:13:12 2008
+From: andreas at hanfelt.se (Andreas Hanfelt)
+Date: Mon Jun 30 20:14:20 2008
+Subject: [buddypress-dev] About me widget
+Message-ID: <77B29460-AAAC-4EC9-BE01-5BB2B6D22ECA@hanfelt.se>
+
+I also hacked about me widget from xiando to work with buddypress its  
+not some nice hack but it works for me ...
+
+paste in a file aboutme.php and put it in mu-plugins
+
+<?php
+/*
+Plugin Name: Simple About Me widget
+Plugin URI: http://livelyblog.com/
+Description: Adds a very simple "About Me" widget to your sidebar  
+which uses the profile
+Author: xiando
+Version: 0.1
+Author URI: http://torrentchannel.com/
+*/
+
+function widget_aboutme_init() {
+         if ( !function_exists('register_sidebar_widget') || ! 
+function_exists('register_widget_control') )
+                 return;
+         function widget_aboutme_control() {
+                 $options = $newoptions = get_option('widget_aboutme');
+		if ( !is_array($newoptions) )
+			$newoptions = array(
+				'title' => 'About Me',
+				'showpic' => 'on',
+				'longdesc' => 'on',
+				'alignpic' => 'left',
+			);
+                         if ( $_POST['aboutme-submit'] ) {
+                                 $newoptions['title'] =  
+strip_tags(stripslashes($_POST['aboutme-title']));
+                                 $newoptions['showpic'] =  
+$_POST['aboutme-showpic'];
+                                 $newoptions['alignpic'] =  
+$_POST['aboutme-alignpic'];
+                                 $newoptions['longdesc'] =  
+$_POST['aboutme-longdesc'];
+                                 }
+                         if ( $options != $newoptions ) {
+                                 $options = $newoptions;
+                                 update_option('widget_aboutme',  
+$options);
+                                 }
+                 $title = htmlspecialchars($options['title'],  
+ENT_QUOTES);
+		echo "<ul style=\"margin-left:0px;padding-left:0px;\"><li style= 
+\"list-style: none;\"><label for=\"aboutme-title\"><strong>About Me</ 
+strong></label></li>";
+		echo '<li style="list-style: none;">';
+		echo '<label>Vis profilbilde?:</label>';
+		echo '<input type="checkbox" name="aboutme-showpic" id="aboutme- 
+showpic"';
+		if ($options['showpic'] == "on") {
+			echo ' checked="checked" ';
+		}
+		echo '/></li>';
+
+	        echo '<li style="list-style: none;">Align profile picture';
+
+		echo '<label for="alignpic-left"><input type="radio" name="aboutme- 
+alignpic" id="alignpic-left" value="left" ';
+			if ($options['alignpic'] == "left") {echo ' checked="checked" ';}
+		echo '/> Left </label>';
+		echo '<label for="alignpic-center"><input type="radio" name="aboutme- 
+alignpic" id="alignpic-center" value="center" ';
+			if ($options['alignpic'] == "center") {echo ' checked="checked" ';}
+		echo '/> Center </label>';
+		echo '<label for="alignpic-right"><input type="radio" name="aboutme- 
+alignpic" id="alignpic-right" value="right" ';
+			if ($options['alignpic'] == "right") {echo ' checked="checked" ';}
+		echo '/> Right </label>';
+		echo '</li>';
+
+	        echo '<li style="list-style: none;">
+                 <label for="aboutme-title">Tittel:
+                 <input style="width: 50%;" id="aboutme-title"  
+name="aboutme-title" type="text" value="'.$title.'" />
+                 </label></li>';
+		echo '<li style="list-style: none;">
+		<label>Show &quot;About Me&quot; text?:</label>
+		<input type="checkbox" name="aboutme-longdesc" id="aboutme-longdesc"';
+		if ($options['longdesc'] == "on") { echo 'checked="checked"'; }
+		echo ' /></li>';
+                 echo '</ul><input type="hidden" id="aboutme-submit"  
+name="aboutme-submit" value="1" />';
+         }
+
+
+	function widget_aboutme($args) {
+         	global $wpdb, $blog_id, $wpmuBaseTablePrefix;
+         	extract($args);
+		$options = get_option('widget_aboutme');
+		$title = $options['title'];
+		$showpic = $options['showpic'];
+		$longdesc = $options['longdesc'];
+
+		$blogownerid = $wpdb->get_var("SELECT post_author FROM " .  
+$wpmuBaseTablePrefix . $blog_id . "_posts");
+		$userdata = get_userdata($blogownerid);
+		$author_gravatar = ' ';
+
+		if ($showpic == "on") {
+		?><?php
+		//$sida = get_option('siteurl');
+		//$olika = md5(rand());
+		//$test = '<img src='. $sida .'/avatar/128.png?ver='. $olika .'/>';
+		//echo ($blogownerid);
+		
+		
+		$bp_profile_pix = xprofile_get_avatar($blogownerid, $version = 2);
+		// echo $bp_profile_pix;
+		
+		
+		$author_gravatar = '<li><div style="text-align:' .  
+$options['alignpic'] . ';">'
+             .  $test . '</div></li>';
+		
+		
+  		 ?><?php
+			if (function_exists('author_gravatar_tag') &&  
+profile_picture_set($blogownerid)) {
+			$author_gravatar = '<li><div style="text-align:' .  
+$options['alignpic'] . ';">'
+			. author_gravatar_tag($blogownerid,"class='profilepic'")  .  
+$bp_profile_pix . '</div></li>';
+			}
+		}
+		if ($longdesc == "on") {
+			$aboutmeauthordesc = $userdata->description;
+		}else{
+			$aboutmeauthordesc = ' ';
+		}
+		echo $before_widget . $before_title . $title . $after_title;
+		echo '<ul><li><div style="text-align:'. $options['alignpic'] .  
+';">' . $bp_profile_pix . '</div></li><li>' . $aboutmeauthordesc .'</ 
+li></ul>';
+		echo $after_widget;
+         }
+
+	register_sidebar_widget('About Me', 'widget_aboutme');
+	register_widget_control('About Me', 'widget_aboutme_control', 300,  
+180);
+}
+
+add_action('widgets_init', 'widget_aboutme_init');
+?>
+
+

@@ -1,0 +1,306 @@
+From admin at themedaily.com  Thu Aug 12 08:45:38 2010
+From: admin at themedaily.com (ThemeDaily Dot Com)
+Date: Thu, 12 Aug 2010 16:45:38 +0800
+Subject: [wp-docs]  Codex Login error
+Message-ID: <AANLkTinCdGsLfZcthKvYi0refEdo0hqDO2cLF7tpzvh7@mail.gmail.com>
+
+Hello
+
+Not sure only my account or others,
+I tried login codex but I got an login error:
+
+> Incorrect password entered. Please try again.
+>
+I'm sure my password is correct and not be changed recently.
+Can anyone let me know what has happened ?
+
+Thanks
+Ding ZhiGang
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20100812/eda00130/attachment.htm>
+
+From listswpdocs at mist.org.uk  Thu Aug 12 08:53:39 2010
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Thu, 12 Aug 2010 09:53:39 +0100
+Subject: [wp-docs] Codex Login error
+In-Reply-To: <AANLkTinCdGsLfZcthKvYi0refEdo0hqDO2cLF7tpzvh7@mail.gmail.com>
+References: <AANLkTinCdGsLfZcthKvYi0refEdo0hqDO2cLF7tpzvh7@mail.gmail.com>
+Message-ID: <Io8oIMDTa7YMFw4l@dsl-217-155-35-239.zen.co.uk>
+
+In message 
+<AANLkTinCdGsLfZcthKvYi0refEdo0hqDO2cLF7tpzvh7 at mail.gmail.com>, 
+ThemeDaily Dot Com <admin at themedaily.com> writes
+>Hello
+>
+>Not sure only my account or others,
+>I tried login codex but I got an login error:
+>  Incorrect password entered. Please try again.
+>I'm sure my password is correct and not be changed recently.
+>Can anyone let me know what has happened ?
+>
+
+See 
+http://wpdevel.wordpress.com/2010/07/13/the-codex-is-now-authenticating-a
+gainst/
+
+It should be your normal wordpress.org account and password now.
+
+-- 
+mrmist
+
+From listswpdocs at mist.org.uk  Fri Aug 20 13:27:51 2010
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Fri, 20 Aug 2010 14:27:51 +0100
+Subject: [wp-docs] Codex error message on login
+Message-ID: <T7OeskDXLobMFwzN@dsl-217-155-35-239.zen.co.uk>
+
+Hi list,
+
+Whilst I can browse the Codex just fine right now, on attempting to 
+log-in I'm seeing the rather daunting message
+
+This wiki has a problem -
+
+(Cannot contact the database server: Access denied for user 
+'wporg'@'72.233.56.142' (using password: YES))
+
+May be it will go away, but perhaps needs checking out?
+-- 
+mrmist
+
+From otto at ottodestruct.com  Fri Aug 20 13:54:50 2010
+From: otto at ottodestruct.com (Otto)
+Date: Fri, 20 Aug 2010 08:54:50 -0500
+Subject: [wp-docs] Codex error message on login
+In-Reply-To: <T7OeskDXLobMFwzN@dsl-217-155-35-239.zen.co.uk>
+References: <T7OeskDXLobMFwzN@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <AANLkTinytD49ojnnAmTe7ue0SAgLuK8Q_C8_B=Tz7nSe@mail.gmail.com>
+
+Fixed.
+
+Some database changes happened on wp.org and the codex needed to be
+updated to be aware of that fact.
+
+-Otto
+
+
+
+On Fri, Aug 20, 2010 at 8:27 AM, mrmist <listswpdocs at mist.org.uk> wrote:
+> Hi list,
+>
+> Whilst I can browse the Codex just fine right now, on attempting to log-in
+> I'm seeing the rather daunting message
+>
+> This wiki has a problem -
+>
+> (Cannot contact the database server: Access denied for user
+> 'wporg'@'72.233.56.142' (using password: YES))
+>
+> May be it will go away, but perhaps needs checking out?
+> --
+> mrmist
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+From listswpdocs at mist.org.uk  Fri Aug 20 14:00:49 2010
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Fri, 20 Aug 2010 15:00:49 +0100
+Subject: [wp-docs] Codex error message on login
+In-Reply-To: <AANLkTinytD49ojnnAmTe7ue0SAgLuK8Q_C8_B=Tz7nSe@mail.gmail.com>
+References: <T7OeskDXLobMFwzN@dsl-217-155-35-239.zen.co.uk>
+	<AANLkTinytD49ojnnAmTe7ue0SAgLuK8Q_C8_B=Tz7nSe@mail.gmail.com>
+Message-ID: <0b$X08DRqobMFwUL@dsl-217-155-35-239.zen.co.uk>
+
+In message 
+<AANLkTinytD49ojnnAmTe7ue0SAgLuK8Q_C8_B=Tz7nSe at mail.gmail.com>, Otto 
+<otto at ottodestruct.com> writes
+>Fixed.
+>
+>Some database changes happened on wp.org and the codex needed to be
+>updated to be aware of that fact.
+>
+
+Nice quick fix !
+-- 
+mrmist
+
+From wp at andrewnacin.com  Sun Aug 29 06:52:37 2010
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sun, 29 Aug 2010 02:52:37 -0400
+Subject: [wp-docs] Codex page on outgoing email configurations?
+Message-ID: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+
+Hi all -
+
+I noticed a need for a small plugin that tests emails sent by WordPress.
+It's written and I'm going to put it in the repository, and now I'm looking
+for a Codex page that presents the challenges with outgoing emails (the from
+address, the need for SMTP, etc.), why we send from
+wordpress at yourdomain.comby default, and how to make it work on your
+server.
+
+I searched around and couldn't find a page. I have no problem writing one up
+(which I then plan to link from the plugin), but I wanted to know if it rang
+any bells with you first.
+
+Thanks,
+Nacin
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20100829/fc13fbcf/attachment.htm>
+
+From listswpdocs at mist.org.uk  Sun Aug 29 07:19:24 2010
+From: listswpdocs at mist.org.uk (mrmist)
+Date: Sun, 29 Aug 2010 08:19:24 +0100
+Subject: [wp-docs] Codex page on outgoing email configurations?
+In-Reply-To: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+References: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+Message-ID: <dAhtSvN8ngeMFwYi@dsl-217-155-35-239.zen.co.uk>
+
+In message 
+<AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK at mail.gmail.com>, Andrew 
+Nacin <wp at andrewnacin.com> writes
+>I searched around and couldn't find a page. I have no problem writing one
+>up (which I then plan to link from the plugin), but I wanted to know if it rang
+>any bells with you first.
+>
+
+I don't recall such a page.
+
+-- 
+mrmist
+
+From otto at ottodestruct.com  Sun Aug 29 08:05:42 2010
+From: otto at ottodestruct.com (Otto)
+Date: Sun, 29 Aug 2010 03:05:42 -0500
+Subject: [wp-docs] Codex page on outgoing email configurations?
+In-Reply-To: <dAhtSvN8ngeMFwYi@dsl-217-155-35-239.zen.co.uk>
+References: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+	<dAhtSvN8ngeMFwYi@dsl-217-155-35-239.zen.co.uk>
+Message-ID: <AANLkTinRU-UqpmkwTNetijSasq+NuFSerd99hOacZRst@mail.gmail.com>
+
+Yeah, I got nothing. Closest I can think of is
+function_reference/wp_mail, but nothing on the "why" of it.
+
+That whole thing needs a rethink, I think. Some of it is strange and
+doesn't work on a few hosts, although it is better than it used to be.
+Dunno. Maybe it should be a core plugin.
+
+-Otto
+
+
+
+On Sun, Aug 29, 2010 at 2:19 AM, mrmist <listswpdocs at mist.org.uk> wrote:
+> In message <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK at mail.gmail.com>,
+> Andrew Nacin <wp at andrewnacin.com> writes
+>>
+>> I searched around and couldn't find a page. I have no problem writing one
+>> up (which I then plan to link from the plugin), but I wanted to know if it
+>> rang
+>> any bells with you first.
+>>
+>
+> I don't recall such a page.
+>
+> --
+> mrmist
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+From wp at andrewnacin.com  Sun Aug 29 09:10:01 2010
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sun, 29 Aug 2010 05:10:01 -0400
+Subject: [wp-docs] Codex page on outgoing email configurations?
+In-Reply-To: <AANLkTinRU-UqpmkwTNetijSasq+NuFSerd99hOacZRst@mail.gmail.com>
+References: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+	<dAhtSvN8ngeMFwYi@dsl-217-155-35-239.zen.co.uk>
+	<AANLkTinRU-UqpmkwTNetijSasq+NuFSerd99hOacZRst@mail.gmail.com>
+Message-ID: <AANLkTimoGBx86wd3R1t-6fBzESDfnX2tSnPheWY6tzn_@mail.gmail.com>
+
+On Sun, Aug 29, 2010 at 4:05 AM, Otto <otto at ottodestruct.com> wrote:
+
+> Yeah, I got nothing. Closest I can think of is
+> function_reference/wp_mail, but nothing on the "why" of it.
+>
+> That whole thing needs a rethink, I think. Some of it is strange and
+> doesn't work on a few hosts, although it is better than it used to be.
+> Dunno. Maybe it should be a core plugin.
+
+
+Many servers won't relay an email address that doesn't match its domain.
+This seems to allow the widest number of setups. Some servers (Bluehost does
+this, for example) actually require that the email address exists in their
+system.
+
+Other alternatives include omitting the From header entirely, which probably
+doesn't work on the majority of setups but apparently works on some. (This
+setup might also relay mail from anyone.) Beyond that, some servers won't
+relay any email, so the user would have to use a plugin that configures
+SMTP.
+
+So it's a tough spot. I think the current situation isn't going to change
+because it is a good balance. The plugin I wrote is *very* simple. It tests
+wp_mail(), and then will offer a link to a Codex article (which I guess I'll
+write) that will also link the user to other plugins such as WP Mail SMTP
+that can enable it to work on their servers.
+
+Nacin
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20100829/eed3516f/attachment.htm>
+
+From batmoo at gmail.com  Sun Aug 29 18:16:56 2010
+From: batmoo at gmail.com (Mohammad Jangda)
+Date: Sun, 29 Aug 2010 14:16:56 -0400
+Subject: [wp-docs] Codex page on outgoing email configurations?
+In-Reply-To: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+References: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+Message-ID: <AANLkTim+DeCNjM5gnBQZQ2tobjK8TcmECsT2n0OQTmRF@mail.gmail.com>
+
+>
+> I noticed a need for a small plugin that tests emails sent by WordPress
+
+
+There was some discussion around bundling this feature into the Health Check
+plugin (
+http://wordpress.org/support/topic/health-check-plugin-feedback-needed-from-forum-regulars)
+-- might be something to consider if Health Check is going be a a Core
+plugin.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20100829/f4016088/attachment.htm>
+
+From wp at andrewnacin.com  Sun Aug 29 21:22:59 2010
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sun, 29 Aug 2010 17:22:59 -0400
+Subject: [wp-docs] Codex page on outgoing email configurations?
+In-Reply-To: <AANLkTim+DeCNjM5gnBQZQ2tobjK8TcmECsT2n0OQTmRF@mail.gmail.com>
+References: <AANLkTi=tYhmQQj=zqn1Ggp0Kx2pTAAGa3Nh3ySxSeUnK@mail.gmail.com>
+	<AANLkTim+DeCNjM5gnBQZQ2tobjK8TcmECsT2n0OQTmRF@mail.gmail.com>
+Message-ID: <AANLkTi=ks25JNmkQyMSbfa+cSv-POfzjas4GxfxA=C6X@mail.gmail.com>
+
+On Sun, Aug 29, 2010 at 2:16 PM, Mohammad Jangda <batmoo at gmail.com> wrote:
+
+>  I noticed a need for a small plugin that tests emails sent by WordPress
+>
+>
+> There was some discussion around bundling this feature into the Health
+> Check plugin (
+> http://wordpress.org/support/topic/health-check-plugin-feedback-needed-from-forum-regulars)
+> -- might be something to consider if Health Check is going be a a Core
+> plugin.
+>
+
+Didn't even think about that. Last I checked, it wasn't in HC, but I'll
+write the requisite unit tests. Thanks.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20100829/8d068ea9/attachment.htm>
+

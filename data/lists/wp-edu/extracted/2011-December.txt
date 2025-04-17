@@ -1,0 +1,513 @@
+From a.king at macmillan-academy.org.uk  Fri Dec  9 13:45:32 2011
+From: a.king at macmillan-academy.org.uk (King, Mr A)
+Date: Fri, 9 Dec 2011 13:45:32 +0000
+Subject: [wp-edu] Wordpress for all!
+Message-ID: <3791CC6677D37747BF2CF983FCD67F5D06C3F6@Mac1.macmillan-academy.org.uk>
+
+Hi,
+
+I am head of ICT in a secondary school in Middlesbrough, UK. I have used WordPress for a number of years as a personal teacher blog - http://www.macmillan-academy.org.uk/staff_blogs/mr_king/
+
+I am happy to say that since its introduction, we now have a large number of staff with their own personal Blog.
+
+I am looking into the feasibility of getting every student who joins us their own blog. I want them to use it to showcase their work throughout their school life and for friends, family and teachers to comment on the work they produce. I think it will help to instill pride in the work they produce.
+
+I would like to know what are the options for proceeding. We are a large school with 220+ students in each year group, so setting the blogs up student by student like we do for the teachers is not an option. I have heard something about WordPress MU, but not sure if this is related?
+
+Ideally, we would like to export a CSV list of our students accounts from our Network from active directory, and for this in some way to be used to generate individual student blogs.
+
+Any help on this matter would be greatly appreciated.
+
+Many thanks
+
+Adrian
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/e21d70fa/attachment.htm>
+
+From genial at gmail.com  Fri Dec  9 14:02:02 2011
+From: genial at gmail.com (Tim Owens)
+Date: Fri, 9 Dec 2011 09:02:02 -0500
+Subject: [wp-edu] Wordpress for all!
+In-Reply-To: <3791CC6677D37747BF2CF983FCD67F5D06C3F6@Mac1.macmillan-academy.org.uk>
+References: <3791CC6677D37747BF2CF983FCD67F5D06C3F6@Mac1.macmillan-academy.org.uk>
+Message-ID: <CAPaV0RR52e050Ab2PGunodV5kDfBaR0ZfiCdEjc7=b6V9k8cTQ@mail.gmail.com>
+
+Multisite is absolutely what you're looking for (previously called
+Wordpress MU but it's now built into Wordpress). I'd highly recommend this
+ebook to get you started on that setup:
+http://wpebooks.com/2010/09/how-to-enable-multisite-in-wordpress/.
+
+You can setup blogs from a CSV file using this paid plugin as well:
+http://premium.wpmudev.org/project/batch-create although some on the list
+here may know of some free options for accomplishing that task. Another
+option you might consider is having a blog automatically be created the
+first time a student logs in (could reduce the number of blogs that might
+get generated automatically and then remain empty). There are plugins to
+build in Active Directory login for the system and then when they login the
+blog would be created. I know some folks doing that in a K12 environment in
+Henrico, VA and can likely get documentation if you'd like to go that route.
+
+We run a rather large multisite setup here at the University of Mary
+Washington for a few years now and it's great for collaboration. We have
+courses running solely on that system instead of a learning management
+system and we have organizations using it to publish their content like the
+school newspaper. I think you'll be quite pleased with what it has to
+offer. If you have any questions don't hesitate to let me know!
+
+Tim Owens
+
+*Instructional Technology Specialist*
+
+*University of Mary Washington*
+
+*(540) 654-1510*
+
+On Fri, Dec 9, 2011 at 8:45 AM, King, Mr A
+<a.king at macmillan-academy.org.uk>wrote:
+
+>  Hi,****
+>
+> I am head of ICT in a secondary school in Middlesbrough, UK. I have used
+> WordPress for a number of years as a personal teacher blog -
+> http://www.macmillan-academy.org.uk/staff_blogs/mr_king/****
+>
+> I am happy to say that since its introduction, we now have a large number
+> of staff with their own personal Blog.****
+>
+> I am looking into the feasibility of getting every student who joins us
+> their own blog. I want them to use it to showcase their work throughout
+> their school life and for friends, family and teachers to comment on the
+> work they produce. I think it will help to instill pride in the work they
+> produce.****
+>
+> I would like to know what are the options for proceeding. We are a large
+> school with 220+ students in each year group, so setting the blogs up
+> student by student like we do for the teachers is not an option. I have
+> heard something about WordPress MU, but not sure if this is related?****
+>
+> Ideally, we would like to export a CSV list of our students accounts from
+> our Network from active directory, and for this in some way to be used to
+> generate individual student blogs.****
+>
+> Any help on this matter would be greatly appreciated.****
+>
+> Many thanks****
+>
+> Adrian ****
+>
+> ** **
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/d9a8ce03/attachment.htm>
+
+From a.king at macmillan-academy.org.uk  Fri Dec  9 14:25:54 2011
+From: a.king at macmillan-academy.org.uk (King, Mr A)
+Date: Fri, 9 Dec 2011 14:25:54 +0000
+Subject: [wp-edu] Wordpress for all!
+In-Reply-To: <CAPaV0RR52e050Ab2PGunodV5kDfBaR0ZfiCdEjc7=b6V9k8cTQ@mail.gmail.com>
+References: <3791CC6677D37747BF2CF983FCD67F5D06C3F6@Mac1.macmillan-academy.org.uk>
+	<CAPaV0RR52e050Ab2PGunodV5kDfBaR0ZfiCdEjc7=b6V9k8cTQ@mail.gmail.com>
+Message-ID: <3791CC6677D37747BF2CF983FCD67F5D06C418@Mac1.macmillan-academy.org.uk>
+
+Many thanks Tim - this is excellent information.
+
+I think purchasing the e-book is a good start, although the automatic creation of a blog using Active Directory also sounds good.  If you could find anything from your contact in Henrico that would be much appreciated.
+
+Many thanks for your time
+
+
+____________________________________
+Adrian King
+Head of ICT
+Macmillan Academy
+Stockton Road
+Middlesbrough
+TS5 4AG
+
+Tel | 01642 800 800 (Switchboard)
+Tel | 01642 354 481 (Direct Line)
+http://www.macmillan-academy.org.uk<http://mac1.macmillan-academy.org.uk/owa/redir.aspx?C=e6afd10a771644d5933853bb1b716bf0&URL=http%3a%2f%2fexchange.macmillan-academy.org.uk%2fexchweb%2fbin%2fredir.asp%3fURL%3dhttp%3a%2f%2fwww.macmillan-academy.org.uk>
+
+
+
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Tim Owens
+Sent: 09 December 2011 14:02
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Wordpress for all!
+
+Multisite is absolutely what you're looking for (previously called Wordpress MU but it's now built into Wordpress). I'd highly recommend this ebook to get you started on that setup: http://wpebooks.com/2010/09/how-to-enable-multisite-in-wordpress/.
+
+You can setup blogs from a CSV file using this paid plugin as well: http://premium.wpmudev.org/project/batch-create although some on the list here may know of some free options for accomplishing that task. Another option you might consider is having a blog automatically be created the first time a student logs in (could reduce the number of blogs that might get generated automatically and then remain empty). There are plugins to build in Active Directory login for the system and then when they login the blog would be created. I know some folks doing that in a K12 environment in Henrico, VA and can likely get documentation if you'd like to go that route.
+
+We run a rather large multisite setup here at the University of Mary Washington for a few years now and it's great for collaboration. We have courses running solely on that system instead of a learning management system and we have organizations using it to publish their content like the school newspaper. I think you'll be quite pleased with what it has to offer. If you have any questions don't hesitate to let me know!
+
+Tim Owens
+
+Instructional Technology Specialist
+
+University of Mary Washington
+
+(540) 654-1510
+
+On Fri, Dec 9, 2011 at 8:45 AM, King, Mr A <a.king at macmillan-academy.org.uk<mailto:a.king at macmillan-academy.org.uk>> wrote:
+
+Hi,
+
+I am head of ICT in a secondary school in Middlesbrough, UK. I have used WordPress for a number of years as a personal teacher blog - http://www.macmillan-academy.org.uk/staff_blogs/mr_king/
+
+I am happy to say that since its introduction, we now have a large number of staff with their own personal Blog.
+
+I am looking into the feasibility of getting every student who joins us their own blog. I want them to use it to showcase their work throughout their school life and for friends, family and teachers to comment on the work they produce. I think it will help to instill pride in the work they produce.
+
+I would like to know what are the options for proceeding. We are a large school with 220+ students in each year group, so setting the blogs up student by student like we do for the teachers is not an option. I have heard something about WordPress MU, but not sure if this is related?
+
+Ideally, we would like to export a CSV list of our students accounts from our Network from active directory, and for this in some way to be used to generate individual student blogs.
+
+Any help on this matter would be greatly appreciated.
+
+Many thanks
+
+Adrian
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+Scanned by MailDefender - managed email security from intY - www.maildefender.net<http://www.maildefender.net>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/799f3fe2/attachment-0001.htm>
+
+From twwoodward at henrico.k12.va.us  Fri Dec  9 16:18:59 2011
+From: twwoodward at henrico.k12.va.us (Thomas W. Woodward (twwoodward))
+Date: Fri, 9 Dec 2011 11:18:59 -0500
+Subject: [wp-edu] wp-edu Digest, Vol 30, Issue 1
+In-Reply-To: <mailman.12008.1323440788.1433.wp-edu@lists.automattic.com>
+References: <mailman.12008.1323440788.1433.wp-edu@lists.automattic.com>
+Message-ID: <542CBDC3-E82E-4106-916A-7F881FE6BD28@henrico.k12.va.us>
+
+Mr. King,
+
+Multisite, without question, is the way to go.
+
+I'm from Henrico and we tied in LDAP with this plugin http://wpmuldap.tuxdocs.net/  You get a blog on login that's named with your LDAP username.  We are not currently allowing users to add additional blogs on their own.
+
+It's working well for us with 2,566 blogs and 26,100 users as of today.
+
+If you'd like any other information, I'm happy to try to help.
+
+
+Tom
+
+
+
+Tom Woodward
+Assistant Director
+Instructional Technology
+Henrico County Public Schools
+804-652-3031
+
+
+
+On Dec 9, 2011, at 9:26 AM, <wp-edu-request at lists.automattic.com<mailto:wp-edu-request at lists.automattic.com>> wrote:
+
+Send wp-edu mailing list submissions to
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+
+To subscribe or unsubscribe via the World Wide Web, visit
+http://lists.automattic.com/mailman/listinfo/wp-edu
+or, via email, send a message with subject or body 'help' to
+wp-edu-request at lists.automattic.com
+
+You can reach the person managing the list at
+wp-edu-owner at lists.automattic.com
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of wp-edu digest..."
+
+
+Today's Topics:
+
+  1. Wordpress for all! (King, Mr A)
+  2. Re: Wordpress for all! (Tim Owens)
+  3. Re: Wordpress for all! (King, Mr A)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Fri, 9 Dec 2011 13:45:32 +0000
+From: "King, Mr A" <a.king at macmillan-academy.org.uk>
+Subject: [wp-edu] Wordpress for all!
+To: "'wp-edu at lists.automattic.com'" <wp-edu at lists.automattic.com>
+Message-ID:
+<3791CC6677D37747BF2CF983FCD67F5D06C3F6 at Mac1.macmillan-academy.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+
+Hi,
+
+I am head of ICT in a secondary school in Middlesbrough, UK. I have used WordPress for a number of years as a personal teacher blog - http://www.macmillan-academy.org.uk/staff_blogs/mr_king/
+
+I am happy to say that since its introduction, we now have a large number of staff with their own personal Blog.
+
+I am looking into the feasibility of getting every student who joins us their own blog. I want them to use it to showcase their work throughout their school life and for friends, family and teachers to comment on the work they produce. I think it will help to instill pride in the work they produce.
+
+I would like to know what are the options for proceeding. We are a large school with 220+ students in each year group, so setting the blogs up student by student like we do for the teachers is not an option. I have heard something about WordPress MU, but not sure if this is related?
+
+Ideally, we would like to export a CSV list of our students accounts from our Network from active directory, and for this in some way to be used to generate individual student blogs.
+
+Any help on this matter would be greatly appreciated.
+
+Many thanks
+
+Adrian
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/e21d70fa/attachment-0001.htm>
+
+------------------------------
+
+Message: 2
+Date: Fri, 9 Dec 2011 09:02:02 -0500
+From: Tim Owens <genial at gmail.com>
+Subject: Re: [wp-edu] Wordpress for all!
+To: wp-edu at lists.automattic.com
+Message-ID:
+<CAPaV0RR52e050Ab2PGunodV5kDfBaR0ZfiCdEjc7=b6V9k8cTQ at mail.gmail.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
+Multisite is absolutely what you're looking for (previously called
+Wordpress MU but it's now built into Wordpress). I'd highly recommend this
+ebook to get you started on that setup:
+http://wpebooks.com/2010/09/how-to-enable-multisite-in-wordpress/.
+
+You can setup blogs from a CSV file using this paid plugin as well:
+http://premium.wpmudev.org/project/batch-create although some on the list
+here may know of some free options for accomplishing that task. Another
+option you might consider is having a blog automatically be created the
+first time a student logs in (could reduce the number of blogs that might
+get generated automatically and then remain empty). There are plugins to
+build in Active Directory login for the system and then when they login the
+blog would be created. I know some folks doing that in a K12 environment in
+Henrico, VA and can likely get documentation if you'd like to go that route.
+
+We run a rather large multisite setup here at the University of Mary
+Washington for a few years now and it's great for collaboration. We have
+courses running solely on that system instead of a learning management
+system and we have organizations using it to publish their content like the
+school newspaper. I think you'll be quite pleased with what it has to
+offer. If you have any questions don't hesitate to let me know!
+
+Tim Owens
+
+*Instructional Technology Specialist*
+
+*University of Mary Washington*
+
+*(540) 654-1510*
+
+On Fri, Dec 9, 2011 at 8:45 AM, King, Mr A
+<a.king at macmillan-academy.org.uk>wrote:
+
+Hi,****
+
+I am head of ICT in a secondary school in Middlesbrough, UK. I have used
+WordPress for a number of years as a personal teacher blog -
+http://www.macmillan-academy.org.uk/staff_blogs/mr_king/****
+
+I am happy to say that since its introduction, we now have a large number
+of staff with their own personal Blog.****
+
+I am looking into the feasibility of getting every student who joins us
+their own blog. I want them to use it to showcase their work throughout
+their school life and for friends, family and teachers to comment on the
+work they produce. I think it will help to instill pride in the work they
+produce.****
+
+I would like to know what are the options for proceeding. We are a large
+school with 220+ students in each year group, so setting the blogs up
+student by student like we do for the teachers is not an option. I have
+heard something about WordPress MU, but not sure if this is related?****
+
+Ideally, we would like to export a CSV list of our students accounts from
+our Network from active directory, and for this in some way to be used to
+generate individual student blogs.****
+
+Any help on this matter would be greatly appreciated.****
+
+Many thanks****
+
+Adrian ****
+
+** **
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/d9a8ce03/attachment-0001.htm>
+
+------------------------------
+
+Message: 3
+Date: Fri, 9 Dec 2011 14:25:54 +0000
+From: "King, Mr A" <a.king at macmillan-academy.org.uk>
+Subject: Re: [wp-edu] Wordpress for all!
+To: "'wp-edu at lists.automattic.com'" <wp-edu at lists.automattic.com>
+Message-ID:
+<3791CC6677D37747BF2CF983FCD67F5D06C418 at Mac1.macmillan-academy.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+
+Many thanks Tim - this is excellent information.
+
+I think purchasing the e-book is a good start, although the automatic creation of a blog using Active Directory also sounds good.  If you could find anything from your contact in Henrico that would be much appreciated.
+
+Many thanks for your time
+
+
+____________________________________
+Adrian King
+Head of ICT
+Macmillan Academy
+Stockton Road
+Middlesbrough
+TS5 4AG
+
+Tel | 01642 800 800 (Switchboard)
+Tel | 01642 354 481 (Direct Line)
+http://www.macmillan-academy.org.uk<http://mac1.macmillan-academy.org.uk/owa/redir.aspx?C=e6afd10a771644d5933853bb1b716bf0&URL=http%3a%2f%2fexchange.macmillan-academy.org.uk%2fexchweb%2fbin%2fredir.asp%3fURL%3dhttp%3a%2f%2fwww.macmillan-academy.org.uk>
+
+
+
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Tim Owens
+Sent: 09 December 2011 14:02
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Wordpress for all!
+
+Multisite is absolutely what you're looking for (previously called Wordpress MU but it's now built into Wordpress). I'd highly recommend this ebook to get you started on that setup: http://wpebooks.com/2010/09/how-to-enable-multisite-in-wordpress/.
+
+You can setup blogs from a CSV file using this paid plugin as well: http://premium.wpmudev.org/project/batch-create although some on the list here may know of some free options for accomplishing that task. Another option you might consider is having a blog automatically be created the first time a student logs in (could reduce the number of blogs that might get generated automatically and then remain empty). There are plugins to build in Active Directory login for the system and then when they login the blog would be created. I know some folks doing that in a K12 environment in Henrico, VA and can likely get documentation if you'd like to go that route.
+
+We run a rather large multisite setup here at the University of Mary Washington for a few years now and it's great for collaboration. We have courses running solely on that system instead of a learning management system and we have organizations using it to publish their content like the school newspaper. I think you'll be quite pleased with what it has to offer. If you have any questions don't hesitate to let me know!
+
+Tim Owens
+
+Instructional Technology Specialist
+
+University of Mary Washington
+
+(540) 654-1510
+
+On Fri, Dec 9, 2011 at 8:45 AM, King, Mr A <a.king at macmillan-academy.org.uk<mailto:a.king at macmillan-academy.org.uk>> wrote:
+
+Hi,
+
+I am head of ICT in a secondary school in Middlesbrough, UK. I have used WordPress for a number of years as a personal teacher blog - http://www.macmillan-academy.org.uk/staff_blogs/mr_king/
+
+I am happy to say that since its introduction, we now have a large number of staff with their own personal Blog.
+
+I am looking into the feasibility of getting every student who joins us their own blog. I want them to use it to showcase their work throughout their school life and for friends, family and teachers to comment on the work they produce. I think it will help to instill pride in the work they produce.
+
+I would like to know what are the options for proceeding. We are a large school with 220+ students in each year group, so setting the blogs up student by student like we do for the teachers is not an option. I have heard something about WordPress MU, but not sure if this is related?
+
+Ideally, we would like to export a CSV list of our students accounts from our Network from active directory, and for this in some way to be used to generate individual student blogs.
+
+Any help on this matter would be greatly appreciated.
+
+Many thanks
+
+Adrian
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+Scanned by MailDefender - managed email security from intY - www.maildefender.net<http://www.maildefender.net>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/799f3fe2/attachment.htm>
+
+------------------------------
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+End of wp-edu Digest, Vol 30, Issue 1
+*************************************
+
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111209/9a58247d/attachment.htm>
+
+From Nurhazman at ntu.edu.sg  Fri Dec 23 08:21:30 2011
+From: Nurhazman at ntu.edu.sg (Nurhazman Abdul Aziz)
+Date: Fri, 23 Dec 2011 16:21:30 +0800
+Subject: [wp-edu] Help: Anybody knows the range of WordPress's FTPS (SSL).
+Message-ID: <E584FD37D48F30408AFC001D158655A80AF6F851D8@EXCHANGE32.staff.main.ntu.edu.sg>
+
+Hi all,
+
+We (Blogs at NTU - http://blogs.ntu.edu.sg)<http://blogs.ntu.edu.sg%29/> need some help. We like to know if anybody knows the range of WordPress's FTPS (SSL).
+
+This is because we are getting this prompt message:
+
+-----
+To perform the requested action, WordPress needs to access your web server. Please enter your FTP credentials to proceed. If you do not remember your credentials, you should contact your web host.
+-----
+
+On our site, we like to enable this via our FTPS (SSL). But only to allow WordPress's IP .
+
+If anybody know the range for this, please update us at nurhazman at ntu.edu.sg<mailto:nurhazman at ntu.edu.sg>,
+
+Thanks,
+Hazman Aziz
+[cid:image001.gif at 01CCC18E.ED79C8C0]
+
+Nurhazman Abdul Aziz (Hazman Aziz) | Librarian (Library Technology & System Division) | Library | Nanyang Technological University NS2-B1, 50 Nanyang Avenue, Singapore 639798
+Tel: (65) 6513 7605 | Email: nurhazman at ntu.edu.sg<mailto:yyy at ntu.edu.sg> | Web: www.ntu.edu.sg<http://www.ntu.edu.sg/>
+
+
+
+
+
+
+
+________________________________
+CONFIDENTIALITY: This email is intended solely for the person(s) named and may be confidential and/or privileged. If you are not the intended recipient, please delete it, notify us and do not copy, use, or disclose its content.
+
+Towards A Sustainable Earth: Print Only When Necessary. Thank you.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111223/c2ab009f/attachment.htm>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: image001.gif
+Type: image/gif
+Size: 5470 bytes
+Desc: image001.gif
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20111223/c2ab009f/attachment.gif>
+

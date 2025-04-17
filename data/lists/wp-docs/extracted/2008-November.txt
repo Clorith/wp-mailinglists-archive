@@ -1,0 +1,709 @@
+From johnbillion+wp at gmail.com  Mon Nov  3 02:24:30 2008
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Mon Nov  3 02:24:41 2008
+Subject: [wp-docs] Error on Template Hierarchy codex page?
+Message-ID: <1fa535a70811021824u459f53c2qf80c16ddcd5d8bde@mail.gmail.com>
+
+See <http://codex.wordpress.org/Template_Hierarchy#Page_display>
+
+    "1. pagename.php - Any custom Page Template selected for the page
+- If the page slug were about, WordPress would look for about.php"
+
+I don't believe this is the case. You can create a custom template
+named about.php but it won't be automatically used by a page with a
+slug of 'about'. The template has to be explicity chosen from the page
+editing screen.
+
+Can anyone verify if this is correct or not?
+
+John.
+From justmichaelh at gmail.com  Mon Nov  3 02:54:37 2008
+From: justmichaelh at gmail.com (MichaelH)
+Date: Mon Nov  3 02:54:45 2008
+Subject: [wp-docs] Error on Template Hierarchy codex page?
+References: <1fa535a70811021824u459f53c2qf80c16ddcd5d8bde@mail.gmail.com>
+Message-ID: <013701c93d5f$8362af80$6401a8c0@DELL8600>
+
+----- Original Message ----- 
+From: "John Blackbourn" <johnbillion+wp@gmail.com>
+> See <http://codex.wordpress.org/Template_Hierarchy#Page_display>
+>
+>    "1. pagename.php - Any custom Page Template selected for the page
+> - If the page slug were about, WordPress would look for about.php"
+>
+> I don't believe this is the case. You can create a custom template
+> named about.php but it won't be automatically used by a page with a
+> slug of 'about'. The template has to be explicity chosen from the page
+> editing screen.
+>
+> Can anyone verify if this is correct or not?
+
+That information looks wrong.  Corrected the Codex.
+
+Thanks for the report.
+
+MichaelH
+
+
+
+From johnbillion+wp at gmail.com  Mon Nov  3 02:57:30 2008
+From: johnbillion+wp at gmail.com (John Blackbourn)
+Date: Mon Nov  3 02:57:41 2008
+Subject: [wp-docs] Error on Template Hierarchy codex page?
+In-Reply-To: <013701c93d5f$8362af80$6401a8c0@DELL8600>
+References: <1fa535a70811021824u459f53c2qf80c16ddcd5d8bde@mail.gmail.com>
+	<013701c93d5f$8362af80$6401a8c0@DELL8600>
+Message-ID: <1fa535a70811021857t168b1e1dp8318a3b128d876e3@mail.gmail.com>
+
+Thanks Michael,
+
+This also means that the Visual Overview image higher up the page is
+incorrect too.
+
+John.
+
+On Mon, Nov 3, 2008 at 2:54 AM, MichaelH <justmichaelh@gmail.com> wrote:
+> ----- Original Message -----
+> From: "John Blackbourn" <johnbillion+wp@gmail.com>
+>> See <http://codex.wordpress.org/Template_Hierarchy#Page_display>
+>>
+>>    "1. pagename.php - Any custom Page Template selected for the page
+>> - If the page slug were about, WordPress would look for about.php"
+>>
+>> I don't believe this is the case. You can create a custom template
+>> named about.php but it won't be automatically used by a page with a
+>> slug of 'about'. The template has to be explicity chosen from the page
+>> editing screen.
+>>
+>> Can anyone verify if this is correct or not?
+>
+> That information looks wrong.  Corrected the Codex.
+>
+> Thanks for the report.
+>
+> MichaelH
+>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+From xavier at borderie.net  Tue Nov 11 12:20:07 2008
+From: xavier at borderie.net (Xavier Borderie)
+Date: Tue Nov 11 12:20:21 2008
+Subject: [wp-docs] Question about SECRET_KEY et al.
+Message-ID: <9e4ae73e0811110420q4e4ac5b4r7d5a31053e3089e6@mail.gmail.com>
+
+(cross-posted to wp-testers and wp-docs)
+
+The Codex tells updaters to add the SECRET_KEY line to their wp-config.php file.
+http://codex.wordpress.org/Upgrading_WordPress_Extended#Step_13:_Add_the_SECRET_KEY_definition_to_wp-config.php
+Users could be helped with wp.org itself:
+http://api.wordpress.org/secret-key/1.0/
+
+With 2.7, this has changed:
+SECRET_KEY seems to be no more, and has been replaced in
+wp-config-sample.php with three lines:
+define('AUTH_KEY', 'put your unique phrase here');
+define('SECURE_AUTH_KEY', 'put your unique phrase here');
+define('LOGGED_IN_KEY', 'put your unique phrase here');
+The wp.org API has been updated to reflect that:
+http://api.wordpress.org/secret-key/1.1/ now hanles these 3 lines, and
+not SECRET_KEY.
+
+So, I might be behind about this, but could someone confirm that
+SECRET_KEY is no longer required for salting?
+Is it deprectated, or are the 3 other lines just specialized salting,
+with WP relying on SECRET_KEY if they do not exist?
+Are the 3 new lines required for salting?
+Could someone point me to the rationale behind this change? (trac
+ticket, maybe?)
+
+Finally, while it's safer to salt passwords, should it be made a
+requirements? Or can user simply live with un-salted passwords?
+
+Thanks a lot for any information.
+
+
+-- 
+Xavier Borderie
+From xavier at borderie.net  Tue Nov 25 14:04:51 2008
+From: xavier at borderie.net (Xavier Borderie)
+Date: Tue Nov 25 14:05:11 2008
+Subject: [wp-docs] Re: [wp-testers] Question about SECRET_KEY et al.
+In-Reply-To: <49199BE3.8050906@ftwr.co.uk>
+References: <9e4ae73e0811110420q4e4ac5b4r7d5a31053e3089e6@mail.gmail.com>
+	<49199990.4030703@gmail.com> <49199BE3.8050906@ftwr.co.uk>
+Message-ID: <9e4ae73e0811250604p51a72d06k43b582695744f762@mail.gmail.com>
+
+Quick questions (and hopefully quick answers :) ) about this subject:
+
+Let's say a user has been using SECRET_KEY since v2.5, and has not
+changed that when 2.6 came. So, he doesn't have AUTH_KEY,
+SECURE_AUTH_KEY nor LOGGED_IN_KEY in his wp-config.php, but he does
+have SECRET_KEY. Does WP fallback to SECRET_KEY when he can't find the
+three other ones ?
+
+If the user replaces SECRET_KEY with the three new keys, can he expect
+some login failures?
+If so, how can they be best avoided (apart from
+log-off/delete-cookies/log-back-in)?
+
+(yes, I read this
+http://wordpress.org/support/topic/170987
+and this
+http://boren.nu/archives/2008/07/14/ssl-and-cookies-in-wordpress-26/
+which answer these partly/indirectly, but I'd like direct answers)
+
+Thanks a lot, guys !
+
+-x.
+From cclarkson at htcomp.net  Thu Nov 27 12:56:06 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Thu Nov 27 12:56:39 2008
+Subject: [wp-docs] Introduction and Proposal
+Message-ID: <492E98E6.6010402@htcomp.net>
+
+Hello,
+
+     I am new to the list, but not to WordPress, PHP or programming. I
+have a strong Perl, CSS, HTML background. I have been playing with PHP
+for about year and have several WordPress installations running.
+
+     I would like to tackle editing some the individual function pages
+like http://codex.wordpress.org/Function_Reference/add_option. I can 
+spend an hour or two each weekday in December editing pages and perhaps 
+move on to create missing pages after I get my feet wet.
+
+     I would first like to discuss a standard page structure. I looked at
+the reference material on Codex style, one year of list archives and
+the Template Tags reference. It seems the typical page structure for a
+Template Tag is as follows (this example came from: 
+http://codex.wordpress.org/Template_Tags/the_content):
+
+== Description ==
+
+== Usage ==
+
+== Examples ==
+     === Example 1 ===
+     === Example 2 ===
+     === Example 3 ===
+
+== Parameters ==
+
+== Related ==
+
+     {{Tag Post Tags}}
+
+     {{PHP Function Tag Footer}}
+
+
+     I think I would prefer to assume:
+
+     * Any documentation is obsolete the moment it is posted.
+     * The reader is using the latest stable version of WordPress.
+     * The reader is not a professional or experienced programmer.
+     * This is the first page the reader has viewed in the Codex.
+     * The reader wants to know where the function is defined within the
+       source code.
+     * 3 good examples of a function is wishful thinking. :)
+
+     Here is a proposed outline of what I'd like to see in for individual
+function pages. While I know what I want form the Codex, I don't know
+what others might want. I do know that I don't want to start editing
+pages without a least a hint of a plan.
+
+     Also, is there an easy way to report the date this page was last
+updated? Or which WordPress version was active when it was last updated?
+
+== Description ==
+     Tell the reader what this function does at the time this description
+     was written without jargon or abbreviations. Don't, for example,
+     assume the reader knows what a rewrite rule is.
+
+== Usage ==
+     %%%<?php usage goes here ?>%%%
+     %%%<?php usage goes here ?>%%%
+     %%%<?php usage goes here ?>%%%
+
+== Examples ==
+     === Example 1 ===
+     === Example 2 ===
+     === Example 3 ===
+
+== Parameters ==
+     This function does not accept parameters.
+
+     - or -
+
+     === Parameter 1 ===
+     === Parameter 2 ===
+     === Parameter 3 ===
+
+== Recent Changes ==
+     Recent changes in this function's use. Like recently deprecated
+     parameters; Recent version changes; Recent database changes; Recent
+     philosophical changes; etc.
+
+== Source File ==
+     Which source file defines this function.
+
+== Related ==
+
+     {{Related Function Group}} (These tags doesn't exist)
+
+     {{PHP Function Footer}} (This tag doesn't exist)
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From lorelleonwordpress at gmail.com  Fri Nov 28 17:23:40 2008
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Fri Nov 28 18:00:09 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <492E98E6.6010402@htcomp.net>
+References: <492E98E6.6010402@htcomp.net>
+Message-ID: <fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>
+
+That was the goal, however, we "should" be liking to the explanation
+documentation of "writable" and such to save some words and speed up the
+process for those who understand how these things works.
+
+You make an assumption that those digging into the template tags and
+functions have no idea what they are doing. By the time someone gets to
+those pages, they have some ideas, so we have to be careful not to bore
+those who do. :D Linking is a key way of connecting all the educational
+content together without boring the intermediate user or overwhelming
+beginners.
+
+I like your style and it sounds like it would be wonderful for the tags and
+functions. We worked very hard for a long time to give quality VISIBLE
+examples, and I recommend generically styled screenshots or screencasts now
+in these pages to help show examples of usage rather than duplicating them
+exactly with inline CSS as was originally done. We need to incorporate more
+of the visible to serve that audience in the Codex.
+
+Thanks for taking this on. This sounds wonderful. What a wonderful gift to
+give back to the WordPress Community. Let me/us know how we can help you
+through the process and if you have any questions.
+
+Lorelle
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20081128/ff113b60/attachment.htm
+From cclarkson at htcomp.net  Sat Nov 29 16:34:33 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Sat Nov 29 18:35:52 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>
+References: <492E98E6.6010402@htcomp.net>
+	<fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>
+Message-ID: <49316F19.9040005@htcomp.net>
+
+Lorelle on WordPress wrote:
+
+> That was the goal, however, we "should" be liking to the explanation 
+> documentation of "writable" and such to save some words and speed up the 
+> process for those who understand how these things works.
+> 
+> You make an assumption that those digging into the template tags and 
+> functions have no idea what they are doing.
+
+That's a bit harsh. I make the assumption that even competent function 
+page authors do not have a common written standard or framework from 
+which to write their descriptions. They may be very competent writers 
+and editors, but I think a function reference should be consistent from 
+function to function.
+
+I didn't investigate template tags because the Codex assumes that are 
+already good examples of what tag pages should look like. I based my 
+functions standard on my perception of the template tags pages.
+
+
+ > By the time someone gets to
+> those pages, they have some ideas, so we have to be careful not to bore 
+> those who do. :D Linking is a key way of connecting all the educational 
+> content together without boring the intermediate user or overwhelming 
+> beginners.
+
+That was a problem I had with the example page. The page editor seem to 
+assume that readers would be using a dated version of WordPress. That 
+sort of information is better left near the bottom of the page.
+
+I can understand the editor's problem. The code for that function had 
+just been changed and he might have spent hours trying to figure out why 
+his code had suddenly broken. He wanted to give others a heads up to the 
+change, but chose a poor way to do it.
+
+I originally started to make changes to that page, but stopped as I 
+realized there might be a standard out there for these pages that I did 
+not know existed. My page changes had quickly evolved changing the 
+entire page and I decided to look before I leaped.
+
+
+> I like your style and it sounds like it would be wonderful for the tags 
+> and functions. We worked very hard for a long time to give quality 
+> VISIBLE examples, and I recommend generically styled screenshots or 
+> screencasts now in these pages to help show examples of usage rather 
+> than duplicating them exactly with inline CSS as was originally done. We 
+> need to incorporate more of the visible to serve that audience in the Codex.
+
+If by "screencasts" you mean a read-only picture of the code then I 
+would disagree. Programmers need to be able to Copy & Paste code 
+examples to their test rigs.
+
+If you mean the result of an example should be shown a screen shot then 
+I feel you may be scaring some authors away. It's a lot easier to Copy & 
+Paste output than to upload and use a screen shot image.
+
+Of course, even without a common standard, there is no rule that says 
+one page author has to write the entire page. Someone else could always 
+come back and update the examples.
+
+
+> Thanks for taking this on. This sounds wonderful. What a wonderful gift 
+> to give back to the WordPress Community.
+
+Actually, my motives are very selfish. Currently, I know only a tiny 
+number of functions in the WordPress API. By updating and eventually 
+creating about 20 function pages per month I will need to research how 
+the functions work and increase my working knowledge of the API.
+
+I have found that my own self-interest keeps me motivated much longer 
+than altruistic goals do. YMMV.
+
+
+ > Let me/us know how we can help you through the process and if you have
+ > any questions.
+
+My main question is whether an experienced editor of the Codex might see 
+a potential problem with my suggested standard. Other than that I am 
+biting off too much for my first outing. :)
+
+I don't want to edit two months worth of articles to find that I had a 
+fatal flaw that an experienced editor could have spotted months earlier, 
+but will now take hours of editing all the new edits to fix.
+
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+From wordpress at santosj.name  Sat Nov 29 23:09:36 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Sat Nov 29 23:09:48 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <49316F19.9040005@htcomp.net>
+References: <492E98E6.6010402@htcomp.net>	<fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>
+	<49316F19.9040005@htcomp.net>
+Message-ID: <4931CBB0.3080206@santosj.name>
+
+To answer your question, it would be both better to have screencasts and 
+written examples. That way programmers and normal users can see the 
+results of said copied and pasted code.
+
+To answer your other questions, you may want to check out 
+http://phpdoc.wordpress.org and http://phpdoc.ftwr.co.uk for function 
+reference and might give you a head start since some of the work has 
+been done for you.
+
+The way I envisioned it, was that the codex would link to the function 
+documentation and extend it with examples. It took me a good year to 
+complete the inline documentation with the source, so I hope that the 
+time spent will prevent you from doing likewise. I also had selfish 
+reasons for my involvement with the inline documentation and for it 
+appears the same reasons you have for working on the codex.
+
+Good luck to you. Most people will want to use the codex before diving 
+into the function documentation.
+
+Jacob Santos
+
+
+Charles K. Clarkson wrote:
+> Lorelle on WordPress wrote:
+>
+>> That was the goal, however, we "should" be liking to the explanation 
+>> documentation of "writable" and such to save some words and speed up 
+>> the process for those who understand how these things works.
+>>
+>> You make an assumption that those digging into the template tags and 
+>> functions have no idea what they are doing.
+>
+> That's a bit harsh. I make the assumption that even competent function 
+> page authors do not have a common written standard or framework from 
+> which to write their descriptions. They may be very competent writers 
+> and editors, but I think a function reference should be consistent 
+> from function to function.
+>
+> I didn't investigate template tags because the Codex assumes that are 
+> already good examples of what tag pages should look like. I based my 
+> functions standard on my perception of the template tags pages.
+>
+>
+> > By the time someone gets to
+>> those pages, they have some ideas, so we have to be careful not to 
+>> bore those who do. :D Linking is a key way of connecting all the 
+>> educational content together without boring the intermediate user or 
+>> overwhelming beginners.
+>
+> That was a problem I had with the example page. The page editor seem 
+> to assume that readers would be using a dated version of WordPress. 
+> That sort of information is better left near the bottom of the page.
+>
+> I can understand the editor's problem. The code for that function had 
+> just been changed and he might have spent hours trying to figure out 
+> why his code had suddenly broken. He wanted to give others a heads up 
+> to the change, but chose a poor way to do it.
+>
+> I originally started to make changes to that page, but stopped as I 
+> realized there might be a standard out there for these pages that I 
+> did not know existed. My page changes had quickly evolved changing the 
+> entire page and I decided to look before I leaped.
+>
+>
+>> I like your style and it sounds like it would be wonderful for the 
+>> tags and functions. We worked very hard for a long time to give 
+>> quality VISIBLE examples, and I recommend generically styled 
+>> screenshots or screencasts now in these pages to help show examples 
+>> of usage rather than duplicating them exactly with inline CSS as was 
+>> originally done. We need to incorporate more of the visible to serve 
+>> that audience in the Codex.
+>
+> If by "screencasts" you mean a read-only picture of the code then I 
+> would disagree. Programmers need to be able to Copy & Paste code 
+> examples to their test rigs.
+>
+> If you mean the result of an example should be shown a screen shot 
+> then I feel you may be scaring some authors away. It's a lot easier to 
+> Copy & Paste output than to upload and use a screen shot image.
+>
+> Of course, even without a common standard, there is no rule that says 
+> one page author has to write the entire page. Someone else could 
+> always come back and update the examples.
+>
+>
+>> Thanks for taking this on. This sounds wonderful. What a wonderful 
+>> gift to give back to the WordPress Community.
+>
+> Actually, my motives are very selfish. Currently, I know only a tiny 
+> number of functions in the WordPress API. By updating and eventually 
+> creating about 20 function pages per month I will need to research how 
+> the functions work and increase my working knowledge of the API.
+>
+> I have found that my own self-interest keeps me motivated much longer 
+> than altruistic goals do. YMMV.
+>
+>
+> > Let me/us know how we can help you through the process and if you have
+> > any questions.
+>
+> My main question is whether an experienced editor of the Codex might 
+> see a potential problem with my suggested standard. Other than that I 
+> am biting off too much for my first outing. :)
+>
+> I don't want to edit two months worth of articles to find that I had a 
+> fatal flaw that an experienced editor could have spotted months 
+> earlier, but will now take hours of editing all the new edits to fix.
+>
+>
+> HTH,
+>
+> Charles Clarkson
+
+From malaiac at gmail.com  Sun Nov 30 00:09:30 2008
+From: malaiac at gmail.com (Malaiac)
+Date: Sun Nov 30 00:09:37 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <4931CBB0.3080206@santosj.name>
+References: <492E98E6.6010402@htcomp.net>
+	<fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>
+	<49316F19.9040005@htcomp.net> <4931CBB0.3080206@santosj.name>
+Message-ID: <59e7f3130811291609u6ab1d2cex58218e32920531ad@mail.gmail.com>
+
+2008/11/30 Jacob Santos <wordpress@santosj.name>:
+> The way I envisioned it, was that the codex would link to the function
+> documentation and extend it with examples. It took me a good year to
+> complete the inline documentation with the source, so I hope that the time
+> spent will prevent you from doing likewise. I also had selfish reasons for
+> my involvement with the inline documentation and for it appears the same
+> reasons you have for working on the codex.
+>
+> Good luck to you. Most people will want to use the codex before diving into
+> the function documentation.
+
+do we need documentation for tags AND functions ?
+
+imho, only webmasters with some knowledge of php/mysql need to access
+function documentation. The huge work made on inline doc *bows to
+Jacob Santos* answers those questions.
+"regular" users (webmasters who do not want to bother with php) only
+use template tags and general documentation.
+
+I'd vote with both hands to not maintain parallel documentations
+(inline + codex) on functions.
+
+Malaiac
+From wordpress at santosj.name  Sun Nov 30 07:09:16 2008
+From: wordpress at santosj.name (Jacob Santos)
+Date: Sun Nov 30 07:09:39 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <59e7f3130811291609u6ab1d2cex58218e32920531ad@mail.gmail.com>
+References: <492E98E6.6010402@htcomp.net>	<fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>	<49316F19.9040005@htcomp.net>
+	<4931CBB0.3080206@santosj.name>
+	<59e7f3130811291609u6ab1d2cex58218e32920531ad@mail.gmail.com>
+Message-ID: <49323C1C.3060205@santosj.name>
+
+As a developer, I hold no distinction between the so called "Template 
+Tags" and functions. Besides the fact that normal end users might run 
+away screaming, if they heard the term "function" but not with these 
+"template tags".
+
+As a developer, it was equally confusing to me to hear "template tag" 
+when the person meant "function". I think the intention was well 
+meaning, but I find that when you try to dumb down terminology, even 
+technical, you must ensure that the origins of said end user terminology 
+is known. I had this discussion with an end user, before I knew WTF he 
+was talking about on a podcast and had to do research. It was before I 
+really worked on any theme or used the codex.
+
+That said the purpose of the codex is to bridge the gap of technical 
+information and developer and user guides for how-to do something. It is 
+increasingly difficult to navigate the phpDocumentor sites the more you 
+are unsure of what you are looking for. The codex is to hold the 
+visitors hand while educating on what is possible. In that, better 
+examples should be given on the codex than what can be made in the 
+inline documentation. I do not have the fortitude to write the time 
+consuming articles on the codex, so I bow to anyone that does.
+
+It was my goal back when I didn't realize how long it would take to put 
+together the inline documentation. However, I mean, for the longest time 
+it was me and patches from other contributors that only had to be 
+cleaned up. Towards the end more contributors came to task, but by that 
+point was already putting the finishing touches. The total amount of 
+people amounts to about half a dozen over the past two or three years 
+(there were some really old patches, couple were no longer relevant or 
+wrong).
+
+What I mean to say, is that I would rather see more examples on how to 
+use functions than parameter documentation on the codex. Parameter 
+documentation is difficult enough to maintain in the inline 
+documentation without having to look up the page that the function is 
+documented on in the codex. I believe more people focus their energies 
+on the codex, so theoretically, more people will carry the burden of 
+work. Hell, I might be willing to do a few pages myself. Not now. The 
+second stage of the inline documentation in the WordPress source for the 
+wp-admin files has yet to conclude.
+
+I think the Developer Guide documentation on the codex can be improved. 
+I think it might be better to create a Theme Guide documentation also 
+for those who want to only focus on modifying their theme and don't want 
+or care about the developer side of the functions and documentation. I 
+researched several ways to do this, but I've yet to obtain the karma on 
+the codex to create something entirely new. Or at least to get it up to 
+the point where it would be worth creating a section for it.
+
+Inline documentation wasn't so much difficult as it was time consuming. 
+When you write something like an article on the codex, you add 
+additional constraints of difficulty and it is somewhat boring, because 
+you have to make sense. I tend to ramble about nothing, which doesn't 
+make for a well written article.
+
+Jacob Santos
+
+
+Malaiac wrote:
+> 2008/11/30 Jacob Santos <wordpress@santosj.name>:
+>   
+>> The way I envisioned it, was that the codex would link to the function
+>> documentation and extend it with examples. It took me a good year to
+>> complete the inline documentation with the source, so I hope that the time
+>> spent will prevent you from doing likewise. I also had selfish reasons for
+>> my involvement with the inline documentation and for it appears the same
+>> reasons you have for working on the codex.
+>>
+>> Good luck to you. Most people will want to use the codex before diving into
+>> the function documentation.
+>>     
+>
+> do we need documentation for tags AND functions ?
+>
+> imho, only webmasters with some knowledge of php/mysql need to access
+> function documentation. The huge work made on inline doc *bows to
+> Jacob Santos* answers those questions.
+> "regular" users (webmasters who do not want to bother with php) only
+> use template tags and general documentation.
+>
+> I'd vote with both hands to not maintain parallel documentations
+> (inline + codex) on functions.
+>
+> Malaiac
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>   
+
+From cclarkson at htcomp.net  Sun Nov 30 18:06:42 2008
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Sun Nov 30 18:17:35 2008
+Subject: [wp-docs] Introduction and Proposal
+In-Reply-To: <59e7f3130811291609u6ab1d2cex58218e32920531ad@mail.gmail.com>
+References: <492E98E6.6010402@htcomp.net>	<fded39850811280923seb5be03xec0d8b367de474e9@mail.gmail.com>	<49316F19.9040005@htcomp.net>
+	<4931CBB0.3080206@santosj.name>
+	<59e7f3130811291609u6ab1d2cex58218e32920531ad@mail.gmail.com>
+Message-ID: <4932D632.1000908@htcomp.net>
+
+Malaiac wrote:
+
+ > I'd vote with both hands to not maintain parallel documentations
+ > (inline + codex) on functions.
+
+Ideally, I would agree, but in-line docs are not ideal in every 
+situation. One of my biggest frustrations is finding a function that is 
+referenced in a plug-in or the body of another function. In-line 
+documentation cannot help there. A search-able code base can.
+
+The Codex allows more access to the WordPress code. Even amongst 
+programmers, some people never look at the code source. People who would 
+never dream of looking at source code might find the Codex less daunting.
+
+In-line documentation is often version-specific and tends to be very 
+concise. (No offense to Jacob.) Having functions documented in the Codex 
+invites a potential for more writers to join in with editing, writing 
+and providing better examples.
+
+HTH,
+
+Charles Clarkson
+-- 
+Mobile Home Investor
+Free Market Advocate
+Programmer
+
+Stephenville, TX
+http://www.clarksonenergyhomes.com/wordpress/about/
+http://twitter.com/CharlesClarkson
++1 (254) 968-8328
+

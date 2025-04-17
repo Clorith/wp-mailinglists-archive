@@ -1,0 +1,3963 @@
+From goldenapplesdesign at gmail.com  Tue May  1 19:09:20 2012
+From: goldenapplesdesign at gmail.com (Nathaniel Taintor)
+Date: Tue, 1 May 2012 12:09:20 -0700
+Subject: [wp-docs] dedicated Codex search function
+Message-ID: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+
+Hi all,
+
+The existing search functionality on wordpress.org has been bugging me, and
+apparently other people as well, for quite a while, and I would like to
+work on helping to fix that - especially in helping to provide a specific
+Codex search functionality.
+
+MediaWiki already has a decent search ability, which redirects to the found
+page if an exact match for the search term is found in a page title.
+Exposing this functionality would be an improvement over the current
+situation: eg. compare the results of "
+http://codex.wordpress.org/?search=posts" vs "
+http://wordpress.org/search/posts". In my opinion, just offering a "Codex
+search" box which used the MediaWiki search results, rather than the Google
+results that appear now, would be helpful for most users trying to navigate
+the Codex.
+
+The situation gets trickier, however, with the entries which are prefixed
+with Function_Reference/, Class_Reference/, etc. Look at the search results
+found, for example, for "http://codex.wordpress.org/?search=wp_remote_post".
+Not so pretty... And its kind of hard to programmatically determine, for
+example whether a search term should be prefixed with "Function Reference",
+"Function API", or whatever else.
+
+Overall, this means that the Codex is not as useful to developers as it
+could be. When I'm working, for example, I depend on DuckDuckGo's bang
+syntax search often to quickly look up manual pages for functions, and the
+experience looking up WordPress functions is definitely subpar as compared
+to other environments. When I'm searching for PHP functions, like "!php
+array_merge", the experience is a quick zero-click lookup. It would be nice
+to have that same experience in the WP Codex, like if searching "!wp
+register_post_type" would bring me directly to the relevant Codex page.
+
+What is the solution to this? Does it make more sense to create redirect
+pages for every function name indexed in the codex, ie creating a page
+called "register_post_type" with the content "#REDIRECT
+[[Function_Reference/register_
+post_type]]", or is there an extension that will make searching more
+user-friendly?
+
+I'd like to work on this, but I'm not sure what discussions and decisions
+have already happened. Can someone point me to a helpful way to contribute?
+
+Thanks in advance,
+
+
+Nathaniel Taintor, Designer/Developer
+*Golden Apples Design*
+http://goldenapplesdesign.com
+
+@GoldenApples | 717.434.3226
+goldenapplesdesign at gmail.com
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120501/e8c38384/attachment.htm>
+
+From lorelleonwordpress at gmail.com  Wed May  2 17:24:10 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Wed, 2 May 2012 10:24:10 -0700
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+Message-ID: <CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+
+This would be so awesome. Our MediaWiki is integrated into the entire site,
+and at one time we had search options set that when you are in the Codex
+you only search the Codex and when you are out of the Codex, your search
+covers everything. The attempt has been made to open the search to
+everything, and it is a mess with Google. A perfect search result would be
+one that divided up the resulting content into Codex, Forum, etc. giving
+more choice control to the user.
+
+That's the goal, but is it possible between the WordPress and MediaWiki
+interfaces? It sounds like you think it is.
+
+The Docs team only has so much control over these things, so hopefully
+someone with the ability to engage at the higher authority level on this
+will jump in. You got my support. This has been a thorn for a long time.
+Thanks for being willing to take it on.
+
+Lorelle
+
+
+
+
+On Tue, May 1, 2012 at 12:09 PM, Nathaniel Taintor <
+goldenapplesdesign at gmail.com> wrote:
+
+> Hi all,
+>
+> The existing search functionality on wordpress.org has been bugging me,
+> and apparently other people as well, for quite a while, and I would like to
+> work on helping to fix that - especially in helping to provide a specific
+> Codex search functionality.
+>
+> MediaWiki already has a decent search ability, which redirects to the
+> found page if an exact match for the search term is found in a page title.
+> Exposing this functionality would be an improvement over the current
+> situation: eg. compare the results of "
+> http://codex.wordpress.org/?search=posts" vs "
+> http://wordpress.org/search/posts". In my opinion, just offering a "Codex
+> search" box which used the MediaWiki search results, rather than the Google
+> results that appear now, would be helpful for most users trying to navigate
+> the Codex.
+>
+> The situation gets trickier, however, with the entries which are prefixed
+> with Function_Reference/, Class_Reference/, etc. Look at the search results
+> found, for example, for "http://codex.wordpress.org/?search=wp_remote_post".
+> Not so pretty... And its kind of hard to programmatically determine, for
+> example whether a search term should be prefixed with "Function Reference",
+> "Function API", or whatever else.
+>
+> Overall, this means that the Codex is not as useful to developers as it
+> could be. When I'm working, for example, I depend on DuckDuckGo's bang
+> syntax search often to quickly look up manual pages for functions, and the
+> experience looking up WordPress functions is definitely subpar as compared
+> to other environments. When I'm searching for PHP functions, like "!php
+> array_merge", the experience is a quick zero-click lookup. It would be nice
+> to have that same experience in the WP Codex, like if searching "!wp
+> register_post_type" would bring me directly to the relevant Codex page.
+>
+> What is the solution to this? Does it make more sense to create redirect
+> pages for every function name indexed in the codex, ie creating a page
+> called "register_post_type" with the content "#REDIRECT
+> [[Function_Reference/register_
+> post_type]]", or is there an extension that will make searching more
+> user-friendly?
+>
+> I'd like to work on this, but I'm not sure what discussions and decisions
+> have already happened. Can someone point me to a helpful way to contribute?
+>
+> Thanks in advance,
+>
+>
+> Nathaniel Taintor, Designer/Developer
+> *Golden Apples Design*
+> http://goldenapplesdesign.com
+>
+> @GoldenApples | 717.434.3226
+> goldenapplesdesign at gmail.com
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120502/6d4fafad/attachment.htm>
+
+From goldenapplesdesign at gmail.com  Wed May  2 18:53:40 2012
+From: goldenapplesdesign at gmail.com (Nathaniel Taintor)
+Date: Wed, 2 May 2012 11:53:40 -0700
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+	<CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+Message-ID: <CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+
+Yes, I do think that on a limited scale, a search box that only searched
+the Codex should be very doable and would be helpful to most people.
+
+
+Speaking for myself, I use a browser search bar that posts to
+codex.wordpress.org/?search=, and the results I get are very helpful to me.
+Being able to type in something like "Settings API" and get to the Codex
+page with no clicks saves me tons of time when I'm trying to look something
+up quickly. Definitely better than using the slow Ajax Google search when I
+know I just want to find the Codex article.
+
+The biggest problem there is setting up redirects from all the possible
+search terms to the proper Codex article; there would need to be a whole
+lot of redirect pages set up.
+
+
+The simplest ones (looks like there are 500-1000 of these) are the function
+names and so on:
+
+     {function name} to {prefix ie Function_Reference, Template_Tags,
+etc.}/{function name}
+
+Creating these could be easily automated, and I can volunteer to do it, if
+the docs team approves.
+
+
+Then there is a more editorial process of creating redirects from common
+search terms to the most appropriate page, ie. "Spam" to "Combating Comment
+Spam". This requires more knowledge about which articles are good and
+regularly updated, and probably some metrics of the most commonly searched
+terms. Some of this could be automated or taken on by someone like me, but
+some might need more of a committee to make decisions.
+
+
+I guess my question is: does anyone see objections as to why these redirect
+stubs shouldn't be created? I don't personally see any issues with it, but
+I haven't been working on the Codex very much yet, and I don't want to add
+things to it that someone with a broader vision of the project thinks is a
+bad idea.
+
+Thanks,
+Than
+
+
+
+
+Nathaniel Taintor, Designer/Developer
+*Golden Apples Design*
+http://goldenapplesdesign.com
+
+@GoldenApples | 717.434.3226
+goldenapplesdesign at gmail.com
+
+
+
+On Wed, May 2, 2012 at 10:24 AM, Lorelle on WordPress <
+lorelleonwordpress at gmail.com> wrote:
+
+> This would be so awesome. Our MediaWiki is integrated into the entire
+> site, and at one time we had search options set that when you are in the
+> Codex you only search the Codex and when you are out of the Codex, your
+> search covers everything. The attempt has been made to open the search to
+> everything, and it is a mess with Google. A perfect search result would be
+> one that divided up the resulting content into Codex, Forum, etc. giving
+> more choice control to the user.
+>
+> That's the goal, but is it possible between the WordPress and MediaWiki
+> interfaces? It sounds like you think it is.
+>
+> The Docs team only has so much control over these things, so hopefully
+> someone with the ability to engage at the higher authority level on this
+> will jump in. You got my support. This has been a thorn for a long time.
+> Thanks for being willing to take it on.
+>
+> Lorelle
+>
+>
+>
+>
+> On Tue, May 1, 2012 at 12:09 PM, Nathaniel Taintor <
+> goldenapplesdesign at gmail.com> wrote:
+>
+>> Hi all,
+>>
+>> The existing search functionality on wordpress.org has been bugging me,
+>> and apparently other people as well, for quite a while, and I would like to
+>> work on helping to fix that - especially in helping to provide a specific
+>> Codex search functionality.
+>>
+>> MediaWiki already has a decent search ability, which redirects to the
+>> found page if an exact match for the search term is found in a page title.
+>> Exposing this functionality would be an improvement over the current
+>> situation: eg. compare the results of "
+>> http://codex.wordpress.org/?search=posts" vs "
+>> http://wordpress.org/search/posts". In my opinion, just offering a
+>> "Codex search" box which used the MediaWiki search results, rather than the
+>> Google results that appear now, would be helpful for most users trying to
+>> navigate the Codex.
+>>
+>> The situation gets trickier, however, with the entries which are prefixed
+>> with Function_Reference/, Class_Reference/, etc. Look at the search results
+>> found, for example, for "
+>> http://codex.wordpress.org/?search=wp_remote_post". Not so pretty... And
+>> its kind of hard to programmatically determine, for example whether a
+>> search term should be prefixed with "Function Reference", "Function API",
+>> or whatever else.
+>>
+>> Overall, this means that the Codex is not as useful to developers as it
+>> could be. When I'm working, for example, I depend on DuckDuckGo's bang
+>> syntax search often to quickly look up manual pages for functions, and the
+>> experience looking up WordPress functions is definitely subpar as compared
+>> to other environments. When I'm searching for PHP functions, like "!php
+>> array_merge", the experience is a quick zero-click lookup. It would be nice
+>> to have that same experience in the WP Codex, like if searching "!wp
+>> register_post_type" would bring me directly to the relevant Codex page.
+>>
+>> What is the solution to this? Does it make more sense to create redirect
+>> pages for every function name indexed in the codex, ie creating a page
+>> called "register_post_type" with the content "#REDIRECT
+>> [[Function_Reference/register_
+>> post_type]]", or is there an extension that will make searching more
+>> user-friendly?
+>>
+>> I'd like to work on this, but I'm not sure what discussions and decisions
+>> have already happened. Can someone point me to a helpful way to contribute?
+>>
+>> Thanks in advance,
+>>
+>>
+>> Nathaniel Taintor, Designer/Developer
+>> *Golden Apples Design*
+>> http://goldenapplesdesign.com
+>>
+>> @GoldenApples | 717.434.3226
+>> goldenapplesdesign at gmail.com
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120502/b588e51c/attachment.htm>
+
+From cclarkson at htcomp.net  Wed May  2 22:05:41 2012
+From: cclarkson at htcomp.net (Charles K. Clarkson)
+Date: Wed, 02 May 2012 17:05:41 -0500
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+	<CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+	<CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+Message-ID: <4FA1AFB5.3040200@htcomp.net>
+
+Hi,
+
+It is possible to limit searches on Google using "site:" to just the
+codex:
+
+For example, this search:
+
+   site:codex.wordpress.org bugs
+
+... will find everything indexed on Codex with the words "bugs" in it.
+
+   About 373 results (0.21 seconds)
+
+
+
+You can also search the Function Reference only:
+
+site:codex.wordpress.org/Function_Reference wp_list_categories
+
+Or both the Function Reference and the Template Tags reference:
+
+site:codex.wordpress.org/Function_Reference OR 
+site:codex.wordpress.org/Template_Tags wp_list_categories
+
+Those urls could easily created with PHP or JavaScript.
+
+
+
+The first item of this search is usually the Function Reference
+and / or Template Tags Reference item:
+
+wordpress wp_list_categories
+
+
+
+The now defunct site: http://wplookup.com/ used to produce function
+and template reference links to function name input. I believe Yoast
+may have the code. I sorely miss it.
+
+To search the inline docs for a function I often search the code
+using this string:
+
+"function function_name"
+
+The inline docs often match the online docs, except for examples
+and notes.
+
+
+
+HTH,
+Charles
+
+From lorelleonwordpress at gmail.com  Wed May  2 22:11:38 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Wed, 2 May 2012 15:11:38 -0700
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+	<CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+	<CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+Message-ID: <CAN2v4ZQGjRN4U0S=gmKtW0890qZ7qsLEi11NDtGmt72+a5JKuw@mail.gmail.com>
+
+It isn't up to us and the docs team to like or dislike. We can support,
+cheer on, and dream, but the action on such a task needs to come from the
+site development team. Search is fairly locked down. Not sure who is
+involved in that now. Jane or Ozh should know. Hopefully they will chime in
+on this.
+
+Lorelle
+
+
+On Wed, May 2, 2012 at 11:53 AM, Nathaniel Taintor <
+goldenapplesdesign at gmail.com> wrote:
+
+> Yes, I do think that on a limited scale, a search box that only searched
+> the Codex should be very doable and would be helpful to most people.
+>
+>
+> Speaking for myself, I use a browser search bar that posts to
+> codex.wordpress.org/?search=, and the results I get are very helpful to
+> me. Being able to type in something like "Settings API" and get to the
+> Codex page with no clicks saves me tons of time when I'm trying to look
+> something up quickly. Definitely better than using the slow Ajax Google
+> search when I know I just want to find the Codex article.
+>
+> The biggest problem there is setting up redirects from all the possible
+> search terms to the proper Codex article; there would need to be a whole
+> lot of redirect pages set up.
+>
+>
+> The simplest ones (looks like there are 500-1000 of these) are the
+> function names and so on:
+>
+>      {function name} to {prefix ie Function_Reference, Template_Tags,
+> etc.}/{function name}
+>
+> Creating these could be easily automated, and I can volunteer to do it, if
+> the docs team approves.
+>
+>
+> Then there is a more editorial process of creating redirects from common
+> search terms to the most appropriate page, ie. "Spam" to "Combating Comment
+> Spam". This requires more knowledge about which articles are good and
+> regularly updated, and probably some metrics of the most commonly searched
+> terms. Some of this could be automated or taken on by someone like me, but
+> some might need more of a committee to make decisions.
+>
+>
+> I guess my question is: does anyone see objections as to why these
+> redirect stubs shouldn't be created? I don't personally see any issues with
+> it, but I haven't been working on the Codex very much yet, and I don't want
+> to add things to it that someone with a broader vision of the project
+> thinks is a bad idea.
+>
+> Thanks,
+> Than
+>
+>
+>
+>
+>
+> Nathaniel Taintor, Designer/Developer
+> *Golden Apples Design*
+> http://goldenapplesdesign.com
+>
+> @GoldenApples | 717.434.3226
+> goldenapplesdesign at gmail.com
+>
+>
+>
+> On Wed, May 2, 2012 at 10:24 AM, Lorelle on WordPress <
+> lorelleonwordpress at gmail.com> wrote:
+>
+>> This would be so awesome. Our MediaWiki is integrated into the entire
+>> site, and at one time we had search options set that when you are in the
+>> Codex you only search the Codex and when you are out of the Codex, your
+>> search covers everything. The attempt has been made to open the search to
+>> everything, and it is a mess with Google. A perfect search result would be
+>> one that divided up the resulting content into Codex, Forum, etc. giving
+>> more choice control to the user.
+>>
+>> That's the goal, but is it possible between the WordPress and MediaWiki
+>> interfaces? It sounds like you think it is.
+>>
+>> The Docs team only has so much control over these things, so hopefully
+>> someone with the ability to engage at the higher authority level on this
+>> will jump in. You got my support. This has been a thorn for a long time.
+>> Thanks for being willing to take it on.
+>>
+>> Lorelle
+>>
+>>
+>>
+>>
+>> On Tue, May 1, 2012 at 12:09 PM, Nathaniel Taintor <
+>> goldenapplesdesign at gmail.com> wrote:
+>>
+>>> Hi all,
+>>>
+>>> The existing search functionality on wordpress.org has been bugging me,
+>>> and apparently other people as well, for quite a while, and I would like to
+>>> work on helping to fix that - especially in helping to provide a specific
+>>> Codex search functionality.
+>>>
+>>> MediaWiki already has a decent search ability, which redirects to the
+>>> found page if an exact match for the search term is found in a page title.
+>>> Exposing this functionality would be an improvement over the current
+>>> situation: eg. compare the results of "
+>>> http://codex.wordpress.org/?search=posts" vs "
+>>> http://wordpress.org/search/posts". In my opinion, just offering a
+>>> "Codex search" box which used the MediaWiki search results, rather than the
+>>> Google results that appear now, would be helpful for most users trying to
+>>> navigate the Codex.
+>>>
+>>> The situation gets trickier, however, with the entries which are
+>>> prefixed with Function_Reference/, Class_Reference/, etc. Look at the
+>>> search results found, for example, for "
+>>> http://codex.wordpress.org/?search=wp_remote_post". Not so pretty...
+>>> And its kind of hard to programmatically determine, for example whether a
+>>> search term should be prefixed with "Function Reference", "Function API",
+>>> or whatever else.
+>>>
+>>> Overall, this means that the Codex is not as useful to developers as it
+>>> could be. When I'm working, for example, I depend on DuckDuckGo's bang
+>>> syntax search often to quickly look up manual pages for functions, and the
+>>> experience looking up WordPress functions is definitely subpar as compared
+>>> to other environments. When I'm searching for PHP functions, like "!php
+>>> array_merge", the experience is a quick zero-click lookup. It would be nice
+>>> to have that same experience in the WP Codex, like if searching "!wp
+>>> register_post_type" would bring me directly to the relevant Codex page.
+>>>
+>>> What is the solution to this? Does it make more sense to create redirect
+>>> pages for every function name indexed in the codex, ie creating a page
+>>> called "register_post_type" with the content "#REDIRECT
+>>> [[Function_Reference/register_
+>>> post_type]]", or is there an extension that will make searching more
+>>> user-friendly?
+>>>
+>>> I'd like to work on this, but I'm not sure what discussions and
+>>> decisions have already happened. Can someone point me to a helpful way to
+>>> contribute?
+>>>
+>>> Thanks in advance,
+>>>
+>>>
+>>> Nathaniel Taintor, Designer/Developer
+>>> *Golden Apples Design*
+>>> http://goldenapplesdesign.com
+>>>
+>>> @GoldenApples | 717.434.3226
+>>> goldenapplesdesign at gmail.com
+>>>
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>
+>>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120502/7e59b277/attachment.htm>
+
+From otto at ottodestruct.com  Thu May  3 06:54:59 2012
+From: otto at ottodestruct.com (Otto)
+Date: Thu, 3 May 2012 01:54:59 -0500
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAN2v4ZQGjRN4U0S=gmKtW0890qZ7qsLEi11NDtGmt72+a5JKuw@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+	<CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+	<CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+	<CAN2v4ZQGjRN4U0S=gmKtW0890qZ7qsLEi11NDtGmt72+a5JKuw@mail.gmail.com>
+Message-ID: <CAD-FghxYpON+KsRt+3F5zdbck-hdN4nMGrA_fLkv52maVZ1Jdw@mail.gmail.com>
+
+At some point, I will fix this. However, right now, there's nothing
+that can be done about it. It's not a priority and screwing with the
+codex is a PITA that requires assistance from the systems guys.
+There's caching involved and loads of other annoyances.
+
+If you want to search only the codex, use this page to do it:
+http://codex.wordpress.org/Special:Search
+
+-Otto
+
+
+On Wed, May 2, 2012 at 5:11 PM, Lorelle on WordPress
+<lorelleonwordpress at gmail.com> wrote:
+> It isn't up to us and the docs team to like or dislike. We can support,
+> cheer on, and dream, but the action on such a task needs to come from the
+> site development team. Search is fairly locked down. Not sure who is
+> involved in that now. Jane or Ozh should know. Hopefully they will chime in
+> on this.
+>
+> Lorelle
+>
+>
+>
+> On Wed, May 2, 2012 at 11:53 AM, Nathaniel Taintor
+> <goldenapplesdesign at gmail.com> wrote:
+>>
+>> Yes, I do think that on a limited scale, a search box that only searched
+>> the Codex should be very doable and would be helpful to most people.
+>>
+>>
+>> Speaking for myself, I use a browser search bar that posts to
+>> codex.wordpress.org/?search=, and the results I get are very helpful to me.
+>> Being able to type in something like "Settings API" and get to the Codex
+>> page with no clicks saves me tons of time when I'm trying to look something
+>> up quickly. Definitely better than using the slow Ajax Google search when I
+>> know I just want to find the Codex article.
+>>
+>> The biggest problem there is setting up redirects from all the possible
+>> search terms to the proper Codex article; there would need to be a whole lot
+>> of redirect pages set up.
+>>
+>>
+>> The simplest ones (looks like there are 500-1000 of these) are the
+>> function names and so on:
+>>
+>> ???? {function name} to {prefix ie Function_Reference, Template_Tags,
+>> etc.}/{function name}
+>>
+>> Creating these could be easily automated, and I can volunteer to do it, if
+>> the docs team approves.
+>>
+>>
+>> Then there is a more editorial process of creating redirects from common
+>> search terms to the most appropriate page, ie. "Spam" to "Combating Comment
+>> Spam". This requires more knowledge about which articles are good and
+>> regularly updated, and probably some metrics of the most commonly searched
+>> terms. Some of this could be automated or taken on by someone like me, but
+>> some might need more of a committee to make decisions.
+>>
+>>
+>> I guess my question is: does anyone see objections as to why these
+>> redirect stubs shouldn't be created? I don't personally see any issues with
+>> it, but I haven't been working on the Codex very much yet, and I don't want
+>> to add things to it that someone with a broader vision of the project thinks
+>> is a bad idea.
+>>
+>> Thanks,
+>> Than
+>>
+>>
+>>
+>>
+>>
+>> Nathaniel Taintor, Designer/Developer
+>> Golden Apples Design
+>> http://goldenapplesdesign.com
+>>
+>> @GoldenApples | 717.434.3226
+>> goldenapplesdesign at gmail.com
+>>
+>>
+>>
+>> On Wed, May 2, 2012 at 10:24 AM, Lorelle on WordPress
+>> <lorelleonwordpress at gmail.com> wrote:
+>>>
+>>> This would be so awesome. Our MediaWiki is integrated into the entire
+>>> site, and at one time we had search options set that when you are in the
+>>> Codex you only search the Codex and when you are out of the Codex, your
+>>> search covers everything. The attempt has been made to open the search to
+>>> everything, and it is a mess with Google. A perfect search result would be
+>>> one that divided up the resulting content into Codex, Forum, etc. giving
+>>> more choice control to the user.
+>>>
+>>> That's the goal, but is it possible between the WordPress and MediaWiki
+>>> interfaces? It sounds like you think it is.
+>>>
+>>> The Docs team only has so much control over these things, so hopefully
+>>> someone with the ability to engage at the higher authority level on this
+>>> will jump in. You got my support. This has been a thorn for a long time.
+>>> Thanks for being willing to take it on.
+>>>
+>>> Lorelle
+>>>
+>>>
+>>>
+>>>
+>>> On Tue, May 1, 2012 at 12:09 PM, Nathaniel Taintor
+>>> <goldenapplesdesign at gmail.com> wrote:
+>>>>
+>>>> Hi all,
+>>>>
+>>>> The existing search functionality on wordpress.org has been bugging me,
+>>>> and apparently other people as well, for quite a while, and I would like to
+>>>> work on helping to fix that - especially in helping to provide a specific
+>>>> Codex search functionality.
+>>>>
+>>>> MediaWiki already has a decent search ability, which redirects to the
+>>>> found page if an exact match for the search term is found in a page title.
+>>>> Exposing this functionality would be an improvement over the current
+>>>> situation: eg. compare the results of
+>>>> "http://codex.wordpress.org/?search=posts" vs
+>>>> "http://wordpress.org/search/posts". In my opinion, just offering a "Codex
+>>>> search" box which used the MediaWiki search results, rather than the Google
+>>>> results that appear now, would be helpful for most users trying to navigate
+>>>> the Codex.
+>>>>
+>>>> The situation gets trickier, however, with the entries which are
+>>>> prefixed with Function_Reference/, Class_Reference/, etc. Look at the search
+>>>> results found, for example, for
+>>>> "http://codex.wordpress.org/?search=wp_remote_post". Not so pretty... And
+>>>> its kind of hard to programmatically determine, for example whether a search
+>>>> term should be prefixed with "Function Reference", "Function API", or
+>>>> whatever else.
+>>>>
+>>>> Overall, this means that the Codex is not as useful to developers as it
+>>>> could be. When I'm working, for example, I depend on DuckDuckGo's bang
+>>>> syntax search often to quickly look up manual pages for functions, and the
+>>>> experience looking up WordPress functions is definitely subpar as compared
+>>>> to other environments. When I'm searching for PHP functions, like "!php
+>>>> array_merge", the experience is a quick zero-click lookup. It would be nice
+>>>> to have that same experience in the WP Codex, like if searching "!wp
+>>>> register_post_type" would bring me directly to the relevant Codex page.
+>>>>
+>>>> What is the solution to this? Does it make more sense to create redirect
+>>>> pages for every function name indexed in the codex, ie creating a page
+>>>> called "register_post_type" with the content "#REDIRECT
+>>>> [[Function_Reference/register_
+>>>> post_type]]", or is there an extension that will make searching more
+>>>> user-friendly?
+>>>>
+>>>> I'd like to work on this, but I'm not sure what discussions and
+>>>> decisions have already happened. Can someone point me to a helpful way to
+>>>> contribute?
+>>>>
+>>>> Thanks in advance,
+>>>>
+>>>>
+>>>> Nathaniel Taintor, Designer/Developer
+>>>> Golden Apples Design
+>>>> http://goldenapplesdesign.com
+>>>>
+>>>> @GoldenApples | 717.434.3226
+>>>> goldenapplesdesign at gmail.com
+>>>>
+>>>> _______________________________________________
+>>>> wp-docs mailing list
+>>>> wp-docs at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>
+>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+From goldenapplesdesign at gmail.com  Thu May  3 20:22:48 2012
+From: goldenapplesdesign at gmail.com (Nathaniel Taintor)
+Date: Thu, 3 May 2012 13:22:48 -0700
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAD-FghxYpON+KsRt+3F5zdbck-hdN4nMGrA_fLkv52maVZ1Jdw@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+	<CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+	<CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+	<CAN2v4ZQGjRN4U0S=gmKtW0890qZ7qsLEi11NDtGmt72+a5JKuw@mail.gmail.com>
+	<CAD-FghxYpON+KsRt+3F5zdbck-hdN4nMGrA_fLkv52maVZ1Jdw@mail.gmail.com>
+Message-ID: <CAH+NfoDtjHqcVEp1cbk7zu0yT73Qczsrc6zMFVkwxYQ_EpWRCQ@mail.gmail.com>
+
+Thanks for the input, Otto. I don't expect anything on the wp.org site to
+change overnight... its working well enough for the thousands of people who
+use it, don't mess with it on a whim.
+
+The part of my idea that I thought could be acted on immediately, though,
+is creating redirect pages [1] on the Codex wiki to make Codex search more
+useful.
+
+(To test the concept, I created a redirect from "register post type" to
+"Function_Reference/register_post_type": now searching for
+"register_post_type" on the Codex, ie
+http://codex.wordpress.org/?search=register_post_type, now brings you
+directly to the relevant function reference page.)
+
+My question, not so much for the site admins as for other people on this
+list, is: is this something I can/should take on? From a quick browsing of
+the Special:AllPages codex entry, it looks like there are somewhere around
+a thousand pages in English with prefixes that would need to have redirect
+pages set up. Like I said, I don't see any possible downside, but if anyone
+has any reason for me not to do this, please let me know.
+
+
+Thanks,
+Than
+
+
+[1:http://www.mediawiki.org/wiki/Redirect]
+
+
+Nathaniel Taintor, Designer/Developer
+*Golden Apples Design*
+http://goldenapplesdesign.com
+
+@GoldenApples | 717.434.3226
+goldenapplesdesign at gmail.com
+
+
+
+On Wed, May 2, 2012 at 11:54 PM, Otto <otto at ottodestruct.com> wrote:
+
+> At some point, I will fix this. However, right now, there's nothing
+> that can be done about it. It's not a priority and screwing with the
+> codex is a PITA that requires assistance from the systems guys.
+> There's caching involved and loads of other annoyances.
+>
+> If you want to search only the codex, use this page to do it:
+> http://codex.wordpress.org/Special:Search
+>
+> -Otto
+>
+>
+> On Wed, May 2, 2012 at 5:11 PM, Lorelle on WordPress
+> <lorelleonwordpress at gmail.com> wrote:
+> > It isn't up to us and the docs team to like or dislike. We can support,
+> > cheer on, and dream, but the action on such a task needs to come from the
+> > site development team. Search is fairly locked down. Not sure who is
+> > involved in that now. Jane or Ozh should know. Hopefully they will chime
+> in
+> > on this.
+> >
+> > Lorelle
+> >
+> >
+> >
+> > On Wed, May 2, 2012 at 11:53 AM, Nathaniel Taintor
+> > <goldenapplesdesign at gmail.com> wrote:
+> >>
+> >> Yes, I do think that on a limited scale, a search box that only searched
+> >> the Codex should be very doable and would be helpful to most people.
+> >>
+> >>
+> >> Speaking for myself, I use a browser search bar that posts to
+> >> codex.wordpress.org/?search=, and the results I get are very helpful
+> to me.
+> >> Being able to type in something like "Settings API" and get to the Codex
+> >> page with no clicks saves me tons of time when I'm trying to look
+> something
+> >> up quickly. Definitely better than using the slow Ajax Google search
+> when I
+> >> know I just want to find the Codex article.
+> >>
+> >> The biggest problem there is setting up redirects from all the possible
+> >> search terms to the proper Codex article; there would need to be a
+> whole lot
+> >> of redirect pages set up.
+> >>
+> >>
+> >> The simplest ones (looks like there are 500-1000 of these) are the
+> >> function names and so on:
+> >>
+> >>      {function name} to {prefix ie Function_Reference, Template_Tags,
+> >> etc.}/{function name}
+> >>
+> >> Creating these could be easily automated, and I can volunteer to do it,
+> if
+> >> the docs team approves.
+> >>
+> >>
+> >> Then there is a more editorial process of creating redirects from common
+> >> search terms to the most appropriate page, ie. "Spam" to "Combating
+> Comment
+> >> Spam". This requires more knowledge about which articles are good and
+> >> regularly updated, and probably some metrics of the most commonly
+> searched
+> >> terms. Some of this could be automated or taken on by someone like me,
+> but
+> >> some might need more of a committee to make decisions.
+> >>
+> >>
+> >> I guess my question is: does anyone see objections as to why these
+> >> redirect stubs shouldn't be created? I don't personally see any issues
+> with
+> >> it, but I haven't been working on the Codex very much yet, and I don't
+> want
+> >> to add things to it that someone with a broader vision of the project
+> thinks
+> >> is a bad idea.
+> >>
+> >> Thanks,
+> >> Than
+> >>
+> >>
+> >>
+> >>
+> >>
+> >> Nathaniel Taintor, Designer/Developer
+> >> Golden Apples Design
+> >> http://goldenapplesdesign.com
+> >>
+> >> @GoldenApples | 717.434.3226
+> >> goldenapplesdesign at gmail.com
+> >>
+> >>
+> >>
+> >> On Wed, May 2, 2012 at 10:24 AM, Lorelle on WordPress
+> >> <lorelleonwordpress at gmail.com> wrote:
+> >>>
+> >>> This would be so awesome. Our MediaWiki is integrated into the entire
+> >>> site, and at one time we had search options set that when you are in
+> the
+> >>> Codex you only search the Codex and when you are out of the Codex, your
+> >>> search covers everything. The attempt has been made to open the search
+> to
+> >>> everything, and it is a mess with Google. A perfect search result
+> would be
+> >>> one that divided up the resulting content into Codex, Forum, etc.
+> giving
+> >>> more choice control to the user.
+> >>>
+> >>> That's the goal, but is it possible between the WordPress and MediaWiki
+> >>> interfaces? It sounds like you think it is.
+> >>>
+> >>> The Docs team only has so much control over these things, so hopefully
+> >>> someone with the ability to engage at the higher authority level on
+> this
+> >>> will jump in. You got my support. This has been a thorn for a long
+> time.
+> >>> Thanks for being willing to take it on.
+> >>>
+> >>> Lorelle
+> >>>
+> >>>
+> >>>
+> >>>
+> >>> On Tue, May 1, 2012 at 12:09 PM, Nathaniel Taintor
+> >>> <goldenapplesdesign at gmail.com> wrote:
+> >>>>
+> >>>> Hi all,
+> >>>>
+> >>>> The existing search functionality on wordpress.org has been bugging
+> me,
+> >>>> and apparently other people as well, for quite a while, and I would
+> like to
+> >>>> work on helping to fix that - especially in helping to provide a
+> specific
+> >>>> Codex search functionality.
+> >>>>
+> >>>> MediaWiki already has a decent search ability, which redirects to the
+> >>>> found page if an exact match for the search term is found in a page
+> title.
+> >>>> Exposing this functionality would be an improvement over the current
+> >>>> situation: eg. compare the results of
+> >>>> "http://codex.wordpress.org/?search=posts" vs
+> >>>> "http://wordpress.org/search/posts". In my opinion, just offering a
+> "Codex
+> >>>> search" box which used the MediaWiki search results, rather than the
+> Google
+> >>>> results that appear now, would be helpful for most users trying to
+> navigate
+> >>>> the Codex.
+> >>>>
+> >>>> The situation gets trickier, however, with the entries which are
+> >>>> prefixed with Function_Reference/, Class_Reference/, etc. Look at the
+> search
+> >>>> results found, for example, for
+> >>>> "http://codex.wordpress.org/?search=wp_remote_post". Not so
+> pretty... And
+> >>>> its kind of hard to programmatically determine, for example whether a
+> search
+> >>>> term should be prefixed with "Function Reference", "Function API", or
+> >>>> whatever else.
+> >>>>
+> >>>> Overall, this means that the Codex is not as useful to developers as
+> it
+> >>>> could be. When I'm working, for example, I depend on DuckDuckGo's bang
+> >>>> syntax search often to quickly look up manual pages for functions,
+> and the
+> >>>> experience looking up WordPress functions is definitely subpar as
+> compared
+> >>>> to other environments. When I'm searching for PHP functions, like
+> "!php
+> >>>> array_merge", the experience is a quick zero-click lookup. It would
+> be nice
+> >>>> to have that same experience in the WP Codex, like if searching "!wp
+> >>>> register_post_type" would bring me directly to the relevant Codex
+> page.
+> >>>>
+> >>>> What is the solution to this? Does it make more sense to create
+> redirect
+> >>>> pages for every function name indexed in the codex, ie creating a page
+> >>>> called "register_post_type" with the content "#REDIRECT
+> >>>> [[Function_Reference/register_
+> >>>> post_type]]", or is there an extension that will make searching more
+> >>>> user-friendly?
+> >>>>
+> >>>> I'd like to work on this, but I'm not sure what discussions and
+> >>>> decisions have already happened. Can someone point me to a helpful
+> way to
+> >>>> contribute?
+> >>>>
+> >>>> Thanks in advance,
+> >>>>
+> >>>>
+> >>>> Nathaniel Taintor, Designer/Developer
+> >>>> Golden Apples Design
+> >>>> http://goldenapplesdesign.com
+> >>>>
+> >>>> @GoldenApples | 717.434.3226
+> >>>> goldenapplesdesign at gmail.com
+> >>>>
+> >>>> _______________________________________________
+> >>>> wp-docs mailing list
+> >>>> wp-docs at lists.automattic.com
+> >>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> >>>>
+> >>>
+> >>>
+> >>> _______________________________________________
+> >>> wp-docs mailing list
+> >>> wp-docs at lists.automattic.com
+> >>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> >>>
+> >>
+> >>
+> >> _______________________________________________
+> >> wp-docs mailing list
+> >> wp-docs at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-docs
+> >>
+> >
+> >
+> > _______________________________________________
+> > wp-docs mailing list
+> > wp-docs at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-docs
+> >
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120503/5298cbd1/attachment.htm>
+
+From ipstenu at ipstenu.org  Thu May  3 21:01:56 2012
+From: ipstenu at ipstenu.org (Mika A Epstein)
+Date: Thu, 3 May 2012 16:01:56 -0500
+Subject: [wp-docs] dedicated Codex search function
+In-Reply-To: <CAH+NfoDtjHqcVEp1cbk7zu0yT73Qczsrc6zMFVkwxYQ_EpWRCQ@mail.gmail.com>
+References: <CAH+NfoA_O=ht9r3A-rk-36KRuZxX8dK26KsgEZ-Zg=Ns3RZWuQ@mail.gmail.com>
+	<CAN2v4ZRj-6YpZ9AYyTYOLGAqWGdLMk-7hL3x4tVhg9hkPCRskw@mail.gmail.com>
+	<CAH+NfoC1ciAk2fh2OqtLUOqHdk4Bp5mpPPs4=ThVJ9ipsZxmTg@mail.gmail.com>
+	<CAN2v4ZQGjRN4U0S=gmKtW0890qZ7qsLEi11NDtGmt72+a5JKuw@mail.gmail.com>
+	<CAD-FghxYpON+KsRt+3F5zdbck-hdN4nMGrA_fLkv52maVZ1Jdw@mail.gmail.com>
+	<CAH+NfoDtjHqcVEp1cbk7zu0yT73Qczsrc6zMFVkwxYQ_EpWRCQ@mail.gmail.com>
+Message-ID: <FE1E1405-A86E-423E-B8E9-334DF67366CE@ipstenu.org>
+
+I think that's a good idea. It's what MediaWiki does on most of their sites :) I do it all the time.
+
+Go to codex.wordpress.org/Multisite for example.
+
+
+
+On May 3, 2012, at 3:22 PM, Nathaniel Taintor <goldenapplesdesign at gmail.com> wrote:
+
+> Thanks for the input, Otto. I don't expect anything on the wp.org site to change overnight... its working well enough for the thousands of people who use it, don't mess with it on a whim.
+> 
+> The part of my idea that I thought could be acted on immediately, though, is creating redirect pages [1] on the Codex wiki to make Codex search more useful.
+> 
+> (To test the concept, I created a redirect from "register post type" to "Function_Reference/register_post_type": now searching for "register_post_type" on the Codex, ie http://codex.wordpress.org/?search=register_post_type, now brings you directly to the relevant function reference page.)
+> 
+> My question, not so much for the site admins as for other people on this list, is: is this something I can/should take on? From a quick browsing of the Special:AllPages codex entry, it looks like there are somewhere around a thousand pages in English with prefixes that would need to have redirect pages set up. Like I said, I don't see any possible downside, but if anyone has any reason for me not to do this, please let me know.
+> 
+> 
+> Thanks,
+> Than
+> 
+> 
+> [1:http://www.mediawiki.org/wiki/Redirect]
+> 
+> 
+> Nathaniel Taintor, Designer/Developer
+> Golden Apples Design
+> http://goldenapplesdesign.com
+> 
+> @GoldenApples | 717.434.3226
+> goldenapplesdesign at gmail.com
+> 
+> 
+> 
+> On Wed, May 2, 2012 at 11:54 PM, Otto <otto at ottodestruct.com> wrote:
+> At some point, I will fix this. However, right now, there's nothing
+> that can be done about it. It's not a priority and screwing with the
+> codex is a PITA that requires assistance from the systems guys.
+> There's caching involved and loads of other annoyances.
+> 
+> If you want to search only the codex, use this page to do it:
+> http://codex.wordpress.org/Special:Search
+> 
+> -Otto
+> 
+> 
+> On Wed, May 2, 2012 at 5:11 PM, Lorelle on WordPress
+> <lorelleonwordpress at gmail.com> wrote:
+> > It isn't up to us and the docs team to like or dislike. We can support,
+> > cheer on, and dream, but the action on such a task needs to come from the
+> > site development team. Search is fairly locked down. Not sure who is
+> > involved in that now. Jane or Ozh should know. Hopefully they will chime in
+> > on this.
+> >
+> > Lorelle
+> >
+> >
+> >
+> > On Wed, May 2, 2012 at 11:53 AM, Nathaniel Taintor
+> > <goldenapplesdesign at gmail.com> wrote:
+> >>
+> >> Yes, I do think that on a limited scale, a search box that only searched
+> >> the Codex should be very doable and would be helpful to most people.
+> >>
+> >>
+> >> Speaking for myself, I use a browser search bar that posts to
+> >> codex.wordpress.org/?search=, and the results I get are very helpful to me.
+> >> Being able to type in something like "Settings API" and get to the Codex
+> >> page with no clicks saves me tons of time when I'm trying to look something
+> >> up quickly. Definitely better than using the slow Ajax Google search when I
+> >> know I just want to find the Codex article.
+> >>
+> >> The biggest problem there is setting up redirects from all the possible
+> >> search terms to the proper Codex article; there would need to be a whole lot
+> >> of redirect pages set up.
+> >>
+> >>
+> >> The simplest ones (looks like there are 500-1000 of these) are the
+> >> function names and so on:
+> >>
+> >>      {function name} to {prefix ie Function_Reference, Template_Tags,
+> >> etc.}/{function name}
+> >>
+> >> Creating these could be easily automated, and I can volunteer to do it, if
+> >> the docs team approves.
+> >>
+> >>
+> >> Then there is a more editorial process of creating redirects from common
+> >> search terms to the most appropriate page, ie. "Spam" to "Combating Comment
+> >> Spam". This requires more knowledge about which articles are good and
+> >> regularly updated, and probably some metrics of the most commonly searched
+> >> terms. Some of this could be automated or taken on by someone like me, but
+> >> some might need more of a committee to make decisions.
+> >>
+> >>
+> >> I guess my question is: does anyone see objections as to why these
+> >> redirect stubs shouldn't be created? I don't personally see any issues with
+> >> it, but I haven't been working on the Codex very much yet, and I don't want
+> >> to add things to it that someone with a broader vision of the project thinks
+> >> is a bad idea.
+> >>
+> >> Thanks,
+> >> Than
+> >>
+> >>
+> >>
+> >>
+> >>
+> >> Nathaniel Taintor, Designer/Developer
+> >> Golden Apples Design
+> >> http://goldenapplesdesign.com
+> >>
+> >> @GoldenApples | 717.434.3226
+> >> goldenapplesdesign at gmail.com
+> >>
+> >>
+> >>
+> >> On Wed, May 2, 2012 at 10:24 AM, Lorelle on WordPress
+> >> <lorelleonwordpress at gmail.com> wrote:
+> >>>
+> >>> This would be so awesome. Our MediaWiki is integrated into the entire
+> >>> site, and at one time we had search options set that when you are in the
+> >>> Codex you only search the Codex and when you are out of the Codex, your
+> >>> search covers everything. The attempt has been made to open the search to
+> >>> everything, and it is a mess with Google. A perfect search result would be
+> >>> one that divided up the resulting content into Codex, Forum, etc. giving
+> >>> more choice control to the user.
+> >>>
+> >>> That's the goal, but is it possible between the WordPress and MediaWiki
+> >>> interfaces? It sounds like you think it is.
+> >>>
+> >>> The Docs team only has so much control over these things, so hopefully
+> >>> someone with the ability to engage at the higher authority level on this
+> >>> will jump in. You got my support. This has been a thorn for a long time.
+> >>> Thanks for being willing to take it on.
+> >>>
+> >>> Lorelle
+> >>>
+> >>>
+> >>>
+> >>>
+> >>> On Tue, May 1, 2012 at 12:09 PM, Nathaniel Taintor
+> >>> <goldenapplesdesign at gmail.com> wrote:
+> >>>>
+> >>>> Hi all,
+> >>>>
+> >>>> The existing search functionality on wordpress.org has been bugging me,
+> >>>> and apparently other people as well, for quite a while, and I would like to
+> >>>> work on helping to fix that - especially in helping to provide a specific
+> >>>> Codex search functionality.
+> >>>>
+> >>>> MediaWiki already has a decent search ability, which redirects to the
+> >>>> found page if an exact match for the search term is found in a page title.
+> >>>> Exposing this functionality would be an improvement over the current
+> >>>> situation: eg. compare the results of
+> >>>> "http://codex.wordpress.org/?search=posts" vs
+> >>>> "http://wordpress.org/search/posts". In my opinion, just offering a "Codex
+> >>>> search" box which used the MediaWiki search results, rather than the Google
+> >>>> results that appear now, would be helpful for most users trying to navigate
+> >>>> the Codex.
+> >>>>
+> >>>> The situation gets trickier, however, with the entries which are
+> >>>> prefixed with Function_Reference/, Class_Reference/, etc. Look at the search
+> >>>> results found, for example, for
+> >>>> "http://codex.wordpress.org/?search=wp_remote_post". Not so pretty... And
+> >>>> its kind of hard to programmatically determine, for example whether a search
+> >>>> term should be prefixed with "Function Reference", "Function API", or
+> >>>> whatever else.
+> >>>>
+> >>>> Overall, this means that the Codex is not as useful to developers as it
+> >>>> could be. When I'm working, for example, I depend on DuckDuckGo's bang
+> >>>> syntax search often to quickly look up manual pages for functions, and the
+> >>>> experience looking up WordPress functions is definitely subpar as compared
+> >>>> to other environments. When I'm searching for PHP functions, like "!php
+> >>>> array_merge", the experience is a quick zero-click lookup. It would be nice
+> >>>> to have that same experience in the WP Codex, like if searching "!wp
+> >>>> register_post_type" would bring me directly to the relevant Codex page.
+> >>>>
+> >>>> What is the solution to this? Does it make more sense to create redirect
+> >>>> pages for every function name indexed in the codex, ie creating a page
+> >>>> called "register_post_type" with the content "#REDIRECT
+> >>>> [[Function_Reference/register_
+> >>>> post_type]]", or is there an extension that will make searching more
+> >>>> user-friendly?
+> >>>>
+> >>>> I'd like to work on this, but I'm not sure what discussions and
+> >>>> decisions have already happened. Can someone point me to a helpful way to
+> >>>> contribute?
+> >>>>
+> >>>> Thanks in advance,
+> >>>>
+> >>>>
+> >>>> Nathaniel Taintor, Designer/Developer
+> >>>> Golden Apples Design
+> >>>> http://goldenapplesdesign.com
+> >>>>
+> >>>> @GoldenApples | 717.434.3226
+> >>>> goldenapplesdesign at gmail.com
+> >>>>
+> >>>> _______________________________________________
+> >>>> wp-docs mailing list
+> >>>> wp-docs at lists.automattic.com
+> >>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> >>>>
+> >>>
+> >>>
+> >>> _______________________________________________
+> >>> wp-docs mailing list
+> >>> wp-docs at lists.automattic.com
+> >>> http://lists.automattic.com/mailman/listinfo/wp-docs
+> >>>
+> >>
+> >>
+> >> _______________________________________________
+> >> wp-docs mailing list
+> >> wp-docs at lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/wp-docs
+> >>
+> >
+> >
+> > _______________________________________________
+> > wp-docs mailing list
+> > wp-docs at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-docs
+> >
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+> 
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120503/c0576ccc/attachment-0001.htm>
+
+From siobhan at wordmonkey.me  Thu May 10 17:28:02 2012
+From: siobhan at wordmonkey.me (Siobhan McKeown)
+Date: Thu, 10 May 2012 18:28:02 +0100
+Subject: [wp-docs] WordPress FAQs
+Message-ID: <3171B24A-D291-4DE9-976D-276AA9FC5F58@wordmonkey.me>
+
+Hi all,
+
+I've started working on some improvements to the WordPress FAQs. I started out with the FAQ About WordPress. I've removed some defunct questions and added some that I thought were relevant. http://codex.wordpress.org/FAQ_About_WordPress
+
+Does anyone have any questions they think should be added to/removed from that page? 
+
+I'm going to be working on the FAQs over the next few months and have made a google spreadsheet to keep track of things. If anyone wants to help out let me know! :)
+
+Siobhan
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120510/5a07ecd3/attachment.htm>
+
+From jane at automattic.com  Tue May 15 12:09:05 2012
+From: jane at automattic.com (Jane Wells)
+Date: Tue, 15 May 2012 08:09:05 -0400
+Subject: [wp-docs] Joining Forces: Support
+Message-ID: <4FB24761.30403@automattic.com>
+
+Hi everyone. The results of the recent surveys to identify active 
+contributors and elect team reps made it pretty clear that the docs team 
+is in a bit of a slump, organizationally speaking. Only 5 people from 
+the wp-docs post responded, and of those, 2 were new or not yet 
+contributing, and there was no consensus re reps among the remaining 3 
+respondents. It got me thinking about how we organize contributors, what 
+has worked well elsewhere in the WP ecosystem and in other free software 
+projects, and leads me to this proposal: what if we combined forums and 
+docs into one Support team?
+
+Looking back at the Codex activity from the past six months or year, 
+chunks of it have been tied to forum mods (like Ipstenu and Andrea_r), 
+other contributor groups (like Chip on the Theme Review Team), and new 
+releases. Not that how Automattic/WordPress.com organizes itself should 
+decide anything, but their support team manages forums, email support, 
+and docs, and it seems to work pretty well. They have a schedule for 
+reviewing existing documentation so it never gets too far out of date, 
+and the people on the front lines with users in the forums and via email 
+can see very clearly where they need to beef up documentation. I'm 
+thinking this could work well for .org, too. Those who are strong 
+writers and just want to contribute to documentation could still do so, 
+but within a context of what our user support needs are at any given 
+time based on the actual support requests.
+
+What I'm envisioning is less siloing of contributor personnel, with one 
+group blog at make.wordpress.org/support that uses tags like forums and 
+codex to organize posts, and has pages to help orient new contributors 
+and get them started. These mailing lists could fade away in favor of 
+email subscriptions from the blog, which are more easily searchable and 
+would be more visible to potential contributors. Within the uber-group, 
+some people would naturally gravitate toward specific tasks while others 
+would multi-task as they have been doing.
+
+Over time we could expand the purview of the group to include things 
+like moderating instructional videos and comments at wordpress.tv (and 
+start embedding appropriate videos into codex), possibly helping to 
+staff in-person help desks in local communities and/or at events like 
+WordCamps and Meetups, etc. I think the prospects are pretty exciting, 
+and I could see this becoming the biggest and most active of all the 
+contributor groups, which would be awesome.
+
+If there are any strong objections to this approach, please reply to 
+this thread today so we can discuss. If not, and everyone is willing to 
+give this a shot and all work together (at least as an experiment for, 
+say, the next release cycle or two), I'll go ahead and set up the group 
+blog tomorrow.
+
+Jane
+
+From esmi at quirm.net  Tue May 15 12:41:00 2012
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Tue, 15 May 2012 13:41:00 +0100
+Subject: [wp-docs] [wp-forums] Joining Forces: Support
+In-Reply-To: <4FB24761.30403@automattic.com>
+References: <4FB24761.30403@automattic.com>
+Message-ID: <4FB24EDC.8040104@quirm.net>
+
+on 15/05/2012 13:09 Jane Wells said the following:
+> what if we combined forums and
+> docs into one Support team?
+
+I can see the definite logic to this and I do like the idea of a Codex 
+that is possibly more responsive to support (and, therefore, users') 
+needs. My concern would be that, whilst there would more contributions 
+and active editing, there might be less organisation. And a badly 
+organised Codex is of no use to anyone.
+
+I do think that documentation generally needs at least 1 (preferably 
+more than 1) person who can step back and take the objective overview - 
+free from any concerns about directly answering users' questions.
+
+Does that make any sense?
+
+tl;dr Great idea but I'd like to see someone (perhaps another sub-rep?) 
+take on the role of Codex organisation, looking after review schedules etc.
+
+Mel
+-- 
+http://quirm.net
+http://blackwidows.co.uk
+
+From chip at chipbennett.net  Tue May 15 14:51:10 2012
+From: chip at chipbennett.net (Chip Bennett)
+Date: Tue, 15 May 2012 09:51:10 -0500
+Subject: [wp-docs] Joining Forces: Support
+In-Reply-To: <4FB24761.30403@automattic.com>
+References: <4FB24761.30403@automattic.com>
+Message-ID: <CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+
+Personally, I love the idea. Speaking as a contributor group member who
+tries to keep in the loop regarding support and/or Codex issues that impact
+our group (or issues where our contributor group can be helpful), such
+consolidation is welcome.
+
+Chip
+
+On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+
+> Hi everyone. The results of the recent surveys to identify active
+> contributors and elect team reps made it pretty clear that the docs team is
+> in a bit of a slump, organizationally speaking. Only 5 people from the
+> wp-docs post responded, and of those, 2 were new or not yet contributing,
+> and there was no consensus re reps among the remaining 3 respondents. It
+> got me thinking about how we organize contributors, what has worked well
+> elsewhere in the WP ecosystem and in other free software projects, and
+> leads me to this proposal: what if we combined forums and docs into one
+> Support team?
+>
+> Looking back at the Codex activity from the past six months or year,
+> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+> other contributor groups (like Chip on the Theme Review Team), and new
+> releases. Not that how Automattic/WordPress.com organizes itself should
+> decide anything, but their support team manages forums, email support, and
+> docs, and it seems to work pretty well. They have a schedule for reviewing
+> existing documentation so it never gets too far out of date, and the people
+> on the front lines with users in the forums and via email can see very
+> clearly where they need to beef up documentation. I'm thinking this could
+> work well for .org, too. Those who are strong writers and just want to
+> contribute to documentation could still do so, but within a context of what
+> our user support needs are at any given time based on the actual support
+> requests.
+>
+> What I'm envisioning is less siloing of contributor personnel, with one
+> group blog at make.wordpress.org/support that uses tags like forums and
+> codex to organize posts, and has pages to help orient new contributors and
+> get them started. These mailing lists could fade away in favor of email
+> subscriptions from the blog, which are more easily searchable and would be
+> more visible to potential contributors. Within the uber-group, some people
+> would naturally gravitate toward specific tasks while others would
+> multi-task as they have been doing.
+>
+> Over time we could expand the purview of the group to include things like
+> moderating instructional videos and comments at wordpress.tv (and start
+> embedding appropriate videos into codex), possibly helping to staff
+> in-person help desks in local communities and/or at events like WordCamps
+> and Meetups, etc. I think the prospects are pretty exciting, and I could
+> see this becoming the biggest and most active of all the contributor
+> groups, which would be awesome.
+>
+> If there are any strong objections to this approach, please reply to this
+> thread today so we can discuss. If not, and everyone is willing to give
+> this a shot and all work together (at least as an experiment for, say, the
+> next release cycle or two), I'll go ahead and set up the group blog
+> tomorrow.
+>
+> Jane
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/38299e6a/attachment.htm>
+
+From andrea at ronandandrea.com  Tue May 15 15:28:54 2012
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Tue, 15 May 2012 12:28:54 -0300
+Subject: [wp-docs] Joining Forces: Support
+In-Reply-To: <CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+References: <4FB24761.30403@automattic.com>
+	<CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+Message-ID: <CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg@mail.gmail.com>
+
+It makes totally sense, because Support & Docs are two sides of the same
+coin. :) If users can't understanding docs or can't find them, they post in
+the forums. ;P
+
+Better docs mean less support issues, because people don't scale. And the
+people answering questions are the first ones who see the need for new
+docs. Because they answer the same questions over and over (and over) again.
+
+Getting people to read docs is a separate issue, but having support and
+docs work hand in hand in tandem is a big first step.
+
+I think half the people overlap anyway, yes?
+
+a.
+
+On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net> wrote:
+
+> Personally, I love the idea. Speaking as a contributor group member who
+> tries to keep in the loop regarding support and/or Codex issues that impact
+> our group (or issues where our contributor group can be helpful), such
+> consolidation is welcome.
+>
+> Chip
+>
+>
+> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+>
+>> Hi everyone. The results of the recent surveys to identify active
+>> contributors and elect team reps made it pretty clear that the docs team is
+>> in a bit of a slump, organizationally speaking. Only 5 people from the
+>> wp-docs post responded, and of those, 2 were new or not yet contributing,
+>> and there was no consensus re reps among the remaining 3 respondents. It
+>> got me thinking about how we organize contributors, what has worked well
+>> elsewhere in the WP ecosystem and in other free software projects, and
+>> leads me to this proposal: what if we combined forums and docs into one
+>> Support team?
+>>
+>> Looking back at the Codex activity from the past six months or year,
+>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>> other contributor groups (like Chip on the Theme Review Team), and new
+>> releases. Not that how Automattic/WordPress.com organizes itself should
+>> decide anything, but their support team manages forums, email support, and
+>> docs, and it seems to work pretty well. They have a schedule for reviewing
+>> existing documentation so it never gets too far out of date, and the people
+>> on the front lines with users in the forums and via email can see very
+>> clearly where they need to beef up documentation. I'm thinking this could
+>> work well for .org, too. Those who are strong writers and just want to
+>> contribute to documentation could still do so, but within a context of what
+>> our user support needs are at any given time based on the actual support
+>> requests.
+>>
+>> What I'm envisioning is less siloing of contributor personnel, with one
+>> group blog at make.wordpress.org/support that uses tags like forums and
+>> codex to organize posts, and has pages to help orient new contributors and
+>> get them started. These mailing lists could fade away in favor of email
+>> subscriptions from the blog, which are more easily searchable and would be
+>> more visible to potential contributors. Within the uber-group, some people
+>> would naturally gravitate toward specific tasks while others would
+>> multi-task as they have been doing.
+>>
+>> Over time we could expand the purview of the group to include things like
+>> moderating instructional videos and comments at wordpress.tv (and start
+>> embedding appropriate videos into codex), possibly helping to staff
+>> in-person help desks in local communities and/or at events like WordCamps
+>> and Meetups, etc. I think the prospects are pretty exciting, and I could
+>> see this becoming the biggest and most active of all the contributor
+>> groups, which would be awesome.
+>>
+>> If there are any strong objections to this approach, please reply to this
+>> thread today so we can discuss. If not, and everyone is willing to give
+>> this a shot and all work together (at least as an experiment for, say, the
+>> next release cycle or two), I'll go ahead and set up the group blog
+>> tomorrow.
+>>
+>> Jane
+>> ______________________________**_________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/b30fc046/attachment-0001.htm>
+
+From val.lynn at gmail.com  Tue May 15 15:53:56 2012
+From: val.lynn at gmail.com (Valerie Lynn)
+Date: Tue, 15 May 2012 11:53:56 -0400
+Subject: [wp-docs] Joining Forces
+Message-ID: <CAOhnWj+ZvsUie6LwEvaBUhVhoQfzgTZYGJyT=p0neeNnaSpEig@mail.gmail.com>
+
+I just want to chime in with, "I'm following and listening to the
+discussion."
+
+I'm too new to editing to have an opinion but wanted to raise my hand and
+say, "I'm here."
+
+Valerie Lynn
+Email:   val.lynn at gmail.com
+GooglePlus:  https://plus.google.com/u/0/104997630384054362441/
+
+
+
+On Tue, May 15, 2012 at 11:28 AM, <wp-docs-request at lists.automattic.com>wrote:
+
+> Send wp-docs mailing list submissions to
+>        wp-docs at lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        http://lists.automattic.com/mailman/listinfo/wp-docs
+> or, via email, send a message with subject or body 'help' to
+>        wp-docs-request at lists.automattic.com
+>
+> You can reach the person managing the list at
+>        wp-docs-owner at lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-docs digest..."
+>
+>
+> Today's Topics:
+>
+>   1. Joining Forces: Support (Jane Wells)
+>   2. Re: [wp-forums] Joining Forces: Support (esmi at quirm dot net)
+>   3. Re: Joining Forces: Support (Chip Bennett)
+>   4. Re: Joining Forces: Support (Andrea Rennick)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Tue, 15 May 2012 08:09:05 -0400
+> From: Jane Wells <jane at automattic.com>
+> Subject: [wp-docs] Joining Forces: Support
+> To: wp-docs at lists.automattic.com, wp-forums at lists.automattic.com
+> Message-ID: <4FB24761.30403 at automattic.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> Hi everyone. The results of the recent surveys to identify active
+> contributors and elect team reps made it pretty clear that the docs team
+> is in a bit of a slump, organizationally speaking. Only 5 people from
+> the wp-docs post responded, and of those, 2 were new or not yet
+> contributing, and there was no consensus re reps among the remaining 3
+> respondents. It got me thinking about how we organize contributors, what
+> has worked well elsewhere in the WP ecosystem and in other free software
+> projects, and leads me to this proposal: what if we combined forums and
+> docs into one Support team?
+>
+> Looking back at the Codex activity from the past six months or year,
+> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+> other contributor groups (like Chip on the Theme Review Team), and new
+> releases. Not that how Automattic/WordPress.com organizes itself should
+> decide anything, but their support team manages forums, email support,
+> and docs, and it seems to work pretty well. They have a schedule for
+> reviewing existing documentation so it never gets too far out of date,
+> and the people on the front lines with users in the forums and via email
+> can see very clearly where they need to beef up documentation. I'm
+> thinking this could work well for .org, too. Those who are strong
+> writers and just want to contribute to documentation could still do so,
+> but within a context of what our user support needs are at any given
+> time based on the actual support requests.
+>
+> What I'm envisioning is less siloing of contributor personnel, with one
+> group blog at make.wordpress.org/support that uses tags like forums and
+> codex to organize posts, and has pages to help orient new contributors
+> and get them started. These mailing lists could fade away in favor of
+> email subscriptions from the blog, which are more easily searchable and
+> would be more visible to potential contributors. Within the uber-group,
+> some people would naturally gravitate toward specific tasks while others
+> would multi-task as they have been doing.
+>
+> Over time we could expand the purview of the group to include things
+> like moderating instructional videos and comments at wordpress.tv (and
+> start embedding appropriate videos into codex), possibly helping to
+> staff in-person help desks in local communities and/or at events like
+> WordCamps and Meetups, etc. I think the prospects are pretty exciting,
+> and I could see this becoming the biggest and most active of all the
+> contributor groups, which would be awesome.
+>
+> If there are any strong objections to this approach, please reply to
+> this thread today so we can discuss. If not, and everyone is willing to
+> give this a shot and all work together (at least as an experiment for,
+> say, the next release cycle or two), I'll go ahead and set up the group
+> blog tomorrow.
+>
+> Jane
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Tue, 15 May 2012 13:41:00 +0100
+> From: esmi at quirm dot net <esmi at quirm.net>
+> Subject: Re: [wp-docs] [wp-forums] Joining Forces: Support
+> To: wp-forums at lists.automattic.com
+> Cc: wp-docs at lists.automattic.com
+> Message-ID: <4FB24EDC.8040104 at quirm.net>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> on 15/05/2012 13:09 Jane Wells said the following:
+> > what if we combined forums and
+> > docs into one Support team?
+>
+> I can see the definite logic to this and I do like the idea of a Codex
+> that is possibly more responsive to support (and, therefore, users')
+> needs. My concern would be that, whilst there would more contributions
+> and active editing, there might be less organisation. And a badly
+> organised Codex is of no use to anyone.
+>
+> I do think that documentation generally needs at least 1 (preferably
+> more than 1) person who can step back and take the objective overview -
+> free from any concerns about directly answering users' questions.
+>
+> Does that make any sense?
+>
+> tl;dr Great idea but I'd like to see someone (perhaps another sub-rep?)
+> take on the role of Codex organisation, looking after review schedules etc.
+>
+> Mel
+> --
+> http://quirm.net
+> http://blackwidows.co.uk
+>
+>
+> ------------------------------
+>
+> Message: 3
+> Date: Tue, 15 May 2012 09:51:10 -0500
+> From: Chip Bennett <chip at chipbennett.net>
+> Subject: Re: [wp-docs] Joining Forces: Support
+> To: WordPress Documentation <wp-docs at lists.automattic.com>
+> Message-ID:
+>        <CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw at mail.gmail.com
+> >
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> Personally, I love the idea. Speaking as a contributor group member who
+> tries to keep in the loop regarding support and/or Codex issues that impact
+> our group (or issues where our contributor group can be helpful), such
+> consolidation is welcome.
+>
+> Chip
+>
+> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+>
+> > Hi everyone. The results of the recent surveys to identify active
+> > contributors and elect team reps made it pretty clear that the docs team
+> is
+> > in a bit of a slump, organizationally speaking. Only 5 people from the
+> > wp-docs post responded, and of those, 2 were new or not yet contributing,
+> > and there was no consensus re reps among the remaining 3 respondents. It
+> > got me thinking about how we organize contributors, what has worked well
+> > elsewhere in the WP ecosystem and in other free software projects, and
+> > leads me to this proposal: what if we combined forums and docs into one
+> > Support team?
+> >
+> > Looking back at the Codex activity from the past six months or year,
+> > chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+> > other contributor groups (like Chip on the Theme Review Team), and new
+> > releases. Not that how Automattic/WordPress.com organizes itself should
+> > decide anything, but their support team manages forums, email support,
+> and
+> > docs, and it seems to work pretty well. They have a schedule for
+> reviewing
+> > existing documentation so it never gets too far out of date, and the
+> people
+> > on the front lines with users in the forums and via email can see very
+> > clearly where they need to beef up documentation. I'm thinking this could
+> > work well for .org, too. Those who are strong writers and just want to
+> > contribute to documentation could still do so, but within a context of
+> what
+> > our user support needs are at any given time based on the actual support
+> > requests.
+> >
+> > What I'm envisioning is less siloing of contributor personnel, with one
+> > group blog at make.wordpress.org/support that uses tags like forums and
+> > codex to organize posts, and has pages to help orient new contributors
+> and
+> > get them started. These mailing lists could fade away in favor of email
+> > subscriptions from the blog, which are more easily searchable and would
+> be
+> > more visible to potential contributors. Within the uber-group, some
+> people
+> > would naturally gravitate toward specific tasks while others would
+> > multi-task as they have been doing.
+> >
+> > Over time we could expand the purview of the group to include things like
+> > moderating instructional videos and comments at wordpress.tv (and start
+> > embedding appropriate videos into codex), possibly helping to staff
+> > in-person help desks in local communities and/or at events like WordCamps
+> > and Meetups, etc. I think the prospects are pretty exciting, and I could
+> > see this becoming the biggest and most active of all the contributor
+> > groups, which would be awesome.
+> >
+> > If there are any strong objections to this approach, please reply to this
+> > thread today so we can discuss. If not, and everyone is willing to give
+> > this a shot and all work together (at least as an experiment for, say,
+> the
+> > next release cycle or two), I'll go ahead and set up the group blog
+> > tomorrow.
+> >
+> > Jane
+> > ______________________________**_________________
+> > wp-docs mailing list
+> > wp-docs at lists.automattic.com
+> > http://lists.automattic.com/**mailman/listinfo/wp-docs<
+> http://lists.automattic.com/mailman/listinfo/wp-docs>
+> >
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <
+> http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/38299e6a/attachment-0001.htm
+> >
+>
+> ------------------------------
+>
+> Message: 4
+> Date: Tue, 15 May 2012 12:28:54 -0300
+> From: Andrea Rennick <andrea at ronandandrea.com>
+> Subject: Re: [wp-docs] Joining Forces: Support
+> To: WordPress Documentation <wp-docs at lists.automattic.com>
+> Message-ID:
+>        <CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg at mail.gmail.com
+> >
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> It makes totally sense, because Support & Docs are two sides of the same
+> coin. :) If users can't understanding docs or can't find them, they post in
+> the forums. ;P
+>
+> Better docs mean less support issues, because people don't scale. And the
+> people answering questions are the first ones who see the need for new
+> docs. Because they answer the same questions over and over (and over)
+> again.
+>
+> Getting people to read docs is a separate issue, but having support and
+> docs work hand in hand in tandem is a big first step.
+>
+> I think half the people overlap anyway, yes?
+>
+> a.
+>
+> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net>
+> wrote:
+>
+> > Personally, I love the idea. Speaking as a contributor group member who
+> > tries to keep in the loop regarding support and/or Codex issues that
+> impact
+> > our group (or issues where our contributor group can be helpful), such
+> > consolidation is welcome.
+> >
+> > Chip
+> >
+> >
+> > On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+> >
+> >> Hi everyone. The results of the recent surveys to identify active
+> >> contributors and elect team reps made it pretty clear that the docs
+> team is
+> >> in a bit of a slump, organizationally speaking. Only 5 people from the
+> >> wp-docs post responded, and of those, 2 were new or not yet
+> contributing,
+> >> and there was no consensus re reps among the remaining 3 respondents. It
+> >> got me thinking about how we organize contributors, what has worked well
+> >> elsewhere in the WP ecosystem and in other free software projects, and
+> >> leads me to this proposal: what if we combined forums and docs into one
+> >> Support team?
+> >>
+> >> Looking back at the Codex activity from the past six months or year,
+> >> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+> >> other contributor groups (like Chip on the Theme Review Team), and new
+> >> releases. Not that how Automattic/WordPress.com organizes itself should
+> >> decide anything, but their support team manages forums, email support,
+> and
+> >> docs, and it seems to work pretty well. They have a schedule for
+> reviewing
+> >> existing documentation so it never gets too far out of date, and the
+> people
+> >> on the front lines with users in the forums and via email can see very
+> >> clearly where they need to beef up documentation. I'm thinking this
+> could
+> >> work well for .org, too. Those who are strong writers and just want to
+> >> contribute to documentation could still do so, but within a context of
+> what
+> >> our user support needs are at any given time based on the actual support
+> >> requests.
+> >>
+> >> What I'm envisioning is less siloing of contributor personnel, with one
+> >> group blog at make.wordpress.org/support that uses tags like forums and
+> >> codex to organize posts, and has pages to help orient new contributors
+> and
+> >> get them started. These mailing lists could fade away in favor of email
+> >> subscriptions from the blog, which are more easily searchable and would
+> be
+> >> more visible to potential contributors. Within the uber-group, some
+> people
+> >> would naturally gravitate toward specific tasks while others would
+> >> multi-task as they have been doing.
+> >>
+> >> Over time we could expand the purview of the group to include things
+> like
+> >> moderating instructional videos and comments at wordpress.tv (and start
+> >> embedding appropriate videos into codex), possibly helping to staff
+> >> in-person help desks in local communities and/or at events like
+> WordCamps
+> >> and Meetups, etc. I think the prospects are pretty exciting, and I could
+> >> see this becoming the biggest and most active of all the contributor
+> >> groups, which would be awesome.
+> >>
+> >> If there are any strong objections to this approach, please reply to
+> this
+> >> thread today so we can discuss. If not, and everyone is willing to give
+> >> this a shot and all work together (at least as an experiment for, say,
+> the
+> >> next release cycle or two), I'll go ahead and set up the group blog
+> >> tomorrow.
+> >>
+> >> Jane
+> >> ______________________________**_________________
+> >> wp-docs mailing list
+> >> wp-docs at lists.automattic.com
+> >> http://lists.automattic.com/**mailman/listinfo/wp-docs<
+> http://lists.automattic.com/mailman/listinfo/wp-docs>
+> >>
+> >
+> >
+> > _______________________________________________
+> > wp-docs mailing list
+> > wp-docs at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-docs
+> >
+> >
+>
+>
+> --
+> --
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL: <
+> http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/b30fc046/attachment.htm
+> >
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+> End of wp-docs Digest, Vol 80, Issue 6
+> **************************************
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/5ff3c909/attachment-0001.htm>
+
+From lorelleonwordpress at gmail.com  Tue May 15 19:22:44 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue, 15 May 2012 12:22:44 -0700
+Subject: [wp-docs] Joining Forces: Support
+In-Reply-To: <CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg@mail.gmail.com>
+References: <4FB24761.30403@automattic.com>
+	<CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+	<CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg@mail.gmail.com>
+Message-ID: <CAN2v4ZTHXR8mdOsddFNt9Dei7y77_ceTCJBtoPCGybiO_FQWMg@mail.gmail.com>
+
+This is so exciting. The Docs team has been walking on egg shells for years
+over the confusion of the WordPress Handbook, and I'm eager to see new
+energy being sent in this direction.
+
+The close ties between the Forum and Codex have been there since the
+beginning. However, time and skills serving the Forum and the time and
+skills serving documentation are distinctive, as several people mentioned.
+I agree that there needs to be one or two people overseeing the
+organizational structure, management, and maintenance of the Codex.
+
+Having a site of our own has been essential and lacking, which is why we
+created the unofficial docs task list not long ago. It was critical that we
+find a better way of communicating and keeping our community connected than
+the mailing list. As it was "unofficial," we haven't done much to promote
+it or work with it, but it was a start. We need to have a place to support
+and educate each other on how to write for the Codex and offer task lists
+beyond those we've had in the past on the Codex, so I'm excited about
+having our own space or making the current blog on WordPress.com official.
+
+The mailing list has not been the sole line of communication either. As
+many do, I work with many people one on one to help them write and edit for
+the Codex and assign tasks, communicating with the mailing list when
+necessary for edits and such.
+
+As we struggled to understand the role the WordPress Handbook and WordPress
+Lessons played in the role of documentation in the WordPress Community,
+we've come to realize the Codex best serves the WordPress Community by
+providing support for issues found within the Forums, expanding upon Learn
+WordPress instructions for the WordPress Lessons section, and developing
+more extensive documentation and guides beyond the basics found within the
+help files, especially servicing developers and programmers.
+
+While melding together Forum and Codex sounds great on the surface, I agree
+with Andrea and others that we need to have one or more people focused on
+the bigger picture overseeing the Codex, thus supporting the overall
+WordPress Community better.
+
+Thanks for the survey, Jane, and for helping with all of this.
+
+Lorelle
+
+
+
+
+On Tue, May 15, 2012 at 8:28 AM, Andrea Rennick <andrea at ronandandrea.com>wrote:
+
+> It makes totally sense, because Support & Docs are two sides of the same
+> coin. :) If users can't understanding docs or can't find them, they post in
+> the forums. ;P
+>
+> Better docs mean less support issues, because people don't scale. And the
+> people answering questions are the first ones who see the need for new
+> docs. Because they answer the same questions over and over (and over) again.
+>
+> Getting people to read docs is a separate issue, but having support and
+> docs work hand in hand in tandem is a big first step.
+>
+> I think half the people overlap anyway, yes?
+>
+> a.
+>
+>
+> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net>wrote:
+>
+>> Personally, I love the idea. Speaking as a contributor group member who
+>> tries to keep in the loop regarding support and/or Codex issues that impact
+>> our group (or issues where our contributor group can be helpful), such
+>> consolidation is welcome.
+>>
+>> Chip
+>>
+>>
+>> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+>>
+>>> Hi everyone. The results of the recent surveys to identify active
+>>> contributors and elect team reps made it pretty clear that the docs team is
+>>> in a bit of a slump, organizationally speaking. Only 5 people from the
+>>> wp-docs post responded, and of those, 2 were new or not yet contributing,
+>>> and there was no consensus re reps among the remaining 3 respondents. It
+>>> got me thinking about how we organize contributors, what has worked well
+>>> elsewhere in the WP ecosystem and in other free software projects, and
+>>> leads me to this proposal: what if we combined forums and docs into one
+>>> Support team?
+>>>
+>>> Looking back at the Codex activity from the past six months or year,
+>>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>>> other contributor groups (like Chip on the Theme Review Team), and new
+>>> releases. Not that how Automattic/WordPress.com organizes itself should
+>>> decide anything, but their support team manages forums, email support, and
+>>> docs, and it seems to work pretty well. They have a schedule for reviewing
+>>> existing documentation so it never gets too far out of date, and the people
+>>> on the front lines with users in the forums and via email can see very
+>>> clearly where they need to beef up documentation. I'm thinking this could
+>>> work well for .org, too. Those who are strong writers and just want to
+>>> contribute to documentation could still do so, but within a context of what
+>>> our user support needs are at any given time based on the actual support
+>>> requests.
+>>>
+>>> What I'm envisioning is less siloing of contributor personnel, with one
+>>> group blog at make.wordpress.org/support that uses tags like forums and
+>>> codex to organize posts, and has pages to help orient new contributors and
+>>> get them started. These mailing lists could fade away in favor of email
+>>> subscriptions from the blog, which are more easily searchable and would be
+>>> more visible to potential contributors. Within the uber-group, some people
+>>> would naturally gravitate toward specific tasks while others would
+>>> multi-task as they have been doing.
+>>>
+>>> Over time we could expand the purview of the group to include things
+>>> like moderating instructional videos and comments at wordpress.tv (and
+>>> start embedding appropriate videos into codex), possibly helping to staff
+>>> in-person help desks in local communities and/or at events like WordCamps
+>>> and Meetups, etc. I think the prospects are pretty exciting, and I could
+>>> see this becoming the biggest and most active of all the contributor
+>>> groups, which would be awesome.
+>>>
+>>> If there are any strong objections to this approach, please reply to
+>>> this thread today so we can discuss. If not, and everyone is willing to
+>>> give this a shot and all work together (at least as an experiment for, say,
+>>> the next release cycle or two), I'll go ahead and set up the group blog
+>>> tomorrow.
+>>>
+>>> Jane
+>>> ______________________________**_________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>>
+>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+>
+> --
+> --
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/8a29f83e/attachment.htm>
+
+From lorelleonwordpress at gmail.com  Tue May 15 19:25:27 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue, 15 May 2012 12:25:27 -0700
+Subject: [wp-docs] Joining Forces
+In-Reply-To: <CAOhnWj+ZvsUie6LwEvaBUhVhoQfzgTZYGJyT=p0neeNnaSpEig@mail.gmail.com>
+References: <CAOhnWj+ZvsUie6LwEvaBUhVhoQfzgTZYGJyT=p0neeNnaSpEig@mail.gmail.com>
+Message-ID: <CAN2v4ZRhEjAmWA3yvuUuybCXoXQNFO6PChB2FRVc0r5vG9COJg@mail.gmail.com>
+
+Welcome, Valerie Lynn, glad to know you've been lurking.
+
+If there is anything we can help you with or direct you down a particular
+path, don't be afraid to ask. We're a friendly bunch here.
+
+Please take time to look over http://wpdocsteam.wordpress.com/ and the list
+of helpful information in the sidebar on how to edit the Codex. We've a
+list of things to do there, too.
+
+Welcome and thanks for chiming in.
+
+Lorelle
+
+
+On Tue, May 15, 2012 at 8:53 AM, Valerie Lynn <val.lynn at gmail.com> wrote:
+
+> I just want to chime in with, "I'm following and listening to the
+> discussion."
+>
+> I'm too new to editing to have an opinion but wanted to raise my hand and
+> say, "I'm here."
+>
+> Valerie Lynn
+> Email:   val.lynn at gmail.com
+> GooglePlus:  https://plus.google.com/u/0/104997630384054362441/
+>
+>
+>
+> On Tue, May 15, 2012 at 11:28 AM, <wp-docs-request at lists.automattic.com>wrote:
+>
+>> Send wp-docs mailing list submissions to
+>>        wp-docs at lists.automattic.com
+>>
+>> To subscribe or unsubscribe via the World Wide Web, visit
+>>        http://lists.automattic.com/mailman/listinfo/wp-docs
+>> or, via email, send a message with subject or body 'help' to
+>>        wp-docs-request at lists.automattic.com
+>>
+>> You can reach the person managing the list at
+>>        wp-docs-owner at lists.automattic.com
+>>
+>> When replying, please edit your Subject line so it is more specific
+>> than "Re: Contents of wp-docs digest..."
+>>
+>>
+>> Today's Topics:
+>>
+>>   1. Joining Forces: Support (Jane Wells)
+>>   2. Re: [wp-forums] Joining Forces: Support (esmi at quirm dot net)
+>>   3. Re: Joining Forces: Support (Chip Bennett)
+>>   4. Re: Joining Forces: Support (Andrea Rennick)
+>>
+>>
+>> ----------------------------------------------------------------------
+>>
+>> Message: 1
+>> Date: Tue, 15 May 2012 08:09:05 -0400
+>> From: Jane Wells <jane at automattic.com>
+>> Subject: [wp-docs] Joining Forces: Support
+>> To: wp-docs at lists.automattic.com, wp-forums at lists.automattic.com
+>> Message-ID: <4FB24761.30403 at automattic.com>
+>> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>>
+>> Hi everyone. The results of the recent surveys to identify active
+>> contributors and elect team reps made it pretty clear that the docs team
+>> is in a bit of a slump, organizationally speaking. Only 5 people from
+>> the wp-docs post responded, and of those, 2 were new or not yet
+>> contributing, and there was no consensus re reps among the remaining 3
+>> respondents. It got me thinking about how we organize contributors, what
+>> has worked well elsewhere in the WP ecosystem and in other free software
+>> projects, and leads me to this proposal: what if we combined forums and
+>> docs into one Support team?
+>>
+>> Looking back at the Codex activity from the past six months or year,
+>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>> other contributor groups (like Chip on the Theme Review Team), and new
+>> releases. Not that how Automattic/WordPress.com organizes itself should
+>> decide anything, but their support team manages forums, email support,
+>> and docs, and it seems to work pretty well. They have a schedule for
+>> reviewing existing documentation so it never gets too far out of date,
+>> and the people on the front lines with users in the forums and via email
+>> can see very clearly where they need to beef up documentation. I'm
+>> thinking this could work well for .org, too. Those who are strong
+>> writers and just want to contribute to documentation could still do so,
+>> but within a context of what our user support needs are at any given
+>> time based on the actual support requests.
+>>
+>> What I'm envisioning is less siloing of contributor personnel, with one
+>> group blog at make.wordpress.org/support that uses tags like forums and
+>> codex to organize posts, and has pages to help orient new contributors
+>> and get them started. These mailing lists could fade away in favor of
+>> email subscriptions from the blog, which are more easily searchable and
+>> would be more visible to potential contributors. Within the uber-group,
+>> some people would naturally gravitate toward specific tasks while others
+>> would multi-task as they have been doing.
+>>
+>> Over time we could expand the purview of the group to include things
+>> like moderating instructional videos and comments at wordpress.tv (and
+>> start embedding appropriate videos into codex), possibly helping to
+>> staff in-person help desks in local communities and/or at events like
+>> WordCamps and Meetups, etc. I think the prospects are pretty exciting,
+>> and I could see this becoming the biggest and most active of all the
+>> contributor groups, which would be awesome.
+>>
+>> If there are any strong objections to this approach, please reply to
+>> this thread today so we can discuss. If not, and everyone is willing to
+>> give this a shot and all work together (at least as an experiment for,
+>> say, the next release cycle or two), I'll go ahead and set up the group
+>> blog tomorrow.
+>>
+>> Jane
+>>
+>>
+>> ------------------------------
+>>
+>> Message: 2
+>> Date: Tue, 15 May 2012 13:41:00 +0100
+>> From: esmi at quirm dot net <esmi at quirm.net>
+>> Subject: Re: [wp-docs] [wp-forums] Joining Forces: Support
+>> To: wp-forums at lists.automattic.com
+>> Cc: wp-docs at lists.automattic.com
+>> Message-ID: <4FB24EDC.8040104 at quirm.net>
+>> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>>
+>> on 15/05/2012 13:09 Jane Wells said the following:
+>> > what if we combined forums and
+>> > docs into one Support team?
+>>
+>> I can see the definite logic to this and I do like the idea of a Codex
+>> that is possibly more responsive to support (and, therefore, users')
+>> needs. My concern would be that, whilst there would more contributions
+>> and active editing, there might be less organisation. And a badly
+>> organised Codex is of no use to anyone.
+>>
+>> I do think that documentation generally needs at least 1 (preferably
+>> more than 1) person who can step back and take the objective overview -
+>> free from any concerns about directly answering users' questions.
+>>
+>> Does that make any sense?
+>>
+>> tl;dr Great idea but I'd like to see someone (perhaps another sub-rep?)
+>> take on the role of Codex organisation, looking after review schedules
+>> etc.
+>>
+>> Mel
+>> --
+>> http://quirm.net
+>> http://blackwidows.co.uk
+>>
+>>
+>> ------------------------------
+>>
+>> Message: 3
+>> Date: Tue, 15 May 2012 09:51:10 -0500
+>> From: Chip Bennett <chip at chipbennett.net>
+>> Subject: Re: [wp-docs] Joining Forces: Support
+>> To: WordPress Documentation <wp-docs at lists.automattic.com>
+>> Message-ID:
+>>        <
+>> CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw at mail.gmail.com>
+>> Content-Type: text/plain; charset="iso-8859-1"
+>>
+>> Personally, I love the idea. Speaking as a contributor group member who
+>> tries to keep in the loop regarding support and/or Codex issues that
+>> impact
+>> our group (or issues where our contributor group can be helpful), such
+>> consolidation is welcome.
+>>
+>> Chip
+>>
+>> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+>>
+>> > Hi everyone. The results of the recent surveys to identify active
+>> > contributors and elect team reps made it pretty clear that the docs
+>> team is
+>> > in a bit of a slump, organizationally speaking. Only 5 people from the
+>> > wp-docs post responded, and of those, 2 were new or not yet
+>> contributing,
+>> > and there was no consensus re reps among the remaining 3 respondents. It
+>> > got me thinking about how we organize contributors, what has worked well
+>> > elsewhere in the WP ecosystem and in other free software projects, and
+>> > leads me to this proposal: what if we combined forums and docs into one
+>> > Support team?
+>> >
+>> > Looking back at the Codex activity from the past six months or year,
+>> > chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>> > other contributor groups (like Chip on the Theme Review Team), and new
+>> > releases. Not that how Automattic/WordPress.com organizes itself should
+>> > decide anything, but their support team manages forums, email support,
+>> and
+>> > docs, and it seems to work pretty well. They have a schedule for
+>> reviewing
+>> > existing documentation so it never gets too far out of date, and the
+>> people
+>> > on the front lines with users in the forums and via email can see very
+>> > clearly where they need to beef up documentation. I'm thinking this
+>> could
+>> > work well for .org, too. Those who are strong writers and just want to
+>> > contribute to documentation could still do so, but within a context of
+>> what
+>> > our user support needs are at any given time based on the actual support
+>> > requests.
+>> >
+>> > What I'm envisioning is less siloing of contributor personnel, with one
+>> > group blog at make.wordpress.org/support that uses tags like forums and
+>> > codex to organize posts, and has pages to help orient new contributors
+>> and
+>> > get them started. These mailing lists could fade away in favor of email
+>> > subscriptions from the blog, which are more easily searchable and would
+>> be
+>> > more visible to potential contributors. Within the uber-group, some
+>> people
+>> > would naturally gravitate toward specific tasks while others would
+>> > multi-task as they have been doing.
+>> >
+>> > Over time we could expand the purview of the group to include things
+>> like
+>> > moderating instructional videos and comments at wordpress.tv (and start
+>> > embedding appropriate videos into codex), possibly helping to staff
+>> > in-person help desks in local communities and/or at events like
+>> WordCamps
+>> > and Meetups, etc. I think the prospects are pretty exciting, and I could
+>> > see this becoming the biggest and most active of all the contributor
+>> > groups, which would be awesome.
+>> >
+>> > If there are any strong objections to this approach, please reply to
+>> this
+>> > thread today so we can discuss. If not, and everyone is willing to give
+>> > this a shot and all work together (at least as an experiment for, say,
+>> the
+>> > next release cycle or two), I'll go ahead and set up the group blog
+>> > tomorrow.
+>> >
+>> > Jane
+>> > ______________________________**_________________
+>> > wp-docs mailing list
+>> > wp-docs at lists.automattic.com
+>> > http://lists.automattic.com/**mailman/listinfo/wp-docs<
+>> http://lists.automattic.com/mailman/listinfo/wp-docs>
+>> >
+>> -------------- next part --------------
+>> An HTML attachment was scrubbed...
+>> URL: <
+>> http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/38299e6a/attachment-0001.htm
+>> >
+>>
+>> ------------------------------
+>>
+>> Message: 4
+>> Date: Tue, 15 May 2012 12:28:54 -0300
+>> From: Andrea Rennick <andrea at ronandandrea.com>
+>> Subject: Re: [wp-docs] Joining Forces: Support
+>> To: WordPress Documentation <wp-docs at lists.automattic.com>
+>> Message-ID:
+>>        <CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=
+>> DG++PNLhTqRBfwbs1Hg at mail.gmail.com>
+>> Content-Type: text/plain; charset="iso-8859-1"
+>>
+>> It makes totally sense, because Support & Docs are two sides of the same
+>> coin. :) If users can't understanding docs or can't find them, they post
+>> in
+>> the forums. ;P
+>>
+>> Better docs mean less support issues, because people don't scale. And the
+>> people answering questions are the first ones who see the need for new
+>> docs. Because they answer the same questions over and over (and over)
+>> again.
+>>
+>> Getting people to read docs is a separate issue, but having support and
+>> docs work hand in hand in tandem is a big first step.
+>>
+>> I think half the people overlap anyway, yes?
+>>
+>> a.
+>>
+>> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net>
+>> wrote:
+>>
+>> > Personally, I love the idea. Speaking as a contributor group member who
+>> > tries to keep in the loop regarding support and/or Codex issues that
+>> impact
+>> > our group (or issues where our contributor group can be helpful), such
+>> > consolidation is welcome.
+>> >
+>> > Chip
+>> >
+>> >
+>> > On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com>
+>> wrote:
+>> >
+>> >> Hi everyone. The results of the recent surveys to identify active
+>> >> contributors and elect team reps made it pretty clear that the docs
+>> team is
+>> >> in a bit of a slump, organizationally speaking. Only 5 people from the
+>> >> wp-docs post responded, and of those, 2 were new or not yet
+>> contributing,
+>> >> and there was no consensus re reps among the remaining 3 respondents.
+>> It
+>> >> got me thinking about how we organize contributors, what has worked
+>> well
+>> >> elsewhere in the WP ecosystem and in other free software projects, and
+>> >> leads me to this proposal: what if we combined forums and docs into one
+>> >> Support team?
+>> >>
+>> >> Looking back at the Codex activity from the past six months or year,
+>> >> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>> >> other contributor groups (like Chip on the Theme Review Team), and new
+>> >> releases. Not that how Automattic/WordPress.com organizes itself should
+>> >> decide anything, but their support team manages forums, email support,
+>> and
+>> >> docs, and it seems to work pretty well. They have a schedule for
+>> reviewing
+>> >> existing documentation so it never gets too far out of date, and the
+>> people
+>> >> on the front lines with users in the forums and via email can see very
+>> >> clearly where they need to beef up documentation. I'm thinking this
+>> could
+>> >> work well for .org, too. Those who are strong writers and just want to
+>> >> contribute to documentation could still do so, but within a context of
+>> what
+>> >> our user support needs are at any given time based on the actual
+>> support
+>> >> requests.
+>> >>
+>> >> What I'm envisioning is less siloing of contributor personnel, with one
+>> >> group blog at make.wordpress.org/support that uses tags like forums
+>> and
+>> >> codex to organize posts, and has pages to help orient new contributors
+>> and
+>> >> get them started. These mailing lists could fade away in favor of email
+>> >> subscriptions from the blog, which are more easily searchable and
+>> would be
+>> >> more visible to potential contributors. Within the uber-group, some
+>> people
+>> >> would naturally gravitate toward specific tasks while others would
+>> >> multi-task as they have been doing.
+>> >>
+>> >> Over time we could expand the purview of the group to include things
+>> like
+>> >> moderating instructional videos and comments at wordpress.tv (and
+>> start
+>> >> embedding appropriate videos into codex), possibly helping to staff
+>> >> in-person help desks in local communities and/or at events like
+>> WordCamps
+>> >> and Meetups, etc. I think the prospects are pretty exciting, and I
+>> could
+>> >> see this becoming the biggest and most active of all the contributor
+>> >> groups, which would be awesome.
+>> >>
+>> >> If there are any strong objections to this approach, please reply to
+>> this
+>> >> thread today so we can discuss. If not, and everyone is willing to give
+>> >> this a shot and all work together (at least as an experiment for, say,
+>> the
+>> >> next release cycle or two), I'll go ahead and set up the group blog
+>> >> tomorrow.
+>> >>
+>> >> Jane
+>> >> ______________________________**_________________
+>> >> wp-docs mailing list
+>> >> wp-docs at lists.automattic.com
+>> >> http://lists.automattic.com/**mailman/listinfo/wp-docs<
+>> http://lists.automattic.com/mailman/listinfo/wp-docs>
+>> >>
+>> >
+>> >
+>> > _______________________________________________
+>> > wp-docs mailing list
+>> > wp-docs at lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/wp-docs
+>> >
+>> >
+>>
+>>
+>> --
+>> --
+>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>> -------------- next part --------------
+>> An HTML attachment was scrubbed...
+>> URL: <
+>> http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/b30fc046/attachment.htm
+>> >
+>>
+>> ------------------------------
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>> End of wp-docs Digest, Vol 80, Issue 6
+>> **************************************
+>>
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/576a0733/attachment-0001.htm>
+
+From doug.sparling at gmail.com  Tue May 15 19:28:13 2012
+From: doug.sparling at gmail.com (Doug Sparling)
+Date: Tue, 15 May 2012 14:28:13 -0500
+Subject: [wp-docs] Joining Forces: Support
+In-Reply-To: <CAN2v4ZTHXR8mdOsddFNt9Dei7y77_ceTCJBtoPCGybiO_FQWMg@mail.gmail.com>
+References: <4FB24761.30403@automattic.com>
+	<CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+	<CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg@mail.gmail.com>
+	<CAN2v4ZTHXR8mdOsddFNt9Dei7y77_ceTCJBtoPCGybiO_FQWMg@mail.gmail.com>
+Message-ID: <CAKusGZNFq2Wg1WbvSJBd4=67qg8T4Cg0q045eFjwMhe-X69=FQ@mail.gmail.com>
+
+I like the idea as well.
+
+On Tue, May 15, 2012 at 2:22 PM, Lorelle on WordPress <
+lorelleonwordpress at gmail.com> wrote:
+
+> This is so exciting. The Docs team has been walking on egg shells for
+> years over the confusion of the WordPress Handbook, and I'm eager to see
+> new energy being sent in this direction.
+>
+> The close ties between the Forum and Codex have been there since the
+> beginning. However, time and skills serving the Forum and the time and
+> skills serving documentation are distinctive, as several people mentioned.
+> I agree that there needs to be one or two people overseeing the
+> organizational structure, management, and maintenance of the Codex.
+>
+> Having a site of our own has been essential and lacking, which is why we
+> created the unofficial docs task list not long ago. It was critical that we
+> find a better way of communicating and keeping our community connected than
+> the mailing list. As it was "unofficial," we haven't done much to promote
+> it or work with it, but it was a start. We need to have a place to support
+> and educate each other on how to write for the Codex and offer task lists
+> beyond those we've had in the past on the Codex, so I'm excited about
+> having our own space or making the current blog on WordPress.com official.
+>
+> The mailing list has not been the sole line of communication either. As
+> many do, I work with many people one on one to help them write and edit for
+> the Codex and assign tasks, communicating with the mailing list when
+> necessary for edits and such.
+>
+> As we struggled to understand the role the WordPress Handbook and
+> WordPress Lessons played in the role of documentation in the WordPress
+> Community, we've come to realize the Codex best serves the WordPress
+> Community by providing support for issues found within the Forums,
+> expanding upon Learn WordPress instructions for the WordPress Lessons
+> section, and developing more extensive documentation and guides beyond the
+> basics found within the help files, especially servicing developers and
+> programmers.
+>
+> While melding together Forum and Codex sounds great on the surface, I
+> agree with Andrea and others that we need to have one or more people
+> focused on the bigger picture overseeing the Codex, thus supporting the
+> overall WordPress Community better.
+>
+> Thanks for the survey, Jane, and for helping with all of this.
+>
+> Lorelle
+>
+>
+>
+>
+>
+> On Tue, May 15, 2012 at 8:28 AM, Andrea Rennick <andrea at ronandandrea.com>wrote:
+>
+>> It makes totally sense, because Support & Docs are two sides of the same
+>> coin. :) If users can't understanding docs or can't find them, they post in
+>> the forums. ;P
+>>
+>> Better docs mean less support issues, because people don't scale. And the
+>> people answering questions are the first ones who see the need for new
+>> docs. Because they answer the same questions over and over (and over) again.
+>>
+>> Getting people to read docs is a separate issue, but having support and
+>> docs work hand in hand in tandem is a big first step.
+>>
+>> I think half the people overlap anyway, yes?
+>>
+>> a.
+>>
+>>
+>> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net>wrote:
+>>
+>>> Personally, I love the idea. Speaking as a contributor group member who
+>>> tries to keep in the loop regarding support and/or Codex issues that impact
+>>> our group (or issues where our contributor group can be helpful), such
+>>> consolidation is welcome.
+>>>
+>>> Chip
+>>>
+>>>
+>>> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com> wrote:
+>>>
+>>>> Hi everyone. The results of the recent surveys to identify active
+>>>> contributors and elect team reps made it pretty clear that the docs team is
+>>>> in a bit of a slump, organizationally speaking. Only 5 people from the
+>>>> wp-docs post responded, and of those, 2 were new or not yet contributing,
+>>>> and there was no consensus re reps among the remaining 3 respondents. It
+>>>> got me thinking about how we organize contributors, what has worked well
+>>>> elsewhere in the WP ecosystem and in other free software projects, and
+>>>> leads me to this proposal: what if we combined forums and docs into one
+>>>> Support team?
+>>>>
+>>>> Looking back at the Codex activity from the past six months or year,
+>>>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>>>> other contributor groups (like Chip on the Theme Review Team), and new
+>>>> releases. Not that how Automattic/WordPress.com organizes itself should
+>>>> decide anything, but their support team manages forums, email support, and
+>>>> docs, and it seems to work pretty well. They have a schedule for reviewing
+>>>> existing documentation so it never gets too far out of date, and the people
+>>>> on the front lines with users in the forums and via email can see very
+>>>> clearly where they need to beef up documentation. I'm thinking this could
+>>>> work well for .org, too. Those who are strong writers and just want to
+>>>> contribute to documentation could still do so, but within a context of what
+>>>> our user support needs are at any given time based on the actual support
+>>>> requests.
+>>>>
+>>>> What I'm envisioning is less siloing of contributor personnel, with one
+>>>> group blog at make.wordpress.org/support that uses tags like forums
+>>>> and codex to organize posts, and has pages to help orient new contributors
+>>>> and get them started. These mailing lists could fade away in favor of email
+>>>> subscriptions from the blog, which are more easily searchable and would be
+>>>> more visible to potential contributors. Within the uber-group, some people
+>>>> would naturally gravitate toward specific tasks while others would
+>>>> multi-task as they have been doing.
+>>>>
+>>>> Over time we could expand the purview of the group to include things
+>>>> like moderating instructional videos and comments at wordpress.tv (and
+>>>> start embedding appropriate videos into codex), possibly helping to staff
+>>>> in-person help desks in local communities and/or at events like WordCamps
+>>>> and Meetups, etc. I think the prospects are pretty exciting, and I could
+>>>> see this becoming the biggest and most active of all the contributor
+>>>> groups, which would be awesome.
+>>>>
+>>>> If there are any strong objections to this approach, please reply to
+>>>> this thread today so we can discuss. If not, and everyone is willing to
+>>>> give this a shot and all work together (at least as an experiment for, say,
+>>>> the next release cycle or two), I'll go ahead and set up the group blog
+>>>> tomorrow.
+>>>>
+>>>> Jane
+>>>> ______________________________**_________________
+>>>> wp-docs mailing list
+>>>> wp-docs at lists.automattic.com
+>>>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>
+>>>
+>>
+>>
+>> --
+>> --
+>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/caef735f/attachment.htm>
+
+From andrea at ronandandrea.com  Tue May 15 19:57:10 2012
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Tue, 15 May 2012 16:57:10 -0300
+Subject: [wp-docs] Joining Forces: Support
+In-Reply-To: <CAKusGZNFq2Wg1WbvSJBd4=67qg8T4Cg0q045eFjwMhe-X69=FQ@mail.gmail.com>
+References: <4FB24761.30403@automattic.com>
+	<CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+	<CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg@mail.gmail.com>
+	<CAN2v4ZTHXR8mdOsddFNt9Dei7y77_ceTCJBtoPCGybiO_FQWMg@mail.gmail.com>
+	<CAKusGZNFq2Wg1WbvSJBd4=67qg8T4Cg0q045eFjwMhe-X69=FQ@mail.gmail.com>
+Message-ID: <CAJzjkbfKVakE3QPc62SkyF5W-bQgqAhjENQa7joi9MNJBHP9kw@mail.gmail.com>
+
+Ideally a team of three. One is too few (what if they get busy? then it
+stalls), and two can disagree (another stall) while a third can be a
+tiebreaker if needed. Or a sane person, depending. :P
+
+I'm just tossing out ideas here.
+
+a.
+
+On Tue, May 15, 2012 at 4:28 PM, Doug Sparling <doug.sparling at gmail.com>wrote:
+
+> I like the idea as well.
+>
+>
+> On Tue, May 15, 2012 at 2:22 PM, Lorelle on WordPress <
+> lorelleonwordpress at gmail.com> wrote:
+>
+>> This is so exciting. The Docs team has been walking on egg shells for
+>> years over the confusion of the WordPress Handbook, and I'm eager to see
+>> new energy being sent in this direction.
+>>
+>> The close ties between the Forum and Codex have been there since the
+>> beginning. However, time and skills serving the Forum and the time and
+>> skills serving documentation are distinctive, as several people mentioned.
+>> I agree that there needs to be one or two people overseeing the
+>> organizational structure, management, and maintenance of the Codex.
+>>
+>> Having a site of our own has been essential and lacking, which is why we
+>> created the unofficial docs task list not long ago. It was critical that we
+>> find a better way of communicating and keeping our community connected than
+>> the mailing list. As it was "unofficial," we haven't done much to promote
+>> it or work with it, but it was a start. We need to have a place to support
+>> and educate each other on how to write for the Codex and offer task lists
+>> beyond those we've had in the past on the Codex, so I'm excited about
+>> having our own space or making the current blog on WordPress.com official.
+>>
+>> The mailing list has not been the sole line of communication either. As
+>> many do, I work with many people one on one to help them write and edit for
+>> the Codex and assign tasks, communicating with the mailing list when
+>> necessary for edits and such.
+>>
+>> As we struggled to understand the role the WordPress Handbook and
+>> WordPress Lessons played in the role of documentation in the WordPress
+>> Community, we've come to realize the Codex best serves the WordPress
+>> Community by providing support for issues found within the Forums,
+>> expanding upon Learn WordPress instructions for the WordPress Lessons
+>> section, and developing more extensive documentation and guides beyond the
+>> basics found within the help files, especially servicing developers and
+>> programmers.
+>>
+>> While melding together Forum and Codex sounds great on the surface, I
+>> agree with Andrea and others that we need to have one or more people
+>> focused on the bigger picture overseeing the Codex, thus supporting the
+>> overall WordPress Community better.
+>>
+>> Thanks for the survey, Jane, and for helping with all of this.
+>>
+>> Lorelle
+>>
+>>
+>>
+>>
+>>
+>> On Tue, May 15, 2012 at 8:28 AM, Andrea Rennick <andrea at ronandandrea.com>wrote:
+>>
+>>> It makes totally sense, because Support & Docs are two sides of the same
+>>> coin. :) If users can't understanding docs or can't find them, they post in
+>>> the forums. ;P
+>>>
+>>> Better docs mean less support issues, because people don't scale. And
+>>> the people answering questions are the first ones who see the need for new
+>>> docs. Because they answer the same questions over and over (and over) again.
+>>>
+>>> Getting people to read docs is a separate issue, but having support and
+>>> docs work hand in hand in tandem is a big first step.
+>>>
+>>> I think half the people overlap anyway, yes?
+>>>
+>>> a.
+>>>
+>>>
+>>> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net>wrote:
+>>>
+>>>> Personally, I love the idea. Speaking as a contributor group member who
+>>>> tries to keep in the loop regarding support and/or Codex issues that impact
+>>>> our group (or issues where our contributor group can be helpful), such
+>>>> consolidation is welcome.
+>>>>
+>>>> Chip
+>>>>
+>>>>
+>>>> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com>wrote:
+>>>>
+>>>>> Hi everyone. The results of the recent surveys to identify active
+>>>>> contributors and elect team reps made it pretty clear that the docs team is
+>>>>> in a bit of a slump, organizationally speaking. Only 5 people from the
+>>>>> wp-docs post responded, and of those, 2 were new or not yet contributing,
+>>>>> and there was no consensus re reps among the remaining 3 respondents. It
+>>>>> got me thinking about how we organize contributors, what has worked well
+>>>>> elsewhere in the WP ecosystem and in other free software projects, and
+>>>>> leads me to this proposal: what if we combined forums and docs into one
+>>>>> Support team?
+>>>>>
+>>>>> Looking back at the Codex activity from the past six months or year,
+>>>>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>>>>> other contributor groups (like Chip on the Theme Review Team), and new
+>>>>> releases. Not that how Automattic/WordPress.com organizes itself should
+>>>>> decide anything, but their support team manages forums, email support, and
+>>>>> docs, and it seems to work pretty well. They have a schedule for reviewing
+>>>>> existing documentation so it never gets too far out of date, and the people
+>>>>> on the front lines with users in the forums and via email can see very
+>>>>> clearly where they need to beef up documentation. I'm thinking this could
+>>>>> work well for .org, too. Those who are strong writers and just want to
+>>>>> contribute to documentation could still do so, but within a context of what
+>>>>> our user support needs are at any given time based on the actual support
+>>>>> requests.
+>>>>>
+>>>>> What I'm envisioning is less siloing of contributor personnel, with
+>>>>> one group blog at make.wordpress.org/support that uses tags like
+>>>>> forums and codex to organize posts, and has pages to help orient new
+>>>>> contributors and get them started. These mailing lists could fade away in
+>>>>> favor of email subscriptions from the blog, which are more easily
+>>>>> searchable and would be more visible to potential contributors. Within the
+>>>>> uber-group, some people would naturally gravitate toward specific tasks
+>>>>> while others would multi-task as they have been doing.
+>>>>>
+>>>>> Over time we could expand the purview of the group to include things
+>>>>> like moderating instructional videos and comments at wordpress.tv(and start embedding appropriate videos into codex), possibly helping to
+>>>>> staff in-person help desks in local communities and/or at events like
+>>>>> WordCamps and Meetups, etc. I think the prospects are pretty exciting, and
+>>>>> I could see this becoming the biggest and most active of all the
+>>>>> contributor groups, which would be awesome.
+>>>>>
+>>>>> If there are any strong objections to this approach, please reply to
+>>>>> this thread today so we can discuss. If not, and everyone is willing to
+>>>>> give this a shot and all work together (at least as an experiment for, say,
+>>>>> the next release cycle or two), I'll go ahead and set up the group blog
+>>>>> tomorrow.
+>>>>>
+>>>>> Jane
+>>>>> ______________________________**_________________
+>>>>> wp-docs mailing list
+>>>>> wp-docs at lists.automattic.com
+>>>>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>>>>
+>>>>
+>>>>
+>>>> _______________________________________________
+>>>> wp-docs mailing list
+>>>> wp-docs at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>
+>>>>
+>>>
+>>>
+>>> --
+>>> --
+>>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>>>
+>>>
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>
+>>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/a9cd0213/attachment-0001.htm>
+
+From lorelleonwordpress at gmail.com  Tue May 15 22:32:42 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue, 15 May 2012 15:32:42 -0700
+Subject: [wp-docs] Joining Forces: Support
+In-Reply-To: <CAJzjkbfKVakE3QPc62SkyF5W-bQgqAhjENQa7joi9MNJBHP9kw@mail.gmail.com>
+References: <4FB24761.30403@automattic.com>
+	<CAPdLKqe4F6fZCt2wpD9MNr_V003n18aQT3kTcgyYaQGEQ68iAw@mail.gmail.com>
+	<CAJzjkbcDQSKBwqomLSyERU7Wu14FSG=DG++PNLhTqRBfwbs1Hg@mail.gmail.com>
+	<CAN2v4ZTHXR8mdOsddFNt9Dei7y77_ceTCJBtoPCGybiO_FQWMg@mail.gmail.com>
+	<CAKusGZNFq2Wg1WbvSJBd4=67qg8T4Cg0q045eFjwMhe-X69=FQ@mail.gmail.com>
+	<CAJzjkbfKVakE3QPc62SkyF5W-bQgqAhjENQa7joi9MNJBHP9kw@mail.gmail.com>
+Message-ID: <CAN2v4ZTr=1q-ng3DtvrFS85jTR3zGYeWYREB+qS6U3ykPZhuag@mail.gmail.com>
+
+I've worked with some three person teams on many projects and love it for
+that reason, Andrea. There are a LOT of plates to spin when it comes to the
+Codex. We've never been able to get someone to coordinate the international
+versions and I fear for what are on those pages, for example.
+
+The WordPress Meetup group here in Portland has asked me to do a WordPress
+Codex evening followed by a Codex Day. I'll be posting about that in a bit,
+and I'd love to see more such projects from WordCamps and WordPress
+Meetups, too, and that takes some team coordination as well.
+
+Lorelle
+
+
+On Tue, May 15, 2012 at 12:57 PM, Andrea Rennick <andrea at ronandandrea.com>wrote:
+
+> Ideally a team of three. One is too few (what if they get busy? then it
+> stalls), and two can disagree (another stall) while a third can be a
+> tiebreaker if needed. Or a sane person, depending. :P
+>
+> I'm just tossing out ideas here.
+>
+> a.
+>
+>
+> On Tue, May 15, 2012 at 4:28 PM, Doug Sparling <doug.sparling at gmail.com>wrote:
+>
+>> I like the idea as well.
+>>
+>>
+>> On Tue, May 15, 2012 at 2:22 PM, Lorelle on WordPress <
+>> lorelleonwordpress at gmail.com> wrote:
+>>
+>>> This is so exciting. The Docs team has been walking on egg shells for
+>>> years over the confusion of the WordPress Handbook, and I'm eager to see
+>>> new energy being sent in this direction.
+>>>
+>>> The close ties between the Forum and Codex have been there since the
+>>> beginning. However, time and skills serving the Forum and the time and
+>>> skills serving documentation are distinctive, as several people mentioned.
+>>> I agree that there needs to be one or two people overseeing the
+>>> organizational structure, management, and maintenance of the Codex.
+>>>
+>>> Having a site of our own has been essential and lacking, which is why we
+>>> created the unofficial docs task list not long ago. It was critical that we
+>>> find a better way of communicating and keeping our community connected than
+>>> the mailing list. As it was "unofficial," we haven't done much to promote
+>>> it or work with it, but it was a start. We need to have a place to support
+>>> and educate each other on how to write for the Codex and offer task lists
+>>> beyond those we've had in the past on the Codex, so I'm excited about
+>>> having our own space or making the current blog on WordPress.com official.
+>>>
+>>> The mailing list has not been the sole line of communication either. As
+>>> many do, I work with many people one on one to help them write and edit for
+>>> the Codex and assign tasks, communicating with the mailing list when
+>>> necessary for edits and such.
+>>>
+>>> As we struggled to understand the role the WordPress Handbook and
+>>> WordPress Lessons played in the role of documentation in the WordPress
+>>> Community, we've come to realize the Codex best serves the WordPress
+>>> Community by providing support for issues found within the Forums,
+>>> expanding upon Learn WordPress instructions for the WordPress Lessons
+>>> section, and developing more extensive documentation and guides beyond the
+>>> basics found within the help files, especially servicing developers and
+>>> programmers.
+>>>
+>>> While melding together Forum and Codex sounds great on the surface, I
+>>> agree with Andrea and others that we need to have one or more people
+>>> focused on the bigger picture overseeing the Codex, thus supporting the
+>>> overall WordPress Community better.
+>>>
+>>> Thanks for the survey, Jane, and for helping with all of this.
+>>>
+>>> Lorelle
+>>>
+>>>
+>>>
+>>>
+>>>
+>>> On Tue, May 15, 2012 at 8:28 AM, Andrea Rennick <andrea at ronandandrea.com
+>>> > wrote:
+>>>
+>>>> It makes totally sense, because Support & Docs are two sides of the
+>>>> same coin. :) If users can't understanding docs or can't find them, they
+>>>> post in the forums. ;P
+>>>>
+>>>> Better docs mean less support issues, because people don't scale. And
+>>>> the people answering questions are the first ones who see the need for new
+>>>> docs. Because they answer the same questions over and over (and over) again.
+>>>>
+>>>> Getting people to read docs is a separate issue, but having support and
+>>>> docs work hand in hand in tandem is a big first step.
+>>>>
+>>>> I think half the people overlap anyway, yes?
+>>>>
+>>>> a.
+>>>>
+>>>>
+>>>> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett <chip at chipbennett.net>wrote:
+>>>>
+>>>>> Personally, I love the idea. Speaking as a contributor group member
+>>>>> who tries to keep in the loop regarding support and/or Codex issues that
+>>>>> impact our group (or issues where our contributor group can be helpful),
+>>>>> such consolidation is welcome.
+>>>>>
+>>>>> Chip
+>>>>>
+>>>>>
+>>>>> On Tue, May 15, 2012 at 7:09 AM, Jane Wells <jane at automattic.com>wrote:
+>>>>>
+>>>>>> Hi everyone. The results of the recent surveys to identify active
+>>>>>> contributors and elect team reps made it pretty clear that the docs team is
+>>>>>> in a bit of a slump, organizationally speaking. Only 5 people from the
+>>>>>> wp-docs post responded, and of those, 2 were new or not yet contributing,
+>>>>>> and there was no consensus re reps among the remaining 3 respondents. It
+>>>>>> got me thinking about how we organize contributors, what has worked well
+>>>>>> elsewhere in the WP ecosystem and in other free software projects, and
+>>>>>> leads me to this proposal: what if we combined forums and docs into one
+>>>>>> Support team?
+>>>>>>
+>>>>>> Looking back at the Codex activity from the past six months or year,
+>>>>>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>>>>>> other contributor groups (like Chip on the Theme Review Team), and new
+>>>>>> releases. Not that how Automattic/WordPress.com organizes itself should
+>>>>>> decide anything, but their support team manages forums, email support, and
+>>>>>> docs, and it seems to work pretty well. They have a schedule for reviewing
+>>>>>> existing documentation so it never gets too far out of date, and the people
+>>>>>> on the front lines with users in the forums and via email can see very
+>>>>>> clearly where they need to beef up documentation. I'm thinking this could
+>>>>>> work well for .org, too. Those who are strong writers and just want to
+>>>>>> contribute to documentation could still do so, but within a context of what
+>>>>>> our user support needs are at any given time based on the actual support
+>>>>>> requests.
+>>>>>>
+>>>>>> What I'm envisioning is less siloing of contributor personnel, with
+>>>>>> one group blog at make.wordpress.org/support that uses tags like
+>>>>>> forums and codex to organize posts, and has pages to help orient new
+>>>>>> contributors and get them started. These mailing lists could fade away in
+>>>>>> favor of email subscriptions from the blog, which are more easily
+>>>>>> searchable and would be more visible to potential contributors. Within the
+>>>>>> uber-group, some people would naturally gravitate toward specific tasks
+>>>>>> while others would multi-task as they have been doing.
+>>>>>>
+>>>>>> Over time we could expand the purview of the group to include things
+>>>>>> like moderating instructional videos and comments at wordpress.tv(and start embedding appropriate videos into codex), possibly helping to
+>>>>>> staff in-person help desks in local communities and/or at events like
+>>>>>> WordCamps and Meetups, etc. I think the prospects are pretty exciting, and
+>>>>>> I could see this becoming the biggest and most active of all the
+>>>>>> contributor groups, which would be awesome.
+>>>>>>
+>>>>>> If there are any strong objections to this approach, please reply to
+>>>>>> this thread today so we can discuss. If not, and everyone is willing to
+>>>>>> give this a shot and all work together (at least as an experiment for, say,
+>>>>>> the next release cycle or two), I'll go ahead and set up the group blog
+>>>>>> tomorrow.
+>>>>>>
+>>>>>> Jane
+>>>>>> ______________________________**_________________
+>>>>>> wp-docs mailing list
+>>>>>> wp-docs at lists.automattic.com
+>>>>>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>>>>>
+>>>>>
+>>>>>
+>>>>> _______________________________________________
+>>>>> wp-docs mailing list
+>>>>> wp-docs at lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>>
+>>>>>
+>>>>
+>>>>
+>>>> --
+>>>> --
+>>>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>>>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>>>>
+>>>>
+>>>> _______________________________________________
+>>>> wp-docs mailing list
+>>>> wp-docs at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>
+>>>>
+>>>
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>
+>>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+>
+>
+> --
+> --
+> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/560f5849/attachment.htm>
+
+From doug.sparling at gmail.com  Wed May 16 22:40:13 2012
+From: doug.sparling at gmail.com (Doug Sparling)
+Date: Wed, 16 May 2012 17:40:13 -0500
+Subject: [wp-docs] WordPress FAQs
+In-Reply-To: <3171B24A-D291-4DE9-976D-276AA9FC5F58@wordmonkey.me>
+References: <3171B24A-D291-4DE9-976D-276AA9FC5F58@wordmonkey.me>
+Message-ID: <CAKusGZNg6264CbJFCqkV-o1wbm4xc5iuvijZFmArbZu8q=Ry7Q@mail.gmail.com>
+
+Siobhan,
+
+My work load is starting to become tolerable, so if there's anything in
+particular I can help you with, let me know.
+
+==
+doug
+
+On Thu, May 10, 2012 at 12:28 PM, Siobhan McKeown <siobhan at wordmonkey.me>wrote:
+
+> Hi all,
+>
+> I've started working on some improvements to the WordPress FAQs. I started
+> out with the FAQ About WordPress. I've removed some defunct questions and
+> added some that I thought were relevant.
+> http://codex.wordpress.org/FAQ_About_WordPress
+>
+> Does anyone have any questions they think should be added to/removed from
+> that page?
+>
+> I'm going to be working on the FAQs over the next few months and have made
+> a google spreadsheet to keep track of things. If anyone wants to help out
+> let me know! :)
+>
+> Siobhan
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120516/842bef13/attachment.htm>
+
+From i at idjp.org  Wed May 16 23:05:05 2012
+From: i at idjp.org (i@idjp)
+Date: Wed, 16 May 2012 19:05:05 -0400
+Subject: [wp-docs] WordPress FAQs
+In-Reply-To: <CAKusGZNg6264CbJFCqkV-o1wbm4xc5iuvijZFmArbZu8q=Ry7Q@mail.gmail.com>
+References: <3171B24A-D291-4DE9-976D-276AA9FC5F58@wordmonkey.me>
+	<CAKusGZNg6264CbJFCqkV-o1wbm4xc5iuvijZFmArbZu8q=Ry7Q@mail.gmail.com>
+Message-ID: <e0d87e74-2fec-4a09-bc79-7361eda16f59@email.android.com>
+
+I am new to wp-docs but not to WP and am happy to help as well. 
+-- 
+Sent from my Android phone with K-9 Mail. Please excuse my brevity.
+
+Doug Sparling <doug.sparling at gmail.com> wrote:
+
+Siobhan,
+
+My work load is starting to become tolerable, so if there's anything in particular I can help you with, let me know.
+
+==
+doug
+
+On Thu, May 10, 2012 at 12:28 PM, Siobhan McKeown <siobhan at wordmonkey.me> wrote:
+
+Hi all,
+
+
+I've started working on some improvements to the WordPress FAQs. I started out with the FAQ About WordPress. I've removed some defunct questions and added some that I thought were relevant. http://codex.wordpress.org/FAQ_About_WordPress
+
+
+Does anyone have any questions they think should be added to/removed from that page? 
+
+
+I'm going to be working on the FAQs over the next few months and have made a google spreadsheet to keep track of things. If anyone wants to help out let me know! :)
+
+
+Siobhan
+
+
+_______________________________________________
+wp-docs mailing list
+wp-docs at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120516/a9bcaba5/attachment.htm>
+
+From lorelleonwordpress at gmail.com  Sun May 20 22:01:22 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Sun, 20 May 2012 15:01:22 -0700
+Subject: [wp-docs] 3.4 Help Tabs
+In-Reply-To: <003201cd1f04$93848c00$ba8da400$@ca>
+References: <mailman.7.1334923202.10134.wp-docs@lists.automattic.com>
+	<003201cd1f04$93848c00$ba8da400$@ca>
+Message-ID: <CAN2v4ZQmLi-7EANO0PRSkQfAOq=gFa6BPuyt-WobjU_RET3FqA@mail.gmail.com>
+
+I just wanted to check in with you on this. How is it going?
+
+Lorelle
+
+
+On Fri, Apr 20, 2012 at 7:47 AM, Tom Auger (personal) <
+tomaugerdotcom at yahoo.ca> wrote:
+
+> Hi Jane, as I mentioned a few weeks ago in Dev chat, I'd like to help with
+> this. I'm available for up to 4 hours this weekend, maybe a bit more. I can
+> start as early as tonight.
+>
+> So, just so I'm clear about what you need, and since I'm still pretty new,
+> please confirm for me:
+>
+> 1. grab the latest beta from SVN (would that be "/trunk"?)
+> 2. experiment with the new features (flex headers, theme previewer)
+> 3. find the tickets on Trac that are relevant to those features, read up
+> 4. find the relevant wp-admin files that create the pages for those
+> features
+> and edit the Help tab text (and possibly the help sidebar text?)
+> 5. create a patch file and upload it to the relevant ticket on Trac.
+>
+> Does this sound right? If you had the ticket #'s that would probably
+> eliminate a lot of confusion, for me at least.
+>
+> Tom
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Fri, 20 Apr 2012 06:56:29 -0400
+> From: Jane Wells <jane at automattic.com>
+> Subject: [wp-docs] 3.4 help tabs
+> To: wp-docs at lists.automattic.com
+> Message-ID: <4F9140DD.3030909 at automattic.com>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> Hi all. 3.4 beta 3 comes out this morning, which means RC (and string
+> freeze) is right around the corner. I'll be putting together the updated
+> text for the About WordPress admin screen and was hoping I might find a
+> volunteer or two to whip up some help tab patches this weekend to get
+> the help tabs caught up with some of the new features. Off the top of my
+> head, flex headers, the previewer/customizer, and html in captions need
+> to be added (also to Codex). I have someone taking screenshots of these
+> for the About screen, so those will be available for the Codex soon.
+> j
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+> End of wp-docs Digest, Vol 79, Issue 24
+> ***************************************
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120520/43825da0/attachment.htm>
+
+From lorelleonwordpress at gmail.com  Mon May 21 22:13:38 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Mon, 21 May 2012 15:13:38 -0700
+Subject: [wp-docs] Codex Meetup Night
+Message-ID: <CAN2v4ZSu_G7DjchEgE00y812oeLgAPHzwPt=bd0Y-7EiMhE0QA@mail.gmail.com>
+
+As announced on the Docs Team Task List and here, I'll be presenting a
+program on contributing to the Codex at the WordPress Meetup Group in
+Portland, Oregon.
+http://wpdocsteam.wordpress.com/2012/04/30/the-portland-wordpress-meetup-in-portland-oregon-invited/
+
+
+From esmi at quirm.net  Mon May 28 14:08:03 2012
+From: esmi at quirm.net (esmi at quirm dot net)
+Date: Mon, 28 May 2012 15:08:03 +0100
+Subject: [wp-docs] Codex addition: WP Gallery Overview
+Message-ID: <4FC386C3.8080404@quirm.net>
+
+Can we add:
+
+<http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+
+to the main Codex?
+
+Reasoning: a lot of users still get confused about how the gallery (and 
+especially the creation of the image attachments) works.
+
+Mel
+-- 
+http://quirm.net
+http://blackwidows.co.uk
+
+From andrea at ronandandrea.com  Mon May 28 14:49:50 2012
+From: andrea at ronandandrea.com (Andrea Rennick)
+Date: Mon, 28 May 2012 11:49:50 -0300
+Subject: [wp-docs] Codex addition: WP Gallery Overview
+In-Reply-To: <4FC386C3.8080404@quirm.net>
+References: <4FC386C3.8080404@quirm.net>
+Message-ID: <CAJzjkbdAD7zzYbbUU+-JuqoeMFrCzEPPTgHgWMSci43tEvXGDg@mail.gmail.com>
+
++100
+
+I explain this a dozen times a day.
+
+On Mon, May 28, 2012 at 11:08 AM, esmi at quirm dot net <esmi at quirm.net>wrote:
+
+> Can we add:
+>
+> <http://codex.wordpress.org/**User:Esmi/The_WordPress_**Gallery<http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+> >
+>
+> to the main Codex?
+>
+> Reasoning: a lot of users still get confused about how the gallery (and
+> especially the creation of the image attachments) works.
+>
+> Mel
+> --
+> http://quirm.net
+> http://blackwidows.co.uk
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>
+
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120528/a71f2839/attachment.htm>
+
+From justmichaelh at gmail.com  Mon May 28 15:40:12 2012
+From: justmichaelh at gmail.com (Michael Hancock)
+Date: Mon, 28 May 2012 11:40:12 -0400
+Subject: [wp-docs] Codex addition: WP Gallery Overview
+In-Reply-To: <4FC386C3.8080404@quirm.net>
+References: <4FC386C3.8080404@quirm.net>
+Message-ID: <005501cd3ce8$2ca82a30$85f87e90$@gmail.com>
+
+
+
+>>>
+esmi at quirm dot net
+
+Can we add:
+
+<http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+
+to the main Codex?
+
+Reasoning: a lot of users still get confused about how the gallery (and
+especially the creation of the image attachments) works.
+<<<
+
+Done.  New location is http://codex.wordpress.org/The_WordPress_Gallery
+
+I also added two categories.  
+
+MichaelH
+
+
+
+
+From m3shrom at riseup.net  Tue May 29 10:21:49 2012
+From: m3shrom at riseup.net (m3shrom)
+Date: Tue, 29 May 2012 11:21:49 +0100
+Subject: [wp-docs] Codex addition: WP Gallery Overview
+In-Reply-To: <CAJzjkbdAD7zzYbbUU+-JuqoeMFrCzEPPTgHgWMSci43tEvXGDg@mail.gmail.com>
+References: <4FC386C3.8080404@quirm.net>
+	<CAJzjkbdAD7zzYbbUU+-JuqoeMFrCzEPPTgHgWMSci43tEvXGDg@mail.gmail.com>
+Message-ID: <4FC4A33D.7050507@riseup.net>
+
+
+> On Mon, May 28, 2012 at 11:08 AM, esmi at quirm dot net
+> <esmi at quirm.net <mailto:esmi at quirm.net>> wrote:
+>
+>     Can we add:
+>
+>     <http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+>
+>     to the main Codex?
+>
+>     Reasoning: a lot of users still get confused about how the gallery
+>     (and especially the creation of the image attachments) works.
+>
+
+I'd be happy to collaborate on this, I've written this guide.
+http://en.flossmanuals.net/wordpress/creating-and-image-gallery/
+which has some screenshots which may be useful.
+
+Mick
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-docs/attachments/20120529/197b94a9/attachment.htm>
+
+From wayne at wordpresslivehelp.com  Tue May 29 13:24:33 2012
+From: wayne at wordpresslivehelp.com (Wayne Hatter)
+Date: Tue, 29 May 2012 09:24:33 -0400
+Subject: [wp-docs] How Can I Get Involved?
+In-Reply-To: <mailman.9.1337169601.21076.wp-docs@lists.automattic.com>
+References: <mailman.9.1337169601.21076.wp-docs@lists.automattic.com>
+Message-ID: <4FC4CE10.6040101@wordpresslivehelp.com>
+
+On 5/16/2012 8:00 AM, wp-docs-request at lists.automattic.com wrote:
+> Send wp-docs mailing list submissions to
+> 	wp-docs at lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+> 	http://lists.automattic.com/mailman/listinfo/wp-docs
+> or, via email, send a message with subject or body 'help' to
+> 	wp-docs-request at lists.automattic.com
+>
+> You can reach the person managing the list at
+> 	wp-docs-owner at lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of wp-docs digest..."
+>
+>
+> Today's Topics:
+>
+>     1. Re: Joining Forces: Support (Lorelle on WordPress)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Tue, 15 May 2012 15:32:42 -0700
+> From: Lorelle on WordPress<lorelleonwordpress at gmail.com>
+> Subject: Re: [wp-docs] Joining Forces: Support
+> To: WordPress Documentation<wp-docs at lists.automattic.com>
+> Message-ID:
+> 	<CAN2v4ZTr=1q-ng3DtvrFS85jTR3zGYeWYREB+qS6U3ykPZhuag at mail.gmail.com>
+> Content-Type: text/plain; charset="iso-8859-1"
+>
+> I've worked with some three person teams on many projects and love it for
+> that reason, Andrea. There are a LOT of plates to spin when it comes to the
+> Codex. We've never been able to get someone to coordinate the international
+> versions and I fear for what are on those pages, for example.
+>
+> The WordPress Meetup group here in Portland has asked me to do a WordPress
+> Codex evening followed by a Codex Day. I'll be posting about that in a bit,
+> and I'd love to see more such projects from WordCamps and WordPress
+> Meetups, too, and that takes some team coordination as well.
+>
+> Lorelle
+>
+>
+> On Tue, May 15, 2012 at 12:57 PM, Andrea Rennick<andrea at ronandandrea.com>wrote:
+>
+>> Ideally a team of three. One is too few (what if they get busy? then it
+>> stalls), and two can disagree (another stall) while a third can be a
+>> tiebreaker if needed. Or a sane person, depending. :P
+>>
+>> I'm just tossing out ideas here.
+>>
+>> a.
+>>
+>>
+>> On Tue, May 15, 2012 at 4:28 PM, Doug Sparling<doug.sparling at gmail.com>wrote:
+>>
+>>> I like the idea as well.
+>>>
+>>>
+>>> On Tue, May 15, 2012 at 2:22 PM, Lorelle on WordPress<
+>>> lorelleonwordpress at gmail.com>  wrote:
+>>>
+>>>> This is so exciting. The Docs team has been walking on egg shells for
+>>>> years over the confusion of the WordPress Handbook, and I'm eager to see
+>>>> new energy being sent in this direction.
+>>>>
+>>>> The close ties between the Forum and Codex have been there since the
+>>>> beginning. However, time and skills serving the Forum and the time and
+>>>> skills serving documentation are distinctive, as several people mentioned.
+>>>> I agree that there needs to be one or two people overseeing the
+>>>> organizational structure, management, and maintenance of the Codex.
+>>>>
+>>>> Having a site of our own has been essential and lacking, which is why we
+>>>> created the unofficial docs task list not long ago. It was critical that we
+>>>> find a better way of communicating and keeping our community connected than
+>>>> the mailing list. As it was "unofficial," we haven't done much to promote
+>>>> it or work with it, but it was a start. We need to have a place to support
+>>>> and educate each other on how to write for the Codex and offer task lists
+>>>> beyond those we've had in the past on the Codex, so I'm excited about
+>>>> having our own space or making the current blog on WordPress.com official.
+>>>>
+>>>> The mailing list has not been the sole line of communication either. As
+>>>> many do, I work with many people one on one to help them write and edit for
+>>>> the Codex and assign tasks, communicating with the mailing list when
+>>>> necessary for edits and such.
+>>>>
+>>>> As we struggled to understand the role the WordPress Handbook and
+>>>> WordPress Lessons played in the role of documentation in the WordPress
+>>>> Community, we've come to realize the Codex best serves the WordPress
+>>>> Community by providing support for issues found within the Forums,
+>>>> expanding upon Learn WordPress instructions for the WordPress Lessons
+>>>> section, and developing more extensive documentation and guides beyond the
+>>>> basics found within the help files, especially servicing developers and
+>>>> programmers.
+>>>>
+>>>> While melding together Forum and Codex sounds great on the surface, I
+>>>> agree with Andrea and others that we need to have one or more people
+>>>> focused on the bigger picture overseeing the Codex, thus supporting the
+>>>> overall WordPress Community better.
+>>>>
+>>>> Thanks for the survey, Jane, and for helping with all of this.
+>>>>
+>>>> Lorelle
+>>>>
+>>>>
+>>>>
+>>>>
+>>>>
+>>>> On Tue, May 15, 2012 at 8:28 AM, Andrea Rennick<andrea at ronandandrea.com
+>>>>> wrote:
+>>>>> It makes totally sense, because Support&  Docs are two sides of the
+>>>>> same coin. :) If users can't understanding docs or can't find them, they
+>>>>> post in the forums. ;P
+>>>>>
+>>>>> Better docs mean less support issues, because people don't scale. And
+>>>>> the people answering questions are the first ones who see the need for new
+>>>>> docs. Because they answer the same questions over and over (and over) again.
+>>>>>
+>>>>> Getting people to read docs is a separate issue, but having support and
+>>>>> docs work hand in hand in tandem is a big first step.
+>>>>>
+>>>>> I think half the people overlap anyway, yes?
+>>>>>
+>>>>> a.
+>>>>>
+>>>>>
+>>>>> On Tue, May 15, 2012 at 11:51 AM, Chip Bennett<chip at chipbennett.net>wrote:
+>>>>>
+>>>>>> Personally, I love the idea. Speaking as a contributor group member
+>>>>>> who tries to keep in the loop regarding support and/or Codex issues that
+>>>>>> impact our group (or issues where our contributor group can be helpful),
+>>>>>> such consolidation is welcome.
+>>>>>>
+>>>>>> Chip
+>>>>>>
+>>>>>>
+>>>>>> On Tue, May 15, 2012 at 7:09 AM, Jane Wells<jane at automattic.com>wrote:
+>>>>>>
+>>>>>>> Hi everyone. The results of the recent surveys to identify active
+>>>>>>> contributors and elect team reps made it pretty clear that the docs team is
+>>>>>>> in a bit of a slump, organizationally speaking. Only 5 people from the
+>>>>>>> wp-docs post responded, and of those, 2 were new or not yet contributing,
+>>>>>>> and there was no consensus re reps among the remaining 3 respondents. It
+>>>>>>> got me thinking about how we organize contributors, what has worked well
+>>>>>>> elsewhere in the WP ecosystem and in other free software projects, and
+>>>>>>> leads me to this proposal: what if we combined forums and docs into one
+>>>>>>> Support team?
+>>>>>>>
+>>>>>>> Looking back at the Codex activity from the past six months or year,
+>>>>>>> chunks of it have been tied to forum mods (like Ipstenu and Andrea_r),
+>>>>>>> other contributor groups (like Chip on the Theme Review Team), and new
+>>>>>>> releases. Not that how Automattic/WordPress.com organizes itself should
+>>>>>>> decide anything, but their support team manages forums, email support, and
+>>>>>>> docs, and it seems to work pretty well. They have a schedule for reviewing
+>>>>>>> existing documentation so it never gets too far out of date, and the people
+>>>>>>> on the front lines with users in the forums and via email can see very
+>>>>>>> clearly where they need to beef up documentation. I'm thinking this could
+>>>>>>> work well for .org, too. Those who are strong writers and just want to
+>>>>>>> contribute to documentation could still do so, but within a context of what
+>>>>>>> our user support needs are at any given time based on the actual support
+>>>>>>> requests.
+>>>>>>>
+>>>>>>> What I'm envisioning is less siloing of contributor personnel, with
+>>>>>>> one group blog at make.wordpress.org/support that uses tags like
+>>>>>>> forums and codex to organize posts, and has pages to help orient new
+>>>>>>> contributors and get them started. These mailing lists could fade away in
+>>>>>>> favor of email subscriptions from the blog, which are more easily
+>>>>>>> searchable and would be more visible to potential contributors. Within the
+>>>>>>> uber-group, some people would naturally gravitate toward specific tasks
+>>>>>>> while others would multi-task as they have been doing.
+>>>>>>>
+>>>>>>> Over time we could expand the purview of the group to include things
+>>>>>>> like moderating instructional videos and comments at wordpress.tv(and start embedding appropriate videos into codex), possibly helping to
+>>>>>>> staff in-person help desks in local communities and/or at events like
+>>>>>>> WordCamps and Meetups, etc. I think the prospects are pretty exciting, and
+>>>>>>> I could see this becoming the biggest and most active of all the
+>>>>>>> contributor groups, which would be awesome.
+>>>>>>>
+>>>>>>> If there are any strong objections to this approach, please reply to
+>>>>>>> this thread today so we can discuss. If not, and everyone is willing to
+>>>>>>> give this a shot and all work together (at least as an experiment for, say,
+>>>>>>> the next release cycle or two), I'll go ahead and set up the group blog
+>>>>>>> tomorrow.
+>>>>>>>
+>>>>>>> Jane
+>>>>>>> ______________________________**_________________
+>>>>>>> wp-docs mailing list
+>>>>>>> wp-docs at lists.automattic.com
+>>>>>>> http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automattic.com/mailman/listinfo/wp-docs>
+>>>>>>>
+>>>>>>
+>>>>>> _______________________________________________
+>>>>>> wp-docs mailing list
+>>>>>> wp-docs at lists.automattic.com
+>>>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>>>
+>>>>>>
+>>>>>
+>>>>> --
+>>>>> --
+>>>>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>>>>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>>>>>
+>>>>>
+>>>>> _______________________________________________
+>>>>> wp-docs mailing list
+>>>>> wp-docs at lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>>
+>>>>>
+>>>> _______________________________________________
+>>>> wp-docs mailing list
+>>>> wp-docs at lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>>
+>>>>
+>>> _______________________________________________
+>>> wp-docs mailing list
+>>> wp-docs at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>>
+>>>
+>>
+>> --
+>> --
+>> Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+>> Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+>>
+>>
+>> _______________________________________________
+>> wp-docs mailing list
+>> wp-docs at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-docs
+>>
+>>
+> -------------- next part --------------
+> An HTML attachment was scrubbed...
+> URL:<http://lists.automattic.com/pipermail/wp-docs/attachments/20120515/560f5849/attachment-0001.htm>
+>
+> ------------------------------
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+> End of wp-docs Digest, Vol 80, Issue 10
+> ***************************************
+Hello, I would like to know how I get involved in helping out in the 
+Wordpress community?
+
+Thanks
+Wayne Hatter
+
+From tomaugerdotcom at yahoo.ca  Tue May 29 14:13:34 2012
+From: tomaugerdotcom at yahoo.ca (Tom Auger, Personal)
+Date: Tue, 29 May 2012 10:13:34 -0400
+Subject: [wp-docs] WP Gallery Overview
+In-Reply-To: <mailman.9.1338292802.9922.wp-docs@lists.automattic.com>
+References: <mailman.9.1338292802.9922.wp-docs@lists.automattic.com>
+Message-ID: <004901cd3da5$3c3978b0$b4ac6a10$@ca>
+
+Great start Esmi! I've made some edits and additions, particularly a more
+detailed discussion of how you exclude images from a gallery.
+
+There's probably more that can be said about the gallery, based on how many
+user questions there are about this feature.
+
+Tom
+
+-----Original Message-----
+From: wp-docs-bounces at lists.automattic.com
+[mailto:wp-docs-bounces at lists.automattic.com] On Behalf Of
+wp-docs-request at lists.automattic.com
+Sent: Tuesday, May 29, 2012 8:00 AM
+To: wp-docs at lists.automattic.com
+Subject: wp-docs Digest, Vol 80, Issue 14
+
+Send wp-docs mailing list submissions to
+	wp-docs at lists.automattic.com
+
+To subscribe or unsubscribe via the World Wide Web, visit
+	http://lists.automattic.com/mailman/listinfo/wp-docs
+or, via email, send a message with subject or body 'help' to
+	wp-docs-request at lists.automattic.com
+
+You can reach the person managing the list at
+	wp-docs-owner at lists.automattic.com
+
+When replying, please edit your Subject line so it is more specific
+than "Re: Contents of wp-docs digest..."
+
+
+Today's Topics:
+
+   1. Codex addition: WP Gallery Overview (esmi at quirm dot net)
+   2. Re: Codex addition: WP Gallery Overview (Andrea Rennick)
+   3. Re: Codex addition: WP Gallery Overview (Michael Hancock)
+   4. Re: Codex addition: WP Gallery Overview (m3shrom)
+
+
+----------------------------------------------------------------------
+
+Message: 1
+Date: Mon, 28 May 2012 15:08:03 +0100
+From: esmi at quirm dot net <esmi at quirm.net>
+Subject: [wp-docs] Codex addition: WP Gallery Overview
+To: wp-docs at lists.automattic.com
+Message-ID: <4FC386C3.8080404 at quirm.net>
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+
+Can we add:
+
+<http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+
+to the main Codex?
+
+Reasoning: a lot of users still get confused about how the gallery (and 
+especially the creation of the image attachments) works.
+
+Mel
+-- 
+http://quirm.net
+http://blackwidows.co.uk
+
+
+------------------------------
+
+Message: 2
+Date: Mon, 28 May 2012 11:49:50 -0300
+From: Andrea Rennick <andrea at ronandandrea.com>
+Subject: Re: [wp-docs] Codex addition: WP Gallery Overview
+To: WordPress Documentation <wp-docs at lists.automattic.com>
+Message-ID:
+	<CAJzjkbdAD7zzYbbUU+-JuqoeMFrCzEPPTgHgWMSci43tEvXGDg at mail.gmail.com>
+Content-Type: text/plain; charset="iso-8859-1"
+
++100
+
+I explain this a dozen times a day.
+
+On Mon, May 28, 2012 at 11:08 AM, esmi at quirm dot net
+<esmi at quirm.net>wrote:
+
+> Can we add:
+>
+>
+<http://codex.wordpress.org/**User:Esmi/The_WordPress_**Gallery<http://codex
+.wordpress.org/User:Esmi/The_WordPress_Gallery>
+> >
+>
+> to the main Codex?
+>
+> Reasoning: a lot of users still get confused about how the gallery (and
+> especially the creation of the image attachments) works.
+>
+> Mel
+> --
+> http://quirm.net
+> http://blackwidows.co.uk
+> ______________________________**_________________
+> wp-docs mailing list
+> wp-docs at lists.automattic.com
+>
+http://lists.automattic.com/**mailman/listinfo/wp-docs<http://lists.automatt
+ic.com/mailman/listinfo/wp-docs>
+>
+
+
+
+-- 
+-- 
+Andrea Rennick, http://wpebooks.com and http://ronandandrea.com
+Co-author of WordPress All-In-One For Dummies http://rml.me/aio
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL:
+<http://lists.automattic.com/pipermail/wp-docs/attachments/20120528/a71f2839
+/attachment-0001.htm>
+
+------------------------------
+
+Message: 3
+Date: Mon, 28 May 2012 11:40:12 -0400
+From: "Michael Hancock" <justmichaelh at gmail.com>
+Subject: Re: [wp-docs] Codex addition: WP Gallery Overview
+To: "'WordPress Documentation'" <wp-docs at lists.automattic.com>
+Message-ID: <005501cd3ce8$2ca82a30$85f87e90$@gmail.com>
+Content-Type: text/plain;	charset="us-ascii"
+
+
+
+>>>
+esmi at quirm dot net
+
+Can we add:
+
+<http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+
+to the main Codex?
+
+Reasoning: a lot of users still get confused about how the gallery (and
+especially the creation of the image attachments) works.
+<<<
+
+Done.  New location is http://codex.wordpress.org/The_WordPress_Gallery
+
+I also added two categories.  
+
+MichaelH
+
+
+
+
+
+------------------------------
+
+Message: 4
+Date: Tue, 29 May 2012 11:21:49 +0100
+From: m3shrom <m3shrom at riseup.net>
+Subject: Re: [wp-docs] Codex addition: WP Gallery Overview
+To: wp-docs at lists.automattic.com
+Message-ID: <4FC4A33D.7050507 at riseup.net>
+Content-Type: text/plain; charset="iso-8859-1"
+
+
+> On Mon, May 28, 2012 at 11:08 AM, esmi at quirm dot net
+> <esmi at quirm.net <mailto:esmi at quirm.net>> wrote:
+>
+>     Can we add:
+>
+>     <http://codex.wordpress.org/User:Esmi/The_WordPress_Gallery>
+>
+>     to the main Codex?
+>
+>     Reasoning: a lot of users still get confused about how the gallery
+>     (and especially the creation of the image attachments) works.
+>
+
+I'd be happy to collaborate on this, I've written this guide.
+http://en.flossmanuals.net/wordpress/creating-and-image-gallery/
+which has some screenshots which may be useful.
+
+Mick
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL:
+<http://lists.automattic.com/pipermail/wp-docs/attachments/20120529/197b94a9
+/attachment-0001.htm>
+
+------------------------------
+
+_______________________________________________
+wp-docs mailing list
+wp-docs at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+End of wp-docs Digest, Vol 80, Issue 14
+***************************************
+
+
+From lorelleonwordpress at gmail.com  Tue May 29 21:51:53 2012
+From: lorelleonwordpress at gmail.com (Lorelle on WordPress)
+Date: Tue, 29 May 2012 14:51:53 -0700
+Subject: [wp-docs] How Can I Get Involved?
+In-Reply-To: <4FC4CE10.6040101@wordpresslivehelp.com>
+References: <mailman.9.1337169601.21076.wp-docs@lists.automattic.com>
+	<4FC4CE10.6040101@wordpresslivehelp.com>
+Message-ID: <CAN2v4ZQakHfP3vD6uOvU3E2hL_hv0GJv9eOnxKfTVt4zB+n1XA@mail.gmail.com>
+
+Almost lost your reply. We tend to reply at the TOP of the notes rather
+than the bottom. :D
+
+Check out http://wpdocsteam.wordpress.com for a to do list and information
+with links to Codex Guidelines, styles, and how to contribute. We need
+people to just click the Random Page button to check links and grammar and
+details, and people to fix articles that need updating and fixing, and
+people to contribute new articles. All the information is at that site.
+
+Begin by logging in through the WordPress Support Forum, then logging in
+again through the Docs link at
+http://codex.wordpress.org/index.php?title=Special:UserLogin Edit the page
+and write a little about yourself so we know who you are and your skill
+set, and use that page to practice writing in Mediawiki code. At the bottom
+of the Edit preview is a link to Editing Help with all the examples of how
+to write in Mediawiki.
+
+

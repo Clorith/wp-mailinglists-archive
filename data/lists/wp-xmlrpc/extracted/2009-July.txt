@@ -1,0 +1,1304 @@
+From kushaldas at gmail.com  Wed Jul  8 05:51:14 2009
+From: kushaldas at gmail.com (Kushal Das)
+Date: Wed, 8 Jul 2009 11:21:14 +0530
+Subject: [wp-xmlrpc] About usage of mw_newMediaObject
+Message-ID: <b399909d0907072251n132dcce5p78729aa2c45de1b7@mail.gmail.com>
+
+Hi,
+
+I am trying to use mw_newMediaObject to upload files to the server. I
+am sending the data (a png image in this case) base64 encoded and type
+is 'image/png; charset=binary'. But I can see the same base64 encoded
+string only being uploaded in the server not the actual image. [1] is
+an example of the result of the upload. The client is being written in
+python.
+
+[1] http://kushaldas.files.wordpress.com/2009/07/draft2.png
+
+Kushal
+-- 
+http://fedoraproject.org
+http://kushaldas.in
+
+From peter.westwood at ftwr.co.uk  Wed Jul  8 06:45:36 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Wed, 8 Jul 2009 07:45:36 +0100
+Subject: [wp-xmlrpc] About usage of mw_newMediaObject
+In-Reply-To: <b399909d0907072251n132dcce5p78729aa2c45de1b7@mail.gmail.com>
+References: <b399909d0907072251n132dcce5p78729aa2c45de1b7@mail.gmail.com>
+Message-ID: <C8D864A3-42DA-4B71-9CB8-D89691404F71@ftwr.co.uk>
+
+
+On 8 Jul 2009, at 06:51, Kushal Das wrote:
+
+> Hi,
+>
+> I am trying to use mw_newMediaObject to upload files to the server. I
+> am sending the data (a png image in this case) base64 encoded and type
+> is 'image/png; charset=binary'. But I can see the same base64 encoded
+> string only being uploaded in the server not the actual image. [1] is
+> an example of the result of the upload. The client is being written in
+> python.
+>
+> [1] http://kushaldas.files.wordpress.com/2009/07/draft2.png
+
+Could you share the XML as seen on the wire so we can see exactly what  
+you are sending.
+
+(Don't forget to remove the actual username and password)
+
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From kushaldas at gmail.com  Thu Jul  9 08:32:48 2009
+From: kushaldas at gmail.com (Kushal Das)
+Date: Thu, 9 Jul 2009 14:02:48 +0530
+Subject: [wp-xmlrpc] About usage of mw_newMediaObject
+In-Reply-To: <C8D864A3-42DA-4B71-9CB8-D89691404F71@ftwr.co.uk>
+References: <b399909d0907072251n132dcce5p78729aa2c45de1b7@mail.gmail.com>
+	<C8D864A3-42DA-4B71-9CB8-D89691404F71@ftwr.co.uk>
+Message-ID: <b399909d0907090132p448432c7p80a0f4753f11529d@mail.gmail.com>
+
+On Wed, Jul 8, 2009 at 12:15 PM, Peter
+Westwood<peter.westwood at ftwr.co.uk> wrote:
+
+> Could you share the XML as seen on the wire so we can see exactly what you
+> are sending.
+
+
+send: 'POST /xmlrpc.php HTTP/1.0\r\nHost:
+kushaldas.wordpress.com\r\nUser-Agent: xmlrpclib.py/1.0.1 (by
+www.pythonware.com)\r\nContent-Type: text/xml\r\nContent-Length:
+3190\r\n\r\n'
+send: "<?xml version='1.0'?>\n<methodCall>\n<methodName>wp.uploadFile</methodName>\n<params>\n<param>\n<value><int>1</int></value>\n</param>\n<param>\n<value><string>myusername</string></value>\n</param>\n<param>\n<value><string>mypassword</string></value>\n</param>\n<param>\n<value><struct>\n<member>\n<name>bits</name>\n<value><string>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAADdgAAA3YBfdWCzAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAcvSURBVFiFpVdLaxTbFv72rkeqqtvuGJKckEcnkAQ70cnRVgcXhMQgguLhioM4CQQnkgTPDwhkIAQdS8wkE52pE/F6DQavBsHJxQNKbPMgBkHkGJO06fSr3nvfgdl1qxKjcs6GTVV3Ve3vW99ae+21COccPxqEEDI6Oqpvbm72AThHCOkC8AuAhu1XVgF85pwvAPjX/v37/zM+Pm7yn1icfO8dQggZGhpqJoSMAeiXZTkuyzIkSYIkSSCEAAA45/B9H77vw/M8eJ5XAnCHc351cnLy4/eI7ElgZGTE4JyPUUqvKIqiJxIJdHd3o7a2FtXV1Ugmk4jH4wCAUqmEra0t5PN5bGxsYH5+HoVCAa7rmoyxG4SQqxMTE5WfJjA8PNwM4L6iKJn6+npkMhl0dXVB0zQQQgLLwwqIK+cctm1jYWEBL1++xNraGnzf/4Mx9s+bN29+/CGBkZGRXwH8W9f1xp6eHhw8eBBCdkppBFhcd5JgjIExBs/zkM1mMTs7C9M0/wRwdmJi4tWeBIaHh5sJIf81DKOxr68PHR0dAbiwPAwavv8WCREX7969w5MnT1CpVP7knB8PK0FDlhsA7uu63tjb24vW1tY9LRK/w9P3fWSzWXieB8YYwoa1trait7cXuq43Ari/jfV/AuSrKWOqqmZSqRSampoiPmWM4c2bN7h+/Tqmpqbw6dOnCDHGGFZXVzE1NYVr165hbm4uICGINDU1IZVKQVXVDICxbcyvBLa32hVd19Hc3Byx3PM8TE9P49atW9jY2AAAvH79OlhczFevvrp2Y2MDt2/fxvT0NHzfDwgQQtDS0gJd10EIuTI0NNQMAJQQQjjnY4qi6LFYDLW1tQAQWDYzM4PZ2dmIpHNzc7sIzM3NRWLh2bNnmJmZCdYBgNraWsTjcaiqqnPOxwghhA4ODuqU0n5N02AYBgghwUdv377F8+fPdwVZXV1dsKggW19fv+u92dlZZLPZgCSlFLFYDJqmgVLaPzo6qlPDME5KkhTXNA26rsM0zSCjzczMRPyYSCQwODiIgYEBUEqDXSFJEgYGBnDp0iXs27cvQuTx48fwPA+cc1iWBcMwoGkaZFmO5/P5kxTAb7IsQ1VVqKoK27bBGMPy8jJyuVxE+vPnzyOdTgc+3TnT6TQuXLiA8MjlclheXobv+3AcB6qqoqqqCrIsA8BvMuc8LcsyqqqqoKoqXNeFaZpob2/H5cuXsbi4iIWFBdTX1+PAgQMBePgqrBUkDh06hLW1NXR1daG7uxs1NTWoVCrwPC9CgBCSlgkhDZIkQZZlUEpBKUWpVAKlFDU1NThx4gR6enqCLCgGISTyX9hVFy9eDHaQ7/uwLAvlchmUUggsSZLAOW+QATR8S07TNCN+ppSCMRZJx9/KioKECGTbtmGaZmQdsS6ABhnfGY7jAACqqqpAKY0knzCRcMIKZ03btuG67vcgIANY5Zy3hyXcaZHnebvkDysQrgdEsImUHF4rrMw21qpMCFn1fb9dfBBOoblcDisrK1heXkZdXR36+/vh+34EWCgQJnDv3j2sr6+js7MTnZ2dSCaTu86U7XVWZc75oud5/xByCQLv37/Ho0ePAktzuRyWlpaQTqcDUMZY5J4xhsXFRczPzwMA1tbW8OLFC5w7dw5NTU1gjMF1Xdi2LXLDIgXwwPM8OI4Dx3ECK1paWgLmYj58+BBLS0ui7ILneXBdN7hfWFjAgwcPIrsimUwilUoFlgucbbc+kE6dOvXRNM3fJUlSxR5VFAWUUiSTSaysrESCMpvN4vPnz0in05Fz/+7du3j69Ckcx4lsyb6+PiSTSbiui0qlgnw+j3w+D9M0S9XV1UN0fHzcZIzdsSwLlUoFpmnCdV34vo/W1lYcPnx4V8m1vr4eWC8UWF9fj6gFAJlMBm1tbYHllUoF5XIZlmWBMXZnfHzcpJxzTgi56rquWS6XUSwWUalUAnccPXoUR44cCVTgnKOzszMAF7OjoyN4LsCPHz8eAS8WiyiVSnAcxySEXOWccwoA26XzDdM0USgUUCwWYZpmQOLYsWM4ffo0EokEOOdob2//JgHh8zNnzuwCLxQK2Nragmma4JzfmJyc/CjyADjnfGRk5KrjOCdLpVImXIAKP6dSKbS1teHDhw9IJBJwXTeyvxOJBM6ePYuWlpYgXoTft7a28OXLFxSLRdi2/YewHtijKNV1vTGZTKK6uhqJRAKGYUBRlKAh2Vkd70wyvu8H4IVCAZubmyLwdhWle5blmqY1xuPxoAHRdR2apkVIfCvDicNHBFw+n0exWIRlWT8uy8NKUErvS5KUMQwDsVgMsVgMhmFAVdVAjbCbRC4Qh0+5XEa5XBbH8M83JiElIq2ZpmkQU1EUKIqy67xwHAe2bcOyLFiWBcdx/lprFjzcozkNNyuCQKgxhe/7Jc7532tOdxLZ2Z4TQn7hnDdsP1/lnP+l9vx/UpiIvWvw+IUAAAAASUVORK5CYII=</string></value>\n</member>\n<member>\n<name>type</name>\n<value><string>image/png;
+charset=binary</string></value>\n</member>\n<member>\n<name>name</name>\n<value><string>draft.png</string></value>\n</member>\n</struct></value>\n</param>\n</params>\n</methodCall>\n"
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Server: nginx
+header: Date: Thu, 09 Jul 2009 08:29:07 GMT
+header: Content-Type: text/xml;charset=utf-8
+header: Connection: close
+header: Vary: Host,Accept-Encoding
+header: X-hacker: If you're reading this, you should visit
+automattic.com/jobs and apply to join the fun, mention this header.
+header: Content-Length: 528
+body: '<?xml version="1.0"?>\n<methodResponse>\n  <params>\n
+<param>\n      <value>\n        <struct>\n
+<member><name>file</name><value><string>/home/wpcom/public_html/wp-content/blogs.dir/523/1124198/files/2009/07/draft5.png</string></value></member>\n
+ <member><name>url</name><value><string>http://kushaldas.files.wordpress.com/2009/07/draft5.png</string></value></member>\n
+ <member><name>type</name><value><string>image/png;
+charset=binary</string></value></member>\n</struct>\n      </value>\n
+  </param>\n  </params>\n</methodResponse>\n'
+{'url': 'http://kushaldas.files.wordpress.com/2009/07/draft5.png',
+'type': 'image/png; charset=binary', 'file':
+'/home/wpcom/public_html/wp-content/blogs.dir/523/1124198/files/2009/07/draft5.png'}
+
+
+Kushal
+-- 
+http://fedoraproject.org
+http://kushaldas.in
+
+From peter.westwood at ftwr.co.uk  Thu Jul  9 12:22:08 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Thu, 9 Jul 2009 13:22:08 +0100 (BST)
+Subject: [wp-xmlrpc] About usage of mw_newMediaObject
+In-Reply-To: <b399909d0907090132p448432c7p80a0f4753f11529d@mail.gmail.com>
+References: <b399909d0907072251n132dcce5p78729aa2c45de1b7@mail.gmail.com>
+	<C8D864A3-42DA-4B71-9CB8-D89691404F71@ftwr.co.uk>
+	<b399909d0907090132p448432c7p80a0f4753f11529d@mail.gmail.com>
+Message-ID: <3e9f798bd809fa630ff212473c305f1f.squirrel@secure.ftwr.co.uk>
+
+> On Wed, Jul 8, 2009 at 12:15 PM, Peter
+> Westwood<peter.westwood at ftwr.co.uk> wrote:
+>
+>> Could you share the XML as seen on the wire so we can see exactly what
+>> you
+>> are sending.
+>
+>
+> send: 'POST /xmlrpc.php HTTP/1.0\r\nHost:
+> kushaldas.wordpress.com\r\nUser-Agent: xmlrpclib.py/1.0.1 (by
+> www.pythonware.com)\r\nContent-Type: text/xml\r\nContent-Length:
+> 3190\r\n\r\n'
+> send: "<?xml
+> version='1.0'?>\n<methodCall>\n<methodName>wp.uploadFile</methodName>\n<params>\n<param>\n<value><int>1</int></value>\n</param>\n<param>\n<value><string>myusername</string></value>\n</param>\n<param>\n<value><string>mypassword</string></value>\n</param>\n<param>\n<value><struct>\n<member>\n<name>bits</name>\n<value><string>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
+ </
+>  string></value>\n</member>\n<member>\n<name>type</name>\n<value><string>image/png;
+> charset=binary</string></value>\n</member>\n<member>\n<name>name</name>\n<value><string>draft.png</string></value>\n</member>\n</struct></value>\n</param>\n</params>\n</methodCall>\n"
+> reply: 'HTTP/1.1 200 OK\r\n'
+> header: Server: nginx
+> header: Date: Thu, 09 Jul 2009 08:29:07 GMT
+> header: Content-Type: text/xml;charset=utf-8
+> header: Connection: close
+> header: Vary: Host,Accept-Encoding
+> header: X-hacker: If you're reading this, you should visit
+> automattic.com/jobs and apply to join the fun, mention this header.
+> header: Content-Length: 528
+> body: '<?xml version="1.0"?>\n<methodResponse>\n  <params>\n
+> <param>\n      <value>\n        <struct>\n
+> <member><name>file</name><value><string>/home/wpcom/public_html/wp-content/blogs.dir/523/1124198/files/2009/07/draft5.png</string></value></member>\n
+>  <member><name>url</name><value><string>http://kushaldas.files.wordpress.com/2009/07/draft5.png</string></value></member>\n
+>  <member><name>type</name><value><string>image/png;
+> charset=binary</string></value></member>\n</struct>\n      </value>\n
+>   </param>\n  </params>\n</methodResponse>\n'
+> {'url': 'http://kushaldas.files.wordpress.com/2009/07/draft5.png',
+> 'type': 'image/png; charset=binary', 'file':
+> '/home/wpcom/public_html/wp-content/blogs.dir/523/1124198/files/2009/07/draft5.png'}
+>
+
+base64 data should be inside a <base64> tag not a <string> tag (
+http://www.xmlrpc.com/spec)
+
+Hope that helps
+
+Peter
+
+
+
+From kushaldas at gmail.com  Fri Jul 10 11:39:40 2009
+From: kushaldas at gmail.com (Kushal Das)
+Date: Fri, 10 Jul 2009 17:09:40 +0530
+Subject: [wp-xmlrpc] About usage of mw_newMediaObject
+In-Reply-To: <3e9f798bd809fa630ff212473c305f1f.squirrel@secure.ftwr.co.uk>
+References: <b399909d0907072251n132dcce5p78729aa2c45de1b7@mail.gmail.com>
+	<C8D864A3-42DA-4B71-9CB8-D89691404F71@ftwr.co.uk>
+	<b399909d0907090132p448432c7p80a0f4753f11529d@mail.gmail.com>
+	<3e9f798bd809fa630ff212473c305f1f.squirrel@secure.ftwr.co.uk>
+Message-ID: <b399909d0907100439q3b79b5f3w19943be74bca0ebb@mail.gmail.com>
+
+On Thu, Jul 9, 2009 at 5:52 PM, Peter Westwood<peter.westwood at ftwr.co.uk> wrote:
+>
+> base64 data should be inside a <base64> tag not a <string> tag (
+> http://www.xmlrpc.com/spec)
+
+Thanks , will check how to get that done in python.
+
+Kushal
+-- 
+http://fedoraproject.org
+http://kushaldas.in
+
+From joseph at josephscott.org  Fri Jul 10 23:23:08 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 10 Jul 2009 17:23:08 -0600
+Subject: [wp-xmlrpc] WordPress 2.8.1 XML-RPC Changes
+Message-ID: <830A5C81-C0EF-4DCF-9210-0FE043B1D9DA@josephscott.org>
+
+
+Only 2 small changes to XML-RPC in the 2.8.1 release (and none to  
+AtomPub):
+
+
+	? metaWeblog.getPost now returns the correct value for the  
+date_created_gmt field for draft posts ( ticket #10244 )
+	? RSD API endpoint URLs now use HTTPS if FORCE_SSL_ADMIN or  
+FORCE_SSL_LOGIN is defined and true ( ticket #10330 )
+
+
+
+http://josephscott.org/archives/2009/07/wordpress-2-8-1-?-xml-rpc-and- 
+atompub-changes/
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From code at thepicklingjar.com  Sun Jul 12 02:05:07 2009
+From: code at thepicklingjar.com (Pickling Jar Coders)
+Date: Sun, 12 Jul 2009 03:05:07 +0100
+Subject: [wp-xmlrpc] Post ID from Custom Fields
+Message-ID: <3fed2f970907111905j5308ef70v28f4ac35ebf50a9c@mail.gmail.com>
+
+Evening List,
+
+Below is a patch that returns post/page id's via a custom field key
+value pair lookup. The idea being that when one is using wordpress as
+a cms, one sometimes needs to find a specific post via a custom field
+value. Without the patch, one would have to query the DB directly. The
+patch is for 2.8.1
+
+Thanks
+Pickling Jar Coders
+
+
+--- xmlrpc.php.old      Sun Jul 12 01:26:27 2009
++++ xmlrpc.php  Sun Jul 12 01:29:38 2009
+@@ -154,6 +154,7 @@
+                        'wp.editComment'                =>
+'this:wp_editComment',
+                        'wp.newComment'                 => 'this:wp_newComment',
+                        'wp.getCommentStatusList' =>
+'this:wp_getCommentStatusList',
++                       'wp.getPostIdFromCustomFields'  =>
+'this:wp_getPostIdFromCustomFields',
+
+                        // Blogger API
+                        'blogger.getUsersBlogs' => 'this:blogger_getUsersBlogs',
+@@ -1566,6 +1567,42 @@
+                //Now return the updated values
+                return $this->_getOptions($option_names);
+        }
++
++        /**
++         *
++         * Search for a post id with a custom field name and value
++         *
++         * @since 2.9.0
++         *
++         * @param array $args Methods parameters.
++         * @return array
++         */
++        function wp_getPostIdFromCustomFields($args){
++                global $wpdb;
++                $this->escape( $args );
++
++                $blog_id        = (int) $args[0];
++                $username       = $args[1];
++                $password       = $args[2];
++                $fieldname      = $args[3];
++                $fieldvalue     = $args[4];
++
++                if ( !$user = $this->login($username, $password) ) {
++                        return $this->error;
++                }
++
++                if( !current_user_can( 'read_private_posts' ) )
++                        return new IXR_Error( 403, __( 'You are not
+allowed search custom fields on this blog.' ) );
++
++                $postids = $wpdb->get_results( $wpdb->prepare("SELECT
+post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value =
+%s", $fieldname, $fieldvalue) );
++                if (!$postids) {
++                        return array();
++                }
++                else {
++                        return($postids);
++                }
++        }
++
+
+        /* Blogger API functions.
+         * specs on http://plant.blogger.com/api and
+http://groups.yahoo.com/group/bloggerDev/
+
+
+
+
+
+
+tel: +44 (0)844 736 1563
+email: code at thepicklingjar.com
+web: http://www.thepicklingjar.com/
+
+This email and any attachments to it may be confidential and are
+intended solely for the use of the individual to whom it is addressed.
+Any views or opinions expressed are only possibly those of the author
+and certainly do not represent those of The Pickling Jar Limited.
+
+The Pickling Jar Limited
+Company number 6489739 (England & Wales) VAT GB938944665
+Registered office: 19 Moulton Park Office Village, Northampton, NN3 6AP
+
+From code at thepicklingjar.com  Sun Jul 12 02:17:25 2009
+From: code at thepicklingjar.com (Pickling Jar Coders)
+Date: Sun, 12 Jul 2009 03:17:25 +0100
+Subject: [wp-xmlrpc] Post ID from Custom Fields
+In-Reply-To: <3fed2f970907111905j5308ef70v28f4ac35ebf50a9c@mail.gmail.com>
+References: <3fed2f970907111905j5308ef70v28f4ac35ebf50a9c@mail.gmail.com>
+Message-ID: <3fed2f970907111917s6d307c60x70cdad5a2b9d33d3@mail.gmail.com>
+
+In case the patch was mangled by my mail client, it can be found on
+trac http://core.trac.wordpress.org/ticket/10388
+
+Thanks
+
+2009/7/12 Pickling Jar Coders <code at thepicklingjar.com>:
+> Evening List,
+>
+> Below is a patch that returns post/page id's via a custom field key
+> value pair lookup. The idea being that when one is using wordpress as
+> a cms, one sometimes needs to find a specific post via a custom field
+> value. Without the patch, one would have to query the DB directly. The
+> patch is for 2.8.1
+>
+> Thanks
+> Pickling Jar Coders
+>
+>
+> --- xmlrpc.php.old ? ? ?Sun Jul 12 01:26:27 2009
+> +++ xmlrpc.php ?Sun Jul 12 01:29:38 2009
+> @@ -154,6 +154,7 @@
+> ? ? ? ? ? ? ? ? ? ? ? ?'wp.editComment' ? ? ? ? ? ? ? ?=>
+> 'this:wp_editComment',
+> ? ? ? ? ? ? ? ? ? ? ? ?'wp.newComment' ? ? ? ? ? ? ? ? => 'this:wp_newComment',
+> ? ? ? ? ? ? ? ? ? ? ? ?'wp.getCommentStatusList' =>
+> 'this:wp_getCommentStatusList',
+> + ? ? ? ? ? ? ? ? ? ? ? 'wp.getPostIdFromCustomFields' ?=>
+> 'this:wp_getPostIdFromCustomFields',
+>
+> ? ? ? ? ? ? ? ? ? ? ? ?// Blogger API
+> ? ? ? ? ? ? ? ? ? ? ? ?'blogger.getUsersBlogs' => 'this:blogger_getUsersBlogs',
+> @@ -1566,6 +1567,42 @@
+> ? ? ? ? ? ? ? ?//Now return the updated values
+> ? ? ? ? ? ? ? ?return $this->_getOptions($option_names);
+> ? ? ? ?}
+> +
+> + ? ? ? ?/**
+> + ? ? ? ? *
+> + ? ? ? ? * Search for a post id with a custom field name and value
+> + ? ? ? ? *
+> + ? ? ? ? * @since 2.9.0
+> + ? ? ? ? *
+> + ? ? ? ? * @param array $args Methods parameters.
+> + ? ? ? ? * @return array
+> + ? ? ? ? */
+> + ? ? ? ?function wp_getPostIdFromCustomFields($args){
+> + ? ? ? ? ? ? ? ?global $wpdb;
+> + ? ? ? ? ? ? ? ?$this->escape( $args );
+> +
+> + ? ? ? ? ? ? ? ?$blog_id ? ? ? ?= (int) $args[0];
+> + ? ? ? ? ? ? ? ?$username ? ? ? = $args[1];
+> + ? ? ? ? ? ? ? ?$password ? ? ? = $args[2];
+> + ? ? ? ? ? ? ? ?$fieldname ? ? ?= $args[3];
+> + ? ? ? ? ? ? ? ?$fieldvalue ? ? = $args[4];
+> +
+> + ? ? ? ? ? ? ? ?if ( !$user = $this->login($username, $password) ) {
+> + ? ? ? ? ? ? ? ? ? ? ? ?return $this->error;
+> + ? ? ? ? ? ? ? ?}
+> +
+> + ? ? ? ? ? ? ? ?if( !current_user_can( 'read_private_posts' ) )
+> + ? ? ? ? ? ? ? ? ? ? ? ?return new IXR_Error( 403, __( 'You are not
+> allowed search custom fields on this blog.' ) );
+> +
+> + ? ? ? ? ? ? ? ?$postids = $wpdb->get_results( $wpdb->prepare("SELECT
+> post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value =
+> %s", $fieldname, $fieldvalue) );
+> + ? ? ? ? ? ? ? ?if (!$postids) {
+> + ? ? ? ? ? ? ? ? ? ? ? ?return array();
+> + ? ? ? ? ? ? ? ?}
+> + ? ? ? ? ? ? ? ?else {
+> + ? ? ? ? ? ? ? ? ? ? ? ?return($postids);
+> + ? ? ? ? ? ? ? ?}
+> + ? ? ? ?}
+> +
+>
+> ? ? ? ?/* Blogger API functions.
+> ? ? ? ? * specs on http://plant.blogger.com/api and
+> http://groups.yahoo.com/group/bloggerDev/
+>
+>
+>
+>
+>
+>
+> tel: +44 (0)844 736 1563
+> email: code at thepicklingjar.com
+> web: http://www.thepicklingjar.com/
+>
+> This email and any attachments to it may be confidential and are
+> intended solely for the use of the individual to whom it is addressed.
+> Any views or opinions expressed are only possibly those of the author
+> and certainly do not represent those of The Pickling Jar Limited.
+>
+> The Pickling Jar Limited
+> Company number 6489739 (England & Wales) VAT GB938944665
+> Registered office: 19 Moulton Park Office Village, Northampton, NN3 6AP
+>
+
+From joseph at josephscott.org  Fri Jul 24 23:00:41 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Fri, 24 Jul 2009 17:00:41 -0600
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+Message-ID: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+
+
+One of the first things that WordPress does when processing an XML-RPC  
+request is look for an XML declaration, something like:
+
+	<?xml version="1.0"?>
+
+It strips this off if it is found so that it can parse the rest of the  
+request as XML.
+
+To those of you out there that are writing blog clients for WordPress  
+I have a question.  Do you include this declaration at the top of your  
+requests?  If so, is it identical to this one or is it different?
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From jalkut at red-sweater.com  Sat Jul 25 16:17:50 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sat, 25 Jul 2009 12:17:50 -0400
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+Message-ID: <DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+
+Hi Joseph - MarsEdit does include the preamble and it looks like your  
+example but also includes content-encoding information:
+
+<?xml version="1.0" encoding="utf-8"?>
+
+Is there some context for why you're asking about this? Just curious  
+if we can help brainstorm an answer to whatever is on your mind.
+
+Daniel
+
+On Jul 24, 2009, at 7:00pm, Joseph Scott wrote:
+
+>
+> One of the first things that WordPress does when processing an XML- 
+> RPC request is look for an XML declaration, something like:
+>
+> 	<?xml version="1.0"?>
+>
+> It strips this off if it is found so that it can parse the rest of  
+> the request as XML.
+>
+> To those of you out there that are writing blog clients for  
+> WordPress I have a question.  Do you include this declaration at the  
+> top of your requests?  If so, is it identical to this one or is it  
+> different?
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From bturner at microsoft.com  Sat Jul 25 20:06:02 2009
+From: bturner at microsoft.com (Brandon Turner)
+Date: Sat, 25 Jul 2009 13:06:02 -0700
+Subject: [wp-xmlrpc] what clients send an XML declaration in
+	XML-RPC	requests?
+In-Reply-To: <DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+Message-ID: <80E7984B72168B48B5A7FFF57C1CB1D046FDE26CCD@NA-EXMSG-C118.redmond.corp.microsoft.com>
+
+Windows Live Writer by default sends:
+
+<?xml version="1.0" encoding="utf-8"?>
+
+However, we allow users to change the encoding(though, I believe there are bugs in Wordpress that always assume utf-8, or at least plugins that might always expect utf-8), so it is possible WLW could send something like:
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+Windows Live Writer generates its XML payload using the .NET class XmlTextWriter which generates this declaration.  I would imagine most .NET based would do the same thing.
+
+I am also pretty interested in what brings this topic up.  
+
+-Brandon
+
+-----Original Message-----
+From: wp-xmlrpc-bounces at lists.automattic.com [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Daniel Jalkut
+Sent: Saturday, July 25, 2009 9:18 AM
+To: wp-xmlrpc at lists.automattic.com
+Subject: Re: [wp-xmlrpc] what clients send an XML declaration in XML-RPC requests?
+
+Hi Joseph - MarsEdit does include the preamble and it looks like your example but also includes content-encoding information:
+
+<?xml version="1.0" encoding="utf-8"?>
+
+Is there some context for why you're asking about this? Just curious if we can help brainstorm an answer to whatever is on your mind.
+
+Daniel
+
+On Jul 24, 2009, at 7:00pm, Joseph Scott wrote:
+
+>
+> One of the first things that WordPress does when processing an XML- 
+> RPC request is look for an XML declaration, something like:
+>
+> 	<?xml version="1.0"?>
+>
+> It strips this off if it is found so that it can parse the rest of the 
+> request as XML.
+>
+> To those of you out there that are writing blog clients for WordPress 
+> I have a question.  Do you include this declaration at the top of your 
+> requests?  If so, is it identical to this one or is it different?
+>
+> --
+> Joseph Scott
+> joseph at josephscott.org
+> http://josephscott.org/
+>
+>
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From marcelobarrosalmeida at gmail.com  Sat Jul 25 20:28:15 2009
+From: marcelobarrosalmeida at gmail.com (Marcelo Jedi)
+Date: Sat, 25 Jul 2009 17:28:15 -0300
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+Message-ID: <ca18f54e0907251328o7dd5a477g5719e8b9204eb1d1@mail.gmail.com>
+
+Hi
+
+Python xmlrpclib module does it. For instance, see the request for
+supported methods:
+
+<?xml version='1.0'?>
+<methodCall>
+<methodName>mt.supportedMethods</methodName>
+<params>
+</params>
+</methodCall>
+
+Marcelo Barros
+
+-- 
+-----------------------------------------------
+Try to take over the world
+
+From joseph at josephscott.org  Sun Jul 26 04:08:58 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Sat, 25 Jul 2009 22:08:58 -0600
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+Message-ID: <54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+
+
+On Jul 25, 2009, at 10:17 AM, Daniel Jalkut wrote:
+
+> Hi Joseph - MarsEdit does include the preamble and it looks like  
+> your example but also includes content-encoding information:
+>
+> <?xml version="1.0" encoding="utf-8"?>
+>
+> Is there some context for why you're asking about this? Just curious  
+> if we can help brainstorm an answer to whatever is on your mind.
+
+
+
+I've been looking at PHP memory usage during XML-RPC requests (using  
+memory_get_peak_usage function).  With a specific target of reducing  
+the memory usage for large requests, like those with massive base64  
+encoded data sections.  So I've been making calls to  
+metaWeblog.newMediaObject with a 3369029 byte jpg file to upload.  The  
+nature of base64 encoding adds about a third to the size of the  
+original data and processing it takes even more memory.
+
+The XML-RPC library that WordPress uses has a regular expression (a  
+preg_replace call) to look for this XML-RPC declaration and remove  
+it.  By replacing this regular expression with a simple string  
+substitution (with the substr function) I was able to cut the peak  
+memory usage of the request by 5.4%.  By decoding the base64 in chunks  
+instead of all at once I was able to shave another 1.4% off that.   
+When using both of these techniques the total reduction in memory  
+usage when compared to the current approach is 7.8%.  These numbers  
+are based only on my sample jpg file, I'm not sure yet how much they  
+will fluctuate when the data is smaller or larger.
+
+Since I couldn't be sure that the substr approach would work in all  
+cases it falls back to the original regex method if the substr can't  
+be used.  To determine if the substr method will work I'm checking to  
+see if the string '<?xml version="1.0"?>' is at position zero in the  
+XML-RPC request.  If it is then use substr, if not use preg_replace.   
+This is a very simple approach, would could be expanded upon to match  
+other XML declarations.
+
+This got me to wondering how many client requests actually use exactly  
+'<?xml version="1.0"?>'.  I plan to do some logging of XML-RPC  
+requests on WordPress.com to see what's actually being sent.  But it's  
+helpful to get an idea of what those declarations could look like as  
+well from client authors.  Brandon's reply about what most .Net apps  
+would probably do was helpful to know.
+
+On a slightly related note I've wondered about the idea of compressed  
+base64 encoding.  Using my jpg example, a client would zip the jpg  
+file, then base64 encode the zipped version and ship that in the XML- 
+RPC request.  On the server end we'd base64 decode and then decompress  
+the resulting data to get back to the original jpg.  Making the flow  
+look like:
+
+jpg -> gzip -> base64  --------> XML-RPC ---------> base64 decode ->  
+unzip -> jpg
+
+
+Setting aside the XML-RPC layer issues for a moment, I don't know if  
+this method would really improve things.  It's currently only a  
+thought, I haven't run any tests using that approach.
+
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From bturner at microsoft.com  Sun Jul 26 04:53:02 2009
+From: bturner at microsoft.com (Brandon Turner)
+Date: Sat, 25 Jul 2009 21:53:02 -0700
+Subject: [wp-xmlrpc] what clients send an XML declaration in
+	XML-RPC	requests?
+In-Reply-To: <54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+Message-ID: <80E7984B72168B48B5A7FFF57C1CB1D046FDE26D04@NA-EXMSG-C118.redmond.corp.microsoft.com>
+
+If you plan to allow clients to upload images through newMediaObject using a zip file you should expand the scope to allow multiple images to be inside of the zip file.  I don't know exactly how one would have to change the request to specific metadata(names mostly?) for all the images inside of the zip, but I am sure something clever could be thought up.  At least with Writer it is common for us to upload two of every picture, one of the inline image and one of the 'click through' image.  Consolidating those into one request would save considerably more than the savings you would get from optimizing single requests.
+
+None the less, your approach of zip file does seem like a good idea, YouTube has done the same thing with uploading videos through their API.
+
+-Brandon
+
+-----Original Message-----
+From: wp-xmlrpc-bounces at lists.automattic.com [mailto:wp-xmlrpc-bounces at lists.automattic.com] On Behalf Of Joseph Scott
+Sent: Saturday, July 25, 2009 9:09 PM
+To: wp-xmlrpc at lists.automattic.com
+Subject: Re: [wp-xmlrpc] what clients send an XML declaration in XML-RPC requests?
+
+
+On Jul 25, 2009, at 10:17 AM, Daniel Jalkut wrote:
+
+> Hi Joseph - MarsEdit does include the preamble and it looks like your 
+> example but also includes content-encoding information:
+>
+> <?xml version="1.0" encoding="utf-8"?>
+>
+> Is there some context for why you're asking about this? Just curious 
+> if we can help brainstorm an answer to whatever is on your mind.
+
+
+
+I've been looking at PHP memory usage during XML-RPC requests (using  
+memory_get_peak_usage function).  With a specific target of reducing  
+the memory usage for large requests, like those with massive base64  
+encoded data sections.  So I've been making calls to  
+metaWeblog.newMediaObject with a 3369029 byte jpg file to upload.  The  
+nature of base64 encoding adds about a third to the size of the  
+original data and processing it takes even more memory.
+
+The XML-RPC library that WordPress uses has a regular expression (a  
+preg_replace call) to look for this XML-RPC declaration and remove  
+it.  By replacing this regular expression with a simple string  
+substitution (with the substr function) I was able to cut the peak  
+memory usage of the request by 5.4%.  By decoding the base64 in chunks  
+instead of all at once I was able to shave another 1.4% off that.   
+When using both of these techniques the total reduction in memory  
+usage when compared to the current approach is 7.8%.  These numbers  
+are based only on my sample jpg file, I'm not sure yet how much they  
+will fluctuate when the data is smaller or larger.
+
+Since I couldn't be sure that the substr approach would work in all  
+cases it falls back to the original regex method if the substr can't  
+be used.  To determine if the substr method will work I'm checking to  
+see if the string '<?xml version="1.0"?>' is at position zero in the  
+XML-RPC request.  If it is then use substr, if not use preg_replace.   
+This is a very simple approach, would could be expanded upon to match  
+other XML declarations.
+
+This got me to wondering how many client requests actually use exactly  
+'<?xml version="1.0"?>'.  I plan to do some logging of XML-RPC  
+requests on WordPress.com to see what's actually being sent.  But it's  
+helpful to get an idea of what those declarations could look like as  
+well from client authors.  Brandon's reply about what most .Net apps  
+would probably do was helpful to know.
+
+On a slightly related note I've wondered about the idea of compressed  
+base64 encoding.  Using my jpg example, a client would zip the jpg  
+file, then base64 encode the zipped version and ship that in the XML- 
+RPC request.  On the server end we'd base64 decode and then decompress  
+the resulting data to get back to the original jpg.  Making the flow  
+look like:
+
+jpg -> gzip -> base64  --------> XML-RPC ---------> base64 decode ->  
+unzip -> jpg
+
+
+Setting aside the XML-RPC layer issues for a moment, I don't know if  
+this method would really improve things.  It's currently only a  
+thought, I haven't run any tests using that approach.
+
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From jalkut at red-sweater.com  Sun Jul 26 13:43:42 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Sun, 26 Jul 2009 09:43:42 -0400
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+Message-ID: <512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+
+Hi Joseph - thanks for sharing your intentions:
+
+On Jul 26, 2009, at 12:08am, Joseph Scott wrote:
+
+> I've been looking at PHP memory usage during XML-RPC requests (using  
+> memory_get_peak_usage function).  With a specific target of reducing  
+> the memory usage for large requests, like those with massive base64  
+> encoded data sections.
+
+A noble effort. But maybe it's like trying to squeeze juice out of a  
+stone?
+
+Here's another idea, going back to a notion I had a long time ago to  
+provide some "cross-API" interoperability between the Atom and XMLRPC  
+implementations.
+
+What if savvy clients were able to use the AtomPub PUT based media  
+uploader, knowing that they will get back a URL that is equivalent to  
+the URL that they would have gotten using the newMediaObject method?
+
+I'm sure where would be details to work out (e.g. does XMLRPC just  
+expose its own "AtomPub-like" PUT method, since AtomPub might be  
+disabled?).
+
+But the gist of this feedback is, can we focus on providing clients a  
+clean exit from the memory limitations of the newMediaObject method,  
+instead of just shaving a few % off the call's impact?
+
+Image uploading is one of the areas where the AtomPub implementation  
+currently blows the XMLRPC implementation out of the water.  I might  
+prefer to use the AtomPub mechanism for uploading if I could count on  
+it being available to me.
+
+Daniel
+
+
+From Joe.Cheng at microsoft.com  Sun Jul 26 15:55:53 2009
+From: Joe.Cheng at microsoft.com (Joe Cheng)
+Date: Sun, 26 Jul 2009 15:55:53 +0000
+Subject: [wp-xmlrpc] what clients send an XML declaration in
+	XML-RPC	requests?
+In-Reply-To: <512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>,
+	<512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+Message-ID: <00F4A20B160DB4438F4B5957ACEF51AA083662@TK5EX14MBXC126.redmond.corp.microsoft.com>
+
+Would it be practical to use streaming XML parsing (i.e. SAX) just for newMediaObject requests? We'd still be paying the 33% base64 tax but no WP-specific hacking would be required.
+________________________________________
+From: wp-xmlrpc-bounces at lists.automattic.com [wp-xmlrpc-bounces at lists.automattic.com] on behalf of Daniel Jalkut [jalkut at red-sweater.com]
+Sent: Sunday, July 26, 2009 6:43 AM
+To: wp-xmlrpc at lists.automattic.com
+Subject: Re: [wp-xmlrpc] what clients send an XML declaration in XML-RPC        requests?
+
+Hi Joseph - thanks for sharing your intentions:
+
+On Jul 26, 2009, at 12:08am, Joseph Scott wrote:
+
+> I've been looking at PHP memory usage during XML-RPC requests (using
+> memory_get_peak_usage function).  With a specific target of reducing
+> the memory usage for large requests, like those with massive base64
+> encoded data sections.
+
+A noble effort. But maybe it's like trying to squeeze juice out of a
+stone?
+
+Here's another idea, going back to a notion I had a long time ago to
+provide some "cross-API" interoperability between the Atom and XMLRPC
+implementations.
+
+What if savvy clients were able to use the AtomPub PUT based media
+uploader, knowing that they will get back a URL that is equivalent to
+the URL that they would have gotten using the newMediaObject method?
+
+I'm sure where would be details to work out (e.g. does XMLRPC just
+expose its own "AtomPub-like" PUT method, since AtomPub might be
+disabled?).
+
+But the gist of this feedback is, can we focus on providing clients a
+clean exit from the memory limitations of the newMediaObject method,
+instead of just shaving a few % off the call's impact?
+
+Image uploading is one of the areas where the AtomPub implementation
+currently blows the XMLRPC implementation out of the water.  I might
+prefer to use the AtomPub mechanism for uploading if I could count on
+it being available to me.
+
+Daniel
+
+_______________________________________________
+wp-xmlrpc mailing list
+wp-xmlrpc at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From joseph at josephscott.org  Mon Jul 27 12:57:25 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 27 Jul 2009 06:57:25 -0600
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <80E7984B72168B48B5A7FFF57C1CB1D046FDE26D04@NA-EXMSG-C118.redmond.corp.microsoft.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+	<80E7984B72168B48B5A7FFF57C1CB1D046FDE26D04@NA-EXMSG-C118.redmond.corp.microsoft.com>
+Message-ID: <8EA755C6-32C2-4729-9B14-B1AE1AAF0825@josephscott.org>
+
+
+On Jul 25, 2009, at 10:53 PM, Brandon Turner wrote:
+
+> If you plan to allow clients to upload images through newMediaObject  
+> using a zip file you should expand the scope to allow multiple  
+> images to be inside of the zip file.  I don't know exactly how one  
+> would have to change the request to specific metadata(names mostly?)  
+> for all the images inside of the zip, but I am sure something clever  
+> could be thought up.  At least with Writer it is common for us to  
+> upload two of every picture, one of the inline image and one of the  
+> 'click through' image.  Consolidating those into one request would  
+> save considerably more than the savings you would get from  
+> optimizing single requests.
+>
+> None the less, your approach of zip file does seem like a good idea,  
+> YouTube has done the same thing with uploading videos through their  
+> API.
+
+
+
+I hadn't really thought about in the context of uploading multiple  
+images.  I wonder if the zip compression on the image file would be  
+enough to offset the (potential) additional memory requirements.  On  
+WordPress.com I could come up with a reliable method for extracting  
+the files on the filesystem.  Ideally we'd come up with a way to do  
+the same thing for WordPress.org based installs as well.  Perhaps  
+using the same compression routines that the core, plugin and theme  
+installer use.
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From joseph at josephscott.org  Mon Jul 27 13:25:23 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 27 Jul 2009 07:25:23 -0600
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+	<512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+Message-ID: <7D828BE0-84E6-4E87-AB68-126F49B9E607@josephscott.org>
+
+
+On Jul 26, 2009, at 7:43 AM, Daniel Jalkut wrote:
+
+> Hi Joseph - thanks for sharing your intentions:
+>
+> On Jul 26, 2009, at 12:08am, Joseph Scott wrote:
+>
+>> I've been looking at PHP memory usage during XML-RPC requests  
+>> (using memory_get_peak_usage function).  With a specific target of  
+>> reducing the memory usage for large requests, like those with  
+>> massive base64 encoded data sections.
+>
+> A noble effort. But maybe it's like trying to squeeze juice out of a  
+> stone?
+>
+> Here's another idea, going back to a notion I had a long time ago to  
+> provide some "cross-API" interoperability between the Atom and  
+> XMLRPC implementations.
+>
+> What if savvy clients were able to use the AtomPub PUT based media  
+> uploader, knowing that they will get back a URL that is equivalent  
+> to the URL that they would have gotten using the newMediaObject  
+> method?
+
+
+Would returning the "id" for the newly uploaded file be enough?  Right  
+now we send the following information back: file, url and type.  The  
+url field is the actual URL for the file.  Which corresponds to the  
+<content> item in an AtomPub request for a specific attachment.   
+What's a little awkward is that the file is also available via the  
+<link rel="edit-media"> item. I understand that <link rel="edit- 
+media"> is also used to update the attachment, but it still feels  
+strange to have AtomPub send back a response that provides two  
+different ways to access the same exact resource.
+
+At any rate, edit-media URLs look like:
+
+	http://localhost/wp/trunk/wp-app.php/attachment/file/295
+
+In WordPress upload information is stored in the posts table with a  
+post_type of attachment.  That 295 on the end is the ID field from the  
+posts table.  The ID for that item will be the same then no matter how  
+it is referenced.  So if we make wp.newMediaObject return: file, url,  
+type and id then that id value could be used to determine the AtomPub  
+URL for that uploaded file.
+
+I wouldn't categorize this as particular smooth since there's no exact  
+corresponding id field in AtomPub requests that would make it easy to  
+match with.  But it would work and would be consistent, with a strong  
+likely hood of not being changed in the future.
+
+
+> I'm sure where would be details to work out (e.g. does XMLRPC just  
+> expose its own "AtomPub-like" PUT method, since AtomPub might be  
+> disabled?).
+>
+> But the gist of this feedback is, can we focus on providing clients  
+> a clean exit from the memory limitations of the newMediaObject  
+> method, instead of just shaving a few % off the call's impact?
+
+We can do that.  And if I can shave off more than 7% in memory usage  
+by changing a few lines for the code path that the vast majority of  
+clients are using I don't see any harm in doing that too.
+
+>
+> Image uploading is one of the areas where the AtomPub implementation  
+> currently blows the XMLRPC implementation out of the water.  I might  
+> prefer to use the AtomPub mechanism for uploading if I could count  
+> on it being available to me.
+
+
+Agree 100%, being able to just push the binary bits across the wire is  
+a much nicer way to upload files.
+
+As for counting on it being available, what did you have in mind?   
+AtomPub support has to be turned on in the same way that XML-RPC  
+support does.  And you get a similar sort of message if you make an  
+AtomPub request when it is not turned on:
+
+	AtomPub services are disabled on this blog.  An admin user can enable  
+them at http://localhost/wp/trunk/wp-admin/options-writing.php
+
+
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From joseph at josephscott.org  Mon Jul 27 13:31:33 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 27 Jul 2009 07:31:33 -0600
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <00F4A20B160DB4438F4B5957ACEF51AA083662@TK5EX14MBXC126.redmond.corp.microsoft.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>,
+	<512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+	<00F4A20B160DB4438F4B5957ACEF51AA083662@TK5EX14MBXC126.redmond.corp.microsoft.com>
+Message-ID: <61273923-618B-4D40-81E8-5E4B32F54168@josephscott.org>
+
+
+On Jul 26, 2009, at 9:55 AM, Joe Cheng wrote:
+
+> Would it be practical to use streaming XML parsing (i.e. SAX) just  
+> for newMediaObject requests? We'd still be paying the 33% base64 tax  
+> but no WP-specific hacking would be required.
+
+
+I haven't looked at any deeper low level changes to the parser.  When  
+WordPress does finally make the jump to requiring PHP5 that would be a  
+good time to look at re-evaluating the best methods for parsing XML- 
+RPC requests.
+
+The code changes for the results so far are small, maybe 10 lines in  
+total.
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From jalkut at red-sweater.com  Mon Jul 27 13:45:53 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon, 27 Jul 2009 09:45:53 -0400
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <7D828BE0-84E6-4E87-AB68-126F49B9E607@josephscott.org>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+	<512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+	<7D828BE0-84E6-4E87-AB68-126F49B9E607@josephscott.org>
+Message-ID: <08597F1F-6A9A-4D7A-BE2E-EB237CD39C61@red-sweater.com>
+
+Hi Joseph -
+
+On Jul 27, 2009, at 9:25am, Joseph Scott wrote:
+
+> Would returning the "id" for the newly uploaded file be enough?   
+> Right now we send the following information back: file, url and type.
+
+Hmm, I hadn't considered augmenting the response from newMediaObject.   
+I was thinking more along the lines of just providing a means of  
+knowing that the AtomPub interface was available. But I guess the RSD  
+does that already.  Maybe I should just stop being so worried and  
+aggressively use the AtomPub based uploader if it exists, and assume  
+that if it succeeds, the resulting image URL is as good as the one I  
+would have gotten from newMediaObject.
+
+While I do think it would be cool to provide some extra information in  
+the newMediaObject call, I wonder if it would break some clients.   
+MarsEdit wouldn't have a problem but I can imagine some clients are  
+hardcoded to expect only the rigid values that are currently returned.
+
+> We can do that.  And if I can shave off more than 7% in memory usage  
+> by changing a few lines for the code path that the vast majority of  
+> clients are using I don't see any harm in doing that too.
+
+Definitely. I didn't mean to disparage your work on this. I can see  
+how my comments about squeezing juice from a stone might have been too  
+negative.
+
+> Agree 100%, being able to just push the binary bits across the wire  
+> is a much nicer way to upload files.
+
+Here's an idea for the longer term: what about adding a new  
+wp.uploadFiles method.  This could clearly document additional return  
+values alluded to above, and accept multiple files at once (possibly  
+in the zip encoding mentioned by Brandon, or possibly just as an array  
+of Base64 elements).
+
+But more radically, what do you think about this proposed  
+wp.uploadFiles() method having too modes for supplying parameters,  
+based on the Content-Type declared by the POST'er?  If the POST has a  
+content-type of "multipart/form-data", then the parameters could be  
+expressed as unencoded binary, otherwise the content would be assumed  
+to be XML.
+
+I realize this is future-talk brainstorming, but I thought I would  
+mention the idea.  What do other client devs think about something  
+like this? Too confusing to depart from the XML?
+
+Daniel
+
+
+From joseph at josephscott.org  Mon Jul 27 15:45:56 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 27 Jul 2009 09:45:56 -0600
+Subject: [wp-xmlrpc] what clients send an XML declaration in XML-RPC
+	requests?
+In-Reply-To: <08597F1F-6A9A-4D7A-BE2E-EB237CD39C61@red-sweater.com>
+References: <7BDB9219-D5C2-4389-BE09-C7E2E4A9A22B@josephscott.org>
+	<DEDE7E9F-90E0-400C-B87D-02EC59591FBA@red-sweater.com>
+	<54BA2A5F-BA6D-46A8-9483-07658AC0B692@josephscott.org>
+	<512523AA-0531-4366-B133-3E376864E6D9@red-sweater.com>
+	<7D828BE0-84E6-4E87-AB68-126F49B9E607@josephscott.org>
+	<08597F1F-6A9A-4D7A-BE2E-EB237CD39C61@red-sweater.com>
+Message-ID: <61FE5D00-A5CA-4E0F-BF0C-3F6C5D239AD3@josephscott.org>
+
+
+On Jul 27, 2009, at 7:45 AM, Daniel Jalkut wrote:
+
+>> Would returning the "id" for the newly uploaded file be enough?   
+>> Right now we send the following information back: file, url and type.
+>
+> Hmm, I hadn't considered augmenting the response from  
+> newMediaObject.  I was thinking more along the lines of just  
+> providing a means of knowing that the AtomPub interface was  
+> available. But I guess the RSD does that already.  Maybe I should  
+> just stop being so worried and aggressively use the AtomPub based  
+> uploader if it exists, and assume that if it succeeds, the resulting  
+> image URL is as good as the one I would have gotten from  
+> newMediaObject.
+
+If you request wp-app.php/service from a WP blog and the response has  
+an HTTP 403 Forbidden response then AtomPub isn't enabled on the  
+blog.  You also won't get back an XML document, you'll get a plain  
+text message telling you AtomPub isn't enabled.  When it is enabled  
+you get HTTP 200 OK response.
+
+I suppose you could loop through the src attribute of the <content>  
+element looking for the same URL that the *.newMediaObject XML-RPC  
+response provided.  Same basic technique that would need to do to  
+match the ID.
+
+
+> While I do think it would be cool to provide some extra information  
+> in the newMediaObject call, I wonder if it would break some  
+> clients.  MarsEdit wouldn't have a problem but I can imagine some  
+> clients are hardcoded to expect only the rigid values that are  
+> currently returned.
+
+
+We've added fields to XML-RPC responses and not had any complaints  
+that it broke clients.  Now that I've said that I expect to get an  
+email in the 48 hours complaining of this very thing :-)
+
+
+>> We can do that.  And if I can shave off more than 7% in memory  
+>> usage by changing a few lines for the code path that the vast  
+>> majority of clients are using I don't see any harm in doing that too.
+>
+> Definitely. I didn't mean to disparage your work on this. I can see  
+> how my comments about squeezing juice from a stone might have been  
+> too negative.
+
+
+No problem, I rely on you to help keep me grounded :-)
+
+
+
+>
+>> Agree 100%, being able to just push the binary bits across the wire  
+>> is a much nicer way to upload files.
+>
+> Here's an idea for the longer term: what about adding a new  
+> wp.uploadFiles method.  This could clearly document additional  
+> return values alluded to above, and accept multiple files at once  
+> (possibly in the zip encoding mentioned by Brandon, or possibly just  
+> as an array of Base64 elements).
+
+
+Having real XML-RPC management methods for media would be a good  
+start.  Right now just having the *.newMediaObject methods is  
+extremely primitive.  A simple model to follow would be what we've  
+done for comments.
+
+
+> But more radically, what do you think about this proposed  
+> wp.uploadFiles() method having too modes for supplying parameters,  
+> based on the Content-Type declared by the POST'er?  If the POST has  
+> a content-type of "multipart/form-data", then the parameters could  
+> be expressed as unencoded binary, otherwise the content would be  
+> assumed to be XML.
+>
+> I realize this is future-talk brainstorming, but I thought I would  
+> mention the idea.  What do other client devs think about something  
+> like this? Too confusing to depart from the XML?
+
+
+
+I'd be tempted to make the method indicated as part of the URL,  
+something like xmlrpc.php?method=wp.uploadFiles.  Since XML-RPC has to  
+parse the body of the request to determine what method(s) is being  
+called.  This is all definitely future talk.
+
+
+--
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+
+
+
+
+From krishnakishorealuri at gmail.com  Thu Jul 30 15:18:49 2009
+From: krishnakishorealuri at gmail.com (krishna kishore aluri)
+Date: Thu, 30 Jul 2009 20:48:49 +0530
+Subject: [wp-xmlrpc] Accessing APIs
+Message-ID: <a624d28d0907300818h4b46cc14n384df091c91a4e1c@mail.gmail.com>
+
+Hi,
+
+I am using asp.net with c# code behind. I am trying to access the wordpress
+apis. I got the userblog information by using wp.getUserBlogs method by
+passing the parameters UserName and Password(ref:-
+http://www.iron-feet.cn/?p=1672 ). Now i want to insert a commnet. How to
+build a *methodcall* xml, perticularly how to build the struct. Please help
+me. Please send me the sample code.
+
+Thanks,
+krishna kishore aluri.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20090730/877518b1/attachment.htm>
+
+From bogus@does.not.exist.com  Wed Jul 15 02:15:36 2009
+From: bogus@does.not.exist.com ()
+Date: Wed, 15 Jul 2009 02:15:36 -0000
+Subject: No subject
+Message-ID: <mailman.10.1255100004.16652.wp-xmlrpc@lists.automattic.com>
+
+The struct content can contain the following standard keys:
+
+   - title, for the title of the entry;
+   - description, for the body of the entry;
+   - *dateCreated, to set the created-on date of the entry;*
+
+Perfect. Will try and implement this.
+
+Thanks for your help, much appreciated!
+
+Regards,
+
+AJ
+
+--00032555b6dab531f1047581bd11
+Content-Type: text/html; charset=ISO-8859-1
+
+Hi,<br><br>From your link:<br><p style="margin-left: 40px;">The struct content can contain the following standard keys:</p>
+
+<ul style="margin-left: 40px;"><li>title, for the title of the entry; </li><li>description, for the body of the entry; </li><li><u><b>dateCreated</b>, to set the created-on date of the entry;</u> </li></ul>Perfect. Will try and implement this.<br>
+<br>Thanks for your help, much appreciated!<br><br>Regards,<br><br>AJ<br>
+
+--00032555b6dab531f1047581bd11--
+

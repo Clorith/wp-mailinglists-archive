@@ -1,0 +1,1396 @@
+From e.bardomiano at gmail.com  Mon Apr  6 17:27:08 2009
+From: e.bardomiano at gmail.com (Emiliano Compean)
+Date: Mon Apr  6 17:27:23 2009
+Subject: [HyperDB] separating reads and writes
+Message-ID: <a6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com>
+
+We have a cluster of wordpress front-end servers and want to separate reads
+and writes between mysql master and slave servers.
+
+In my db-settings.php file I have something like:
+
+//read db server
+add_db_server('global', 0, 'lan', 1, 0,'192.168.0.83:3306','
+192.168.0.83:3306','xxxx','xxxx','xxxx');
+
+//write db server
+add_db_server('global', 0, 'lan', 0, 1,'192.168.0.40:3306','
+192.168.0.40:3306','xxxx','xxxx','xxxx');
+
+
+So basically, I want all reads to go to one server and writes to another.
+Is this correct?
+In my testing, I'm using MONyog (www.webyog.com) to compare usage stats
+between the servers.  In this config, the charts show  reads
+still going to my master server. This is why I would like to confirm that my
+configuration or expectations are correct.
+
+thanks!!!
+From skeltoac at gmail.com  Mon Apr  6 17:41:50 2009
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Mon Apr  6 17:42:02 2009
+Subject: [HyperDB] separating reads and writes
+In-Reply-To: <a6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com>
+References: <a6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com>
+Message-ID: <e6ec604d0904061041k1fa81e22h764aae1e5aa5adbf@mail.gmail.com>
+
+On Mon, Apr 6, 2009 at 12:27 PM, Emiliano Compean
+<e.bardomiano@gmail.com> wrote:
+> So basically, I want all reads to go to one server and writes to another.
+> Is this correct?
+
+This is generally correct but your write-only server will still be
+sent read queries sometimes. Due to inevitable lags in replication, we
+designed HyperDB to read from the write database after any writes.
+This prevents the application reading a previous version of row
+written during the same page load.
+
+The current implementation keeps track of which datasets have received
+writes. It then bypasses the slaves for all subsequent reads on those
+datasets.
+
+Cheers,
+Andy
+From e.bardomiano at gmail.com  Thu Apr 16 17:05:03 2009
+From: e.bardomiano at gmail.com (Emiliano Compean)
+Date: Thu Apr 16 17:05:15 2009
+Subject: [HyperDB] Re: HyperDB Digest, Vol 15, Issue 1
+In-Reply-To: <20090407120021.9B7946BF5@comox.textdrive.com>
+References: <20090407120021.9B7946BF5@comox.textdrive.com>
+Message-ID: <a6111b820904161005l6499941bg71df14759d7eb9b@mail.gmail.com>
+
+If the slave is bypassed after a write to the master (for a particular
+dataset), does hyperdb reset itself after some time? Or will it just
+continue doing reads from the master indefinitely?
+
+On Tue, Apr 7, 2009 at 8:00 AM, <hyperdb-request@lists.automattic.com>wrote:
+
+> Send HyperDB mailing list submissions to
+>        hyperdb@lists.automattic.com
+>
+> To subscribe or unsubscribe via the World Wide Web, visit
+>        http://lists.automattic.com/mailman/listinfo/hyperdb
+> or, via email, send a message with subject or body 'help' to
+>        hyperdb-request@lists.automattic.com
+>
+> You can reach the person managing the list at
+>        hyperdb-owner@lists.automattic.com
+>
+> When replying, please edit your Subject line so it is more specific
+> than "Re: Contents of HyperDB digest..."
+>
+>
+> Today's Topics:
+>
+>   1. separating reads and writes (Emiliano Compean)
+>   2. Re: separating reads and writes (Andy Skelton)
+>
+>
+> ----------------------------------------------------------------------
+>
+> Message: 1
+> Date: Mon, 6 Apr 2009 13:27:08 -0400
+> From: Emiliano Compean <e.bardomiano@gmail.com>
+> Subject: [HyperDB] separating reads and writes
+> To: hyperdb@lists.automattic.com
+> Message-ID:
+>        <a6111b820904061027o7d87cc61lb45fd1119abe3562@mail.gmail.com>
+> Content-Type: text/plain; charset=ISO-8859-1
+>
+> We have a cluster of wordpress front-end servers and want to separate reads
+> and writes between mysql master and slave servers.
+>
+> In my db-settings.php file I have something like:
+>
+> //read db server
+> add_db_server('global', 0, 'lan', 1, 0,'192.168.0.83:3306','
+> 192.168.0.83:3306','xxxx','xxxx','xxxx');
+>
+> //write db server
+> add_db_server('global', 0, 'lan', 0, 1,'192.168.0.40:3306','
+> 192.168.0.40:3306','xxxx','xxxx','xxxx');
+>
+>
+> So basically, I want all reads to go to one server and writes to another.
+> Is this correct?
+> In my testing, I'm using MONyog (www.webyog.com) to compare usage stats
+> between the servers.  In this config, the charts show  reads
+> still going to my master server. This is why I would like to confirm that
+> my
+> configuration or expectations are correct.
+>
+> thanks!!!
+>
+>
+> ------------------------------
+>
+> Message: 2
+> Date: Mon, 6 Apr 2009 12:41:50 -0500
+> From: Andy Skelton <skeltoac@gmail.com>
+> Subject: Re: [HyperDB] separating reads and writes
+> To: hyperdb@lists.automattic.com
+> Message-ID:
+>        <e6ec604d0904061041k1fa81e22h764aae1e5aa5adbf@mail.gmail.com>
+> Content-Type: text/plain; charset=ISO-8859-1
+>
+> On Mon, Apr 6, 2009 at 12:27 PM, Emiliano Compean
+> <e.bardomiano@gmail.com> wrote:
+> > So basically, I want all reads to go to one server and writes to another.
+> > Is this correct?
+>
+> This is generally correct but your write-only server will still be
+> sent read queries sometimes. Due to inevitable lags in replication, we
+> designed HyperDB to read from the write database after any writes.
+> This prevents the application reading a previous version of row
+> written during the same page load.
+>
+> The current implementation keeps track of which datasets have received
+> writes. It then bypasses the slaves for all subsequent reads on those
+> datasets.
+>
+> Cheers,
+> Andy
+>
+>
+> ------------------------------
+>
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+>
+> End of HyperDB Digest, Vol 15, Issue 1
+> **************************************
+>
+From skeltoac at gmail.com  Thu Apr 16 17:27:40 2009
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Apr 16 18:43:17 2009
+Subject: [HyperDB] Re: HyperDB Digest, Vol 15, Issue 1
+In-Reply-To: <a6111b820904161005l6499941bg71df14759d7eb9b@mail.gmail.com>
+References: <20090407120021.9B7946BF5@comox.textdrive.com>
+	<a6111b820904161005l6499941bg71df14759d7eb9b@mail.gmail.com>
+Message-ID: <e6ec604d0904161027n547110f4y5fa83ee3c7c88dbb@mail.gmail.com>
+
+On Thu, Apr 16, 2009 at 12:05 PM, Emiliano Compean
+<e.bardomiano@gmail.com> wrote:
+> If the slave is bypassed after a write to the master (for a particular
+> dataset), does hyperdb reset itself after some time? Or will it just
+> continue doing reads from the master indefinitely?
+
+The send_reads_to_master switch only operates during one page load,
+the one that made the writes.
+
+Andy
+
+p.s.
+>> When replying, please edit your Subject line so it is more specific
+>> than "Re: Contents of HyperDB digest..."
+From felix.gushansky at internetbrands.com  Thu Apr 23 17:32:53 2009
+From: felix.gushansky at internetbrands.com (Felix Gushansky)
+Date: Thu Apr 23 17:33:07 2009
+Subject: [HyperDB] Partitioning wpmu data
+Message-ID: <C615F455.83C0%felix.gushansky@internetbrands.com>
+
+Hello, folks. We have just inherited the site that uses wordpress MU (ver
+2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+huge. Not size wise necessarily (it is slightly over a gig), but table wise.
+That db contains over 11,000 tables with the total of over 40,000 files in
+the same directory. That hugely affects performance AND maintenance ? to the
+point in fact that we can not backup the db using mysqldump. We had to write
+a script dumping a table at a time.
+
+So, we need to scale somehow. That?s why he have looked at HyperDB, which
+seems to have been built just for that. However, the problem we are seeing
+is that in our case the tables in the blog db are created and named
+dynamically. For each new user wpmu creates multiple tables (8?) in the
+database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn> is
+a four digit integer. Can we take advantage of HyperDB in this case? And if
+not what are our options?
+
+Thanks very much folks. Your help is very much appreciated.
+
+-- Felix
+From skeltoac at gmail.com  Thu Apr 23 17:49:37 2009
+From: skeltoac at gmail.com (Andy Skelton)
+Date: Thu Apr 23 17:49:50 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <C615F455.83C0%felix.gushansky@internetbrands.com>
+References: <C615F455.83C0%felix.gushansky@internetbrands.com>
+Message-ID: <e6ec604d0904231049h365a05a1pff3436e6aa70df98@mail.gmail.com>
+
+> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+> seems to have been built just for that.
+
+Exactly right. WordPress.com, a WordPress MU installation with
+millions of blogs, uses HyperDB. Rather, HyperDB is based on the
+WordPress.com database class. We have additional logic to map blogs
+onto database partitions.
+
+Inspect get_dataset_from_table. You can add your own logic there or in
+db_connect, or just take advantage of the pattern matching.
+
+I am reluctant to write documentation for HyperDB because I wouldn't
+advise its use to anyone who wasn't thoroughly familiar with how it
+works. The code isn't the prettiest, but it can be understood.
+
+How you organize your tables is entirely up to you. WordPress.com blog
+tables were originally mapped to a set of 4096 databases (wpmu_000 -
+wpmu_fff) by taking the first three hex digits of the md5 of the
+blog_id. A million blogs later, we added a column to wp_blogs to store
+the partition that held the blog's tables so that we could move them
+around without losing them.
+
+That's about all the help I can provide you. Anyone else who is
+familiar with HyperDB may chime in. My usual advice applies: study the
+code.
+
+Cheers,
+Andy
+From jed at deafnation.com  Thu Apr 23 18:56:10 2009
+From: jed at deafnation.com (Jed Barish)
+Date: Thu Apr 23 18:56:25 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <e6ec604d0904231049h365a05a1pff3436e6aa70df98@mail.gmail.com>
+References: <C615F455.83C0%felix.gushansky@internetbrands.com>
+	<e6ec604d0904231049h365a05a1pff3436e6aa70df98@mail.gmail.com>
+Message-ID: <a8665d70904231156s2083e01dob244150d239eb170@mail.gmail.com>
+
+Is there anyone out there as an expert of HyperDB because I would like to
+use hyperdb with our new wpmu site. I knew it will be too complicated for us
+to integrate it. It will be easier to hire someone.
+Thanks!
+Jed Barish
+jed@deafnation.com
+
+On Thu, Apr 23, 2009 at 12:49 PM, Andy Skelton <skeltoac@gmail.com> wrote:
+
+> > So, we need to scale somehow. That?s why he have looked at HyperDB, which
+> > seems to have been built just for that.
+>
+> Exactly right. WordPress.com, a WordPress MU installation with
+> millions of blogs, uses HyperDB. Rather, HyperDB is based on the
+> WordPress.com database class. We have additional logic to map blogs
+> onto database partitions.
+>
+> Inspect get_dataset_from_table. You can add your own logic there or in
+> db_connect, or just take advantage of the pattern matching.
+>
+> I am reluctant to write documentation for HyperDB because I wouldn't
+> advise its use to anyone who wasn't thoroughly familiar with how it
+> works. The code isn't the prettiest, but it can be understood.
+>
+> How you organize your tables is entirely up to you. WordPress.com blog
+> tables were originally mapped to a set of 4096 databases (wpmu_000 -
+> wpmu_fff) by taking the first three hex digits of the md5 of the
+> blog_id. A million blogs later, we added a column to wp_blogs to store
+> the partition that held the blog's tables so that we could move them
+> around without losing them.
+>
+> That's about all the help I can provide you. Anyone else who is
+> familiar with HyperDB may chime in. My usual advice applies: study the
+> code.
+>
+> Cheers,
+> Andy
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+>
+From lists.automattic.com at callum-macdonald.com  Thu Apr 23 18:57:29 2009
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Thu Apr 23 18:58:09 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <C615F455.83C0%felix.gushansky@internetbrands.com>
+References: <C615F455.83C0%felix.gushansky@internetbrands.com>
+Message-ID: <1240513049.4570.138.camel@clara>
+
+As Andy said, HyperDB is about on the money for what you want.
+
+The biggest challenge you'll face will be moving the data. You have 11k
+tables in one database right now, you need to move those to new
+databases. The MultiDB class uses the same method as HyperDB did
+originally, 4096 databases, first 3 digits of the md5 of the blog_id
+(the NNN number).
+
+I think your best bet will be to use HyperDB and create your own system
+for managing which blog is in which database (maybe a lookup table like
+Andy mentioned). That way you'll be able to migrate the data over time.
+
+Other options that occur to me:
+
+Migrate all the data at once. Take the whole system down for a few hours
+and move all the tables as you need to. Pray nothing goes wrong. :-)
+
+You could add some logic that checks if the table is found in the new
+target database, and if not, fall back on the global database. That
+would allow you to move blogs one at a time, without changing any code.
+If the blog tables are in the new database, the queries go there, if
+not, the queries go to the master table.
+
+If you're looking for help, you could speak to the guys at Incsub. I'm a
+(present and about to be) retired staffer there, so I'm biased. :-)
+
+Best of luck with the project.
+
+Cheers - Callum.
+
+On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+> huge. Not size wise necessarily (it is slightly over a gig), but table wise.
+> That db contains over 11,000 tables with the total of over 40,000 files in
+> the same directory. That hugely affects performance AND maintenance ? to the
+> point in fact that we can not backup the db using mysqldump. We had to write
+> a script dumping a table at a time.
+> 
+> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+> seems to have been built just for that. However, the problem we are seeing
+> is that in our case the tables in the blog db are created and named
+> dynamically. For each new user wpmu creates multiple tables (8?) in the
+> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn> is
+> a four digit integer. Can we take advantage of HyperDB in this case? And if
+> not what are our options?
+> 
+> Thanks very much folks. Your help is very much appreciated.
+> 
+> -- Felix
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From felix.gushansky at internetbrands.com  Thu Apr 23 19:35:39 2009
+From: felix.gushansky at internetbrands.com (Felix Gushansky)
+Date: Thu Apr 23 19:35:57 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <1240513049.4570.138.camel@clara>
+Message-ID: <C616111B.83CD%felix.gushansky@internetbrands.com>
+
+Thanks, Callum and Andy - all good info. In terms of migrating existing
+data, we may be in luck, as it may end up not being a problem. It seems
+there are many (many!) one-record tables, which means folks signed up for a
+blog but never really used it. We're debating cleaning it up by giving users
+a 45-day use-it-or-loose-it notice. That we believe would drastically reduce
+the existing dataset.
+
+As for pattern matching, checking out the code, particularly
+get_dataset_from_table, I see that if the exact table name is not found in
+the table-dataset array, it then tries to match table name pattern in the
+array with the table name being queried. I do not however understand the
+significance of '/' == substr( $pattern, 0, 1 ) in the
+
+if ( '/' == substr( $pattern, 0, 1 ) && preg_match( $pattern, $table ) )
+                return $dataset;
+
+statement. Why do we require a '/' to be the first character in the table
+name in the array in order to try to pattern match it? And if '/' *is* the
+first character then it and the remaining table name will be matched against
+the table name being queried which normally would not have a '/' as its
+first character. 
+
+Thanks, folks. Again, appreciate all your help.
+
+-- Felix
+
+
+> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> Reply-To: <hyperdb@lists.automattic.com>
+> Date: Thu, 23 Apr 2009 11:57:29 -0700
+> To: <hyperdb@lists.automattic.com>
+> Subject: Re: [HyperDB] Partitioning wpmu data
+> 
+> As Andy said, HyperDB is about on the money for what you want.
+> 
+> The biggest challenge you'll face will be moving the data. You have 11k
+> tables in one database right now, you need to move those to new
+> databases. The MultiDB class uses the same method as HyperDB did
+> originally, 4096 databases, first 3 digits of the md5 of the blog_id
+> (the NNN number).
+> 
+> I think your best bet will be to use HyperDB and create your own system
+> for managing which blog is in which database (maybe a lookup table like
+> Andy mentioned). That way you'll be able to migrate the data over time.
+> 
+> Other options that occur to me:
+> 
+> Migrate all the data at once. Take the whole system down for a few hours
+> and move all the tables as you need to. Pray nothing goes wrong. :-)
+> 
+> You could add some logic that checks if the table is found in the new
+> target database, and if not, fall back on the global database. That
+> would allow you to move blogs one at a time, without changing any code.
+> If the blog tables are in the new database, the queries go there, if
+> not, the queries go to the master table.
+> 
+> If you're looking for help, you could speak to the guys at Incsub. I'm a
+> (present and about to be) retired staffer there, so I'm biased. :-)
+> 
+> Best of luck with the project.
+> 
+> Cheers - Callum.
+> 
+> On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+>> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+>> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+>> huge. Not size wise necessarily (it is slightly over a gig), but table wise.
+>> That db contains over 11,000 tables with the total of over 40,000 files in
+>> the same directory. That hugely affects performance AND maintenance ? to the
+>> point in fact that we can not backup the db using mysqldump. We had to write
+>> a script dumping a table at a time.
+>> 
+>> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+>> seems to have been built just for that. However, the problem we are seeing
+>> is that in our case the tables in the blog db are created and named
+>> dynamically. For each new user wpmu creates multiple tables (8?) in the
+>> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+>> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn> is
+>> a four digit integer. Can we take advantage of HyperDB in this case? And if
+>> not what are our options?
+>> 
+>> Thanks very much folks. Your help is very much appreciated.
+>> 
+>> -- Felix
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From felix.gushansky at internetbrands.com  Fri Apr 24 18:01:03 2009
+From: felix.gushansky at internetbrands.com (Felix Gushansky)
+Date: Fri Apr 24 18:01:21 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <1240513049.4570.138.camel@clara>
+Message-ID: <C6174C6F.8406%felix.gushansky@internetbrands.com>
+
+Hi, folks. Before getting into the depths of db partitioning I am having
+trouble making the thing to work with just my default db. Seemingly the
+simplest thing in the world: added define and require lines to wp-config (at
+the top), dropped in db-settings.php, uncommented the default add_db_server
+('global') line in it, made sure all variables are defined and good, dropped
+in db.php in the wp-content dir -- just like prescribed. Croaking in the
+wpmu-settings.php - I think 'SELECT * FROM sites' does not give back the
+data resulting in 'count( $sites )' to be equal to 1 -- which is what seems
+to be expected. As soon as I disable the plugin (commenting out the define
+and the require lines in the wp-config.php) everything is back to normal.
+
+Any ideas what could be wrong?
+
+Thanks,
+-- Felix
+
+
+> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> Reply-To: <hyperdb@lists.automattic.com>
+> Date: Thu, 23 Apr 2009 11:57:29 -0700
+> To: <hyperdb@lists.automattic.com>
+> Subject: Re: [HyperDB] Partitioning wpmu data
+> 
+> As Andy said, HyperDB is about on the money for what you want.
+> 
+> The biggest challenge you'll face will be moving the data. You have 11k
+> tables in one database right now, you need to move those to new
+> databases. The MultiDB class uses the same method as HyperDB did
+> originally, 4096 databases, first 3 digits of the md5 of the blog_id
+> (the NNN number).
+> 
+> I think your best bet will be to use HyperDB and create your own system
+> for managing which blog is in which database (maybe a lookup table like
+> Andy mentioned). That way you'll be able to migrate the data over time.
+> 
+> Other options that occur to me:
+> 
+> Migrate all the data at once. Take the whole system down for a few hours
+> and move all the tables as you need to. Pray nothing goes wrong. :-)
+> 
+> You could add some logic that checks if the table is found in the new
+> target database, and if not, fall back on the global database. That
+> would allow you to move blogs one at a time, without changing any code.
+> If the blog tables are in the new database, the queries go there, if
+> not, the queries go to the master table.
+> 
+> If you're looking for help, you could speak to the guys at Incsub. I'm a
+> (present and about to be) retired staffer there, so I'm biased. :-)
+> 
+> Best of luck with the project.
+> 
+> Cheers - Callum.
+> 
+> On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+>> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+>> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+>> huge. Not size wise necessarily (it is slightly over a gig), but table wise.
+>> That db contains over 11,000 tables with the total of over 40,000 files in
+>> the same directory. That hugely affects performance AND maintenance ? to the
+>> point in fact that we can not backup the db using mysqldump. We had to write
+>> a script dumping a table at a time.
+>> 
+>> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+>> seems to have been built just for that. However, the problem we are seeing
+>> is that in our case the tables in the blog db are created and named
+>> dynamically. For each new user wpmu creates multiple tables (8?) in the
+>> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+>> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn> is
+>> a four digit integer. Can we take advantage of HyperDB in this case? And if
+>> not what are our options?
+>> 
+>> Thanks very much folks. Your help is very much appreciated.
+>> 
+>> -- Felix
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From lists.automattic.com at callum-macdonald.com  Mon Apr 27 02:18:14 2009
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Mon Apr 27 02:18:58 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <C6174C6F.8406%felix.gushansky@internetbrands.com>
+References: <C6174C6F.8406%felix.gushansky@internetbrands.com>
+Message-ID: <1240798694.9003.127.camel@clara>
+
+I don't think you need to do add any require() calls. WordPress will
+automatically pick up a file called db.php in wp-content.
+
+As far as I'm aware, you can drop in the HyperDB class and it will
+automatically fall back on the default db details, in effect changing
+almost nothing.
+
+Cheers - Callum.
+
+On Fri, 2009-04-24 at 11:01 -0700, Felix Gushansky wrote:
+> Hi, folks. Before getting into the depths of db partitioning I am having
+> trouble making the thing to work with just my default db. Seemingly the
+> simplest thing in the world: added define and require lines to wp-config (at
+> the top), dropped in db-settings.php, uncommented the default add_db_server
+> ('global') line in it, made sure all variables are defined and good, dropped
+> in db.php in the wp-content dir -- just like prescribed. Croaking in the
+> wpmu-settings.php - I think 'SELECT * FROM sites' does not give back the
+> data resulting in 'count( $sites )' to be equal to 1 -- which is what seems
+> to be expected. As soon as I disable the plugin (commenting out the define
+> and the require lines in the wp-config.php) everything is back to normal.
+> 
+> Any ideas what could be wrong?
+> 
+> Thanks,
+> -- Felix
+> 
+> 
+> > From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> > Reply-To: <hyperdb@lists.automattic.com>
+> > Date: Thu, 23 Apr 2009 11:57:29 -0700
+> > To: <hyperdb@lists.automattic.com>
+> > Subject: Re: [HyperDB] Partitioning wpmu data
+> > 
+> > As Andy said, HyperDB is about on the money for what you want.
+> > 
+> > The biggest challenge you'll face will be moving the data. You have 11k
+> > tables in one database right now, you need to move those to new
+> > databases. The MultiDB class uses the same method as HyperDB did
+> > originally, 4096 databases, first 3 digits of the md5 of the blog_id
+> > (the NNN number).
+> > 
+> > I think your best bet will be to use HyperDB and create your own system
+> > for managing which blog is in which database (maybe a lookup table like
+> > Andy mentioned). That way you'll be able to migrate the data over time.
+> > 
+> > Other options that occur to me:
+> > 
+> > Migrate all the data at once. Take the whole system down for a few hours
+> > and move all the tables as you need to. Pray nothing goes wrong. :-)
+> > 
+> > You could add some logic that checks if the table is found in the new
+> > target database, and if not, fall back on the global database. That
+> > would allow you to move blogs one at a time, without changing any code.
+> > If the blog tables are in the new database, the queries go there, if
+> > not, the queries go to the master table.
+> > 
+> > If you're looking for help, you could speak to the guys at Incsub. I'm a
+> > (present and about to be) retired staffer there, so I'm biased. :-)
+> > 
+> > Best of luck with the project.
+> > 
+> > Cheers - Callum.
+> > 
+> > On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+> >> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+> >> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+> >> huge. Not size wise necessarily (it is slightly over a gig), but table wise.
+> >> That db contains over 11,000 tables with the total of over 40,000 files in
+> >> the same directory. That hugely affects performance AND maintenance ? to the
+> >> point in fact that we can not backup the db using mysqldump. We had to write
+> >> a script dumping a table at a time.
+> >> 
+> >> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+> >> seems to have been built just for that. However, the problem we are seeing
+> >> is that in our case the tables in the blog db are created and named
+> >> dynamically. For each new user wpmu creates multiple tables (8?) in the
+> >> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+> >> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn> is
+> >> a four digit integer. Can we take advantage of HyperDB in this case? And if
+> >> not what are our options?
+> >> 
+> >> Thanks very much folks. Your help is very much appreciated.
+> >> 
+> >> -- Felix
+> >> _______________________________________________
+> >> HyperDB mailing list
+> >> HyperDB@lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/hyperdb
+> > 
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From felix.gushansky at internetbrands.com  Mon Apr 27 16:31:44 2009
+From: felix.gushansky at internetbrands.com (Felix Gushansky)
+Date: Mon Apr 27 16:32:07 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <1240798694.9003.127.camel@clara>
+Message-ID: <C61B2C00.8449%felix.gushansky@internetbrands.com>
+
+Hm, but the add_db_server (a function in db.php) is being called from
+db-settings.php, which I think *won't* get executed unless I require it in
+the wp-config, no? That add_db_server call carries the info about my (in
+this case default) database.
+
+Thanks,
+-- Felix
+
+> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> Reply-To: <hyperdb@lists.automattic.com>
+> Date: Sun, 26 Apr 2009 19:18:14 -0700
+> To: <hyperdb@lists.automattic.com>
+> Subject: Re: [HyperDB] Partitioning wpmu data
+> 
+> I don't think you need to do add any require() calls. WordPress will
+> automatically pick up a file called db.php in wp-content.
+> 
+> As far as I'm aware, you can drop in the HyperDB class and it will
+> automatically fall back on the default db details, in effect changing
+> almost nothing.
+> 
+> Cheers - Callum.
+> 
+> On Fri, 2009-04-24 at 11:01 -0700, Felix Gushansky wrote:
+>> Hi, folks. Before getting into the depths of db partitioning I am having
+>> trouble making the thing to work with just my default db. Seemingly the
+>> simplest thing in the world: added define and require lines to wp-config (at
+>> the top), dropped in db-settings.php, uncommented the default add_db_server
+>> ('global') line in it, made sure all variables are defined and good, dropped
+>> in db.php in the wp-content dir -- just like prescribed. Croaking in the
+>> wpmu-settings.php - I think 'SELECT * FROM sites' does not give back the
+>> data resulting in 'count( $sites )' to be equal to 1 -- which is what seems
+>> to be expected. As soon as I disable the plugin (commenting out the define
+>> and the require lines in the wp-config.php) everything is back to normal.
+>> 
+>> Any ideas what could be wrong?
+>> 
+>> Thanks,
+>> -- Felix
+>> 
+>> 
+>>> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+>>> Reply-To: <hyperdb@lists.automattic.com>
+>>> Date: Thu, 23 Apr 2009 11:57:29 -0700
+>>> To: <hyperdb@lists.automattic.com>
+>>> Subject: Re: [HyperDB] Partitioning wpmu data
+>>> 
+>>> As Andy said, HyperDB is about on the money for what you want.
+>>> 
+>>> The biggest challenge you'll face will be moving the data. You have 11k
+>>> tables in one database right now, you need to move those to new
+>>> databases. The MultiDB class uses the same method as HyperDB did
+>>> originally, 4096 databases, first 3 digits of the md5 of the blog_id
+>>> (the NNN number).
+>>> 
+>>> I think your best bet will be to use HyperDB and create your own system
+>>> for managing which blog is in which database (maybe a lookup table like
+>>> Andy mentioned). That way you'll be able to migrate the data over time.
+>>> 
+>>> Other options that occur to me:
+>>> 
+>>> Migrate all the data at once. Take the whole system down for a few hours
+>>> and move all the tables as you need to. Pray nothing goes wrong. :-)
+>>> 
+>>> You could add some logic that checks if the table is found in the new
+>>> target database, and if not, fall back on the global database. That
+>>> would allow you to move blogs one at a time, without changing any code.
+>>> If the blog tables are in the new database, the queries go there, if
+>>> not, the queries go to the master table.
+>>> 
+>>> If you're looking for help, you could speak to the guys at Incsub. I'm a
+>>> (present and about to be) retired staffer there, so I'm biased. :-)
+>>> 
+>>> Best of luck with the project.
+>>> 
+>>> Cheers - Callum.
+>>> 
+>>> On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+>>>> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+>>>> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+>>>> huge. Not size wise necessarily (it is slightly over a gig), but table
+>>>> wise.
+>>>> That db contains over 11,000 tables with the total of over 40,000 files in
+>>>> the same directory. That hugely affects performance AND maintenance ? to
+>>>> the
+>>>> point in fact that we can not backup the db using mysqldump. We had to
+>>>> write
+>>>> a script dumping a table at a time.
+>>>> 
+>>>> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+>>>> seems to have been built just for that. However, the problem we are seeing
+>>>> is that in our case the tables in the blog db are created and named
+>>>> dynamically. For each new user wpmu creates multiple tables (8?) in the
+>>>> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+>>>> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn>
+>>>> is
+>>>> a four digit integer. Can we take advantage of HyperDB in this case? And if
+>>>> not what are our options?
+>>>> 
+>>>> Thanks very much folks. Your help is very much appreciated.
+>>>> 
+>>>> -- Felix
+>>>> _______________________________________________
+>>>> HyperDB mailing list
+>>>> HyperDB@lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>> 
+>>> _______________________________________________
+>>> HyperDB mailing list
+>>> HyperDB@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>> 
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From lists.automattic.com at callum-macdonald.com  Mon Apr 27 17:19:13 2009
+From: lists.automattic.com at callum-macdonald.com (Callum Macdonald)
+Date: Mon Apr 27 17:20:00 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <C61B2C00.8449%felix.gushansky@internetbrands.com>
+References: <C61B2C00.8449%felix.gushansky@internetbrands.com>
+Message-ID: <1240852753.9003.220.camel@clara>
+
+Felix, you're absolutely right, you do need to include db-settings.php
+in wp-config.php.
+
+As I understand it, you don't need to configure the default db settings.
+HyperDB will automatically pick up the settings in wp-config.php and use
+those. So if you just want to test, install db.php in wp-content/ and
+don't include db-settings.php.
+
+Then you can try adding db-settings.php and see if it works as you
+expect.
+
+Cheers - Callum.
+
+On Mon, 2009-04-27 at 09:31 -0700, Felix Gushansky wrote:
+> Hm, but the add_db_server (a function in db.php) is being called from
+> db-settings.php, which I think *won't* get executed unless I require it in
+> the wp-config, no? That add_db_server call carries the info about my (in
+> this case default) database.
+> 
+> Thanks,
+> -- Felix
+> 
+> > From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> > Reply-To: <hyperdb@lists.automattic.com>
+> > Date: Sun, 26 Apr 2009 19:18:14 -0700
+> > To: <hyperdb@lists.automattic.com>
+> > Subject: Re: [HyperDB] Partitioning wpmu data
+> > 
+> > I don't think you need to do add any require() calls. WordPress will
+> > automatically pick up a file called db.php in wp-content.
+> > 
+> > As far as I'm aware, you can drop in the HyperDB class and it will
+> > automatically fall back on the default db details, in effect changing
+> > almost nothing.
+> > 
+> > Cheers - Callum.
+> > 
+> > On Fri, 2009-04-24 at 11:01 -0700, Felix Gushansky wrote:
+> >> Hi, folks. Before getting into the depths of db partitioning I am having
+> >> trouble making the thing to work with just my default db. Seemingly the
+> >> simplest thing in the world: added define and require lines to wp-config (at
+> >> the top), dropped in db-settings.php, uncommented the default add_db_server
+> >> ('global') line in it, made sure all variables are defined and good, dropped
+> >> in db.php in the wp-content dir -- just like prescribed. Croaking in the
+> >> wpmu-settings.php - I think 'SELECT * FROM sites' does not give back the
+> >> data resulting in 'count( $sites )' to be equal to 1 -- which is what seems
+> >> to be expected. As soon as I disable the plugin (commenting out the define
+> >> and the require lines in the wp-config.php) everything is back to normal.
+> >> 
+> >> Any ideas what could be wrong?
+> >> 
+> >> Thanks,
+> >> -- Felix
+> >> 
+> >> 
+> >>> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> >>> Reply-To: <hyperdb@lists.automattic.com>
+> >>> Date: Thu, 23 Apr 2009 11:57:29 -0700
+> >>> To: <hyperdb@lists.automattic.com>
+> >>> Subject: Re: [HyperDB] Partitioning wpmu data
+> >>> 
+> >>> As Andy said, HyperDB is about on the money for what you want.
+> >>> 
+> >>> The biggest challenge you'll face will be moving the data. You have 11k
+> >>> tables in one database right now, you need to move those to new
+> >>> databases. The MultiDB class uses the same method as HyperDB did
+> >>> originally, 4096 databases, first 3 digits of the md5 of the blog_id
+> >>> (the NNN number).
+> >>> 
+> >>> I think your best bet will be to use HyperDB and create your own system
+> >>> for managing which blog is in which database (maybe a lookup table like
+> >>> Andy mentioned). That way you'll be able to migrate the data over time.
+> >>> 
+> >>> Other options that occur to me:
+> >>> 
+> >>> Migrate all the data at once. Take the whole system down for a few hours
+> >>> and move all the tables as you need to. Pray nothing goes wrong. :-)
+> >>> 
+> >>> You could add some logic that checks if the table is found in the new
+> >>> target database, and if not, fall back on the global database. That
+> >>> would allow you to move blogs one at a time, without changing any code.
+> >>> If the blog tables are in the new database, the queries go there, if
+> >>> not, the queries go to the master table.
+> >>> 
+> >>> If you're looking for help, you could speak to the guys at Incsub. I'm a
+> >>> (present and about to be) retired staffer there, so I'm biased. :-)
+> >>> 
+> >>> Best of luck with the project.
+> >>> 
+> >>> Cheers - Callum.
+> >>> 
+> >>> On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+> >>>> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+> >>>> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+> >>>> huge. Not size wise necessarily (it is slightly over a gig), but table
+> >>>> wise.
+> >>>> That db contains over 11,000 tables with the total of over 40,000 files in
+> >>>> the same directory. That hugely affects performance AND maintenance ? to
+> >>>> the
+> >>>> point in fact that we can not backup the db using mysqldump. We had to
+> >>>> write
+> >>>> a script dumping a table at a time.
+> >>>> 
+> >>>> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+> >>>> seems to have been built just for that. However, the problem we are seeing
+> >>>> is that in our case the tables in the blog db are created and named
+> >>>> dynamically. For each new user wpmu creates multiple tables (8?) in the
+> >>>> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+> >>>> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn>
+> >>>> is
+> >>>> a four digit integer. Can we take advantage of HyperDB in this case? And if
+> >>>> not what are our options?
+> >>>> 
+> >>>> Thanks very much folks. Your help is very much appreciated.
+> >>>> 
+> >>>> -- Felix
+> >>>> _______________________________________________
+> >>>> HyperDB mailing list
+> >>>> HyperDB@lists.automattic.com
+> >>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+> >>> 
+> >>> _______________________________________________
+> >>> HyperDB mailing list
+> >>> HyperDB@lists.automattic.com
+> >>> http://lists.automattic.com/mailman/listinfo/hyperdb
+> >> 
+> >> _______________________________________________
+> >> HyperDB mailing list
+> >> HyperDB@lists.automattic.com
+> >> http://lists.automattic.com/mailman/listinfo/hyperdb
+> > 
+> > _______________________________________________
+> > HyperDB mailing list
+> > HyperDB@lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From felix.gushansky at internetbrands.com  Mon Apr 27 17:40:35 2009
+From: felix.gushansky at internetbrands.com (Felix Gushansky)
+Date: Mon Apr 27 18:20:56 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <1240852753.9003.220.camel@clara>
+Message-ID: <C61B3C23.8471%felix.gushansky@internetbrands.com>
+
+Right, I did this initially, Callum, and here is what I saw:
+
+- if I exclude *both* the define('WPMU', true); and the
+require('db-settings.php'); then everything works fine. If at that point
+it's already using db.php, as you seem to suggest, then we're in good shape.
+
+- if in wp-config.php I include one of the two statements - or both - I get
+the error described below. This is unexpected, since, according to readme in
+the package, I should be able to just include define('WPMU', true); and
+everything should work using the default settings. In my case it does not.
+
+Not sure if it's a symptom of another problem, which could be the reason I
+can not make it work with require('db-settings.php');
+
+Thanks,
+-- Felix
+
+
+> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+> Reply-To: <hyperdb@lists.automattic.com>
+> Date: Mon, 27 Apr 2009 10:19:13 -0700
+> To: <hyperdb@lists.automattic.com>
+> Subject: Re: [HyperDB] Partitioning wpmu data
+> 
+> Felix, you're absolutely right, you do need to include db-settings.php
+> in wp-config.php.
+> 
+> As I understand it, you don't need to configure the default db settings.
+> HyperDB will automatically pick up the settings in wp-config.php and use
+> those. So if you just want to test, install db.php in wp-content/ and
+> don't include db-settings.php.
+> 
+> Then you can try adding db-settings.php and see if it works as you
+> expect.
+> 
+> Cheers - Callum.
+> 
+> On Mon, 2009-04-27 at 09:31 -0700, Felix Gushansky wrote:
+>> Hm, but the add_db_server (a function in db.php) is being called from
+>> db-settings.php, which I think *won't* get executed unless I require it in
+>> the wp-config, no? That add_db_server call carries the info about my (in
+>> this case default) database.
+>> 
+>> Thanks,
+>> -- Felix
+>> 
+>>> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+>>> Reply-To: <hyperdb@lists.automattic.com>
+>>> Date: Sun, 26 Apr 2009 19:18:14 -0700
+>>> To: <hyperdb@lists.automattic.com>
+>>> Subject: Re: [HyperDB] Partitioning wpmu data
+>>> 
+>>> I don't think you need to do add any require() calls. WordPress will
+>>> automatically pick up a file called db.php in wp-content.
+>>> 
+>>> As far as I'm aware, you can drop in the HyperDB class and it will
+>>> automatically fall back on the default db details, in effect changing
+>>> almost nothing.
+>>> 
+>>> Cheers - Callum.
+>>> 
+>>> On Fri, 2009-04-24 at 11:01 -0700, Felix Gushansky wrote:
+>>>> Hi, folks. Before getting into the depths of db partitioning I am having
+>>>> trouble making the thing to work with just my default db. Seemingly the
+>>>> simplest thing in the world: added define and require lines to wp-config
+>>>> (at
+>>>> the top), dropped in db-settings.php, uncommented the default add_db_server
+>>>> ('global') line in it, made sure all variables are defined and good,
+>>>> dropped
+>>>> in db.php in the wp-content dir -- just like prescribed. Croaking in the
+>>>> wpmu-settings.php - I think 'SELECT * FROM sites' does not give back the
+>>>> data resulting in 'count( $sites )' to be equal to 1 -- which is what seems
+>>>> to be expected. As soon as I disable the plugin (commenting out the define
+>>>> and the require lines in the wp-config.php) everything is back to normal.
+>>>> 
+>>>> Any ideas what could be wrong?
+>>>> 
+>>>> Thanks,
+>>>> -- Felix
+>>>> 
+>>>> 
+>>>>> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+>>>>> Reply-To: <hyperdb@lists.automattic.com>
+>>>>> Date: Thu, 23 Apr 2009 11:57:29 -0700
+>>>>> To: <hyperdb@lists.automattic.com>
+>>>>> Subject: Re: [HyperDB] Partitioning wpmu data
+>>>>> 
+>>>>> As Andy said, HyperDB is about on the money for what you want.
+>>>>> 
+>>>>> The biggest challenge you'll face will be moving the data. You have 11k
+>>>>> tables in one database right now, you need to move those to new
+>>>>> databases. The MultiDB class uses the same method as HyperDB did
+>>>>> originally, 4096 databases, first 3 digits of the md5 of the blog_id
+>>>>> (the NNN number).
+>>>>> 
+>>>>> I think your best bet will be to use HyperDB and create your own system
+>>>>> for managing which blog is in which database (maybe a lookup table like
+>>>>> Andy mentioned). That way you'll be able to migrate the data over time.
+>>>>> 
+>>>>> Other options that occur to me:
+>>>>> 
+>>>>> Migrate all the data at once. Take the whole system down for a few hours
+>>>>> and move all the tables as you need to. Pray nothing goes wrong. :-)
+>>>>> 
+>>>>> You could add some logic that checks if the table is found in the new
+>>>>> target database, and if not, fall back on the global database. That
+>>>>> would allow you to move blogs one at a time, without changing any code.
+>>>>> If the blog tables are in the new database, the queries go there, if
+>>>>> not, the queries go to the master table.
+>>>>> 
+>>>>> If you're looking for help, you could speak to the guys at Incsub. I'm a
+>>>>> (present and about to be) retired staffer there, so I'm biased. :-)
+>>>>> 
+>>>>> Best of luck with the project.
+>>>>> 
+>>>>> Cheers - Callum.
+>>>>> 
+>>>>> On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+>>>>>> Hello, folks. We have just inherited the site that uses wordpress MU (ver
+>>>>>> 2.5.1) with MySQL 5 on the back. Soon we have learned that the blog db is
+>>>>>> huge. Not size wise necessarily (it is slightly over a gig), but table
+>>>>>> wise.
+>>>>>> That db contains over 11,000 tables with the total of over 40,000 files
+>>>>>> in
+>>>>>> the same directory. That hugely affects performance AND maintenance ? to
+>>>>>> the
+>>>>>> point in fact that we can not backup the db using mysqldump. We had to
+>>>>>> write
+>>>>>> a script dumping a table at a time.
+>>>>>> 
+>>>>>> So, we need to scale somehow. That?s why he have looked at HyperDB, which
+>>>>>> seems to have been built just for that. However, the problem we are
+>>>>>> seeing
+>>>>>> is that in our case the tables in the blog db are created and named
+>>>>>> dynamically. For each new user wpmu creates multiple tables (8?) in the
+>>>>>> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+>>>>>> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc, where <nnnn>
+>>>>>> is
+>>>>>> a four digit integer. Can we take advantage of HyperDB in this case? And
+>>>>>> if
+>>>>>> not what are our options?
+>>>>>> 
+>>>>>> Thanks very much folks. Your help is very much appreciated.
+>>>>>> 
+>>>>>> -- Felix
+>>>>>> _______________________________________________
+>>>>>> HyperDB mailing list
+>>>>>> HyperDB@lists.automattic.com
+>>>>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>>>> 
+>>>>> _______________________________________________
+>>>>> HyperDB mailing list
+>>>>> HyperDB@lists.automattic.com
+>>>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>>> 
+>>>> _______________________________________________
+>>>> HyperDB mailing list
+>>>> HyperDB@lists.automattic.com
+>>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>> 
+>>> _______________________________________________
+>>> HyperDB mailing list
+>>> HyperDB@lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>> 
+>> _______________________________________________
+>> HyperDB mailing list
+>> HyperDB@lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+From felix.gushansky at internetbrands.com  Thu Apr 30 17:36:33 2009
+From: felix.gushansky at internetbrands.com (Felix Gushansky)
+Date: Thu Apr 30 17:36:48 2009
+Subject: [HyperDB] Partitioning wpmu data
+In-Reply-To: <1241073736.7306.31.camel@clara>
+Message-ID: <C61F2FB1.8526%felix.gushansky@internetbrands.com>
+
+Hey, thanks for the reply, Callum. We actually did progress. Enabling
+define('WPMU', true); IS a problem, but if we keep it commented out and only
+use require('db-settings.php'); db partitioning works wonderfully. We have
+created table name patterns /^00/ - /^99/ and mapped them to the separate
+DBs. That spreads the tables just the way we want it.
+
+Now, as far as define('WPMU', true), we?ve noticed that enabling it exposes
+a side problem, the symptom of which is that $wpdb->prefix isn?t being
+properly set. When WPMU is undefined $wpdb->prefix is set properly - to
+$table_prefix in wp-config.php - however later on there are other problems,
+most likely because afterall the code counts on WPMU to be enabled. If we do
+enable it however, as prescribed, the $wpdb->prefix is NOT being properly
+set (it is actually set to null), causing bunch of DB queries fail in the
+initial stages of execution. We do not yet understand why it happens, but we
+are looking. 
+
+I?ve added the community back to the mailing list, as there maybe something
+here useful to others.
+
+Best,
+-- Felix
+
+
+From: Callum Macdonald <me@callum-macdonald.com>
+Date: Wed, 29 Apr 2009 23:42:16 -0700
+To: Felix Gushansky <felix.gushansky@internetbrands.com>
+Subject: Re: [HyperDB] Partitioning wpmu data
+
+Hola,
+
+Just a quick private reply to say I'm not sure what else to suggest. I
+didn't think it was worth sending a message round the whole list.
+
+You could try the MultiDB class if you can't get HyperDB to work. I think
+you'd need to join the WPMU Dev Premium service, but I'm not 100% sure on
+the details.
+
+Cheers - Callum.
+
+On Mon, 2009-04-27 at 10:40 -0700, Felix Gushansky wrote:
+> 
+> Right, I did this initially, Callum, and here is what I saw:
+> 
+> - if I exclude *both* the define('WPMU', true); and the
+> require('db-settings.php'); then everything works fine. If at that point
+> it's already using db.php, as you seem to suggest, then we're in good shape.
+> 
+> - if in wp-config.php I include one of the two statements - or both - I get
+> the error described below. This is unexpected, since, according to readme in
+> the package, I should be able to just include define('WPMU', true); and
+> everything should work using the default settings. In my case it does not.
+> 
+> Not sure if it's a symptom of another problem, which could be the reason I
+> can not make it work with require('db-settings.php');
+> 
+> Thanks,
+> -- Felix
+> 
+> 
+>> > From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+>> > Reply-To: <hyperdb@lists.automattic.com>
+>> > Date: Mon, 27 Apr 2009 10:19:13 -0700
+>> > To: <hyperdb@lists.automattic.com>
+>> > Subject: Re: [HyperDB] Partitioning wpmu data
+>> > 
+>> > Felix, you're absolutely right, you do need to include db-settings.php
+>> > in wp-config.php.
+>> > 
+>> > As I understand it, you don't need to configure the default db settings.
+>> > HyperDB will automatically pick up the settings in wp-config.php and use
+>> > those. So if you just want to test, install db.php in wp-content/ and
+>> > don't include db-settings.php.
+>> > 
+>> > Then you can try adding db-settings.php and see if it works as you
+>> > expect.
+>> > 
+>> > Cheers - Callum.
+>> > 
+>> > On Mon, 2009-04-27 at 09:31 -0700, Felix Gushansky wrote:
+>>> >> Hm, but the add_db_server (a function in db.php) is being called from
+>>> >> db-settings.php, which I think *won't* get executed unless I require it
+in
+>>> >> the wp-config, no? That add_db_server call carries the info about my (in
+>>> >> this case default) database.
+>>> >> 
+>>> >> Thanks,
+>>> >> -- Felix
+>>> >> 
+>>>> >>> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+>>>> >>> Reply-To: <hyperdb@lists.automattic.com>
+>>>> >>> Date: Sun, 26 Apr 2009 19:18:14 -0700
+>>>> >>> To: <hyperdb@lists.automattic.com>
+>>>> >>> Subject: Re: [HyperDB] Partitioning wpmu data
+>>>> >>> 
+>>>> >>> I don't think you need to do add any require() calls. WordPress will
+>>>> >>> automatically pick up a file called db.php in wp-content.
+>>>> >>> 
+>>>> >>> As far as I'm aware, you can drop in the HyperDB class and it will
+>>>> >>> automatically fall back on the default db details, in effect changing
+>>>> >>> almost nothing.
+>>>> >>> 
+>>>> >>> Cheers - Callum.
+>>>> >>> 
+>>>> >>> On Fri, 2009-04-24 at 11:01 -0700, Felix Gushansky wrote:
+>>>>> >>>> Hi, folks. Before getting into the depths of db partitioning I am
+>>>>> having
+>>>>> >>>> trouble making the thing to work with just my default db. Seemingly
+the
+>>>>> >>>> simplest thing in the world: added define and require lines to
+>>>>> wp-config
+>>>>> >>>> (at
+>>>>> >>>> the top), dropped in db-settings.php, uncommented the default
+>>>>> add_db_server
+>>>>> >>>> ('global') line in it, made sure all variables are defined and good,
+>>>>> >>>> dropped
+>>>>> >>>> in db.php in the wp-content dir -- just like prescribed. Croaking in
+the
+>>>>> >>>> wpmu-settings.php - I think 'SELECT * FROM sites' does not give back
+the
+>>>>> >>>> data resulting in 'count( $sites )' to be equal to 1 -- which is what
+>>>>> seems
+>>>>> >>>> to be expected. As soon as I disable the plugin (commenting out the
+>>>>> define
+>>>>> >>>> and the require lines in the wp-config.php) everything is back to
+>>>>> normal.
+>>>>> >>>> 
+>>>>> >>>> Any ideas what could be wrong?
+>>>>> >>>> 
+>>>>> >>>> Thanks,
+>>>>> >>>> -- Felix
+>>>>> >>>> 
+>>>>> >>>> 
+>>>>>> >>>>> From: Callum Macdonald <lists.automattic.com@callum-macdonald.com>
+>>>>>> >>>>> Reply-To: <hyperdb@lists.automattic.com>
+>>>>>> >>>>> Date: Thu, 23 Apr 2009 11:57:29 -0700
+>>>>>> >>>>> To: <hyperdb@lists.automattic.com>
+>>>>>> >>>>> Subject: Re: [HyperDB] Partitioning wpmu data
+>>>>>> >>>>> 
+>>>>>> >>>>> As Andy said, HyperDB is about on the money for what you want.
+>>>>>> >>>>> 
+>>>>>> >>>>> The biggest challenge you'll face will be moving the data. You have
+11k
+>>>>>> >>>>> tables in one database right now, you need to move those to new
+>>>>>> >>>>> databases. The MultiDB class uses the same method as HyperDB did
+>>>>>> >>>>> originally, 4096 databases, first 3 digits of the md5 of the >>>>>>
+blog_id
+>>>>>> >>>>> (the NNN number).
+>>>>>> >>>>> 
+>>>>>> >>>>> I think your best bet will be to use HyperDB and create your own
+>>>>>> system
+>>>>>> >>>>> for managing which blog is in which database (maybe a lookup table
+like
+>>>>>> >>>>> Andy mentioned). That way you'll be able to migrate the data over
+time.
+>>>>>> >>>>> 
+>>>>>> >>>>> Other options that occur to me:
+>>>>>> >>>>> 
+>>>>>> >>>>> Migrate all the data at once. Take the whole system down for a few
+hours
+>>>>>> >>>>> and move all the tables as you need to. Pray nothing goes wrong.
+:-)
+>>>>>> >>>>> 
+>>>>>> >>>>> You could add some logic that checks if the table is found in the
+new
+>>>>>> >>>>> target database, and if not, fall back on the global database. That
+>>>>>> >>>>> would allow you to move blogs one at a time, without changing any
+code.
+>>>>>> >>>>> If the blog tables are in the new database, the queries go there,
+if
+>>>>>> >>>>> not, the queries go to the master table.
+>>>>>> >>>>> 
+>>>>>> >>>>> If you're looking for help, you could speak to the guys at Incsub.
+I'm a
+>>>>>> >>>>> (present and about to be) retired staffer there, so I'm biased. :-)
+>>>>>> >>>>> 
+>>>>>> >>>>> Best of luck with the project.
+>>>>>> >>>>> 
+>>>>>> >>>>> Cheers - Callum.
+>>>>>> >>>>> 
+>>>>>> >>>>> On Thu, 2009-04-23 at 10:32 -0700, Felix Gushansky wrote:
+>>>>>>> >>>>>> Hello, folks. We have just inherited the site that uses wordpress
+>>>>>>> MU (ver
+>>>>>>> >>>>>> 2.5.1) with MySQL 5 on the back. Soon we have learned that the
+>>>>>>> blog db is
+>>>>>>> >>>>>> huge. Not size wise necessarily (it is slightly over a gig), but
+table
+>>>>>>> >>>>>> wise.
+>>>>>>> >>>>>> That db contains over 11,000 tables with the total of over 40,000
+files
+>>>>>>> >>>>>> in
+>>>>>>> >>>>>> the same directory. That hugely affects performance AND
+>>>>>>> maintenance ? to
+>>>>>>> >>>>>> the
+>>>>>>> >>>>>> point in fact that we can not backup the db using mysqldump. We
+had to
+>>>>>>> >>>>>> write
+>>>>>>> >>>>>> a script dumping a table at a time.
+>>>>>>> >>>>>> 
+>>>>>>> >>>>>> So, we need to scale somehow. That?s why he have looked at
+>>>>>>> HyperDB, which
+>>>>>>> >>>>>> seems to have been built just for that. However, the problem we
+are
+>>>>>>> >>>>>> seeing
+>>>>>>> >>>>>> is that in our case the tables in the blog db are created and
+named
+>>>>>>> >>>>>> dynamically. For each new user wpmu creates multiple tables (8?)
+in the
+>>>>>>> >>>>>> database and names them like wp_<nnnn>_comments, wp_<nnnn>_links,
+>>>>>>> >>>>>> wp_<nnnn>_options, wp_<nnnn>_postmeta, wp_<nnnn>_posts, etc,
+>>>>>>> where <nnnn>
+>>>>>>> >>>>>> is
+>>>>>>> >>>>>> a four digit integer. Can we take advantage of HyperDB in this
+>>>>>>> case? And
+>>>>>>> >>>>>> if
+>>>>>>> >>>>>> not what are our options?
+>>>>>>> >>>>>> 
+>>>>>>> >>>>>> Thanks very much folks. Your help is very much appreciated.
+>>>>>>> >>>>>> 
+>>>>>>> >>>>>> -- Felix
+>>>>>>> >>>>>> _______________________________________________
+>>>>>>> >>>>>> HyperDB mailing list
+>>>>>>> >>>>>> HyperDB@lists.automattic.com
+>>>>>>> >>>>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>>>>> >>>>> 
+>>>>>> >>>>> _______________________________________________
+>>>>>> >>>>> HyperDB mailing list
+>>>>>> >>>>> HyperDB@lists.automattic.com
+>>>>>> >>>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>>>> >>>> 
+>>>>> >>>> _______________________________________________
+>>>>> >>>> HyperDB mailing list
+>>>>> >>>> HyperDB@lists.automattic.com
+>>>>> >>>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>>> >>> 
+>>>> >>> _______________________________________________
+>>>> >>> HyperDB mailing list
+>>>> >>> HyperDB@lists.automattic.com
+>>>> >>> http://lists.automattic.com/mailman/listinfo/hyperdb
+>>> >> 
+>>> >> _______________________________________________
+>>> >> HyperDB mailing list
+>>> >> HyperDB@lists.automattic.com
+>>> >> http://lists.automattic.com/mailman/listinfo/hyperdb
+>> > 
+>> > _______________________________________________
+>> > HyperDB mailing list
+>> > HyperDB@lists.automattic.com
+>> > http://lists.automattic.com/mailman/listinfo/hyperdb
+> 
+> _______________________________________________
+> HyperDB mailing list
+> HyperDB@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/hyperdb
+
+==
+Callum Macdonald
+
+US Cell: +1 585 201 1120
+Desk: +44 845 126 0875
+Skype: callum.macdonald <callto:callum.macdonald>
+www.callum-macdonald.com <http://www.callum-macdonald.com>
+
+
+
+

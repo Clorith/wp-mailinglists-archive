@@ -1,0 +1,170 @@
+From n.prasath.002 at gmail.com  Sat Oct  9 17:43:20 2010
+From: n.prasath.002 at gmail.com (prasath nadarajah)
+Date: Sat, 9 Oct 2010 23:13:20 +0530
+Subject: [wp-xmlrpc] Authentication for getters()
+Message-ID: <AANLkTikeas8hmR2fsJFnyg=_1PGH1iz-cm2TfEReN+h2@mail.gmail.com>
+
+Why all the getter methods (mw_getposts, mw_getrecent comments, wp_getpage
+etc..)   need authentication??
+If i want to an client for reading blogs in an offline mode how can get the
+posts from selected blogs??
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101009/e6a73afa/attachment.htm>
+
+From ercoli at gmail.com  Sat Oct  9 21:26:01 2010
+From: ercoli at gmail.com (Danilo Ercoli)
+Date: Sat, 9 Oct 2010 22:26:01 +0100
+Subject: [wp-xmlrpc] Authentication for getters()
+In-Reply-To: <AANLkTikeas8hmR2fsJFnyg=_1PGH1iz-cm2TfEReN+h2@mail.gmail.com>
+References: <AANLkTikeas8hmR2fsJFnyg=_1PGH1iz-cm2TfEReN+h2@mail.gmail.com>
+Message-ID: <AANLkTimY8nJt4Meie9zL-f3wSpaNM_reWjnhxeOnvDzo@mail.gmail.com>
+
+You can use the RSS feed.
+
+2010/10/9 prasath nadarajah <n.prasath.002 at gmail.com>
+
+> Why all the getter methods (mw_getposts, mw_getrecent comments, wp_getpage
+> etc..)   need authentication??
+> If i want to an client for reading blogs in an offline mode how can get the
+> posts from selected blogs??
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20101009/6d57a6a0/attachment.htm>
+
+From peter.westwood at ftwr.co.uk  Sun Oct 10 07:15:51 2010
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Sun, 10 Oct 2010 08:15:51 +0100
+Subject: [wp-xmlrpc] Authentication for getters()
+In-Reply-To: <AANLkTimY8nJt4Meie9zL-f3wSpaNM_reWjnhxeOnvDzo@mail.gmail.com>
+References: <AANLkTikeas8hmR2fsJFnyg=_1PGH1iz-cm2TfEReN+h2@mail.gmail.com>
+	<AANLkTimY8nJt4Meie9zL-f3wSpaNM_reWjnhxeOnvDzo@mail.gmail.com>
+Message-ID: <F433CE78-3F81-4910-8FBF-E0838039F99D@ftwr.co.uk>
+
+
+On 9 Oct 2010, at 22:26, Danilo Ercoli wrote:
+
+> You can use the RSS feed.
+> 
+> 2010/10/9 prasath nadarajah <n.prasath.002 at gmail.com>
+> Why all the getter methods (mw_getposts, mw_getrecent comments, wp_getpage etc..)   need authentication??
+> If i want to an client for reading blogs in an offline mode how can get the posts from selected blogs??
+> 
+
+As Danilo says you can use the RSS (or Atom) Feeds to get the public info.
+
+The XML-RPC api needs a authenticated user because it allows access to unpublished or private content too.
+
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From peter.westwood at ftwr.co.uk  Mon Oct 11 10:07:10 2010
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Mon, 11 Oct 2010 11:07:10 +0100
+Subject: [wp-xmlrpc] Best practise for validating a site connection
+Message-ID: <DA0154F6-FD4B-4697-BA01-6A59441D91A0@ftwr.co.uk>
+
+Hi All,
+
+I wonder what you all think is the best way to validate that the url/username/password combo a user has entered in your app is good enough to continue with?
+
+It seems different apps have different ideas.
+
+Some seem to create drafts, some list users blogs, some publish posts!
+
+I wonder if an extra API would be beneficial here - or an extended better version of blogger.getUsersBlogs which gave you info about the capabilities of the user with respect to a site?
+
+Cheers
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+
+From jalkut at red-sweater.com  Mon Oct 11 12:38:57 2010
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Mon, 11 Oct 2010 08:38:57 -0400
+Subject: [wp-xmlrpc] Best practise for validating a site connection
+In-Reply-To: <DA0154F6-FD4B-4697-BA01-6A59441D91A0@ftwr.co.uk>
+References: <DA0154F6-FD4B-4697-BA01-6A59441D91A0@ftwr.co.uk>
+Message-ID: <79637D17-CF10-42D8-A9FC-947EADDF9CE9@red-sweater.com>
+
+Not saying this is the best practice, but to complete your menu of differing behaviors: in MarsEdit a successful "getRecentPosts" is pretty much the test for whether a configuration was made correctly or not.
+
+(I don't use getUsersBlogs because the setup sequence in MarsEdit is centered around providing the home page URL to a single blog).
+
+If you decide to do some kind of "capabilities" method, may I suggest you follow the lead of the "API is disabled" error message, and include URLs in the response to the page where a particular capability can be modified. I am thinking something like (in pseudo-XML):
+
+<capabilities>
+	<capability name="xmlrpcAccess" enabled="false" settingURL="http://myblog/admin/settings.php">
+	<capability name="editPosts" enabled="true" settingURL="etc?">
+</capabilities>
+
+Though, come to think of it, maybe this should all be shoe-horned into the wlwmanifest file?
+
+Daniel
+
+On Oct 11, 2010, at 6:07am, Peter Westwood wrote:
+
+> Hi All,
+> 
+> I wonder what you all think is the best way to validate that the url/username/password combo a user has entered in your app is good enough to continue with?
+> 
+> It seems different apps have different ideas.
+> 
+> Some seem to create drafts, some list users blogs, some publish posts!
+> 
+> I wonder if an extra API would be beneficial here - or an extended better version of blogger.getUsersBlogs which gave you info about the capabilities of the user with respect to a site?
+> 
+> Cheers
+> -- 
+> Peter Westwood
+> http://blog.ftwr.co.uk | http://westi.wordpress.com
+> C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+> 
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From peter.westwood at ftwr.co.uk  Wed Oct 27 17:32:50 2010
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Wed, 27 Oct 2010 18:32:50 +0100
+Subject: [wp-xmlrpc] New media related XMLRPC functions
+Message-ID: <FB21F9E6-EBEB-4CDE-AD86-BEDF311D9BCC@ftwr.co.uk>
+
+Hi All.
+
+Just a heads up that for 3.1 I've added two new XMLRPC functions and extended the list of options accessible
+
+New functions:
+	wp.getMediaItem
+	wp.getMediaLibrary
+
+Extra Options:
+	The ones on Options Medai
+
+Tickets:
+http://core.trac.wordpress.org/ticket/15151
+http://core.trac.wordpress.org/ticket/15153
+
+Please report issues/feedback etc with the changes on the tickets.
+
+Cheers
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+

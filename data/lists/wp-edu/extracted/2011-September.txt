@@ -1,0 +1,810 @@
+From joseph.ugoretz at mhc.cuny.edu  Fri Sep  9 17:22:06 2011
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Fri, 9 Sep 2011 13:22:06 -0400
+Subject: [wp-edu] Email Users plugin causes mysql to hang
+Message-ID: <BD52A663-96B9-4C2B-BBF2-0283C04C3A5E@mhc.cuny.edu>
+
+I'm not sure if this is specific in some way to our install, but I thought I'd share because it caused me so much pain before we fixed the problem.
+
+We've been using the plugin "Email Users" on many of our class sites in our fairly large network for a couple of years.  It's always worked very well, even though it's officially not tested on a multisite install.
+
+Then sometime a couple of weeks ago, probably about the time we passed the 2000-user mark as the new semester began, we started having mysql failures several times a day.  Intermittently, at odd times, mysql CPU usage would jump way up--as far as 205%, so it would stop responding until restarted from the command line.  
+
+I tried a lot of different troubleshooting steps, looked at the mysql slow queries log, and found that most of those times the cause was a query to the wp-usermeta table. But other times queries to that same table were going through quickly with no problem. But I could not figure out (my skills are not strong enough) anything beyond that. 
+
+Finally on Wednesday we had someone notice that every time she tried to email all students in her class using the Email Users plugin, that triggered the problem (we only noticed because she tried the email, mysql hung, I restarted mysql, she tried again, and it hung again.)
+
+I deleted that plugin, nobody is using it anymore, and the problem is completely solved.  No more issues and the site is fast and responsive and stable again.
+
+So if you're using this plugin, beware.  It seems to have problems with large installs. 
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+
+From d at danielbachhuber.com  Fri Sep  9 17:44:16 2011
+From: d at danielbachhuber.com (Daniel Bachhuber)
+Date: Fri, 9 Sep 2011 10:44:16 -0700
+Subject: [wp-edu] Email Users plugin causes mysql to hang
+In-Reply-To: <BD52A663-96B9-4C2B-BBF2-0283C04C3A5E@mhc.cuny.edu>
+References: <BD52A663-96B9-4C2B-BBF2-0283C04C3A5E@mhc.cuny.edu>
+Message-ID: <AE73DF98-9177-4D73-B7A7-85542D8F0BC5@danielbachhuber.com>
+
+Hey Joseph,
+Thanks for the post.
+
+> Finally on Wednesday we had someone notice that every time she tried to email all students in her class using the Email Users plugin, that triggered the problem (we only noticed because she tried the email, mysql hung, I restarted mysql, she tried again, and it hung again.)
+
+This would be great information to post in the WordPress.org forums too:
+
+http://wordpress.org/extend/plugins/email-users/
+
+Cheers,
+
+Daniel
+
+From joseph.ugoretz at mhc.cuny.edu  Fri Sep  9 18:04:13 2011
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Fri, 9 Sep 2011 14:04:13 -0400
+Subject: [wp-edu] Email Users plugin causes mysql to hang
+In-Reply-To: <AE73DF98-9177-4D73-B7A7-85542D8F0BC5@danielbachhuber.com>
+References: <BD52A663-96B9-4C2B-BBF2-0283C04C3A5E@mhc.cuny.edu>
+	<AE73DF98-9177-4D73-B7A7-85542D8F0BC5@danielbachhuber.com>
+Message-ID: <72593386-9F27-4538-9A3D-D4AF8066191E@mhc.cuny.edu>
+
+Good idea.  I did post on the plugin developer's own forum, but others might not see it there!
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On Sep 9, 2011, at 1:44 PM, Daniel Bachhuber wrote:
+
+> Hey Joseph,
+> Thanks for the post.
+> 
+>> Finally on Wednesday we had someone notice that every time she tried to email all students in her class using the Email Users plugin, that triggered the problem (we only noticed because she tried the email, mysql hung, I restarted mysql, she tried again, and it hung again.)
+> 
+> This would be great information to post in the WordPress.org forums too:
+> 
+> http://wordpress.org/extend/plugins/email-users/
+> 
+> Cheers,
+> 
+> Daniel
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From vitaum at gmail.com  Fri Sep 16 15:10:32 2011
+From: vitaum at gmail.com (Victor Rossini Magalhaes)
+Date: Fri, 16 Sep 2011 12:10:32 -0300
+Subject: [wp-edu] WordCamp Atlanta 2012
+Message-ID: <CAM9Y34SRTBNU2Sr8PTC2ggauUMQaR7hL0K=kafcgn4GW7riXWA@mail.gmail.com>
+
+Will anyone on this list be attending WordCamp Atlanta in febuary?
+
+I?m from Brazil and I was planning to be there.
+
+I am looking for information about accommodation and If will be somme lecture
+of WordPress in education.
+
+I would also like to organize a WordCamp in Brazil at the end of next year.
+It would be interesting.
+
+Thanks!
+
+http://2012.atlanta.wordcamp.org/
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110916/db54b0c0/attachment.htm>
+
+From dolemes at gmail.com  Fri Sep 16 20:53:54 2011
+From: dolemes at gmail.com (David de Oliveira Lemes)
+Date: Fri, 16 Sep 2011 17:53:54 -0300
+Subject: [wp-edu] WordCamp Atlanta 2012
+In-Reply-To: <CAM9Y34SRTBNU2Sr8PTC2ggauUMQaR7hL0K=kafcgn4GW7riXWA@mail.gmail.com>
+References: <CAM9Y34SRTBNU2Sr8PTC2ggauUMQaR7hL0K=kafcgn4GW7riXWA@mail.gmail.com>
+Message-ID: <CAHUxpTqi3QLCLwJ5c2-B9yrtfxqY8M9bq1qHRJrwfXx3i5zVfg@mail.gmail.com>
+
+Hi Victor
+
+I'm from Brazil too. Let's work together to organize a WordCamp in Brazil?
+
+Best Regards
+
+---
+*David de Oliveira Lemes* | @dolemes <http://twitter.com/dolemes>
+
+
+
+2011/9/16 Victor Rossini Magalhaes <vitaum at gmail.com>
+
+> Will anyone on this list be attending WordCamp Atlanta in febuary?
+>
+> I?m from Brazil and I was planning to be there.
+>
+> I am looking for information about accommodation and If will be somme lecture
+> of WordPress in education.
+>
+> I would also like to organize a WordCamp in Brazil at the end of next year.
+> It would be interesting.
+>
+> Thanks!
+>
+> http://2012.atlanta.wordcamp.org/
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110916/578e7e56/attachment.htm>
+
+From greened at msu.edu  Mon Sep 19 17:37:54 2011
+From: greened at msu.edu (Darcy Greene)
+Date: Mon, 19 Sep 2011 13:37:54 -0400
+Subject: [wp-edu] is there a service?
+Message-ID: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+
+Are there any services for managing wordpress installations?
+We are using Wordpress Multiuser (WPMU) and BuddyPress.
+We are looking for a service to install and update wordpress, plugins and themes.
+Also to troubleshoot.
+
+From jay.collier at thecompass.com  Mon Sep 19 17:48:07 2011
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Mon, 19 Sep 2011 13:48:07 -0400
+Subject: [wp-edu] is there a service?
+In-Reply-To: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+Message-ID: <682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+
+I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+
+-Jay
+
+
+
+On Sep 19, 2011, at 1:37 PM, Darcy Greene wrote:
+
+> Are there any services for managing wordpress installations?
+> We are using Wordpress Multiuser (WPMU) and BuddyPress.
+> We are looking for a service to install and update wordpress, plugins and themes.
+> Also to troubleshoot.
+
+
+
+
+
+
+
+From d at danielbachhuber.com  Mon Sep 19 17:55:18 2011
+From: d at danielbachhuber.com (Daniel Bachhuber)
+Date: Mon, 19 Sep 2011 10:55:18 -0700
+Subject: [wp-edu] is there a service?
+In-Reply-To: <682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+	<682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+Message-ID: <8508A8ED-3780-4385-9AA5-ED30BABD1A80@danielbachhuber.com>
+
+> I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+
+Have you checked out http://codepoet.com/ ? I'd be interested to hear whether it's useful for recommendations (my team works on it). WP Candy also has a database: http://wpcandy.com/pros
+
+From patrick_laverty at brown.edu  Mon Sep 19 17:56:18 2011
+From: patrick_laverty at brown.edu (Patrick Laverty)
+Date: Mon, 19 Sep 2011 13:56:18 -0400
+Subject: [wp-edu] is there a service?
+In-Reply-To: <682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+	<682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+Message-ID: <CAHZK5Oar6n-zEb9O3sj8WnANkVdZdPoJDgPahQ_SWQ2WBpH6+g@mail.gmail.com>
+
+This sounds like what Automattic does.  Have you looked into them?
+
+
+
+On Mon, Sep 19, 2011 at 1:48 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+> I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+>
+> -Jay
+>
+>
+>
+> On Sep 19, 2011, at 1:37 PM, Darcy Greene wrote:
+>
+>> Are there any services for managing wordpress installations?
+>> We are using Wordpress Multiuser (WPMU) and BuddyPress.
+>> We are looking for a service to install and update wordpress, plugins and themes.
+>> Also to troubleshoot.
+>
+>
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+From jay.collier at thecompass.com  Mon Sep 19 18:00:53 2011
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Mon, 19 Sep 2011 14:00:53 -0400
+Subject: [wp-edu] is there a service?
+In-Reply-To: <CAHZK5Oar6n-zEb9O3sj8WnANkVdZdPoJDgPahQ_SWQ2WBpH6+g@mail.gmail.com>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+	<682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+	<CAHZK5Oar6n-zEb9O3sj8WnANkVdZdPoJDgPahQ_SWQ2WBpH6+g@mail.gmail.com>
+Message-ID: <A2469226-36F7-45C0-9687-D8405FDEDF30@thecompass.com>
+
+The VIP service is too expensive for our needs, and requires plugins be vetted before being used. Is there another Automattic service to consider?
+
+In any case, we're right in the middle space -- statewide online community for educators -- and are hoping to find folks who have specific education and BP experience.
+
+Thanks for the tips coming our way!
+
+-Jay
+
+
+
+On Sep 19, 2011, at 1:56 PM, Patrick Laverty wrote:
+
+> This sounds like what Automattic does.  Have you looked into them?
+> 
+> 
+> 
+> On Mon, Sep 19, 2011 at 1:48 PM, Jay Collier <jay.collier at thecompass.com> wrote:
+>> I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+>> 
+>> -Jay
+>> 
+>> 
+>> 
+>> On Sep 19, 2011, at 1:37 PM, Darcy Greene wrote:
+>> 
+>>> Are there any services for managing wordpress installations?
+>>> We are using Wordpress Multiuser (WPMU) and BuddyPress.
+>>> We are looking for a service to install and update wordpress, plugins and themes.
+>>> Also to troubleshoot.
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+
+ 
+
+
+Jay Collier | Digital strategy consultant
+The Compass LLC | Online media for learning organizations
+jay.collier at thecompass.com | +1-207-956-0320
+Subscribe to latest posts via RSS or e-mail
+       
+
+
+
+
+
+
+
+
+
+
+
+From jay.collier at thecompass.com  Mon Sep 19 20:09:02 2011
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Mon, 19 Sep 2011 16:09:02 -0400
+Subject: [wp-edu] is there a service?
+In-Reply-To: <8508A8ED-3780-4385-9AA5-ED30BABD1A80@danielbachhuber.com>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+	<682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+	<8508A8ED-3780-4385-9AA5-ED30BABD1A80@danielbachhuber.com>
+Message-ID: <AF483308-F02F-410E-9F91-EEA78ECB43F1@thecompass.com>
+
+Daniel-
+
+At CodePoet, I searched for "education BuddyPress" and received this: "Sorry, we couldn't find any Code Poets matching your search." WP Candy doesn't break down into vertical markets at all.
+
+From my experience, the enterprise environment and theme/plugin recipes are somewhat distinctive for the education/collaboration space. However, I'd be happy to be convinced otherwise!
+
+-Jay
+
+
+On Sep 19, 2011, at 1:55 PM, Daniel Bachhuber wrote:
+
+>> I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+> 
+> Have you checked out http://codepoet.com/ ? I'd be interested to hear whether it's useful for recommendations (my team works on it). WP Candy also has a database: http://wpcandy.com/pros
+
+
+
+
+
+
+
+
+From d at danielbachhuber.com  Tue Sep 20 02:25:23 2011
+From: d at danielbachhuber.com (Daniel Bachhuber)
+Date: Mon, 19 Sep 2011 19:25:23 -0700
+Subject: [wp-edu] is there a service?
+In-Reply-To: <AF483308-F02F-410E-9F91-EEA78ECB43F1@thecompass.com>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+	<682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+	<8508A8ED-3780-4385-9AA5-ED30BABD1A80@danielbachhuber.com>
+	<AF483308-F02F-410E-9F91-EEA78ECB43F1@thecompass.com>
+Message-ID: <B6D5BF10-323B-43DF-994D-03AA8B9EEC0F@danielbachhuber.com>
+
+Great points. I'd agree that most CoetPoets are geared towards enterprise but I bet we could convince them otherwise if there were projects. Let's continue talking
+
+On Sep 19, 2011, at 13:09, Jay Collier <jay.collier at thecompass.com> wrote:
+
+> Daniel-
+> 
+> At CodePoet, I searched for "education BuddyPress" and received this: "Sorry, we couldn't find any Code Poets matching your search." WP Candy doesn't break down into vertical markets at all.
+> 
+> From my experience, the enterprise environment and theme/plugin recipes are somewhat distinctive for the education/collaboration space. However, I'd be happy to be convinced otherwise!
+> 
+> -Jay
+> 
+> 
+> On Sep 19, 2011, at 1:55 PM, Daniel Bachhuber wrote:
+> 
+>>> I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+>> 
+>> Have you checked out http://codepoet.com/ ? I'd be interested to hear whether it's useful for recommendations (my team works on it). WP Candy also has a database: http://wpcandy.com/pros
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From jay.collier at thecompass.com  Wed Sep 21 15:44:24 2011
+From: jay.collier at thecompass.com (Jay Collier)
+Date: Wed, 21 Sep 2011 11:44:24 -0400
+Subject: [wp-edu] is there a service?
+In-Reply-To: <B6D5BF10-323B-43DF-994D-03AA8B9EEC0F@danielbachhuber.com>
+References: <43A7D5FA-E394-40F4-813A-85EA89457309@msu.edu>
+	<682E8F72-2143-475F-A104-81DB1504A167@thecompass.com>
+	<8508A8ED-3780-4385-9AA5-ED30BABD1A80@danielbachhuber.com>
+	<AF483308-F02F-410E-9F91-EEA78ECB43F1@thecompass.com>
+	<B6D5BF10-323B-43DF-994D-03AA8B9EEC0F@danielbachhuber.com>
+Message-ID: <18EE916B-EC16-4D51-AB15-02FB0BE68D7E@thecompass.com>
+
+Thanks, Daniel.
+
+I'm delivering progress reports every few weeks in order to build a solid architecture for the work, so feel free to share with any CodePoets who might have interest.
+
+	<http://jaycollier.net/strategy/collaboration/>
+
+I've also been keeping Boone up to date and, for others who are moving in this direction, have had great conversations with Cyri Jones who is starting up a similar service for British Columbia.
+
+	<http://zenportfolios.com/>
+
+If you know of other regions, states, or provinces with such initiatives, please let me know!
+
+-Jay
+
+
+
+On Sep 19, 2011, at 10:25 PM, Daniel Bachhuber wrote:
+
+> Great points. I'd agree that most CoetPoets are geared towards enterprise but I bet we could convince them otherwise if there were projects. Let's continue talking
+> 
+> On Sep 19, 2011, at 13:09, Jay Collier <jay.collier at thecompass.com> wrote:
+> 
+>> Daniel-
+>> 
+>> At CodePoet, I searched for "education BuddyPress" and received this: "Sorry, we couldn't find any Code Poets matching your search." WP Candy doesn't break down into vertical markets at all.
+>> 
+>> From my experience, the enterprise environment and theme/plugin recipes are somewhat distinctive for the education/collaboration space. However, I'd be happy to be convinced otherwise!
+>> 
+>> -Jay
+>> 
+>> 
+>> On Sep 19, 2011, at 1:55 PM, Daniel Bachhuber wrote:
+>> 
+>>>> I second that request. We're interested in recommendations for agencies that have experience administering and managing multisite and BuddyPress installations.
+>>> 
+>>> Have you checked out http://codepoet.com/ ? I'd be interested to hear whether it's useful for recommendations (my team works on it). WP Candy also has a database: http://wpcandy.com/pros
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+ 
+
+ 
+
+
+Jay Collier | Digital strategy consultant
+The Compass LLC | Online media for learning organizations
+jay.collier at thecompass.com | +1-207-956-0320
+Subscribe to latest posts via RSS or e-mail
+       
+
+
+
+
+
+
+
+
+
+
+
+From kfatheree at securelogix.com  Tue Sep 27 14:45:21 2011
+From: kfatheree at securelogix.com (Kathy Fatheree)
+Date: Tue, 27 Sep 2011 14:45:21 +0000
+Subject: [wp-edu] Blueprint for using WP as LMS?
+Message-ID: <655E14CB73F7194483B01B10F4164F07B7D617@mbx026-w1-ca-5.exch026.domain.local>
+
+Hi,
+
+I'm new to the list and having a little bit of trouble finding information.
+
+I would love to talk to someone to see what all I need in order to use WordPress as a LMS. I'd like to learn what plugins to use and what I need to pay for vs. free options. I am a technical writer and not a programmer so the easier things are the better! My company doesn't have the budget for a paid LMS, and the programmers are too busy to help me with Moodle.
+
+I will probably be using Captivate to generate the content. We need:
+
+*         Unique Login for students
+
+*         Paid lessons
+
+*         Free lessons
+
+*         Tests with automatic grading (%, pass/fail) across multiple modules (ex: 1 course can have 8 modules)
+
+*         Way to store student test results
+
+*         Way to automatically issue certification document
+
+*         Bulk email capability to all student
+
+*         Feedback form/survey
+
+Can someone help me with my research?
+
+Thanks in advance,
+Kathy
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110927/49f4daea/attachment.htm>
+
+From joseph.ugoretz at mhc.cuny.edu  Tue Sep 27 15:59:26 2011
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Tue, 27 Sep 2011 11:59:26 -0400
+Subject: [wp-edu] Blueprint for using WP as LMS?
+In-Reply-To: <655E14CB73F7194483B01B10F4164F07B7D617@mbx026-w1-ca-5.exch026.domain.local>
+References: <655E14CB73F7194483B01B10F4164F07B7D617@mbx026-w1-ca-5.exch026.domain.local>
+Message-ID: <75CC4CDF-70B3-41CB-98A3-205C6EF5DF66@mhc.cuny.edu>
+
+Hi Kathy,
+
+I have some blog posts that might be helpful--although I don't have answers to all your needs since my class runs a little differently than what it sounds like you're looking for.
+
+But I have used WordPress as the LMS for a fully online honors seminar for college students several times now.
+
+I've got a couple of posts about useful plugins here
+http://prestidigitation.commons.gc.cuny.edu/2010/07/23/three-new-plugins/
+and here
+http://prestidigitation.commons.gc.cuny.edu/2010/03/15/kb-gradebook/
+
+and a more thorough tech overview here
+http://prestidigitation.commons.gc.cuny.edu/2010/01/31/alternate-worlds-part-2-the-class-begins/
+
+Happy to discuss offlist if you want help or information.
+
+Joe
+
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+
+
+
+
+
+On Sep 27, 2011, at 10:45 AM, Kathy Fatheree wrote:
+
+> Hi,
+>  
+> I?m new to the list and having a little bit of trouble finding information.
+>  
+> I would love to talk to someone to see what all I need in order to use WordPress as a LMS. I?d like to learn what plugins to use and what I need to pay for vs. free options. I am a technical writer and not a programmer so the easier things are the better! My company doesn?t have the budget for a paid LMS, and the programmers are too busy to help me with Moodle.
+>  
+> I will probably be using Captivate to generate the content. We need:
+> ?         Unique Login for students
+> ?         Paid lessons
+> ?         Free lessons
+> ?         Tests with automatic grading (%, pass/fail) across multiple modules (ex: 1 course can have 8 modules)
+> ?         Way to store student test results
+> ?         Way to automatically issue certification document
+> ?         Bulk email capability to all student
+> ?         Feedback form/survey
+>  
+> Can someone help me with my research?
+>  
+> Thanks in advance,
+> Kathy
+> <ATT00001.c>
+
+
+From stas at nerd.ro  Tue Sep 27 16:21:07 2011
+From: stas at nerd.ro (=?UTF-8?B?U3RhcyBTdciZY292?=)
+Date: Tue, 27 Sep 2011 19:21:07 +0300
+Subject: [wp-edu] Blueprint for using WP as LMS?
+In-Reply-To: <655E14CB73F7194483B01B10F4164F07B7D617@mbx026-w1-ca-5.exch026.domain.local>
+References: <655E14CB73F7194483B01B10F4164F07B7D617@mbx026-w1-ca-5.exch026.domain.local>
+Message-ID: <4E81F7F3.40006@nerd.ro>
+
+Pe 27.09.2011 17:45, Kathy Fatheree a scris:
+> Hi,
+>
+> I?m new to the list and having a little bit of trouble finding information.
+>
+> I would love to talk to someone to see what all I need in order to use
+> WordPress as a LMS. I?d like to learn what plugins to use and what I
+> need to pay for vs. free options. I am a technical writer and not a
+> programmer so the easier things are the better! My company doesn?t have
+> the budget for a paid LMS, and the programmers are too busy to help me
+> with Moodle.
+>
+> I will probably be using Captivate to generate the content. We need:
+>
+> ?Unique Login for students
+
+Checked.
+
+>
+> ?Paid lessons
+>
+
+Checked. With usage of an external plugin like S2Members or WPMU's 
+membership plugin.
+
+> ?Free lessons
+>
+
+Checked.
+
+> ?Tests with automatic grading (%, pass/fail) across multiple modules
+> (ex: 1 course can have 8 modules)
+>
+
+Half checked. Doesn't have implicit pass/fail result, just %. Multiple 
+modules are called lectures.
+
+> ?Way to store student test results
+
+Checked. Per assignment gradebook with comments and notifications when a 
+grade was updated.
+
+>
+> ?Way to automatically issue certification document
+>
+
+No implicit support, but you can hook into an action and generate/email 
+a document like that.
+
+> ?Bulk email capability to all student
+>
+
+Checked. Through a mass-mailing BuddyPress plugin.
+
+> ?Feedback form/survey
+
+No implicit support but there are dozen of plugins like Contact Form 7 
+and so on. There's full support for shortcodes though.
+
+>
+> Can someone help me with my research?
+>
+> Thanks in advance,
+>
+> Kathy
+>
+
+Here's the presentation page:
+http://scholarpress.github.com/buddypress-courseware/
+
+From kylejones at thecorkboard.org  Wed Sep 28 12:53:37 2011
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Wed, 28 Sep 2011 07:53:37 -0500
+Subject: [wp-edu] Blueprint for using WP as LMS?
+In-Reply-To: <mailman.7.1317211202.10441.wp-edu@lists.automattic.com>
+References: <mailman.7.1317211202.10441.wp-edu@lists.automattic.com>
+Message-ID: <F9071123-12BF-4BB5-A9A8-4B0103191F2E@thecorkboard.org>
+
+Hi there Kathy--
+
+I've used WordPress for course websites for a diverse group of clients  
+- from graduate professors to writers workshops and even alternative  
+medicine schools.  Stas was succinct in saying that BuddyPress  
+Courseware can pretty much cover what you need.  If you have any more  
+specific questions, of course, feel free to ask this list more or even  
+contact me directly.
+
+Best of luck,
+
+~kyle jones~
+@thecorkboard
+thecorkboard.org
+
+On Sep 28, 2011, at 7:00 AM, wp-edu-request at lists.automattic.com wrote:
+
+> Hi,
+>
+> I'm new to the list and having a little bit of trouble finding  
+> information.
+>
+> I would love to talk to someone to see what all I need in order to  
+> use WordPress as a LMS. I'd like to learn what plugins to use and  
+> what I need to pay for vs. free options. I am a technical writer and  
+> not a programmer so the easier things are the better! My company  
+> doesn't have the budget for a paid LMS, and the programmers are too  
+> busy to help me with Moodle.
+>
+> I will probably be using Captivate to generate the content. We need:
+>
+> *         Unique Login for students
+>
+> *         Paid lessons
+>
+> *         Free lessons
+>
+> *         Tests with automatic grading (%, pass/fail) across  
+> multiple modules (ex: 1 course can have 8 modules)
+>
+> *         Way to store student test results
+>
+> *         Way to automatically issue certification document
+>
+> *         Bulk email capability to all student
+>
+> *         Feedback form/survey
+>
+> Can someone help me with my research?
+>
+> Thanks in advance,
+> Kathy
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20110928/9fd0d02b/attachment.htm>
+
+From schuff at temple.edu  Wed Sep 28 14:05:19 2011
+From: schuff at temple.edu (DAVID SCHUFF)
+Date: Wed, 28 Sep 2011 10:05:19 -0400
+Subject: [wp-edu] Call for Panelists: WordPress in Higher Education at
+	WordCamp Philly
+Message-ID: <CAEqYTQDU1BMK6k1Egnuc6fJm1+VXrOYs8+arHXiPNUCMbc-o5A@mail.gmail.com>
+
+CALL FOR PANELISTS FOR WORDCAMP PHILLY 2011
+Panel: WordPress as a Platform for Higher Education
+
+Hello All -
+
+On Saturday, November 5, WordCamp Philly 2011 is being held at the Fox
+School of Business at Temple University (read more at read more at
+http://2011.philly.wordcamp.org).
+
+I am organizing a panel discussion on how WordPress is being deployed
+in higher education. We are primarily interested in novel
+implementations of the WordPress platform. We'd like panelists to
+discuss their own WordPress implementation and discuss their thoughts
+on how WordPress as a platform should evolve in order to best serve
+the needs of Universities.
+
+If you are interested in being a panelist, please contact me at
+David.Schuff at temple.edu by October 7, 2011. It would be helpful to
+send a link to your site along with a brief explanation of your
+project. If you are selected as a panelist, we have travel grants
+available to cover your hotel and meals during your stay in
+Philadelphia.
+
+Thanks!
+
+---
+David Schuff
+Associate Professor of Management Information Systems
+Director of Technology Innovation
+Fox School of Business, Temple University
+David.Schuff at temple.edu
+http://community.mis.temple.edu/dschuff
+
+From kfatheree at securelogix.com  Thu Sep 29 15:06:21 2011
+From: kfatheree at securelogix.com (Kathy Fatheree)
+Date: Thu, 29 Sep 2011 15:06:21 +0000
+Subject: [wp-edu] Blueprint for using WP as LMS?
+Message-ID: <655E14CB73F7194483B01B10F4164F07B7D766@mbx026-w1-ca-5.exch026.domain.local>
+
+Thank you for everyone's replies. I've been reading and becoming more familiar with the plugin options. I'm having a meeting this afternoon to discuss a game plan so hopefully I'll be given the permission to go forward. I'm excited about the possibilities and I'm sure I'll have more questions!
+
+Thank you!
+Kathy 
+
+*****
+Date: Wed, 28 Sep 2011 07:53:37 -0500
+From: Kyle Jones <kylejones at thecorkboard.org>
+Subject: Re: [wp-edu] Blueprint for using WP as LMS?
+To: wp-edu at lists.automattic.com
+Message-ID: <F9071123-12BF-4BB5-A9A8-4B0103191F2E at thecorkboard.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed";
+	DelSp="yes"
+
+Hi there Kathy--
+
+I've used WordPress for course websites for a diverse group of clients
+- from graduate professors to writers workshops and even alternative medicine schools.  Stas was succinct in saying that BuddyPress Courseware can pretty much cover what you need.  If you have any more specific questions, of course, feel free to ask this list more or even contact me directly.
+
+Best of luck,
+
+~kyle jones~
+@thecorkboard
+thecorkboard.org
+
+

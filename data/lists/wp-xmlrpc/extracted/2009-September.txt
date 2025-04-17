@@ -1,0 +1,317 @@
+From daniel at danielspage.de  Wed Sep  2 10:44:05 2009
+From: daniel at danielspage.de (Daniel Wilhelm)
+Date: Wed, 2 Sep 2009 12:44:05 +0200
+Subject: [wp-xmlrpc] Problems) with XML-RPC
+Message-ID: <000001ca2bba$4be0b710$e3a22530$@de>
+
+Hi,
+
+I'm using the XML-RPC-Framework for writing a little iphone app during my
+diploma thesis.
+But when I send a request, I only get back an empty data object. What's
+wrong?
+
+I tried it with [connection initWithXMLRPCRequest:request delegate:self]
+and also with [XMLRPCConnection sendSynchronousXMLRPCRequestrequest]
+
+
+Live long and prosper,
+                             Daniel
+-----------------------------------
+http://www.danielspage.de
+http://www.messebeauties.de
+-----------------------------------
+
+
+
+From jalkut at red-sweater.com  Wed Sep  2 12:24:55 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed, 2 Sep 2009 08:24:55 -0400
+Subject: [wp-xmlrpc] Problems) with XML-RPC
+In-Reply-To: <000001ca2bba$4be0b710$e3a22530$@de>
+References: <000001ca2bba$4be0b710$e3a22530$@de>
+Message-ID: <5073E740-1195-44D6-95A8-7A36A2AEBB3F@red-sweater.com>
+
+Hi Daniel - it's impossible to guess what is going wrong from such few  
+details.
+
+I suggest trying to capture a the network traffic from your attempted  
+request and response. Examining those may lead to an answer, or you  
+could then post them here and give us something to work with in trying  
+to help you.
+
+Daniel
+
+On Sep 2, 2009, at 6:44am, Daniel Wilhelm wrote:
+
+> Hi,
+>
+> I'm using the XML-RPC-Framework for writing a little iphone app  
+> during my
+> diploma thesis.
+> But when I send a request, I only get back an empty data object.  
+> What's
+> wrong?
+>
+> I tried it with [connection initWithXMLRPCRequest:request  
+> delegate:self]
+> and also with [XMLRPCConnection sendSynchronousXMLRPCRequestrequest]
+>
+>
+> Live long and prosper,
+>                             Daniel
+> -----------------------------------
+> http://www.danielspage.de
+> http://www.messebeauties.de
+> -----------------------------------
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From daniel at danielspage.de  Thu Sep  3 11:34:36 2009
+From: daniel at danielspage.de (Daniel Wilhelm)
+Date: Thu, 3 Sep 2009 13:34:36 +0200
+Subject: [wp-xmlrpc] Problems) with XML-RPC
+In-Reply-To: <5073E740-1195-44D6-95A8-7A36A2AEBB3F@red-sweater.com>
+References: <000001ca2bba$4be0b710$e3a22530$@de>
+	<5073E740-1195-44D6-95A8-7A36A2AEBB3F@red-sweater.com>
+Message-ID: <003301ca2c8a$86a59cf0$93f0d6d0$@de>
+
+Hi!
+
+I looked around this morning and asked the owner of the server. It was not a
+problem
+with the framework or my source code. It was the servers's fault.
+
+Thanks!
+
+
+Live long and prosper,
+                             Daniel
+-----------------------------------
+http://www.danielspage.de
+http://www.messebeauties.de
+-----------------------------------
+
+Wichtiger Hinweis:
+Diese Nachricht ist vertraulich. Sollten Sie nicht der rechtm??ige Empf?nger
+sein,
+so nehmen Sie bitte zur Kenntnis, dass der Absender ein merkbefreiter
+Trottel ist,
+der vertrauliche Informationen unverschl?sselt versendet.
+
+
+
+> -----Urspr?ngliche Nachricht-----
+> Von: wp-xmlrpc-bounces at lists.automattic.com
+[mailto:wp-xmlrpc-bounces at lists.automattic.com] Im Auftrag von Daniel Jalkut
+> Gesendet: Mittwoch, 2. September 2009 14:25
+> An: wp-xmlrpc at lists.automattic.com
+> Betreff: Re: [wp-xmlrpc] Problems) with XML-RPC
+>
+> Hi Daniel - it's impossible to guess what is going wrong from such few  
+> details.
+>
+> I suggest trying to capture a the network traffic from your attempted  
+> request and response. Examining those may lead to an answer, or you  
+> could then post them here and give us something to work with in trying  
+> to help you.
+>
+> Daniel
+
+
+
+From joehoyle at gmail.com  Mon Sep 14 11:06:51 2009
+From: joehoyle at gmail.com (Joe Hoyle)
+Date: Mon, 14 Sep 2009 12:06:51 +0100
+Subject: [wp-xmlrpc] Extending XML-RPC to provide Plugin information
+Message-ID: <E70569BA-0C7E-4EB3-A6F1-C6BA42AD896E@gmail.com>
+
+Hi Everyone,
+
+I was recently writing a plugin where I hooked into XML-RPC to provide  
+plugin information to clients using the API. The hook creates an new  
+xmlrpc method called wp.getPluginList which returns the get_plugins()  
+array. It also adds a couple of extra keys to each plugin array:
+	
+	Firstly it adds $plugins[$plugin_file]['active'] = is_plugin_active 
+( $plugin_file );
+	And aslo the latest version of each plugin (using get_transient 
+( 'update_plugins' ) ) so the version can be compared by the client  
+accessing xml-rpc
+
+I am not aware of the stance of opening up XML-RPC to show as much  
+information about the Wordpress install as possible, but does anyone  
+think that this could possibly be adopted into core? For the project I  
+am working on it would be great to be able to access plugin  
+information remotely without the need to the user to install an  
+additional plugin on their site.
+
+Thanks
+
+Joe Hoyle
+
+From joseph at josephscott.org  Mon Sep 14 17:53:31 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon, 14 Sep 2009 11:53:31 -0600
+Subject: [wp-xmlrpc] Extending XML-RPC to provide Plugin information
+In-Reply-To: <E70569BA-0C7E-4EB3-A6F1-C6BA42AD896E@gmail.com>
+References: <E70569BA-0C7E-4EB3-A6F1-C6BA42AD896E@gmail.com>
+Message-ID: <bbd639f50909141053q51e8dc2l74a7e0eb305df218@mail.gmail.com>
+
+I think it's possible to get something like this into WP.  There would
+need to be obvious limitations on it (only accessible by admin users,
+make the list filterable).
+
+Best way to submit a patch is to create a ticket -
+http://core.trac.wordpress.org/ - and then add the patch to the
+ticket.
+
+On Mon, Sep 14, 2009 at 5:06 AM, Joe Hoyle <joehoyle at gmail.com> wrote:
+> I was recently writing a plugin where I hooked into XML-RPC to provide
+> plugin information to clients using the API. The hook creates an new xmlrpc
+> method called wp.getPluginList which returns the get_plugins() array. It
+> also adds a couple of extra keys to each plugin array:
+>
+> ? ? ? ?Firstly it adds $plugins[$plugin_file]['active'] = is_plugin_active(
+> $plugin_file );
+> ? ? ? ?And aslo the latest version of each plugin (using get_transient(
+> 'update_plugins' ) ) so the version can be compared by the client accessing
+> xml-rpc
+>
+> I am not aware of the stance of opening up XML-RPC to show as much
+> information about the Wordpress install as possible, but does anyone think
+> that this could possibly be adopted into core? For the project I am working
+> on it would be great to be able to access plugin information remotely
+> without the need to the user to install an additional plugin on their site.
+
+
+
+-- 
+Joseph Scott
+joseph at josephscott.org
+http://josephscott.org/
+
+From bturner at microsoft.com  Wed Sep 16 17:46:54 2009
+From: bturner at microsoft.com (Brandon Turner)
+Date: Wed, 16 Sep 2009 17:46:54 +0000
+Subject: [wp-xmlrpc] Custom fields
+Message-ID: <3DF925C9C76AC3489710833379C81A670DBBB3@TK5EX14MBXC140.redmond.corp.microsoft.com>
+
+I recently made a plugin for Windows Live Writer that lets users attach custom fields to their post.  Now I have few questions for anyone that is more familiar with custom fields then myself.
+
+
+1)      Wordpress.com doesn't allow you add / edit / delete from the web interface, is there any reason to allow wordpress.com users to custom fields through the plugin?  I can't think of any unless it is possible to buy a premium theme that uses custom fields, is that even possible?
+
+2)      There appears to be some special custom fields like _pingme, _searchme, _encloseme.  Is it common practice to filter out these from the UI?  It doesn't appear you can edit these custom fields from inside of the web admin panel.
+
+3)      Is there a way to get all the custom fields the user has set in the past other than calling a bunch of metaWeblog.getPost?  I looked through all the documentation and didn't see anything, just want to make sure that I didn't miss anything.
+
+-Brandon
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-xmlrpc/attachments/20090916/4e8c32be/attachment.htm>
+
+From jalkut at red-sweater.com  Wed Sep 16 19:39:43 2009
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed, 16 Sep 2009 15:39:43 -0400
+Subject: [wp-xmlrpc] Custom fields
+In-Reply-To: <3DF925C9C76AC3489710833379C81A670DBBB3@TK5EX14MBXC140.redmond.corp.microsoft.com>
+References: <3DF925C9C76AC3489710833379C81A670DBBB3@TK5EX14MBXC140.redmond.corp.microsoft.com>
+Message-ID: <D461BB71-296A-4304-8934-580E0A503EFF@red-sweater.com>
+
+Hi Brandon - I have also been working on adding custom fields support  
+recently, so I appreciate you raising some of these good questions.
+
+I hadn't even considered the fact that WordPress.com doesn't support  
+them out of the box. This raises the question ... doesn't it seem  
+likely (or at least possible) that WordPress.com will add support for  
+custom fields, perhaps for its paying users, at some point in the  
+future?  It doesn't look like custom fields support is currently  
+identified in the wlwmanifest, so maybe we should request that this  
+information be added.
+
+That said, in the short term, because I expect/hope other blog systems  
+will adopt WordPress's conventions for Custom Fields, and because I  
+think Custom Fields are generally an advanced "power-user" feature,  
+I'm thinking I'll make it possible for any MovableType-variant blog to  
+be configured with custom fields support, leaving it to the user to  
+ensure that the configuration yields a meaningful result.
+
+As far as I know the _prefixed custom fields are all intended to be  
+filtered out of the UI. I'm tentatively planning that MarsEdit should  
+also filter them from the UI, and furthermore avoid re-sending them  
+(because it could be sending an outdated value). I'm relying on the  
+apparent "lazy" behavior of custom fields in WordPress. That is, an  
+unspecified value is nondestructive. I'm hoping other blog systems  
+will adopt the same conventions so that omission of any particular  
+custom field does not indicate deletion.
+
+Daniel
+
+
+On Sep 16, 2009, at 1:46pm, Brandon Turner wrote:
+
+> I recently made a plugin for Windows Live Writer that lets users  
+> attach custom fields to their post.  Now I have few questions for  
+> anyone that is more familiar with custom fields then myself.
+>
+> 1)      Wordpress.com doesn?t allow you add / edit / delete from the  
+> web interface, is there any reason to allow wordpress.com users to  
+> custom fields through the plugin?  I can?t think of any unless it is  
+> possible to buy a premium theme that uses custom fields, is that  
+> even possible?
+> 2)      There appears to be some special custom fields like _pingme,  
+> _searchme, _encloseme.  Is it common practice to filter out these  
+> from the UI?  It doesn?t appear you can edit these custom fields  
+> from inside of the web admin panel.
+> 3)      Is there a way to get all the custom fields the user has set  
+> in the past other than calling a bunch of metaWeblog.getPost?  I  
+> looked through all the documentation and didn?t see anything, just  
+> want to make sure that I didn?t miss anything.
+>
+> -Brandon
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+
+
+From peter.westwood at ftwr.co.uk  Wed Sep 16 21:36:30 2009
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Wed, 16 Sep 2009 22:36:30 +0100
+Subject: [wp-xmlrpc] Custom fields
+In-Reply-To: <D461BB71-296A-4304-8934-580E0A503EFF@red-sweater.com>
+References: <3DF925C9C76AC3489710833379C81A670DBBB3@TK5EX14MBXC140.redmond.corp.microsoft.com>
+	<D461BB71-296A-4304-8934-580E0A503EFF@red-sweater.com>
+Message-ID: <B4F04D32-AFF9-42EB-9DA8-E9C994A0A170@ftwr.co.uk>
+
+
+On 16 Sep 2009, at 20:39, Daniel Jalkut wrote:
+
+> As far as I know the _prefixed custom fields are all intended to be  
+> filtered out of the UI. I'm tentatively planning that MarsEdit  
+> should also filter them from the UI, and furthermore avoid re- 
+> sending them (because it could be sending an outdated value). I'm  
+> relying on the apparent "lazy" behavior of custom fields in  
+> WordPress. That is, an unspecified value is nondestructive. I'm  
+> hoping other blog systems will adopt the same conventions so that  
+> omission of any particular custom field does not indicate deletion.
+>
+
+Yes these should be filtered out from UIs they are used for other  
+things like page templates and by plugins - in some cases you might  
+want to add specific ui for them (page templates) we may need more api  
+calls for this to be possible though (listing available page templates).
+
+westi
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk | http://westi.wordpress.com
+C53C F8FC 8796 8508 88D6 C950 54F4 5DCD A834 01C5
+
+

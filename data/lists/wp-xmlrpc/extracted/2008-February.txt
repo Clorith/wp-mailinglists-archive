@@ -1,0 +1,1567 @@
+From srinivas.subrahmanya at gmail.com  Tue Feb  5 13:47:15 2008
+From: srinivas.subrahmanya at gmail.com (Srinivas)
+Date: Tue Feb  5 13:47:28 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+Message-ID: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+
+Hi All,
+
+I am working on product to list all the Pages in a WordPress based website.
+I am using the XMLRPC - wp.getPages to get the list.
+
+I have written some logic in my code which works only if I am able to get
+the details of the Page I am viewing (browsing).
+I am doing this by obtaining the current url the browser points to and
+trying to match it with the *permaLink or link *from the list returned by
+wp.getPages.
+
+This logic was working fine until two weeks back.
+Now, my logic is failing to find a match as the permaLink or link returned
+when I call wp.getPages is different from the actual URL of that Page.
+
+This is because there is some kind of *re-direction* happening from the *
+permaLink/Link* returned from wp.getPages.
+
+For example, consider a Page "world" with Page Id - 23 and parent Page as
+some Page  - "Hello"
+when wp.getPages is called, it returns a permaLink for this Page ('world')
+as:
+www.xxx.wordpress.com/?Page_id=23
+
+But when the user browses to this Page, the url as shown in the browser
+address bar is
+www.xxx.wordpress.com/Hello/world.
+
+It's getting redirected!
+
+*Question:*
+*Now*, Is there any way - any API that maps between permaLink and the
+redirected URL *or *any other field in the struct returned by
+wp.getPagesfrom which I can actually find
+www.xxx.wordpress.com/Hello/world.
+
+
+Please help me in fixing this issue as I can't proceed without fixing this.
+
+Thanks and Regards,
+Srinivas Vedantam
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080205/b39bfc3f/attachment.htm
+From joseph at randomnetworks.com  Wed Feb  6 15:57:53 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Feb  6 15:58:14 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+In-Reply-To: <70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+References: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+	<70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+Message-ID: <b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+
+I am working on product to list all the Pages in a WordPress based website.
+> I am using the XMLRPC - wp.getPages to get the list.
+>
+> I have written some logic in my code which works only if I am able to
+> get the details of the Page I am viewing (browsing).
+> I am doing this by obtaining the current url the browser points to and
+> trying to match it with the permaLink or link from the list returned
+> by wp.getPages.
+>
+> This logic was working fine until two weeks back.
+> Now, my logic is failing to find a match as the permaLink or link
+> returned when I call wp.getPages is different from the actual URL of
+> that Page.
+>
+> This is because there is some kind of re-direction happening from the
+> permaLink/Link returned from wp.getPages.
+>
+> For example, consider a Page "world" with Page Id - 23 and parent Page
+> as some Page  - "Hello"
+> when wp.getPages is called, it returns a permaLink for this Page ('world')
+> as:
+> www.xxx.wordpress.com/?Page_id=23
+>
+> But when the user browses to this Page, the url as shown in the
+> browser address bar is
+> www.xxx.wordpress.com/Hello/world.
+>
+> It's getting redirected!
+>
+> Question:
+> Now, Is there any way - any API that maps between permaLink and the
+> redirected URL or any other field in the struct returned by
+> wp.getPages from which I can actually find
+> www.xxx.wordpress.com/Hello/world.
+>
+>
+> Please help me in fixing this issue as I can't proceed without fixing
+> this.
+
+
+
+
+Sorry about the delay in responding, this got stuck in my spam folder (Gmail
+seems to be doing that a lot lately).  I'm currently trying to track down
+the change that caused this so that we can get it fixed.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080206/471136fd/attachment.htm
+From supporto at pixline.net  Wed Feb  6 19:34:11 2008
+From: supporto at pixline.net (Pixline)
+Date: Wed Feb  6 19:33:09 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+In-Reply-To: <b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+References: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+	<70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+	<b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+Message-ID: <3635692E-080E-4748-BDBE-9BB9CC10A329@pixline.net>
+
+> Sorry about the delay in responding, this got stuck in my spam  
+> folder (Gmail seems to be doing that a lot lately).  I'm currently  
+> trying to track down the change that caused this so that we can get  
+> it fixed.
+
+I've got the same issue with wordpress trunk some weeks ago, but it  
+was not strictly related to xmlrpc, but something else. I suspect is  
+something similar to http://trac.wordpress.org/ticket/5766 , and  
+probably the source of all this issues is canonical.php . At least,  
+this is my first guess.
+
+Paolo
+From joseph at randomnetworks.com  Wed Feb  6 20:16:01 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Feb  6 20:17:21 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+In-Reply-To: <3635692E-080E-4748-BDBE-9BB9CC10A329@pixline.net>
+References: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+	<70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+	<b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+	<3635692E-080E-4748-BDBE-9BB9CC10A329@pixline.net>
+Message-ID: <578D0BA8-8DBA-44E6-9806-648EA7874276@randomnetworks.com>
+
+
+On Feb 6, 2008, at 12:34 PM, Pixline wrote:
+
+>> Sorry about the delay in responding, this got stuck in my spam  
+>> folder (Gmail seems to be doing that a lot lately).  I'm currently  
+>> trying to track down the change that caused this so that we can  
+>> get it fixed.
+>
+> I've got the same issue with wordpress trunk some weeks ago, but it  
+> was not strictly related to xmlrpc, but something else. I suspect  
+> is something similar to http://trac.wordpress.org/ticket/5766 , and  
+> probably the source of all this issues is canonical.php . At least,  
+> this is my first guess.
+
+
+This has been fixed in -trunk now:
+
+http://trac.wordpress.org/ticket/5781
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From soda_da_pimp at hotmail.com  Thu Feb 14 02:23:28 2008
+From: soda_da_pimp at hotmail.com (Robert whateva)
+Date: Thu Feb 14 02:23:45 2008
+Subject: [wp-xmlrpc] Hey! Wanna Learn How To Hack?
+Message-ID: <BAY121-W6A48D425A2BA41B0E5186D7250@phx.gbl>
+
+
+Hey! Wanna learn how to hack from people who actually "know" how to manipulate computers/networks?! Well you can right now by just joining our chat and asking questions. We're all patient and help people who dont understand. Join http://webchat.digital-lair.net/~chat - See ya online! Theres the webchat heres the irc server konfusion.digital-lords.net (6667) #blackhats see you online :)
+_________________________________________________________________
+Helping your favorite cause is as easy as instant messaging.?You IM, we give.
+http://im.live.com/Messenger/IM/Home/?source=text_hotmail_join
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080214/320d38f9/attachment.htm
+From marumoto at gmail.com  Sun Feb 17 03:14:04 2008
+From: marumoto at gmail.com (marumoto)
+Date: Sun Feb 17 03:14:19 2008
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+	<810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+Message-ID: <21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+
+hi all
+follow up on the WP's AtomPub support.
+
+I released the Atom interop testing client.
+http://www.witha.jp/eXeries/software/
+feedback much appreciated.
+
+Anyway, does anyone confirm this?
+
+ 1. Malformed XML error when GETing a media link entry.
+ 2. 404 Not Found error on GETing a category and a collection
+document if "WordPress address" and "Blog address" are different.
+ 3. Entry's published and Edited time stamp is always the same.
+published date should stay the same.
+
+I confirmed this same behavior at wordpress.com as well.
+(although AtomPub at wordpress.com has stopped working a few weeks ago)
+
+
+
+On Nov 30, 2007 3:17 PM, Joseph Scott <joseph@randomnetworks.com> wrote:
+>
+> On Nov 29, 2007, at 2:04 PM, marumoto wrote:
+>
+> > I'm not sure I'm in the right place, but I couldn't find a "wp-app
+> > list". So, please forgive me if this topic is not appropriate for the
+> > list.
+> > # I found the "wp-xmlrpc list", but APP and xml-rpc are two different
+> > thing, you know.
+>
+>
+> Since I haven't seen a follow up on the wp-xmlrpc list I'll reply
+> here.  And yes, in hindsight that was a rather poor name for the
+> list, sorry about that.   It is still a good place for AtomPub
+> questions though.
+>
+>
+> > Anyway, I've been developing a AtomPub(the Atom Publishing Protocol)
+> > client. And I think I found a few bugs.
+> >
+> >    1. Malformed XML error when GETing a "wordpress media" entry.
+> >    2. 404 Not Found error on GETing a category and a collection
+> > document if "WordPress address" and "Blog address" are different.
+> >    3. Entry's published and Edited time stamp is always the same.
+>
+>
+> Are these caught by APE (http://www.tbray.org/ape/)?  If not perhaps
+> we can get Tim to add them to the list of tests.  Last time I checked
+> WordPress passed APE with zero errors a few warnings (4?).
+>
+>
+> > The client is not ready for the public just yet, but the alpha version
+> > should be out pretty soon.
+>
+>
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+>
+> _______________________________________________
+> wp-hackers mailing list
+> wp-hackers@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-hackers
+>
+From lloydomattic at gmail.com  Sun Feb 17 05:43:35 2008
+From: lloydomattic at gmail.com (Lloyd Budd)
+Date: Sun Feb 17 05:43:49 2008
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+	<810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+	<21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+Message-ID: <70ebb7140802162143re34a082h2b5b9db10a88c180@mail.gmail.com>
+
+On Feb 16, 2008 7:14 PM, marumoto <marumoto@gmail.com> wrote:
+> hi all
+> follow up on the WP's AtomPub support.
+>
+> I released the Atom interop testing client.
+> http://www.witha.jp/eXeries/software/
+> feedback much appreciated.
+>
+> Anyway, does anyone confirm this?
+>
+>  1. Malformed XML error when GETing a media link entry.
+>  2. 404 Not Found error on GETing a category and a collection
+> document if "WordPress address" and "Blog address" are different.
+>  3. Entry's published and Edited time stamp is always the same.
+> published date should stay the same.
+>
+> I confirmed this same behavior at wordpress.com as well.
+> (although AtomPub at wordpress.com has stopped working a few weeks ago)
+
+Marumoto,
+
+Interesting results. Do  you have detailed reports of each of the issues?
+
+Reading your site, you haven't made available the source code for your
+test tool?
+
+Thank you,
+-- 
+Lloyd Budd | Digital Entomologist | | Skype:foolswisdom
+WordPress.com | WordPress.org | Automattic.com
+From marumoto at gmail.com  Sun Feb 17 18:20:26 2008
+From: marumoto at gmail.com (marumoto)
+Date: Sun Feb 17 18:20:42 2008
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <70ebb7140802162143re34a082h2b5b9db10a88c180@mail.gmail.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+	<810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+	<21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+	<70ebb7140802162143re34a082h2b5b9db10a88c180@mail.gmail.com>
+Message-ID: <21d48be50802171020y2757211ehb00d682b49bef8ec@mail.gmail.com>
+
+hi
+
+> Reading your site, you haven't made available the source code for your
+> test tool?
+
+Not all of the source is available at this point. However, a few days ago,
+I made partial source code available to public at Google project.
+
+"base classes for Atom feeds and entries"
+http://code.google.com/p/delphi-atom/
+
+> Interesting results. Do  you have detailed reports of each of the issues?
+
+(1) 1. Malformed XML error when GETing a media link entry.
+
+here is the dump.
+----------------------------------------------------------------------------------------------------
+
+HTTP/1.1 GET http://example.com/wp/wp-app.php/attachments
+Connection: Keep-Alive
+Proxy-Connection: Keep-Alive
+Accept: application/atom+xml,application/atomsvc+xml,application/atomcat+xml
+Accept-Charset: UTF-8
+Authorization: Basic *************
+
+
+
+
+HTTP/1.1 200 OK
+Date: Sun, 17 Feb 2008 17:53:49 GMT
+Server: Apache
+X-Powered-By: PHP/4.4.6
+X-Pingback: http://example.com/wp/xmlrpc.php
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+Last-Modified: Sun, 17 Feb 2008 17:53:49 GMT
+Cache-Control: no-cache, must-revalidate, max-age=0
+Pragma: no-cache
+Connection: close
+Content-Length: 4962
+Content-Disposition: attachment; filename=atom.xml
+Content-Type: application/atom+xml
+
+
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="en">
+	<id>http://example.com/wp/wp-app.php/attachments</id>
+	<updated>2008-02-17T02:50:31Z</updated>
+	<title type="text">test</title>
+	<subtitle type="text">Just another WordPress weblog</subtitle>
+	<link rel="first" type="application/atom+xml"
+href="http://example.com/wp/wp-app.php/attachments"/>
+	<link rel="last" type="application/atom+xml"
+href="http://example.com/wp/wp-app.php/attachments"/>
+	<link rel="self" type="application/atom+xml"
+href="http://example.com/wp/wp-app.php/attachments"/>
+	<rights type="text">Copyright 2008</rights>
+	<generator uri="http://wordpress.com/"
+version="1.0.5-dc">WordPress.com Atom API</generator>
+	<entry xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="en">
+		<id>http://example.com/wp/wp-content/uploads/2008/02/garden.jpeg</id>
+		<title type="text">garden</title>
+		<updated>2008-02-12T12:45:44Z</updated>
+		<published>2008-02-12T12:45:44Z</published>
+		<app:edited>2008-02-12T12:45:44Z</app:edited>
+		<app:control>
+			<app:draft>no</app:draft>
+		</app:control>
+		<author>
+			<name>admin</name>
+			<email>info@example.com</email>
+		</author>
+		<link rel="edit-media"
+href="http://example.com/wp/wp-app.php/attachment/file/83"/>
+		<content type="image/jpeg"
+src="http://example.com/wp/wp-content/uploads/2008/02/garden.jpeg"/>
+		<link rel="edit" href="http://example.com/wp/wp-app.php/post/83"/>
+		<category scheme="http://example.com/wp" term="Uncategorized"/>
+		<summary type="text">garden.jpeg</summary>
+	</entry>
+	<entry xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="en">
+		<id>http://example.com/wp/wp-content/uploads/2007/12/bw-uploadstm-900-1.jpg</id>
+		<title type="text">bw-uploadstm-900-1.jpg</title>
+		<updated>2007-12-19T09:45:33Z</updated>
+		<published>2007-12-19T09:45:33Z</published>
+		<app:edited>2007-12-19T09:45:33Z</app:edited>
+		<app:control>
+			<app:draft>no</app:draft>
+		</app:control>
+		<author>
+			<name>admin</name>
+			<email>info@example.com</email>
+		</author>
+		<link rel="edit-media"
+href="http://example.com/wp/wp-app.php/attachment/file/80"/>
+		<content type="image/jpeg"
+src="http://example.com/wp/wp-content/uploads/2007/12/bw-uploadstm-900-1.jpg"/>
+		<link rel="edit" href="http://example.com/wp/wp-app.php/post/80"/>
+		<category scheme="http://example.com/wp" term="Uncategorized"/>
+		<summary type="text">
+		</summary>
+	</entry>
+</feed>
+
+
+HTTP/1.1 GET http://example.com/wp/wp-app.php/post/83
+Connection: Keep-Alive
+Proxy-Connection: Keep-Alive
+Accept: application/atom+xml,application/atomsvc+xml,application/atomcat+xml
+Accept-Charset: UTF-8
+Authorization: Basic *********
+
+
+
+
+HTTP/1.1 200 OK
+Date: Sun, 17 Feb 2008 17:56:39 GMT
+Server: Apache
+X-Powered-By: PHP/4.4.6
+Connection: close
+Content-Length: 39
+Content-Disposition: attachment; filename=atom.xml
+Content-Type: application/atom+xml
+
+<?xml version="1.0" encoding="utf-8"?>
+
+
+HTTP/1.1 GET http://example.com/wp/wp-app.php/post/80
+Connection: Keep-Alive
+Proxy-Connection: Keep-Alive
+Accept: application/atom+xml,application/atomsvc+xml,application/atomcat+xml
+Accept-Charset: UTF-8
+Authorization: Basic **************==
+
+
+
+
+HTTP/1.1 200 OK
+Date: Sun, 17 Feb 2008 17:56:41 GMT
+Server: Apache
+X-Powered-By: PHP/4.4.6
+Connection: close
+Content-Length: 39
+Content-Disposition: attachment; filename=atom.xml
+Content-Type: application/atom+xml
+
+<?xml version="1.0" encoding="utf-8"?>
+
+----------------------------------------------------------------------------------------------------
+XML parser returns "XML document must have a top level element".
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+(2) 404 Not Found error on GETing a category and a collection
+document if "WordPress address" and "Blog address" are different.
+
+----------------------------------------------------------------------------------------------------
+GET /wp/wp-app.php/service HTTP/1.1
+Proxy-Connection: Keep-Alive
+Accept: application/atom+xml,application/atomsvc+xml,application/atomcat+xml
+Accept-Charset: UTF-8
+Authorization: Basic ******************
+User-Agent: AtomLib
+Host: example.com
+Pragma: no-cache
+
+HTTP/1.1 200 OK
+Date: Sun, 17 Feb 2008 17:58:12 GMT
+Server: Apache
+X-Powered-By: PHP/4.4.6
+Connection: close
+Content-Length: 700
+Content-Disposition: attachment; filename=atom.xml
+Content-Type: application/atomsvc+xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<service xmlns="http://www.w3.org/2007/app"
+xmlns:atom="http://www.w3.org/2005/Atom">
+  <workspace>
+    <atom:title>WordPress Workspace</atom:title>
+    <collection href="http://example.com/HOGEHOGE/wp-app.php/posts">
+      <atom:title>WordPress Posts</atom:title>
+      <accept>application/atom+xml;type=entry</accept>
+      <categories href="http://example.com/HOGEHOGE/wp-app.php/categories" />
+    </collection>
+    <collection href="http://example.com/HOGEHOGE/wp-app.php/attachments">
+      <atom:title>WordPress Media</atom:title>
+      <accept>image/*</accept><accept>audio/*</accept><accept>video/*</accept>
+    </collection>
+  </workspace>
+</service>
+
+
+
+GET /HOGEHOGE/wp-app.php/categories HTTP/1.1
+Proxy-Connection: Keep-Alive
+Accept: application/atom+xml,application/atomsvc+xml,application/atomcat+xml
+Accept-Charset: UTF-8
+Authorization: Basic YWRtaW46b3NoaWVuYWk=
+User-Agent: AtomLib
+Host: example.com
+Pragma: no-cache
+
+
+
+HTTP/1.1 404 Not Found
+Date: Sun, 17 Feb 2008 17:58:15 GMT
+Server: Apache
+X-Powered-By: PHP/4.4.6
+X-Pingback: http://example.com/wp/xmlrpc.php
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+Last-Modified: Sun, 17 Feb 2008 17:58:15 GMT
+Cache-Control: no-cache, must-revalidate, max-age=0
+Pragma: no-cache
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+......
+...
+..
+.
+----------------------------------------------------------------------------------------------------
+
+WordPress installation directory:
+http://example.com/wp/
+
+mapped directory:
+http://example.com/HOGEHOGE/
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+(3) Entry's published and Edited time stamp is always the same.
+
+POST an entry.
+
+GET the entry. Time stamp is:
+
+	<updated>2007-12-19T09:45:36Z</updated>
+	<published>2007-12-19T09:45:26Z</published>
+	<app:edited>2007-12-19T09:45:36Z</app:edited>
+
+PUT the entry. Time stamp is:
+
+	<updated>2008-02-17T18:18:16Z</updated>
+	<published>2008-02-17T18:18:16Z</published>
+	<app:edited>2008-02-17T18:18:16Z</app:edited>
+
+This is obviously wrong.
+
+
+
+
+On Feb 17, 2008 2:43 PM, Lloyd Budd <lloydomattic@gmail.com> wrote:
+> On Feb 16, 2008 7:14 PM, marumoto <marumoto@gmail.com> wrote:
+> > hi all
+> > follow up on the WP's AtomPub support.
+> >
+> > I released the Atom interop testing client.
+> > http://www.witha.jp/eXeries/software/
+> > feedback much appreciated.
+> >
+> > Anyway, does anyone confirm this?
+> >
+> >  1. Malformed XML error when GETing a media link entry.
+> >  2. 404 Not Found error on GETing a category and a collection
+> > document if "WordPress address" and "Blog address" are different.
+> >  3. Entry's published and Edited time stamp is always the same.
+> > published date should stay the same.
+> >
+> > I confirmed this same behavior at wordpress.com as well.
+> > (although AtomPub at wordpress.com has stopped working a few weeks ago)
+>
+> Marumoto,
+>
+> Interesting results. Do  you have detailed reports of each of the issues?
+>
+> Reading your site, you haven't made available the source code for your
+> test tool?
+>
+> Thank you,
+> --
+> Lloyd Budd | Digital Entomologist | | Skype:foolswisdom
+> WordPress.com | WordPress.org | Automattic.com
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+From joseph at randomnetworks.com  Mon Feb 18 17:21:40 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Mon Feb 18 17:23:08 2008
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+	<810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+	<21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+Message-ID: <6728FF15-F7ED-4B2F-B751-5D0C3C5CF8F0@randomnetworks.com>
+
+
+On Feb 16, 2008, at 8:14 PM, marumoto wrote:
+
+> follow up on the WP's AtomPub support.
+>
+> I released the Atom interop testing client.
+> http://www.witha.jp/eXeries/software/
+> feedback much appreciated.
+>
+> Anyway, does anyone confirm this?
+>
+>  1. Malformed XML error when GETing a media link entry.
+>  2. 404 Not Found error on GETing a category and a collection
+> document if "WordPress address" and "Blog address" are different.
+>  3. Entry's published and Edited time stamp is always the same.
+> published date should stay the same.
+>
+> I confirmed this same behavior at wordpress.com as well.
+> (although AtomPub at wordpress.com has stopped working a few weeks  
+> ago)
+
+
+While getting AtomPub support improved in WP we tested against Tim's  
+APE: http://www.tbray.org/ape/.  So my first question would be, what  
+were the results of the equivalent APE run?  Next, are you running  
+these tests against -trunk?  I'd have to double check, but I think  
+that some of these issues have been resolved already.
+
+For WordPress.com, AtomPub support should be turned on.  I just made  
+a few small changes, the wp-app.php on wordpress.com is now 100% in  
+sync with the code from wordpress.org.
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From marumoto at gmail.com  Tue Feb 19 11:19:23 2008
+From: marumoto at gmail.com (marumoto)
+Date: Tue Feb 19 11:52:53 2008
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <6728FF15-F7ED-4B2F-B751-5D0C3C5CF8F0@randomnetworks.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+	<810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+	<21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+	<6728FF15-F7ED-4B2F-B751-5D0C3C5CF8F0@randomnetworks.com>
+Message-ID: <21d48be50802190319o5d554cf0v5ba7476768aaa4d3@mail.gmail.com>
+
+> For WordPress.com, AtomPub support should be turned on.  I just made
+> a few small changes, the wp-app.php on wordpress.com is now 100% in
+> sync with the code from wordpress.org.
+
+Really? Then, we have other problems. First of all, WordPress.com does not
+return any entires in the collection feed at all. I noticed this a few week ago.
+It used to work.
+
+Since no one seems to care to check themselves, I run the APE against
+WordPress.com.
+
+# PLEASE NOTE that APE does NOT check everything.
+
+Here is the output from APE.
+
+--------------------------------------------------------------------------------------------------
+Summary: 2 errors, 4 warnings.
+
+   1. TESTING: Service document and collections.
+   2.
+
+      ? Retrieval of Service Document: it exists and is served
+properly. [Dialog]
+   3.
+
+      Found these collections:
+          *
+
+            'WordPress Posts' accepts application/atom+xml;type=entry
+          *
+
+            'WordPress Media' accepts image/*, audio/*, video/*
+   4.
+
+      Will use collection 'WordPress Posts' for entry creation.
+   5.
+
+      ? Page 1 of Entry collection: it exists and is served properly. [Dialog]
+   6.
+
+      Page 1 of Entry collection has no entries.
+   7.
+
+      ? Entry collection has correct app:edited value order.
+   8.
+
+      TESTING: Entry-posting basics.
+   9.
+
+      ? Posting of new entry to the Entries collection reported
+success, Location: https://HOGE.wordpress.com/wp-app.php/post/135
+[Dialog]
+  10.
+
+      Examining the new entry as returned in the POST response
+  11.
+
+      ? 'title' has type='text' in entry as posted, type='html' in
+Returned entry.
+  12.
+
+      ? Provided categories included in Returned entry.
+  13.
+
+      ? Server discarded foreign markup in Returned entry.
+  14.
+
+      ? Retrieval of newly created entry: it exists and is served
+properly. [Dialog]
+  15.
+
+      Examining the new entry as retrieved using Location header in
+POST response:
+  16.
+
+      ? Client-provided slug 'ape-1794' was used in server-generated URI.
+  17.
+
+      ? 'title' has type='text' in entry as posted, type='html' in
+Retrieved entry.
+  18.
+
+      ? Provided categories included in Retrieved entry.
+  19.
+
+      ? Server discarded foreign markup in Retrieved entry.
+  20.
+
+      ? About to check https://HOGE.wordpress.com/wp-app.php/posts
+  21.
+
+      ? Page 1 of Can't find entry in collection: it exists and is
+served properly. [Dialog]
+  22.
+
+      Page 1 of Can't find entry in collection has no entries.
+  23.
+
+      ? Can't find entry in collection has correct app:edited value order.
+  24.
+
+      ! New entry didn't show up in the collections feed.
+  25.
+
+      TESTING: Collection re-ordering after PUT.
+  26.
+
+      ? Page 1 of Entries with multi-post: it exists and is served
+properly. [Dialog]
+  27.
+
+      Page 1 of Entries with multi-post has no entries.
+  28.
+
+      ? Entries with multi-post has correct app:edited value order.
+  29.
+
+      ? Entries correctly ordered after multi-post.
+  30.
+
+      ! Ouch! Ape fall down go boom; details: undefined method `link'
+for nil:NilClass
+      NoMethodError
+      ./ape.rb:302:in `test_sorting'./ape.rb:133:in
+`might_fail'./ape.rb:52:in `check'go.rb:23
+
+
+
+Recorded client/server dialogs
+Posting new entry
+To server:
+POST /wp-app.php/posts HTTP/1.1\r
+Slug: ape-1794\r
+Accept: */*\r
+Content-Type: application/atom+xml;type=entry\r
+Content-Length: 901\r
+Host: HOGE.wordpress.com\r
+\r
+<?xml version='1.0' ?>
+<entry xmlns='http://www.w3.org/2005/Atom'>
+<title>From the &lt;APE&gt; (\343\202\265\343\203\253)</title>
+<author><name>The Atom Protocol Exerciser</name></author>
+<id>tag:tbray.org,2005:65922824557769886958490321312</id>
+<updated>2008-02-19T02:56:12-08:00</updated>
+<link href='http://www.tbray.org/ape'/> <summary type='html'>Summary
+from the &lt;b>&amp;lt;&amp;nbsp;APE&amp;nbsp;>&lt;/b> at
+2008-02-19T02:56:12-08:00</summary>
+<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'><p>A
+test post from the &lt;APE&gt; at 2008-02-19T02:56:12-08:00</p><p>If
+you see this in an entry, it's probably a left-over from an
+unsuccessful Ape run; feel free to delete it.</p></div></content>
+<dc:subject xmlns:dc='http://purl.org/dc/elements/1.1/'>Simians</dc:subject>
+<atom:category term='Blogroll' scheme='http://HOGE.wordpress.com'
+xmlns:atom='http://www.w3.org/2005/Atom'/></entry>
+POST /wp-app.php/posts HTTP/1.1\r
+Slug: ape-1794\r
+Accept: */*\r
+Content-Type: application/atom+xml;type=entry\r
+Authorization: Basic **************=\r
+Content-Length: 901\r
+Host: HOGE.wordpress.com\r
+\r
+<?xml version='1.0' ?>
+<entry xmlns='http://www.w3.org/2005/Atom'>
+<title>From the &lt;APE&gt; (\343\202\265\343\203\253)</title>
+<author><name>The Atom Protocol Exerciser</name></author>
+<id>tag:tbray.org,2005:65922824557769886958490321312</id>
+<updated>2008-02-19T02:56:12-08:00</updated>
+<link href='http://www.tbray.org/ape'/> <summary type='html'>Summary
+from the &lt;b>&amp;lt;&amp;nbsp;APE&amp;nbsp;>&lt;/b> at
+2008-02-19T02:56:12-08:00</summary>
+<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'><p>A
+test post from the &lt;APE&gt; at 2008-02-19T02:56:12-08:00</p><p>If
+you see this in an entry, it's probably a left-over from an
+unsuccessful Ape run; feel free to delete it.</p></div></content>
+<dc:subject xmlns:dc='http://purl.org/dc/elements/1.1/'>Simians</dc:subject>
+<atom:category term='Blogroll' scheme='http://HOGE.wordpress.com'
+xmlns:atom='http://www.w3.org/2005/Atom'/></entry>
+From Server:
+HTTP/1.1 401 Unauthorized\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:13 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+WWW-Authenticate: Basic realm="WordPress Atom Protocol"\r
+Content-type: text/html;charset=utf-8\r
+Content-Length: 201\r
+Date: Tue, 19 Feb 2008 10:56:13 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+<title>401 Unauthorized</title>
+</head>
+<body>
+<h1>401 Unauthorized</h1>
+<p>Credentials required.</p>
+</body>
+</html>
+HTTP/1.1 201 Created\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Content-Type: application/atom+xml\r
+Content-Location: https://HOGE.wordpress.com/wp-app.php/post/135\r
+Location: https://HOGE.wordpress.com/wp-app.php/post/135\r
+Content-Length: 1128\r
+Date: Tue, 19 Feb 2008 10:56:14 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<entry xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="">
+    <id>http://HOGE.wordpress.com/2008/02/19/ape-1794/</id>
+    <title type="html"><![CDATA[From the
+&lt;APE&gt;&nbsp;(\343\202\265\343\203\253)]]></title>
+    <updated>2008-02-19T10:56:14Z</updated>
+    <published>2008-02-19T10:56:14Z</published>
+    <app:edited>2008-02-19T10:56:14Z</app:edited>
+    <app:control>
+        <app:draft>no</app:draft>
+    </app:control>
+    <author>
+        <name>HOGE</name>
+        <uri>http://HOGE.wordpress.com/</uri>
+    </author>
+    <link href="http://HOGE.wordpress.com/2008/02/19/ape-1794/" />
+    <content type="xhtml"><div
+xmlns='http://www.w3.org/1999/xhtml'><div><p>A test post from the
+&lt;APE&gt; at 2008-02-19T02:56:12-08:00</p><p>If you see this in an
+entry, it&apos;s probably a left-over from an unsuccessful Ape run;
+feel free to delete it.</p></div></div></content>
+    <link rel="edit" href="https://HOGE.wordpress.com/wp-app.php/post/135" />
+    <category scheme="http://HOGE.wordpress.com" term="Blogroll" />
+    <summary type="html"><![C
+DATA[Summary from the <b>&lt;&nbsp;APE&nbsp;&gt;</b> at
+2008-02-19T02:56:12-08:00]]></summary>
+</entry>
+Page 1 of Entries with multi-post
+To server:
+GET /wp-app.php/posts HTTP/1.1\r
+Accept: */*\r
+Host: HOGE.wordpress.com\r
+\r
+From Server:
+HTTP/1.1 200 OK\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+X-Pingback: http://HOGE.wordpress.com/xmlrpc.php\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:12 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+Content-Type: application/atom+xml\r
+Content-Disposition: attachment; filename=atom.xml\r
+Content-Length: 754\r
+Date: Tue, 19 Feb 2008 10:56:26 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="">
+<id>https://HOGE.wordpress.com/wp-app.php/posts</id>
+<updated>2008-02-05T23:36:26Z</updated>
+<title type="text">hepcat</title>
+<subtitle type="text">Just another WordPress.com weblog</subtitle>
+<link rel="first" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<link rel="last" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<link rel="self" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<rights type="text">Copyright 2008</rights>
+<generator uri="http://wordpress.org/" version="MU">WordPress</generator>
+</feed>
+Page 1 of Entry collection
+To server:
+GET /wp-app.php/posts HTTP/1.1\r
+Accept: */*\r
+Host: HOGE.wordpress.com\r
+\r
+GET /wp-app.php/posts HTTP/1.1\r
+Accept: */*\r
+Authorization: Basic ******************=\r
+Host: HOGE.wordpress.com\r
+\r
+From Server:
+HTTP/1.1 401 Unauthorized\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:12 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+WWW-Authenticate: Basic realm="WordPress Atom Protocol"\r
+Content-type: text/html;charset=utf-8\r
+Content-Length: 201\r
+Date: Tue, 19 Feb 2008 10:56:12 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+<title>401 Unauthorized</title>
+</head>
+<body>
+<h1>401 Unauthorized</h1>
+<p>Credentials required.</p>
+</body>
+</html>
+HTTP/1.1 200 OK\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+X-Pingback: http://HOGE.wordpress.com/xmlrpc.php\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:12 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+Content-Type: application/atom+xml\r
+Content-Disposition: attachment; filename=atom.xml\r
+Content-Length: 754\r
+Date: Tue, 19 Feb 2008 10:56:12 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="">
+<id>https://HOGE.wordpress.com/wp-app.php/posts</id>
+<updated>2008-02-05T23:36:26Z</updated>
+<title type="text">hepcat</title>
+<subtitle type="text">Just another WordPress.com weblog</subtitle>
+<link rel="first" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<link rel="last" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<link rel="self" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<rights type="text">Copyright 2008</rights>
+<generator uri="http://wordpress.org/" version="MU">WordPress</generator>
+</feed>
+Page 1 of Can't find entry in collection
+To server:
+GET /wp-app.php/posts HTTP/1.1\r
+Accept: */*\r
+Host: HOGE.wordpress.com\r
+\r
+From Server:
+HTTP/1.1 200 OK\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+X-Pingback: http://HOGE.wordpress.com/xmlrpc.php\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:12 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+Content-Type: application/atom+xml\r
+Content-Disposition: attachment; filename=atom.xml\r
+Content-Length: 754\r
+Date: Tue, 19 Feb 2008 10:56:16 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="">
+<id>https://HOGE.wordpress.com/wp-app.php/posts</id>
+<updated>2008-02-05T23:36:26Z</updated>
+<title type="text">hepcat</title>
+<subtitle type="text">Just another WordPress.com weblog</subtitle>
+<link rel="first" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<link rel="last" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<link rel="self" type="application/atom+xml"
+href="https://HOGE.wordpress.com/wp-app.php/posts" />
+<rights type="text">Copyright 2008</rights>
+<generator uri="http://wordpress.org/" version="MU">WordPress</generator>
+</feed>
+Retrieval of Service Document
+To server:
+GET /wp-app.php/service HTTP/1.1\r
+Accept: */*\r
+Host: HOGE.wordpress.com\r
+\r
+GET /wp-app.php/service HTTP/1.1\r
+Accept: */*\r
+Authorization: Basic **************=\r
+Host: HOGE.wordpress.com\r
+\r
+From Server:
+HTTP/1.1 401 Unauthorized\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:11 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+WWW-Authenticate: Basic realm="WordPress Atom Protocol"\r
+Content-type: text/html;charset=utf-8\r
+Content-Length: 201\r
+Date: Tue, 19 Feb 2008 10:56:11 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+<title>401 Unauthorized</title>
+</head>
+<body>
+<h1>401 Unauthorized</h1>
+<p>Credentials required.</p>
+</body>
+</html>
+HTTP/1.1 200 OK\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Content-Type: application/atomsvc+xml\r
+Content-Disposition: attachment; filename=atom.xml\r
+Content-Length: 699\r
+Date: Tue, 19 Feb 2008 10:56:12 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<?xml version="1.0" encoding="utf-8"?>
+<service xmlns="http://www.w3.org/2007/app"
+xmlns:atom="http://www.w3.org/2005/Atom">
+<workspace>
+<atom:title>WordPress Workspace</atom:title>
+<collection href="https://HOGE.wordpress.com/wp-app.php/posts">
+<atom:title>WordPress Posts</atom:title>
+<accept>application/atom+xml;type=entry</accept>
+<categories href="https://HOGE.wordpress.com/wp-app.php/categories" />
+</collection>
+<collection href="https://HOGE.wordpress.com/wp-app.php/attachments">
+<atom:title>WordPress Media</atom:title>
+<accept>image/*</accept><accept>audio/*</accept><accept>video/*</accept>
+</collection>
+</workspace>
+</service>
+Retrieval of newly created entry
+To server:
+GET /wp-app.php/post/135 HTTP/1.1\r
+Accept: */*\r
+Host: HOGE.wordpress.com\r
+\r
+GET /wp-app.php/post/135 HTTP/1.1\r
+Accept: */*\r
+Authorization: Basic **************k=\r
+Host: HOGE.wordpress.com\r
+\r
+From Server:
+HTTP/1.1 401 Unauthorized\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Expires: Wed, 11 Jan 1984 05:00:00 GMT\r
+Last-Modified: Tue, 19 Feb 2008 10:56:15 GMT\r
+Cache-Control: no-cache, must-revalidate, max-age=0\r
+Pragma: no-cache\r
+WWW-Authenticate: Basic realm="WordPress Atom Protocol"\r
+Content-type: text/html;charset=utf-8\r
+Content-Length: 201\r
+Date: Tue, 19 Feb 2008 10:56:15 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+<title>401 Unauthorized</title>
+</head>
+<body>
+<h1>401 Unauthorized</h1>
+<p>Credentials required.</p>
+</body>
+</html>
+HTTP/1.1 200 OK\r
+Vary: Cookie\r
+X-hacker: If you're reading this, you should visit automattic.com/jobs
+and apply to join the fun, mention this header.\r
+Content-Type: application/atom+xml\r
+Content-Disposition: attachment; filename=atom.xml\r
+Content-Length: 1166\r
+Date: Tue, 19 Feb 2008 10:56:15 GMT\r
+Server: LiteSpeed\r
+Connection: close\r
+\r
+<?xml version="1.0" encoding="utf-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom"
+xmlns:app="http://www.w3.org/2007/app" xml:lang="">
+    <id>http://HOGE.wordpress.com/2008/02/19/ape-1794/</id>
+    <title type="html"><![CDATA[From the
+&lt;APE&gt;&nbsp;(\343\202\265\343\203\253)]]></title>
+    <updated>2008-02-19T10:56:14Z</updated>
+    <published>2008-02-19T10:56:14Z</published>
+    <app:edited>2008-02-19T10:56:14Z</app:edited>
+    <app:control>
+        <app:draft>no</app:draft>
+    </app:control>
+    <author>
+        <name>HOGE</name>
+        <uri>http://HOGE.wordpress.com/</uri>
+    </author>
+    <link href="http://HOGE.wordpress.com/2008/02/19/ape-1794/" />
+    <content type="xhtml"><div
+xmlns='http://www.w3.org/1999/xhtml'><div><p>A test post from the
+&lt;APE&gt; at 2008-02-19T02:56:12-08:00</p><p>If you see this in an
+entry, it&apos;s probably a left-over from an unsuccessful Ape run;
+feel free to delete it.</p></div></div></content>
+    <link rel="edit" href="https://HOGE.wordpress.com/wp-app.php/post/135" />
+    <category scheme="http://HOGE.wordpress.com" term="
+Blogroll" />
+    <summary type="html"><![CDATA[Summary from the
+<b>&lt;&nbsp;APE&nbsp;&gt;</b> at
+2008-02-19T02:56:12-08:00]]></summary>
+</entry>
+
+
+
+
+--------------------------------------------------------------------------------------------------
+
+
+
+On Feb 19, 2008 2:21 AM, Joseph Scott <joseph@randomnetworks.com> wrote:
+>
+> On Feb 16, 2008, at 8:14 PM, marumoto wrote:
+>
+> > follow up on the WP's AtomPub support.
+> >
+> > I released the Atom interop testing client.
+> > http://www.witha.jp/eXeries/software/
+> > feedback much appreciated.
+> >
+> > Anyway, does anyone confirm this?
+> >
+> >  1. Malformed XML error when GETing a media link entry.
+> >  2. 404 Not Found error on GETing a category and a collection
+> > document if "WordPress address" and "Blog address" are different.
+> >  3. Entry's published and Edited time stamp is always the same.
+> > published date should stay the same.
+> >
+> > I confirmed this same behavior at wordpress.com as well.
+> > (although AtomPub at wordpress.com has stopped working a few weeks
+> > ago)
+>
+>
+> While getting AtomPub support improved in WP we tested against Tim's
+> APE: http://www.tbray.org/ape/.  So my first question would be, what
+> were the results of the equivalent APE run?  Next, are you running
+> these tests against -trunk?  I'd have to double check, but I think
+> that some of these issues have been resolved already.
+>
+> For WordPress.com, AtomPub support should be turned on.  I just made
+> a few small changes, the wp-app.php on wordpress.com is now 100% in
+> sync with the code from wordpress.org.
+>
+> --
+> Joseph Scott
+> http://joseph.randomnetworks.com/
+>
+>
+> _______________________________________________
+> wp-xmlrpc mailing list
+> wp-xmlrpc@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-xmlrpc
+>
+From srinivas.subrahmanya at gmail.com  Thu Feb 21 11:05:53 2008
+From: srinivas.subrahmanya at gmail.com (Srinivas)
+Date: Thu Feb 21 11:06:08 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+In-Reply-To: <b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+References: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+	<70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+	<b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+Message-ID: <df17ce8f0802210305t210be574qd60c55339e1675e9@mail.gmail.com>
+
+Hi Joseph,
+
+Thanks for the wp.getPages fix. I am facing no more problems with
+re-direction now.
+
+But Now, I have a different problem with respect to WordPress Pages.
+As per my understaning, each of the WordPress 'Pages', unlike regular blog
+posts, can have a different template. And, the WordPress web console helps
+the user to choose the template he wants to use for the Page being edited.
+
+In our product, we allow the user to edit the Pages and we want to allow the
+user to choose template for the Page as he can do it in the WordPress web
+console.
+
+I have some questions on how I can achieve this:
+
+   1. How can I get the list of Templates available for the user to
+   choose from? Is there any wp.* API for that?
+   2. Once I get the List, If an user selects a template, which XMLRPC
+   API would help me in updating this information - wp.editPage seems to
+   have no field to capture the details of the template - correct me if I am
+   wrong.
+
+Please help me to resolve this problem.
+
+Thanks and Regards,
+Srinivas Vedantam
+On Wed, Feb 6, 2008 at 9:27 PM, Joseph Scott <joseph@randomnetworks.com>
+wrote:
+
+>
+>
+>   I am working on product to list all the Pages in a WordPress based
+> > website.
+> > I am using the XMLRPC - wp.getPages to get the list.
+> >
+> > I have written some logic in my code which works only if I am able to
+> > get the details of the Page I am viewing (browsing).
+> > I am doing this by obtaining the current url the browser points to and
+> > trying to match it with the permaLink or link from the list returned
+> > by wp.getPages.
+> >
+> > This logic was working fine until two weeks back.
+> > Now, my logic is failing to find a match as the permaLink or link
+> > returned when I call wp.getPages is different from the actual URL of
+> > that Page.
+> >
+> > This is because there is some kind of re-direction happening from the
+> > permaLink/Link returned from wp.getPages.
+> >
+> > For example, consider a Page "world" with Page Id - 23 and parent Page
+> > as some Page  - "Hello"
+> > when wp.getPages is called, it returns a permaLink for this Page
+> > ('world') as:
+> > www.xxx.wordpress.com/?Page_id=23
+> >
+> > But when the user browses to this Page, the url as shown in the
+> > browser address bar is
+> > www.xxx.wordpress.com/Hello/world.
+> >
+> > It's getting redirected!
+> >
+> > Question:
+> > Now, Is there any way - any API that maps between permaLink and the
+> > redirected URL or any other field in the struct returned by
+> > wp.getPages from which I can actually find
+> > www.xxx.wordpress.com/Hello/world.
+> >
+> >
+> > Please help me in fixing this issue as I can't proceed without fixing
+> > this.
+>
+>
+>
+>
+> Sorry about the delay in responding, this got stuck in my spam folder
+> (Gmail seems to be doing that a lot lately).  I'm currently trying to track
+> down the change that caused this so that we can get it fixed.
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-xmlrpc/attachments/20080221/2b7a4e89/attachment.htm
+From joseph at randomnetworks.com  Thu Feb 21 16:47:43 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Feb 21 16:49:13 2008
+Subject: [wp-xmlrpc] Re: [wp-hackers] AtomPub support
+In-Reply-To: <21d48be50802190319o5d554cf0v5ba7476768aaa4d3@mail.gmail.com>
+References: <21d48be50711291304j590c0907ib080e41265a2d022@mail.gmail.com>
+	<810A300C-7A3E-4472-84D5-7ACAAB8B4956@randomnetworks.com>
+	<21d48be50802161914y31338e91l4d8eeec2f343dc21@mail.gmail.com>
+	<6728FF15-F7ED-4B2F-B751-5D0C3C5CF8F0@randomnetworks.com>
+	<21d48be50802190319o5d554cf0v5ba7476768aaa4d3@mail.gmail.com>
+Message-ID: <16DC5A0C-C38E-4B4E-8EE0-8D6BE09BE2A8@randomnetworks.com>
+
+
+On Feb 19, 2008, at 4:19 AM, marumoto wrote:
+
+>> For WordPress.com, AtomPub support should be turned on.  I just made
+>> a few small changes, the wp-app.php on wordpress.com is now 100% in
+>> sync with the code from wordpress.org.
+>
+> Really? Then, we have other problems. First of all, WordPress.com  
+> does not
+> return any entires in the collection feed at all. I noticed this a  
+> few week ago.
+> It used to work.
+>
+> Since no one seems to care to check themselves, I run the APE against
+> WordPress.com.
+>
+> # PLEASE NOTE that APE does NOT check everything.
+>
+> Here is the output from APE.
+
+
+Based on the output it looks like APE might have some errors in it  
+currently.  At some point I'll ask Tim about this, right now I'm  
+trying to get another project out the door.
+
+Can you create tickets for your original three questions, along with  
+the data dump?  That way I'll have something to point folks to.  It  
+will also provide greater exposure to these issues.
+
+  3. Entry's published and Edited time stamp is always the same.
+published date should stay the same.
+
+Any chance this resolved with http://trac.wordpress.org/ticket/5680 ?
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From joseph at randomnetworks.com  Thu Feb 21 17:09:35 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Thu Feb 21 17:11:54 2008
+Subject: [wp-xmlrpc] Query regarding wp.getPages
+In-Reply-To: <df17ce8f0802210305t210be574qd60c55339e1675e9@mail.gmail.com>
+References: <df17ce8f0802050547l4fa89f3bq2fc2b7ddfe4eadb@mail.gmail.com>
+	<70ebb7140802051533jb9af92ev6e5e5118405cf2b0@mail.gmail.com>
+	<b75e1ac0802060757n56f83bebqd0a06400785f5f59@mail.gmail.com>
+	<df17ce8f0802210305t210be574qd60c55339e1675e9@mail.gmail.com>
+Message-ID: <AE8CC105-71E7-4D09-8619-462A5051B9EF@randomnetworks.com>
+
+
+On Feb 21, 2008, at 4:05 AM, Srinivas wrote:
+
+> Hi Joseph,
+>
+> Thanks for the wp.getPages fix. I am facing no more problems with  
+> re-direction now.
+>
+> But Now, I have a different problem with respect to WordPress Pages.
+> As per my understaning, each of the WordPress 'Pages', unlike  
+> regular blog posts, can have a different template. And, the  
+> WordPress web console helps the user to choose the template he  
+> wants to use for the Page being edited.
+>
+> In our product, we allow the user to edit the Pages and we want to  
+> allow the user to choose template for the Page as he can do it in  
+> the WordPress web console.
+>
+> I have some questions on how I can achieve this:
+> How can I get the list of Templates available for the user to  
+> choose from? Is there any wp.* API for that?
+
+There isn't one currently, but we could add one.  wp.getPageTemplates  
+perhaps?
+
+
+> Once I get the List, If an user selects a template, which XMLRPC  
+> API would help me in updating this information - wp.editPage seems  
+> to have no field to capture the details of the template - correct  
+> me if I am wrong.
+> Please help me to resolve this problem.
+
+
+Adding a page_template field to wp.editPage could accommodate that.   
+This field could also be provided wp.getPage and friends.
+
+Please write up these ideas in a ticket at http:// 
+trac.wordpress.org/.  If you have any patches that would be great, if  
+not, that is fine too.  We are pushing towards a release next month  
+and I'm trying to get another project finished up so I don't have a  
+good timeline on when these features would go in.  We'll do our best.
+
+
+--
+Joseph Scott
+http://joseph.randomnetworks.com/
+
+
+From jalkut at red-sweater.com  Wed Feb 27 08:32:04 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Feb 27 08:32:32 2008
+Subject: [wp-xmlrpc] Patch to trim whitespace from description/more
+Message-ID: <C405918F-EF37-40E8-B3A3-F2EE7B0D5B7B@red-sweater.com>
+
+
+There are a variety of little problems with the way XMLRPC in WP  
+currently literally interprets the description and mt_text_more  
+components of a post cargo.
+
+The rest of WP is strongly biased towards trimming these components  
+such that there is no whitespace between them and the separator "\n<!-- 
+more-->\n".
+
+Because XMLRPC currently crudely combines the two components with the  
+separator, you can end up with unwanted whitespace in the database,  
+which further confuses things in the rest of WP.
+
+I propose to trim these components so that submitting a post from a  
+remote client will result in the same massaging of the content that  
+entering the post from wp-admin experiences.
+
+http://trac.wordpress.org/ticket/6016
+
+Daniel
+From joseph at randomnetworks.com  Wed Feb 27 16:52:19 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Wed Feb 27 16:53:51 2008
+Subject: [wp-xmlrpc] Patch to trim whitespace from description/more
+In-Reply-To: <C405918F-EF37-40E8-B3A3-F2EE7B0D5B7B@red-sweater.com>
+References: <C405918F-EF37-40E8-B3A3-F2EE7B0D5B7B@red-sweater.com>
+Message-ID: <1477462D-2AE8-455F-9B93-00C277D14700@randomnetworks.com>
+
+
+On Feb 27, 2008, at 1:32 AM, Daniel Jalkut wrote:
+
+> There are a variety of little problems with the way XMLRPC in WP  
+> currently literally interprets the description and mt_text_more  
+> components of a post cargo.
+>
+> The rest of WP is strongly biased towards trimming these components  
+> such that there is no whitespace between them and the separator  
+> "\n<!--more-->\n".
+>
+> Because XMLRPC currently crudely combines the two components with  
+> the separator, you can end up with unwanted whitespace in the  
+> database, which further confuses things in the rest of WP.
+>
+> I propose to trim these components so that submitting a post from a  
+> remote client will result in the same massaging of the content that  
+> entering the post from wp-admin experiences.
+>
+> http://trac.wordpress.org/ticket/6016
+
+
+My only concern would be that this would limit some of the uses of  
+<!--more-->, for example:
+
+	The answer to the question is ... <!--more--> 42!
+
+With your patch that would translate into :
+
+	The answer to the question is ...
+	<!--more-->
+	42!
+
+Which would not be rendered the same way.  I'm not sure that is  
+really a big deal, but it would be different from what can be done  
+using wp-admin.
+
+I'll post this follow up to the ticket as well. Grrrrr, sometimes I  
+hate wiki formatting.
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+
+From jalkut at red-sweater.com  Wed Feb 27 17:14:08 2008
+From: jalkut at red-sweater.com (Daniel Jalkut)
+Date: Wed Feb 27 17:15:35 2008
+Subject: [wp-xmlrpc] Patch to trim whitespace from description/more
+In-Reply-To: <1477462D-2AE8-455F-9B93-00C277D14700@randomnetworks.com>
+References: <C405918F-EF37-40E8-B3A3-F2EE7B0D5B7B@red-sweater.com>
+	<1477462D-2AE8-455F-9B93-00C277D14700@randomnetworks.com>
+Message-ID: <03BA2283-5B96-485D-8E17-EF31CB0912A6@red-sweater.com>
+
+I'm following up in the ticket. It seems like the best place for the  
+ongoing discussion, and people from this list who are interested can  
+chime in.
+
+D
+
+On Feb 27, 2008, at 11:52 AM, Joseph Scott wrote:
+
+> I'll post this follow up to the ticket as well. Grrrrr, sometimes I  
+> hate wiki formatting.
+From joseph at randomnetworks.com  Fri Feb 29 22:59:22 2008
+From: joseph at randomnetworks.com (Joseph Scott)
+Date: Fri Feb 29 23:01:02 2008
+Subject: [wp-xmlrpc] simultaneous post editing detection
+Message-ID: <D8472097-9E91-4FC1-918F-5EB119D03A43@randomnetworks.com>
+
+
+A basic simultaneous post editing detection mechanism has been added  
+to -trunk, see ticket 6043 (http://trac.wordpress.org/ticket/6043).   
+This is currently targeted only at users of the web based wp-admin  
+post editor, but I'd like to see what people think about how xmlrpc  
+clients could/should/might deal with this.  There are a lot of  
+different possibilities here.
+
+
+--
+Joseph Scott
+joseph@randomnetworks.com
+http://joseph.randomnetworks.com/
+
+
+

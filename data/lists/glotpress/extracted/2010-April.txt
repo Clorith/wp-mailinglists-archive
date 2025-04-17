@@ -1,0 +1,215 @@
+From contato at catiakitahara.com.br  Wed Apr 21 23:19:10 2010
+From: contato at catiakitahara.com.br (=?ISO-8859-1?Q?C=E1tia_Kitahara?=)
+Date: Wed, 21 Apr 2010 20:19:10 -0300
+Subject: [glotpress] Suggestions and a possible bug
+Message-ID: <i2x333ba1a01004211619zdcdb59cekdeda1107e4b4eaeb@mail.gmail.com>
+
+Hi Nikolay,
+
+I've been using GlotPress at translate.wordpress.org and it's very good!
+Good job!
+But I'd like to suggest you some things:
+
+1. The Breadcrumb next to the GlotPress title is quite confusing. When on a
+page with strings to translate, it doesn't show the whole project title. I
+think it's a problem, when for example I have more than one browser tab
+opened with two different glotpress projects. I was translating both
+BuddyPress and WordPress and as both tabs were displaying the title:
+GlotPress > Development (trunk) I was confused which one was WP and which
+one was BP. I know, maybe it's a rare situation, but it happens and I think
+it would be better to have the whole project title displayed.
+What do you think?
+
+2. Display the number of all/untranslated/waiting/fuzzy/warning strings next
+to those links. I'ts good to know how many strings you still need to work
+on.
+
+3. The tab index when showing the string details. When you click on
+"details", the next tab is the "Add translation" button, but I think it
+should be the "Copy from original" link, next "Translate from Google", next
+the file reference, and only then the button.
+
+4. Add the approve/reject buttons to the string details view, like we have
+on the bulk edit.
+
+Besides that, sometimes there seems to be a sort of a bug. Sometimes a
+string I've just added keeps repeating, instead of jumping to the next one.
+Another friend who's helping translate WP also experienced this bug. When we
+refresh the page it seems to go away, but it's kind of annoying, because you
+don't know if the string was approved/translated or not.
+
+That's it by now, thanks for GlotPress!
+
+Cheers
+-- 
+C?tia Kitahara
+www.catiakitahara.com.br
+www.wp-brasil.org
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/glotpress/attachments/20100421/86e84a91/attachment.htm>
+
+From nb at nikolay.bg  Thu Apr 22 21:17:37 2010
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Fri, 23 Apr 2010 00:17:37 +0300
+Subject: [glotpress] Suggestions and a possible bug
+In-Reply-To: <i2x333ba1a01004211619zdcdb59cekdeda1107e4b4eaeb@mail.gmail.com>
+References: <i2x333ba1a01004211619zdcdb59cekdeda1107e4b4eaeb@mail.gmail.com>
+Message-ID: <x2x87e663fa1004221417u7eb3cda3uff5e4d511c110096@mail.gmail.com>
+
+On Thu, Apr 22, 2010 at 02:19, C?tia Kitahara
+<contato at catiakitahara.com.br> wrote:
+> Hi Nikolay,
+>
+> I've been using GlotPress at translate.wordpress.org and it's very good!
+> Good job!
+> But I'd like to suggest you some things:
+>
+> 1. The Breadcrumb next to the GlotPress title is quite confusing. When on a
+> page with strings to translate, it doesn't show the whole project title. I
+> think it's a problem, when for example I have more than one browser tab
+> opened with two different glotpress projects. I was translating both
+> BuddyPress and WordPress and as both tabs were displaying the title:
+> GlotPress > Development (trunk) I was confused which one was WP and which
+> one was BP. I know, maybe it's a rare situation, but it happens and I think
+> it would be better to have the whole project title displayed.
+> What do you think?
+>
+
+This is a known bug, but needs a little more work and I keep
+postponing it, because of more important things.
+
+You can track the progress here: http://trac.glotpress.org/ticket/83
+
+> 2. Display the number of all/untranslated/waiting/fuzzy/warning strings next
+> to those links. I'ts good to know how many strings you still need to work
+> on.
+>
+
+Yes
+
+> 3. The tab index when showing the string details. When you click on
+> "details", the next tab is the "Add translation" button, but I think it
+> should be the "Copy from original" link, next "Translate from Google", next
+> the file reference, and only then the button.
+
+I modeled the tab stops after my behaviour?I rarely use Copy from
+original and Google Translate. When I need them, it's ok for me to
+grab the mouse and click on the link.
+
+If most of you use these two links often, just tell me, we can put
+them back in the tab order.
+
+>
+> 4. Add the approve/reject buttons to the string details view, like we have
+> on the bulk edit.
+>
+
+There is a ticket for that: http://trac.glotpress.org/ticket/30
+
+I, myself, rarely approve strings and didn't have much urge to
+implement it. You can blame Z? for not  bugging me enough :-)
+
+> Besides that, sometimes there seems to be a sort of a bug. Sometimes a
+> string I've just added keeps repeating, instead of jumping to the next one.
+> Another friend who's helping translate WP also experienced this bug. When we
+> refresh the page it seems to go away, but it's kind of annoying, because you
+> don't know if the string was approved/translated or not.
+>
+
+Yes, this is very annoying and this will be the first thing I will fix.
+
+Thank you very much for giving GlotPress a chance.
+
+Happy translating,
+Nikolay.
+
+From contato at catiakitahara.com.br  Thu Apr 22 21:51:52 2010
+From: contato at catiakitahara.com.br (=?ISO-8859-1?Q?C=E1tia_Kitahara?=)
+Date: Thu, 22 Apr 2010 18:51:52 -0300
+Subject: [glotpress] Suggestions and a possible bug
+In-Reply-To: <x2x87e663fa1004221417u7eb3cda3uff5e4d511c110096@mail.gmail.com>
+References: <i2x333ba1a01004211619zdcdb59cekdeda1107e4b4eaeb@mail.gmail.com>
+	<x2x87e663fa1004221417u7eb3cda3uff5e4d511c110096@mail.gmail.com>
+Message-ID: <x2l333ba1a01004221451pad2f949aycf7b58b0faccca21@mail.gmail.com>
+
+Well, Nikolay,
+
+It seems it's time for me to learn how to open tickets on Trac :) duh
+
+ > 3. The tab index when showing the string details. When you click on
+> > "details", the next tab is the "Add translation" button, but I think it
+> > should be the "Copy from original" link, next "Translate from Google",
+> next
+> > the file reference, and only then the button.
+>
+> I modeled the tab stops after my behaviour?I rarely use Copy from
+> original and Google Translate. When I need them, it's ok for me to
+> grab the mouse and click on the link.
+>
+> If most of you use these two links often, just tell me, we can put
+> them back in the tab order.
+>
+
+Yes, you're right, I don't use those links that much too, but sometimes I
+use "Copy from original" when there are very similar words in Portuguese and
+I just need to edit one letter or when there are too many placeholders.
+Anyway, I guess the way it is now is ok. I just thought you missed those
+links.
+
+>
+> > 4. Add the approve/reject buttons to the string details view, like we
+> have
+> > on the bulk edit.
+> >
+>
+> There is a ticket for that: http://trac.glotpress.org/ticket/30
+>
+> I, myself, rarely approve strings and didn't have much urge to
+> implement it. You can blame Z? for not  bugging me enough :-)
+>
+
+There are 4 people at least helping me translate, so I think it's very
+important!
+The bulk approval is great! We must think beyond our own experiences. I
+think GlotPress will be more usefull yet for those who are translating
+WordPress or anythingelse for the first time, when there's a real team of
+translators.
+
+Cheers!
+
+-- 
+C?tia Kitahara
+www.catiakitahara.com.br
+www.wp-brasil.org
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/glotpress/attachments/20100422/da364731/attachment.htm>
+
+From nb at nikolay.bg  Tue Apr 27 08:50:21 2010
+From: nb at nikolay.bg (Nikolay Bachiyski)
+Date: Tue, 27 Apr 2010 11:50:21 +0300
+Subject: [glotpress] Suggestions and a possible bug
+In-Reply-To: <x2x87e663fa1004221417u7eb3cda3uff5e4d511c110096@mail.gmail.com>
+References: <i2x333ba1a01004211619zdcdb59cekdeda1107e4b4eaeb@mail.gmail.com> 
+	<x2x87e663fa1004221417u7eb3cda3uff5e4d511c110096@mail.gmail.com>
+Message-ID: <x2k87e663fa1004270150u38c661f5g2ea7c4116b7a504d@mail.gmail.com>
+
+On Fri, Apr 23, 2010 at 00:17, Nikolay Bachiyski <nb at nikolay.bg> wrote:
+> ...
+>> Besides that, sometimes there seems to be a sort of a bug. Sometimes a
+>> string I've just added keeps repeating, instead of jumping to the next one.
+>> Another friend who's helping translate WP also experienced this bug. When we
+>> refresh the page it seems to go away, but it's kind of annoying, because you
+>> don't know if the string was approved/translated or not.
+>>
+>
+> Yes, this is very annoying and this will be the first thing I will fix.
+>
+
+This should be fixed now. The accompanying ticket is
+http://trac.glotpress.org/ticket/78
+
+Happy translating,
+Nikolay.
+

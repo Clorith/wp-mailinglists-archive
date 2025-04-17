@@ -1,0 +1,1086 @@
+From David.Grogan at tufts.edu  Mon Mar  5 14:24:28 2012
+From: David.Grogan at tufts.edu (Grogan, David)
+Date: Mon, 5 Mar 2012 14:24:28 +0000
+Subject: [wp-edu] Making media library files private
+Message-ID: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+
+Hello all,
+
+We have a large multi-site instance of WP 3.3.1 and although you can make your WordPress site private to individual named accounts (e.g. try accessing http://sites.tufts.edu/dgtest) it's really only the posts and pages content that is private. Any content uploaded to the sites Media Library (e.g. documents, images, audio etc) is still publicly accessible (e.g. try accessing: http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+
+Has anyone come across a solution that will provide privacy to the media library files?
+
+David
+
+--------------------------------------------------------------
+David Grogan
+Senior Solutions Specialist
+Educational & Scholarly Technology Services (ESTS)
+University Information Technology (UIT) Tufts University
+108 Bromfield Rd 
+Somerville, MA  02144
+
+Phone: 617.627.2859
+Fax: 617.627.3082
+
+http://uit.tufts.edu/at/
+http://sites.tufts.edu/davidgrogan
+
+
+
+
+
+From dennen at gmail.com  Mon Mar  5 14:31:06 2012
+From: dennen at gmail.com (Bill Dennen)
+Date: Mon, 5 Mar 2012 09:31:06 -0500
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+
+This might be worth looking into:
+
+WP Document Revisions
+http://wordpress.org/extend/plugins/wp-document-revisions/
+
+"Access Control - Each document is given a persistent URL (e.g.,
+yourcompany.com/documents/2011/08/TPS-Report.doc) which can be private
+(securely delivered only to members of your organization), password
+protected (available only to those you select such as clients or
+contractors), or public (published and hosted for the world to see).
+If you catch a typo and upload a new version, that URL will continue
+to point to the latest version, regardless of how many changes you
+make."
+
+However, given the way WP Multisite media files are served, it may
+take additional apache rules to completely block access.
+
+Boston University has written some custom code to do this -- I believe
+it writes htaccess files to protect media uploads. You can see their
+documentation (but not their code), here for some ideas:
+
+http://www.bu.edu/tech/web/departments/wordpress/management/access/content-protection/
+
+-Bill
+
+
+On Mon, Mar 5, 2012 at 9:24 AM, Grogan, David <David.Grogan at tufts.edu> wrote:
+> Hello all,
+>
+> We have a large multi-site instance of WP 3.3.1 and although you can make your WordPress site private to individual named accounts (e.g. try accessing http://sites.tufts.edu/dgtest) it's really only the posts and pages content that is private. Any content uploaded to the sites Media Library (e.g. documents, images, audio etc) is still publicly accessible (e.g. try accessing: http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+>
+> Has anyone come across a solution that will provide privacy to the media library files?
+>
+> David
+>
+> --------------------------------------------------------------
+> David Grogan
+> Senior Solutions Specialist
+> Educational & Scholarly Technology Services (ESTS)
+> University Information Technology (UIT) Tufts University
+> 108 Bromfield Rd
+> Somerville, MA ?02144
+>
+> Phone: 617.627.2859
+> Fax: 617.627.3082
+>
+> http://uit.tufts.edu/at/
+> http://sites.tufts.edu/davidgrogan
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From stas at nerd.ro  Mon Mar  5 14:38:15 2012
+From: stas at nerd.ro (=?utf-8?B?U3RhcyBTdciZY292?=)
+Date: Mon, 05 Mar 2012 16:38:15 +0200
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <op.wapb91bc5x5v0b@rivalry>
+
+?n data de Mon, 05 Mar 2012 16:24:28 +0200, Grogan, David  
+<David.Grogan at tufts.edu> a scris:
+
+> Hello all,
+>
+> We have a large multi-site instance of WP 3.3.1 and although you can  
+> make your WordPress site private to individual named accounts (e.g. try  
+> accessing http://sites.tufts.edu/dgtest) it's really only the posts and  
+> pages content that is private. Any content uploaded to the sites Media  
+> Library (e.g. documents, images, audio etc) is still publicly accessible  
+> (e.g. try accessing:  
+> http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+>
+> Has anyone come across a solution that will provide privacy to the media  
+> library files?
+>
+
+You might want to take a look at this little plugin:
+http://wordpress.org/extend/plugins/uploads/
+
+It can mask uploaded files location.
+
+For even more security, I suggest extracting these two methods from  
+Coursewa.re project:
+https://github.com/scholarpress/buddypress-courseware/blob/master/groups/groups.class.php#L302
+
+Make sure you hook into `media_upload_form_url`.
+Ex.:
+add_filter( 'media_upload_form_url', array( __CLASS__, 'media_library_tab'  
+) );
+
+This should filter available media items by logged-in `user_id`.
+
+From mslade at bu.edu  Mon Mar  5 14:49:51 2012
+From: mslade at bu.edu (Slade, Mark)
+Date: Mon, 5 Mar 2012 14:49:51 +0000
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+Message-ID: <E1AB851617829D4F8443EFDBE65B13C3EAA7@IST-EX10MBX-3.ad.bu.edu>
+
+David,
+
+This is correct - our ACL plugin generates .htaccess files for ACL'd media.  However I should point out that this works in our case because we also bypass ms-files.php for serving uploads, and let Apache serve files directly.  If your uploads are coming from ms-files.php (typical behavior), I don't think this approach would work without a new hook in ms-files.php to test access to the file being requested.
+
+Mark
+
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-
+> bounces at lists.automattic.com] On Behalf Of Bill Dennen
+> Sent: Monday, March 05, 2012 9:31 AM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] Making media library files private
+> 
+> <snip> 
+> Boston University has written some custom code to do this -- I believe it
+> writes htaccess files to protect media uploads. You can see their
+> documentation (but not their code), here for some ideas:
+> 
+> http://www.bu.edu/tech/web/departments/wordpress/management/acce
+> ss/content-protection/
+> 
+> -Bill
+> 
+> 
+> On Mon, Mar 5, 2012 at 9:24 AM, Grogan, David <David.Grogan at tufts.edu>
+> wrote:
+> > Hello all,
+> >
+> > We have a large multi-site instance of WP 3.3.1 and although you can make
+> your WordPress site private to individual named accounts (e.g. try accessing
+> http://sites.tufts.edu/dgtest) it's really only the posts and pages content that
+> is private. Any content uploaded to the sites Media Library (e.g. documents,
+> images, audio etc) is still publicly accessible (e.g. try accessing:
+> http://sites.tufts.edu/dgtest/wp-
+> content/blogs.dir/856/files/2012/03/FCKeditor.png).
+> >
+> > Has anyone come across a solution that will provide privacy to the media
+> library files?
+> >
+> > David
+> >
+> > --------------------------------------------------------------
+> > David Grogan
+> > Senior Solutions Specialist
+> > Educational & Scholarly Technology Services (ESTS) University
+> > Information Technology (UIT) Tufts University
+> > 108 Bromfield Rd
+> > Somerville, MA ?02144
+> >
+> > Phone: 617.627.2859
+> > Fax: 617.627.3082
+> >
+> > http://uit.tufts.edu/at/
+> > http://sites.tufts.edu/davidgrogan
+> >
+> >
+> >
+> >
+> > _______________________________________________
+> > wp-edu mailing list
+> > wp-edu at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From David.Grogan at tufts.edu  Tue Mar  6 16:13:01 2012
+From: David.Grogan at tufts.edu (Grogan, David)
+Date: Tue, 6 Mar 2012 16:13:01 +0000
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+Message-ID: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878FEE5@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+
+Thanks Bill. I'll bring back any solutions we find that works.
+
+David
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Bill Dennen
+Sent: Monday, March 05, 2012 9:31 AM
+To: wp-edu at lists.automattic.com
+Subject: Re: [wp-edu] Making media library files private
+
+This might be worth looking into:
+
+WP Document Revisions
+http://wordpress.org/extend/plugins/wp-document-revisions/
+
+"Access Control - Each document is given a persistent URL (e.g.,
+yourcompany.com/documents/2011/08/TPS-Report.doc) which can be private
+(securely delivered only to members of your organization), password
+protected (available only to those you select such as clients or
+contractors), or public (published and hosted for the world to see).
+If you catch a typo and upload a new version, that URL will continue
+to point to the latest version, regardless of how many changes you
+make."
+
+However, given the way WP Multisite media files are served, it may
+take additional apache rules to completely block access.
+
+Boston University has written some custom code to do this -- I believe
+it writes htaccess files to protect media uploads. You can see their
+documentation (but not their code), here for some ideas:
+
+http://www.bu.edu/tech/web/departments/wordpress/management/access/content-protection/
+
+-Bill
+
+
+On Mon, Mar 5, 2012 at 9:24 AM, Grogan, David <David.Grogan at tufts.edu> wrote:
+> Hello all,
+>
+> We have a large multi-site instance of WP 3.3.1 and although you can make your WordPress site private to individual named accounts (e.g. try accessing http://sites.tufts.edu/dgtest) it's really only the posts and pages content that is private. Any content uploaded to the sites Media Library (e.g. documents, images, audio etc) is still publicly accessible (e.g. try accessing: http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+>
+> Has anyone come across a solution that will provide privacy to the media library files?
+>
+> David
+>
+> --------------------------------------------------------------
+> David Grogan
+> Senior Solutions Specialist
+> Educational & Scholarly Technology Services (ESTS)
+> University Information Technology (UIT) Tufts University
+> 108 Bromfield Rd
+> Somerville, MA ?02144
+>
+> Phone: 617.627.2859
+> Fax: 617.627.3082
+>
+> http://uit.tufts.edu/at/
+> http://sites.tufts.edu/davidgrogan
+>
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From David.Grogan at tufts.edu  Thu Mar  8 15:11:38 2012
+From: David.Grogan at tufts.edu (Grogan, David)
+Date: Thu, 8 Mar 2012 15:11:38 +0000
+Subject: [wp-edu] User Access manager plugin
+Message-ID: <85F05EE0D1E7E1499CCFFE9E3DFDF43C08790C53@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+
+Hello all,
+
+We've installed the User Access Manager plugin on our multi-site instance:
+
+http://www.gm-alex.de/projects/wordpress/plugins/user-access-manager/
+
+This works great if you are a super-admin. You can set up groups, assign users to those groups, and then set page/post level restrictions to specific groups.
+
+However, although a regular site admin can set up groups and assign groups to pages/posts they cannot assign users to groups. 
+
+We've had this installed for a while and since then the plugin has disappeared from the WP plugin directory.
+
+Does anyone have another solution to this use case. E.g. allowing site admins to set up post/page level access restrictions to certain users.
+
+Thanks,
+
+David
+
+--------------------------------------------------------------
+David Grogan
+Senior Solutions Specialist
+Educational & Scholarly Technology Services (ESTS)
+University Information Technology (UIT) Tufts University
+108 Bromfield Rd 
+Somerville, MA  02144
+
+Phone: 617.627.2859
+Fax: 617.627.3082
+
+http://uit.tufts.edu/at/
+http://sites.tufts.edu/davidgrogan
+
+
+
+
+
+From hcleary at otis.edu  Thu Mar  8 17:54:16 2012
+From: hcleary at otis.edu (Heather Cleary)
+Date: Thu, 8 Mar 2012 09:54:16 -0800
+Subject: [wp-edu] User Access manager plugin
+Message-ID: <2B6E230F0CB95F43990510BEB4CEE02A01EA6ED4@gispw3ex02.otis.edu>
+
+I use the Page Restrict plugin on a single WordPress site; I have not
+tested it in WordPress multisite.
+http://wordpress.org/extend/plugins/pagerestrict/
+There are lots of similar plugins in the WP repository, e.g.
+http://wordpress.org/extend/plugins/tags/restriction. 
+--Heather
+
+Heather Cleary
+Digital Projects and Metadata Librarian
+Otis College of Art and Design
+9045 Lincoln Blvd.
+Los Angeles, CA  90045
+www.otis.edu
+
+310.665.6926
+hcleary at otis.edu
+
+-----Original Message-----
+From: wp-edu-bounces at lists.automattic.com
+[mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Grogan, David
+Sent: Thursday, March 08, 2012 7:12 AM
+To: wp-edu at lists.automattic.com
+Subject: [wp-edu] User Access manager plugin
+
+Hello all,
+
+We've installed the User Access Manager plugin on our multi-site
+instance:
+
+http://www.gm-alex.de/projects/wordpress/plugins/user-access-manager/
+
+This works great if you are a super-admin. You can set up groups, assign
+users to those groups, and then set page/post level restrictions to
+specific groups.
+
+However, although a regular site admin can set up groups and assign
+groups to pages/posts they cannot assign users to groups. 
+
+We've had this installed for a while and since then the plugin has
+disappeared from the WP plugin directory.
+
+Does anyone have another solution to this use case. E.g. allowing site
+admins to set up post/page level access restrictions to certain users.
+
+Thanks,
+
+David
+
+--------------------------------------------------------------
+David Grogan
+Senior Solutions Specialist
+Educational & Scholarly Technology Services (ESTS) University
+Information Technology (UIT) Tufts University
+108 Bromfield Rd
+Somerville, MA  02144
+
+Phone: 617.627.2859
+Fax: 617.627.3082
+
+http://uit.tufts.edu/at/
+http://sites.tufts.edu/davidgrogan
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+From patrick_laverty at brown.edu  Wed Mar 14 14:05:08 2012
+From: patrick_laverty at brown.edu (Patrick Laverty)
+Date: Wed, 14 Mar 2012 10:05:08 -0400
+Subject: [wp-edu] Shibboleth?
+Message-ID: <CAHZK5OZSgZOyj7Fw0VaP_OtBo2Qie40kvntr=POi=EhgyNFCsg@mail.gmail.com>
+
+Is anyone using the Shibbileth plugin for their authentication on
+WordPress? It seems the plugin stopped working after WP 3.0.5. Just
+wondering if anyone else has looked into this and started thinking of
+ways to update the Shib plugin.
+
+Anyone else using it?
+
+Thank you.
+
+Patrick Laverty
+Brown University
+
+From newquisk at lafayette.edu  Wed Mar 14 14:12:33 2012
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Wed, 14 Mar 2012 10:12:33 -0400
+Subject: [wp-edu] Shibboleth?
+In-Reply-To: <CAHZK5OZSgZOyj7Fw0VaP_OtBo2Qie40kvntr=POi=EhgyNFCsg@mail.gmail.com>
+References: <CAHZK5OZSgZOyj7Fw0VaP_OtBo2Qie40kvntr=POi=EhgyNFCsg@mail.gmail.com>
+Message-ID: <AFD4A1A7-2AD5-4ED6-87DC-A7047C6AD7FE@lafayette.edu>
+
+
+On Mar 14, 2012, at 10:05 AM, Patrick Laverty wrote:
+
+> Is anyone using the Shibbileth plugin for their authentication on
+> WordPress? It seems the plugin stopped working after WP 3.0.5. Just
+> wondering if anyone else has looked into this and started thinking of
+> ways to update the Shib plugin.
+
+We're interested in using either Shib or CAS for authing to WordPress, but haven't gone very far down either path. It seems like the modules for both auth types could use some love.
+
+Ken
+
+--
+Ken Newquist
+Director, Web Applications Development
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+
+
+From jeffvand at unc.edu  Wed Mar 14 14:22:42 2012
+From: jeffvand at unc.edu (VanDrimmelen, Jeff)
+Date: Wed, 14 Mar 2012 14:22:42 +0000
+Subject: [wp-edu] Shibboleth?
+In-Reply-To: <AFD4A1A7-2AD5-4ED6-87DC-A7047C6AD7FE@lafayette.edu>
+References: <CAHZK5OZSgZOyj7Fw0VaP_OtBo2Qie40kvntr=POi=EhgyNFCsg@mail.gmail.com>
+	<AFD4A1A7-2AD5-4ED6-87DC-A7047C6AD7FE@lafayette.edu>
+Message-ID: <CA9949C6-2F7D-43E0-8D9A-05D4137B29FC@unc.edu>
+
+Hey All,
+
+We have done a LOT with Shib and are now testing out AD authentication instead of Shib.  You can read one of my colleagues work here at UNC with the plugin and a patch here: http://www.ibiblio.org/archive/2011/10/wordpress-multisite-plus-shibboleth/
+
+Duke has also done some work: https://projects.linux.duke.edu/dukewordpress/browser/plugins (look for the shib one there).
+
+The reason we are exploring using AD instead of shib is purely for authentication reasons.  We need to password protect individual pages and sections inside of wordpress.  It works great if you are just using the default domain and shib (*.web.unc.edu for us), but my understanding is that shib can only give cookies for one domain.  So if we map a domain like *.unc.edu to it then it can not get a cookie for that domain.
+
+But we are working on seeing if we can make it do that since we have everything set up with shib right now (today in fact).
+
+I really like the wordpress AD wordpress plugin though: http://wordpress.org/extend/plugins/active-directory-integration/.  It works great with our infrastructure.  I kind of wish we would have done that from the beginning because shib has been so painful.  Some things in wordpress work better when you use the integrated login instead of redirecting to outside auth.  One example is the remote publishing protocol (read: mobile devices with mobile wordpress apps) does not work with shib because it redirects.
+
+Anyway, it is very complicated.  I didn't do most of the work on this here on campus, but I have been part of all the conversations.  Some of my colleagues might be able to help you more if you need more in depth help.
+
+Best,
+
+~Jeff
+University of North Carolina at Chapel Hill
+
+On Mar 14, 2012, at 9:12 AM   Wednesday,  March14, Ken Newquist wrote:
+
+
+On Mar 14, 2012, at 10:05 AM, Patrick Laverty wrote:
+
+Is anyone using the Shibbileth plugin for their authentication on
+WordPress? It seems the plugin stopped working after WP 3.0.5. Just
+wondering if anyone else has looked into this and started thinking of
+ways to update the Shib plugin.
+
+We're interested in using either Shib or CAS for authing to WordPress, but haven't gone very far down either path. It seems like the modules for both auth types could use some love.
+
+Ken
+
+--
+Ken Newquist
+Director, Web Applications Development
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu<mailto:newquisk at lafayette.edu>
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120314/ea24456e/attachment.htm>
+
+From smcconnell at berkeley.edu  Wed Mar 14 19:22:11 2012
+From: smcconnell at berkeley.edu (Steve McConnell)
+Date: Wed, 14 Mar 2012 12:22:11 -0700
+Subject: [wp-edu] Off-campus WP hosting
+Message-ID: <4F60EFE3.8050304@berkeley.edu>
+
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120314/5189d731/attachment.htm>
+
+From jeffvand at unc.edu  Wed Mar 14 19:44:27 2012
+From: jeffvand at unc.edu (VanDrimmelen, Jeff)
+Date: Wed, 14 Mar 2012 19:44:27 +0000
+Subject: [wp-edu] Off-campus WP hosting
+In-Reply-To: <4F60EFE3.8050304@berkeley.edu>
+References: <4F60EFE3.8050304@berkeley.edu>
+Message-ID: <72F9694A-1DB4-4B17-9FCB-76E95D71170F@unc.edu>
+
+We've had some discussions with EduBlogs as well (http://edublogs.org/campus/).  But we are doing it in-house instead thus far.  They have been responsive and very helpful.
+
+~Jeff
+UNC-CH
+
+On Mar 14, 2012, at 2:22 PM   Wednesday,  March14, Steve McConnell wrote:
+
+Hosting our WordPress-powered university NewsCenter at our campus data center has been problematic from the start (~2 years ago), but now we're starting to see sporadic but severe performance problems. All this has us seriously considering switching to an off-campus host for the site, particularly companies that specialize in hosting WordPress sites. Two that have been recommended are WP Engine<http://wpengine.com/> and Page.ly<http://page.ly/>. Does anyone out there have experience, good or bad, with either company that you'd be willing to share? Or know of another dedicated WP host we should consider? Thanks in advance for your help.
+
+~ Steve
+
+--
+Steve McConnell
+Web managing editor, UC Berkeley
+* * * * * * * * * * * * * * * * * * * *
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120314/b4b2b40f/attachment.htm>
+
+From jimgroom at gmail.com  Wed Mar 14 20:02:42 2012
+From: jimgroom at gmail.com (Jim Groom)
+Date: Thu, 15 Mar 2012 05:32:42 +0930
+Subject: [wp-edu] Off-campus WP hosting
+In-Reply-To: <72F9694A-1DB4-4B17-9FCB-76E95D71170F@unc.edu>
+References: <4F60EFE3.8050304@berkeley.edu>
+	<72F9694A-1DB4-4B17-9FCB-76E95D71170F@unc.edu>
+Message-ID: <CAAKBU9s4eWA=_DMUB+BE85eTmgjsH5ZvmmMvbkV+RCvewAerMA@mail.gmail.com>
+
+I wouldn't recommend EDUblogs to anyone based on how obnoxios the owner
+James Farmer is, case in point:
+
+http://wpcandy.com/reports/video-user-manuals-accuses-wpmu-dev-of-copyright-infringement-in-open-letter#comment-267071
+
+At UMW have been hosting UMW Blogs <http://umwblogs.org> off campus with
+Cast Iron Coding for almost 5 years. They are a small, boutique dev/hosting
+shop in Portland, Oregon---full disclosure I went to grad school with the
+owner---and they rock. Talk to Zack Davis http://castironcoding.com.
+
+No nonsense, professional, and small enough that they treat you like a
+human being.
+
+Jim
+
+On Thu, Mar 15, 2012 at 5:14 AM, VanDrimmelen, Jeff <jeffvand at unc.edu>wrote:
+
+>  We've had some discussions with EduBlogs as well (
+> http://edublogs.org/campus/).  But we are doing it in-house instead thus
+> far.  They have been responsive and very helpful.
+>
+>  ~Jeff
+> UNC-CH
+>
+>  On Mar 14, 2012, at 2:22 PM   Wednesday,  March14, Steve McConnell wrote:
+>
+>  Hosting our WordPress-powered university NewsCenter at our campus data
+> center has been problematic from the start (~2 years ago), but now we're
+> starting to see sporadic but severe performance problems. All this has us
+> seriously considering switching to an off-campus host for the site,
+> particularly companies that specialize in hosting WordPress sites. Two that
+> have been recommended are WP Engine <http://wpengine.com/> and Page.ly<http://page.ly/>.
+> Does anyone out there have experience, good or bad, with either company
+> that you'd be willing to share? Or know of another dedicated WP host we
+> should consider? Thanks in advance for your help.
+>
+> ~ Steve
+>
+> --
+> Steve McConnell
+> Web managing editor, UC Berkeley
+> * * * * * * * * * * * * * * * * * * * *
+>
+>
+>  _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120315/30bcfc0a/attachment-0001.htm>
+
+From djspillers at ualr.edu  Wed Mar 14 20:39:39 2012
+From: djspillers at ualr.edu (Daniel Spillers)
+Date: Wed, 14 Mar 2012 15:39:39 -0500
+Subject: [wp-edu] State purchasing requirements
+Message-ID: <-5989341637056833105@unknownmsgid>
+
+Have any public institutions out there had any difficulty purchasing
+online services like Akismet due to state contract regulations that
+prevent terms like adjudication in another state? If so, were you able
+to find a legal solution that allowed you to purchase the service?
+This would also apply to plugins, backup services, or any other small
+Internet service that rightly doesn't have the resources to hire a
+lawyer for each customer?
+
+djs
+
+From Lucas.Waltzer at baruch.cuny.edu  Wed Mar 14 21:02:33 2012
+From: Lucas.Waltzer at baruch.cuny.edu (Lucas Waltzer)
+Date: Wed, 14 Mar 2012 21:02:33 +0000
+Subject: [wp-edu] Off-campus WP hosting
+In-Reply-To: <CAAKBU9s4eWA=_DMUB+BE85eTmgjsH5ZvmmMvbkV+RCvewAerMA@mail.gmail.com>
+Message-ID: <CB867A9B.1D557%lucas.waltzer@baruch.cuny.edu>
+
+I'll add that we recently strongly considered moving Blogs at Baruch to Cast Iron Coding (I also know and have worked with Zach Davis for years) before ultimately settling on hosting internally? I'm positive that CIC would have created far fewer headaches for us, though. The server migration we (finally) have scheduled for next week would have been completed two months ago.
+
+Fwiw? I would be a bit careful about going with a host that bills itself as WordPress specialists (except for maybe Automattic VIP, but that's probably beyond everyone on this list's budget)? A good host should have enough knowledge to support a range of applications and use types, and it seems as though you might be setting yourself up to pay a premium for a narrow focus when the host really should be flexible enough to meet and adapt to your needs as you grow. Just my two cents; I've not looked deeply into either WP Engine or Page.ly? They may just be niches of larger hosting groups, but I do think it's worth thinking about that.
+
+Finally, I also know that there are some folks who've used and like SoftLayer for hosting large WP installs.
+
+Luke Waltzer
+Baruch College
+
+From: Jim Groom <jimgroom at gmail.com<mailto:jimgroom at gmail.com>>
+Reply-To: <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Date: Thu, 15 Mar 2012 05:32:42 +0930
+To: <wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>>
+Subject: Re: [wp-edu] Off-campus WP hosting
+
+I wouldn't recommend EDUblogs to anyone based on how obnoxios the owner James Farmer is, case in point:
+
+http://wpcandy.com/reports/video-user-manuals-accuses-wpmu-dev-of-copyright-infringement-in-open-letter#comment-267071
+
+At UMW have been hosting UMW Blogs<http://umwblogs.org> off campus with Cast Iron Coding for almost 5 years. They are a small, boutique dev/hosting shop in Portland, Oregon---full disclosure I went to grad school with the owner---and they rock. Talk to Zack Davis http://castironcoding.com.
+
+No nonsense, professional, and small enough that they treat you like a human being.
+
+Jim
+
+On Thu, Mar 15, 2012 at 5:14 AM, VanDrimmelen, Jeff <jeffvand at unc.edu<mailto:jeffvand at unc.edu>> wrote:
+We've had some discussions with EduBlogs as well (http://edublogs.org/campus/).  But we are doing it in-house instead thus far.  They have been responsive and very helpful.
+
+~Jeff
+UNC-CH
+
+On Mar 14, 2012, at 2:22 PM   Wednesday,  March14, Steve McConnell wrote:
+
+Hosting our WordPress-powered university NewsCenter at our campus data center has been problematic from the start (~2 years ago), but now we're starting to see sporadic but severe performance problems. All this has us seriously considering switching to an off-campus host for the site, particularly companies that specialize in hosting WordPress sites. Two that have been recommended are WP Engine<http://wpengine.com/> and Page.ly<http://page.ly/>. Does anyone out there have experience, good or bad, with either company that you'd be willing to share? Or know of another dedicated WP host we should consider? Thanks in advance for your help.
+
+~ Steve
+
+--
+Steve McConnell
+Web managing editor, UC Berkeley
+* * * * * * * * * * * * * * * * * * * *
+
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+_______________________________________________ wp-edu mailing list wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com> http://lists.automattic.com/mailman/listinfo/wp-edu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120314/74bffed8/attachment.htm>
+
+From dennen at gmail.com  Wed Mar 14 22:02:53 2012
+From: dennen at gmail.com (Bill Dennen)
+Date: Wed, 14 Mar 2012 18:02:53 -0400
+Subject: [wp-edu] Off-campus WP hosting
+In-Reply-To: <CB867A9B.1D557%lucas.waltzer@baruch.cuny.edu>
+References: <CAAKBU9s4eWA=_DMUB+BE85eTmgjsH5ZvmmMvbkV+RCvewAerMA@mail.gmail.com>
+	<CB867A9B.1D557%lucas.waltzer@baruch.cuny.edu>
+Message-ID: <CAAFBVjjSkJtG-5rNFtAxb0_42MOJ_YuaMYF0UuwSX4vB3ukKQg@mail.gmail.com>
+
+We're running on ServInt. We've been with them for about 4 years
+(running WP for the past 2). It's a managed service, which means
+they'll do a bunch of work for us if we want (upgrades, etc). But,
+we've not used this service much.
+
+We really like their services and their support has been responsive
+when we've needed it.
+
+http://www.servint.net/
+
+I'm happy to answer questions off-list.
+
+-Bill
+
+From genial at gmail.com  Thu Mar 15 12:58:16 2012
+From: genial at gmail.com (Tim Owens)
+Date: Thu, 15 Mar 2012 08:58:16 -0400
+Subject: [wp-edu] State purchasing requirements
+In-Reply-To: <-5989341637056833105@unknownmsgid>
+References: <-5989341637056833105@unknownmsgid>
+Message-ID: <CAPaV0RQYzOa=SP7JxunLcPtda+KY6xLSPMJBR+hCcfLSdzvGvA@mail.gmail.com>
+
+We ran into exactly this same situation with a faculty member trying to
+purchase a Vimeo Plus subscription a few weeks ago. Our purchasing
+department was in talks with the Attorney General to come to a resolution
+on it but as of yet we haven't found a resolution. We're in Virginia by the
+way.
+
+
+-
+Tim Owens
+University of Mary Washington
+
+
+On Wed, Mar 14, 2012 at 4:39 PM, Daniel Spillers <djspillers at ualr.edu>wrote:
+
+> Have any public institutions out there had any difficulty purchasing
+> online services like Akismet due to state contract regulations that
+> prevent terms like adjudication in another state? If so, were you able
+> to find a legal solution that allowed you to purchase the service?
+> This would also apply to plugins, backup services, or any other small
+> Internet service that rightly doesn't have the resources to hire a
+> lawyer for each customer?
+>
+> djs
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120315/d7537f85/attachment.htm>
+
+From djspillers at ualr.edu  Fri Mar 16 15:58:25 2012
+From: djspillers at ualr.edu (Daniel Spillers)
+Date: Fri, 16 Mar 2012 10:58:25 -0500
+Subject: [wp-edu] State purchasing requirements
+Message-ID: <CA+B8tW6Neg4rVeJdz43gdzdHznNrZO+9P2DJGyvDqWE1GdEdpg@mail.gmail.com>
+
+Our administration decided that it wasn't worth the political capital to
+request an exception for ~$500/year purchase, a stance that has merit. Yet
+I wonder if we'll be dealing with more of these situations, and are states
+hurting themselves in the digital age more than they are protecting
+themselves?
+
+Does anyone here have an institution that is taking a different approach to
+digital terms of service / contracts?
+
+
+*Daniel Spillers*
+University of Arkansas at Little Rock <http://ualr.edu/> | Information
+Technology Services
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120316/3deccc04/attachment.htm>
+
+From kylejones at thecorkboard.org  Sun Mar 18 00:45:59 2012
+From: kylejones at thecorkboard.org (Kyle Jones)
+Date: Sat, 17 Mar 2012 19:45:59 -0500
+Subject: [wp-edu] Pre-poulating and Managing Custom Taxonomy Terms
+Message-ID: <DEC1A9A6-A1FD-4F76-B422-EE5FAC685643@thecorkboard.org>
+
+Hello WP-Edu folks-
+
+I'm working on a basic ePortfolio system using four custom taxonomies  
+for the pages post type.  The pages act as the artifacts.  Each custom  
+taxonomy needs to be pre-populated with terms.
+
+So far, the taxonomies are working just fine and they have been pre- 
+populated successfully - all of this is packaged in a must use plugin  
+on each site.
+
+However, when terms need to be edited or all-out deleted it's not  
+straight forward.
+
+For example, if I want to edit the description of a course in the  
+courses taxonomy the database doesn't recognize that it is an edit and  
+misconstrues it as an additional term.  So, now two terms exist, of  
+which one is now misleading.  The second issue presents itself when a  
+term needs to be deleted.  Because wp_delete_term requires an ID and  
+the IDs for each pre-populated term may be different across varying  
+sites, I can't (at least I don't think I can) programatically delete  
+the unnecessary term(s) across the entire site.
+
+Does anyone have any experience pre-populating terms and then managing  
+them?
+
+I can provide the plugin if that helps anyone understand better my  
+goals here.
+
+Thanks,
+
+~Kyle M. L. Jones~
+
+School of Library and Information Studies, UW-Madison
+	-Ph.D Student
+	-Distance Ed. T.A.
+E-mail
+	-kmjones8 at wisc.edu
+	-kylejones at thecorkboard.org
+
+
+p.s. - sent previously from my Madison address but it doesn't look  
+like it posted.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120317/04323784/attachment.htm>
+
+From wp at andrewnacin.com  Sun Mar 18 01:05:15 2012
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Sat, 17 Mar 2012 21:05:15 -0400
+Subject: [wp-edu] Pre-poulating and Managing Custom Taxonomy Terms
+In-Reply-To: <DEC1A9A6-A1FD-4F76-B422-EE5FAC685643@thecorkboard.org>
+References: <DEC1A9A6-A1FD-4F76-B422-EE5FAC685643@thecorkboard.org>
+Message-ID: <CAP29PvguUk=UB+untk5ia+=aa_QYD19vwZv5E+qmwscKVNhtzw@mail.gmail.com>
+
+On Sat, Mar 17, 2012 at 8:45 PM, Kyle Jones <kylejones at thecorkboard.org>wrote:
+
+> Hello WP-Edu folks-
+>
+> I'm working on a basic ePortfolio system using four custom taxonomies for
+> the pages post type.  The pages act as the artifacts.  Each custom taxonomy
+> needs to be pre-populated with terms.
+>
+> So far, the taxonomies are working just fine and they have been
+> pre-populated successfully - all of this is packaged in a must use plugin
+> on each site.
+>
+> However, when terms need to be edited or all-out deleted it's not straight
+> forward.
+>
+> For example, if I want to edit the description of a course in the courses
+> taxonomy the database doesn't recognize that it is an *edit* and
+> misconstrues it as an *additional* term.  So, now two terms exist, of
+> which one is now misleading.  The second issue presents itself when a term
+> needs to be deleted.  Because wp_delete_term requires an ID and the IDs for
+> each pre-populated term may be different across varying sites, I can't (at
+> least I don't think I can) programatically delete the unnecessary term(s)
+> across the entire site.
+>
+
+Sounds like you're using multisite with global terms. Editing a shared term
+results in a duplication of the term. As it requires careful
+synchronization when terms are modified, global terms get very messy very
+quickly. We more or less deprecated the global terms feature when MU was
+merged into 3.0 ? it still exists, but it is turned off by default. To turn
+it off (if you're not using it otherwise), you can change the
+global_terms_enabled value in sitemeta to 0, or do add_filter(
+'global_terms_enabled', '__return_false' );. Once you turn it off, terms
+will stop being synced, and will become less "in sync" over time.
+Obviously, turning it back on isn't really feasible, at least not without a
+lot of non-shared properties.
+
+Global terms aren't the issue here, though. That's just background for what
+is occurring.
+
+Instead what I would do is store all of your taxonomy data in a file. So,
+you have an array of terms for each taxonomy, etc. Then you, in code, store
+a global "version" of this taxonomy data, i.e. version 1. Then, when you
+create a site, the terms get created based on the definitions in the file,
+and an option is added to that site's options table saying that its
+taxonomy data version is 1.
+
+When you want to add or edit a term, you add the new one to the array.
+Delete or edit, remove the old one. And then for edits, you have a second
+array of mapping the old term to the new term. Then you bump the version to
+2.
+
+On admin_init (for every site), you check the version number in the DB. If
+it's less than the one in the file, you initiate an upgrade, based on what
+needs to be added, edited, or renamed. This can also apply for modifying
+descriptions, etc. Once done, you bump the version number to 2.
+
+You don't need to store everything in the file, but it would be nicer than
+a switch_to_blog(1) to get that blog's taxonomy information. And, if
+implementing this, it would make sense to disallow
+editing/managing/deleting terms for everyone, from any site, except for a
+super admin on the main site (where the canonical information, ideally,
+would be kept).
+
+If you're familiar with the internals of WP, this approach may sound
+familiar. The routine is what WordPress does to update the DB ? it keeps a
+DB version in version.php and in the options table, and compares them in
+admin.php. It does this for multisite too, but you can force an update
+across the entire network from the Update Network screen in the network
+admin.
+
+Cheers,
+Nacin
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20120317/f6ddddfb/attachment.htm>
+
+From jcox9 at vcu.edu  Fri Mar 23 13:01:06 2012
+From: jcox9 at vcu.edu (Jonathan Cox)
+Date: Fri, 23 Mar 2012 09:01:06 -0400
+Subject: [wp-edu] Making media library files private
+In-Reply-To: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878FEE5@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C0878F5FF@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<CAAFBVjgobKGEiTt+iQYVN0Cp1j70sENo73cA-v9sJgSqFuVjJg@mail.gmail.com>
+	<85F05EE0D1E7E1499CCFFE9E3DFDF43C0878FEE5@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+Message-ID: <A9C0EED8-A9DF-44FD-9C5D-009B9D4CC583@vcu.edu>
+
+I'm trying to accomplish the same thing. Yesterday I had the idea of prepending something like 'protected' to the path in the guid of an uploaded file, and then putting a redirect in the .htaccess file that passes requests for ^protected/file/image.jpg to a script that will deliver the file only under certain conditions.
+
+Some or most of you may have known this, but I just realized yesterday that this is how WordPress handles all uploaded file requests in a network installation. The relevant line in the .htaccess file is
+
+RewriteRule ^([_0-9a-zA-Z-]+/)?files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+The ms-files script adds some headers and serves the file. Ideally, there would be an action hook like 'pre_serve_file' where you could just add a function to check conditions before serving the file, but it doesn't look like one exists. I'm going to continue trying to make this work in a similar fashion, probably using a redirect to a plugin script, which will include ms-files.php if certain conditions are met.
+
+Also, having noticed the above rewrite rule, I added a second one to the .htaccess file to prevent those 'blogs.dir' URLs from displaying images and other files from the wrong blog:
+
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-content/blogs.dir/[0-9]+/files/(.+) wp-includes/ms-files.php?file=$2 [L]
+
+Jonathan Cox
+VCU Webmaster
+Technology Services
+(804) 827-0067
+
+On Mar 6, 2012, at 11:13 AM, Grogan, David wrote:
+
+> Thanks Bill. I'll bring back any solutions we find that works.
+> 
+> David
+> 
+> -----Original Message-----
+> From: wp-edu-bounces at lists.automattic.com [mailto:wp-edu-bounces at lists.automattic.com] On Behalf Of Bill Dennen
+> Sent: Monday, March 05, 2012 9:31 AM
+> To: wp-edu at lists.automattic.com
+> Subject: Re: [wp-edu] Making media library files private
+> 
+> This might be worth looking into:
+> 
+> WP Document Revisions
+> http://wordpress.org/extend/plugins/wp-document-revisions/
+> 
+> "Access Control - Each document is given a persistent URL (e.g.,
+> yourcompany.com/documents/2011/08/TPS-Report.doc) which can be private
+> (securely delivered only to members of your organization), password
+> protected (available only to those you select such as clients or
+> contractors), or public (published and hosted for the world to see).
+> If you catch a typo and upload a new version, that URL will continue
+> to point to the latest version, regardless of how many changes you
+> make."
+> 
+> However, given the way WP Multisite media files are served, it may
+> take additional apache rules to completely block access.
+> 
+> Boston University has written some custom code to do this -- I believe
+> it writes htaccess files to protect media uploads. You can see their
+> documentation (but not their code), here for some ideas:
+> 
+> http://www.bu.edu/tech/web/departments/wordpress/management/access/content-protection/
+> 
+> -Bill
+> 
+> 
+> On Mon, Mar 5, 2012 at 9:24 AM, Grogan, David <David.Grogan at tufts.edu> wrote:
+>> Hello all,
+>> 
+>> We have a large multi-site instance of WP 3.3.1 and although you can make your WordPress site private to individual named accounts (e.g. try accessing http://sites.tufts.edu/dgtest) it's really only the posts and pages content that is private. Any content uploaded to the sites Media Library (e.g. documents, images, audio etc) is still publicly accessible (e.g. try accessing: http://sites.tufts.edu/dgtest/wp-content/blogs.dir/856/files/2012/03/FCKeditor.png).
+>> 
+>> Has anyone come across a solution that will provide privacy to the media library files?
+>> 
+>> David
+>> 
+>> --------------------------------------------------------------
+>> David Grogan
+>> Senior Solutions Specialist
+>> Educational & Scholarly Technology Services (ESTS)
+>> University Information Technology (UIT) Tufts University
+>> 108 Bromfield Rd
+>> Somerville, MA  02144
+>> 
+>> Phone: 617.627.2859
+>> Fax: 617.627.3082
+>> 
+>> http://uit.tufts.edu/at/
+>> http://sites.tufts.edu/davidgrogan
+>> 
+>> 
+>> 
+>> 
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From jennifer_stevens at emerson.edu  Tue Mar 27 16:04:17 2012
+From: jennifer_stevens at emerson.edu (Jennifer Stevens)
+Date: Tue, 27 Mar 2012 12:04:17 -0400
+Subject: [wp-edu] Best accessibility practice for long descriptions of
+	images?
+Message-ID: <CB975D41.1141D%jennifer_stevens@emerson.edu>
+
+Hello wp-edu,
+
+I'm trying to make charts and graphs that we post on our WP blog accessible, and think ahead so that we format information in a way that doesn't make us do backwards-compatible accessibility after the fact. The charts in question are too complex to be described in alt text, making a longer description necessary.
+
+I've found a very helpful post about 25 Ways to Make Your WordPress Website More Accessible<http://wpmu.org/25-ways-to-make-your-wordpress-website-more-accessible/> that suggests using the <http://wordpress.org/extend/plugins/long-description-for-image-attachments/> Long Description<http://wordpress.org/extend/plugins/long-description-for-image-attachments/> plugin. However, the longdesc attribute is deprecated in HTML5 (though there appears to be much controversy about that), so I'm not sure that is a long term solution.
+
+WebAIM suggests three options for creating accessible images<http://webaim.org/techniques/images/longdesc>:
+
+ 1.  Provide the long description in the context of the document itself.
+ 2.  Provide a link to a long description via a normal text link.
+ 3.  Provide a link to a long description via the longdesc attribute.
+
+My question is, how do options these translate to WordPress?
+
+Right now, we're uploading a .txt file of the long description to the Media Library and putting a <a href="local link to file.txt">Text description</a> link to that file under the chart (option 2 above). When clicked, the text file displays in the browser.
+
+I'm not sure that is the most elegant or accessible solution, however, and would welcome input and suggestions.  How are you all handling this?
+
+Thanks!
+Jenn Stevens
+
+Creative Instructional Designer
+Emerson College
+403B Walker Building
+120 Boylston St
+Boston MA 02116
+(617) 824-3093
+
+

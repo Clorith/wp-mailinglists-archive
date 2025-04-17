@@ -1,0 +1,209 @@
+From joseph at josephscott.org  Mon Mar  2 20:47:00 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon Mar  2 20:47:17 2009
+Subject: [wp-xmlrpc] Re: wp-xmlrpc Digest, Vol 21, Issue 6
+Message-ID: <9F3713C1-0B04-4C5F-B70E-15D2BFB268D6@josephscott.org>
+
+
+I'm not sure this reply ever made it out to the list, so I'm resending  
+it.
+
+---------------------------------------------------------------------------------------------
+
+
+
+Limited quotes to just portions that I'm updating status on
+
+On Feb 17, 2009, at 5:24 AM, Tim Armes wrote:
+
+>> That leaves us with edit URI using /post/491 though.
+>
+>> I've got a patch to fix it this so that both /wp-app.php/attachments
+>> and /wp-app.php/attachment/491 requests use /attachment/491 instead
+>> of /post/491.
+>
+> Great.  I think.  I hope that we're both talking about the same thing
+> - the XML returned by the Create Attachement function.
+
+
+The patch on that ticket went into -trunk so it will part of 2.8 and
+it's also in the 2.7 branch, so if we have 2.7.2 release it will be
+part of that.
+
+
+>>> Now, if I PUT the returned XML with a new <title> and description
+>>> (<content>) it works quites well except for the fact that the HTML
+>>> entities aren't decoded.  Is there a workaround for this?
+>>
+>> Can you give a specific example that we can use to reproduce this?
+>
+> If you use Lightroom then you can use my new client:
+>
+> http://www.timothyarmes.com/lr2blog.php
+>
+> Configure Wordpress over Atom, stick something like "Tim's problem"
+> into the description field for the photo upload, and then view the
+> description in the uploaded photo in the media library.  It'll be
+> "Tim&apos;s problem".
+
+
+The problem here isn't that they aren't being decoded, it's that
+WordPress is storing the encoded version (&apos; instead of ') in the
+database.  This is a core WP problem, we'll probably have to take a
+long hard look at re-arranging the default filter system to stop this
+from happening.
+
+
+
+>>> Finally I note that the GET correctly returns the image caption in
+>>> the
+>>> <summary> tag, however the PUT ignores it, so I can't update the
+>>> summary.
+>>
+>> Dealing with file management in WP is still pretty rough, so I'm
+>> going
+>> to have to look at this in more detail to see what's happening.  I've
+>> made a note of ticket http://core.trac.wordpress.org/ticket/9148 on
+>> this issue.
+>
+> That one's easy.  The put_attachment function doesn't extract the
+> summary.  Not that I can update the title and descritiption.
+
+
+When it's assembling the data for WP to update the database it's using
+the content field value (which will always be empty since there's a
+src attribute) instead of the summary field value.  I've added a patch
+to ticket 9148 that fixes this.
+
+
+
+> Finally, I've discovered a more serious problem.  It's not possible to
+> PUT an updated image file.  Wordpress returns 200 to say that it's all
+> worked, but in reality it hasn't.  I tracked it down to this code in
+> the put_file function:
+>
+> 		$location = get_post_meta($entry['ID'], '_wp_attached_file', true);
+> 		$filetype = wp_check_filetype($location);
+>
+> 		if(!isset($location) || 'attachment' != $entry['post_type'] ||
+> empty($filetype['ext']))
+> 			$this->internal_error(__('Error ocurred while accessing post
+> metadata for file location.'));
+>
+> 		$fp = fopen("php://input", "rb");
+> 		$localfp = fopen($location, "w+");
+> log_app("tim", $location);
+> 		while(!feof($fp)) {
+> 			fwrite($localfp,fread($fp, 4096));
+> 		}
+> 		fclose($fp);
+> 		fclose($localfp);
+>
+> When I PUT to ..../attachement/file/ID the code tries to locate the
+> physical file and overwrite it.  The problem is that $location
+> actually gets the path relative to the uploads folder, so it contains
+> something like 2009/02/myfile.jpg
+>
+> This is then opened by fopen directly, but it needs prepending with
+> the upload folder's path  (you can still see my debug line)
+
+I've fixed this so that the full path is used and confirmed that the
+file does then get properly overwritten (is that a word?).
+
+http://core.trac.wordpress.org/ticket/9233
+
+I'll ask about getting these updated in -trunk and the 2.7 branch as
+well.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From joseph at josephscott.org  Mon Mar  9 16:20:45 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon Mar  9 16:21:08 2009
+Subject: [wp-xmlrpc] Stripping brackets problem with XML-RPC
+Message-ID: <13FF5073-F36D-4693-88F7-C5906BFD2FF3@josephscott.org>
+
+
+For those who might not have seen the latest on this, the bracket  
+stripping problem has been fixed with the releases of PHP 5.2.9 and  
+libxml2 2.7.3.  You need to upgrade both and make sure that your PHP  
+5.2.9 build is using libxml2 2.7.3 (not an older version) in order to  
+get things working again.
+
+There a few shared hosts out there that are running known broken  
+versions of PHP/libxml2, so I'm trying to these folks to upgrade.
+
+For more details:
+
+http://josephscott.org/archives/2008/12/problems-with-libxml2-for-wordpress-xml-rpc-users/
+
+http://josephscott.org/archives/2009/02/update-on-libxml2-issues/
+
+http://josephscott.org/archives/2009/03/conclusion-of-libxml2-issues-use-php-529-libxml2-273/
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From joseph at josephscott.org  Tue Mar 17 21:27:08 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Tue Mar 17 21:27:27 2009
+Subject: [wp-xmlrpc] WordPress Plugin to work around bracket stripping
+	(libxml2 problem) in XML-RPC requests
+Message-ID: <43D99331-1615-4818-B6E7-984D9BC92F5A@josephscott.org>
+
+
+I put together a small plugin that uses the common hacks that have  
+been floating around to work around the bracket stripping in XML-RPC  
+requests caused by libxml2/PHP problems.  The plugin is available as  
+part of the plugin directory at:
+
+	http://wordpress.org/extend/plugins/libxml2-fix/
+
+and you can read about it at:
+
+	http://josephscott.org/archives/2009/03/wordpress-libxml2-episode-iv-a-new-plugin/
+
+Now that this plugin is available I've closed ticket 7771 (http://core.trac.wordpress.org/ticket/7771 
+) and will be pointing people to this plugin if they are on a host  
+that won't upgrade to the versions of PHP and libxml2 that fix this  
+problem.
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+
+From joseph at josephscott.org  Mon Mar 23 22:55:16 2009
+From: joseph at josephscott.org (Joseph Scott)
+Date: Mon Mar 23 22:55:34 2009
+Subject: [wp-xmlrpc] Slow loading RSD URLs in WordPress
+Message-ID: <D14FEC86-0059-4F0A-BED0-52CAB7819144@josephscott.org>
+
+
+Under certain conditions the RSD URL in WordPress can take a long time  
+to load, which might cause problems for some XML-RPC clients:
+
+http://josephscott.org/archives/2009/03/slow-loading-rsd-urls-in-wordpress/
+
+--
+Joseph Scott
+joseph@josephscott.org
+http://josephscott.org/
+
+
+
+

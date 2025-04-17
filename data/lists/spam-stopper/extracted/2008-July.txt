@@ -1,0 +1,45 @@
+From joan at fisbein.com  Mon Jul 21 10:20:58 2008
+From: joan at fisbein.com (Joan Fisbein)
+Date: Mon, 21 Jul 2008 12:20:58 +0200
+Subject: [spam-stopper] Bug in Akismet 2.1.6 ?
+In-Reply-To: <mailman.0.1216635104.27791.spam-stopper@lists.automattic.com>
+References: <mailman.0.1216635104.27791.spam-stopper@lists.automattic.com>
+Message-ID: <4884630A.40101@fisbein.com>
+
+Hello,
+
+When I push the button "Check for Spam" i get the following error:
+
+Warning: Invalid argument supplied for foreach() in
+/home/4197/domains/saltando.net/html/wp-content/plugins/akismet/akismet.php
+on line 722
+
+Warning: Cannot modify header information - headers already sent by
+(output started at
+/home/4197/domains/saltando.net/html/wp-content/plugins/akismet/akismet.php:722)
+in /home/4197/domains/saltando.net/html/wp-includes/pluggable.php on
+line 770
+
+I solved it adding the text "if ($moderation != null)"  at the line 722.
+
+So the result is:
+
+...
+$moderation = $wpdb->get_results( "SELECT * FROM $wpdb->comments WHERE
+comment_approved = '0'", ARRAY_A );
+        *if ($moderation != null)*
+            foreach ( $moderation as $c ) {
+...
+
+I don't know how to send patches to Akismet (cvs, svn??)
+
+I use WP 2.6 and Akismet 2.1.6
+
+If anyone can add it for me I will be very happy.
+
+Thanks,   
+    Joan Fisbein
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/spam-stopper/attachments/20080721/4eaf0d11/attachment.htm>
+

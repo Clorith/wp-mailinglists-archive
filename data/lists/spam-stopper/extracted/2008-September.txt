@@ -1,0 +1,65 @@
+From ethan at 10gen.com  Tue Sep 23 20:56:26 2008
+From: ethan at 10gen.com (Ethan Glasser-Camp)
+Date: Tue, 23 Sep 2008 16:56:26 -0400
+Subject: [spam-stopper] API document questions
+Message-ID: <48D957FA.10405@10gen.com>
+
+Hi guys,
+
+I'm working on an Akismet binding in server-side JavaScript and so I was 
+studying the document at http://akismet.com/development/api/ . I've had 
+a few questions which I was hoping you could answer for me.
+
+1) The Comment Check API complains that there was an "Empty 'key' 
+value". The document above mentions no key value except in the domain.
+
+2) The Comment Check call is documented to return "true" or "false" as 
+the body content, but so far I've only gotten "valid" and "invalid". Is 
+this expected, or am I doing something wrong?
+
+3) The document says that if I'm having a hard time triggering I can use 
+the author as "viagra-test-123" and it will always trigger true, but 
+this still returns "valid", which I assume means "not spam". Again, am I 
+doing something horribly wrong?
+
+Thanks in advance for any hints!
+
+Ethan
+
+
+
+
+From ethan at 10gen.com  Mon Sep 29 18:39:00 2008
+From: ethan at 10gen.com (Ethan Glasser-Camp)
+Date: Mon, 29 Sep 2008 14:39:00 -0400
+Subject: [spam-stopper] API document questions
+In-Reply-To: <48D957FA.10405@10gen.com>
+References: <48D957FA.10405@10gen.com>
+Message-ID: <48E120C4.2040301@10gen.com>
+
+Ethan Glasser-Camp wrote:
+> Hi guys,
+>
+> I'm working on an Akismet binding in server-side JavaScript and so I 
+> was studying the document at http://akismet.com/development/api/ . 
+> I've had a few questions which I was hoping you could answer for me.
+>
+> 1) The Comment Check API complains that there was an "Empty 'key' 
+> value". The document above mentions no key value except in the domain.
+>
+> 2) The Comment Check call is documented to return "true" or "false" as 
+> the body content, but so far I've only gotten "valid" and "invalid". 
+> Is this expected, or am I doing something wrong?
+>
+> 3) The document says that if I'm having a hard time triggering I can 
+> use the author as "viagra-test-123" and it will always trigger true, 
+> but this still returns "valid", which I assume means "not spam". 
+> Again, am I doing something horribly wrong?
+The answer seems to be that I had a problem with my HTTP library 
+re-using connections in some horrible way. So, yes, I was doing 
+something horribly wrong.
+
+Ethan
+
+
+

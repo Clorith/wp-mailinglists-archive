@@ -1,0 +1,322 @@
+From greened at msu.edu  Mon Feb 18 16:32:11 2013
+From: greened at msu.edu (Darcy Greene)
+Date: Mon, 18 Feb 2013 11:32:11 -0500
+Subject: [wp-edu] can I add a non wordpress folder to the multisite file
+	structure?
+In-Reply-To: <CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C088B82B0@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<5841E549-A620-4AD2-9073-967A19495372@vcu.edu>
+	<A274E3CD-B0A5-46DD-9774-FC7970C46804@umw.edu>
+	<CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+Message-ID: <0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+
+We are running our course sites through Wordpress multisites. We would like to link to a stand-alone site (game).  Is there a specific place where I can put the game folder on the multi-site server? Or do we need to have the game folder on a different server?
+
+Thanks,
+
+Darcy Greene
+
+From jimgroom at gmail.com  Mon Feb 18 16:35:32 2013
+From: jimgroom at gmail.com (Jim Groom)
+Date: Mon, 18 Feb 2013 11:35:32 -0500
+Subject: [wp-edu] can I add a non wordpress folder to the multisite file
+	structure?
+In-Reply-To: <0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C088B82B0@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<5841E549-A620-4AD2-9073-967A19495372@vcu.edu>
+	<A274E3CD-B0A5-46DD-9774-FC7970C46804@umw.edu>
+	<CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+	<0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+Message-ID: <CAAKBU9sM7LQHodrHBFhYHd6XpGB8xUGdZPt7WZKU2cKh8Lgrqg@mail.gmail.com>
+
+Darcy,
+
+What do you mean by link to a stand-alone site?  Do you want the stand
+alone site to have the same URL structure, but remain outside the
+multi-site?  Is the multi-site using sub-directories, or subdomains?  If it
+is running subdirectories, I would install the stand alone in a game
+subdomain.
+
+Best,
+Jim
+
+On Mon, Feb 18, 2013 at 11:32 AM, Darcy Greene <greened at msu.edu> wrote:
+
+> We are running our course sites through Wordpress multisites. We would
+> like to link to a stand-alone site (game).  Is there a specific place where
+> I can put the game folder on the multi-site server? Or do we need to have
+> the game folder on a different server?
+>
+> Thanks,
+>
+> Darcy Greene
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20130218/4f8b625a/attachment.htm>
+
+From mmuro at advance.ua.edu  Mon Feb 18 16:36:56 2013
+From: mmuro at advance.ua.edu (Muro, Matthew)
+Date: Mon, 18 Feb 2013 10:36:56 -0600
+Subject: [wp-edu] can I add a non wordpress folder to the multisite
+	file	structure?
+In-Reply-To: <0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C088B82B0@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<5841E549-A620-4AD2-9073-967A19495372@vcu.edu>
+	<A274E3CD-B0A5-46DD-9774-FC7970C46804@umw.edu>
+	<CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+	<0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+Message-ID: <32BAFED7-E065-40DD-8A36-07261A85080B@ur.ua.edu>
+
+I'm not 100% sure how it works in a subfolder setup, but with a subdomain setup literal folders are ignored in the rewrite rules.
+
+If your domain is exampledomain.com<http://exampledomain.com> and you place a folder called /game in the root, it'll be accessible via all subdomains. Like so: exampledomain.com/game<http://exampledomain.com/game> or sub.exampledomain.com/game<http://sub.exampledomain.com/game>
+
+Matthew Muro
+Web Developer
+UA Office of Web Communications
+
+
+
+
+
+On Feb 18, 2013, at 10:32 AM, Darcy Greene <greened at msu.edu<mailto:greened at msu.edu>> wrote:
+
+We are running our course sites through Wordpress multisites. We would like to link to a stand-alone site (game).  Is there a specific place where I can put the game folder on the multi-site server? Or do we need to have the game folder on a different server?
+
+Thanks,
+
+Darcy Greene
+_______________________________________________
+wp-edu mailing list
+wp-edu at lists.automattic.com<mailto:wp-edu at lists.automattic.com>
+http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From michael_denny at wrdsb.on.ca  Mon Feb 18 16:49:20 2013
+From: michael_denny at wrdsb.on.ca (Michael Denny)
+Date: Mon, 18 Feb 2013 11:49:20 -0500
+Subject: [wp-edu]
+ =?utf-8?q?can_I_add_a_non_wordpress_folder_to_the_multis?=
+ =?utf-8?q?ite_=09file=09structur?=
+Message-ID: <fc.002194680c9fbf523b9aca0050c650a1.c9fbf55@wrdsb.on.ca>
+
+Thank you for contacting me! My last day with the WRSDB was February 15, 2013. If you require assistance, please contact the Supervisor of Software Development.
+
+Thanks for all the great memories!
+
+
+From audioserviceclinic at gmail.com  Mon Feb 18 17:09:03 2013
+From: audioserviceclinic at gmail.com (Dave)
+Date: Mon, 18 Feb 2013 09:09:03 -0800
+Subject: [wp-edu] can I add a non wordpress folder to the multisite file
+ structure?
+In-Reply-To: <0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C088B82B0@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<5841E549-A620-4AD2-9073-967A19495372@vcu.edu>
+	<A274E3CD-B0A5-46DD-9774-FC7970C46804@umw.edu>
+	<CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+	<0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+Message-ID: <5122602F.6010103@gmail.com>
+
+What games are we talking about? I have a small business website.
+
+Dave
+
+On 02/18/2013 8:32 AM, Darcy Greene wrote:
+> We are running our course sites through Wordpress multisites. We would like to link to a stand-alone site (game).  Is there a specific place where I can put the game folder on the multi-site server? Or do we need to have the game folder on a different server?
+>
+> Thanks,
+>
+> Darcy Greene
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+
+From greened at msu.edu  Mon Feb 18 17:05:29 2013
+From: greened at msu.edu (Darcy Greene)
+Date: Mon, 18 Feb 2013 12:05:29 -0500
+Subject: [wp-edu] can I add a non wordpress folder to the multisite file
+	structure?
+In-Reply-To: <5122602F.6010103@gmail.com>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C088B82B0@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<5841E549-A620-4AD2-9073-967A19495372@vcu.edu>
+	<A274E3CD-B0A5-46DD-9774-FC7970C46804@umw.edu>
+	<CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+	<0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+	<5122602F.6010103@gmail.com>
+Message-ID: <B10C7A82-3F42-43EF-A9CF-EE86FDDB2126@msu.edu>
+
+environmental journalism games
+
+On Feb 18, 2013, at 12:09 PM, Dave <audioserviceclinic at gmail.com> wrote:
+
+> What games are we talking about? I have a small business website.
+> 
+> Dave
+> 
+> On 02/18/2013 8:32 AM, Darcy Greene wrote:
+>> We are running our course sites through Wordpress multisites. We would like to link to a stand-alone site (game).  Is there a specific place where I can put the game folder on the multi-site server? Or do we need to have the game folder on a different server?
+>> 
+>> Thanks,
+>> 
+>> Darcy Greene
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>> 
+> 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From audioserviceclinic at gmail.com  Mon Feb 18 17:50:24 2013
+From: audioserviceclinic at gmail.com (Dave)
+Date: Mon, 18 Feb 2013 09:50:24 -0800
+Subject: [wp-edu] can I add a non wordpress folder to the multisite file
+ structure?
+In-Reply-To: <B10C7A82-3F42-43EF-A9CF-EE86FDDB2126@msu.edu>
+References: <85F05EE0D1E7E1499CCFFE9E3DFDF43C088B82B0@SSVMEXDAG01MB03.tufts.ad.tufts.edu>
+	<5841E549-A620-4AD2-9073-967A19495372@vcu.edu>
+	<A274E3CD-B0A5-46DD-9774-FC7970C46804@umw.edu>
+	<CA+=D_4Q+G9E7L9ExX0OftCrbT38wEZiG9jqEuJEkLKVGa-UqqA@mail.gmail.com>
+	<0CB27A2F-FB35-4497-ABD4-E701FB7BD234@msu.edu>
+	<5122602F.6010103@gmail.com>
+	<B10C7A82-3F42-43EF-A9CF-EE86FDDB2126@msu.edu>
+Message-ID: <512269E0.6040706@gmail.com>
+
+Sorry. Wrong person to ask about that. I don't play any games, 
+environmental or not.
+
+Dave
+
+On 02/18/2013 9:05 AM, Darcy Greene wrote:
+> environmental journalism games
+>
+> On Feb 18, 2013, at 12:09 PM, Dave <audioserviceclinic at gmail.com> wrote:
+>
+>> What games are we talking about? I have a small business website.
+>>
+>> Dave
+>>
+>> On 02/18/2013 8:32 AM, Darcy Greene wrote:
+>>> We are running our course sites through Wordpress multisites. We would like to link to a stand-alone site (game).  Is there a specific place where I can put the game folder on the multi-site server? Or do we need to have the game folder on a different server?
+>>>
+>>> Thanks,
+>>>
+>>> Darcy Greene
+>>> _______________________________________________
+>>> wp-edu mailing list
+>>> wp-edu at lists.automattic.com
+>>> http://lists.automattic.com/mailman/listinfo/wp-edu
+>>>
+>> _______________________________________________
+>> wp-edu mailing list
+>> wp-edu at lists.automattic.com
+>> http://lists.automattic.com/mailman/listinfo/wp-edu
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+
+
+From chuck at avantigroup.com  Tue Feb 19 20:32:34 2013
+From: chuck at avantigroup.com (Chuck Scott)
+Date: Tue, 19 Feb 2013 15:32:34 -0500
+Subject: [wp-edu] add a non wordpress folder to the multisite file structure
+Message-ID: <CAE-Z5w=2Vcvg81rUFLbJ=PFdqiJ4K1RuymXP_Sjgaf1Ra-hkLA@mail.gmail.com>
+
+> We are running our course sites through Wordpress multisites. We would like to link to a stand-alone site (game).  Is there a specific place where I can put the game folder on the multi-site server? Or do we need to have the game folder on a different server?
+>
+
+Hi Darcy (and wp-edu list) ... i actually got hosed on this issue two
+or three years back with a church client multisite site set up in that
+WP tripped over the dynamic applications and caused them not to fire
+...
+
+thus the short answer = name your game folders something that will
+never be a part of your WP category, tag, or page names ... otherwise,
+if your game resides in a folder that shares similar WP category, tag
+or page name then the htaccess rules will prevail and your game files
+bomb ...
+
+note to answer = this might be different if you install WP in a sub
+directory versus root install ... my experience was from WP installed
+in root as when it came out (circa 3.0) that was the only option but i
+believe as of 3.5 you can now install WP in a sub directory so if that
+is the case you might get a different experience ..??..
+
+background to my experience ... my church client had five or six
+subsites on the WP network - e.g., the primary site for the parish
+office for all the contact us, mass schedule, bulletins, etc ...
+another site for photos so other editors and youth group folks could
+add all the photos they wanted ... another site for members of
+congregation to converse ala facebook/tweeter kind of stuff using the
+p2 theme ... etc ... yet we also had a number of dynamic realtime
+ecommerce applications on the site in a cgi scripting language that
+ran their prayer line and buy a candle apps ... originally the prayer
+line was in the "prayers" sub folder which was how we designed the
+site 10 years ago before we moved over to WP multisite ... never
+occured to us there might be a trip up as the cgi scripts were not php
+nor htaccess sensitive (ie., built using html/os) ... but as you might
+imagine, "prayers" is a pretty popular term for said client
+stakeholders so we quickly learned that our prayer line and other
+dynamic apps ceased to work - or better stated, ceased to co-exist and
+play nice with WP ...
+
+the work around was to create a directory we knew would never be a
+term, category, or page ... in this case we used my company's name
+"avanti" as that sub directory and then built all other applications
+off that sub directory and voila worked (avanti all shows at top of
+folder list so it made development easier without having to constantly
+scroll down a long list of folders) ... so while the dynamic url was
+not pretty - e.g., domain.com/cgi-bin/script/avanti/prayers/ .. the WP
+url was - e.g., domain.com/prayers/ ... and then once on that WP page
+they could click into the dynamic app to request a prayer, view
+prayers, as well as staff login to review pending prayers to
+edit-delete-approve etc...
+
+thus hope this helps as it certainly cost me about a week of time to
+figure out, debug and then another week or two to re-architect the
+site's information design and code - all of which i had to eat as
+unforseen development cost that we could not pass along to the client
+but i digress ... cordially, chuck scott
+
+
+-- 
+-------------------------------------------------------------------------------
+Chuck Scott -> Information Architect
+-------------------------------------------------------------------------------
+Specialty -> WordPress Multisite Information Design
+-------------------------------------------------------------------------------
+Site -> http://ChuckingIt.com - Reflecting on Life,
+Business, Entrepreneurship, Innovation & Technology
+-------------------------------------------------------------------------------
+What's New -> Tweeting a bit at @avantigroup
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+From michael_denny at wrdsb.on.ca  Tue Feb 19 20:33:32 2013
+From: michael_denny at wrdsb.on.ca (Michael Denny)
+Date: Tue, 19 Feb 2013 15:33:32 -0500
+Subject: [wp-edu] add a non wordpress folder to the multisite file
+	structure
+Message-ID: <fc.002194680ca243d53b9aca00a7646ba6.ca243d8@wrdsb.on.ca>
+
+Thank you for contacting me! My last day with the WRSDB was February 15, 2013. If you require assistance, please contact the Supervisor of Software Development.
+
+Thanks for all the great memories!
+
+

@@ -1,0 +1,100 @@
+From jeffvand at unc.edu  Mon Feb 13 17:56:20 2012
+From: jeffvand at unc.edu (VanDrimmelen, Jeff)
+Date: Mon, 13 Feb 2012 17:56:20 +0000
+Subject: [wp-edu] Group Permissions
+Message-ID: <6DAB556C-838B-4120-B497-72B1430C5001@unc.edu>
+
+Hey Everyone, 
+
+We are growing quick here at UNC and are looking to put some larger sites on our wordpress installation.  With this comes the need to specify more rights on the site and create groups that have rights to certain folders, etc.  We are looking at permissions plugins and have three in mind.  
+
+- Permit Press (http://presspermit.com/press-permit-overview/) - made by the same guy that made Role Scoper
+- Role Scoper (http://wordpress.org/extend/plugins/role-scoper/)
+- User Access Manager (http://wordpress.org/extend/plugins/user-access-manager/)
+
+I was interested to hear what others are using to control rights to certain pages, and custom user groups.  Has anyone had experience with these three?  Are there others out there we should look at in our evaluation?  Any other tips, suggestions, etc?
+
+Thanks, 
+
+~Jeff
+University of North Carolina at Chapel Hill
+http://web.unc.edu - Over 2000 sites and growing. :) 
+
+From joseph.ugoretz at mhc.cuny.edu  Tue Feb 14 16:14:43 2012
+From: joseph.ugoretz at mhc.cuny.edu (Joseph Ugoretz)
+Date: Tue, 14 Feb 2012 11:14:43 -0500
+Subject: [wp-edu] Group Permissions
+In-Reply-To: <6DAB556C-838B-4120-B497-72B1430C5001@unc.edu>
+References: <6DAB556C-838B-4120-B497-72B1430C5001@unc.edu>
+Message-ID: <C186C852-45F0-4EE5-9148-ED7A5B674979@mhc.cuny.edu>
+
+We had some bad results with Role Scoper.  It's been a while, so might be better now, but when we were using it back in March of 2011 we found that it was not ideal for a large multi-site install.  The roles were applied across the whole system, not just for an individual site, and when assigning roles it had to access the whole user list, so very very slow.
+
+We have had better luck with capability manager and have been using it pretty extensively.
+
+http://wordpress.org/extend/plugins/capsman
+
+Haven't tried the other two!
+
+Joe
+-- 
+Joseph Ugoretz, PhD
+Associate Dean of Teaching, Learning and Technology
+Macaulay Honors College - CUNY
+35 West 67th St.
+New York, NY 10023
+212.729.2920
+http://macaulay.cuny.edu
+
+On Feb 13, 2012, at 12:56 PM, VanDrimmelen, Jeff wrote:
+
+> Hey Everyone, 
+> 
+> We are growing quick here at UNC and are looking to put some larger sites on our wordpress installation.  With this comes the need to specify more rights on the site and create groups that have rights to certain folders, etc.  We are looking at permissions plugins and have three in mind.  
+> 
+> - Permit Press (http://presspermit.com/press-permit-overview/) - made by the same guy that made Role Scoper
+> - Role Scoper (http://wordpress.org/extend/plugins/role-scoper/)
+> - User Access Manager (http://wordpress.org/extend/plugins/user-access-manager/)
+> 
+> I was interested to hear what others are using to control rights to certain pages, and custom user groups.  Has anyone had experience with these three?  Are there others out there we should look at in our evaluation?  Any other tips, suggestions, etc?
+> 
+> Thanks, 
+> 
+> ~Jeff
+> University of North Carolina at Chapel Hill
+> http://web.unc.edu - Over 2000 sites and growing. :) 
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+
+
+From wp at andrewnacin.com  Tue Feb 14 16:21:48 2012
+From: wp at andrewnacin.com (Andrew Nacin)
+Date: Tue, 14 Feb 2012 11:21:48 -0500
+Subject: [wp-edu] Group Permissions
+In-Reply-To: <C186C852-45F0-4EE5-9148-ED7A5B674979@mhc.cuny.edu>
+References: <6DAB556C-838B-4120-B497-72B1430C5001@unc.edu>
+	<C186C852-45F0-4EE5-9148-ED7A5B674979@mhc.cuny.edu>
+Message-ID: <CAP29PvjTfPX6mN_wuowW4AKxZhDiC=Y417AoJKkJxQ4mfkhFfA@mail.gmail.com>
+
+
+From jeffvand at unc.edu  Tue Feb 14 21:46:31 2012
+From: jeffvand at unc.edu (VanDrimmelen, Jeff)
+Date: Tue, 14 Feb 2012 21:46:31 +0000
+Subject: [wp-edu] Group Permissions
+In-Reply-To: <CAP29PvjTfPX6mN_wuowW4AKxZhDiC=Y417AoJKkJxQ4mfkhFfA@mail.gmail.com>
+References: <6DAB556C-838B-4120-B497-72B1430C5001@unc.edu>
+	<C186C852-45F0-4EE5-9148-ED7A5B674979@mhc.cuny.edu>
+	<CAP29PvjTfPX6mN_wuowW4AKxZhDiC=Y417AoJKkJxQ4mfkhFfA@mail.gmail.com>
+Message-ID: <BAFA60D7-AB0F-4A4E-AA41-0FF6999425B1@unc.edu>
+
+Thank you all.  These are great suggestions we have added to our evaluation.
+
+Best,
+
+~Jeff
+
+On Feb 14, 2012, at 10:21 AM   Tuesday,  February14, Andrew Nacin wrote:
+
+

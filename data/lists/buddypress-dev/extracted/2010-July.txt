@@ -1,0 +1,230 @@
+From lists at zoranzaric.de  Fri Jul 16 07:56:26 2010
+From: lists at zoranzaric.de (Zoran Zaric)
+Date: Fri, 16 Jul 2010 09:56:26 +0200
+Subject: [buddypress-dev] "Find the shortest connection between two
+	members"-feature
+Message-ID: <4C4010AA.9000405@zoranzaric.de>
+
+Hello everybody,
+
+i'm writing a "find the shortest connection between two
+members"-feature. I'd like to test it's performance. Can anybody with a
+BIG real world installation provide me a dump of his wp_bp_friends, please?
+
+Kind Regards,
+Zoran
+
+From carlroett at gmail.com  Fri Jul 16 08:10:02 2010
+From: carlroett at gmail.com (Carl Roett)
+Date: Fri, 16 Jul 2010 02:10:02 -0600
+Subject: [buddypress-dev] "Find the shortest connection between two
+	members"-feature
+In-Reply-To: <4C4010AA.9000405@zoranzaric.de>
+References: <4C4010AA.9000405@zoranzaric.de>
+Message-ID: <AANLkTimWC4YCtHyYKM4Py9U72rxcrRMmiw1aiJ_FBTxZ@mail.gmail.com>
+
+You might want to contact the owner of hotforwords.com she's friendly, and
+they've got 50K members. Look for her on the buddypress.org forums.
+
+Our dev team is working on a similar function that analyzes relationships
+between keywords assigned to images to discover which keywords are related
+to each other. You might be able to re-use a lot of our code when we get it
+finished.
+
+Keep an eye on our plugin project:
+
+http://code.google.com/p/buddypress-media/
+
+-Carl
+
+========================================================================================
+
+
+
+
+
+
+On 16 July 2010 01:56, Zoran Zaric <lists at zoranzaric.de> wrote:
+
+> Hello everybody,
+>
+> i'm writing a "find the shortest connection between two
+> members"-feature. I'd like to test it's performance. Can anybody with a
+> BIG real world installation provide me a dump of his wp_bp_friends, please?
+>
+> Kind Regards,
+> Zoran
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20100716/0b0841af/attachment.htm>
+
+From lists at zoranzaric.de  Fri Jul 16 08:18:10 2010
+From: lists at zoranzaric.de (Zoran Zaric)
+Date: Fri, 16 Jul 2010 10:18:10 +0200
+Subject: [buddypress-dev] "Find the shortest connection between
+	two	members"-feature
+In-Reply-To: <AANLkTimWC4YCtHyYKM4Py9U72rxcrRMmiw1aiJ_FBTxZ@mail.gmail.com>
+References: <4C4010AA.9000405@zoranzaric.de>
+	<AANLkTimWC4YCtHyYKM4Py9U72rxcrRMmiw1aiJ_FBTxZ@mail.gmail.com>
+Message-ID: <4C4015C2.6000105@zoranzaric.de>
+
+thanks a lot, I'll contact her.
+
+I already implemented the feature in PHP5. Just want to test if the
+algorithm is appropriate for buddypress and then back port it to PHP4 /
+buddypress/wordpres coding guidlines.
+
+Zoran
+
+Carl Roett schrieb:
+> You might want to contact the owner of hotforwords.com
+> <http://hotforwords.com> she's friendly, and they've got 50K members.
+> Look for her on the buddypress.org <http://buddypress.org> forums.
+>
+> Our dev team is working on a similar function that analyzes
+> relationships between keywords assigned to images to discover which
+> keywords are related to each other. You might be able to re-use a lot
+> of our code when we get it finished.
+>
+> Keep an eye on our plugin project:
+>
+> http://code.google.com/p/buddypress-media/
+>
+> -Carl
+>
+> ========================================================================================
+>
+>
+>
+>
+>
+>
+> On 16 July 2010 01:56, Zoran Zaric <lists at zoranzaric.de
+> <mailto:lists at zoranzaric.de>> wrote:
+>
+>     Hello everybody,
+>
+>     i'm writing a "find the shortest connection between two
+>     members"-feature. I'd like to test it's performance. Can anybody
+>     with a
+>     BIG real world installation provide me a dump of his
+>     wp_bp_friends, please?
+>
+>     Kind Regards,
+>     Zoran
+>     _______________________________________________
+>     buddypress-dev mailing list
+>     buddypress-dev at lists.automattic.com
+>     <mailto:buddypress-dev at lists.automattic.com>
+>     http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+>
+> ------------------------------------------------------------------------
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>   
+
+
+From carlroett at gmail.com  Fri Jul 16 08:23:21 2010
+From: carlroett at gmail.com (Carl Roett)
+Date: Fri, 16 Jul 2010 02:23:21 -0600
+Subject: [buddypress-dev] "Find the shortest connection between two
+	members"-feature
+In-Reply-To: <4C4015C2.6000105@zoranzaric.de>
+References: <4C4010AA.9000405@zoranzaric.de>
+	<AANLkTimWC4YCtHyYKM4Py9U72rxcrRMmiw1aiJ_FBTxZ@mail.gmail.com>
+	<4C4015C2.6000105@zoranzaric.de>
+Message-ID: <AANLkTilzzfqDohF-s1NGJQ8SKOsBFvsPjrTOc9pCy8Jt@mail.gmail.com>
+
+Nice.
+
+Well if you have your code posted anywhere, I'd love to have a look at it.
+One of the great things about open source is the ability to check out how
+other people have implemented things and learn from their work.
+
+Thanks!
+
+-Carl
+
+
+
+
+On 16 July 2010 02:18, Zoran Zaric <lists at zoranzaric.de> wrote:
+
+> thanks a lot, I'll contact her.
+>
+> I already implemented the feature in PHP5. Just want to test if the
+> algorithm is appropriate for buddypress and then back port it to PHP4 /
+> buddypress/wordpres coding guidlines.
+>
+> Zoran
+>
+> Carl Roett schrieb:
+> > You might want to contact the owner of hotforwords.com
+> > <http://hotforwords.com> she's friendly, and they've got 50K members.
+> > Look for her on the buddypress.org <http://buddypress.org> forums.
+> >
+> > Our dev team is working on a similar function that analyzes
+> > relationships between keywords assigned to images to discover which
+> > keywords are related to each other. You might be able to re-use a lot
+> > of our code when we get it finished.
+> >
+> > Keep an eye on our plugin project:
+> >
+> > http://code.google.com/p/buddypress-media/
+> >
+> > -Carl
+> >
+> >
+> ========================================================================================
+> >
+> >
+> >
+> >
+> >
+> >
+> > On 16 July 2010 01:56, Zoran Zaric <lists at zoranzaric.de
+> > <mailto:lists at zoranzaric.de>> wrote:
+> >
+> >     Hello everybody,
+> >
+> >     i'm writing a "find the shortest connection between two
+> >     members"-feature. I'd like to test it's performance. Can anybody
+> >     with a
+> >     BIG real world installation provide me a dump of his
+> >     wp_bp_friends, please?
+> >
+> >     Kind Regards,
+> >     Zoran
+> >     _______________________________________________
+> >     buddypress-dev mailing list
+> >     buddypress-dev at lists.automattic.com
+> >     <mailto:buddypress-dev at lists.automattic.com>
+> >     http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+> >
+> > ------------------------------------------------------------------------
+> >
+> > _______________________________________________
+> > buddypress-dev mailing list
+> > buddypress-dev at lists.automattic.com
+> > http://lists.automattic.com/mailman/listinfo/buddypress-dev
+> >
+>
+> _______________________________________________
+> buddypress-dev mailing list
+> buddypress-dev at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/buddypress-dev
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/buddypress-dev/attachments/20100716/e5520e4a/attachment.htm>
+

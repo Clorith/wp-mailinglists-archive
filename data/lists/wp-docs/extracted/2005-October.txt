@@ -1,0 +1,1782 @@
+From michael at hancockdata.com  Sat Oct  1 18:35:52 2005
+From: michael at hancockdata.com (Michael E. Hancock)
+Date: Sat Oct  1 18:36:50 2005
+Subject: [wp-docs] Page Views at Sept 30
+Message-ID: <00ad01c5c6b6$f3de8040$6402a8c0@DELL8600>
+
+Interestingly, the page http://codex.wordpress.org/Using_Themes/Theme_List
+has had almost 100,000 views per month for the last 3 months.
+
+The page http://codex.wordpress.org/Main_Page has only seen approximately
+70,000 view per month.
+
+That according to the views tracked via
+http://codex.wordpress.org/Special:Popularpages.
+
+Guess that 30,000 difference in traffic is coming from the link on
+http://wordpress.org/extend/themes/.
+
+~~~~MichaelH
+Michael E. Hancock
+
+From eads at invisibleinstitute.com  Thu Oct  6 19:26:30 2005
+From: eads at invisibleinstitute.com (David Eads)
+Date: Thu Oct  6 19:18:20 2005
+Subject: [wp-docs] Codex redesign
+In-Reply-To: <433C51E5.7070009@mullenweg.com>
+References: <433C51E5.7070009@mullenweg.com>
+Message-ID: <4522.66.99.232.254.1128626790.squirrel@admin.invisibleinstitute.com>
+
+> Whatcha think? Pretend it expands with your browser window.
+
+This is *very* classy design.
+
+One concern that I have is the editing tools in the sidebar.  I'm using a
+similar layout for a Mediawiki install for Katrina victims trying to
+navigate the bureaucratic morass of FEMA benefits (www.femaanswers.org).
+
+Though much cleaner and easier on the eyes than the default Mediawiki
+theme (Monobook), I'm finding that having the editing tools across the top
+of each article, as the Monobook theme does, feels a bit more intuitive
+than having them in the navigation panel on the side, and enforces a
+useful separation of functionality.
+
+David
+www.viewfromtheground.com
+
+From ringmaster at midnightcircus.com  Thu Oct  6 19:29:58 2005
+From: ringmaster at midnightcircus.com (Owen Winkler)
+Date: Thu Oct  6 19:29:16 2005
+Subject: [wp-docs] Codex redesign
+In-Reply-To: <4522.66.99.232.254.1128626790.squirrel@admin.invisibleinstitute.com>
+References: <433C51E5.7070009@mullenweg.com>
+	<4522.66.99.232.254.1128626790.squirrel@admin.invisibleinstitute.com>
+Message-ID: <43457B36.6070400@midnightcircus.com>
+
+David Eads wrote:
+> enforces a
+> useful separation of functionality.
+
+This phrase is going in my list of all-time greatest UI design quotes.
+
+Owen
+From michael at followingedge.com  Sat Oct  8 20:54:13 2005
+From: michael at followingedge.com (michael@followingedge.com)
+Date: Sat Oct  8 20:55:32 2005
+Subject: [wp-docs] GPL requirement on Writing_a_Plugin
+Message-ID: <F1B29964D38EC6E6C2BB8CAD@[192.168.1.119]>
+
+Since I had last read the "Writing a Plugin" page...
+
+http://codex.wordpress.org/Writing_a_Plugin
+
+...almost a year ago, the following sentence has been added to the "Plugin 
+File Structure" section:
+
+   You do not need to license your plugin under the terms of the GPL;
+   but any license you choose to use <strong>must</strong> be
+   compatible with the GPL.
+
+I think this is incorrect. Probably, it is a misunderstanding from the GPL 
+FAQ that addresses how programs with restrictive license plug-ins cannot be 
+distributed as a combined work.
+
+Obviously, if a person writes a plug-in from scratch (as opposed to using 
+existing GPL, or otherwise, licensed code) and uses the public WordPress 
+API, the plug-in copyright rests completely with the author and the GPL 
+doesn't have any avenue to impel the author to license the plug-in under 
+GPL, or any other license. Obviously, the author could not combine the 
+plug-in with WordPress and distribute them together, since that would 
+violate the WordPress GPL license for distribution. But, the author could 
+distribute the plug-in separately under any license, and licensed users 
+could install the plug-in on their WordPress installation, creating a 
+"combined work" for their own use, within the WordPress GPL license.
+
+I think it would be less grating to generous authors to encourage them to 
+distribute their plug-in under the GPL or other open-source licenses, 
+rather than try and force them to do so. Trying to force generosity might 
+be taken the wrong way. I know that's the way I felt when I saw the new 
+sentence. Encouraging GPL licensing by appealing to authors' 
+community-minded generosity and via other perks (like hosting on 
+wp-plugins.org) might come across better, and be more accurate.
+
+-Michael
+michael@followingedge.com
+
+From skippy at skippy.net  Sat Oct  8 21:09:37 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Sat Oct  8 21:10:45 2005
+Subject: [wp-docs] GPL requirement on Writing_a_Plugin
+In-Reply-To: <F1B29964D38EC6E6C2BB8CAD@[192.168.1.119]>
+References: <F1B29964D38EC6E6C2BB8CAD@[192.168.1.119]>
+Message-ID: <43483591.9010009@skippy.net>
+
+I am not a lawyer.  Nothing I say should be construed as legal advice.
+
+michael@followingedge.com wrote:
+> Since I had last read the "Writing a Plugin" page...
+> 
+> http://codex.wordpress.org/Writing_a_Plugin
+> 
+> ...almost a year ago, the following sentence has been added to the 
+> "Plugin File Structure" section:
+> 
+>   You do not need to license your plugin under the terms of the GPL;
+>   but any license you choose to use <strong>must</strong> be
+>   compatible with the GPL.
+> 
+> I think this is incorrect. Probably, it is a misunderstanding from the 
+> GPL FAQ that addresses how programs with restrictive license plug-ins 
+> cannot be distributed as a combined work.
+
+Most plugins must use a GPL-compatible license.  From the GPL FAQ:
+http://www.gnu.org/licenses/gpl-faq.html#GPLAndPlugins
+
+      "It depends on how the program invokes its plug-ins. If the program
+      uses fork and exec to invoke plug-ins, then the plug-ins are
+      separate programs, so the license for the main program makes no
+      requirements for them.
+
+      If the program dynamically links plug-ins, and they make function
+      calls to each other and share data structures, we believe they form
+      a single program, which must be treated as an extension of both the
+      main program and the plug-ins. This means the plug-ins must be
+      released under the GPL or a GPL-compatible free software license,
+      and that the terms of the GPL must be followed when those plug-ins
+      are distributed.
+
+      If the program dynamically links plug-ins, but the communication
+      between them is limited to invoking the `main' function of the
+      plug-in with some options and waiting for it to return, that is a
+      borderline case. "
+
+It is my understanding of this FAQ that most WordPress plugins are 
+covered by the second paragraph.  Most plugins use the $wpdb object, and 
+make use of template tags and other internal structures.  In this way, 
+they are not functional on their own.  Since they require the GPL'ed 
+product to function, and since they share data structures with the 
+GPL'ed program, they too are bound by the terms of the GPL.
+
+> Obviously, if a person writes a plug-in from scratch (as opposed to 
+> using existing GPL, or otherwise, licensed code) and uses the public 
+> WordPress API, the plug-in copyright rests completely with the author 
+> and the GPL doesn't have any avenue to impel the author to license the 
+> plug-in under GPL, or any other license. Obviously, the author could not 
+> combine the plug-in with WordPress and distribute them together, since 
+> that would violate the WordPress GPL license for distribution. But, the 
+> author could distribute the plug-in separately under any license, and 
+> licensed users could install the plug-in on their WordPress 
+> installation, creating a "combined work" for their own use, within the 
+> WordPress GPL license.
+
+If someone writes a plugin that does not use _any_ internal WordPress 
+functions or objects, they could then license their plugin however they 
+wish.  For example, David Pankhurst's utopia1.php, available when you 
+purchase his "Top Ten Search Optimization Tricks for WordPress" book, 
+(apparently) does not use any internal WordPress functions or data (so I 
+am told -- I have not looked at the code).
+
+See here for additional info on this:
+http://www.skippy.net/blog/2005/07/09/free-as-in-freedom/
+
+> I think it would be less grating to generous authors to encourage them 
+> to distribute their plug-in under the GPL or other open-source licenses, 
+> rather than try and force them to do so. Trying to force generosity 
+> might be taken the wrong way. I know that's the way I felt when I saw 
+> the new sentence. Encouraging GPL licensing by appealing to authors' 
+> community-minded generosity and via other perks (like hosting on 
+> wp-plugins.org) might come across better, and be more accurate.
+
+I think it's important not to abuse the GPL, nor to encourage abuses of 
+it.  Licensing issues can become murky for armchair legal practitioners. 
+  I think the sentence against which you are railing is an appropriate 
+one, and that it should remain.
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From pottersys at gmail.com  Sat Oct  8 21:17:27 2005
+From: pottersys at gmail.com (Juan C. (PS))
+Date: Sat Oct  8 21:18:40 2005
+Subject: [wp-docs] Search is down
+Message-ID: <64f7b6520510081417v1fbca046g64b9927f41e581a7@mail.gmail.com>
+
+Right now the Search in WordPress (http://search.wordpress.org) is down,
+with a "Error establishing a database connection" message.
+ What's happening?
+(Sorry if it's up, but right now I'm at my house)
+--
+Potter System
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20051008/d3debabb/attachment.htm
+From michael at hancockdata.com  Tue Oct 11 14:57:26 2005
+From: michael at hancockdata.com (Michael E. Hancock)
+Date: Tue Oct 11 14:58:43 2005
+Subject: [wp-docs] Request sysop assistance to delete image and block two
+	users
+Message-ID: <00e601c5ce74$18971590$6402a8c0@DELL8600>
+
+Can a sysop get rid of this image. 
+
+Image:P5291102.JPG
+
+Also could sysop block users Gode4a and Mary.  
+
+Thanks.
+
+~~~~MichaelH
+Michael E. Hancock
+
+From skippy at skippy.net  Tue Oct 11 15:00:57 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Tue Oct 11 15:01:54 2005
+Subject: [wp-docs] Request sysop assistance to delete image and block
+	two	users
+In-Reply-To: <00e601c5ce74$18971590$6402a8c0@DELL8600>
+References: <00e601c5ce74$18971590$6402a8c0@DELL8600>
+Message-ID: <434BD3A9.9010205@skippy.net>
+
+Michael E. Hancock wrote:
+> Can a sysop get rid of this image. 
+> 
+> Image:P5291102.JPG
+
+Done (I think).
+
+> Also could sysop block users Gode4a and Mary.  
+
+Done.
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From podz at tamba2.org.uk  Sun Oct 23 21:34:19 2005
+From: podz at tamba2.org.uk (Podz)
+Date: Sun Oct 23 21:35:52 2005
+Subject: [wp-docs] Re: [wp-hackers] The next release.
+In-Reply-To: <435BB8AF.8020205@tamba2.org.uk>
+References: <435AE687.5070701@tamba2.org.uk>	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>	<435BB81B.5070009@tamba2.org.uk>
+	<435BB8AF.8020205@tamba2.org.uk>
+Message-ID: <435C01DB.8060304@tamba2.org.uk>
+
+Podz wrote:
+>> "Upgrading from any previous WordPress to 1.5:
+>>    1. Delete your old WP files, saving ones you've modified
+>>    2. Upload the new files
+>>    3. Point your browser to /wp-admin/upgrade.php
+>>    4. You wanted more, perhaps? That's it!"
+>>
+> 
+> I just noticed the above is - unless you are using 1.5 already - 
+> /completely wrong/ and if you are using 1.5 anyway, you don't need to 
+> run upgrade.
+
+I will write the upgrade docs that are needed.
+Problem is that they won't be 1-2-3.
+You cannot cover what needs to be done in one small paragraph and I'd 
+rather do it once and properly in my time than have to rush one out when 
+the complaints come in.
+If you have written or are writing such docs for the next WP release, 
+say so now please so there is no duplication of work.
+
+P.
+(cross-posted to the Docs list)
+From ryan at boren.nu  Mon Oct 24 02:27:32 2005
+From: ryan at boren.nu (Ryan Boren)
+Date: Mon Oct 24 03:00:27 2005
+Subject: [wp-docs] Re: [wp-hackers] The next release.
+In-Reply-To: <435C01DB.8060304@tamba2.org.uk>
+References: <435AE687.5070701@tamba2.org.uk>
+	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>
+	<435BB81B.5070009@tamba2.org.uk> <435BB8AF.8020205@tamba2.org.uk>
+	<435C01DB.8060304@tamba2.org.uk>
+Message-ID: <1130120852.3057.12.camel@portnoy.fuzzybelly.org>
+
+We need a "What's New in WordPress 1.6" document similar to "What's New
+in Gnome".  People love these things.
+
+http://www.gnome.org/start/2.10/notes/rnwhatsnew.html
+
+The doc should follow 1.6 development and be updated as needed.  Once
+1.6 is ready for release, "What's New" can become part of the release
+notes.
+
+Matt, Owen, Donncha, Andy, and I have written quite a bit about 1.6 on
+our blogs.  Those posts could be used to seed "What's New".
+
+Ryan
+
+
+From ringmaster at midnightcircus.com  Tue Oct 25 18:08:11 2005
+From: ringmaster at midnightcircus.com (Owen Winkler)
+Date: Tue Oct 25 18:08:05 2005
+Subject: [wp-docs] Re: [wp-hackers] Install/Upgrade Docs for 1.6 Release
+In-Reply-To: <435E651A.5030005@tamba2.org.uk>
+References: <435AE687.5070701@tamba2.org.uk>	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>	<435BB81B.5070009@tamba2.org.uk>	<435BB8AF.8020205@tamba2.org.uk>	<435C01DB.8060304@tamba2.org.uk>	<ebe43d680510250950y6233afd0x@mail.gmail.com>
+	<435E651A.5030005@tamba2.org.uk>
+Message-ID: <435E748B.7010700@midnightcircus.com>
+
+Podz wrote:
+> The above does not take account of version skipping - you cannot go to 
+> 1.6 from b2, or 1.0.1, or 1.2 each of which needs explaining.
+
+Really?  I mean, I expect that b2->1.6 wouldn't work, but 1.0.1 or 1.2?
+
+What extra steps need to take place to perform these upgrades?  Are we 
+talking about templates/themes?  I'm curious, not skeptical.
+
+/*
+It's also worthwhile to note (this is probably better recorded in Trac, 
+but it's on my mind right now) that upgrading very large databases from 
+1.2 to 1.5 doesn't always work.  There is a very inefficient section of 
+the upgrade code that does a query for every post and comment to remove 
+slashed quotes.  On large databases this section easily times out.  The 
+same would be true for an upgrade to 1.6 from 1.2.
+*/
+
+> Believe me, if I didn't think it was needed, I wouldn't do it. And as I 
+> have said before, I'm not looking at this from someone who bleeds 
+> commandline code or can code anything anywhere. There is an unmet need 
+> for this - and Codex doesn't hit the spot for a lot of people.
+
+I know a lot of effort has been made to produce instructions for 
+commonly-requested WordPress functions, but don't these very basic 
+things (installing, upgrading) merit specific, directed, illustrated, 
+hand-holding documentation, perhaps also without the burden of the Codex 
+navigation?  Certainly, the download page should link to such a set of 
+instructions, and such a set of instructions could introduce the Codex 
+resource upon completion.
+
+X-Posted To:wp-docs
+
+Owen
+
+
+From podz at tamba2.org.uk  Tue Oct 25 18:38:59 2005
+From: podz at tamba2.org.uk (Podz)
+Date: Tue Oct 25 18:40:43 2005
+Subject: [wp-docs] Re: [wp-hackers] Install/Upgrade Docs for 1.6 Release
+In-Reply-To: <435E748B.7010700@midnightcircus.com>
+References: <435AE687.5070701@tamba2.org.uk>	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>	<435BB81B.5070009@tamba2.org.uk>	<435BB8AF.8020205@tamba2.org.uk>	<435C01DB.8060304@tamba2.org.uk>	<ebe43d680510250950y6233afd0x@mail.gmail.com>	<435E651A.5030005@tamba2.org.uk>
+	<435E748B.7010700@midnightcircus.com>
+Message-ID: <435E7BC3.3000309@tamba2.org.uk>
+
+Owen Winkler wrote:
+> Podz wrote:
+>> The above does not take account of version skipping - you cannot go to 
+>> 1.6 from b2, or 1.0.1, or 1.2 each of which needs explaining.
+> 
+> Really?  I mean, I expect that b2->1.6 wouldn't work, but 1.0.1 or 1.2?
+> 
+> What extra steps need to take place to perform these upgrades?  Are we 
+> talking about templates/themes?  I'm curious, not skeptical.
+
+I would advise:
+b2.x > 1.0.2
+1.0.2 > 1.2.2
+1.2.2 > 1.5.2
+ >1.6
+
+I have no idea of the db structure as such, but I know the above steps 
+work - I've both done them and told others how to do them. I'd rather an 
+extra step to be absolutely certain not to break a blog.
+If anyone wants to disprove that path, supply me with a b2 blog complete 
+with posts, comments and a custom theme. I'll then do the work.
+
+> /*
+> It's also worthwhile to note (this is probably better recorded in Trac, 
+> but it's on my mind right now) that upgrading very large databases from 
+> 1.2 to 1.5 doesn't always work.  There is a very inefficient section of 
+> the upgrade code that does a query for every post and comment to remove 
+> slashed quotes.  On large databases this section easily times out.  The 
+> same would be true for an upgrade to 1.6 from 1.2.
+> */
+
+I posted to Hackers recently about a 1.5.2 blog that will not complete 
+on upgrade. 60meg+ db of JUST posts/comments. No stats, no junk, just 
+blog stuff.
+
+> I know a lot of effort has been made to produce instructions for 
+> commonly-requested WordPress functions, but don't these very basic 
+> things (installing, upgrading) merit specific, directed, illustrated, 
+> hand-holding documentation, perhaps also without the burden of the Codex 
+> navigation?
+
+That's why I have my pages, and why 10,000 hits have been recorded so 
+far this month. I have long said that Codex for people who are unsure is 
+not a good thing. It IS a good thing for the confident, the coders, the 
+interested readers, but for problems I think it is poor. This isn't a 
+new view of mine, it's something I have said for a long time.
+
+ > Certainly, the download page should link to such a set of
+> instructions, and such a set of instructions could introduce the Codex 
+> resource upon completion.
+
+The download needs clear directions, yes. Directions that is to "How to 
+Upgrade" - I don't RTFM, the majority of people who are reading this 
+probably don't either, but we are the tiny minority and to be honest the 
+people that will talk about this more in hackers are not the people 
+helping to mend blogs in the forums. They need the M.
+I would love to think it would happen - it will not.
+I - with the assiatnce of many testers - wrote the 1.2 > 1.5 guide, yet 
+this was what was in the download:
+
+"Upgrading
+
+Before you upgrade anything, make sure you have backup copies of any 
+files you may have modified such as index.php.
+Upgrading from any previous WordPress to 1.5:
+
+    1. Delete your old WP files, saving ones you've modified
+    2. Upload the new files
+    3. Point your browser to /wp-admin/upgrade.php
+    4. You wanted more, perhaps? That's it!"
+
+It was briefly mentioned that a Codex page may exist.
+I asked many times for the guide to be pointed at - it was not given 
+prominence.
+In these 'Web2.0' days, instructions of the like I will produce are not 
+welcome - because they are not "1 - 2 - there is no 3 :) :) :)" type.
+
+P.
+From ryan at boren.nu  Wed Oct 26 07:59:52 2005
+From: ryan at boren.nu (Ryan Boren)
+Date: Wed Oct 26 08:01:42 2005
+Subject: [wp-docs] Re: [wp-hackers] Install/Upgrade Docs for 1.6 Release
+In-Reply-To: <435E748B.7010700@midnightcircus.com>
+References: <435AE687.5070701@tamba2.org.uk>
+	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>
+	<435BB81B.5070009@tamba2.org.uk>	<435BB8AF.8020205@tamba2.org.uk>
+	<435C01DB.8060304@tamba2.org.uk>
+	<ebe43d680510250950y6233afd0x@mail.gmail.com>
+	<435E651A.5030005@tamba2.org.uk> <435E748B.7010700@midnightcircus.com>
+Message-ID: <1130313592.10053.19.camel@portnoy.fuzzybelly.org>
+
+On Tue, 2005-10-25 at 14:08 -0400, Owen Winkler wrote:
+> It's also worthwhile to note (this is probably better recorded in Trac, 
+> but it's on my mind right now) that upgrading very large databases from 
+> 1.2 to 1.5 doesn't always work.  There is a very inefficient section of 
+> the upgrade code that does a query for every post and comment to remove 
+> slashed quotes.  On large databases this section easily times out.  The 
+> same would be true for an upgrade to 1.6 from 1.2.
+
+I want to start versioning the DB.  This will avoid running the deslash
+code unless we are really upgrading from 1.2.x or older.
+
+http://trac.wordpress.org/ticket/1791
+
+This won't help upgrades from 1.2.x, but at least we won't suck when
+upgrading from 1.5.x and later.
+
+Ryan
+
+From aaron at technosailor.com  Sun Oct 30 21:35:23 2005
+From: aaron at technosailor.com (Aaron Brazell)
+Date: Sun Oct 30 21:39:24 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+Message-ID: <20051030213913.A20B25CC7@comox.textdrive.com>
+
+Skipped content of type multipart/alternative-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: image/jpeg
+Size: 3275 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/wp-docs/attachments/20051030/4147edff/attachment.jpeg
+From podz at tamba2.org.uk  Sun Oct 30 21:45:37 2005
+From: podz at tamba2.org.uk (Podz)
+Date: Sun Oct 30 21:47:24 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030213913.A20B25CC7@comox.textdrive.com>
+References: <20051030213913.A20B25CC7@comox.textdrive.com>
+Message-ID: <43653F01.8010709@tamba2.org.uk>
+
+Aaron Brazell wrote:
+> Not really sure why I?m posting this except I am extremely aggravated by 
+> the forum support, especially by moshu.  See link for context: 
+> http://wordpress.org/support/topic/48157
+
+I see nothing whatsoever that could be considered aggravating
+
+> As far as I?m concerned, the attitude represented by this member is a 
+> serious blight on WordPress.
+
+As far as I'm concerned you are /TOTALLY/ wrong.
+
+> I don?t go to the forums much 
+
+Really ? Couldn't tell.....
+
+> so I have no 
+> real idea if he is a regular.
+
+Moshu is a highly regarded member of the support forums and someone I 
+respect.
+
+> He provided the answer 
+> to my question (Thanks!) but the attitude he presented when I offered 
+> the gotcha about file location in 1.6 (which I KNOW is not supported) 
+> was completely asinine.
+
+Crap. You DID NOT SAY IT WAS UNSUPPORTED so moshu did.
+
+> For one, I asked about a plugin, not about the 
+> core files.  In my request, I never mentioned that I had 1.6.  It was 
+> irrelevant.
+
+"Just a quick point for future users who might use 1.6 "
+You didn't mention what ?
+
+> Anyways, I had to vent.
+
+You do 1/10th of the support help that Moshu and maybe, just maybe you 
+might be listened to.
+
+And quit using HTML mail.
+
+P.
+
+From false.hopes at gmail.com  Sun Oct 30 21:48:15 2005
+From: false.hopes at gmail.com (Robert Deaton)
+Date: Sun Oct 30 21:50:06 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <43653F01.8010709@tamba2.org.uk>
+References: <20051030213913.A20B25CC7@comox.textdrive.com>
+	<43653F01.8010709@tamba2.org.uk>
+Message-ID: <a491f91d0510301348h71f97013x991ed8f13c2d01b@mail.gmail.com>
+
+I agree, the fact that 1.6 even exists shouldn't even be mentioned on
+the forums, and if it must, it should be explicitly mentioned that its
+unsupported. You brought the fussing upon yourself.
+
+Not to mention, docs is not the place for this, wp-forums is.
+
+On 10/30/05, Podz <podz@tamba2.org.uk> wrote:
+> Aaron Brazell wrote:
+> > Not really sure why I'm posting this except I am extremely aggravated by
+> > the forum support, especially by moshu.  See link for context:
+> > http://wordpress.org/support/topic/48157
+>
+> I see nothing whatsoever that could be considered aggravating
+>
+> > As far as I'm concerned, the attitude represented by this member is a
+> > serious blight on WordPress.
+>
+> As far as I'm concerned you are /TOTALLY/ wrong.
+>
+> > I don't go to the forums much
+>
+> Really ? Couldn't tell.....
+>
+> > so I have no
+> > real idea if he is a regular.
+>
+> Moshu is a highly regarded member of the support forums and someone I
+> respect.
+>
+> > He provided the answer
+> > to my question (Thanks!) but the attitude he presented when I offered
+> > the gotcha about file location in 1.6 (which I KNOW is not supported)
+> > was completely asinine.
+>
+> Crap. You DID NOT SAY IT WAS UNSUPPORTED so moshu did.
+>
+> > For one, I asked about a plugin, not about the
+> > core files.  In my request, I never mentioned that I had 1.6.  It was
+> > irrelevant.
+>
+> "Just a quick point for future users who might use 1.6 "
+> You didn't mention what ?
+>
+> > Anyways, I had to vent.
+>
+> You do 1/10th of the support help that Moshu and maybe, just maybe you
+> might be listened to.
+>
+> And quit using HTML mail.
+>
+> P.
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+--Robert Deaton
+http://somethingunpredictable.com
+From aaron at technosailor.com  Sun Oct 30 21:53:18 2005
+From: aaron at technosailor.com (Aaron Brazell)
+Date: Sun Oct 30 21:57:11 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <a491f91d0510301348h71f97013x991ed8f13c2d01b@mail.gmail.com>
+Message-ID: <20051030215708.4FAC95C18@comox.textdrive.com>
+
+Fine...
+
+Consider myself removed from future WP involvement.  Whatever.
+
+--
+Aaron Brazell
+Editor/Writer, Technosailor.com
+www.technosailor.com
+ 
+ 
+
+ROLL, TIDE, ROLL! 
+(BCS #5, USA Today #5)
+
+-----Original Message-----
+From: wp-docs-bounces@lists.automattic.com
+[mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Robert Deaton
+Sent: Sunday, October 30, 2005 4:48 PM
+To: WordPress Documentation
+Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+
+I agree, the fact that 1.6 even exists shouldn't even be mentioned on the
+forums, and if it must, it should be explicitly mentioned that its
+unsupported. You brought the fussing upon yourself.
+
+Not to mention, docs is not the place for this, wp-forums is.
+
+On 10/30/05, Podz <podz@tamba2.org.uk> wrote:
+> Aaron Brazell wrote:
+> > Not really sure why I'm posting this except I am extremely 
+> > aggravated by the forum support, especially by moshu.  See link for
+context:
+> > http://wordpress.org/support/topic/48157
+>
+> I see nothing whatsoever that could be considered aggravating
+>
+> > As far as I'm concerned, the attitude represented by this member is 
+> > a serious blight on WordPress.
+>
+> As far as I'm concerned you are /TOTALLY/ wrong.
+>
+> > I don't go to the forums much
+>
+> Really ? Couldn't tell.....
+>
+> > so I have no
+> > real idea if he is a regular.
+>
+> Moshu is a highly regarded member of the support forums and someone I 
+> respect.
+>
+> > He provided the answer
+> > to my question (Thanks!) but the attitude he presented when I 
+> > offered the gotcha about file location in 1.6 (which I KNOW is not 
+> > supported) was completely asinine.
+>
+> Crap. You DID NOT SAY IT WAS UNSUPPORTED so moshu did.
+>
+> > For one, I asked about a plugin, not about the core files.  In my 
+> > request, I never mentioned that I had 1.6.  It was irrelevant.
+>
+> "Just a quick point for future users who might use 1.6 "
+> You didn't mention what ?
+>
+> > Anyways, I had to vent.
+>
+> You do 1/10th of the support help that Moshu and maybe, just maybe you 
+> might be listened to.
+>
+> And quit using HTML mail.
+>
+> P.
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+--Robert Deaton
+http://somethingunpredictable.com
+
+
+I choose Polesoft Lockspam to fight spam, and you?
+http://www.polesoft.com/refer.html    
+
+
+From aaron at technosailor.com  Sun Oct 30 21:55:33 2005
+From: aaron at technosailor.com (Aaron Brazell)
+Date: Sun Oct 30 21:59:25 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <a491f91d0510301348h71f97013x991ed8f13c2d01b@mail.gmail.com>
+Message-ID: <20051030215922.6DB365C10@comox.textdrive.com>
+
+I recommend a modification to the Forum search function to prevent people
+from searching for 1.6 if the mere mention of the number is enough to make
+the heavens fall...
+
+http://search.wordpress.org/1.6
+
+Pulls up all kinds of mailing list stuff that users can't know about. :\
+
+--
+Aaron Brazell
+Editor/Writer, Technosailor.com
+www.technosailor.com
+ 
+ 
+
+ROLL, TIDE, ROLL! 
+(BCS #5, USA Today #5)
+
+-----Original Message-----
+From: wp-docs-bounces@lists.automattic.com
+[mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Robert Deaton
+Sent: Sunday, October 30, 2005 4:48 PM
+To: WordPress Documentation
+Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+
+I agree, the fact that 1.6 even exists shouldn't even be mentioned on the
+forums, and if it must, it should be explicitly mentioned that its
+unsupported. You brought the fussing upon yourself.
+
+Not to mention, docs is not the place for this, wp-forums is.
+
+On 10/30/05, Podz <podz@tamba2.org.uk> wrote:
+> Aaron Brazell wrote:
+> > Not really sure why I'm posting this except I am extremely 
+> > aggravated by the forum support, especially by moshu.  See link for
+context:
+> > http://wordpress.org/support/topic/48157
+>
+> I see nothing whatsoever that could be considered aggravating
+>
+> > As far as I'm concerned, the attitude represented by this member is 
+> > a serious blight on WordPress.
+>
+> As far as I'm concerned you are /TOTALLY/ wrong.
+>
+> > I don't go to the forums much
+>
+> Really ? Couldn't tell.....
+>
+> > so I have no
+> > real idea if he is a regular.
+>
+> Moshu is a highly regarded member of the support forums and someone I 
+> respect.
+>
+> > He provided the answer
+> > to my question (Thanks!) but the attitude he presented when I 
+> > offered the gotcha about file location in 1.6 (which I KNOW is not 
+> > supported) was completely asinine.
+>
+> Crap. You DID NOT SAY IT WAS UNSUPPORTED so moshu did.
+>
+> > For one, I asked about a plugin, not about the core files.  In my 
+> > request, I never mentioned that I had 1.6.  It was irrelevant.
+>
+> "Just a quick point for future users who might use 1.6 "
+> You didn't mention what ?
+>
+> > Anyways, I had to vent.
+>
+> You do 1/10th of the support help that Moshu and maybe, just maybe you 
+> might be listened to.
+>
+> And quit using HTML mail.
+>
+> P.
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+--Robert Deaton
+http://somethingunpredictable.com
+
+
+I choose Polesoft Lockspam to fight spam, and you?
+http://www.polesoft.com/refer.html    
+
+
+From podz at tamba2.org.uk  Sun Oct 30 21:58:06 2005
+From: podz at tamba2.org.uk (Podz)
+Date: Sun Oct 30 21:59:51 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030215708.4FAC95C18@comox.textdrive.com>
+References: <20051030215708.4FAC95C18@comox.textdrive.com>
+Message-ID: <436541EE.1050305@tamba2.org.uk>
+
+Aaron Brazell wrote:
+> Fine...
+> 
+> Consider myself removed from future WP involvement.  Whatever.
+
+So don't send me derogatory emails then.
+
+P.
+From fd at firasd.org  Sun Oct 30 22:01:09 2005
+From: fd at firasd.org (Firas D.)
+Date: Sun Oct 30 22:03:05 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030215708.4FAC95C18@comox.textdrive.com>
+References: <20051030215708.4FAC95C18@comox.textdrive.com>
+Message-ID: <436542A5.4000003@firasd.org>
+
+Aaron Brazell wrote:
+
+>Fine...
+>
+>Consider myself removed from future WP involvement.  Whatever.
+>
+There's no reason to be petulant about the issue, Aaron. Your issue was 
+resolved. The WP Support community has a hardline view with regards to 
+unstable versions, and you stumbled across that view.
+
+I don't see the purpose of this thread at all. Do in Rome as Romans do. 
+Time to move on.
+From aaron at technosailor.com  Sun Oct 30 22:03:39 2005
+From: aaron at technosailor.com (Aaron Brazell)
+Date: Sun Oct 30 22:07:31 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <436541EE.1050305@tamba2.org.uk>
+Message-ID: <20051030220728.EF3A55CAF@comox.textdrive.com>
+
+This was not derogatory. It was meant to not clutter the mailing list, but
+since you want it cluttering the mailing list, here it is. Nothing
+derogatory about this.
+
+"It was not a 1.6 support issue, Podz. what is your problem???  Have you
+descended into cliquishness? I don't do support because I don't WANT to do
+support and I don't HAVE to do support.  What does that have to do with
+GETTING support from the forum?  How many people do you think that ask for
+support ever really give support?  Quit being a croney and look at the big
+picture.  The issue was solved and I added an additional note for your
+future 1.6 users who might need to know what I said.  It was a post-script
+and irrelevant to the solution that was offered.  Very bad image here, Podz.
+Very bad."
+
+It's really a shame that this has to be turned into such a big problem... it
+really is.
+
+--
+Aaron Brazell
+Editor/Writer, Technosailor.com
+www.technosailor.com
+ 
+ 
+
+ROLL, TIDE, ROLL! 
+(BCS #5, USA Today #5)
+
+-----Original Message-----
+From: wp-docs-bounces@lists.automattic.com
+[mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+Sent: Sunday, October 30, 2005 4:58 PM
+To: WordPress Documentation
+Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+
+Aaron Brazell wrote:
+> Fine...
+> 
+> Consider myself removed from future WP involvement.  Whatever.
+
+So don't send me derogatory emails then.
+
+P.
+_______________________________________________
+wp-docs mailing list
+wp-docs@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+I choose Polesoft Lockspam to fight spam, and you?
+http://www.polesoft.com/refer.html    
+
+
+From dmhouse at gmail.com  Sun Oct 30 22:02:05 2005
+From: dmhouse at gmail.com (David House)
+Date: Sun Oct 30 22:11:05 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030215708.4FAC95C18@comox.textdrive.com>
+References: <a491f91d0510301348h71f97013x991ed8f13c2d01b@mail.gmail.com>
+	<20051030215708.4FAC95C18@comox.textdrive.com>
+Message-ID: <ebe43d680510301402nb6bd8cx@mail.gmail.com>
+
+On 30/10/05, Aaron Brazell <aaron@technosailor.com> wrote:
+> Fine...
+>
+> Consider myself removed from future WP involvement.  Whatever.
+
+Don't do that... Moshu's post wasn't meant to be an insult, or a
+blight on WordPress, it was simply a friendly reminder that 1.6
+_isn't_ supported in the forums, in case people start asking about it.
+Don't leave just because of that. We're all friends here really :)
+Just that what appears to be an offensive email will recieve offensive
+replies, particularily by the people that put a lot of time and effort
+into the forums.
+
+Let's just label this a misunderstanding and move on, folks.
+
+--
+-David House, dmhouse@gmail.com, http://xmouse.ithium.net
+From podz at tamba2.org.uk  Sun Oct 30 22:09:27 2005
+From: podz at tamba2.org.uk (Podz)
+Date: Sun Oct 30 22:11:12 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030220728.EF3A55CAF@comox.textdrive.com>
+References: <20051030220728.EF3A55CAF@comox.textdrive.com>
+Message-ID: <43654497.3080007@tamba2.org.uk>
+
+Aaron Brazell wrote:
+
+*plonk*
+
+P.
+From false.hopes at gmail.com  Sun Oct 30 22:09:22 2005
+From: false.hopes at gmail.com (Robert Deaton)
+Date: Sun Oct 30 22:11:13 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030220728.EF3A55CAF@comox.textdrive.com>
+References: <436541EE.1050305@tamba2.org.uk>
+	<20051030220728.EF3A55CAF@comox.textdrive.com>
+Message-ID: <a491f91d0510301409q47706385y696cf8ba9c2cbe20@mail.gmail.com>
+
+The issue was not on whether or not you have to give support to get
+support, the issue however is over your say in things, and the point
+Podz is trying to make is that unless you suddenly start contributing
+to the forums, your say is not going to hold nearly as much merit as
+the people who spend hours upon hours. Your thoughts on 1.6 and the
+forums, especially after this, is going to be moot compared to what
+others think.
+
+On 10/30/05, Aaron Brazell <aaron@technosailor.com> wrote:
+> This was not derogatory. It was meant to not clutter the mailing list, but
+> since you want it cluttering the mailing list, here it is. Nothing
+> derogatory about this.
+>
+> "It was not a 1.6 support issue, Podz. what is your problem???  Have you
+> descended into cliquishness? I don't do support because I don't WANT to do
+> support and I don't HAVE to do support.  What does that have to do with
+> GETTING support from the forum?  How many people do you think that ask for
+> support ever really give support?  Quit being a croney and look at the big
+> picture.  The issue was solved and I added an additional note for your
+> future 1.6 users who might need to know what I said.  It was a post-script
+> and irrelevant to the solution that was offered.  Very bad image here, Podz.
+> Very bad."
+>
+> It's really a shame that this has to be turned into such a big problem... it
+> really is.
+>
+> --
+> Aaron Brazell
+> Editor/Writer, Technosailor.com
+> www.technosailor.com
+>
+>
+>
+> ROLL, TIDE, ROLL!
+> (BCS #5, USA Today #5)
+>
+> -----Original Message-----
+> From: wp-docs-bounces@lists.automattic.com
+> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+> Sent: Sunday, October 30, 2005 4:58 PM
+> To: WordPress Documentation
+> Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+>
+> Aaron Brazell wrote:
+> > Fine...
+> >
+> > Consider myself removed from future WP involvement.  Whatever.
+>
+> So don't send me derogatory emails then.
+>
+> P.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+> I choose Polesoft Lockspam to fight spam, and you?
+> http://www.polesoft.com/refer.html
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+--Robert Deaton
+http://somethingunpredictable.com
+From aaron at technosailor.com  Sun Oct 30 22:07:50 2005
+From: aaron at technosailor.com (Aaron Brazell)
+Date: Sun Oct 30 22:11:41 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <436542A5.4000003@firasd.org>
+Message-ID: <20051030221139.6D337608A@comox.textdrive.com>
+
+Mainly because I know how forum moderation goes. I did it for two years for
+a big one.  I also know it takes diplomacy at times and to pick your fights
+to make it worth it.  I think this was not one of those cases and it cast a
+bad light on WordPress.  There's bigger fish to fry than me throwing an "oh
+by the way" comment.  They can take a zero-tolerance approach without
+killing everyone in the path.  You know? I reckon that's my biggest
+frustration with this.  I don't have any issue with a zero-toerance rule but
+don't destroy the participants in the process.
+
+--
+Aaron Brazell
+Editor/Writer, Technosailor.com
+www.technosailor.com
+ 
+ 
+
+ROLL, TIDE, ROLL! 
+(BCS #5, USA Today #5)
+
+-----Original Message-----
+From: wp-docs-bounces@lists.automattic.com
+[mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Firas D.
+Sent: Sunday, October 30, 2005 5:01 PM
+To: WordPress Documentation
+Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+
+Aaron Brazell wrote:
+
+>Fine...
+>
+>Consider myself removed from future WP involvement.  Whatever.
+>
+There's no reason to be petulant about the issue, Aaron. Your issue was
+resolved. The WP Support community has a hardline view with regards to
+unstable versions, and you stumbled across that view.
+
+I don't see the purpose of this thread at all. Do in Rome as Romans do. 
+Time to move on.
+_______________________________________________
+wp-docs mailing list
+wp-docs@lists.automattic.com
+http://lists.automattic.com/mailman/listinfo/wp-docs
+
+
+I choose Polesoft Lockspam to fight spam, and you?
+http://www.polesoft.com/refer.html    
+
+
+From aaron at technosailor.com  Sun Oct 30 22:14:43 2005
+From: aaron at technosailor.com (Aaron Brazell)
+Date: Sun Oct 30 22:18:37 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <a491f91d0510301409q47706385y696cf8ba9c2cbe20@mail.gmail.com>
+Message-ID: <20051030221833.4B40C607D@comox.textdrive.com>
+
+That's fine. I applaud the work that the folks at the forum do. No question
+about it. Who am I to contribute anything? I'm just a user.
+
+Good evening, folks.
+
+--
+Aaron Brazell
+Editor/Writer, Technosailor.com
+www.technosailor.com
+ 
+ 
+
+ROLL, TIDE, ROLL! 
+(BCS #5, USA Today #5)
+
+-----Original Message-----
+From: wp-docs-bounces@lists.automattic.com
+[mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Robert Deaton
+Sent: Sunday, October 30, 2005 5:09 PM
+To: WordPress Documentation
+Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+
+The issue was not on whether or not you have to give support to get support,
+the issue however is over your say in things, and the point Podz is trying
+to make is that unless you suddenly start contributing to the forums, your
+say is not going to hold nearly as much merit as the people who spend hours
+upon hours. Your thoughts on 1.6 and the forums, especially after this, is
+going to be moot compared to what others think.
+
+On 10/30/05, Aaron Brazell <aaron@technosailor.com> wrote:
+> This was not derogatory. It was meant to not clutter the mailing list, 
+> but since you want it cluttering the mailing list, here it is. Nothing 
+> derogatory about this.
+>
+> "It was not a 1.6 support issue, Podz. what is your problem???  Have 
+> you descended into cliquishness? I don't do support because I don't 
+> WANT to do support and I don't HAVE to do support.  What does that 
+> have to do with GETTING support from the forum?  How many people do 
+> you think that ask for support ever really give support?  Quit being a 
+> croney and look at the big picture.  The issue was solved and I added 
+> an additional note for your future 1.6 users who might need to know 
+> what I said.  It was a post-script and irrelevant to the solution that was
+offered.  Very bad image here, Podz.
+> Very bad."
+>
+> It's really a shame that this has to be turned into such a big 
+> problem... it really is.
+>
+> --
+> Aaron Brazell
+> Editor/Writer, Technosailor.com
+> www.technosailor.com
+>
+>
+>
+> ROLL, TIDE, ROLL!
+> (BCS #5, USA Today #5)
+>
+> -----Original Message-----
+> From: wp-docs-bounces@lists.automattic.com
+> [mailto:wp-docs-bounces@lists.automattic.com] On Behalf Of Podz
+> Sent: Sunday, October 30, 2005 4:58 PM
+> To: WordPress Documentation
+> Subject: Re: [wp-docs] Extremelyu Poor Forum Support
+>
+> Aaron Brazell wrote:
+> > Fine...
+> >
+> > Consider myself removed from future WP involvement.  Whatever.
+>
+> So don't send me derogatory emails then.
+>
+> P.
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+>
+> I choose Polesoft Lockspam to fight spam, and you?
+> http://www.polesoft.com/refer.html
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+--Robert Deaton
+http://somethingunpredictable.com
+
+
+I choose Polesoft Lockspam to fight spam, and you?
+http://www.polesoft.com/refer.html    
+
+
+From skippy at skippy.net  Sun Oct 30 22:21:20 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Sun Oct 30 22:23:09 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <20051030221139.6D337608A@comox.textdrive.com>
+References: <20051030221139.6D337608A@comox.textdrive.com>
+Message-ID: <43654760.6090406@skippy.net>
+
+Aaron Brazell wrote:
+> Mainly because I know how forum moderation goes. I did it for two years for
+> a big one.  I also know it takes diplomacy at times and to pick your fights
+> to make it worth it.  I think this was not one of those cases and it cast a
+> bad light on WordPress.  There's bigger fish to fry than me throwing an "oh
+> by the way" comment.  They can take a zero-tolerance approach without
+> killing everyone in the path.  You know? I reckon that's my biggest
+> frustration with this.  I don't have any issue with a zero-toerance rule but
+> don't destroy the participants in the process.
+
+There's little more to be gained by continuing this conversation.
+
+Aaron needn't have reacted as hotly as he did to Moshu's comment.  It's 
+unfortunate that he misunderstood Moshu's posting.  We don't need to 
+rake him over the coals for that.
+
+The participants here needn't have been as hostile as they were to 
+Aaron.  It's a pity that Robert Deaton sent the email he did.  It's 
+comments like that his "your say is not going to hold nearly as much 
+merit" that really stifle new participation by creating an "old boy's 
+club" attitude.
+
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From podz at tamba2.org.uk  Sun Oct 30 22:32:08 2005
+From: podz at tamba2.org.uk (Podz)
+Date: Sun Oct 30 22:33:54 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <43654760.6090406@skippy.net>
+References: <20051030221139.6D337608A@comox.textdrive.com>
+	<43654760.6090406@skippy.net>
+Message-ID: <436549E8.8020702@tamba2.org.uk>
+
+Scott Merrill wrote:
+> The participants here needn't have been as hostile as they were to 
+> Aaron.  It's a pity that Robert Deaton sent the email he did.
+
+In fairness to Robert, I said that first by comparing AB's contributions 
+to those of Moshu. If someone wants to criticise constructively, then I 
+welcome that - I believe I have acted in that fashion before. If however 
+someone chooses just to attack, then they will reap what they sow. AB is 
+no stranger to these mailing lists.
+
+P.
+From michael at followingedge.com  Sun Oct 30 23:01:23 2005
+From: michael at followingedge.com (michael@followingedge.com)
+Date: Sun Oct 30 23:03:23 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <43654760.6090406@skippy.net>
+References: <20051030221139.6D337608A@comox.textdrive.com>
+	<43654760.6090406@skippy.net>
+Message-ID: <E39FCAC32112CF4586C25074@[192.168.1.114]>
+
+--On Sunday, October 30, 2005 5:21 PM -0500 Scott Merrill 
+<skippy@skippy.net> wrote:
+> There's little more to be gained by continuing this conversation.
+>
+> Aaron needn't have reacted as hotly as he did to Moshu's comment.  It's
+> unfortunate that he misunderstood Moshu's posting.  We don't need to rake
+> him over the coals for that.
+>
+> The participants here needn't have been as hostile as they were to Aaron.
+> It's a pity that Robert Deaton sent the email he did.  It's comments like
+> that his "your say is not going to hold nearly as much merit" that really
+> stifle new participation by creating an "old boy's club" attitude.
+
+As much as I hate to continue a thread from which there is little more to 
+be gained...
+
+The input you're offering is exactly what I read from Aaron's initial post. 
+I'm glad that you were able to state it more directly. It sounded to me 
+like he was hurt and insulted at feeling slapped down when trying to make a 
+contribution.
+
+I am easily able to pick up on his disappointment as I've seen others shot 
+down and have even felt ignored and shot down by yourself and others on the 
+lists and forums. The negative and defensive responses I get and that I see 
+others get may not be a personal attack, but they seem to say "you've 
+offended us by not doing things the way you're supposed to", "you're in the 
+wrong place and please don't bother us", and "you don't have enough 
+experience here to make suggestions to those of us who have been here a 
+long time".
+
+I am sure that cronyism is not the WordPress community's intention, but I 
+can't believe that you'll get more people involved with the aggressive and 
+dismissive tone that I see used with new contributors. Of course, it's not 
+just WordPress; Mozilla and other large open-source projects have pockets 
+of the same issue. I hope it's possible to avoid, since I think WordPress 
+is awesome and should have as much community support as it can get.
+
+I am also hoping that the core contributors can read what Aaron had to say 
+and, which the goal of encouraging new participation that you mention, 
+avoid being defensive and ask themselves how things might have worked 
+differently to help Aaron not only understand what had to be done 
+differently about his 1.6 comment, but also to understand that his 
+contribution is appreciated. My personal experience has made me feel much 
+like Aaron: very adversarial and unmotivated to contribute. I really do 
+hope that things seem more encouraging to new participants over time.
+
+Thanks, Scott, for your response acknowledging the need.
+
+-Michael
+
+From m at mullenweg.com  Mon Oct 31 00:27:01 2005
+From: m at mullenweg.com (Matt Mullenweg)
+Date: Mon Oct 31 00:29:42 2005
+Subject: [wp-docs] Extremelyu Poor Forum Support
+In-Reply-To: <43654760.6090406@skippy.net>
+References: <20051030221139.6D337608A@comox.textdrive.com>
+	<43654760.6090406@skippy.net>
+Message-ID: <436564D5.4080506@mullenweg.com>
+
+Scott Merrill wrote:
+> Aaron needn't have reacted as hotly as he did to Moshu's comment.  It's 
+> unfortunate that he misunderstood Moshu's posting.  We don't need to 
+> rake him over the coals for that.
+> 
+> The participants here needn't have been as hostile as they were to 
+> Aaron.  It's a pity that Robert Deaton sent the email he did.  It's 
+> comments like that his "your say is not going to hold nearly as much 
+> merit" that really stifle new participation by creating an "old boy's 
+> club" attitude.
+
+Just reading things through without looking at the names, that was my 
+impression of things as well.
+
+We all communicate so much virtually there are bound to be times we piss 
+each other off, when it's best just to take a step back rather than respond.
+
+-- 
+Matt Mullenweg
+  http://photomatt.net | http://wordpress.org
+http://pingomatic.com | ...
+From skippy at skippy.net  Mon Oct 31 15:17:25 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Mon Oct 31 15:19:19 2005
+Subject: [wp-docs] Main Page protected
+Message-ID: <43663585.5000909@skippy.net>
+
+I marked the main Codex page as "protected" to discourage the spammers
+from prominently displaying their graphics.
+
+If a front-page edit becomes necessary, let us know here so that we can
+unprotect it or make the change(s) for you.
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From michael at hancockdata.com  Mon Oct 31 15:38:04 2005
+From: michael at hancockdata.com (Michael E. Hancock)
+Date: Mon Oct 31 15:41:08 2005
+Subject: [wp-docs] Main Page protected
+References: <43663585.5000909@skippy.net>
+Message-ID: <02d701c5de31$16938ea0$6402a8c0@DELL8600>
+
+From: "Scott Merrill" <skippy@skippy.net>
+> I marked the main Codex page as "protected" to discourage the spammers
+> from prominently displaying their graphics.
+>
+> If a front-page edit becomes necessary, let us know here so that we can
+> unprotect it or make the change(s) for you.
+
+The wacko on wheels that caused the locking of the Main Page also did 'a lot
+of movin'!
+http://codex.wordpress.org/index.php?title=Special:Recentchanges&hideminor=0&hideliu=0&hidebots=1&hidepatrolled=0&limit=50&days=7&limit=500
+
+Any thoughts on how to fix all those moved pages?
+
+
+~~~~MichaelH
+
+
+From skippy at skippy.net  Mon Oct 31 15:45:36 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Mon Oct 31 15:47:28 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <02d701c5de31$16938ea0$6402a8c0@DELL8600>
+References: <43663585.5000909@skippy.net>
+	<02d701c5de31$16938ea0$6402a8c0@DELL8600>
+Message-ID: <43663C20.3030309@skippy.net>
+
+Michael E. Hancock wrote:
+> From: "Scott Merrill" <skippy@skippy.net>
+> 
+>>I marked the main Codex page as "protected" to discourage the spammers
+>>from prominently displaying their graphics.
+>>
+>>If a front-page edit becomes necessary, let us know here so that we can
+>>unprotect it or make the change(s) for you.
+> 
+> 
+> The wacko on wheels that caused the locking of the Main Page also did 'a lot
+> of movin'!
+> http://codex.wordpress.org/index.php?title=Special:Recentchanges&hideminor=0&hideliu=0&hidebots=1&hidepatrolled=0&limit=50&days=7&limit=500
+> 
+> Any thoughts on how to fix all those moved pages?
+
+I deleted the yucky image he uploaded, and am working through some of
+the edits.  Feel free to jump in, and we'll brute force our way through
+manually restoring...
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From pottersys at gmail.com  Mon Oct 31 15:47:08 2005
+From: pottersys at gmail.com (Juan C. (PS))
+Date: Mon Oct 31 15:48:58 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <02d701c5de31$16938ea0$6402a8c0@DELL8600>
+References: <43663585.5000909@skippy.net>
+	<02d701c5de31$16938ea0$6402a8c0@DELL8600>
+Message-ID: <64f7b6520510310747l5fbce6b1ld66abd3de398bb30@mail.gmail.com>
+
+I saw an "undo" link now. I'm going to change the pages have been moved
+right now
+
+About cleaning database of "something" on wheels!, Matt or someone have to
+clean them
+
+On 10/31/05, Michael E. Hancock <michael@hancockdata.com> wrote:
+>
+> From: "Scott Merrill" <skippy@skippy.net>
+> > I marked the main Codex page as "protected" to discourage the spammers
+> > from prominently displaying their graphics.
+> >
+> > If a front-page edit becomes necessary, let us know here so that we can
+> > unprotect it or make the change(s) for you.
+>
+> The wacko on wheels that caused the locking of the Main Page also did 'a
+> lot
+> of movin'!
+>
+> http://codex.wordpress.org/index.php?title=Special:Recentchanges&hideminor=0&hideliu=0&hidebots=1&hidepatrolled=0&limit=50&days=7&limit=500
+>
+> Any thoughts on how to fix all those moved pages?
+>
+>
+> ~~~~MichaelH
+>
+>
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+
+--
+Potter System
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: http://comox.textdrive.com/pipermail/wp-docs/attachments/20051031/e17b8f66/attachment.htm
+From michael at hancockdata.com  Mon Oct 31 16:02:07 2005
+From: michael at hancockdata.com (Michael E. Hancock)
+Date: Mon Oct 31 16:06:00 2005
+Subject: [wp-docs] Main Page protected
+References: <43663585.5000909@skippy.net><02d701c5de31$16938ea0$6402a8c0@DELL8600>
+	<43663C20.3030309@skippy.net>
+Message-ID: <02e801c5de34$72943b70$6402a8c0@DELL8600>
+
+----- Original Message ----- 
+From: "Scott Merrill" <skippy@skippy.net>
+To: "WordPress Documentation" <wp-docs@lists.automattic.com>
+Sent: Monday, October 31, 2005 10:45 AM
+Subject: Re: [wp-docs] Main Page protected
+
+
+> Michael E. Hancock wrote:
+> > The wacko on wheels that caused the locking of the Main Page also did 'a
+lot
+> > of movin'!
+> >
+http://codex.wordpress.org/index.php?title=Special:Recentchanges&hideminor=0&hideliu=0&hidebots=1&hidepatrolled=0&limit=50&days=7&limit=500
+> >
+> > Any thoughts on how to fix all those moved pages?
+>
+> I deleted the yucky image he uploaded, and am working through some of
+> the edits.  Feel free to jump in, and we'll brute force our way through
+> manually restoring...
+
+Any good reason to consider restoring Codex from last backup????
+
+~~~~MichaelH
+
+
+
+
+From tg at tannagh.com  Mon Oct 31 16:07:32 2005
+From: tg at tannagh.com (TechGnome)
+Date: Mon Oct 31 16:09:26 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <02e801c5de34$72943b70$6402a8c0@DELL8600>
+References: <43663585.5000909@skippy.net><02d701c5de31$16938ea0$6402a8c0@DELL8600>	<43663C20.3030309@skippy.net>
+	<02e801c5de34$72943b70$6402a8c0@DELL8600>
+Message-ID: <43664144.8050906@tannagh.com>
+
+Any good reason to NOT consider it?
+
+-tg
+
+Michael E. Hancock wrote:
+
+>----- Original Message ----- 
+>From: "Scott Merrill" <skippy@skippy.net>
+>To: "WordPress Documentation" <wp-docs@lists.automattic.com>
+>Sent: Monday, October 31, 2005 10:45 AM
+>Subject: Re: [wp-docs] Main Page protected
+>
+>
+>  
+>
+>>Michael E. Hancock wrote:
+>>    
+>>
+>>>The wacko on wheels that caused the locking of the Main Page also did 'a
+>>>      
+>>>
+>lot
+>  
+>
+>>>of movin'!
+>>>
+>>>      
+>>>
+>http://codex.wordpress.org/index.php?title=Special:Recentchanges&hideminor=0&hideliu=0&hidebots=1&hidepatrolled=0&limit=50&days=7&limit=500
+>  
+>
+>>>Any thoughts on how to fix all those moved pages?
+>>>      
+>>>
+>>I deleted the yucky image he uploaded, and am working through some of
+>>the edits.  Feel free to jump in, and we'll brute force our way through
+>>manually restoring...
+>>    
+>>
+>
+>Any good reason to consider restoring Codex from last backup????
+>
+>~~~~MichaelH
+>
+>
+>
+>
+>_______________________________________________
+>wp-docs mailing list
+>wp-docs@lists.automattic.com
+>http://lists.automattic.com/mailman/listinfo/wp-docs
+>  
+>
+From skippy at skippy.net  Mon Oct 31 16:08:52 2005
+From: skippy at skippy.net (Scott Merrill)
+Date: Mon Oct 31 16:10:49 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <43664144.8050906@tannagh.com>
+References: <43663585.5000909@skippy.net><02d701c5de31$16938ea0$6402a8c0@DELL8600>	<43663C20.3030309@skippy.net>	<02e801c5de34$72943b70$6402a8c0@DELL8600>
+	<43664144.8050906@tannagh.com>
+Message-ID: <43664194.6040100@skippy.net>
+
+TechGnome wrote:
+> Any good reason to NOT consider it?
+
+Oh, yeah, backups are great.  I'd forgotten about those.
+
+Restore restore restore !!
+
+-- 
+skippy@skippy.net | http://skippy.net/
+
+gpg --keyserver pgp.mit.edu --recv-keys 9CFA4B35
+506C F8BB 17AE 8A05 0B49  3544 476A 7DEC 9CFA 4B35
+From tg at tannagh.com  Mon Oct 31 16:09:50 2005
+From: tg at tannagh.com (TechGnome)
+Date: Mon Oct 31 16:11:42 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <43664194.6040100@skippy.net>
+References: <43663585.5000909@skippy.net><02d701c5de31$16938ea0$6402a8c0@DELL8600>	<43663C20.3030309@skippy.net>	<02e801c5de34$72943b70$6402a8c0@DELL8600>	<43664144.8050906@tannagh.com>
+	<43664194.6040100@skippy.net>
+Message-ID: <436641CE.5030702@tannagh.com>
+
+*Backups? We don' need no stickin' backups!*
+
+-tg
+
+Scott Merrill wrote:
+
+>TechGnome wrote:
+>  
+>
+>>Any good reason to NOT consider it?
+>>    
+>>
+>
+>Oh, yeah, backups are great.  I'd forgotten about those.
+>
+>Restore restore restore !!
+>
+>  
+>
+From false.hopes at gmail.com  Mon Oct 31 17:44:01 2005
+From: false.hopes at gmail.com (Robert Deaton)
+Date: Mon Oct 31 17:45:51 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <436641CE.5030702@tannagh.com>
+References: <43663585.5000909@skippy.net>
+	<02d701c5de31$16938ea0$6402a8c0@DELL8600>
+	<43663C20.3030309@skippy.net>
+	<02e801c5de34$72943b70$6402a8c0@DELL8600>
+	<43664144.8050906@tannagh.com> <43664194.6040100@skippy.net>
+	<436641CE.5030702@tannagh.com>
+Message-ID: <a491f91d0510310944u74acb348h821502986b01bebf@mail.gmail.com>
+
+If I remember correctly, Matt said something about backups or general
+SQL stuff being hard to do because of the Codex being replicated
+across multiple servers and being hosted by yahoo, so for the time
+being, we may have to continue brute forcing our way through it. I'll
+pitch in when I get home.
+
+On 10/31/05, TechGnome <tg@tannagh.com> wrote:
+> *Backups? We don' need no stickin' backups!*
+>
+> -tg
+>
+> Scott Merrill wrote:
+>
+> >TechGnome wrote:
+> >
+> >
+> >>Any good reason to NOT consider it?
+> >>
+> >>
+> >
+> >Oh, yeah, backups are great.  I'd forgotten about those.
+> >
+> >Restore restore restore !!
+> >
+> >
+> >
+> _______________________________________________
+> wp-docs mailing list
+> wp-docs@lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-docs
+>
+
+
+--
+--Robert Deaton
+http://somethingunpredictable.com
+From peter.westwood at ftwr.co.uk  Mon Oct 31 21:42:34 2005
+From: peter.westwood at ftwr.co.uk (Peter Westwood)
+Date: Mon Oct 31 21:45:51 2005
+Subject: [wp-docs] Main Page protected
+In-Reply-To: <43663C20.3030309@skippy.net>
+References: <43663585.5000909@skippy.net>	<02d701c5de31$16938ea0$6402a8c0@DELL8600>
+	<43663C20.3030309@skippy.net>
+Message-ID: <43668FCA.1090803@ftwr.co.uk>
+
+Scott Merrill wrote:
+> Michael E. Hancock wrote:
+> 
+>>From: "Scott Merrill" <skippy@skippy.net>
+>>
+>>>I marked the main Codex page as "protected" to discourage the spammers
+>>
+>>>from prominently displaying their graphics.
+>>
+>>>If a front-page edit becomes necessary, let us know here so that we can
+>>>unprotect it or make the change(s) for you.
+>>
+>>
+>>The wacko on wheels that caused the locking of the Main Page also did 'a lot
+>>of movin'!
+>>http://codex.wordpress.org/index.php?title=Special:Recentchanges&hideminor=0&hideliu=0&hidebots=1&hidepatrolled=0&limit=50&days=7&limit=500
+>>
+>>Any thoughts on how to fix all those moved pages?
+> 
+> 
+> I deleted the yucky image he uploaded, and am working through some of
+> the edits.  Feel free to jump in, and we'll brute force our way through
+> manually restoring...
+> 
+
+I have just gone through all of 
+http://codex.wordpress.org/index.php?title=Special:Contributions&target=Willy_on_Wheels%21
+
+And caught the last couple of missed changes (One image deleted and one 
+last page change reverted.
+
+Good work everyone!
+
+westi
+-- 
+Peter Westwood
+http://blog.ftwr.co.uk
+
+From lorelle at cameraontheroad.com  Sun Oct 30 01:51:54 2005
+From: lorelle at cameraontheroad.com (Lorelle VanFossen)
+Date: Tue Nov  1 02:55:27 2005
+Subject: [wp-docs] Re: [wp-hackers] Install/Upgrade Docs for 1.6 Release
+In-Reply-To: <1130313592.10053.19.camel@portnoy.fuzzybelly.org>
+References: <435AE687.5070701@tamba2.org.uk>	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>	<435BB81B.5070009@tamba2.org.uk>	<435BB8AF.8020205@tamba2.org.uk>	<435C01DB.8060304@tamba2.org.uk>	<ebe43d680510250950y6233afd0x@mail.gmail.com>	<435E651A.5030005@tamba2.org.uk>
+	<435E748B.7010700@midnightcircus.com>
+	<1130313592.10053.19.camel@portnoy.fuzzybelly.org>
+Message-ID: <4364273A.6070307@cameraontheroad.com>
+
+I've seen a lot of installation "guides" for WordPress, and I think that 
+with a little editing, the following is a very nice example. I like the 
+flow of requirements, MySQL, and then moving to the actual installation. 
+http://www.gnc-web-creations.com/wordpress-installation.htm
+
+Matt mentioned adding screencasts to the Codex, and I'm not sure much 
+happened with that, but installation should be one of the first examples 
+that should be done. Nice, simple and easy to understand.
+
+I vote for making the process on the backend as easy, one click as 
+possible, but we also need simple and clear documentation.
+
+My money is still on an installation/upgrade system that checks to see 
+what is installed, dates, and then updates whatever needs updating. Is 
+that even possible?
+
+Lorelle
+
+From ringmaster at midnightcircus.com  Tue Oct 25 21:24:59 2005
+From: ringmaster at midnightcircus.com (Owen Winkler)
+Date: Mon Nov  7 18:27:21 2005
+Subject: [wp-docs] Re: [wp-hackers] Install/Upgrade Docs for 1.6 Release
+In-Reply-To: <435E7BC3.3000309@tamba2.org.uk>
+References: <435AE687.5070701@tamba2.org.uk>	<d6491f480510230901i4834af5ah636d8b3743972ad1@mail.gmail.com>	<435BB81B.5070009@tamba2.org.uk>	<435BB8AF.8020205@tamba2.org.uk>	<435C01DB.8060304@tamba2.org.uk>	<ebe43d680510250950y6233afd0x@mail.gmail.com>	<435E651A.5030005@tamba2.org.uk>	<435E748B.7010700@midnightcircus.com>
+	<435E7BC3.3000309@tamba2.org.uk>
+Message-ID: <435EA2AB.2050306@midnightcircus.com>
+
+Podz wrote:
+> I have no idea of the db structure as such, but I know the above steps 
+> work - I've both done them and told others how to do them. I'd rather an 
+> extra step to be absolutely certain not to break a blog.
+> If anyone wants to disprove that path, supply me with a b2 blog complete 
+> with posts, comments and a custom theme. I'll then do the work.
+
+Well, I wrote the code to upgrade the DB, and I tested against every 
+version that was provided to me, including some WordPress version 
+numbered .72.  Whether files/templtes/themes break after the upgrade, I 
+can't say, but I know that you should be able to take a database 
+directly from .72 or after to at least 1.5.  I suspect that due to the 
+way the upgrade code works, it'll take it directly to 1.6, too.
+
+>> /*
+>> It's also worthwhile to note (this is probably better recorded in 
+>> Trac, but it's on my mind right now) that upgrading very large 
+>> databases from 1.2 to 1.5 doesn't always work.  There is a very 
+>> inefficient section of the upgrade code that does a query for every 
+>> post and comment to remove slashed quotes.  On large databases this 
+>> section easily times out.  The same would be true for an upgrade to 
+>> 1.6 from 1.2.
+>> */
+> 
+> 
+> I posted to Hackers recently about a 1.5.2 blog that will not complete 
+> on upgrade. 60meg+ db of JUST posts/comments. No stats, no junk, just 
+> blog stuff.
+
+Same with the one I just did.
+I have some code for that, if you need it.
+
+> In these 'Web2.0' days, instructions of the like I will produce are not 
+> welcome - because they are not "1 - 2 - there is no 3 :) :) :)" type.
+
+I think there is room in the world for high-impact documentation that 
+actually provides useful information.  See the attachment for what I 
+envisioned.
+
+Owen
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: WordPressUpgradeDocs.png
+Type: image/png
+Size: 47326 bytes
+Desc: not available
+Url : http://comox.textdrive.com/pipermail/wp-docs/attachments/20051025/6b193f9d/WordPressUpgradeDocs-0001.png

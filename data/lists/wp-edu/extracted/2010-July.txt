@@ -1,0 +1,166 @@
+From stas at nerd.ro  Tue Jul 27 09:27:51 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Tue, 27 Jul 2010 12:27:51 +0300
+Subject: [wp-edu] BuddyPress Courseware demo meetup
+Message-ID: <1280222871.10308.10.camel@rivalry>
+
+Hi everyone,
+on Wednesday at 9:00 am
+(http://www.timeanddate.com/worldclock/fixedtime.html?hour=13&min=00&sec=0&p1=0) on IRC #wordpress-gsoc at freenode, there will be a meetup to showcase the current progress with the project. Everyone is invited and your feedback would be much appreciated.
+
+The agenda is mainly to focus on UI/UX work that must be done during the
+upcoming second dev phase.
+
+So far everything and even more you can find on project timeline page
+(http://gsoc2010.wordpress.com/stas-suscov-academic-suite/ ) is marked
+as done. During next 2 weeks I will focus on UI/UX work, so the plan is
+to have a beta release at the beginning of August.
+
+Thanks in advance.
+
+
+From jimgroom at gmail.com  Tue Jul 27 13:57:38 2010
+From: jimgroom at gmail.com (James Groom)
+Date: Tue, 27 Jul 2010 09:57:38 -0400
+Subject: [wp-edu] BuddyPress Courseware demo meetup
+In-Reply-To: <1280222871.10308.10.camel@rivalry>
+References: <1280222871.10308.10.camel@rivalry>
+Message-ID: <AANLkTim10mHLMOvuNOjoPvxoKxLCdNgMGe3FP+mq7So9@mail.gmail.com>
+
+Stas,
+
+I am really excited about this, and while I can't make the meeting Wednesday
+because I will be on a plane, I will be testing this out and hopefully
+piloting it with a few professors at UMW this coming Fall.
+
+You rock!
+
+Jim
+
+On Tue, Jul 27, 2010 at 5:27 AM, Stas Su?cov <stas at nerd.ro> wrote:
+
+> Hi everyone,
+> on Wednesday at 9:00 am
+> (
+> http://www.timeanddate.com/worldclock/fixedtime.html?hour=13&min=00&sec=0&p1=0)
+> on IRC #wordpress-gsoc at freenode, there will be a meetup to showcase the
+> current progress with the project. Everyone is invited and your feedback
+> would be much appreciated.
+>
+> The agenda is mainly to focus on UI/UX work that must be done during the
+> upcoming second dev phase.
+>
+> So far everything and even more you can find on project timeline page
+> (http://gsoc2010.wordpress.com/stas-suscov-academic-suite/ ) is marked
+> as done. During next 2 weeks I will focus on UI/UX work, so the plan is
+> to have a beta release at the beginning of August.
+>
+> Thanks in advance.
+>
+> _______________________________________________
+> wp-edu mailing list
+> wp-edu at lists.automattic.com
+> http://lists.automattic.com/mailman/listinfo/wp-edu
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <http://lists.automattic.com/pipermail/wp-edu/attachments/20100727/5fe84622/attachment.htm>
+
+From stas at nerd.ro  Tue Jul 27 14:04:20 2010
+From: stas at nerd.ro (Stas =?UTF-8?Q?Su=C8=99cov?=)
+Date: Tue, 27 Jul 2010 17:04:20 +0300
+Subject: [wp-edu] BuddyPress Courseware demo meetup
+In-Reply-To: <AANLkTim10mHLMOvuNOjoPvxoKxLCdNgMGe3FP+mq7So9@mail.gmail.com>
+References: <1280222871.10308.10.camel@rivalry>
+	<AANLkTim10mHLMOvuNOjoPvxoKxLCdNgMGe3FP+mq7So9@mail.gmail.com>
+Message-ID: <1280239460.18104.1.camel@rivalry>
+
+?n data de Ma, 27-07-2010 la 09:57 -0400, James Groom a scris:
+> Stas,
+> 
+> I am really excited about this, and while I can't make the meeting
+> Wednesday because I will be on a plane, I will be testing this out and
+> hopefully piloting it with a few professors at UMW this coming Fall.
+
+Hey, thanks a lot James.
+Because the end-user documentation isn't ready yet, you can email me
+personally or ping on IRC if you have issues with it.
+
+Thanks.
+
+
+From newquisk at lafayette.edu  Thu Jul 29 18:18:25 2010
+From: newquisk at lafayette.edu (Ken Newquist)
+Date: Thu, 29 Jul 2010 14:18:25 -0400
+Subject: [wp-edu]  WordPress 3.0 and Plugins Report
+In-Reply-To: <1280222871.10308.10.camel@rivalry>
+References: <1280222871.10308.10.camel@rivalry>
+Message-ID: <7F1E1203-F791-4D34-AB61-A72461EE60C3@lafayette.edu>
+
+Everyone,
+
+Back in June there was some talk about WordPress 3.0 and its  
+compatibility (or lack there of) with popular plugins and themes.  
+We've recently upgraded our production instances of WordPress to 3.0,  
+and I thought I'd give a rundown of the the problems we encountered.
+
+==More Privacy Options==
+The plugin continues to work, but it generates a PHP fatal error when  
+you edit a site's properties as an admin, making it impossible to save  
+configuration changes. The latest version of the plugin fixes this  
+problem.
+
+==nextGen Gallery: Ignoring MultiSite directory options==
+nextGen  Gallery has issues with WordPress 3.0 multisite. While  
+existing installations are working ok, folks who add the plugin after  
+the upgrade get this error message:
+
+?Directory wp-content/gallery/ didn?t exist. Please create first the  
+main gallery folder !?
+
+The problem is that Blog Directory Path, which is a network-wide  
+option set under the super admin menu, is no longer being respected at  
+the per site level by nextGen. If you manually set the site?s  
+directory path using the site?s ID (available from the main site  
+directory list in the super admin view), then things work properly,  
+but the default setting is now incorrect.
+
+The plugin author is aware of the problem, and is working on this and  
+other MultiSite-specific  issues for the next release.
+
+http://wordpress.org/support/topic/412008?replies=7
+http://code.google.com/p/nextgen-gallery/issues/detail?id=286
+
+==nextGen Gallery: Slideshow links don't work on a static home page==
+If you insert a nextGen Gallery into a page, and then make that page  
+your home page, the link to the slideshow will not work.
+
+==Anarchy Media Player==
+Anarchy's settings page no longer loads under WordPress 3.0.
+
+==Mandigo (theme)==
+The Mandigo setting page doesn't load if you're using Mandigo 1.40.1.  
+It works properly with the current version.
+
+==Mandigo + nextGen + WordPress 3.0==
+Here's a very specific bug -- Mandigo uses an older version of JQuery  
+in its theme, one that doesn't include a particular method that  
+nextGen needs. This causes a fatal error in NextGen, which then causes  
+the JavaScript portions of the Mandigo theme to stop working.
+
+Ken
+
+--
+Ken Newquist
+Web Applications Specialist
+Lafayette College
+p: 610.330.5759
+e: newquisk at lafayette.edu
+web: http://sites.lafayette.edu/newquisk
+podcast: http://sites.lafayette.edu/coffeebreak
+cal: https://webmail.lafayette.edu/home/newquisk at lafayette.edu?fmt=freebusy
+
+
+
+
+
