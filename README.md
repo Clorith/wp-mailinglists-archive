@@ -1,15 +1,56 @@
-# Web Scraper and File Downloader
+# Mailing List Archive
 
-A Go application that scrapes a webpage for `.txt.gz` files in table rows and downloads them.
+A web application for browsing and searching WordPress mailing list archives from pipermailer archives.
+
+<div style="background-color: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; margin: 15px 0; border-left: 4px solid #ffeeba;">
+  <strong>Note:</strong> This is a Vibe Code experiment.
+</div>
+
+This application contains the archives from the Automattic mailing lists for the WordPress project by default, including wp-hackers, wp-docs, and other WordPress-related mailing lists. You can find the original mailing lists at [lists.automattic.com](https://lists.automattic.com/mailman/listinfo).
 
 ## Features
 
-- Scrapes a webpage for `.txt.gz` files specifically in table rows
-- Looks for links in the last cell of each table row
-- Downloads only `.txt.gz` files
-- Handles both absolute and relative URLs
-- Creates output directory if it doesn't exist
-- Provides progress feedback during downloads
+- **Web Interface**: Browse and search mailing list archives through a modern web interface
+- **Multiple Mailing Lists**: Support for multiple WordPress mailing lists (wp-hackers, wp-docs, etc.)
+- **Thread View**: View complete email threads with all replies
+- **Search Functionality**: Search across all mailing lists or filter by specific lists
+- **Pagination**: Navigate through threads with intuitive pagination controls
+- **Accessibility**: Accessible UI with keyboard navigation and screen reader support
+- **Responsive Design**: Works well on desktop and mobile devices
+- **Archive Scraping**: Scrapes pipermailer archives for `.txt.gz` files in table rows
+- **Archive Extraction**: Extracts compressed archives for processing
+- **Email Parsing**: Parses email messages into structured data
+
+## Directory Structure
+
+```
+.
+├── data/
+│   ├── lists/
+│   │   ├── wp-hackers/
+│   │   │   ├── messages.json
+│   │   │   ├── extracted/
+│   │   │   └── archives/
+│   │   ├── wp-docs/
+│   │   │   ├── messages.json
+│   │   │   ├── extracted/
+│   │   │   └── archives/
+│   │   └── ...
+│   └── config.json
+├── pkg/
+│   ├── scraper/     # Web scraping functionality
+│   ├── extractor/   # Archive extraction functionality
+│   ├── parser/      # Email parsing functionality
+│   └── web/         # Web server and templates
+├── templates/       # HTML templates
+└── cmd/
+    ├── scraper/     # Command to scrape mailing list archives
+    ├── extract/     # Command to extract .gz archives
+    ├── extract_all/ # Command to extract all mailing list archives
+    ├── parse/       # Command to parse extracted emails
+    ├── parse_all/   # Command to parse all extracted emails
+    └── web/         # Command to run the web server
+```
 
 ## Installation
 
@@ -22,130 +63,107 @@ A Go application that scrapes a webpage for `.txt.gz` files in table rows and do
 
 ## Usage
 
-Run the application with the following command:
+### Web Server
+
+Run the web server with:
 
 ```bash
-go run cmd/scraper/main.go -url "https://example.com" -output "downloads"
+go run cmd/web/main.go
 ```
 
-### Command Line Flags
+The server will start on port 8080 by default. You can access the web interface at http://localhost:8080.
 
-- `-url`: The URL of the webpage to scrape (required)
-- `-output`: Directory where downloaded files will be saved (default: "downloads")
+### Command Line Tools
 
-## Example
+#### Scrape Mailing List Archives
 
 ```bash
-# Scrape example.com for .txt.gz files in table rows and save them to the downloads directory
-go run cmd/scraper/main.go -url "https://example.com" -output "downloads"
+go run cmd/scraper/main.go -list "wp-hackers" -output "data/lists/wp-hackers/archives"
 ```
 
-## Expected HTML Structure
+#### Extract Archives
 
-The application expects the webpage to have a table structure where:
-- Each row represents a month and year
-- The last cell in each row contains a link to a `.txt.gz` file
-
-Example HTML structure:
-```html
-<table>
-  <tr>
-    <td>January 2023</td>
-    <td>Some data</td>
-    <td><a href="file_2023_01.txt.gz">Download</a></td>
-  </tr>
-  <tr>
-    <td>February 2023</td>
-    <td>Some data</td>
-    <td><a href="file_2023_02.txt.gz">Download</a></td>
-  </tr>
-</table>
+```bash
+go run cmd/extract/main.go -input "data/lists/wp-hackers/archives" -output "data/lists/wp-hackers/extracted"
 ```
 
-## Error Handling
+#### Extract All Archives
 
-The application will:
-- Log errors for failed downloads but continue with remaining files
-- Create the output directory if it doesn't exist
-- Handle both absolute and relative URLs
-- Provide feedback on the progress of downloads
-- Check if any `.txt.gz` files were found before attempting downloads
-
-# Mailing List Archive
-
-A web application for browsing mailing list archives.
-
-## Directory Structure
-
-```
-.
-├── data/
-│   ├── lists/
-│   │   ├── wp-hackers/
-│   │   │   ├── messages.json
-│   │   │   └── archives/
-│   │   │       ├── 2006/
-│   │   │       ├── 2007/
-│   │   │       └── ...
-│   │   ├── wp-docs/
-│   │   │   ├── messages.json
-│   │   │   └── archives/
-│   │   └── ...
-│   └── config.json
-├── pkg/
-│   ├── scraper/
-│   ├── extractor/
-│   └── web/
-├── templates/
-└── cmd/
-    └── web/
+```bash
+go run cmd/extract_all/main.go
 ```
 
-## Data Format
+#### Parse Extracted Emails
 
-### config.json
+```bash
+go run cmd/parse/main.go -input "data/lists/wp-hackers/extracted" -output "data/lists/wp-hackers/messages.json"
+```
+
+#### Parse All Extracted Emails
+
+```bash
+go run cmd/parse_all/main.go
+```
+
+## Configuration
+
+The application uses a configuration file at `data/config.json` to define the mailing lists:
+
 ```json
 {
   "lists": [
     {
       "id": "wp-hackers",
       "name": "WordPress Hackers",
-      "description": "Discussion about WordPress development",
-      "archive_pattern": "https://lists.wordpress.org/pipermail/wp-hackers/%Y-%B.txt.gz"
+      "description": "WordPress development mailing list",
+      "url": "https://wordpress.org/mailman/listinfo/wp-hackers"
     },
     {
       "id": "wp-docs",
       "name": "WordPress Documentation",
-      "description": "Discussion about WordPress documentation",
-      "archive_pattern": "https://lists.wordpress.org/pipermail/wp-docs/%Y-%B.txt.gz"
+      "description": "WordPress documentation mailing list",
+      "url": "https://wordpress.org/mailman/listinfo/wp-docs"
     }
   ]
 }
 ```
 
-### messages.json
-Each mailing list has its own messages.json file with the following structure:
-```json
-{
-  "list_id": "wp-hackers",
-  "messages": [
-    {
-      "sender_name": "John Doe",
-      "sender_email": "john@example.com",
-      "subject": "Thread Subject",
-      "body": "Message body...",
-      "date": "2023-04-17T10:26:24Z",
-      "message_id": "unique-message-id",
-      "in_reply_to": "parent-message-id",
-      "references": ["ref1", "ref2"],
-      "replies": []
-    }
-  ]
-}
-```
+## Web Interface
 
-## Usage
+The web interface provides the following features:
 
-1. Add new mailing list configurations to `data/config.json`
-2. Run the scraper for each list: `go run cmd/scraper/main.go -list wp-hackers`
-3. Start the web server: `go run cmd/web/main.go` 
+- **Home Page**: View all threads from selected mailing lists
+- **List View**: View threads from a specific mailing list
+- **Thread View**: View a complete email thread with all replies
+- **Search**: Search across all mailing lists or filter by specific lists
+- **Pagination**: Navigate through threads with intuitive pagination controls
+- **Accessibility**: Accessible UI with keyboard navigation and screen reader support
+
+## Development
+
+### Adding a New Mailing List
+
+1. Add the mailing list to `data/config.json`
+2. Create the directory structure:
+   ```
+   data/lists/<list-id>/
+   ├── archives/
+   ├── extracted/
+   └── messages.json
+   ```
+3. Run the scraper to download archives:
+   ```bash
+   go run cmd/scraper/main.go -list "<list-id>" -output "data/lists/<list-id>/archives"
+   ```
+4. Extract the archives:
+   ```bash
+   go run cmd/extract/main.go -input "data/lists/<list-id>/archives" -output "data/lists/<list-id>/extracted"
+   ```
+5. Parse the extracted emails:
+   ```bash
+   go run cmd/parse/main.go -input "data/lists/<list-id>/extracted" -output "data/lists/<list-id>/messages.json"
+   ```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 
