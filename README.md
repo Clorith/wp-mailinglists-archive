@@ -1,10 +1,6 @@
-# Mailing List Archive
+# Mailing List Archive [![Vibe Code Experiment](https://img.shields.io/badge/Vibe%20Code-Experiment-blue)](https://github.com/Clorith/wp-mailinglists-archive)
 
 A web application for browsing and searching WordPress mailing list archives from pipermailer archives.
-
-<div style="background-color: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; margin: 15px 0; border-left: 4px solid #ffeeba;">
-  <strong>Note:</strong> This is a Vibe Code experiment.
-</div>
 
 This application contains the archives from the Automattic mailing lists for the WordPress project by default, including wp-hackers, wp-docs, and other WordPress-related mailing lists. You can find the original mailing lists at [lists.automattic.com](https://lists.automattic.com/mailman/listinfo).
 
