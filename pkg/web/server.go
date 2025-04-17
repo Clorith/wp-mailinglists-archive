@@ -200,11 +200,34 @@ func New(configFile string) (*Server, error) {
 }
 
 func (s *Server) Start(addr string) error {
-	http.HandleFunc("/", s.handleIndex)
-	http.HandleFunc("/thread/", s.handleThread)
+	// Add middleware to discourage crawling
+	http.HandleFunc("/", s.withAntiCrawlerHeaders(s.handleIndex))
+	http.HandleFunc("/thread/", s.withAntiCrawlerHeaders(s.handleThread))
+	http.HandleFunc("/robots.txt", s.handleRobotsTxt)
 
 	log.Printf("Starting server on %s...\n", addr)
 	return http.ListenAndServe(addr, nil)
+}
+
+// withAntiCrawlerHeaders adds HTTP headers to discourage crawling
+func (s *Server) withAntiCrawlerHeaders(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Set headers to discourage crawling
+		w.Header().Set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet, noimageindex")
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("X-Frame-Options", "DENY")
+		w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
+		w.Header().Set("Permissions-Policy", "interest-cohort=()")
+
+		// Call the next handler
+		next(w, r)
+	}
+}
+
+// handleRobotsTxt serves the robots.txt file
+func (s *Server) handleRobotsTxt(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain")
+	w.Write([]byte("User-agent: *\nDisallow: /\n"))
 }
 
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
